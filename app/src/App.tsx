@@ -81,6 +81,7 @@ export function App() {
           Dit is een inschatting om u inzicht te geven. Wat u echt krijgt, bepalen de gemeente Leiden en Dienst Toeslagen.
           Leidenwerkt is geen product van de gemeente. De broncode is open (EUPL-1.2).
         </p>
+        <p>Leidenwerkt is gemaakt door Ian Vriend, met hulp van AI.</p>
       </footer>
     </div>
   );

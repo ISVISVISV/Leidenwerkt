@@ -35,6 +35,10 @@ Zie [docs/ARCHITECTUUR.md](docs/ARCHITECTUUR.md) en [docs/ONDERHOUD.md](docs/OND
 
 Werkende eerste versie (MVP in opbouw). Wat al wel en niet berekend wordt staat in [docs/REKENREGELS.md](docs/REKENREGELS.md).
 
+## Makers
+
+Leidenwerkt is gemaakt door Ian Vriend, met hulp van AI.
+
 ## Licentie
 
 [EUPL-1.2](LICENSE).
