@@ -351,7 +351,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     uit.push({
       soort: "waarschuwing",
       tekst:
-        "De vrijlating is tijdelijk. Daarna gaat een groter deel van uw loon van de bijstand af. Bekijk ook de uitkomst 'na de eerste maanden'.",
+        "De vrijlating is tijdelijk. Daarna gaat een groter deel van uw loon van de bijstand af. Kies bij 'Periode' voor 'Daarna' om die uitkomst te zien.",
     });
   }
   for (const id of ["zorgtoeslag", "huurtoeslag", "kgb"]) {
