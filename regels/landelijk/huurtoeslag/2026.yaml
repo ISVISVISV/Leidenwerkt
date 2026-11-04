@@ -1,0 +1,93 @@
+gebied: Huurtoeslag 2026
+geldig_van: 2026-01-01
+geldig_tot: 2026-12-31
+parameters:
+  - id: ht.basishuur.eenpersoons
+    omschrijving: Basishuur eenpersoonshuishouden (normhuur € 252,49 − € 1,82 − correctie € 48,15)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "202.52" }
+    status: onbevestigd
+    bron: &vng_ht
+      titel: Normbedragen kwijtschelding per 1 juli 2026 (verwijst naar Stcrt. 2025, 39783)
+      url: https://www.dinkelland.nl/sites/default/files/2026-06/normbedragen-kwijtschelding-belastingen-per-1-juli-2026.pdf
+      geraadpleegd_op: 2026-11-04
+  - id: ht.basishuur.meerpersoons
+    omschrijving: Basishuur meerpersoonshuishouden (normhuur € 252,49 − € 3,63 − correctie € 48,15)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "200.71" }
+    status: onbevestigd
+    bron: *vng_ht
+  - id: ht.kwaliteitskortingsgrens
+    omschrijving: Kwaliteitskortingsgrens
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "498.20" }
+    status: onbevestigd
+    bron: &vhn
+      titel: Volkshuisvesting Nederland — Huurtoeslagparameters
+      url: https://www.volkshuisvestingnederland.nl/onderwerpen/huren-en-wonen/inkomensgrenzen-huurprijsgrenzen-en-huurtoeslagparameters/huurtoeslagparameters
+      geraadpleegd_op: 2026-11-04
+  - id: ht.aftoppingsgrens.laag
+    omschrijving: Aftoppingsgrens één- en tweepersoonshuishoudens
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "713.02" }
+    status: onbevestigd
+    bron: *vhn
+  - id: ht.aftoppingsgrens.hoog
+    omschrijving: Aftoppingsgrens drie- of meerpersoonshuishoudens
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "764.14" }
+    status: onbevestigd
+    bron: *vhn
+  - id: ht.maximale_huurgrens
+    omschrijving: Maximale huurgrens (rekengrens, 21 jaar en ouder)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "932.93" }
+    status: onbevestigd
+    bron: *vhn
+  - id: ht.subsidie.tot_kkg
+    omschrijving: Subsidiepercentage deel rekenhuur van basishuur tot kwaliteitskortingsgrens
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "1.00" }
+    status: onbevestigd
+    bron: &inview21
+      titel: Wet op de huurtoeslag artikel 21 (tekst via InView)
+      url: https://www.inview.nl/document/id2d86ab92dedeece572eefa016cc5a56f/wet-op-de-huurtoeslag-artikel-21
+      geraadpleegd_op: 2026-11-04
+  - id: ht.subsidie.tot_aftopping
+    omschrijving: Subsidiepercentage deel rekenhuur van kwaliteitskortingsgrens tot aftoppingsgrens
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.65" }
+    status: onbevestigd
+    bron: *inview21
+  - id: ht.subsidie.boven_aftopping
+    omschrijving: Subsidiepercentage deel rekenhuur van aftoppingsgrens tot maximale huurgrens
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.40" }
+    status: onbevestigd
+    bron: *vhn
+  - id: ht.afbouw.eenpersoons
+    omschrijving: Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.27" }
+    status: onbevestigd
+    bron: &stb426
+      titel: Staatsblad 2024, 426 — Wet verlaging eigen bijdrage huurtoeslag (art. 21 lid 2)
+      url: https://zoek.officielebekendmakingen.nl/stb-2024-426.html
+      geraadpleegd_op: 2026-11-04
+    notitie: Percentage kan bij ministeriële regeling zijn aangepast; controleren in de Regeling huurtoeslaggrenzen 2026.
+  - id: ht.afbouw.meerpersoons
+    omschrijving: Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, meerpersoons
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.22" }
+    status: onbevestigd
+    bron: *stb426
+  - id: ht.minimum_inkomensijkpunt.eenpersoons
+    omschrijving: Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen)
+    eenheid: euro_per_jaar
+    status: ontbrekend
+    notitie: Volgt uit bruto AOW + vakantietoeslag + € 2.340 (art. 17 Wht); bedrag 2026 staat in de Regeling huurtoeslaggrenzen 2026 (Stcrt. 2025, 39783), nog niet geopend.
+  - id: ht.minimum_inkomensijkpunt.meerpersoons
+    omschrijving: Minimum-inkomensijkpunt meerpersoonshuishouden (jaarinkomen)
+    eenheid: euro_per_jaar
+    status: ontbrekend
+    notitie: Zie eenpersoons; opslag € 2.512.
