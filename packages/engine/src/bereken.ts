@@ -60,20 +60,23 @@ function laagste(l: Lezer): PostStatus {
   return laagst;
 }
 
-/** Bruto maandloon exclusief vakantiegeld. */
-export function brutoMaandloon(w: Werk | undefined): Bedrag {
+/** Bruto jaarloon exclusief vakantiegeld. */
+function brutoJaarExcl(w: Werk | undefined): Bedrag {
   if (!w) return NUL;
-  if (w.brutoMaandloon !== undefined) return D(w.brutoMaandloon);
-  if (w.brutoUurloon !== undefined && w.urenPerWeek !== undefined) {
-    // 52 weken / 12 maanden = 13/3 weken per maand.
-    return D(w.brutoUurloon).times(w.urenPerWeek).times(13).div(3);
-  }
+  if (w.brutoMaandloon !== undefined) return D(w.brutoMaandloon).times(12);
+  if (w.brutoVierwekenloon !== undefined) return D(w.brutoVierwekenloon).times(13);
+  if (w.brutoUurloon !== undefined && w.urenPerWeek !== undefined) return D(w.brutoUurloon).times(w.urenPerWeek).times(52);
   return NUL;
+}
+
+/** Gemiddeld bruto maandloon exclusief vakantiegeld. */
+export function brutoMaandloon(w: Werk | undefined): Bedrag {
+  return brutoJaarExcl(w).div(12);
 }
 
 function brutoJaarloon(w: Werk | undefined): Bedrag {
   const vg = D(w?.vakantiegeld ?? 0.08);
-  return brutoMaandloon(w).times(12).times(vg.plus(1));
+  return brutoJaarExcl(w).times(vg.plus(1));
 }
 
 function pensioenJaar(w: Werk | undefined): Bedrag {
@@ -113,14 +116,18 @@ function situatie(
       const r = nettoLoon(l, bruto, pensioenJaar(werk));
       kern.loon = r;
       kern.nettoMaand = r.nettoJaar.div(12);
-      stap("Bruto loon per maand (zonder vakantiegeld)", brutoMaandloon(werk));
-      stap("Bruto per jaar inclusief vakantiegeld", bruto);
-      stap("Loonbelasting en premies volksverzekeringen per jaar", r.belasting);
-      stap("Algemene heffingskorting", r.ahk);
-      stap("Arbeidskorting", r.arbeidskorting);
-      stap("Te betalen per jaar", r.heffing);
-      stap("Netto per jaar", r.nettoJaar);
+      if (werk?.brutoVierwekenloon !== undefined) stap("Bruto loon per 4 weken", D(werk.brutoVierwekenloon));
+      stap("Bruto loon per maand (gemiddeld, zonder vakantiegeld)", brutoMaandloon(werk));
+      stap("Vakantiegeld per maand (gemiddeld)", bruto.div(12).minus(brutoMaandloon(werk)));
+      stap("Loonbelasting en premies per maand", r.belasting.div(12));
+      stap("Korting daarop: algemene heffingskorting per maand", r.ahk.div(12));
+      stap("Korting daarop: arbeidskorting per maand", r.arbeidskorting.div(12));
+      stap("U betaalt per maand aan belasting en premies", r.heffing.div(12));
+      stap("Netto per maand (gemiddeld, inclusief vakantiegeld)", r.nettoJaar.div(12));
       aanname("Het vakantiegeld is over 12 maanden verdeeld; in werkelijkheid komt het meestal in mei of juni.");
+      if (werk?.brutoVierwekenloon !== undefined) {
+        aanname("Bij een vierwekenloon krijgt u 13 keer per jaar loon. Het loon is hier omgerekend naar een gemiddelde maand.");
+      }
       aanname("Netto loon is benaderd met een jaarberekening; de loonstrook kan een paar euro afwijken.");
       return kern.nettoMaand;
     }),
@@ -134,8 +141,8 @@ function situatie(
         const r = nettoLoon(l, bruto, pensioenJaar(partnerWerk));
         kern.loonPartner = r;
         kern.nettoPartnerMaand = r.nettoJaar.div(12);
-        stap("Bruto per jaar inclusief vakantiegeld", bruto);
-        stap("Netto per jaar", r.nettoJaar);
+        stap("Bruto loon per maand (gemiddeld, zonder vakantiegeld)", brutoMaandloon(partnerWerk));
+        stap("Netto per maand (gemiddeld, inclusief vakantiegeld)", r.nettoJaar.div(12));
         return kern.nettoPartnerMaand;
       }),
     );
@@ -172,7 +179,7 @@ function situatie(
     const brutoBijstand = brutoUitNetto(l, bijstandJaar);
     const loon = brutoJaarloon(werk).minus(pensioenJaar(werk)).plus(brutoJaarloon(partnerWerk).minus(pensioenJaar(partnerWerk)));
     const ti = loon.plus(brutoBijstand);
-    stap("Geschat toetsingsinkomen (bruto jaarinkomen huishouden)", ti);
+    stap("Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar)", ti);
     aanname("Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag; Dienst Toeslagen gebruikt het werkelijke bruto bedrag.");
     aanname("Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het jaarinkomen ertussenin.");
     return ti;
@@ -183,7 +190,7 @@ function situatie(
     maakPost(regels, datum, "zorgtoeslag", "Zorgtoeslag", "toeslag", ({ l, stap, aanname }) => {
       const ti = toetsingsinkomen(l, stap, aanname);
       const jaar = zorgtoeslag(l, ti, paar);
-      stap("Zorgtoeslag per jaar", jaar);
+      stap("Zorgtoeslag per maand", jaar.div(12));
       aanname("Er is aangenomen dat het vermogen onder de vermogensgrens blijft.");
       return jaar.div(12);
     }),
@@ -213,7 +220,7 @@ function situatie(
       maakPost(regels, datum, "kgb", "Kindgebonden budget", "toeslag", ({ l, stap, aanname }) => {
         const ti = toetsingsinkomen(l, stap, aanname);
         const jaar = kindgebondenBudget(l, ti, invoer.kinderen, paar);
-        stap("Kindgebonden budget per jaar", jaar);
+        stap("Kindgebonden budget per maand", jaar.div(12));
         aanname("Het kindgebonden budget telt niet mee als inkomen voor de bijstand.");
         return jaar.div(12);
       }),
@@ -260,8 +267,8 @@ function situatie(
         const loon = nodig(kern.loon, "het netto loon");
         const iack = stuksgewijs(l.schijven("ib.iack"), loon.belastbaarJaar);
         const benut = iack.lte(loon.restBelasting) ? iack : loon.restBelasting;
-        stap("Inkomensafhankelijke combinatiekorting volgens tabel", iack);
-        stap("Deel dat u terugkrijgt (niet meer dan de belasting die u betaalt)", benut);
+        stap("Combinatiekorting volgens de tabel, per maand", iack.div(12));
+        stap("Deel dat u terugkrijgt per maand (niet meer dan de belasting die u betaalt)", benut.div(12));
         aanname("De combinatiekorting krijgt u via de aangifte of een voorlopige aanslag, niet via de werkgever.");
         aanname("Inkomsten uit de bijstand zijn hierbij buiten beschouwing gelaten.");
         return benut.div(12);
@@ -351,7 +358,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     uit.push({
       soort: "waarschuwing",
       tekst:
-        "De vrijlating is tijdelijk. Daarna gaat een groter deel van uw loon van de bijstand af. Kies bij 'Periode' voor 'Daarna' om die uitkomst te zien.",
+        "De vrijlating is tijdelijk. Daarna gaat een groter deel van uw loon van de bijstand af. Kies hierboven een latere periode om te zien wat u dan overhoudt.",
     });
   }
   for (const id of ["zorgtoeslag", "huurtoeslag", "kgb"]) {
@@ -385,10 +392,25 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     if (!(e instanceof OntbrekendeParameter)) throw e;
   }
   if (bijstandNu && bijstandNu.gt(0)) {
+    const l2 = new Lezer(regels, invoer.datum);
+    try {
+      const id =
+        invoer.leefvorm === "paar" ? "leiden.iit.basis.gehuwden" : invoer.leefvorm === "alleenstaande_ouder" ? "leiden.iit.basis.alleenstaande_ouder" : "leiden.iit.basis.alleenstaande";
+      const bedrag = l2.bedrag(id);
+      const jaren = l2.aantal("leiden.iit.referteperiode");
+      uit.push({
+        soort: "info",
+        tekst: `Individuele inkomenstoeslag: heeft u al ${jaren} jaar een inkomen op bijstandsniveau, dan kunt u in Leiden één keer per jaar een extra bedrag krijgen. Voor uw situatie was dat ${euro(bedrag, true)} per jaar toen de regeling in 2020 begon; het bedrag wordt elk jaar verhoogd met de inflatie. Gaat uw inkomen boven de bijstandsnorm, dan vervalt dit recht. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
+      });
+    } catch (e) {
+      if (!(e instanceof OntbrekendeParameter)) throw e;
+    }
+  }
+  if (invoer.nieuwWerk.brutoVierwekenloon !== undefined) {
     uit.push({
-      soort: "info",
+      soort: "waarschuwing",
       tekst:
-        "Ontvangt u al 5 jaar een inkomen op bijstandsniveau, dan heeft u misschien recht op de individuele inkomenstoeslag. Met een hoger inkomen vervalt dat recht later.",
+        "U krijgt 13 keer per jaar loon. Eén keer per jaar krijgt u twee keer loon in dezelfde maand. In die maand krijgt u waarschijnlijk minder of geen bijstand, omdat de gemeente per maand kijkt wat u verdiende.",
     });
   }
   return uit;
@@ -404,7 +426,7 @@ function valideer(invoer: Invoer) {
   if (invoer.kostendelers < 0 || !Number.isInteger(invoer.kostendelers)) fouten.push("aantal kostendelers ongeldig");
   for (const w of [invoer.nieuwWerk, invoer.huidigWerk, invoer.partner?.werk]) {
     if (!w) continue;
-    for (const v of [w.brutoMaandloon, w.brutoUurloon, w.urenPerWeek, w.reiskostenPerMaand, w.overigeKostenPerMaand]) {
+    for (const v of [w.brutoMaandloon, w.brutoVierwekenloon, w.brutoUurloon, w.urenPerWeek, w.reiskostenPerMaand, w.overigeKostenPerMaand]) {
       if (v !== undefined && (!Number.isFinite(v) || v < 0)) fouten.push("bedragen en uren mogen niet negatief zijn");
     }
     if (w.urenPerWeek !== undefined && w.urenPerWeek > 60) fouten.push("meer dan 60 uur per week wordt niet ondersteund");

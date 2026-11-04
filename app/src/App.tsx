@@ -97,7 +97,7 @@ function Start({ onStart }: { onStart: () => void }) {
       </p>
       <p>U heeft nodig:</p>
       <ul>
-        <li>het bruto uurloon en het aantal uren van het werk dat u overweegt;</li>
+        <li>het bruto loon (per maand, per 4 weken of per uur) en het aantal uren van het werk dat u overweegt;</li>
         <li>uw huur per maand, als u huurt;</li>
         <li>de leeftijden van uw kinderen, als u kinderen heeft.</li>
       </ul>
@@ -140,7 +140,9 @@ function Veld(props: {
         </p>
       )}
       <div className="invoer">
-        {props.voorvoegsel && <span aria-hidden="true">{props.voorvoegsel}</span>}
+        <span className="voorvoegsel" aria-hidden="true">
+          {props.voorvoegsel ?? ""}
+        </span>
         <input
           id={props.id}
           type="text"
@@ -335,12 +337,64 @@ function StapWoning({ f, zet, fouten }: StapProps) {
   );
 }
 
+function LoonVelden({
+  prefix,
+  per,
+  loon,
+  uren,
+  zetPer,
+  zetLoon,
+  zetUren,
+  fouten,
+}: {
+  prefix: string;
+  per: Formulier["per"];
+  loon: string;
+  uren: string;
+  zetPer: (v: Formulier["per"]) => void;
+  zetLoon: (v: string) => void;
+  zetUren: (v: string) => void;
+  fouten: Fouten;
+}) {
+  const loonId = prefix === "nu" ? "nuLoon" : "loon";
+  const urenId = prefix === "nu" ? "nuUren" : "uren";
+  return (
+    <>
+      <Keuze
+        naam={`${prefix}per`}
+        legend="Welk loon weet u?"
+        waarde={per}
+        onChange={zetPer}
+        opties={[
+          ["maand", "Bruto loon per maand"],
+          ["vierweken", "Bruto loon per 4 weken"],
+          ["uur", "Bruto loon per uur"],
+        ]}
+      />
+      <Veld
+        id={loonId}
+        label={per === "uur" ? "Bruto loon per uur" : per === "vierweken" ? "Bruto loon per 4 weken" : "Bruto loon per maand"}
+        hint={
+          per === "uur"
+            ? "Staat in de vacature of het contract."
+            : "Zonder vakantiegeld. Staat in het contract of op de loonstrook. 'Bruto' is het bedrag vóór belasting."
+        }
+        waarde={loon}
+        onChange={zetLoon}
+        fout={fouten[loonId]}
+        voorvoegsel="€"
+      />
+      <Veld id={urenId} label="Uren per week" waarde={uren} onChange={zetUren} fout={fouten[urenId]} achtervoegsel="uur" />
+    </>
+  );
+}
+
 function StapWerk({ f, zet, fouten }: StapProps) {
   return (
     <section>
       <Keuze
         naam="werktNu"
-        legend="Werkt u nu al naast uw bijstand?"
+        legend="Heeft u nu al betaald werk naast uw bijstand?"
         waarde={f.werktNu ? "ja" : "nee"}
         onChange={(v) => zet("werktNu", v === "ja")}
         opties={[
@@ -349,26 +403,37 @@ function StapWerk({ f, zet, fouten }: StapProps) {
         ]}
       />
       {f.werktNu && (
-        <div className="naast">
-          <Veld id="nuUurloon" label="Bruto uurloon nu" waarde={f.nuUurloon} onChange={(v) => zet("nuUurloon", v)} fout={fouten.nuUurloon} voorvoegsel="€" />
-          <Veld id="nuUren" label="Uren per week nu" waarde={f.nuUren} onChange={(v) => zet("nuUren", v)} fout={fouten.nuUren} achtervoegsel="uur" />
-        </div>
+        <fieldset className="groep">
+          <legend>Uw werk nu</legend>
+          <LoonVelden
+            prefix="nu"
+            per={f.nuPer}
+            loon={f.nuLoon}
+            uren={f.nuUren}
+            zetPer={(v) => zet("nuPer", v)}
+            zetLoon={(v) => zet("nuLoon", v)}
+            zetUren={(v) => zet("nuUren", v)}
+            fouten={fouten}
+          />
+        </fieldset>
       )}
 
-      <h2>Het werk dat u overweegt</h2>
-      <p className="hint">Vult u hierboven al werk in? Vul dan hier het werk in zoals het straks wordt, alles bij elkaar.</p>
-      <div className="naast">
-        <Veld
-          id="uurloon"
-          label="Bruto uurloon"
-          hint="Staat in de vacature of het contract."
-          waarde={f.uurloon}
-          onChange={(v) => zet("uurloon", v)}
-          fout={fouten.uurloon}
-          voorvoegsel="€"
-        />
-        <Veld id="uren" label="Uren per week" waarde={f.uren} onChange={(v) => zet("uren", v)} fout={fouten.uren} achtervoegsel="uur" />
-      </div>
+      <h2>{f.werktNu ? "Uw werk straks, alles bij elkaar" : "Het werk dat u overweegt"}</h2>
+      {f.werktNu && (
+        <p className="hint">
+          Vul hier in wat u straks in totaal verdient en werkt. Houdt u uw huidige baan en komt er werk bij? Tel dan beide bij elkaar op.
+        </p>
+      )}
+      <LoonVelden
+        prefix="straks"
+        per={f.per}
+        loon={f.loon}
+        uren={f.uren}
+        zetPer={(v) => zet("per", v)}
+        zetLoon={(v) => zet("loon", v)}
+        zetUren={(v) => zet("uren", v)}
+        fouten={fouten}
+      />
       <Veld
         id="reiskosten"
         label="Reiskosten per maand"
@@ -389,7 +454,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
       <Veld
         id="overigeKosten"
         label="Andere kosten door het werk per maand"
-        hint="Bijvoorbeeld werkkleding of een fiets. Kosten voor kinderopvang vult u bij stap 1 in."
+        hint="Bijvoorbeeld werkkleding. Kosten voor kinderopvang vult u bij stap 1 in."
         waarde={f.overigeKosten}
         onChange={(v) => zet("overigeKosten", v)}
         fout={fouten.overigeKosten}

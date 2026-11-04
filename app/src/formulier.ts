@@ -1,5 +1,7 @@
 import type { Invoer, Kind, Leefvorm, Opvangsoort } from "@leidenwerkt/engine";
 
+export type LoonPer = "maand" | "vierweken" | "uur";
+
 export interface KindVeld {
   leeftijd: string;
   opvang: boolean;
@@ -20,9 +22,11 @@ export interface Formulier {
   kaleHuur: string;
   servicekosten: string;
   werktNu: boolean;
-  nuUurloon: string;
+  nuPer: LoonPer;
+  nuLoon: string;
   nuUren: string;
-  uurloon: string;
+  per: LoonPer;
+  loon: string;
   uren: string;
   reiskosten: string;
   vergoeding: string;
@@ -41,10 +45,12 @@ export const leegFormulier: Formulier = {
   kaleHuur: "",
   servicekosten: "",
   werktNu: false,
-  nuUurloon: "",
+  nuPer: "maand",
+  nuLoon: "",
   nuUren: "",
-  uurloon: "",
-  uren: "24",
+  per: "maand",
+  loon: "",
+  uren: "",
   reiskosten: "",
   vergoeding: "",
   overigeKosten: "",
@@ -56,7 +62,10 @@ export const nieuwKind = (): KindVeld => ({ leeftijd: "", opvang: false, soort: 
 export function getal(tekst: string): number | undefined {
   const schoon = tekst.trim().replace(/\s|€/g, "");
   if (schoon === "") return undefined;
-  const genormaliseerd = /,\d{1,2}$/.test(schoon) ? schoon.replace(/\./g, "").replace(",", ".") : schoon.replace(/,/g, "");
+  let genormaliseerd: string;
+  if (schoon.includes(",")) genormaliseerd = schoon.replace(/\./g, "").replace(",", "."); // 1.250,50
+  else if (/^\d{1,3}(\.\d{3})+$/.test(schoon)) genormaliseerd = schoon.replace(/\./g, ""); // 1.250
+  else genormaliseerd = schoon; // 15.50 of 1250
   const n = Number(genormaliseerd);
   return Number.isFinite(n) ? n : NaN;
 }
@@ -96,11 +105,13 @@ export function controleer(f: Formulier, stap: number): Fouten {
     moet("servicekosten", f.servicekosten, 0, 500, "Vul een bedrag van 0 tot 500 in.", false);
   }
   if (stap === 3) {
+    const loonGrens = (per: LoonPer): [number, number, string] =>
+      per === "uur" ? [1, 100, "Vul een bruto uurloon in, bijvoorbeeld 15,00."] : [50, 15000, "Vul een bruto bedrag in, bijvoorbeeld 1.800."];
     if (f.werktNu) {
-      moet("nuUurloon", f.nuUurloon, 1, 100, "Vul een bruto uurloon in.");
+      moet("nuLoon", f.nuLoon, ...loonGrens(f.nuPer));
       moet("nuUren", f.nuUren, 1, 60, "Vul het aantal uren per week in.");
     }
-    moet("uurloon", f.uurloon, 1, 100, "Vul een bruto uurloon in, bijvoorbeeld 15,00.");
+    moet("loon", f.loon, ...loonGrens(f.per));
     moet("uren", f.uren, 1, 60, "Vul het aantal uren per week in.");
     for (const v of ["reiskosten", "vergoeding", "overigeKosten"] as const) moet(v, f[v], 0, 2000, "Vul een bedrag in.", false);
   }
@@ -126,10 +137,9 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     wonen: f.huurt
       ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), servicekostenPerMaand: getal(f.servicekosten) }
       : { soort: "anders" },
-    huidigWerk: f.werktNu ? { brutoUurloon: getal(f.nuUurloon) ?? 0, urenPerWeek: getal(f.nuUren) ?? 0 } : undefined,
+    huidigWerk: f.werktNu ? loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0) : undefined,
     nieuwWerk: {
-      brutoUurloon: getal(f.uurloon) ?? 0,
-      urenPerWeek: opties.uren ?? getal(f.uren) ?? 0,
+      ...loonWerk(f.per, getal(f.loon) ?? 0, getal(f.uren) ?? 0, opties.uren),
       reiskostenPerMaand: getal(f.reiskosten),
       reiskostenvergoedingPerMaand: getal(f.vergoeding),
       overigeKostenPerMaand: getal(f.overigeKosten),
@@ -137,4 +147,17 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     vrijlatingFase: opties.fase,
     huidigeVrijlating: "geen",
   };
+}
+
+/**
+ * Zet het ingevulde loon om naar werk voor de engine. Bij een maand- of
+ * vierwekenloon schaalt het loon mee als de gebruiker met de urenschuif
+ * een ander aantal uren kiest.
+ */
+function loonWerk(per: LoonPer, bedrag: number, uren: number, andereUren?: number) {
+  const nieuweUren = andereUren ?? uren;
+  const factor = uren > 0 ? nieuweUren / uren : 1;
+  if (per === "uur") return { brutoUurloon: bedrag, urenPerWeek: nieuweUren };
+  if (per === "vierweken") return { brutoVierwekenloon: Math.round(bedrag * factor * 100) / 100, urenPerWeek: nieuweUren };
+  return { brutoMaandloon: Math.round(bedrag * factor * 100) / 100, urenPerWeek: nieuweUren };
 }

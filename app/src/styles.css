@@ -199,6 +199,13 @@ legend {
   gap: 0.5rem;
 }
 
+/* Vaste kolom voor "€", zodat alle invoervakken links op één lijn staan. */
+.voorvoegsel {
+  width: 1ch;
+  flex: none;
+  text-align: right;
+}
+
 input[type="text"] {
   font: inherit;
   width: 8rem;
@@ -397,7 +404,13 @@ input[type="range"] {
 }
 
 .toelichting {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  border-left: 4px solid var(--leiden);
+  padding: 0.1rem 0 0.1rem 0.9rem;
+}
+
+.toelichting p {
+  margin: 0.4rem 0;
 }
 
 .melding {
@@ -453,6 +466,20 @@ table.vergelijking {
 .vergelijking tfoot td {
   font-weight: 700;
   border-top: 2px solid var(--inkt);
+  border-bottom: 0;
+}
+
+.vergelijking .groepkop th {
+  text-align: left;
+  font-weight: 700;
+  padding-top: 1rem;
+  border-bottom: 2px solid var(--lijn);
+}
+
+.vergelijking .subtotaal th,
+.vergelijking .subtotaal td {
+  font-weight: 700;
+  color: var(--inkt-zacht);
   border-bottom: 0;
 }
 

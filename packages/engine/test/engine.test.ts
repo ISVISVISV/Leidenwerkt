@@ -205,3 +205,27 @@ describe("vergelijking en uitleg", () => {
     );
   });
 });
+
+describe("loonvormen en perioden", () => {
+  it("vierwekenloon telt 13 keer per jaar", () => {
+    const vier = bereken(basis({ nieuwWerk: { brutoVierwekenloon: 1200 } }));
+    const maand = bereken(basis({ nieuwWerk: { brutoMaandloon: 1300 } }));
+    expect(post(vier, "werk", "loon")!.perMaand).toBe(post(maand, "werk", "loon")!.perMaand);
+    expect(vier.signalen.some((s) => s.tekst.includes("13 keer"))).toBe(true);
+  });
+
+  it("uurloon × uren × 52 / 12 is gelijk aan het maandloon", () => {
+    const uur = bereken(basis({ nieuwWerk: { brutoUurloon: 15, urenPerWeek: 20 } }));
+    const maand = bereken(basis({ nieuwWerk: { brutoMaandloon: 1300 } }));
+    expect(post(uur, "werk", "loon")!.perMaand).toBe(post(maand, "werk", "loon")!.perMaand);
+  });
+
+  it("noemt de vrijlatingsperioden concreet", async () => {
+    const { vrijlatingsPeriodes } = await import("../src/index.ts");
+    const p = vrijlatingsPeriodes(basis());
+    expect(p.map((x) => x.naam)).toEqual(["Maand 1 t/m 6", "Vanaf maand 7"]);
+    expect(p[0].regel).toContain("€ 289,00");
+    const ouder = vrijlatingsPeriodes(basis({ leefvorm: "alleenstaande_ouder", kinderen: [{ leeftijd: 5 }] }));
+    expect(ouder.map((x) => x.naam)).toEqual(["Maand 1 t/m 6", "Maand 7 t/m 36", "Vanaf maand 37"]);
+  });
+});

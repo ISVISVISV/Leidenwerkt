@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { bereken, euro, type Post, type Resultaat } from "@leidenwerkt/engine";
+import { bereken, euro, vrijlatingsPeriodes, D, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { getal, naarInvoer, vandaag, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */
@@ -20,43 +20,51 @@ const leesbareDatum = (iso: string) =>
 
 export function Uitkomst({ f }: { f: Formulier }) {
   const [uren, setUren] = useState(() => Math.round(getal(f.uren) ?? 24));
-  const [fase, setFase] = useState<"start" | "later">("start");
+  const [fase, setFase] = useState<"start" | "later" | "geen">("start");
   const { datum, teruggevallen } = useMemo(() => bruikbareDatum(f), [f]);
 
-  const start = useMemo(() => bereken(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
-  const later = useMemo(() => bereken(naarInvoer(f, { uren, fase: "later", datum })), [f, uren, datum]);
-  const r = fase === "start" ? start : later;
-  const fasenVerschillen = start.verschilPerMaand !== later.verschilPerMaand;
+  const periodes = useMemo(() => vrijlatingsPeriodes(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
+  const r = useMemo(() => bereken(naarInvoer(f, { uren, fase, datum })), [f, uren, fase, datum]);
+  const zonder = useMemo(() => bereken(naarInvoer(f, { uren, fase: "geen", datum })), [f, uren, datum]);
+  const voordeel = D(r.werk.besteedbaarPerMaand).minus(zonder.werk.besteedbaarPerMaand);
+  const gekozen = periodes.find((p) => p.fase === fase) ?? periodes[0];
+  const bijstandMetWerk = r.werk.posten.find((p) => p.id === "bijstand");
+  const vrijlatingTelt = periodes.length > 1 && bijstandMetWerk?.perMaand !== null && bijstandMetWerk?.perMaand !== "0.00";
 
   return (
     <section className="uitkomst">
-      <Antwoord r={r} uren={uren} />
+      <Antwoord r={r} uren={uren} periode={vrijlatingTelt ? gekozen.naam : undefined} />
 
       <div className="bediening">
         <label htmlFor="urenschuif">
           Uren per week: <output htmlFor="urenschuif">{uren}</output>
         </label>
         <input id="urenschuif" type="range" min={1} max={40} step={1} value={uren} onChange={(e) => setUren(Number(e.target.value))} />
-        {fasenVerschillen && (
+        {vrijlatingTelt && (
           <fieldset className="keuze compact">
-            <legend>Periode</legend>
-            <label className="optie">
-              <input type="radio" name="fase" checked={fase === "start"} onChange={() => setFase("start")} />
-              <span>De eerste maanden</span>
-            </label>
-            <label className="optie">
-              <input type="radio" name="fase" checked={fase === "later"} onChange={() => setFase("later")} />
-              <span>Daarna</span>
-            </label>
+            <legend>Welke periode wilt u zien?</legend>
+            {periodes.map((p) => (
+              <label className="optie" key={p.fase}>
+                <input type="radio" name="fase" checked={fase === p.fase} onChange={() => setFase(p.fase)} />
+                <span>{p.naam}</span>
+              </label>
+            ))}
           </fieldset>
         )}
       </div>
 
-      {fasenVerschillen && (
-        <p className="toelichting">
-          In de eerste maanden mag u een deel van uw loon houden naast de bijstand. Daarna is dat minder. Kies hierboven welke periode u
-          wilt zien.
-        </p>
+      {vrijlatingTelt && (
+        <div className="toelichting">
+          <p>
+            <strong>{gekozen.naam} na de start van uw werk.</strong> {gekozen.regel}
+          </p>
+          <p>
+            {voordeel.gt("0.5")
+              ? `Dit levert u in deze periode ${euro(voordeel, true)} per maand extra op.`
+              : "In deze periode levert de vrijlating u niets extra op."}{" "}
+            Het geldt alleen als de gemeente vindt dat het werk u helpt om meer te gaan werken.
+          </p>
+        </div>
       )}
 
       {teruggevallen && (
@@ -103,7 +111,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
   );
 }
 
-function Antwoord({ r, uren }: { r: Resultaat; uren: number }) {
+function Antwoord({ r, uren, periode }: { r: Resultaat; uren: number; periode?: string }) {
   const v = Number(r.verschilPerMaand);
   const bedrag = euro(r.verschilPerMaand.replace("-", ""), true);
   const zin =
@@ -116,7 +124,7 @@ function Antwoord({ r, uren }: { r: Resultaat; uren: number }) {
     <div className={`antwoord ${Math.abs(v) < 10 ? "gelijk" : v > 0 ? "meer" : "minder"}`} aria-live="polite">
       <p className="antwoord-zin">{zin}</p>
       <p className="antwoord-sub">
-        Bij {uren} uur per week. Per jaar is dat {Math.abs(v) < 10 ? "ongeveer gelijk" : `${euro(r.verschilPerJaar.replace("-", ""), true)} ${v > 0 ? "meer" : "minder"}`}.
+        Bij {uren} uur per week{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}. Per jaar is dat {Math.abs(v) < 10 ? "ongeveer gelijk" : `${euro(r.verschilPerJaar.replace("-", ""), true)} ${v > 0 ? "meer" : "minder"}`}.
       </p>
       {r.zekerheid === "onbevestigd" && (
         <p className="antwoord-noot">Een deel van de bedragen is nog niet officieel bevestigd. Ze zijn hieronder gemarkeerd met een sterretje.</p>
@@ -154,9 +162,35 @@ function Vergelijking({ r }: { r: Resultaat }) {
     const b = r.werk.posten.find((p) => p.id === id);
     return !(a?.perMaand === "0.00" && (!b || b.perMaand === "0.00"));
   });
+  const meegeteld = (s: Resultaat["huidig"], kosten: boolean) =>
+    s.posten
+      .filter((p) => p.perMaand !== null && (p.soort === "kosten") === kosten && !r.nietMeegenomen.some((n) => n.id === p.id))
+      .reduce((t, p) => t.plus(D(p.perMaand!)), D(0));
+  const rij = (id: string) => {
+    const p = labels.get(id)!;
+    const a = r.huidig.posten.find((x) => x.id === id);
+    const b = r.werk.posten.find((x) => x.id === id);
+    const onzeker = [a, b].some((x) => x?.status === "onbevestigd");
+    return (
+      <tr key={id} className={p.perMaand === null ? "leeg" : undefined}>
+        <th scope="row">
+          {p.label}
+          {onzeker && (
+            <span className="ster" title="Nog niet officieel bevestigd">
+              *<span className="sr">nog niet officieel bevestigd</span>
+            </span>
+          )}
+        </th>
+        <td>{waarde(a)}</td>
+        <td>{waarde(b)}</td>
+      </tr>
+    );
+  };
+  const binnen = zichtbaar.filter((id) => labels.get(id)!.soort !== "kosten");
+  const eraf = zichtbaar.filter((id) => labels.get(id)!.soort === "kosten");
   return (
     <table className="vergelijking">
-      <caption>Wat u per maand krijgt en betaalt</caption>
+      <caption>Zo is het bedrag opgebouwd (per maand)</caption>
       <thead>
         <tr>
           <th scope="col">Per maand</th>
@@ -165,30 +199,36 @@ function Vergelijking({ r }: { r: Resultaat }) {
         </tr>
       </thead>
       <tbody>
-        {zichtbaar.map((id) => {
-          const p = labels.get(id)!;
-          const a = r.huidig.posten.find((x) => x.id === id);
-          const b = r.werk.posten.find((x) => x.id === id);
-          const onzeker = [a, b].some((x) => x?.status === "onbevestigd");
-          return (
-            <tr key={id} className={p.perMaand === null ? "leeg" : undefined}>
-              <th scope="row">
-                {p.label}
-                {onzeker && (
-                  <span className="ster" title="Nog niet officieel bevestigd">
-                    *<span className="sr">nog niet officieel bevestigd</span>
-                  </span>
-                )}
-              </th>
-              <td>{waarde(a)}</td>
-              <td>{waarde(b)}</td>
-            </tr>
-          );
-        })}
+        <tr className="groepkop">
+          <th scope="rowgroup" colSpan={3}>
+            Wat er binnenkomt
+          </th>
+        </tr>
+        {binnen.map(rij)}
+        <tr className="subtotaal">
+          <th scope="row">Totaal binnen</th>
+          <td>{euro(meegeteld(r.huidig, false), true)}</td>
+          <td>{euro(meegeteld(r.werk, false), true)}</td>
+        </tr>
       </tbody>
+      {eraf.length > 0 && (
+        <tbody>
+          <tr className="groepkop">
+            <th scope="rowgroup" colSpan={3}>
+              Wat eraf gaat
+            </th>
+          </tr>
+          {eraf.map(rij)}
+          <tr className="subtotaal">
+            <th scope="row">Totaal eraf</th>
+            <td>{euro(meegeteld(r.huidig, true), true)}</td>
+            <td>{euro(meegeteld(r.werk, true), true)}</td>
+          </tr>
+        </tbody>
+      )}
       <tfoot>
         <tr>
-          <th scope="row">U houdt over</th>
+          <th scope="row">U houdt over{eraf.length > 0 ? " (binnen min eraf)" : ""}</th>
           <td>{euro(r.huidig.besteedbaarPerMaand, true)}</td>
           <td>{euro(r.werk.besteedbaarPerMaand, true)}</td>
         </tr>

@@ -29,8 +29,9 @@ test("alleenstaande doorloopt de stappen en krijgt een antwoord", async ({ page 
   await page.getByRole("button", { name: "Volgende stap" }).click();
 
   // Stap 3
-  await page.getByLabel("Bruto uurloon", { exact: true }).fill("15,00");
-  await page.getByLabel("Uren per week", { exact: true }).fill("32");
+  await page.getByLabel("Bruto loon per uur", { exact: true }).check();
+  await page.getByRole("textbox", { name: "Bruto loon per uur" }).fill("15,00");
+  await page.getByRole("textbox", { name: "Uren per week" }).fill("32");
   await geenToegankelijkheidsfouten(page);
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
 
@@ -38,6 +39,7 @@ test("alleenstaande doorloopt de stappen en krijgt een antwoord", async ({ page 
   const antwoord = page.locator(".antwoord-zin");
   await expect(antwoord).toContainText("houdt u per maand ongeveer");
   await expect(page.getByRole("table")).toContainText("Bijstand");
+  await expect(page.getByRole("table")).toContainText("Wat er binnenkomt");
   await geenToegankelijkheidsfouten(page);
 
   // De urenschuif past het antwoord aan.
@@ -60,9 +62,14 @@ test.describe("donkere modus", () => {
     await page.getByLabel("Uw leeftijd").fill("40");
     await page.getByRole("button", { name: "Volgende stap" }).click();
     await page.getByRole("button", { name: "Volgende stap" }).click();
-    await page.getByLabel("Bruto uurloon", { exact: true }).fill("14,99");
+    await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.200");
+    await page.getByRole("textbox", { name: "Uren per week" }).fill("20");
+    await geenToegankelijkheidsfouten(page);
     await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
     await expect(page.locator(".antwoord-zin")).toBeVisible();
+    await expect(page.getByLabel("Maand 1 t/m 6")).toBeVisible();
+    await page.getByLabel("Vanaf maand 7").check();
+    await expect(page.locator(".toelichting")).toContainText("Geen vrijlating meer");
     await geenToegankelijkheidsfouten(page);
   });
 });
