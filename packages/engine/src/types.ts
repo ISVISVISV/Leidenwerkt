@@ -12,6 +12,8 @@ export interface Kind {
 export interface Werk {
   /** Bruto maandloon exclusief vakantiegeld. Of geef uurloon + uren. */
   brutoMaandloon?: number;
+  /** Bruto loon per 4 weken (13 keer per jaar), exclusief vakantiegeld. */
+  brutoVierwekenloon?: number;
   brutoUurloon?: number;
   urenPerWeek?: number;
   /** Vakantiegeld als breuk, standaard 0,08. */
