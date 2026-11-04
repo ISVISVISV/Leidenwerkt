@@ -1,0 +1,52 @@
+gebied: Kindgebonden budget 2026
+geldig_van: 2026-01-01
+geldig_tot: 2026-12-31
+parameters:
+  - id: kgb.per_kind
+    omschrijving: Maximaal kindgebonden budget per kind per jaar
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "2580" }
+    status: onbevestigd
+    bron: &afas
+      titel: AFAS-documentatie Kindgebonden budget (salarissoftware)
+      url: https://help.afas.nl/help/nl/se/Tax_Surtax_ChlBdg.htm
+      geraadpleegd_op: 2026-11-04
+  - id: kgb.verhoging_12
+    omschrijving: Verhoging per kind van 12 tot en met 15 jaar
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "724" }
+    status: onbevestigd
+    bron: *afas
+  - id: kgb.verhoging_16
+    omschrijving: Verhoging per kind van 16 of 17 jaar
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "964" }
+    status: onbevestigd
+    bron: *afas
+  - id: kgb.alleenstaande_ouderkop
+    omschrijving: Extra bedrag voor ouder zonder toeslagpartner
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "3416" }
+    status: onbevestigd
+    bron: *afas
+  - id: kgb.drempel.alleenstaand
+    omschrijving: Toetsingsinkomen tot waar het maximale bedrag geldt, zonder toeslagpartner
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "29736" }
+    status: onbevestigd
+    bron: *afas
+  - id: kgb.drempel.partners
+    omschrijving: Toetsingsinkomen tot waar het maximale bedrag geldt, met toeslagpartner
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "39141" }
+    status: onbevestigd
+    bron: *afas
+  - id: kgb.afbouwpercentage
+    omschrijving: Afbouw als percentage van het toetsingsinkomen boven de drempel
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.076" }
+    status: onbevestigd
+    bron:
+      titel: Kamerstuk 36606, nr. 3 — memorie van toelichting kindgebonden budget
+      url: https://zoek.officielebekendmakingen.nl/kst-36606-3.pdf
+      geraadpleegd_op: 2026-11-04

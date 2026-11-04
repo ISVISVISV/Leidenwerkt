@@ -1,0 +1,112 @@
+gebied: Kinderopvangtoeslag 2026
+geldig_van: 2026-01-01
+geldig_tot: 2026-12-31
+parameters:
+  - id: kot.max_uurprijs.dagopvang
+    omschrijving: Maximum uurprijs dagopvang
+    eenheid: euro_per_uur
+    waarde: { soort: bedrag, bedrag: "11.23" }
+    status: geverifieerd
+    bron: &ro_kot
+      titel: Rijksoverheid — Bedragen kinderopvangtoeslag 2026
+      url: https://www.rijksoverheid.nl/onderwerpen/kinderopvangtoeslag/bedragen-kinderopvangtoeslag-2026
+      geraadpleegd_op: 2026-11-04
+  - id: kot.max_uurprijs.bso
+    omschrijving: Maximum uurprijs buitenschoolse opvang
+    eenheid: euro_per_uur
+    waarde: { soort: bedrag, bedrag: "9.98" }
+    status: geverifieerd
+    bron: *ro_kot
+  - id: kot.max_uurprijs.gastouder
+    omschrijving: Maximum uurprijs gastouderopvang
+    eenheid: euro_per_uur
+    waarde: { soort: bedrag, bedrag: "8.49" }
+    status: geverifieerd
+    bron: *ro_kot
+  - id: kot.max_uren_per_maand
+    omschrijving: Maximaal aantal opvanguren per kind per maand waarover toeslag wordt berekend
+    eenheid: uren_per_maand
+    waarde: { soort: aantal, aantal: "230" }
+    status: onbevestigd
+    bron: *ro_kot
+    notitie: Nog controleren in Wet kinderopvang / Besluit; mogelijke koppeling aan gewerkte uren is nog niet uitgezocht.
+  - id: kot.tabel
+    omschrijving: Kinderopvangtoeslagtabel 2026 (bijlage I Besluit kinderopvangtoeslag, Stb. 2025, 233)
+    eenheid: tabel
+    waarde:
+      soort: kot_tabel
+      rijen:
+        - { vanaf: "0", tot: "24149", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "24150", tot: "25756", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "25757", tot: "27363", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "27364", tot: "28973", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "28974", tot: "30579", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "30580", tot: "32189", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "32190", tot: "33795", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "33796", tot: "35400", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "35401", tot: "37129", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "37130", tot: "38855", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "38856", tot: "40586", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "40587", tot: "42313", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "42314", tot: "44046", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "44047", tot: "45776", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "45777", tot: "47546", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "47547", tot: "49318", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "49319", tot: "51092", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "51093", tot: "52864", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "52865", tot: "54641", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "54642", tot: "56412", eerste_kind: "0.96", volgend_kind: "0.96" }
+        - { vanaf: "56413", tot: "58184", eerste_kind: "0.955", volgend_kind: "0.956" }
+        - { vanaf: "58185", tot: "59957", eerste_kind: "0.948", volgend_kind: "0.956" }
+        - { vanaf: "59958", tot: "61895", eerste_kind: "0.939", volgend_kind: "0.956" }
+        - { vanaf: "61896", tot: "65695", eerste_kind: "0.924", volgend_kind: "0.956" }
+        - { vanaf: "65696", tot: "69492", eerste_kind: "0.916", volgend_kind: "0.952" }
+        - { vanaf: "69493", tot: "73292", eerste_kind: "0.905", volgend_kind: "0.946" }
+        - { vanaf: "73293", tot: "77094", eerste_kind: "0.882", volgend_kind: "0.942" }
+        - { vanaf: "77095", tot: "80891", eerste_kind: "0.859", volgend_kind: "0.939" }
+        - { vanaf: "80892", tot: "84693", eerste_kind: "0.837", volgend_kind: "0.932" }
+        - { vanaf: "84694", tot: "88491", eerste_kind: "0.812", volgend_kind: "0.927" }
+        - { vanaf: "88492", tot: "92291", eerste_kind: "0.789", volgend_kind: "0.922" }
+        - { vanaf: "92292", tot: "96091", eerste_kind: "0.767", volgend_kind: "0.915" }
+        - { vanaf: "96092", tot: "99889", eerste_kind: "0.743", volgend_kind: "0.909" }
+        - { vanaf: "99890", tot: "103694", eerste_kind: "0.721", volgend_kind: "0.905" }
+        - { vanaf: "103695", tot: "107492", eerste_kind: "0.696", volgend_kind: "0.902" }
+        - { vanaf: "107493", tot: "111290", eerste_kind: "0.673", volgend_kind: "0.895" }
+        - { vanaf: "111291", tot: "115090", eerste_kind: "0.651", volgend_kind: "0.891" }
+        - { vanaf: "115091", tot: "118963", eerste_kind: "0.627", volgend_kind: "0.886" }
+        - { vanaf: "118964", tot: "122857", eerste_kind: "0.606", volgend_kind: "0.879" }
+        - { vanaf: "122858", tot: "126747", eerste_kind: "0.585", volgend_kind: "0.874" }
+        - { vanaf: "126748", tot: "130638", eerste_kind: "0.564", volgend_kind: "0.87" }
+        - { vanaf: "130639", tot: "134527", eerste_kind: "0.542", volgend_kind: "0.867" }
+        - { vanaf: "134528", tot: "138420", eerste_kind: "0.523", volgend_kind: "0.86" }
+        - { vanaf: "138421", tot: "142312", eerste_kind: "0.504", volgend_kind: "0.854" }
+        - { vanaf: "142313", tot: "146205", eerste_kind: "0.485", volgend_kind: "0.85" }
+        - { vanaf: "146206", tot: "150092", eerste_kind: "0.465", volgend_kind: "0.844" }
+        - { vanaf: "150093", tot: "153982", eerste_kind: "0.445", volgend_kind: "0.84" }
+        - { vanaf: "153983", tot: "157877", eerste_kind: "0.425", volgend_kind: "0.833" }
+        - { vanaf: "157878", tot: "161766", eerste_kind: "0.405", volgend_kind: "0.827" }
+        - { vanaf: "161767", tot: "165657", eerste_kind: "0.385", volgend_kind: "0.817" }
+        - { vanaf: "165658", tot: "169547", eerste_kind: "0.365", volgend_kind: "0.814" }
+        - { vanaf: "169548", tot: "173440", eerste_kind: "0.365", volgend_kind: "0.806" }
+        - { vanaf: "173441", tot: "177335", eerste_kind: "0.365", volgend_kind: "0.797" }
+        - { vanaf: "177336", tot: "181223", eerste_kind: "0.365", volgend_kind: "0.791" }
+        - { vanaf: "181224", tot: "185114", eerste_kind: "0.365", volgend_kind: "0.782" }
+        - { vanaf: "185115", tot: "189002", eerste_kind: "0.365", volgend_kind: "0.777" }
+        - { vanaf: "189003", tot: "192896", eerste_kind: "0.365", volgend_kind: "0.769" }
+        - { vanaf: "192897", tot: "196789", eerste_kind: "0.365", volgend_kind: "0.762" }
+        - { vanaf: "196790", tot: "200681", eerste_kind: "0.365", volgend_kind: "0.755" }
+        - { vanaf: "200682", tot: "204571", eerste_kind: "0.365", volgend_kind: "0.745" }
+        - { vanaf: "204572", tot: "208458", eerste_kind: "0.365", volgend_kind: "0.74" }
+        - { vanaf: "208459", tot: "212353", eerste_kind: "0.365", volgend_kind: "0.733" }
+        - { vanaf: "212354", tot: "216242", eerste_kind: "0.365", volgend_kind: "0.725" }
+        - { vanaf: "216243", tot: "220134", eerste_kind: "0.365", volgend_kind: "0.718" }
+        - { vanaf: "220135", tot: "224026", eerste_kind: "0.365", volgend_kind: "0.712" }
+        - { vanaf: "224027", tot: "227915", eerste_kind: "0.365", volgend_kind: "0.704" }
+        - { vanaf: "227916", tot: "231807", eerste_kind: "0.365", volgend_kind: "0.696" }
+        - { vanaf: "231808", tot: "235697", eerste_kind: "0.365", volgend_kind: "0.691" }
+        - { vanaf: "235698", tot: null, eerste_kind: "0.365", volgend_kind: "0.682" }
+    status: onbevestigd
+    bron:
+      titel: Besluit kinderopvangtoeslag bijlage I (tekst via InView, bron Stb. 2025, 233)
+      url: https://www.inview.nl/openCitation/id45bf86c5cb216c121934ec6f33683759/besluit-kinderopvangtoeslag-bijlage-i
+      geraadpleegd_op: 2026-11-04

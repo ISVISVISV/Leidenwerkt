@@ -1,0 +1,63 @@
+gebied: Participatiewet vanaf 1 januari 2027 (Participatiewet in balans, fase 3)
+geldig_van: 2027-01-01
+geldig_tot: null
+parameters:
+  - id: pw.norm.alleenstaande
+    omschrijving: Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag
+    eenheid: euro_per_maand
+    status: ontbrekend
+    notitie: Normenbrief 1 januari 2027 verwacht begin december 2026.
+  - id: pw.norm.gehuwden
+    omschrijving: Bijstandsnorm gehuwden/samenwonenden, beiden 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag
+    eenheid: euro_per_maand
+    status: ontbrekend
+    notitie: Normenbrief 1 januari 2027 verwacht begin december 2026.
+  - id: pw.bijverdien.percentage
+    omschrijving: Bijverdienregeling art. 34a Pw, jonger dan AOW-leeftijd (percentage van inkomsten uit arbeid)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.15" }
+    status: onbevestigd
+    bron: &schulinck_34a
+      titel: Binnenlands Bestuur / Schulinck — Inkomstenvrijlating in de Participatiewet in balans
+      url: https://www.binnenlandsbestuur.nl/sociaal/schulinck-sociaal-domein/inkomstenvrijlating-in-de-participatiewet-in-balans
+      geraadpleegd_op: 2026-11-04
+    notitie: Volgens de bron geldt de regeling alleen zolang het inkomen niet hoger is dan de bijstandsnorm. Wettekst art. 34a nog controleren, ook op een eventueel maximumbedrag.
+  - id: pw.bijverdien.duur
+    omschrijving: Maximale duur bijverdienregeling (aaneengesloten maanden, verlenging door gemeente mogelijk)
+    eenheid: maanden
+    waarde: { soort: aantal, aantal: "12" }
+    status: onbevestigd
+    bron: *schulinck_34a
+  - id: pw.kostendeler.minimumleeftijd
+    omschrijving: Minimumleeftijd van een huisgenoot om als kostendelende medebewoner mee te tellen
+    eenheid: jaren
+    waarde: { soort: aantal, aantal: "27" }
+    status: onbevestigd
+    bron:
+      titel: Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?
+      url: https://www.rijksoverheid.nl/themas/werk/arbeidsomstandigheden/vraag-en-antwoord/bijstand/hoe-hoog-is-mijn-bijstandsuitkering
+      geraadpleegd_op: 2026-11-04
+  - id: pw.kostendeler.basis
+    omschrijving: Vast deel in de kostendelersformule (art. 22a lid 1 Pw)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.40" }
+    status: onbevestigd
+    bron: &inview_22a
+      titel: Participatiewet artikel 22a (tekst via InView)
+      url: https://inview.nl/document/id67413a09bef84d4eb80a9f6836af0ab4/participatiewet-artikel-22a-kostendelersnorm-01-07-2024-tot
+      geraadpleegd_op: 2026-11-04
+  - id: pw.kostendeler.per_persoon
+    omschrijving: Deel per persoon in de kostendelersformule (art. 22a lid 1 Pw)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.30" }
+    status: onbevestigd
+    bron: *inview_22a
+  - id: pw.vakantietoeslag.opslag
+    omschrijving: Vakantietoeslag als opslag op de netto norm exclusief vakantietoeslag (5%)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.05" }
+    status: onbevestigd
+    bron:
+      titel: Schulinck — Bijstandsnormen (normenblad incl./excl. vakantietoeslag)
+      url: https://www.schulinck.nl/app/uploads/Bijstandsnormen.pdf
+      geraadpleegd_op: 2026-11-04

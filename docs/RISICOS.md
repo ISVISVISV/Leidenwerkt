@@ -1,0 +1,18 @@
+# Risicoregister
+
+Stand: 4 november 2026.
+
+| # | Risico | Kans | Impact | Maatregel |
+| --- | --- | --- | --- | --- |
+| R1 | **Verouderde regels.** Normbedragen veranderen twee keer per jaar; de app geeft dan verkeerde uitkomsten zonder dat iemand het merkt. | Hoog | Hoog | Elke parameter heeft een geldigheidsperiode; de app toont een duidelijke waarschuwing als er voor de gekozen datum geen geldige waarden zijn. `ONDERHOUD.md` met stappenplan. Halfjaarlijkse herinnering (scheduled task) in januari en juli. |
+| R2 | **Wetswijziging 2027.** De Participatiewet in balans verandert vrijlating en verrekening; details deels nog onbekend. | Zeker | Hoog | Twee regimes in de engine; 2027-onderdelen blijven `onbevestigd` tot wettekst gecontroleerd is. |
+| R3 | **Onbetrouwbare bronnen.** Online rekensites spreken elkaar tegen; overnemen leidt tot fouten. | Hoog | Hoog | Alleen officiële bronnen; statusveld per waarde; build faalt bij ontbrekende bron. |
+| R4 | **Huurtoeslag te complex** om correct na te bouwen na de wijziging per 2026. | Middel | Hoog | Eerst letterlijke regeling ophalen; zo niet haalbaar, huurtoeslag tonen als "niet berekend" in plaats van gokken. |
+| R5 | **Schijnnauwkeurigheid.** Gebruiker leest een indicatie als zekerheid. | Middel | Hoog | Afronden op hele euro's, aannames zichtbaar, bandbreedte bij gevoelige aannames, vaste uitleg dat gemeente en Toeslagen beslissen. |
+| R6 | **Leidse regelingen onvolledig** omdat ze deels alleen op de gemeentesite staan. | Hoog | Middel | Leidse plug-ins zijn optioneel; wat ontbreekt meldt de app. Validatie met een praktijkdeskundige. |
+| R7 | **Gemeentelijke beleidsvrijheid** (bijvoorbeeld wel of geen vrijlating, verlenging na 12 maanden) maakt uitkomst onzeker. | Hoog | Middel | Gebruiker kiest "ik krijg wel/geen vrijlating" of de app toont beide uitkomsten. |
+| R8 | **Netto loon wijkt af** van de loonstrook door loonheffingstabellen, pensioen en cao-regelingen. | Hoog | Laag | Uitleg in de app; gebruiker kan eigen netto loon invullen als dat bekend is. |
+| R9 | **Toegankelijkheid** onvoldoende voor mensen met beperkte digitale vaardigheden. | Middel | Hoog | B1-taal, axe-tests in CI, test met iemand uit de doelgroep. |
+| R10 | **Privacy**: per ongeluk een externe bron (font, CDN, analytics) die verkeer genereert. | Laag | Middel | Playwright-test die faalt bij elk netwerkverzoek na het laden. |
+| R11 | **Naamverwarring** met een gemeentelijk programma. | Laag | Laag | Zoektocht naar "Leidenwerkt" / "Leiden Werkt" leverde op 4-11-2026 geen bestaand gebruik op. Opnieuw controleren vóór publicatie. |
+| R12 | **Eén onderhouder.** Als de eigenaar stopt, veroudert de app. | Middel | Hoog | Documentatie voor opvolgers, open licentie (EUPL-1.2), duidelijke bijdrageregels; app toont de datum van de laatst gecontroleerde regels. |

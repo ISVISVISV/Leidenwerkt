@@ -1,0 +1,17 @@
+{
+  "name": "@leidenwerkt/app",
+  "private": true,
+  "version": "0.1.0",
+  "license": "EUPL-1.2",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:los": "vite build --mode los",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

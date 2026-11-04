@@ -1,0 +1,28 @@
+gebied: Gemeente Leiden 2026
+geldig_van: 2026-01-01
+geldig_tot: null
+parameters:
+  - id: leiden.sleutelpas.inkomensgrens
+    omschrijving: Gratis Sleutelpas tot dit deel van het wettelijk sociaal minimum
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "1.30" }
+    status: geverifieerd
+    bron:
+      titel: Beleidsregels Sleutelpas gemeente Leiden 2026 (Gemeenteblad 2025, 429670)
+      url: https://zoek.officielebekendmakingen.nl/gmb-2025-429670.pdf
+      geraadpleegd_op: 2026-11-04
+    notitie: Inkomenstoets op netto maandinkomen (art. 32 Pw). Of 'WSM' hier gelijk is aan de toepasselijke bijstandsnorm is nog niet bevestigd.
+  - id: leiden.iit.referteperiode
+    omschrijving: Individuele inkomenstoeslag — aantal jaren met inkomen op bijstandsniveau
+    eenheid: jaren
+    waarde: { soort: aantal, aantal: "5" }
+    status: geverifieerd
+    bron: &iit
+      titel: Verordening individuele inkomenstoeslag Leiden 2020
+      url: https://lokaleregelgeving.overheid.nl/CVDR634399/
+      geraadpleegd_op: 2026-11-04
+  - id: leiden.iit.bedrag.alleenstaande
+    omschrijving: Individuele inkomenstoeslag per jaar, alleenstaande (geïndexeerd)
+    eenheid: euro_per_jaar
+    status: ontbrekend
+    notitie: Verordening 2020 noemt € 400, jaarlijks geïndexeerd met CPI; actueel bedrag onbekend.

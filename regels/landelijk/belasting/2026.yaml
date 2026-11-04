@@ -1,0 +1,53 @@
+gebied: Loon- en inkomstenbelasting 2026, jonger dan AOW-leeftijd
+geldig_van: 2026-01-01
+geldig_tot: 2026-12-31
+parameters:
+  - id: ib.box1.schijven
+    omschrijving: Tarieven box 1 (marginaal tarief per schijf, inclusief premies volksverzekeringen)
+    eenheid: tabel
+    waarde:
+      soort: schijven
+      schijven:
+        - { vanaf: "0", tot: "38883", percentage: "0.3575" }
+        - { vanaf: "38883", tot: "78426", percentage: "0.3756" }
+        - { vanaf: "78426", tot: null, percentage: "0.4950" }
+    status: geverifieerd
+    bron: &bd2026
+      titel: Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen
+      url: https://www.belastingdienst.nl/wps/wcm/connect/nl/voorlopige-aanslag/content/voorlopige-aanslag-tarieven-en-heffingskortingen
+      geraadpleegd_op: 2026-11-04
+  - id: ib.ahk
+    omschrijving: Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf))
+    eenheid: tabel
+    waarde:
+      soort: schijven
+      schijven:
+        - { vanaf: "0", tot: "29736", basis: "3115", percentage: "0" }
+        - { vanaf: "29736", tot: "78426", basis: "3115", percentage: "-0.06398" }
+        - { vanaf: "78426", tot: null, basis: "0", percentage: "0" }
+    status: geverifieerd
+    bron: *bd2026
+  - id: ib.arbeidskorting
+    omschrijving: Arbeidskorting (bedrag = basis + percentage × (arbeidsinkomen − vanaf))
+    eenheid: tabel
+    waarde:
+      soort: schijven
+      schijven:
+        - { vanaf: "0", tot: "11965", basis: "0", percentage: "0.08324" }
+        - { vanaf: "11965", tot: "25845", basis: "996", percentage: "0.31009" }
+        - { vanaf: "25845", tot: "45592", basis: "5300", percentage: "0.01950" }
+        - { vanaf: "45592", tot: "132920", basis: "5685", percentage: "-0.06510" }
+        - { vanaf: "132920", tot: null, basis: "0", percentage: "0" }
+    status: geverifieerd
+    bron: *bd2026
+  - id: ib.iack
+    omschrijving: Inkomensafhankelijke combinatiekorting (ouder met kind jonger dan 12 jaar)
+    eenheid: tabel
+    waarde:
+      soort: schijven
+      schijven:
+        - { vanaf: "0", tot: "6239", basis: "0", percentage: "0" }
+        - { vanaf: "6239", tot: "32710", basis: "0", percentage: "0.1145" }
+        - { vanaf: "32710", tot: null, basis: "3032", percentage: "0" }
+    status: geverifieerd
+    bron: *bd2026
