@@ -5,7 +5,7 @@
  */
 import { D, NUL, centen, euro, type Bedrag } from "./geld.ts";
 import { Lezer, OntbrekendeParameter, standaardRegels, type RegelSet } from "./regels.ts";
-import { nettoLoon, brutoUitNetto, stuksgewijs, type LoonUitkomst } from "./modules/belasting.ts";
+import { nettoLoon, brutoUitNetto, brutoMaandUitNetto, stuksgewijs, type LoonUitkomst } from "./modules/belasting.ts";
 import { bijstandsnorm, vrijlating, aanvulling } from "./modules/bijstand.ts";
 import { zorgtoeslag, kindgebondenBudget, huurtoeslag, kinderopvangtoeslag } from "./modules/toeslagen.ts";
 import type { Invoer, Post, PostStatus, Postsoort, Resultaat, Signaal, Situatie, Stap, Werk } from "./types.ts";
@@ -63,10 +63,28 @@ function laagste(l: Lezer): PostStatus {
 /** Bruto jaarloon exclusief vakantiegeld. */
 function brutoJaarExcl(w: Werk | undefined): Bedrag {
   if (!w) return NUL;
-  if (w.brutoMaandloon !== undefined) return D(w.brutoMaandloon).times(12);
-  if (w.brutoVierwekenloon !== undefined) return D(w.brutoVierwekenloon).times(13);
-  if (w.brutoUurloon !== undefined && w.urenPerWeek !== undefined) return D(w.brutoUurloon).times(w.urenPerWeek).times(52);
+  const f = D(w.urenFactor ?? 1);
+  if (w.brutoMaandloon !== undefined) return D(w.brutoMaandloon).times(12).times(f);
+  if (w.brutoVierwekenloon !== undefined) return D(w.brutoVierwekenloon).times(13).times(f);
+  if (w.brutoUurloon !== undefined && w.urenPerWeek !== undefined) return D(w.brutoUurloon).times(w.urenPerWeek).times(52).times(f);
   return NUL;
+}
+
+/**
+ * Zet een netto maandloon om naar een bruto maandloon, met de regels van de
+ * rekendatum. Ontbreken die regels, dan blijft het werk ongewijzigd en meldt
+ * de post 'Netto loon' dat het niet berekend kon worden.
+ */
+function metBruto(w: Werk | undefined, regels: RegelSet, datum: string): Werk | undefined {
+  if (!w || w.nettoMaandloon === undefined || w.brutoMaandloon !== undefined) return w;
+  try {
+    const l = new Lezer(regels, datum);
+    const bruto = brutoMaandUitNetto(l, D(w.nettoMaandloon), D(w.vakantiegeld ?? 0.08));
+    return { ...w, brutoMaandloon: Number(bruto.toFixed(2)) };
+  } catch (e) {
+    if (e instanceof OntbrekendeParameter) return w;
+    throw e;
+  }
 }
 
 /** Gemiddeld bruto maandloon exclusief vakantiegeld. */
@@ -116,7 +134,11 @@ function situatie(
       const r = nettoLoon(l, bruto, pensioenJaar(werk));
       kern.loon = r;
       kern.nettoMaand = r.nettoJaar.div(12);
-      if (werk?.brutoVierwekenloon !== undefined) stap("Bruto loon per 4 weken", D(werk.brutoVierwekenloon));
+      if (werk?.nettoMaandloon !== undefined) {
+        stap("Netto maandloon dat u invulde (zonder vakantiegeld)", D(werk.nettoMaandloon).times(werk.urenFactor ?? 1));
+        aanname("U vulde een netto maandloon in. Dat is teruggerekend naar bruto met de belastingregels van deze datum; het werkelijke bruto loon kan iets afwijken.");
+      }
+      if (werk?.brutoVierwekenloon !== undefined) stap("Bruto loon per 4 weken", D(werk.brutoVierwekenloon).times(werk.urenFactor ?? 1));
       stap("Bruto loon per maand (gemiddeld, zonder vakantiegeld)", brutoMaandloon(werk));
       stap("Vakantiegeld per maand (gemiddeld)", bruto.div(12).minus(brutoMaandloon(werk)));
       stap("Loonbelasting en premies per maand", r.belasting.div(12));
@@ -300,8 +322,13 @@ function som(posten: Post[], uitsluiten: Set<string>): Bedrag {
   return posten.filter((p) => p.perMaand !== null && !uitsluiten.has(p.id)).reduce((s, p) => s.plus(D(p.perMaand!)), NUL);
 }
 
-export function bereken(invoer: Invoer, regels: RegelSet = standaardRegels): Resultaat {
-  valideer(invoer);
+export function bereken(oorspronkelijk: Invoer, regels: RegelSet = standaardRegels): Resultaat {
+  valideer(oorspronkelijk);
+  const invoer: Invoer = {
+    ...oorspronkelijk,
+    huidigWerk: metBruto(oorspronkelijk.huidigWerk, regels, oorspronkelijk.datum),
+    nieuwWerk: metBruto(oorspronkelijk.nieuwWerk, regels, oorspronkelijk.datum)!,
+  };
   const huidigePosten = situatie(invoer, regels, "huidig", invoer.huidigWerk, invoer.huidigeVrijlating ?? "geen");
   const werkPosten = situatie(invoer, regels, "werk", invoer.nieuwWerk, invoer.vrijlatingFase);
 
@@ -426,7 +453,7 @@ function valideer(invoer: Invoer) {
   if (invoer.kostendelers < 0 || !Number.isInteger(invoer.kostendelers)) fouten.push("aantal kostendelers ongeldig");
   for (const w of [invoer.nieuwWerk, invoer.huidigWerk, invoer.partner?.werk]) {
     if (!w) continue;
-    for (const v of [w.brutoMaandloon, w.brutoVierwekenloon, w.brutoUurloon, w.urenPerWeek, w.reiskostenPerMaand, w.overigeKostenPerMaand]) {
+    for (const v of [w.brutoMaandloon, w.brutoVierwekenloon, w.nettoMaandloon, w.brutoUurloon, w.urenPerWeek, w.reiskostenPerMaand, w.overigeKostenPerMaand]) {
       if (v !== undefined && (!Number.isFinite(v) || v < 0)) fouten.push("bedragen en uren mogen niet negatief zijn");
     }
     if (w.urenPerWeek !== undefined && w.urenPerWeek > 60) fouten.push("meer dan 60 uur per week wordt niet ondersteund");

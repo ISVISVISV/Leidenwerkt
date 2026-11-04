@@ -367,17 +367,22 @@ function LoonVelden({
         onChange={zetPer}
         opties={[
           ["maand", "Bruto loon per maand"],
+          ["netto", "Netto loon per maand (wat op mijn rekening komt)"],
           ["vierweken", "Bruto loon per 4 weken"],
           ["uur", "Bruto loon per uur"],
         ]}
       />
       <Veld
         id={loonId}
-        label={per === "uur" ? "Bruto loon per uur" : per === "vierweken" ? "Bruto loon per 4 weken" : "Bruto loon per maand"}
+        label={
+          per === "uur" ? "Bruto loon per uur" : per === "vierweken" ? "Bruto loon per 4 weken" : per === "netto" ? "Netto loon per maand" : "Bruto loon per maand"
+        }
         hint={
           per === "uur"
             ? "Staat in de vacature of het contract."
-            : "Zonder vakantiegeld. Staat in het contract of op de loonstrook. 'Bruto' is het bedrag vóór belasting."
+            : per === "netto"
+              ? "Het bedrag dat u elke maand op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook."
+              : "Zonder vakantiegeld. Staat in het contract of op de loonstrook. 'Bruto' is het bedrag vóór belasting."
         }
         waarde={loon}
         onChange={zetLoon}

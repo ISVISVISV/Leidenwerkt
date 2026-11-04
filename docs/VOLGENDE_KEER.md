@@ -5,7 +5,7 @@ Lees dit eerst bij de start van een nieuwe sessie. Werk de punten af en vink ze 
 ## Invoer
 
 - [x] **Vierwekenloon ondersteunen.** Veel werkgevers (uitzendwerk, cao's) betalen per 4 weken: 13 keer per jaar. Laat de gebruiker kiezen: per uur, per maand of per 4 weken. Reken een vierwekenloon om naar een jaarbedrag (× 13) en houd er rekening mee dat de bijstand per kalendermaand verrekent, dus dat er maanden zijn met twee uitbetalingen.
-- [~] **Maandloon als standaard invoer.** (Gedaan: bruto per maand is de eerste keuze, naast per 4 weken en per uur. Nog niet: netto maandloon als invoer.) Mensen kennen vaak alleen hun bruto (of netto) maandloon, niet het uurloon. Maak maandloon de eerste keuze; uurloon en uren optioneel. Overweeg ook netto maandloon als invoer (bijvoorbeeld van een loonstrook).
+- [x] **Maandloon als standaard invoer.** Bruto per maand is de eerste keuze; daarnaast netto per maand (teruggerekend naar bruto), per 4 weken en per uur.
 - [x] **Uitlijning invoervakken.** Het vak "Uren per week" (met "uur" erachter) staat niet gelijk met de vakken met "€" ervoor. Zorg dat alle invoervakken links op één lijn beginnen, ongeacht voor- of achtervoegsel.
 - [x] **Tekst "Het werk dat u overweegt" herschrijven.** De zin "Vult u hierboven al werk in? Vul dan hier het werk in zoals het straks wordt, alles bij elkaar." is verwarrend. Maak duidelijk onderscheid tussen "werk dat u nu heeft" en "uw situatie straks (al uw werk samen)", of vraag het in twee duidelijke stappen.
 

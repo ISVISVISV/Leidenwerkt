@@ -15,7 +15,14 @@ export interface Werk {
   /** Bruto loon per 4 weken (13 keer per jaar), exclusief vakantiegeld. */
   brutoVierwekenloon?: number;
   brutoUurloon?: number;
+  /**
+   * Netto maandloon zoals op de bankrekening, zonder vakantiegeld.
+   * De engine rekent dit terug naar een bruto maandloon.
+   */
+  nettoMaandloon?: number;
   urenPerWeek?: number;
+  /** Factor waarmee het loon wordt vermenigvuldigd, bijvoorbeeld bij een ander aantal uren (urenschuif). */
+  urenFactor?: number;
   /** Vakantiegeld als breuk, standaard 0,08. */
   vakantiegeld?: number;
   pensioenpremiePerMaand?: number;

@@ -62,7 +62,8 @@ test.describe("donkere modus", () => {
     await page.getByLabel("Uw leeftijd").fill("40");
     await page.getByRole("button", { name: "Volgende stap" }).click();
     await page.getByRole("button", { name: "Volgende stap" }).click();
-    await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.200");
+    await page.getByLabel("Netto loon per maand (wat op mijn rekening komt)").check();
+    await page.getByRole("textbox", { name: "Netto loon per maand" }).fill("1.100");
     await page.getByRole("textbox", { name: "Uren per week" }).fill("20");
     await geenToegankelijkheidsfouten(page);
     await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
