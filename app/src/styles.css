@@ -1,21 +1,49 @@
+/*
+ * Kleuren. Het accentrood is afgeleid van de Leidse stadsvlag (rood-wit),
+ * niet van de huisstijl van de gemeente: Leidenwerkt is geen gemeentelijke site.
+ */
 :root {
-  --papier: #f4f6f5;
-  --inkt: #1b2a31;
-  --inkt-zacht: #4a5a61;
-  --gracht: #1e6b63;
-  --gracht-licht: #dcebe8;
-  --baksteen: #9e4429;
-  --baksteen-licht: #f3e2dc;
-  --lijn: #c8d2d0;
-  --vlak: #e3ebe9;
-  --wit: #ffffff;
-  --focus: #1f4fbf;
-  color-scheme: light;
+  --papier: #f5f5f3;
+  --vlak: #e9e8e4;
+  --veld: #ffffff;
+  --inkt: #1c1d21;
+  --inkt-zacht: #53555c;
+  --lijn: #cfcdc7;
+  --leiden: #b3101c;
+  --leiden-tekst: #a50f1a;
+  --op-leiden: #ffffff;
+  --leiden-zacht: #f6e3e3;
+  --positief: #1f6b45;
+  --positief-zacht: #e0eee5;
+  --let-op: #8a4b00;
+  --let-op-zacht: #f8ead2;
+  --focus: #1b4fd1;
+  color-scheme: light dark;
   font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
   font-size: 112.5%;
   line-height: 1.5;
   color: var(--inkt);
   background: var(--papier);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papier: #17181b;
+    --vlak: #23252a;
+    --veld: #1e2024;
+    --inkt: #ececea;
+    --inkt-zacht: #a9abb0;
+    --lijn: #3d4047;
+    --leiden: #d5313a;
+    --leiden-tekst: #ff8a8f;
+    --op-leiden: #ffffff;
+    --leiden-zacht: #3a1d20;
+    --positief: #7fd3a2;
+    --positief-zacht: #1b3226;
+    --let-op: #f3b866;
+    --let-op-zacht: #382a15;
+    --focus: #8fb2ff;
+  }
 }
 
 * {
@@ -40,11 +68,13 @@ body {
   gap: 0.25rem 1rem;
   padding: 1.25rem 0 1rem;
   border-bottom: 2px solid var(--inkt);
+  border-top: 6px solid var(--leiden);
   margin-bottom: 2rem;
 }
 
 .merk {
   margin: 0;
+  color: var(--leiden-tekst);
   font-weight: 700;
   font-size: 1.2rem;
   letter-spacing: -0.01em;
@@ -84,7 +114,7 @@ li {
 }
 
 a {
-  color: var(--gracht);
+  color: var(--leiden-tekst);
   text-underline-offset: 0.15em;
 }
 
@@ -129,11 +159,11 @@ a {
 }
 
 .voortgang li.klaar {
-  border-top-color: var(--gracht);
+  border-top-color: var(--inkt-zacht);
 }
 
 .voortgang li[aria-current="step"] {
-  border-top-color: var(--inkt);
+  border-top-color: var(--leiden);
   color: var(--inkt);
   font-weight: 700;
 }
@@ -175,7 +205,7 @@ input[type="text"] {
   padding: 0.55rem 0.7rem;
   border: 2px solid var(--inkt);
   border-radius: 4px;
-  background: var(--wit);
+  background: var(--veld);
   color: var(--inkt);
 }
 
@@ -184,17 +214,17 @@ input.breed {
 }
 
 .veld.fout input {
-  border-color: var(--baksteen);
+  border-color: var(--leiden);
   border-width: 3px;
 }
 
 .veld.fout {
-  border-left: 4px solid var(--baksteen);
+  border-left: 4px solid var(--leiden);
   padding-left: 0.75rem;
 }
 
 .foutmelding {
-  color: var(--baksteen);
+  color: var(--leiden-tekst);
   font-weight: 700;
   margin: 0 0 0.35rem;
 }
@@ -219,7 +249,7 @@ fieldset {
   width: 1.3rem;
   height: 1.3rem;
   margin-top: 0.15rem;
-  accent-color: var(--gracht);
+  accent-color: var(--leiden);
   flex: none;
 }
 
@@ -258,8 +288,8 @@ button {
 }
 
 .hoofdknop {
-  background: var(--gracht);
-  color: var(--wit);
+  background: var(--leiden);
+  color: var(--op-leiden);
   border: 0;
   border-radius: 4px;
   padding: 0.75rem 1.4rem;
@@ -267,7 +297,7 @@ button {
 }
 
 .hoofdknop:hover {
-  background: #17554f;
+  filter: brightness(0.9);
 }
 
 .tweedeknop {
@@ -282,7 +312,7 @@ button {
   background: none;
   border: 0;
   padding: 0;
-  color: var(--baksteen);
+  color: var(--leiden-tekst);
   text-decoration: underline;
   font-size: 0.9rem;
 }
@@ -299,11 +329,11 @@ button {
 }
 
 .antwoord.meer {
-  border-left-color: var(--gracht);
+  border-left-color: var(--positief);
 }
 
 .antwoord.minder {
-  border-left-color: var(--baksteen);
+  border-left-color: var(--let-op);
 }
 
 .antwoord-zin {
@@ -315,11 +345,11 @@ button {
 }
 
 .antwoord.meer .antwoord-zin {
-  color: var(--gracht);
+  color: var(--positief);
 }
 
 .antwoord.minder .antwoord-zin {
-  color: var(--baksteen);
+  color: var(--let-op);
 }
 
 .antwoord-sub {
@@ -351,7 +381,7 @@ button {
 
 input[type="range"] {
   width: 100%;
-  accent-color: var(--gracht);
+  accent-color: var(--leiden);
   height: 2rem;
 }
 
@@ -371,7 +401,7 @@ input[type="range"] {
 }
 
 .melding {
-  background: var(--baksteen-licht);
+  background: var(--let-op-zacht);
   padding: 0.6rem 0.8rem;
   border-radius: 4px;
   font-size: 0.9rem;
@@ -432,7 +462,7 @@ table.vergelijking {
 }
 
 .ster {
-  color: var(--baksteen);
+  color: var(--let-op);
   font-weight: 700;
   padding-left: 0.1rem;
 }
@@ -454,13 +484,13 @@ table.vergelijking {
 .signalen li {
   padding: 0.6rem 0.8rem;
   margin-bottom: 0.5rem;
-  border-left: 4px solid var(--gracht);
-  background: var(--gracht-licht);
+  border-left: 4px solid var(--positief);
+  background: var(--positief-zacht);
 }
 
 .signalen li.waarschuwing {
-  border-left-color: var(--baksteen);
-  background: var(--baksteen-licht);
+  border-left-color: var(--let-op);
+  background: var(--let-op-zacht);
 }
 
 details.uitleg {
@@ -493,7 +523,7 @@ details.uitleg summary {
 }
 
 .label-onzeker {
-  color: var(--baksteen);
+  color: var(--let-op);
 }
 
 .aannames {
@@ -520,7 +550,10 @@ details.uitleg summary {
 @media print {
   :root {
     font-size: 11pt;
-    background: #fff;
+    color-scheme: light;
+    --papier: #fff;
+    --inkt: #000;
+    --inkt-zacht: #333;
   }
   .knoppen,
   .bediening input,

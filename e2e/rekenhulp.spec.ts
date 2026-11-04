@@ -47,3 +47,22 @@ test("alleenstaande doorloopt de stappen en krijgt een antwoord", async ({ page 
 
   expect(extern).toEqual([]);
 });
+
+test.describe("donkere modus", () => {
+  test.use({ colorScheme: "dark" });
+
+  test("formulier en uitkomst zijn toegankelijk in donkere modus", async ({ page }) => {
+    await page.goto("/");
+    await geenToegankelijkheidsfouten(page);
+    await page.getByRole("button", { name: "Begin met rekenen" }).click();
+    await page.getByRole("button", { name: "Volgende stap" }).click();
+    await geenToegankelijkheidsfouten(page);
+    await page.getByLabel("Uw leeftijd").fill("40");
+    await page.getByRole("button", { name: "Volgende stap" }).click();
+    await page.getByRole("button", { name: "Volgende stap" }).click();
+    await page.getByLabel("Bruto uurloon", { exact: true }).fill("14,99");
+    await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+    await expect(page.locator(".antwoord-zin")).toBeVisible();
+    await geenToegankelijkheidsfouten(page);
+  });
+});
