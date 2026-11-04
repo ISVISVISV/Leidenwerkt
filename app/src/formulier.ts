@@ -1,6 +1,6 @@
 import type { Invoer, Kind, Leefvorm, Opvangsoort } from "@leidenwerkt/engine";
 
-export type LoonPer = "maand" | "vierweken" | "uur";
+export type LoonPer = "maand" | "netto" | "vierweken" | "uur";
 
 export interface KindVeld {
   leeftijd: string;
@@ -156,8 +156,9 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
  */
 function loonWerk(per: LoonPer, bedrag: number, uren: number, andereUren?: number) {
   const nieuweUren = andereUren ?? uren;
-  const factor = uren > 0 ? nieuweUren / uren : 1;
   if (per === "uur") return { brutoUurloon: bedrag, urenPerWeek: nieuweUren };
-  if (per === "vierweken") return { brutoVierwekenloon: Math.round(bedrag * factor * 100) / 100, urenPerWeek: nieuweUren };
-  return { brutoMaandloon: Math.round(bedrag * factor * 100) / 100, urenPerWeek: nieuweUren };
+  const urenFactor = uren > 0 ? nieuweUren / uren : 1;
+  if (per === "vierweken") return { brutoVierwekenloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
+  if (per === "netto") return { nettoMaandloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
+  return { brutoMaandloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
 }

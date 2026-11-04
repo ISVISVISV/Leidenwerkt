@@ -73,3 +73,25 @@ export function brutoUitNetto(l: Lezer, nettoJaar: Bedrag): Bedrag {
   }
   return hoog.toDecimalPlaces(2);
 }
+
+/**
+ * Bruto maandloon (zonder vakantiegeld) bij een netto maandloon zoals op
+ * de loonstrook. Aanname: de werkgever houdt per maand hetzelfde deel aan
+ * belasting in als over het hele jaar (vakantiegeld inbegrepen).
+ */
+export function brutoMaandUitNetto(l: Lezer, nettoMaand: Bedrag, vakantiegeld: Bedrag): Bedrag {
+  if (nettoMaand.lte(0)) return NUL;
+  const nettoBij = (brutoMaand: Bedrag) => {
+    const jaar = brutoMaand.times(12).times(vakantiegeld.plus(1));
+    const r = nettoLoon(l, jaar);
+    return brutoMaand.times(r.nettoJaar.div(jaar));
+  };
+  let laag = nettoMaand;
+  let hoog = nettoMaand.times(3);
+  for (let i = 0; i < 80 && hoog.minus(laag).gt(D("0.001")); i++) {
+    const midden = laag.plus(hoog).div(2);
+    if (nettoBij(midden).lt(nettoMaand)) laag = midden;
+    else hoog = midden;
+  }
+  return hoog.toDecimalPlaces(2);
+}

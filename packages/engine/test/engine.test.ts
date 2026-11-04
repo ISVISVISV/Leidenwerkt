@@ -229,3 +229,22 @@ describe("loonvormen en perioden", () => {
     expect(ouder.map((x) => x.naam)).toEqual(["Maand 1 t/m 6", "Maand 7 t/m 36", "Vanaf maand 37"]);
   });
 });
+
+describe("netto maandloon als invoer", () => {
+  it("rekent netto terug naar bruto zodat de loonstrook klopt", () => {
+    const viaBruto = bereken(basis({ nieuwWerk: { brutoMaandloon: 2000 } }));
+    const l = new Lezer(standaardRegels, JULI);
+    const r = nettoLoon(l, D(2000).times(12).times("1.08"));
+    const nettoStrook = D(2000).times(r.nettoJaar.div(r.brutoJaar));
+    const viaNetto = bereken(basis({ nieuwWerk: { nettoMaandloon: Number(nettoStrook.toFixed(2)) } }));
+    const verschil = D(post(viaNetto, "werk", "loon")!.perMaand!).minus(post(viaBruto, "werk", "loon")!.perMaand!).abs();
+    expect(verschil.lte("0.05")).toBe(true);
+    expect(viaNetto.werk.posten.find((p) => p.id === "loon")!.aannames.some((a) => a.includes("netto maandloon"))).toBe(true);
+  });
+
+  it("urenfactor schaalt het loon mee", () => {
+    const heel = bereken(basis({ nieuwWerk: { brutoMaandloon: 2000 } }));
+    const half = bereken(basis({ nieuwWerk: { brutoMaandloon: 4000, urenFactor: 0.5 } }));
+    expect(post(half, "werk", "loon")!.perMaand).toBe(post(heel, "werk", "loon")!.perMaand);
+  });
+});
