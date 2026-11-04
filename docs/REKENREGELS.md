@@ -1,6 +1,6 @@
 # Rekenregels Leidenwerkt
 
-Stand van het onderzoek: 4 november 2026 (fase 1, regelonderzoek).
+Stand van het onderzoek: 4 november 2026 (fase 1 en eerste aanvulling in fase 2). De waarden zelf staan in `regels/`; dit document beschrijft rekenwijze en bronnen.
 
 Dit document beschrijft per mechanisme de wettelijke grondslag, de rekenwijze, de gevonden waarden en hun status. Het is de bron voor de YAML-bestanden in `regels/` (fase 2).
 
@@ -51,7 +51,7 @@ Bronnen:
 | Parameter | Waarde | Status |
 | --- | --- | --- |
 | Leeftijdsgrens meetellende huisgenoten | 27 jaar | geverifieerd |
-| Formule (percentage per aantal kostendelers) | uit art. 22a lid 1 Pw | ontbrekend: wettekst nog niet geopend |
+| Formule | ((40% + A × 30%) / A) × gehuwdennorm, A = medebewoners + belanghebbende (+ partner) | onbevestigd (tekst via InView, versie per 1-7-2024) |
 | Bedragen art. 22a lid 3 per 1-7-2026 | a: € 755,98; b: € 350,42 | geverifieerd, betekenis per onderdeel nog uitzoeken |
 
 ## 3. Verrekening van inkomsten en inkomstenvrijlating
@@ -137,8 +137,8 @@ Open punt: de bijstand zelf wordt door de gemeente bruto uitbetaald met loonheff
 | Normpercentage zonder partner | 1,912% | onbevestigd (Stb. 2025, 412, via kamerstuk) |
 | Normpercentage met partner | 4,289% | onbevestigd |
 | Afbouwpercentage | 13,730% | onbevestigd |
-| Drempelinkomen | € 29.736 | onbevestigd (raming in kamerantwoord) |
-| Standaardpremie | – | ontbrekend: raming € 2.143 en de gepubliceerde inkomensgrens € 40.857 zijn niet met elkaar te rijmen |
+| Drempelinkomen | € 29.736 | onbevestigd (raming in kamerantwoord; levert met de standaardpremie een inkomensgrens van ca. € 41.000, secundaire bronnen noemen € 40.857) |
+| Standaardpremie | € 2.119 | geverifieerd (Stcrt. 2025, 40022) |
 | Vermogensgrens | – | ontbrekend |
 
 **2027:** percentages 1,930% / 4,307% / 13,760% genoemd in hetzelfde besluit (onbevestigd); standaardpremie en drempelinkomen 2027 `ontbrekend`.
@@ -157,9 +157,10 @@ Open punt: de bijstand zelf wordt door de gemeente bruto uitbetaald met loonheff
 | Maximale huurgrens (rekengrens) | € 932,93 | onbevestigd |
 | Minimum basishuur eenpersoons / meerpersoons | € 202,52 / € 200,71 | onbevestigd |
 | Correctie basishuur (verlaging eigen bijdrage) | € 48,15 | onbevestigd (VNG-normbedragen kwijtschelding) |
-| Formule inkomensafhankelijke eigen bijdrage | – | ontbrekend |
+| Inkomensafhankelijke vermindering | (rekeninkomen − minimum-inkomensijkpunt) × 27% (eenpersoons) of 22% (meerpersoons) / 12 | onbevestigd (Stb. 2024, 426) |
+| Minimum-inkomensijkpunt 2026 | bruto AOW + vakantietoeslag + € 2.340 (eenpersoons) / € 2.512 (meerpersoons) | formule bekend, bedrag ontbrekend |
 
-Huurtoeslag is het meest complexe onderdeel. Zonder de letterlijke Regeling huurtoeslaggrenzen 2026 kan het niet betrouwbaar worden berekend.
+De engine bevat de volledige huurtoeslagformule. Zolang het minimum-inkomensijkpunt 2026 ontbreekt, meldt de app de huurtoeslag als 'niet berekend'.
 
 ## 7. Kindgebonden budget
 
@@ -193,7 +194,7 @@ Huurtoeslag is het meest complexe onderdeel. Zonder de letterlijke Regeling huur
 | --- | --- | --- |
 | Maximum uurprijs dagopvang / bso / gastouder | € 11,23 / € 9,98 / € 8,49 | geverifieerd (Rijksoverheid) |
 | Maximaal aantal uren per maand per kind | 230 | onbevestigd |
-| Vergoedingstabel 2026 (bijlage I Besluit) | laagste schijf 96,0% / 96,0% | ontbrekend als volledige tabel |
+| Vergoedingstabel 2026 (bijlage I Besluit, Stb. 2025, 233) | volledige tabel in `regels/landelijk/kinderopvang/2026.yaml` | onbevestigd (tekst via InView) |
 | Urennorm gekoppeld aan gewerkte uren | – | ontbrekend |
 
 Bron: [Rijksoverheid — Bedragen kinderopvangtoeslag 2026](https://www.rijksoverheid.nl/onderwerpen/kinderopvangtoeslag/bedragen-kinderopvangtoeslag-2026).
@@ -228,14 +229,14 @@ Leiden voert Werk en Inkomen ook uit voor Leiderdorp (aanvraagformulier IIT 2026
 | Mechanisme | 2026 | 2027 |
 | --- | --- | --- |
 | Bijstandsnorm | geverifieerd | ontbrekend (verwacht dec. 2026) |
-| Kostendelersnorm | deels | deels |
+| Kostendelersnorm | onbevestigd | onbevestigd |
 | Inkomstenvrijlating | grotendeels geverifieerd | onbevestigd |
 | Loonheffing en kortingen | geverifieerd | onbevestigd / ontbrekend |
-| Zorgtoeslag | onbevestigd, standaardpremie ontbrekend | ontbrekend |
-| Huurtoeslag | onbevestigd, formule ontbrekend | ontbrekend |
+| Zorgtoeslag | onbevestigd (standaardpremie geverifieerd) | ontbrekend |
+| Huurtoeslag | formule bekend, minimum-inkomensijkpunt ontbrekend | ontbrekend |
 | Kindgebonden budget | onbevestigd | ontbrekend |
 | Kinderbijslag | ontbrekend | ontbrekend |
-| Kinderopvangtoeslag | deels | ontbrekend |
+| Kinderopvangtoeslag | onbevestigd (uurprijzen geverifieerd) | ontbrekend |
 | Leidse regelingen | deels | ontbrekend |
 
 Conclusie: de bijstand en de belasting voor 2026 kunnen nu al betrouwbaar worden gebouwd. Voor de toeslagen ontbreken nog de officiële rekenparameters; die staan vooral in Staatsblad- en Staatscourant-publicaties en op de sites van Dienst Toeslagen en SVB. Het ophalen daarvan is de eerste taak in fase 2, parallel aan het fundament.

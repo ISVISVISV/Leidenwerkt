@@ -1,0 +1,543 @@
+:root {
+  --papier: #f4f6f5;
+  --inkt: #1b2a31;
+  --inkt-zacht: #4a5a61;
+  --gracht: #1e6b63;
+  --gracht-licht: #dcebe8;
+  --baksteen: #9e4429;
+  --baksteen-licht: #f3e2dc;
+  --lijn: #c8d2d0;
+  --vlak: #e3ebe9;
+  --wit: #ffffff;
+  --focus: #1f4fbf;
+  color-scheme: light;
+  font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+  font-size: 112.5%;
+  line-height: 1.5;
+  color: var(--inkt);
+  background: var(--papier);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--papier);
+}
+
+.pagina {
+  max-width: 38rem;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+}
+
+.kopregel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  padding: 1.25rem 0 1rem;
+  border-bottom: 2px solid var(--inkt);
+  margin-bottom: 2rem;
+}
+
+.merk {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+}
+
+.kopregel-tekst {
+  margin: 0;
+  color: var(--inkt-zacht);
+  font-size: 0.85rem;
+}
+
+h1 {
+  font-size: 1.9rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 1.25rem;
+}
+
+h1:focus {
+  outline: none;
+}
+
+h2 {
+  font-size: 1.3rem;
+  line-height: 1.25;
+  margin: 2.25rem 0 0.75rem;
+}
+
+h3 {
+  font-size: 1rem;
+  margin: 1rem 0 0.5rem;
+}
+
+p,
+li {
+  max-width: 34em;
+}
+
+a {
+  color: var(--gracht);
+  text-underline-offset: 0.15em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.inleiding {
+  font-size: 1.15rem;
+}
+
+.klein,
+.hint {
+  font-size: 0.85rem;
+  color: var(--inkt-zacht);
+}
+
+.hint {
+  margin: 0 0 0.35rem;
+}
+
+/* Voortgang: een echte reeks van vier stappen */
+.voortgang {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.25rem;
+  padding: 0;
+  margin: 0 0 1.5rem;
+  counter-reset: stap;
+}
+
+.voortgang li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.75rem;
+  color: var(--inkt-zacht);
+  border-top: 4px solid var(--lijn);
+  padding-top: 0.35rem;
+}
+
+.voortgang li.klaar {
+  border-top-color: var(--gracht);
+}
+
+.voortgang li[aria-current="step"] {
+  border-top-color: var(--inkt);
+  color: var(--inkt);
+  font-weight: 700;
+}
+
+.voortgang .nummer {
+  font-weight: 700;
+}
+
+@media (max-width: 30rem) {
+  .voortgang .naam {
+    display: none;
+  }
+  .voortgang li[aria-current="step"] .naam {
+    display: inline;
+  }
+}
+
+/* Formulier */
+.veld {
+  margin: 0 0 1.4rem;
+}
+
+.veld > label,
+legend {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.invoer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+input[type="text"] {
+  font: inherit;
+  width: 8rem;
+  padding: 0.55rem 0.7rem;
+  border: 2px solid var(--inkt);
+  border-radius: 4px;
+  background: var(--wit);
+  color: var(--inkt);
+}
+
+input.breed {
+  width: 100%;
+}
+
+.veld.fout input {
+  border-color: var(--baksteen);
+  border-width: 3px;
+}
+
+.veld.fout {
+  border-left: 4px solid var(--baksteen);
+  padding-left: 0.75rem;
+}
+
+.foutmelding {
+  color: var(--baksteen);
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 1.4rem;
+}
+
+.optie,
+.vinkje {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+
+.optie input,
+.vinkje input {
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-top: 0.15rem;
+  accent-color: var(--gracht);
+  flex: none;
+}
+
+.groep {
+  border-top: 1px solid var(--lijn);
+  padding-top: 1rem;
+}
+
+.kind {
+  border-left: 3px solid var(--vlak);
+  padding: 0.25rem 0 0.75rem 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.opvang {
+  margin-top: 0.75rem;
+}
+
+.naast {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.5rem;
+}
+
+/* Knoppen */
+.knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.hoofdknop {
+  background: var(--gracht);
+  color: var(--wit);
+  border: 0;
+  border-radius: 4px;
+  padding: 0.75rem 1.4rem;
+  font-weight: 700;
+}
+
+.hoofdknop:hover {
+  background: #17554f;
+}
+
+.tweedeknop {
+  background: transparent;
+  color: var(--inkt);
+  border: 2px solid var(--inkt);
+  border-radius: 4px;
+  padding: 0.65rem 1.2rem;
+}
+
+.linkknop {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--baksteen);
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.start .hoofdknop {
+  margin: 1rem 0;
+}
+
+/* Uitkomst: het antwoord is het enige grote element */
+.antwoord {
+  padding: 1.25rem 0 1.25rem 1.25rem;
+  border-left: 8px solid var(--inkt-zacht);
+  margin-bottom: 1.5rem;
+}
+
+.antwoord.meer {
+  border-left-color: var(--gracht);
+}
+
+.antwoord.minder {
+  border-left-color: var(--baksteen);
+}
+
+.antwoord-zin {
+  font-size: 2.1rem;
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.6rem;
+}
+
+.antwoord.meer .antwoord-zin {
+  color: var(--gracht);
+}
+
+.antwoord.minder .antwoord-zin {
+  color: var(--baksteen);
+}
+
+.antwoord-sub {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.antwoord-noot {
+  font-size: 0.85rem;
+  color: var(--inkt-zacht);
+  margin: 0.25rem 0 0;
+}
+
+.bediening {
+  background: var(--vlak);
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bediening label[for="urenschuif"] {
+  font-weight: 700;
+  display: block;
+}
+
+.bediening output {
+  font-size: 1.3rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--gracht);
+  height: 2rem;
+}
+
+.keuze.compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.25rem;
+  margin: 0.75rem 0 0;
+}
+
+.keuze.compact legend {
+  width: 100%;
+}
+
+.toelichting {
+  font-size: 0.9rem;
+}
+
+.melding {
+  background: var(--baksteen-licht);
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+table.vergelijking {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.vergelijking caption {
+  text-align: left;
+  font-weight: 700;
+  font-size: 1.15rem;
+  padding-bottom: 0.5rem;
+}
+
+.vergelijking th,
+.vergelijking td {
+  padding: 0.55rem 0.4rem;
+  border-bottom: 1px solid var(--lijn);
+  text-align: right;
+  vertical-align: top;
+}
+
+.vergelijking td {
+  white-space: nowrap;
+}
+
+.vergelijking tr.leeg td {
+  white-space: normal;
+}
+
+.vergelijking th[scope="row"],
+.vergelijking thead th:first-child {
+  text-align: left;
+  font-weight: 400;
+}
+
+.vergelijking thead th {
+  font-size: 0.85rem;
+  color: var(--inkt-zacht);
+  font-weight: 700;
+}
+
+.vergelijking tfoot th,
+.vergelijking tfoot td {
+  font-weight: 700;
+  border-top: 2px solid var(--inkt);
+  border-bottom: 0;
+}
+
+.vergelijking tr.leeg td {
+  color: var(--inkt-zacht);
+  font-size: 0.85rem;
+}
+
+.ster {
+  color: var(--baksteen);
+  font-weight: 700;
+  padding-left: 0.1rem;
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.signalen {
+  padding-left: 0;
+  list-style: none;
+}
+
+.signalen li {
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.5rem;
+  border-left: 4px solid var(--gracht);
+  background: var(--gracht-licht);
+}
+
+.signalen li.waarschuwing {
+  border-left-color: var(--baksteen);
+  background: var(--baksteen-licht);
+}
+
+details.uitleg {
+  border-bottom: 1px solid var(--lijn);
+  padding: 0.6rem 0;
+}
+
+details.uitleg summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.stappen div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.2rem 0;
+  font-size: 0.9rem;
+}
+
+.stappen dd {
+  margin: 0;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.bronnen {
+  font-size: 0.85rem;
+  padding-left: 1.1rem;
+}
+
+.label-onzeker {
+  color: var(--baksteen);
+}
+
+.aannames {
+  font-size: 0.9rem;
+}
+
+.voet {
+  margin-top: 3rem;
+  border-top: 1px solid var(--lijn);
+  padding-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--inkt-zacht);
+}
+
+@media (max-width: 30rem) {
+  h1 {
+    font-size: 1.6rem;
+  }
+  .antwoord-zin {
+    font-size: 1.65rem;
+  }
+}
+
+@media print {
+  :root {
+    font-size: 11pt;
+    background: #fff;
+  }
+  .knoppen,
+  .bediening input,
+  .voortgang {
+    display: none;
+  }
+  details.uitleg {
+    display: block;
+  }
+  details.uitleg > *:not(summary) {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

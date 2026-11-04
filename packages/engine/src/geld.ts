@@ -29,10 +29,11 @@ export function centen(b: Bedrag): string {
 }
 
 /** Nederlandse weergave: € 1.234,56 (of hele euro's). */
-export function euro(b: Bedrag, heleEuros = false): string {
+export function euro(waarde: Bedrag | string, heleEuros = false): string {
+  const b = typeof waarde === "string" ? D(waarde) : waarde;
   const afgerond = heleEuros ? b.toDecimalPlaces(0, Decimal.ROUND_HALF_UP) : b.toDecimalPlaces(2, Decimal.ROUND_HALF_UP);
   const negatief = afgerond.isNegative() && !afgerond.isZero();
   const [heel, deel] = afgerond.abs().toFixed(heleEuros ? 0 : 2).split(".");
   const metPunten = heel.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  return `${negatief ? "− " : ""}€ ${metPunten}${deel ? "," + deel : ""}`;
+  return `${negatief ? "−\u00a0" : ""}€\u00a0${metPunten}${deel ? "," + deel : ""}`;
 }

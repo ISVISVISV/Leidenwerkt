@@ -15,9 +15,12 @@
     "typecheck": "npm run regels && tsc -b",
     "dev": "npm run regels && npm run dev -w app",
     "build": "npm run regels && npm run build -w app",
-    "build:los": "npm run regels && npm run build:los -w app"
+    "build:los": "npm run regels && npm run build:los -w app",
+    "test:e2e": "npm run build && playwright test"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.64.1",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",

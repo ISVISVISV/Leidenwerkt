@@ -1,0 +1,32 @@
+publiccodeYmlVersion: "0.4"
+name: Leidenwerkt
+url: https://github.com/leidenwerkt/leidenwerkt
+softwareVersion: 0.1.0
+releaseDate: "2026-11-04"
+platforms:
+  - web
+categories:
+  - financial-reporting
+developmentStatus: development
+softwareType: standalone/web
+description:
+  nl:
+    shortDescription: Rekenhulp voor inwoners van Leiden met bijstand die willen weten wat werken financieel oplevert.
+    longDescription: >
+      Leidenwerkt vergelijkt de huidige situatie van een inwoner met bijstand met de situatie na (meer) werken:
+      netto loon, bijstand, zorgtoeslag, huurtoeslag, kindgebonden budget, kinderopvangtoeslag en werkkosten.
+      Alle berekeningen gebeuren in de browser en zijn herleidbaar tot officiële bronnen.
+    features:
+      - Vergelijking bijstand en werk per maand en per jaar
+      - Uitleg per bedrag met officiële bron
+      - Werkt zonder server, ook als één los HTML-bestand
+legal:
+  license: EUPL-1.2
+maintenance:
+  type: community
+  contacts:
+    - name: Beheerder Leidenwerkt
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - nl
