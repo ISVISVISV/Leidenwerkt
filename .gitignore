@@ -5,3 +5,5 @@ packages/engine/src/generated/
 .DS_Store
 test-results/
 playwright-report/
+app/dist-los/
+*.tsbuildinfo
