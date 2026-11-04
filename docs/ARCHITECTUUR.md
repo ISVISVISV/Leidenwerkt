@@ -43,4 +43,4 @@ Modules:
 - `npm run test:e2e`: Playwright op een mobiel scherm, axe-toegankelijkheidscontrole per stap, en controle dat er geen extern netwerkverzoek is.
 - CI draait beide bij elke wijziging; bij een push naar `main` wordt de site op GitHub Pages gezet.
 
-Besluiten staan in [adr/](adr/).
+Besluiten staan in [adr/](adr/). Openstaande feedback staat in [VOLGENDE_KEER.md](VOLGENDE_KEER.md).
