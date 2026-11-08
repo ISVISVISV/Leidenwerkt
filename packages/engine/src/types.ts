@@ -16,7 +16,13 @@ export type Opvangsoort = "dagopvang" | "bso" | "gastouder";
 export interface Kind {
   leeftijd: number;
   /** Kinderopvang die gebruikt wordt als de ouder(s) werken. */
-  opvang?: { soort: Opvangsoort; urenPerMaand: number; uurprijs: number };
+  opvang?: {
+    soort: Opvangsoort;
+    urenPerMaand: number;
+    uurprijs: number;
+    /** De gebruiker wist de prijs niet; uurprijs is dan het maximale uurtarief voor de toeslag. */
+    uurprijsGeschat?: boolean;
+  };
 }
 
 export interface Werk {
@@ -58,7 +64,22 @@ export interface Invoer {
    */
   huisgenotenInkomenJaar?: number;
   /** Servicekosten tellen sinds 2026 niet meer mee voor de huurtoeslag; het veld wordt genegeerd. */
-  wonen: { soort: "huur"; kaleHuurPerMaand?: number; servicekostenPerMaand?: number } | { soort: "anders" };
+  wonen:
+    | {
+        soort: "huur";
+        kaleHuurPerMaand?: number;
+        servicekostenPerMaand?: number;
+        /** Eigen toegangsdeur, keuken, wc en douche of bad. Standaard true. Zonder: geen huurtoeslag. */
+        zelfstandig?: boolean;
+      }
+    /** Koopwoning, of woonsituatie onbekend: geen huurtoeslag, de gewone norm. */
+    | { soort: "anders" }
+    /**
+     * De gebruiker betaalt zelf geen woonkosten: geen vaste woonplek, of iemand
+     * anders betaalt de woonkosten. Leiden verlaagt dan de norm (art. 27 Pw,
+     * beleidsregels CVDR760406 art. 3.1).
+     */
+    | { soort: "geen_woonkosten"; dakloos?: boolean; betaaltWoonlasten: boolean };
   /** Huidige situatie: eventueel werk naast de bijstand. */
   huidigWerk?: Werk;
   /** Het werk dat de gebruiker overweegt. */

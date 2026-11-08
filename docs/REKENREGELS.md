@@ -59,6 +59,19 @@ De engine rekent met `decimal.js` en rondt niet tussentijds af, met deze uitzond
 
 Bron: [Rijksoverheid, hoogte bijstandsuitkering](https://www.rijksoverheid.nl/themas/werk/arbeidsomstandigheden/vraag-en-antwoord/bijstand/hoe-hoog-is-mijn-bijstandsuitkering).
 
+### Lagere norm bij geen of lage woonkosten (Leiden)
+
+Grondslag: art. 27 Pw en de [Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026](https://lokaleregelgeving.overheid.nl/CVDR760406), art. 3.1 (geldend vanaf 14 april 2026). Alleen bij de norm van art. 21, dus niet bij de kostendelersnorm. De verlaging is een deel van de gehuwdennorm:
+
+| Situatie | Verlaging |
+| --- | --- |
+| Zelf geen woonkosten (geen vaste woonplek, of iemand anders betaalt de woonkosten langer dan 6 maanden) | 10% |
+| Woonkosten lager dan 10% van de gehuwdennorm | het verschil |
+| Zelf geen woonlasten (gas, elektriciteit, water) | 9% |
+| Geen woonkosten en geen woonlasten | 19% |
+
+De app vraagt bij 'Uw woning' waar iemand woont. Bij "geen vaste woonplek" en "bij iemand in, zonder te betalen" volgt de vraag of iemand zelf gas, licht of water betaalt. Wonen in een instelling (art. 23 Pw, andere normen) berekent de app niet; ze meldt dat.
+
 ## 2. Kostendelersnorm
 
 **Grondslag:** art. 19a en 22a Pw ([wetten.overheid.nl, versie 1 juli 2026](https://wetten.overheid.nl/BWBR0015703/2026-07-01)).
@@ -123,6 +136,8 @@ Grondslag: Wet op de huurtoeslag (versie 1 januari 2026), Besluit op de huurtoes
 
 Getoetst aan de rekenvoorbeelden 2 en 3 uit de brochure (zie `packages/engine/test/officieel.test.ts`) en aan vijf proefberekeningen.
 
+**Zelfstandige woning:** huurtoeslag is er alleen voor een zelfstandige woonruimte: een eigen toegangsdeur die op slot kan, een eigen keuken en wc, en sinds 1 maart 2024 een eigen douche of bad ([Dienst Toeslagen, Kan ik huurtoeslag krijgen?](https://www.belastingdienst.nl/wps/wcm/connect/nl/huurtoeslag/content/kan-ik-huurtoeslag-krijgen)). Antwoordt de gebruiker dat de woning dat niet heeft, dan rekent de app zonder huurtoeslag en zegt dat erbij. Voor sommige onzelfstandige woningen kan wel huurtoeslag gelden; die uitzondering rekent de app niet.
+
 **Huisgenoten (medebewoners):** hun toetsingsinkomen telt mee in het rekeninkomen (art. 1 onder i Wht; brochure stap 5) en zij tellen mee voor het aantal personen. De app vraagt bij 'Uw woning' het jaarinkomen van de huisgenoten van 27 jaar of ouder samen. Getoetst aan een proefberekening met één medebewoner (proefpersoon Wim). Beperking: huisgenoten van 18 tot 27 jaar en inkomen van inwonende kinderen worden niet gevraagd. Jongeren onder 21 worden niet ondersteund.
 
 ## 7. Kindgebonden budget
@@ -137,9 +152,15 @@ Inkomensonafhankelijk; telt niet mee voor de bijstand (art. 31 lid 2 b Pw) en be
 
 Toeslag per kind = uren (max. 230 per maand) × min(uurprijs, maximum) × percentage uit de tabel. Maxima 2026: dagopvang € 11,23, bso € 9,98, gastouder € 8,49. Eerste kind = kind met de meeste uren. Per jaar ten hoogste het aantal gewerkte maanden × 230 uur (bij twee ouders: de ouder die het minst werkt). Tabel en voorbeelden: [Dienst Toeslagen, Berekening kinderopvangtoeslag 2026](https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf).
 
+Weet de gebruiker de uurprijs niet, dan rekent de app met het maximum voor de soort opvang en zegt dat erbij. Blijft er na de toeslag een eigen bijdrage over, dan noemt de app dat de gemeente Leiden daarvoor bijzondere bijstand kan geven als de kosten een belemmering zijn voor werk (zie hoofdstuk 11). Dat bedrag rekent de app niet mee.
+
 ## 10. Overgangsmaanden en terugbetalen van toeslagen
 
 Toeslagen zijn een voorschot op het verwachte jaarinkomen. Wie gaat werken en zijn inkomen niet doorgeeft, krijgt te veel en moet dat na de definitieve berekening terugbetalen. De app toont per toeslag hoeveel lager die met werk wordt en wat dat na een jaar werk betekent (`terugbetaalrisico` in de uitkomst). Een overzicht per maand van de overgangsperiode is nog niet gebouwd.
+
+**Eerste 12 maanden.** Onder het kopgetal staat het verschil over de eerste 12 maanden na de start van het werk: de maanden van de eerste vrijlatingsperiode (tot en met 2026: 6 maanden onder n; vanaf 2027: 12 maanden onder art. 34a) maal het verschil in die periode, plus de overige maanden maal het verschil daarna (`verschilEersteJaar` in de engine). Niet 12 keer het verschil van de eerste maanden: de vrijlating is tijdelijk.
+
+**Urengrens.** Bij de urenschuif staat vanaf hoeveel uur per week de bijstand (in de gekozen periode) op nul komt, bij hetzelfde uurloon.
 
 ## 11. Leiden
 
@@ -152,6 +173,7 @@ Toeslagen zijn een voorschot op het verwachte jaarinkomen. Wie gaat werken en zi
 | Draagkracht bijzondere bijstand | Geen draagkracht tot 110% van de bijstandsnorm (exclusief vakantietoeslag); daarboven 20% van het meerinkomen tot 130%, 50% tussen 130% en 150%, 100% boven 150% | [Beleidsregels bijzondere bijstand 2022, art. 6](https://lokaleregelgeving.overheid.nl/CVDR677687) |
 | Collectieve aanvullende zorgverzekering, zwembadabonnement | Tot 120% van de bijstandsnorm kan de gemeente (een deel van) de premie vergoeden | idem |
 | Eigen bijdrage kinderopvang (SMI) | Tot 110% van de bijstandsnorm volledig vergoed | idem |
+| Eigen bijdrage kinderopvang (werk, scholing, participatie) | Bijzondere bijstand kan worden verleend als de kosten een belemmering zijn voor werk, scholing of een participatietraject. Eigen bijdrage = werkelijke kosten min kinderopvangtoeslag | idem |
 | Kwijtschelding | nog niet uitgezocht | – |
 
 ## 12. Onafhankelijke toetsing

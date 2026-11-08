@@ -18,3 +18,7 @@ Vastgelegd in commit "Snapshots van de uitkomsten 2026 vastgezet", vóór de wij
 ## 8 november 2026 (vervolg)
 
 Geen wijziging in de snapshots 2026. De toets vooraf bij art. 34a en de huurtoeslag met huisgenoten raken de vastgelegde huishoudens niet (alleen 2027, en huishoudens zonder huisgenoten met huur).
+
+## Lagere norm bij geen woonkosten, kamer zonder huurtoeslag, medische urenbeperking
+
+Geen wijziging in de snapshots 2026. De vastgelegde huishoudens huren een zelfstandige woning of hebben woonsituatie "anders", en hebben geen medische urenbeperking.

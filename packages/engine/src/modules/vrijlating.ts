@@ -51,7 +51,7 @@ function pw31(l: Lezer, v: VrijlatingVraag): VrijlatingUitkomst {
   const minLeeftijd = l.aantal("pw.vrijlating.minimumleeftijd");
   const nGeldt = v.fase === "start" && !minLeeftijd.gt(v.leeftijd);
   // Onderdeel y geldt "tenzij onderdeel n van toepassing is".
-  if (v.medischUrenbeperkt && !nGeldt) {
+  if (v.medischUrenbeperkt && !nGeldt && v.fase !== "geen") {
     const p = l.breuk("pw.vrijlating_y.percentage");
     const m = l.bedrag("pw.vrijlating_y.maximum");
     return {
@@ -97,7 +97,7 @@ function pw34a(l: Lezer, v: VrijlatingVraag): VrijlatingUitkomst {
   if (!overgangN && v.huishoudinkomen && v.norm && v.huishoudinkomen.gt(v.norm)) {
     return geen("Uw inkomen is hoger dan de bijstandsnorm. Dan stopt de bijstand en geldt de bijverdienregeling niet");
   }
-  if (v.medischUrenbeperkt) {
+  if (v.medischUrenbeperkt && v.fase !== "geen") {
     const p = l.breuk("pw.bijverdien.medisch_percentage");
     return {
       bedrag: v.nettoArbeid.times(p),

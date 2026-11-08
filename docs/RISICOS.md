@@ -16,4 +16,4 @@ Stand: 8 november 2026.
 | R9 | **Toegankelijkheid** onvoldoende voor mensen met beperkte digitale vaardigheden. | Middel | Hoog | B1-taal, axe-tests in CI, test met iemand uit de doelgroep. |
 | R10 | **Privacy**: per ongeluk een externe bron (font, CDN, analytics) die verkeer genereert. | Laag | Middel | Playwright-test die faalt bij elk netwerkverzoek na het laden. |
 | R11 | **Naamverwarring** met een gemeentelijk programma. | Laag | Laag | Zoektocht naar "Leidenwerkt" / "Leiden Werkt" leverde op 4-11-2026 geen bestaand gebruik op. Opnieuw controleren vóór publicatie. |
-| R12 | **Eén onderhouder.** Als de eigenaar stopt, veroudert de app. | Middel | Hoog | Documentatie voor opvolgers, open licentie (EUPL-1.2), duidelijke bijdrageregels; app toont de datum van de laatst gecontroleerde regels. |
+| R12 | **Eén onderhouder.** Als die stopt, veroudert de app. | Middel | Hoog | Documentatie voor opvolgers, open licentie (EUPL-1.2), duidelijke bijdrageregels; app toont de datum van de laatst gecontroleerde regels. |

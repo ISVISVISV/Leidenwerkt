@@ -6,6 +6,7 @@ import { euro, type Bedrag } from "./geld.ts";
 import { Lezer, OntbrekendeParameter, standaardRegels, type RegelSet } from "./regels.ts";
 import { REGIMES, dagVoor, regimeOp } from "./regimes.ts";
 import type { Fase, Invoer } from "./types.ts";
+import { CITATEN, type Citaat } from "./citaten.ts";
 
 export interface Periode {
   fase: Fase;
@@ -21,6 +22,8 @@ export interface VrijlatingUitleg {
   medisch?: string;
   /** Wettelijke grondslag, voor de bronvermelding. */
   bron: string;
+  /** Letterlijke wetteksten bij deze perioden, voor de pop-up bij de bron. */
+  citaten: Citaat[];
 }
 
 const pct = (b: Bedrag) => b.times(100).toString().replace(".", ",") + "%";
@@ -29,6 +32,20 @@ const DAARNA =
   "Verdient u minder dan de bijstandsnorm, dan houdt u samen evenveel over als zonder werk: de bijstand vult uw loon aan tot de norm. Verdient u meer dan de norm, dan stopt de bijstand en houdt u uw hele netto loon. Daarin zit ook de arbeidskorting: korting op de belasting omdat u werkt.";
 
 export function vrijlatingUitleg(invoer: Invoer, regels: RegelSet = standaardRegels): VrijlatingUitleg {
+  const u = zonderCitaten(invoer, regels);
+  if (u.periodes.length === 1 && u.periodes[0].regel.includes("nog niet bekend")) return { ...u, citaten: [] };
+  const regime = regimeOp(invoer.datum);
+  if (regime.id === "pw34a") return { ...u, citaten: [CITATEN.pw34a] };
+  const ouderJongKind = invoer.leefvorm === "alleenstaande_ouder" && invoer.kinderen.some((k) => k.leeftijd < 12);
+  const citaten: Citaat[] = [CITATEN.pw31n];
+  if (ouderJongKind && !invoer.medischUrenbeperkt) citaten.push(CITATEN.pw31r);
+  if (invoer.medischUrenbeperkt) citaten.push(CITATEN.pw31y);
+  const l = new Lezer(regels, invoer.datum);
+  if (l.bestaat("pw.vrijlating.minimumleeftijd") && l.aantal("pw.vrijlating.minimumleeftijd").gt(invoer.leeftijd)) citaten.push(CITATEN.pw31lid5);
+  return { ...u, citaten };
+}
+
+function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg, "citaten"> {
   const l = new Lezer(regels, invoer.datum);
   const regime = regimeOp(invoer.datum);
   const ouderJongKind = invoer.leefvorm === "alleenstaande_ouder" && invoer.kinderen.some((k) => k.leeftijd < 12);
@@ -67,6 +84,18 @@ export function vrijlatingUitleg(invoer: Invoer, regels: RegelSet = standaardReg
           bron,
         };
       }
+      if (invoer.medischUrenbeperkt) {
+        return {
+          periodes: [
+            {
+              fase: "start",
+              naam: "Zolang u bijstand krijgt",
+              regel: `Met een medische urenbeperking mag u ${pct(l.breuk("pw.bijverdien.medisch_percentage"))} van uw netto loon houden naast de bijstand. Er is geen maximumbedrag en geen einddatum. Vraag uw klantmanager of de gemeente uw urenbeperking heeft vastgesteld.`,
+            },
+          ],
+          bron,
+        };
+      }
       return {
         periodes: [
           { fase: "start", naam: `Maand 1 t/m ${duur}`, regel: `U mag ${pct(p)} van uw netto loon houden naast de bijstand. Er is geen maximumbedrag.` },
@@ -86,6 +115,11 @@ export function vrijlatingUitleg(invoer: Invoer, regels: RegelSet = standaardReg
     const medisch = `Heeft u een medische urenbeperking? Dan krijgt u na de eerste ${l.aantal("pw.vrijlating_n.duur").toString()} maanden (of als u jonger bent dan 27 jaar meteen) een andere vrijlating: ${pct(l.breuk("pw.vrijlating_y.percentage"))} van uw netto loon, maximaal ${euro(l.bedrag("pw.vrijlating_y.maximum"))} per maand, zonder einddatum. U krijgt nooit twee vrijlatingen tegelijk.`;
     const bron = "Participatiewet art. 31 lid 2 onder n, r en y, en lid 5.";
     const minLeeftijd = l.aantal("pw.vrijlating.minimumleeftijd");
+    const yRegel = () =>
+      `Met een medische urenbeperking mag u ${pct(l.breuk("pw.vrijlating_y.percentage"))} van uw netto loon houden, maximaal ${euro(l.bedrag("pw.vrijlating_y.maximum"))} per maand, zolang u bijstand krijgt. Vraag uw klantmanager of de gemeente uw urenbeperking heeft vastgesteld.`;
+    if (invoer.medischUrenbeperkt && minLeeftijd.gt(invoer.leeftijd)) {
+      return { periodes: [{ fase: "later", naam: "Vanaf de start", regel: yRegel() }], bron };
+    }
     if (minLeeftijd.gt(invoer.leeftijd)) {
       return {
         periodes: [
@@ -105,7 +139,9 @@ export function vrijlatingUitleg(invoer: Invoer, regels: RegelSet = standaardReg
     const lijst: Periode[] = [
       { fase: "start", naam: `Maand 1 t/m ${dn}`, regel: `U mag ${pct(pn)} van uw netto loon houden naast de bijstand, maximaal ${euro(mn)} per maand.` },
     ];
-    if (ouderJongKind && l.bestaat("pw.vrijlating_r.maximum")) {
+    if (invoer.medischUrenbeperkt) {
+      lijst.push({ fase: "later", naam: `Vanaf maand ${dn + 1}`, regel: yRegel() });
+    } else if (ouderJongKind && l.bestaat("pw.vrijlating_r.maximum")) {
       const pr = l.breuk("pw.vrijlating_r.percentage");
       const mr = l.bedrag("pw.vrijlating_r.maximum");
       const dr = l.aantal("pw.vrijlating_r.duur").toNumber();
