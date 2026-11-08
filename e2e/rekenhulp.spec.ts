@@ -142,7 +142,7 @@ test("zonder vaste woonplek, met medische urenbeperking: lagere norm, vrijlating
   await page.getByLabel("Vanaf maand 7").check();
   await expect(page.locator(".toelichting")).toContainText("Met een medische urenbeperking mag u 15%");
   const bron = page.locator(".toelichting .bron").filter({ hasText: "onder y" });
-  await bron.getByRole("button", { name: "Wettekst tonen" }).click();
+  await bron.getByRole("button").click();
   await expect(bron.getByRole("tooltip")).toContainText("medisch urenbeperkt");
   await page.getByText("Bijstand", { exact: true }).first().click();
   await geenToegankelijkheidsfouten(page);

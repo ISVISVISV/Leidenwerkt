@@ -57,7 +57,7 @@ function pw31(l: Lezer, v: VrijlatingVraag): VrijlatingUitkomst {
     return {
       bedrag: min(v.nettoArbeid.times(p), m),
       uitleg: `Vrijlating bij een medische urenbeperking: ${pct(p)} van het netto loon, maximaal ${euro(m)} per maand`,
-      aannames: ["Er is aangenomen dat de gemeente uw medische urenbeperking heeft vastgesteld."],
+      aannames: [],
     };
   }
   if (v.fase === "geen") return geen("Geen vrijlating toegepast");
@@ -102,7 +102,7 @@ function pw34a(l: Lezer, v: VrijlatingVraag): VrijlatingUitkomst {
     return {
       bedrag: v.nettoArbeid.times(p),
       uitleg: `Bijverdienregeling bij een medische urenbeperking: ${pct(p)} van het netto loon`,
-      aannames: ["Er is aangenomen dat de gemeente uw medische urenbeperking heeft vastgesteld."],
+      aannames: [],
     };
   }
   if (v.fase === "geen") return geen("Geen vrijlating toegepast");

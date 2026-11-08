@@ -249,7 +249,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       }
       kern.bijstandMaand = bijstand;
       aanname("Bijstand is netto en inclusief vakantietoeslag per maand gerekend; de gemeente betaalt de vakantietoeslag één keer per jaar uit.");
-      aanname("Er is aangenomen dat er geen vermogen boven de vermogensgrens is en dat aan alle voorwaarden voor bijstand wordt voldaan.");
+      aanname("Er is aangenomen dat u aan de voorwaarden voor bijstand voldoet, en dat uw vermogen (spaargeld en bezit) onder de grenzen voor bijstand en toeslagen blijft.");
       return bijstand;
     }),
   );
@@ -273,7 +273,6 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       const jaar = zorgtoeslag(l, ti, paar);
       const maand = maandbedragToeslag(jaar.div(12));
       stap(`Zorgtoeslag per maand. ${AFGEROND}`, maand);
-      aanname("Er is aangenomen dat het vermogen onder de vermogensgrens blijft.");
       return maand;
     }),
   );
@@ -295,8 +294,6 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
           stap("Plus het jaarinkomen van de anderen in huis (dit telt mee voor de huurtoeslag)", anderen);
           rekeninkomen = rekeninkomen.plus(anderen);
           stap("Rekeninkomen: het inkomen van iedereen in huis samen", rekeninkomen);
-        } else if (invoer.kinderen.some((k) => k.leeftijd >= 18)) {
-          aanname("Er is aangenomen dat uw kinderen geen inkomen hebben. Heeft een kind wel inkomen, dan telt dat mee voor de huurtoeslag.");
         }
         const personen = 1 + (paar ? 1 : 0) + invoer.kinderen.length + huisgenoten;
         const h = huurtoeslag(l, D(wonen.kaleHuurPerMaand ?? 0), rekeninkomen, personen);
@@ -309,8 +306,6 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         const maand = maandbedragToeslag(h.perMaand);
         stap(`Huurtoeslag per maand. ${AFGEROND}`, maand);
         if (wonen.servicekostenPerMaand) aanname("Servicekosten tellen sinds 2026 niet meer mee voor de huurtoeslag.");
-        aanname("Er is aangenomen dat het vermogen onder de vermogensgrens blijft.");
-        aanname("U huurt een zelfstandige woning: met een eigen voordeur die op slot kan, een eigen keuken, wc en douche of bad. Alleen dan krijgt u meestal huurtoeslag.");
         return maand;
       }),
     );
@@ -325,7 +320,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         const jaar = kindgebondenBudget(l, ti, invoer.kinderen, paar);
         const maand = maandbedragToeslag(jaar.div(12));
         stap(`Kindgebonden budget per maand. ${AFGEROND}`, maand);
-        aanname("Het kindgebonden budget telt niet mee als inkomen voor de bijstand.");
+        stap("Het kindgebonden budget telt niet mee als inkomen voor de bijstand.");
         return maand;
       }),
     );
@@ -338,7 +333,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
           stap(`Kind van ${k.leeftijd} jaar: ${euro(kwartaal)} per kwartaal, per maand`, kwartaal.div(3));
           totaal = totaal.plus(kwartaal.div(3));
         }
-        aanname("Kinderbijslag hangt niet af van uw inkomen en telt niet mee voor de bijstand. De SVB betaalt per kwartaal; hier staat een derde daarvan per maand.");
+        stap("Kinderbijslag hangt niet af van uw inkomen en telt niet mee voor de bijstand. De SVB betaalt per kwartaal; hier staat een derde daarvan per maand.");
         stap("Kinderbijslag per maand, alle kinderen samen", totaal);
         return totaal;
       }),
@@ -513,11 +508,11 @@ export function bereken(oorspronkelijk: Invoer, regels: RegelSet = standaardRege
       "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
       ...(invoer.wonen.soort === "instelling"
         ? [
-            "U woont in een woonvorm met begeleiding en krijgt de lagere bijstand voor een instelling. Er is aangenomen dat u voor uw verblijf niets betaalt, ook niet als u gaat werken.",
+            "Er is aangenomen dat u voor uw verblijf in de woonvorm niets betaalt, ook niet als u gaat werken.",
           ]
         : []),
       ...(invoer.wonen.soort === "huur" && invoer.wonen.zelfstandig === false
-        ? ["U huurt een woning zonder eigen voordeur, keuken, wc of douche, bijvoorbeeld een kamer. Daarvoor krijgt u meestal geen huurtoeslag, dus die is niet meegerekend. Voor sommige kamers kan het wel; dat ziet u met de proefberekening van Dienst Toeslagen."]
+        ? ["Als u de voordeur, keuken, wc of douche deelt, bijvoorbeeld op een kamer, krijgt u meestal geen huurtoeslag. Daarom is die niet meegerekend. Voor sommige kamers kan het wel; dat ziet u met de proefberekening van Dienst Toeslagen."]
         : []),
     ],
   };

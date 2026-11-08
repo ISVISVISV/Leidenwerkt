@@ -38,7 +38,11 @@ export function App() {
           <>
             <ol className="voortgang" aria-label="Voortgang">
               {STAPPEN.map((naam, i) => (
-                <li key={naam} aria-current={i + 1 === stap ? "step" : undefined} className={i + 1 < stap ? "klaar" : undefined}>
+                <li
+                  key={naam}
+                  aria-current={i + 1 === stap ? "step" : undefined}
+                  className={i + 1 < stap || stap === STAPPEN.length ? "klaar" : undefined}
+                >
                   <span className="nummer">{i + 1}</span>
                   <span className="naam">{naam}</span>
                   {i + 1 < stap && <span className="sr"> (klaar)</span>}
@@ -230,7 +234,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
       <Keuze
         naam="leefvorm"
         legend="Met wie woont u?"
-        hint="Een partner is uw man of vrouw, of iemand met wie u samenwoont als stel."
+        hint="Een partner is uw man of vrouw, of iemand met wie u samenwoont en de kosten van het huishouden deelt."
         waarde={f.leefvorm === "paar" && f.kinderen.length > 0 ? "paar_kinderen" : f.leefvorm}
         onChange={(v) => {
           const metKinderen = v === "alleenstaande_ouder" || v === "paar_kinderen";
@@ -245,6 +249,14 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           ["paar_kinderen", "Met mijn partner en kinderen"],
         ]}
       />
+      <details className="uitleg klein-uitleg">
+        <summary>Twijfelt u of iemand uw partner is?</summary>
+        <p>
+          Voor de bijstand hoeft een partner geen liefdesrelatie te zijn. Woont u samen en zorgt u voor elkaar, bijvoorbeeld door samen de
+          boodschappen of de rekeningen te betalen? Dan ziet de gemeente u meestal als partners. Uw ouder of kind is nooit uw partner. Woont
+          iemand bij u omdat u voor hem of haar zorgt, of andersom? Dan ook niet. De gemeente beslist.
+        </p>
+      </details>
       <Veld id="leeftijd" label="Uw leeftijd" soort="geheel" voorbeeld="bijv. 35" waarde={f.leeftijd} onChange={(v) => zet("leeftijd", v)} fout={fouten.leeftijd} achtervoegsel="jaar" />
 
       {f.leefvorm === "paar" && (
@@ -352,7 +364,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         soort="geheel"
         voorbeeld="bijv. 0"
         label="Hoeveel andere mensen van 27 jaar of ouder wonen bij u in huis?"
-        hint="Tel uw partner niet mee. Een kind van 27 jaar of ouder telt wel mee, net als een huisgenoot."
+        hint={`${f.leefvorm === "paar" ? "Tel uzelf en uw partner niet mee." : "Tel uzelf niet mee."} Een kind van 27 jaar of ouder telt wel mee, net als een huisgenoot.`}
         waarde={f.kostendelers}
         onChange={(v) => zet("kostendelers", v)}
         fout={fouten.kostendelers}
@@ -362,7 +374,15 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         soort="geheel"
         voorbeeld="bijv. 0"
         label="Hoeveel andere mensen van 18 tot 27 jaar wonen bij u in huis?"
-        hint="Tel uw partner en uw eigen kinderen niet mee; die heeft u hierboven al ingevuld."
+        hint={
+          f.leefvorm === "paar" && f.kinderen.length > 0
+            ? "Tel uzelf, uw partner en uw kinderen niet mee; die heeft u hierboven al ingevuld."
+            : f.leefvorm === "paar"
+              ? "Tel uzelf en uw partner niet mee."
+              : f.kinderen.length > 0
+                ? "Tel uzelf en uw kinderen niet mee; die heeft u hierboven al ingevuld."
+                : "Tel uzelf niet mee."
+        }
         waarde={f.jongeHuisgenoten}
         onChange={(v) => zet("jongeHuisgenoten", v)}
         fout={fouten.jongeHuisgenoten}

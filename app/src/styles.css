@@ -167,8 +167,11 @@ a {
   border-top-color: var(--klaar);
 }
 
-.voortgang li[aria-current="step"] {
+.voortgang li[aria-current="step"]:not(.klaar) {
   border-top-color: var(--leiden);
+}
+
+.voortgang li[aria-current="step"] {
   color: var(--inkt);
   font-weight: 700;
 }
@@ -653,17 +656,26 @@ details.uitleg summary {
 
 .bron-knop {
   font: inherit;
-  font-size: 0.85em;
-  margin-left: 0.25rem;
-  padding: 0 0.35rem;
-  min-width: 24px;
-  min-height: 24px;
-  border: 1px solid var(--lijn);
-  border-radius: 4px;
-  background: var(--veld);
-  color: var(--inkt);
-  cursor: pointer;
-  vertical-align: baseline;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--leiden-tekst);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.15em;
+  cursor: help;
+  text-align: left;
+}
+
+.bron-knop:hover,
+.bron-knop[aria-expanded="true"] {
+  text-decoration-style: solid;
+}
+
+.bron-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-style: normal;
 }
 
 .bron-tekst {
@@ -707,8 +719,12 @@ details.uitleg summary {
 }
 
 @media print {
-  .bron-knop,
   .bron-tekst {
     display: none !important;
   }
+}
+
+.klein-uitleg {
+  margin: -0.5rem 0 1.4rem;
+  font-size: 0.9rem;
 }
