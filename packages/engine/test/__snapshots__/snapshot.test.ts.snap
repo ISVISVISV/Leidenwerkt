@@ -1,0 +1,260 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`snapshots 2026 > alleenstaande 24 uur, eerste helft 2026 1`] = `
+{
+  "huidig": {
+    "bijstand": "1401.50",
+    "huurtoeslag": null,
+    "zorgtoeslag": "129.20",
+  },
+  "nietMeegenomen": [
+    "huurtoeslag",
+  ],
+  "verschil": "285.00",
+  "werk": {
+    "bijstand": "48.18",
+    "huurtoeslag": null,
+    "loon": "1638.32",
+    "zorgtoeslag": "129.20",
+  },
+}
+`;
+
+exports[`snapshots 2026 > alleenstaande 24 uur, maand 1-6 1`] = `
+{
+  "huidig": {
+    "bijstand": "1419.46",
+    "huurtoeslag": null,
+    "zorgtoeslag": "129.20",
+  },
+  "nietMeegenomen": [
+    "huurtoeslag",
+  ],
+  "verschil": "289.00",
+  "werk": {
+    "bijstand": "70.14",
+    "huurtoeslag": null,
+    "loon": "1638.32",
+    "zorgtoeslag": "129.20",
+  },
+}
+`;
+
+exports[`snapshots 2026 > alleenstaande 24 uur, na maand 6 1`] = `
+{
+  "huidig": {
+    "bijstand": "1419.46",
+    "huurtoeslag": null,
+    "zorgtoeslag": "129.20",
+  },
+  "nietMeegenomen": [
+    "huurtoeslag",
+  ],
+  "verschil": "218.86",
+  "werk": {
+    "bijstand": "0.00",
+    "huurtoeslag": null,
+    "loon": "1638.32",
+    "zorgtoeslag": "129.20",
+  },
+}
+`;
+
+exports[`snapshots 2026 > alleenstaande 25 jaar, 20 uur 1`] = `
+{
+  "huidig": {
+    "bijstand": "1419.46",
+    "huurtoeslag": null,
+    "zorgtoeslag": "129.20",
+  },
+  "nietMeegenomen": [
+    "huurtoeslag",
+  ],
+  "verschil": "289.00",
+  "werk": {
+    "bijstand": "382.21",
+    "huurtoeslag": null,
+    "loon": "1326.25",
+    "zorgtoeslag": "129.20",
+  },
+}
+`;
+
+exports[`snapshots 2026 > alleenstaande 36 uur 1`] = `
+{
+  "huidig": {
+    "bijstand": "1419.46",
+    "huurtoeslag": null,
+    "zorgtoeslag": "129.20",
+  },
+  "nietMeegenomen": [
+    "huurtoeslag",
+  ],
+  "verschil": "980.52",
+  "werk": {
+    "bijstand": "0.00",
+    "huurtoeslag": null,
+    "loon": "2429.86",
+    "zorgtoeslag": "99.32",
+  },
+}
+`;
+
+exports[`snapshots 2026 > alleenstaande ouder, kind 4 met opvang 1`] = `
+{
+  "huidig": {
+    "bijstand": "1419.46",
+    "huurtoeslag": null,
+    "kgb": "499.67",
+    "kinderbijslag": null,
+    "zorgtoeslag": "129.20",
+  },
+  "nietMeegenomen": [
+    "huurtoeslag",
+    "kinderbijslag",
+  ],
+  "verschil": "300.28",
+  "werk": {
+    "bijstand": "70.14",
+    "huurtoeslag": null,
+    "iack": "46.48",
+    "kgb": "499.67",
+    "kinderbijslag": null,
+    "kot": "844.80",
+    "loon": "1638.32",
+    "opvangkosten": "-880.00",
+    "zorgtoeslag": "129.20",
+  },
+}
+`;
+
+exports[`snapshots 2026 > alleenstaande ouder, maand 7-36 1`] = `
+{
+  "huidig": {
+    "bijstand": "1419.46",
+    "huurtoeslag": null,
+    "kgb": "499.67",
+    "kinderbijslag": null,
+    "zorgtoeslag": "129.20",
+  },
+  "nietMeegenomen": [
+    "huurtoeslag",
+    "kinderbijslag",
+  ],
+  "verschil": "218.46",
+  "werk": {
+    "bijstand": "125.92",
+    "huurtoeslag": null,
+    "iack": "38.29",
+    "kgb": "499.67",
+    "kinderbijslag": null,
+    "loon": "1473.71",
+    "zorgtoeslag": "129.20",
+  },
+}
+`;
+
+exports[`snapshots 2026 > kostendeler, geen huur 1`] = `
+{
+  "huidig": {
+    "bijstand": "1013.90",
+    "zorgtoeslag": "129.20",
+  },
+  "nietMeegenomen": [],
+  "verschil": "624.42",
+  "werk": {
+    "bijstand": "0.00",
+    "loon": "1638.32",
+    "zorgtoeslag": "129.20",
+  },
+}
+`;
+
+exports[`snapshots 2026 > netto maandloon 1`] = `
+{
+  "huidig": {
+    "bijstand": "1419.46",
+    "huurtoeslag": null,
+    "zorgtoeslag": "129.20",
+  },
+  "nietMeegenomen": [
+    "huurtoeslag",
+  ],
+  "verschil": "289.00",
+  "werk": {
+    "bijstand": "520.46",
+    "huurtoeslag": null,
+    "loon": "1188.00",
+    "zorgtoeslag": "129.20",
+  },
+}
+`;
+
+exports[`snapshots 2026 > paar met twee kinderen, partner werkt 1`] = `
+{
+  "huidig": {
+    "bijstand": "1062.79",
+    "huurtoeslag": null,
+    "kgb": "490.33",
+    "kinderbijslag": null,
+    "loon_partner": "965.00",
+    "zorgtoeslag": "246.89",
+  },
+  "nietMeegenomen": [
+    "huurtoeslag",
+    "kinderbijslag",
+  ],
+  "verschil": "586.19",
+  "werk": {
+    "bijstand": "0.00",
+    "huurtoeslag": null,
+    "kgb": "490.33",
+    "kinderbijslag": null,
+    "loon": "1679.47",
+    "loon_partner": "965.00",
+    "zorgtoeslag": "216.40",
+  },
+}
+`;
+
+exports[`snapshots 2026 > uitzendkracht vierwekenloon 1`] = `
+{
+  "huidig": {
+    "bijstand": "1419.46",
+    "huurtoeslag": null,
+    "zorgtoeslag": "129.20",
+  },
+  "nietMeegenomen": [
+    "huurtoeslag",
+  ],
+  "verschil": "289.00",
+  "werk": {
+    "bijstand": "170.45",
+    "huurtoeslag": null,
+    "loon": "1538.01",
+    "zorgtoeslag": "129.20",
+  },
+}
+`;
+
+exports[`snapshots 2026 > werkt al, breidt uit 1`] = `
+{
+  "huidig": {
+    "bijstand": "771.46",
+    "huurtoeslag": null,
+    "loon": "648.00",
+    "zorgtoeslag": "129.20",
+  },
+  "nietMeegenomen": [
+    "huurtoeslag",
+  ],
+  "verschil": "117.13",
+  "werk": {
+    "bijstand": "0.00",
+    "huurtoeslag": null,
+    "loon": "1576.59",
+    "werkkosten": "-40.00",
+    "zorgtoeslag": "129.20",
+  },
+}
+`;
