@@ -194,7 +194,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
       f.woont === "huur"
         ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), zelfstandig: f.zelfstandig }
         : f.woont === "inwonend" || f.woont === "dakloos"
-          ? { soort: "geen_woonkosten", dakloos: f.woont === "dakloos", betaaltWoonlasten: f.woonlasten }
+          ? { soort: "geen_woonkosten", dakloos: f.woont === "dakloos", betaaltWoonlasten: f.woont === "inwonend" && f.woonlasten }
           : f.woont === "instelling"
             ? { soort: "instelling" }
             : { soort: "anders" },
