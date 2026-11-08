@@ -186,3 +186,32 @@ test("woonvorm met begeleiding: instellingsnorm, geen huurtoeslag, uitleg over l
   await expect(page.locator(".signalen")).toContainText("Reken dan opnieuw, met uw nieuwe woning");
   await geenToegankelijkheidsfouten(page);
 });
+
+test("wie al werkt, kiest wat er verandert en vult niets dubbel in", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByLabel("Uw leeftijd").fill("38");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel("In een koopwoning").check();
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("group", { name: "Heeft u nu al betaald werk naast uw bijstand?" }).getByLabel("Ja").check();
+  await page.getByRole("group", { name: "Welk loon weet u?" }).first().getByLabel("Bruto loon per uur", { exact: true }).check();
+  await page.getByRole("textbox", { name: "Bruto loon per uur" }).fill("15,00");
+  await page.getByRole("textbox", { name: "Uren per week" }).fill("12");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  await expect(page.getByText("Kies wat er verandert.")).toBeVisible();
+  await page.getByLabel("Ik ga meer uren werken bij mijn huidige werk").check();
+  await expect(page.getByRole("textbox", { name: "Bruto loon per uur" })).toHaveCount(1);
+  await page.getByLabel("Hoeveel uur per week gaat u in totaal werken?").fill("24");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  await expect(page.locator(".antwoord")).toContainText("Bij 24 uur per week");
+  await page.getByRole("button", { name: "Gegevens aanpassen" }).click();
+  await page.getByLabel("Ik neem er werk bij, naast mijn huidige werk").check();
+  await expect(page.getByRole("heading", { name: "Het extra werk" })).toBeVisible();
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("500");
+  await page.getByRole("textbox", { name: "Uren per week" }).last().fill("8");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  await expect(page.getByText("Uren extra werk per week")).toBeVisible();
+  await expect(page.locator(".antwoord")).toContainText("Bij 8 uur extra werk per week");
+  await geenToegankelijkheidsfouten(page);
+});

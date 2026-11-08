@@ -251,6 +251,7 @@ input.breed {
   border-width: 3px;
 }
 
+.keuze.fout,
 .veld.fout {
   border-left: 4px solid var(--leiden);
   padding-left: 0.75rem;
