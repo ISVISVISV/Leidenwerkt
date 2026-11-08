@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Lezer, standaardRegels } from "@leidenwerkt/engine";
 import { alleenCijfers, controleer, leegFormulier, nieuwKind, vandaag, type Fouten, type Formulier } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
@@ -110,6 +111,9 @@ function Start({ onStart }: { onStart: () => void }) {
     </section>
   );
 }
+
+/** De overgangsvraag heeft pas zin als de bijstandsnormen voor vandaag bekend zijn. */
+const normenBekend = () => new Lezer(standaardRegels, vandaag()).bestaat("pw.norm.alleenstaande");
 
 type StapProps = { f: Formulier; zet: <K extends keyof Formulier>(k: K, v: Formulier[K]) => void; fouten: Fouten };
 
@@ -442,7 +446,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
         </fieldset>
       )}
 
-      {f.werktNu && vandaag() >= "2027-01-01" && vandaag() < "2028-01-01" && (
+      {f.werktNu && vandaag() >= "2027-01-01" && vandaag() < "2028-01-01" && normenBekend() && (
         <Keuze
           naam="overgang"
           legend="Mocht u in december 2026 al een deel van uw loon houden naast de bijstand?"

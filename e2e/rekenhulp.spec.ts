@@ -61,6 +61,10 @@ test.describe("donkere modus", () => {
     await geenToegankelijkheidsfouten(page);
     await page.getByLabel("Uw leeftijd").fill("40");
     await page.getByRole("button", { name: "Volgende stap" }).click();
+    // Huurt u, dan is de kale huur verplicht.
+    await page.getByRole("button", { name: "Volgende stap" }).click();
+    await expect(page.getByText("Vul dit in.")).toBeVisible();
+    await page.getByLabel("Nee, of ik weet het niet").check();
     await page.getByRole("button", { name: "Volgende stap" }).click();
     await page.getByLabel("Netto loon per maand (wat op mijn rekening komt)").check();
     await page.getByRole("textbox", { name: "Netto loon per maand" }).fill("1.100");

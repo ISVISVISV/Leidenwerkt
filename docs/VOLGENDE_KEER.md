@@ -19,7 +19,7 @@ Werk de punten af en vink ze hier af. [x] = gedaan, [~] = deels.
 - [ ] Kinderopvangtoeslag 2027 verwerken (Stb. 2026, 308).
 - [ ] Overzicht per maand van de overgangsperiode (wanneer stopt de bijstand, wanneer komt het eerste loon, vakantietoeslag bij uitstroom).
 - [ ] Vraag naar een medische urenbeperking in het formulier (de engine ondersteunt het al).
-- [ ] Huurtoeslag met medebewoners.
+- [x] Huurtoeslag met huisgenoten van 27 jaar of ouder (8 november 2026). Nog open: huisgenoten van 18–26 en kinderen met inkomen.
 - [ ] Leiden: kwijtschelding; signalen bij 110% (bijzondere bijstand, eigen bijdrage kinderopvang) en 120% (collectieve zorgverzekering) van de bijstandsnorm.
 - [ ] Netto loon en bruto bijstand toetsen aan de witte en groene maandtabel loonheffing 2026.
 - [ ] Toetsen met een klantmanager of sociaal raadsman aan de hand van PROEFPERSONEN.md.

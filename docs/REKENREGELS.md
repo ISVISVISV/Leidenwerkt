@@ -121,7 +121,9 @@ Grondslag: Wet op de huurtoeslag (versie 1 januari 2026), Besluit op de huurtoes
 6. Correctie: (rekeninkomen − minimum-inkomensijkpunt) × 27% (één persoon) of 22% (meer personen) / 12. Ijkpunt 2026: € 23.425 / € 31.500.
 7. A + B + C − correctie, naar beneden afgerond.
 
-Getoetst aan de rekenvoorbeelden 2 en 3 uit de brochure (zie `packages/engine/test/officieel.test.ts`). **Nog niet ondersteund:** huisgenoten (medebewoners) met een eigen inkomen; de app meldt dan dat de huurtoeslag niet berekend is en dat het kopgetal waarschijnlijk te gunstig is. Jongeren onder 21 worden niet ondersteund.
+Getoetst aan de rekenvoorbeelden 2 en 3 uit de brochure (zie `packages/engine/test/officieel.test.ts`) en aan vijf proefberekeningen.
+
+**Huisgenoten (medebewoners):** hun toetsingsinkomen telt mee in het rekeninkomen (art. 1 onder i Wht; brochure stap 5) en zij tellen mee voor het aantal personen. De app vraagt bij 'Uw woning' het jaarinkomen van de huisgenoten van 27 jaar of ouder samen. Getoetst aan een proefberekening met één medebewoner (proefpersoon Wim). Beperking: huisgenoten van 18 tot 27 jaar en inkomen van inwonende kinderen worden niet gevraagd. Jongeren onder 21 worden niet ondersteund.
 
 ## 7. Kindgebonden budget
 

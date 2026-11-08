@@ -14,3 +14,7 @@ Vastgelegd in commit "Snapshots van de uitkomsten 2026 vastgezet", vóór de wij
 | Kinderbijslag berekend (SVB-bedragen 2026) | `kinderbijslag` was `null`; nu in beide situaties hetzelfde bedrag. Geen effect op het verschil | SVB, bedragen kinderbijslag 2026 |
 | Servicekosten tellen niet meer mee voor de huurtoeslag | "alleenstaande ouder, kind 4 met opvang": rekenhuur € 690 in plaats van € 730 | Berekening huurtoeslag 2026, stap 1 |
 | Geen vrijlating meer op het loon van de partner | Geen effect in deze huishoudens (bijstand met werk was al € 0) | Aanname: de partner werkte al, dus zijn of haar vrijlatingsperiode is waarschijnlijk voorbij (staat bij de aannames in de app) |
+
+## 8 november 2026 (vervolg)
+
+Geen wijziging in de snapshots 2026. De toets vooraf bij art. 34a en de huurtoeslag met huisgenoten raken de vastgelegde huishoudens niet (alleen 2027, en huishoudens zonder huisgenoten met huur).

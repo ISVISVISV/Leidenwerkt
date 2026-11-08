@@ -21,7 +21,7 @@ Stand: 8 november 2026. Per vraag staat of het uitzoekwerk is of een besluit of 
 | V6 | Verrekening per 2027 | Uniform verrekenen, verrekening vakantiegeld, bufferbudget (art. 34b, max. € 1.000 per jaar); de app rekent dit niet | Regeling Participatiewet, IOAW en IOAZ (versie 2027) |
 | V7 | Netto loon | Officiële vergelijking met de witte maandtabel loonheffing 2026 voor de proefpersonen (nu `onbekend`) | Belastingdienst, loonheffingstabellen 2026 |
 | V8 | Bruto bijstand voor het toetsingsinkomen | De app rekent de bruto bijstand terug uit de netto norm. Toetsen met de groene maandtabel loonheffing 2026 (uitkeringen), zonder echte documenten | Belastingdienst, loonheffingstabellen 2026 |
-| V9 | Huurtoeslag met medebewoners | Inkomen van huisgenoten (rekeninkomen); nu niet ondersteund en gemeld | Wet op de huurtoeslag, brochure stap 5 |
+| V9 | Huurtoeslag: huisgenoten van 18 tot 27 jaar en inwonende kinderen met inkomen | Hun inkomen telt mee voor de huurtoeslag (kinderen onder 23 boven € 6.218); de app vraagt er nu niet naar | Brochure Berekening huurtoeslag 2026, stap 5 |
 | V10 | Leiden: kwijtschelding | Welke norm Leiden hanteert en wie uitvoert | lokaleregelgeving.overheid.nl, leiden.nl |
 | V12 | Leiden: grenzen van 110%, 120% en 150% | Gevonden in de Beleidsregels bijzondere bijstand 2022 (draagkracht, collectieve zorgverzekering, eigen bijdrage kinderopvang); nog niet als signaal in de app. De beleidsregels van 2022 zijn volgens lokaleregelgeving.overheid.nl nog geldend (stand 8 november 2026) | CVDR677687 |
 | V11 | Individuele inkomenstoeslag | leiden.nl noemt "23 jaar of ouder" als voorwaarde maar bedragen "tussen de 21 jaar en de pensioengerechtigde leeftijd"; de verordening van 2020 is niet opnieuw nagelezen op leeftijd | Verordening IIT Leiden (CVDR634399) |
@@ -29,6 +29,7 @@ Stand: 8 november 2026. Per vraag staat of het uitzoekwerk is of een besluit of 
 ## Opgelost op 8 november 2026
 
 - **Branch protection en CODEOWNERS**: ingesteld door de beheerder.
+- **Huurtoeslag met huisgenoten van 27+**: ingebouwd en getoetst aan een proefberekening (Wim, € 282).
 - **Proefberekeningen Dienst Toeslagen**: drie ingevuld (Fatima en Youssef, Bram, Sanne 24 uur); alle negen bedragen kwamen tot op de euro overeen met de app.
 - **Sleutelpas**: 'WSM' is de toepasselijke bijstandsnorm (bevestigd door de beheerder).
 - **Art. 34a, toets vooraf**: volgens de memorie van toelichting geldt de bijverdienregeling niet als het inkomen boven de bijstandsnorm ligt; ingebouwd.
