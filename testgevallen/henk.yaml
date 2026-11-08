@@ -1,0 +1,44 @@
+# Verzonnen persoon en situatie. Zie testgevallen/README.md.
+naam: Henk
+beschrijving: Henk, 58, alleenstaand, woont in zijn eigen huis samen met zijn zoon Bas (29), die een baan heeft. Henk overweegt 16 uur als conciërge
+  voor € 15,00 per uur.
+rekendatum: '2026-09-01'
+invoer:
+  leefvorm: alleenstaande
+  leeftijd: 58
+  kinderen: []
+  kostendelers: 1
+  wonen:
+    soort: anders
+  nieuwWerk:
+    brutoUurloon: 15
+    urenPerWeek: 16
+  vrijlatingFase: start
+verwacht:
+- onderdeel: bijstand
+  situatie: nu
+  waarde: 1013.9
+  bron:
+    titel: Participatiewet art. 22a (kostendelersnorm), wetten.overheid.nl, versie 1 juli 2026
+    url: https://wetten.overheid.nl/BWBR0015703/2026-07-01
+    datum: '2026-11-08'
+  tolerantie: 0.01
+  toelichting: 'Kostendelersnorm met A = 2: (40% + 2 × 30%) / 2 = 50% van de gehuwdennorm € 2.027,79 = € 1.013,90'
+- onderdeel: zorgtoeslag
+  situatie: nu
+  waarde: 129
+  bron:
+    titel: Belastingdienst — Hoeveel zorgtoeslag krijg ik? (tabel 2026)
+    url: https://www.belastingdienst.nl/wps/wcm/connect/nl/zorgtoeslag/content/hoeveel-zorgtoeslag
+    datum: '2026-11-08'
+  tolerantie: 0
+  toelichting: 'Tabel: toetsingsinkomen tot € 29.500 geeft het maximum'
+- onderdeel: netto_loon
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: bijstand
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: zorgtoeslag
+  situatie: met_werk
+  waarde: onbekend

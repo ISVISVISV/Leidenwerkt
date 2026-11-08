@@ -1,0 +1,89 @@
+# Verzonnen persoon en situatie. Zie testgevallen/README.md.
+naam: Fatima en Youssef
+beschrijving: 'Fatima (38) en Youssef (40) zijn getrouwd en hebben twee kinderen: Sami (13) en Lina (9). Ze huren voor € 760. Youssef werkt al
+  16 uur voor € 1.100 bruto per maand. Fatima overweegt 20 uur als schoonmaker voor € 14,80 per uur.'
+rekendatum: '2026-09-01'
+invoer:
+  leefvorm: paar
+  leeftijd: 38
+  partner:
+    leeftijd: 40
+    werk:
+      brutoMaandloon: 1100
+  kinderen:
+  - leeftijd: 13
+  - leeftijd: 9
+  kostendelers: 0
+  wonen:
+    soort: huur
+    kaleHuurPerMaand: 760
+  nieuwWerk:
+    brutoUurloon: 14.8
+    urenPerWeek: 20
+  vrijlatingFase: start
+verwacht:
+- onderdeel: zorgtoeslag
+  situatie: nu
+  waarde: 246
+  bron:
+    titel: Belastingdienst — Hoeveel zorgtoeslag krijg ik? (tabel 2026)
+    url: https://www.belastingdienst.nl/wps/wcm/connect/nl/zorgtoeslag/content/hoeveel-zorgtoeslag
+    datum: '2026-11-08'
+  tolerantie: 0
+  toelichting: 'Tabel: toetsingsinkomen tot € 29.500 geeft het maximum'
+- onderdeel: kindgebonden_budget
+  situatie: nu
+  waarde: 490
+  bron:
+    titel: Dienst Toeslagen — Berekening kindgebonden budget 2026, stap 1 en 2 (maximale bedragen)
+    url: https://download.belastingdienst.nl/toeslagen/docs/berekening_kindgebonden_budget_tg0811z61fd.pdf
+    datum: '2026-11-08'
+  tolerantie: 0
+  toelichting: 2 kinderen met partner € 5.160 + verhoging kind 12–15 jaar € 724 = € 5.884 / 12 = € 490,33, afgerond naar beneden; inkomen onder
+    € 39.141
+- onderdeel: huurtoeslag
+  situatie: nu
+  waarde: 467
+  bron:
+    titel: Dienst Toeslagen — Berekening huurtoeslag 2026, stappen 1 t/m 7
+    url: https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf
+    datum: '2026-11-08'
+  tolerantie: 0
+  toelichting: A € 297.49 + B € 170.17 + C € 0.00 = € 467.66, afgerond naar beneden; rekeninkomen onder het minimum-inkomensijkpunt, dus geen
+    correctie
+- onderdeel: kinderbijslag
+  situatie: nu
+  waarde: 262.88
+  bron:
+    titel: SVB — Bedragen kinderbijslag (derde en vierde kwartaal 2026)
+    url: https://www.svb.nl/nl/kinderbijslag/bedragen-betaaldagen/bedragen-kinderbijslag
+    datum: '2026-11-08'
+  tolerantie: 0.01
+  toelichting: (€ 426,29 + € 362,35) per kwartaal / 3
+- onderdeel: kinderbijslag
+  situatie: met_werk
+  waarde: 262.88
+  bron:
+    titel: SVB — Bedragen kinderbijslag (derde en vierde kwartaal 2026)
+    url: https://www.svb.nl/nl/kinderbijslag/bedragen-betaaldagen/bedragen-kinderbijslag
+    datum: '2026-11-08'
+  tolerantie: 0.01
+  toelichting: (€ 426,29 + € 362,35) per kwartaal / 3
+- onderdeel: netto_loon
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: bijstand
+  situatie: nu
+  waarde: onbekend
+- onderdeel: bijstand
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: zorgtoeslag
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: huurtoeslag
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: kindgebonden_budget
+  situatie: met_werk
+  waarde: onbekend

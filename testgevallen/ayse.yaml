@@ -1,0 +1,71 @@
+# Verzonnen persoon en situatie. Zie testgevallen/README.md.
+naam: Ayşe
+beschrijving: Ayşe, 38, alleenstaande moeder van Mila (6), huurt voor € 700. Ze werkt al een jaar 12 uur per week als thuiszorghulp voor € 14,50
+  per uur (vrijlating als alleenstaande ouder) en kan uitbreiden naar 28 uur.
+rekendatum: '2026-09-01'
+invoer:
+  leefvorm: alleenstaande_ouder
+  leeftijd: 38
+  kinderen:
+  - leeftijd: 6
+  kostendelers: 0
+  wonen:
+    soort: huur
+    kaleHuurPerMaand: 700
+  huidigWerk:
+    brutoUurloon: 14.5
+    urenPerWeek: 12
+  huidigeVrijlating: later
+  nieuwWerk:
+    brutoUurloon: 14.5
+    urenPerWeek: 28
+  vrijlatingFase: later
+verwacht:
+- onderdeel: kinderbijslag
+  situatie: nu
+  waarde: 120.78
+  bron:
+    titel: SVB — Bedragen kinderbijslag (derde en vierde kwartaal 2026)
+    url: https://www.svb.nl/nl/kinderbijslag/bedragen-betaaldagen/bedragen-kinderbijslag
+    datum: '2026-11-08'
+  tolerantie: 0.01
+  toelichting: € 362,35 per kwartaal (6 t/m 11 jaar) / 3
+- onderdeel: kinderbijslag
+  situatie: met_werk
+  waarde: 120.78
+  bron:
+    titel: SVB — Bedragen kinderbijslag (derde en vierde kwartaal 2026)
+    url: https://www.svb.nl/nl/kinderbijslag/bedragen-betaaldagen/bedragen-kinderbijslag
+    datum: '2026-11-08'
+  tolerantie: 0.01
+  toelichting: € 362,35 per kwartaal (6 t/m 11 jaar) / 3
+- onderdeel: netto_loon
+  situatie: nu
+  waarde: onbekend
+- onderdeel: netto_loon
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: bijstand
+  situatie: nu
+  waarde: onbekend
+- onderdeel: bijstand
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: zorgtoeslag
+  situatie: nu
+  waarde: onbekend
+- onderdeel: zorgtoeslag
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: huurtoeslag
+  situatie: nu
+  waarde: onbekend
+- onderdeel: huurtoeslag
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: kindgebonden_budget
+  situatie: nu
+  waarde: onbekend
+- onderdeel: kindgebonden_budget
+  situatie: met_werk
+  waarde: onbekend

@@ -1,0 +1,337 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`proefpersonen > ayse.yaml: Ayşe 1`] = `
+{
+  "met_werk": {
+    "bijstand": "0.00",
+    "huurtoeslag": "428.00",
+    "iack": "56.69",
+    "kgb": "499.00",
+    "kinderbijslag": "120.78",
+    "loon": "1843.39",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "706.93",
+    "huurtoeslag": "428.00",
+    "iack": "0.00",
+    "kgb": "499.00",
+    "kinderbijslag": "120.78",
+    "loon": "814.32",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "378.83",
+}
+`;
+
+exports[`proefpersonen > daan.yaml: Daan 1`] = `
+{
+  "met_werk": {
+    "bijstand": "16.64",
+    "huurtoeslag": "387.00",
+    "loon": "1691.82",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "huurtoeslag": "387.00",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "289.00",
+}
+`;
+
+exports[`proefpersonen > fatima-en-youssef.yaml: Fatima en Youssef 1`] = `
+{
+  "met_werk": {
+    "bijstand": "0.00",
+    "huurtoeslag": "467.00",
+    "kgb": "490.00",
+    "kinderbijslag": "262.88",
+    "loon": "1353.00",
+    "loon_partner": "1165.07",
+    "zorgtoeslag": "233.00",
+  },
+  "nu": {
+    "bijstand": "862.72",
+    "huurtoeslag": "467.00",
+    "kgb": "490.00",
+    "kinderbijslag": "262.88",
+    "loon_partner": "1165.07",
+    "zorgtoeslag": "246.00",
+  },
+  "verschil": "477.28",
+}
+`;
+
+exports[`proefpersonen > henk.yaml: Henk 1`] = `
+{
+  "met_werk": {
+    "bijstand": "186.38",
+    "loon": "1103.35",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1013.90",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "275.83",
+}
+`;
+
+exports[`proefpersonen > ilse-boven-sleutelpasgrens.yaml: Ilse 1`] = `
+{
+  "met_werk": {
+    "bijstand": "0.00",
+    "loon": "1864.66",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "445.20",
+}
+`;
+
+exports[`proefpersonen > ilse-onder-sleutelpasgrens.yaml: Ilse 1`] = `
+{
+  "met_werk": {
+    "bijstand": "0.00",
+    "loon": "1833.79",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "414.33",
+}
+`;
+
+exports[`proefpersonen > jesse.yaml: Jesse 1`] = `
+{
+  "met_werk": {
+    "bijstand": "182.37",
+    "huurtoeslag": "309.00",
+    "loon": "1237.09",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "huurtoeslag": "309.00",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "0.00",
+}
+`;
+
+exports[`proefpersonen > kevin.yaml: Kevin 1`] = `
+{
+  "met_werk": {
+    "bijstand": "92.43",
+    "huurtoeslag": "348.00",
+    "loon": "1616.03",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "huurtoeslag": "348.00",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "289.00",
+}
+`;
+
+exports[`proefpersonen > lotte-2027.yaml: Lotte 1`] = `
+{
+  "met_werk": {
+    "bijstand": null,
+    "huurtoeslag": null,
+    "loon": null,
+    "zorgtoeslag": null,
+  },
+  "nu": {
+    "bijstand": null,
+    "huurtoeslag": null,
+    "loon": null,
+    "zorgtoeslag": null,
+  },
+  "verschil": "0.00",
+}
+`;
+
+exports[`proefpersonen > marloes.yaml: Marloes 1`] = `
+{
+  "met_werk": {
+    "bijstand": "358.46",
+    "huurtoeslag": "368.00",
+    "loon": "1350.00",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "huurtoeslag": "368.00",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "289.00",
+}
+`;
+
+exports[`proefpersonen > peter.yaml: Peter 1`] = `
+{
+  "met_werk": {
+    "bijstand": "337.63",
+    "huurtoeslag": "490.00",
+    "loon": "1370.83",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "huurtoeslag": "490.00",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "289.00",
+}
+`;
+
+exports[`proefpersonen > rachid-net-boven-norm.yaml: Rachid 1`] = `
+{
+  "met_werk": {
+    "bijstand": "0.00",
+    "loon": "1442.85",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "23.39",
+}
+`;
+
+exports[`proefpersonen > rachid-net-onder-norm.yaml: Rachid 1`] = `
+{
+  "met_werk": {
+    "bijstand": "7.47",
+    "loon": "1411.99",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "0.00",
+}
+`;
+
+exports[`proefpersonen > rob.yaml: Rob 1`] = `
+{
+  "met_werk": {
+    "bijstand": "751.16",
+    "loon": "786.24",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "117.94",
+}
+`;
+
+exports[`proefpersonen > sanne-24-uur.yaml: Sanne 1`] = `
+{
+  "met_werk": {
+    "bijstand": "0.00",
+    "huurtoeslag": "422.00",
+    "iack": "52.87",
+    "kgb": "499.00",
+    "kinderbijslag": "99.47",
+    "kot": "753.00",
+    "loon": "1766.72",
+    "opvangkosten": "-784.80",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "huurtoeslag": "422.00",
+    "kgb": "499.00",
+    "kinderbijslag": "99.47",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "368.33",
+}
+`;
+
+exports[`proefpersonen > sanne-maand-1-6.yaml: Sanne 1`] = `
+{
+  "met_werk": {
+    "bijstand": "519.52",
+    "huurtoeslag": "422.00",
+    "iack": "24.11",
+    "kgb": "499.00",
+    "kinderbijslag": "99.47",
+    "kot": "585.00",
+    "loon": "1188.94",
+    "opvangkosten": "-610.40",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "huurtoeslag": "422.00",
+    "kgb": "499.00",
+    "kinderbijslag": "99.47",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "287.71",
+}
+`;
+
+exports[`proefpersonen > sanne-maand-7-36.yaml: Sanne 1`] = `
+{
+  "met_werk": {
+    "bijstand": "379.14",
+    "huurtoeslag": "422.00",
+    "iack": "24.11",
+    "kgb": "499.00",
+    "kinderbijslag": "99.47",
+    "kot": "585.00",
+    "loon": "1188.94",
+    "opvangkosten": "-610.40",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "huurtoeslag": "422.00",
+    "kgb": "499.00",
+    "kinderbijslag": "99.47",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "147.33",
+}
+`;
+
+exports[`proefpersonen > sanne-vanaf-maand-37.yaml: Sanne 1`] = `
+{
+  "met_werk": {
+    "bijstand": "230.52",
+    "huurtoeslag": "422.00",
+    "iack": "24.11",
+    "kgb": "499.00",
+    "kinderbijslag": "99.47",
+    "kot": "585.00",
+    "loon": "1188.94",
+    "opvangkosten": "-610.40",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "huurtoeslag": "422.00",
+    "kgb": "499.00",
+    "kinderbijslag": "99.47",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "-1.29",
+}
+`;

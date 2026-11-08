@@ -1,242 +1,152 @@
 # Rekenregels Leidenwerkt
 
-Stand van het onderzoek: 4 november 2026 (fase 1 en eerste aanvulling in fase 2). De waarden zelf staan in `regels/`; dit document beschrijft rekenwijze en bronnen.
-
-Dit document beschrijft per mechanisme de wettelijke grondslag, de rekenwijze, de gevonden waarden en hun status. Het is de bron voor de YAML-bestanden in `regels/` (fase 2).
+Stand: 8 november 2026. De waarden staan in `regels/`; dit document beschrijft de rekenwijze, de grondslag en de bronnen. De statustabel hieronder wordt gegenereerd uit de YAML-bestanden (`npm run docs`), zodat er één bron van waarheid is.
 
 ## Statussen
 
 | Status | Betekenis | Gevolg in de app |
 | --- | --- | --- |
 | `geverifieerd` | Officiële bron zelf geopend, waarde letterlijk overgenomen | Normaal gebruikt |
-| `onbevestigd` | Waarde gevonden in een secundaire bron of een kamerstuk/wetsvoorstel, niet in de definitieve officiële publicatie | Gebruikt, met zichtbare markering |
-| `ontbrekend` | Geen betrouwbare waarde gevonden, of bronnen spreken elkaar tegen | Onderdeel wordt niet berekend |
+| `onbevestigd` | Waarde nog niet in de definitieve officiële publicatie nagelezen | Gebruikt, met zichtbare markering |
+| `ontbrekend` | Geen betrouwbare waarde gevonden | Onderdeel wordt niet berekend |
 
-Commerciële rekensites en blogs zijn bij het onderzoek bewust niet als bron gebruikt. Ze bleken elkaar op meerdere punten tegen te spreken (bijvoorbeeld bij kinderbijslag en kindgebonden budget).
+Alleen officiële bronnen tellen: wetten.overheid.nl, officielebekendmakingen.nl, lokaleregelgeving.overheid.nl, rijksoverheid.nl, belastingdienst.nl, svb.nl, leiden.nl. De CI controleert dit (zie `scripts/bouw-regels.ts`).
 
-## Belangrijkste bevinding: 1 januari 2027 verandert de bijstand
+## Status per onderwerp en jaar
 
-De Participatiewet in balans (Stb. 2025, 312) wijzigt per 1 januari 2027 onder meer de inkomstenvrijlating, de verrekening van inkomsten en de verrekening van vakantiegeld. De app gaat naar verwachting in 2027 online. Daarom ondersteunt de engine twee regimes naast elkaar:
+<!-- statustabel:begin -->
+<!-- Gegenereerd met `npm run docs` uit regels/**.yaml. Niet met de hand aanpassen. -->
 
-- **Tot en met 31 december 2026:** huidige vrijlatingen (artikel 31 lid 2 onder n en r Pw).
-- **Vanaf 1 januari 2027:** nieuwe bijverdienregeling (artikel 34a Pw), met overgangsrecht.
+| Onderwerp | 2026 | 2027 |
+| --- | --- | --- |
+| Bijstandsnorm | geverifieerd | ontbrekend |
+| Kostendelersnorm | geverifieerd | onbevestigd |
+| Inkomstenvrijlating (art. 31) | geverifieerd | – |
+| Premie (art. 31 lid 2 j) | geverifieerd | – |
+| Bijverdienregeling (art. 34a) | – | geverifieerd |
+| Overgangsrecht 2027 | – | geverifieerd |
+| Loonheffing en kortingen | geverifieerd | – |
+| Zorgtoeslag | geverifieerd | – |
+| Huurtoeslag | geverifieerd | – |
+| Kindgebonden budget | geverifieerd | – |
+| Kinderbijslag | geverifieerd | – |
+| Kinderopvangtoeslag | geverifieerd | – |
+| Leidse regelingen | geverifieerd | – |
 
-De normbedragen voor 1 januari 2027 worden doorgaans begin december gepubliceerd (Normenbrief). Tot die tijd zijn ze `ontbrekend`.
+<!-- statustabel:eind -->
 
----
+## Data tegenover mechanisme
 
-## 1. Bijstandsnorm (Participatiewet)
+- Een **gewijzigd bedrag** is regeldata: een nieuw YAML-bestand met een nieuwe `geldig_van`.
+- Een **gewijzigd mechanisme** (voorwaarden, uitzonderingen, rekenvolgorde) is code. Voor de verrekening van inkomsten met de bijstand staat dat in `packages/engine/src/regimes.ts` (welk regime geldt op welke datum) en `packages/engine/src/modules/vrijlating.ts` (de regels per regime, inclusief overgangsrecht). De regimekeuze hangt alleen af van de rekendatum.
 
-**Grondslag:** artikelen 20, 21, 22 en 22a Participatiewet. Normen worden per 1 januari en 1 juli aangepast aan het netto minimumloon.
+## Afronding
 
-**Rekenwijze:** de norm hangt af van leeftijd en leefvorm. Een alleenstaande (ouder) krijgt 70% van de gehuwdennorm. De bijstand vult eigen inkomen aan tot de norm (zie mechanisme 3). Bedragen zijn netto per maand inclusief vakantietoeslag; de vakantietoeslag (5%) wordt gereserveerd en jaarlijks uitbetaald.
+De engine rekent met `decimal.js` en rondt niet tussentijds af, met deze uitzondering:
 
-| Parameter | 1 jan 2026 | 1 jul 2026 | 1 jan 2027 | Status | Bron |
-| --- | --- | --- | --- | --- | --- |
-| Alleenstaande (ouder), 21 jaar tot AOW (art. 21 a) | € 1.401,50 | € 1.419,46 | – | geverifieerd / 2027: ontbrekend | Rijksoverheid; Stcrt. 2026, 20221 |
-| Gehuwden, beiden 21 tot AOW (art. 21 b) | € 2.002,13 | € 2.027,79 | – | geverifieerd / 2027: ontbrekend | idem |
-| Wettelijk minimumloon bruto per maand (excl. 8% vakantie-uitkering) | – | € 2.337,00 | – | geverifieerd | Stcrt. 2026, 20221 (toelichting) |
+- **Toeslagen per maand**: naar beneden afgerond op hele euro's. Dit staat in alle vier de brochures "Berekening … 2026" van Dienst Toeslagen ("Bedrag afronden naar beneden op hele euro's"; rekenvoorbeelden zorgtoeslag € 129,20 → € 129, huurtoeslag € 492,03 → € 492).
+- **Toetsingsinkomen voor de kinderopvangtoeslagtabel**: in hele euro's, omdat de tabel per hele euro loopt (van € 24.150 tot € 25.756).
+- Bijstand en netto loon: geen tussentijdse afronding gevonden in de wet; afronding alleen bij weergave. De werkgever gebruikt loonheffingstabellen, die zelf afronden; daardoor kan de loonstrook een paar euro afwijken.
 
-Bronnen:
+## 1. Bijstandsnorm
 
-- [Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?](https://www.rijksoverheid.nl/themas/werk/arbeidsomstandigheden/vraag-en-antwoord/bijstand/hoe-hoog-is-mijn-bijstandsuitkering) (geraadpleegd 4-11-2026)
-- [Staatscourant 2026, 20221 — bedragen per 1 juli 2026](https://zoek.officielebekendmakingen.nl/stcrt-2026-20221.pdf) (geraadpleegd 4-11-2026)
+**Grondslag:** artikelen 20, 21, 22 en 22a Participatiewet. Normen worden per 1 januari en 1 juli aangepast aan het netto minimumloon (art. 38 Pw) en gepubliceerd in de Staatscourant.
+
+| | 1 jan 2026 | 1 jul 2026 | 1 jan 2027 |
+| --- | --- | --- | --- |
+| Alleenstaande (ouder), 21 tot AOW (art. 21 a) | € 1.401,50 | € 1.419,46 | verwacht begin december 2026 |
+| Gehuwden, beiden 21 tot AOW (art. 21 b) | € 2.002,13 | € 2.027,79 | idem |
+
+Bron: [Rijksoverheid, hoogte bijstandsuitkering](https://www.rijksoverheid.nl/themas/werk/arbeidsomstandigheden/vraag-en-antwoord/bijstand/hoe-hoog-is-mijn-bijstandsuitkering).
 
 ## 2. Kostendelersnorm
 
-**Grondslag:** artikel 22a Participatiewet.
+**Grondslag:** art. 19a en 22a Pw ([wetten.overheid.nl, versie 1 juli 2026](https://wetten.overheid.nl/BWBR0015703/2026-07-01)).
 
-**Rekenwijze:** woont de bijstandsgerechtigde met andere volwassenen in één woning (partner niet meegeteld), dan daalt de norm. Volgens Rijksoverheid tellen sinds de Participatiewet in balans alleen huisgenoten van **27 jaar of ouder** mee (geverifieerd). De formule in de wet — de norm per persoon als percentage van de gehuwdennorm, afhankelijk van het aantal kostendelers — moet nog letterlijk uit de geldende wettekst worden overgenomen.
+Norm per persoon = ((40% + A × 30%) / A) × gehuwdennorm. A = kostendelende medebewoners plus de belanghebbende en diens echtgenoot. Een kostendelende medebewoner is iemand van **27 jaar of ouder** met hoofdverblijf in dezelfde woning, behalve de partner, een commerciële (onder)huurder of kostganger (geen familie in de eerste of tweede graad) en bepaalde studerenden (art. 19a lid 1).
 
-| Parameter | Waarde | Status |
+## 3. Verrekening van inkomsten: vrijlating
+
+### Tot en met 31 december 2026 (regime `pw31`)
+
+Bron: art. 31 lid 2 onder n, r, y en lid 5 Pw ([versie 1 juli 2026](https://wetten.overheid.nl/BWBR0015703/2026-07-01)).
+
+| Onderdeel | Regel | Bedrag 1 jan / 1 jul 2026 |
 | --- | --- | --- |
-| Leeftijdsgrens meetellende huisgenoten | 27 jaar | geverifieerd |
-| Formule | ((40% + A × 30%) / A) × gehuwdennorm, A = medebewoners + belanghebbende (+ partner) | onbevestigd (tekst via InView, versie per 1-7-2024) |
-| Bedragen art. 22a lid 3 per 1-7-2026 | a: € 755,98; b: € 350,42 | geverifieerd, betekenis per onderdeel nog uitzoeken |
+| n | 25% van de inkomsten uit arbeid, ten hoogste 6 maanden (onder de AOW-leeftijd), als het college vindt dat het bijdraagt aan arbeidsinschakeling | max. € 285 / € 289 per maand |
+| r | Alleenstaande ouder met volledige zorg voor een kind tot 12 jaar, na de 6 maanden van n: 12,5%, aaneengesloten ten hoogste 30 maanden | max. € 177,66 / € 180,17 |
+| y | Medisch urenbeperkt: 15%, zonder maximale duur, tenzij n van toepassing is | max. € 180,19 / € 182,73 |
+| lid 5 | n en r gelden **niet** voor wie jonger is dan 27 jaar | |
 
-## 3. Verrekening van inkomsten en inkomstenvrijlating
+**Na de 6 maanden** is er geen vrijlating meer (behalve r en y). Dat betekent niet dat werken niets oplevert: de bijstand vult het netto loon aan tot de norm, dus tot de norm houdt iemand evenveel over als zonder werk. Boven de norm stopt de bijstand en houdt iemand het hele netto loon, waarin de arbeidskorting al zit. Daarnaast tellen de toeslagen en de combinatiekorting.
 
-**Grondslag tot en met 2026:** artikel 31 lid 2 onder n en r Participatiewet.
+### Vanaf 1 januari 2027 (regime `pw34a`)
 
-- Onder n: algemene vrijlating van 25% van de inkomsten uit arbeid, met een maximum per maand, gedurende ten hoogste 6 aaneengesloten maanden, als dit bijdraagt aan arbeidsinschakeling. Percentage en duur: onbevestigd (bekend uit beleidsregels van andere gemeenten, nog niet uit wettekst).
-- Onder r: alleenstaande ouder met volledige zorg voor een kind tot 12 jaar, na afloop van onder n: 12,5% met een maximum, gedurende ten hoogste 30 maanden.
+Bron: art. 34a en 78ff Pw ([versie 1 januari 2027](https://wetten.overheid.nl/BWBR0015703/2027-01-01)).
 
-| Parameter | 1 jan 2026 | 1 jul 2026 | Status |
-| --- | --- | --- | --- |
-| Maximum onder n per maand | € 285,00 | € 289,00 | 1 jul geverifieerd (Stcrt. 2026, 20221); 1 jan onbevestigd (VNG-document) |
-| Maximum onder r per maand | – | € 180,17 | geverifieerd |
-| Percentages 25% en 12,5%, duur 6 en 30 maanden | | | onbevestigd |
+| Groep | Vrijlating | Duur |
+| --- | --- | --- |
+| Onder de AOW-leeftijd (art. 34a lid 1 a) | 15% van de inkomsten uit arbeid per maand, **geen maximumbedrag** | ten hoogste 12 aaneengesloten maanden; het college kan verlengen als uitbreiding van de arbeidsomvang niet mogelijk is (lid 2); opnieuw bij een nieuw dienstverband (lid 3) |
+| Medisch urenbeperkt (lid 1 b) | 15% | geen maximale duur |
+| AOW-leeftijd (lid 1 c) | 25%, tot € 226 | geen maximale duur |
 
-**Grondslag vanaf 1 januari 2027:** nieuw artikel 34a Participatiewet (bijverdienregeling).
+De uitzondering voor jongeren onder de 27 vervalt per 2027 (art. 31 lid 5 noemt dan alleen nog de onderdelen c en k). De wettekst van art. 34a bevat **geen** voorwaarde dat het inkomen onder de bijstandsnorm moet blijven; die voorwaarde stond eerder (op basis van een secundaire bron) in de engine en is verwijderd. Nieuw is ook een bufferbudget van ten hoogste € 1.000 per kalenderjaar (art. 34b); dat rekent de app niet.
 
-| Doelgroep | Vrijlating | Duur | Status |
-| --- | --- | --- | --- |
-| Jonger dan AOW-leeftijd | 15% van de inkomsten uit arbeid | max. 12 aaneengesloten maanden, gemeente kan verlengen | onbevestigd (Schulinck, juni 2026) |
-| Medisch urenbeperkt | 15% | geen maximale duur | onbevestigd |
-| Vanaf AOW-leeftijd | 25%, max. € 226 per maand | geen maximale duur | onbevestigd |
+**Overgangsrecht (art. 78ff):**
 
-Voorwaarden (onbevestigd): algemene bijstand ontvangen, inkomsten uit arbeid, bijdrage aan arbeidsinschakeling, en het inkomen is niet hoger dan de bijstandsnorm. Of er voor de groep onder AOW-leeftijd een maximumbedrag geldt, is nog niet vastgesteld.
-
-**Overgangsrecht (onbevestigd):** wie op 31 december 2026 recht heeft op de 25%-vrijlating, houdt die uiterlijk tot 1 januari 2028. De vrijlating voor alleenstaande ouders gaat over in de nieuwe regeling, voor de resterende duur met een maximum van 30 maanden.
-
-**Ook per 2027 (nog uit te zoeken):** uniform verrekenen van inkomsten, andere verrekening van vakantiegeld en een bufferbudget voor schommelende inkomsten.
-
-Bronnen:
-
-- [Binnenlands Bestuur / Schulinck — Inkomstenvrijlating in de Participatiewet in balans](https://www.binnenlandsbestuur.nl/sociaal/schulinck-sociaal-domein/inkomstenvrijlating-in-de-participatiewet-in-balans) (1 juni 2026)
-- [VNG — Participatiewet in balans, inwerkingtreding](https://vng.nl/wetsvoorstellen/participatiewet-in-balans)
+- Lid 2: wie vóór 1 januari 2027 een vrijlating onder n had, houdt het oude onderdeel n zoals het luidde op 31 december 2026 (25%, max. € 289), gedurende ten hoogste 12 maanden na 1 januari 2027. De engine leest daarvoor de parameters op 31 december 2026. Of daarna nog de nieuwe regeling volgt, zegt de wet niet; de app neemt aan van niet en verwijst naar de klantmanager.
+- Lid 3: wie een vrijlating onder r had, krijgt voor de rest van die periode de vrijlating van art. 34a lid 1 onder a (15%, zonder maximum).
 
 ## 4. Loonheffing en heffingskortingen
 
-**Grondslag:** Wet inkomstenbelasting 2001 en Wet op de loonbelasting 1964.
-
-**Rekenwijze in de app:** het netto loon wordt benaderd met de jaarberekening: belasting over het jaarloon in schijven, minus algemene heffingskorting en arbeidskorting, teruggerekend naar een maand. De werkgever gebruikt loonheffingstabellen; de app vermeldt dat het werkelijke netto loon enkele euro's kan afwijken. Werknemerspremies (bijvoorbeeld pensioen) voert de gebruiker zelf in.
-
-**2026, jonger dan AOW-leeftijd** (alles `geverifieerd`, bron Belastingdienst):
-
-| Schijf | Belastbaar inkomen | Tarief |
-| --- | --- | --- |
-| 1 | t/m € 38.883 | 35,75% |
-| 2 | € 38.883 – € 78.426 | 37,56% |
-| 3 | boven € 78.426 | 49,50% |
-
-| Algemene heffingskorting | |
-| --- | --- |
-| tot € 29.736 | € 3.115 |
-| € 29.736 – € 78.426 | € 3.115 − 6,398% × (inkomen − € 29.736) |
-| vanaf € 78.426 | € 0 |
-
-| Arbeidskorting (arbeidsinkomen) | |
-| --- | --- |
-| tot € 11.965 | 8,324% × arbeidsinkomen |
-| € 11.965 – € 25.845 | € 996 + 31,009% × (arbeidsinkomen − € 11.965) |
-| € 25.845 – € 45.592 | € 5.300 + 1,950% × (arbeidsinkomen − € 25.845) |
-| € 45.592 – € 132.920 | € 5.685 − 6,510% × (arbeidsinkomen − € 45.592) |
-| vanaf € 132.920 | € 0 |
-
-| Inkomensafhankelijke combinatiekorting (relevant voor alleenstaande ouders met kind tot 12) | |
-| --- | --- |
-| tot € 6.239 | € 0 |
-| € 6.239 – € 32.710 | 11,45% × (arbeidsinkomen − € 6.239) |
-| vanaf € 32.710 | € 3.032 |
-
-Bron: [Belastingdienst — Voorlopige aanslag 2026: tarieven en heffingskortingen](https://www.belastingdienst.nl/wps/wcm/connect/nl/voorlopige-aanslag/content/voorlopige-aanslag-tarieven-en-heffingskortingen) (geraadpleegd 4-11-2026).
-
-**2027:** het Belastingplan 2027 is op Prinsjesdag 2026 ingediend en nog niet aangenomen. Voorgestelde waarden (alle `onbevestigd`): algemene heffingskorting max. € 3.154, afbouw vanaf € 30.910 met 6,638%; arbeidskorting max. € 5.929, afbouw vanaf € 47.834 met 6,51%; IACK max. € 2.918. Schijfgrenzen en tarieven 2027: `ontbrekend`. Definitieve waarden volgen na aanneming door de Eerste Kamer (december) en uit de Nieuwsbrief Loonheffingen 2027.
-
-Open punt: de bijstand zelf wordt door de gemeente bruto uitbetaald met loonheffing. Voor de vergelijking rekent de app met de netto norm; dat volstaat zolang de app geen jaaraangifte nabootst.
+Ongewijzigd ten opzichte van de vorige stand; alle waarden 2026 `geverifieerd` ([Belastingdienst, tarieven en heffingskortingen 2026](https://www.belastingdienst.nl/wps/wcm/connect/nl/voorlopige-aanslag/content/voorlopige-aanslag-tarieven-en-heffingskortingen)). Het netto loon wordt benaderd met een jaarberekening; zie ADR 0004. Waarden 2027: na aanneming van het Belastingplan (december 2026).
 
 ## 5. Zorgtoeslag
 
-**Grondslag:** Wet op de zorgtoeslag, artikel 2; percentages in het Besluit percentages drempel- en toetsingsinkomen zorgtoeslag.
-
-**Rekenwijze:** zorgtoeslag = standaardpremie (× 2 bij toeslagpartner) − normpremie. Normpremie = normpercentage × drempelinkomen + afbouwpercentage × (toetsingsinkomen − drempelinkomen), voor zover positief. Het drempelinkomen is gelijk aan het jaarbedrag van het minimumloon.
-
-| Parameter 2026 | Waarde | Status |
-| --- | --- | --- |
-| Normpercentage zonder partner | 1,912% | onbevestigd (Stb. 2025, 412, via kamerstuk) |
-| Normpercentage met partner | 4,289% | onbevestigd |
-| Afbouwpercentage | 13,730% | onbevestigd |
-| Drempelinkomen | € 29.736 | onbevestigd (raming in kamerantwoord; levert met de standaardpremie een inkomensgrens van ca. € 41.000, secundaire bronnen noemen € 40.857) |
-| Standaardpremie | € 2.119 | geverifieerd (Stcrt. 2025, 40022) |
-| Vermogensgrens | – | ontbrekend |
-
-**2027:** percentages 1,930% / 4,307% / 13,760% genoemd in hetzelfde besluit (onbevestigd); standaardpremie en drempelinkomen 2027 `ontbrekend`.
+Zorgtoeslag per jaar = standaardpremie (× 2 met toeslagpartner) − normpremie; normpremie = normpercentage × drempelinkomen + 13,73% × (toetsingsinkomen − drempelinkomen), het tweede deel niet negatief. 2026: standaardpremie € 2.119, drempelinkomen € 29.736, normpercentage 1,912% / 4,289%. Bron: [Dienst Toeslagen, Berekening zorgtoeslag 2026](https://download.belastingdienst.nl/toeslagen/docs/berekening_zorgtoeslag_tg0821z62fd.pdf). Vermogensgrens 2026: € 146.011 / € 184.633 (aanname in de app: eronder).
 
 ## 6. Huurtoeslag
 
-**Grondslag:** Wet op de huurtoeslag (gewijzigd per 1 januari 2026 door de Wet verlaging eigen bijdrage huurtoeslag), Regeling huurtoeslaggrenzen 2026 (Stcrt. 2025, 39783).
+Grondslag: Wet op de huurtoeslag (versie 1 januari 2026), Besluit op de huurtoeslag art. 7, Regeling huurtoeslaggrenzen 2026 (Stcrt. 2025, 39783). Rekenwijze volgens de 7 stappen van [Dienst Toeslagen, Berekening huurtoeslag 2026](https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf):
 
-**Rekenwijze (hoofdlijn):** de rekenhuur boven de basishuur wordt gesubsidieerd: 100% tot de kwaliteitskortingsgrens, 65% tot de aftoppingsgrens, 40% tot de maximale huurgrens, daarboven niets. Sinds 2026 is de maximale huurgrens geen toegangsgrens meer, alleen een rekengrens. De basishuur bestaat sinds 2026 uit een inkomensonafhankelijk deel en een apart berekende inkomensafhankelijke eigen bijdrage.
+1. Rekenhuur = kale huur, ten hoogste € 932,93. **Servicekosten tellen sinds 2026 niet meer mee.**
+2. Basishuur € 202,52 (één persoon) of € 200,71 (meer personen); sinds 2026 niet meer afhankelijk van het inkomen.
+3. Deel A: rekenhuur boven de basishuur tot € 498,20, 100%.
+4. Deel B: tot de aftoppingsgrens (€ 713,02 bij 1–2 personen, € 764,14 bij 3 of meer), 65%. Deel C: daarboven tot € 932,93, 40%.
+5. Rekeninkomen: toetsingsinkomens van alle bewoners (kinderen onder 23: boven € 6.218).
+6. Correctie: (rekeninkomen − minimum-inkomensijkpunt) × 27% (één persoon) of 22% (meer personen) / 12. Ijkpunt 2026: € 23.425 / € 31.500.
+7. A + B + C − correctie, naar beneden afgerond.
 
-| Parameter 2026 | Waarde | Status |
-| --- | --- | --- |
-| Subsidiepercentages 100% / 65% / 40% | | onbevestigd (wettekst art. 21 via secundaire bron) |
-| Kwaliteitskortingsgrens | € 498,20 | onbevestigd |
-| Aftoppingsgrens 1–2 personen / 3+ personen | € 713,02 / € 764,14 | onbevestigd |
-| Maximale huurgrens (rekengrens) | € 932,93 | onbevestigd |
-| Minimum basishuur eenpersoons / meerpersoons | € 202,52 / € 200,71 | onbevestigd |
-| Correctie basishuur (verlaging eigen bijdrage) | € 48,15 | onbevestigd (VNG-normbedragen kwijtschelding) |
-| Inkomensafhankelijke vermindering | (rekeninkomen − minimum-inkomensijkpunt) × 27% (eenpersoons) of 22% (meerpersoons) / 12 | onbevestigd (Stb. 2024, 426) |
-| Minimum-inkomensijkpunt 2026 | bruto AOW + vakantietoeslag + € 2.340 (eenpersoons) / € 2.512 (meerpersoons) | formule bekend, bedrag ontbrekend |
-
-De engine bevat de volledige huurtoeslagformule. Zolang het minimum-inkomensijkpunt 2026 ontbreekt, meldt de app de huurtoeslag als 'niet berekend'.
+Getoetst aan de rekenvoorbeelden 2 en 3 uit de brochure (zie `packages/engine/test/officieel.test.ts`). **Nog niet ondersteund:** huisgenoten (medebewoners) met een eigen inkomen; de app meldt dan dat de huurtoeslag niet berekend is en dat het kopgetal waarschijnlijk te gunstig is. Jongeren onder 21 worden niet ondersteund.
 
 ## 7. Kindgebonden budget
 
-**Grondslag:** Wet op het kindgebonden budget.
-
-**Rekenwijze:** bedrag per kind, plus verhoging voor kinderen van 12 en 16 jaar, plus alleenstaande-ouderkop; afbouw met een percentage van het toetsingsinkomen boven een drempel.
-
-| Parameter 2026 | Waarde | Status |
-| --- | --- | --- |
-| Bedrag per kind per jaar | € 2.580 | onbevestigd (salarissoftware-documentatie) |
-| Verhoging kind 12 t/m 15 / 16 en 17 | € 724 / € 964 | onbevestigd |
-| Alleenstaande-ouderkop | € 3.416 | onbevestigd |
-| Drempel alleenstaande ouder / met partner | € 29.736 / € 39.141 | onbevestigd |
-| Afbouwpercentage | 7,60% | onbevestigd (Kamerstuk 36606, nr. 3: 7,60% in 2026, 8,05% in 2027) |
+2026: € 2.580 per kind, alleenstaande ouder bij één kind € 5.996 (dus € 3.416 extra), + € 724 (12–15 jaar), + € 964 (16–17 jaar); afbouw 7,6% boven € 29.736 (zonder partner) of € 39.141 (met partner). Bron: [Dienst Toeslagen, Berekening kindgebonden budget 2026](https://download.belastingdienst.nl/toeslagen/docs/berekening_kindgebonden_budget_tg0811z61fd.pdf). Let op: rekenvoorbeeld 2 in die brochure noemt in de tekst € 510 per maand, maar de eigen berekening komt op € 533,56; de engine volgt de berekening.
 
 ## 8. Kinderbijslag
 
-**Grondslag:** Algemene Kinderbijslagwet. Inkomensonafhankelijk, per kwartaal, drie leeftijdsgroepen (0–5, 6–11, 12–17), peildatum eerste dag van het kwartaal.
-
-| Parameter | Status |
-| --- | --- |
-| Kwartaalbedragen 2026 | ontbrekend: secundaire bronnen spreken elkaar tegen; SVB-pagina nog niet geopend |
+Inkomensonafhankelijk; telt niet mee voor de bijstand (art. 31 lid 2 b Pw) en beïnvloedt het verschil dus niet. Per kind per kwartaal, eerste en tweede kwartaal 2026: € 295,07 / € 358,30 / € 421,53; derde en vierde kwartaal: € 298,40 / € 362,35 / € 426,29 (0–5, 6–11, 12–17 jaar). Bron: [SVB](https://www.svb.nl/nl/kinderbijslag/bedragen-betaaldagen/bedragen-kinderbijslag). De app toont een derde van het kwartaalbedrag per maand, in beide situaties gelijk.
 
 ## 9. Kinderopvangtoeslag
 
-**Grondslag:** Wet kinderopvang, Besluit kinderopvangtoeslag.
+Toeslag per kind = uren (max. 230 per maand) × min(uurprijs, maximum) × percentage uit de tabel. Maxima 2026: dagopvang € 11,23, bso € 9,98, gastouder € 8,49. Eerste kind = kind met de meeste uren. Per jaar ten hoogste het aantal gewerkte maanden × 230 uur (bij twee ouders: de ouder die het minst werkt). Tabel en voorbeelden: [Dienst Toeslagen, Berekening kinderopvangtoeslag 2026](https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf).
 
-**Rekenwijze:** toeslag per kind = opvanguren (max. per maand) × min(werkelijke uurprijs, maximum uurprijs) × vergoedingspercentage uit de inkomenstabel. Het "eerste kind" is het kind met de meeste opvanguren; volgende kinderen krijgen een hoger percentage.
+## 10. Overgangsmaanden en terugbetalen van toeslagen
 
-| Parameter 2026 | Waarde | Status |
-| --- | --- | --- |
-| Maximum uurprijs dagopvang / bso / gastouder | € 11,23 / € 9,98 / € 8,49 | geverifieerd (Rijksoverheid) |
-| Maximaal aantal uren per maand per kind | 230 | onbevestigd |
-| Vergoedingstabel 2026 (bijlage I Besluit, Stb. 2025, 233) | volledige tabel in `regels/landelijk/kinderopvang/2026.yaml` | onbevestigd (tekst via InView) |
-| Urennorm gekoppeld aan gewerkte uren | – | ontbrekend |
-
-Bron: [Rijksoverheid — Bedragen kinderopvangtoeslag 2026](https://www.rijksoverheid.nl/onderwerpen/kinderopvangtoeslag/bedragen-kinderopvangtoeslag-2026).
-
-## 10. Overgangsmaanden
-
-Geen eigen wettelijke regel, wel een rekenkundige: de app legt per maand naast elkaar wanneer welk bedrag binnenkomt. Uitgangspunten (aannames, zichtbaar in de app):
-
-- Bijstand wordt per kalendermaand verrekend met het inkomen dat in die maand is ontvangen (onbevestigd; de uniforme verrekening per 2027 kan dit wijzigen).
-- Het eerste salaris komt aan het einde van de eerste werkmaand of later; de gebruiker kiest.
-- Toeslagvoorschotten veranderen pas als de gebruiker de inkomensschatting aanpast.
-- De gereserveerde vakantietoeslag van de bijstand wordt bij uitstroom uitbetaald (onbevestigd).
+Toeslagen zijn een voorschot op het verwachte jaarinkomen. Wie gaat werken en zijn inkomen niet doorgeeft, krijgt te veel en moet dat na de definitieve berekening terugbetalen. De app toont per toeslag hoeveel lager die met werk wordt en wat dat na een jaar werk betekent (`terugbetaalrisico` in de uitkomst). Een overzicht per maand van de overgangsperiode is nog niet gebouwd.
 
 ## 11. Leiden
 
-| Regeling | Wat vaststaat | Status | Bron |
-| --- | --- | --- | --- |
-| Individuele inkomenstoeslag | Referteperiode 5 jaar met inkomen niet boven 100% van de bijstandsnorm; geen uitzicht op inkomensverbetering; jaarlijks geïndexeerd met CPI | regels geverifieerd; bedragen ontbrekend | [Verordening IIT Leiden 2020](https://lokaleregelgeving.overheid.nl/CVDR634399/) |
-| Individuele inkomenstoeslag — bedragen | Verordening 2020: € 400 / € 500 / € 550, maar artikel 4 en de toelichting noemen de bedragen voor alleenstaande ouder en gehuwden omgekeerd; actuele geïndexeerde bedragen onbekend | ontbrekend | idem |
-| Sleutelpas (gratis) | Inkomen tot 130% van het wettelijk sociaal minimum, of in WSNP/MSNP; ambtshalve voor bijstandsgerechtigden | geverifieerd | [Beleidsregels Sleutelpas Leiden 2026](https://zoek.officielebekendmakingen.nl/gmb-2025-429670.pdf) |
-| Tegoeden op de Sleutelpas (bijv. kindtegoed) | – | ontbrekend | – |
-| Kwijtschelding gemeentelijke belastingen | Landelijk kader 100% kosten van bestaan (VNG); Leidse keuze en uitvoerder onbekend | ontbrekend | – |
-| Collectieve zorgverzekering minima | – | ontbrekend | – |
-| Beleidsregels inkomensvoorzieningen 2026 | Regelen terugwerkende kracht, garantieknop, zoekperiode jongeren, jongerennorm; **niet** de inkomstenvrijlating | geverifieerd | [CVDR760197](https://lokaleregelgeving.overheid.nl/CVDR760197/1) |
-
-Leiden voert Werk en Inkomen ook uit voor Leiderdorp (aanvraagformulier IIT 2026). Dat maakt Leiderdorp een logische tweede gemeente.
-
----
-
-## Overzicht status
-
-| Mechanisme | 2026 | 2027 |
+| Regeling | Wat vaststaat | Bron |
 | --- | --- | --- |
-| Bijstandsnorm | geverifieerd | ontbrekend (verwacht dec. 2026) |
-| Kostendelersnorm | onbevestigd | onbevestigd |
-| Inkomstenvrijlating | grotendeels geverifieerd | onbevestigd |
-| Loonheffing en kortingen | geverifieerd | onbevestigd / ontbrekend |
-| Zorgtoeslag | onbevestigd (standaardpremie geverifieerd) | ontbrekend |
-| Huurtoeslag | formule bekend, minimum-inkomensijkpunt ontbrekend | ontbrekend |
-| Kindgebonden budget | onbevestigd | ontbrekend |
-| Kinderbijslag | ontbrekend | ontbrekend |
-| Kinderopvangtoeslag | onbevestigd (uurprijzen geverifieerd) | ontbrekend |
-| Leidse regelingen | deels | ontbrekend |
+| Verkorte aanvraag ('Garantieknop') | Nieuwe aanvraag binnen 12 maanden na het einde van de bijstand, als die stopte door werk, een uitsluitingsgrond of studie; de gemeente gebruikt bekende gegevens als woonadres, gezin, inkomen en vermogen niet zijn veranderd | [Beleidsregels inkomensvoorzieningen Leiden 2026, hoofdstuk 3](https://lokaleregelgeving.overheid.nl/CVDR760197) |
+| Individuele inkomenstoeslag | € 462 (alleenstaande), € 577 (alleenstaande ouder), € 635 (gehuwden), één keer per 12 maanden; 23 jaar of ouder; 5 jaar inkomen tot 100% van de bijstandsnorm. De bedragen bevestigen artikel 4 van de verordening uit 2020 (€ 400 / € 500 / € 550, geïndexeerd); de afwijkende toelichting bij die verordening is niet bepalend | [leiden.nl](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/individuele-inkomenstoeslag/) |
+| Sleutelpas en Kindtegoed | Gratis pas en Kindtegoed tot 130% van het WSM; Kindtegoed per jaar € 150 (0–3), € 350 (4–11), € 550 (12–17); tussen 130% en 140% wel Kindtegoed, geen gratis pas | [Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026](https://lokaleregelgeving.overheid.nl/CVDR747564) |
+| Premies bij werk | In de Re-integratieverordening 2023 staat alleen een premie bij een participatieplaats (€ 220 per 6 maanden), geen uitstroompremie. De landelijke vrijlating bij medische urenbeperking (onder y) geldt ook in Leiden | [Re-integratieverordening Participatiewet 2023 Leiden](https://lokaleregelgeving.overheid.nl/CVDR706023) |
+| Kwijtschelding, collectieve zorgverzekering | nog niet uitgezocht | – |
 
-Conclusie: de bijstand en de belasting voor 2026 kunnen nu al betrouwbaar worden gebouwd. Voor de toeslagen ontbreken nog de officiële rekenparameters; die staan vooral in Staatsblad- en Staatscourant-publicaties en op de sites van Dienst Toeslagen en SVB. Het ophalen daarvan is de eerste taak in fase 2, parallel aan het fundament.
+## 12. Onafhankelijke toetsing
+
+- `packages/engine/test/officieel.test.ts`: de rekenvoorbeelden van Dienst Toeslagen voor huurtoeslag, zorgtoeslag, kindgebonden budget en kinderopvangtoeslag 2026.
+- `testgevallen/` en [PROEFPERSONEN.md](PROEFPERSONEN.md): fictieve huishoudens met officiële vergelijkingswaarden waar die er zijn.
+- `packages/engine/test/eigenschappen.test.ts`: de vorm van de wet (geen sprongen, dalend waar het moet).

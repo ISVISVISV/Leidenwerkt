@@ -1,0 +1,43 @@
+# Verzonnen persoon en situatie. Zie testgevallen/README.md.
+naam: Rachid
+beschrijving: Rachid, 36, alleenstaand, woont bij een hospita (geen huurtoeslag). Hij werkt al langer dan 6 maanden en krijgt geen vrijlating
+  meer. Met € 1.370 bruto per maand verdient hij netto net meer dan de bijstandsnorm.
+rekendatum: '2026-09-01'
+invoer:
+  leefvorm: alleenstaande
+  leeftijd: 36
+  kinderen: []
+  kostendelers: 0
+  wonen:
+    soort: anders
+  nieuwWerk:
+    brutoMaandloon: 1370
+  vrijlatingFase: geen
+verwacht:
+- onderdeel: bijstand
+  situatie: nu
+  waarde: 1419.46
+  bron:
+    titel: Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend? (normen per 1 juli 2026)
+    url: https://www.rijksoverheid.nl/themas/werk/arbeidsomstandigheden/vraag-en-antwoord/bijstand/hoe-hoog-is-mijn-bijstandsuitkering
+    datum: '2026-11-04'
+  tolerantie: 0.01
+  toelichting: Volledige norm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, zonder inkomen
+- onderdeel: zorgtoeslag
+  situatie: nu
+  waarde: 129
+  bron:
+    titel: Belastingdienst — Hoeveel zorgtoeslag krijg ik? (tabel 2026)
+    url: https://www.belastingdienst.nl/wps/wcm/connect/nl/zorgtoeslag/content/hoeveel-zorgtoeslag
+    datum: '2026-11-08'
+  tolerantie: 0
+  toelichting: 'Tabel: toetsingsinkomen tot € 29.500 geeft het maximum'
+- onderdeel: netto_loon
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: bijstand
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: zorgtoeslag
+  situatie: met_werk
+  waarde: onbekend

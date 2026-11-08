@@ -1,0 +1,100 @@
+# Verzonnen persoon en situatie. Zie testgevallen/README.md.
+naam: Sanne
+beschrijving: 'Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690. Ze begint met 16 uur per week als doktersassistente voor € 16,20
+  per uur, zodat ze nog aanvullende bijstand krijgt. Noor gaat 56 uur per maand naar het kinderdagverblijf (€ 10,90 per uur). Periode: vanaf maand
+  37.'
+rekendatum: '2026-09-01'
+invoer:
+  leefvorm: alleenstaande_ouder
+  leeftijd: 34
+  kinderen:
+  - leeftijd: 4
+    opvang:
+      soort: dagopvang
+      urenPerMaand: 56
+      uurprijs: 10.9
+  kostendelers: 0
+  wonen:
+    soort: huur
+    kaleHuurPerMaand: 690
+  nieuwWerk:
+    brutoUurloon: 16.2
+    urenPerWeek: 16
+  vrijlatingFase: geen
+verwacht:
+- onderdeel: bijstand
+  situatie: nu
+  waarde: 1419.46
+  bron:
+    titel: Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend? (normen per 1 juli 2026)
+    url: https://www.rijksoverheid.nl/themas/werk/arbeidsomstandigheden/vraag-en-antwoord/bijstand/hoe-hoog-is-mijn-bijstandsuitkering
+    datum: '2026-11-04'
+  tolerantie: 0.01
+  toelichting: Volledige norm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, zonder inkomen
+- onderdeel: zorgtoeslag
+  situatie: nu
+  waarde: 129
+  bron:
+    titel: Belastingdienst — Hoeveel zorgtoeslag krijg ik? (tabel 2026)
+    url: https://www.belastingdienst.nl/wps/wcm/connect/nl/zorgtoeslag/content/hoeveel-zorgtoeslag
+    datum: '2026-11-08'
+  tolerantie: 0
+  toelichting: 'Tabel: toetsingsinkomen tot € 29.500 geeft het maximum'
+- onderdeel: kindgebonden_budget
+  situatie: nu
+  waarde: 499
+  bron:
+    titel: Dienst Toeslagen — Berekening kindgebonden budget 2026, stap 1 en 2 (maximale bedragen)
+    url: https://download.belastingdienst.nl/toeslagen/docs/berekening_kindgebonden_budget_tg0811z61fd.pdf
+    datum: '2026-11-08'
+  tolerantie: 0
+  toelichting: € 5.996 per jaar (alleenstaande ouder, 1 kind) / 12 = € 499,67, afgerond naar beneden
+- onderdeel: huurtoeslag
+  situatie: nu
+  waarde: 422
+  bron:
+    titel: Dienst Toeslagen — Berekening huurtoeslag 2026, stappen 1 t/m 7
+    url: https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf
+    datum: '2026-11-08'
+  tolerantie: 0
+  toelichting: A € 297.49 + B € 124.67 + C € 0.00 = € 422.16, afgerond naar beneden; rekeninkomen onder het minimum-inkomensijkpunt, dus geen
+    correctie
+- onderdeel: kinderbijslag
+  situatie: nu
+  waarde: 99.47
+  bron:
+    titel: SVB — Bedragen kinderbijslag (derde en vierde kwartaal 2026)
+    url: https://www.svb.nl/nl/kinderbijslag/bedragen-betaaldagen/bedragen-kinderbijslag
+    datum: '2026-11-08'
+  tolerantie: 0.01
+  toelichting: € 298,40 per kwartaal (0 t/m 5 jaar) / 3
+- onderdeel: kinderbijslag
+  situatie: met_werk
+  waarde: 99.47
+  bron:
+    titel: SVB — Bedragen kinderbijslag (derde en vierde kwartaal 2026)
+    url: https://www.svb.nl/nl/kinderbijslag/bedragen-betaaldagen/bedragen-kinderbijslag
+    datum: '2026-11-08'
+  tolerantie: 0.01
+  toelichting: € 298,40 per kwartaal (0 t/m 5 jaar) / 3
+- onderdeel: kinderopvangtoeslag
+  situatie: met_werk
+  waarde: 585
+  bron:
+    titel: Dienst Toeslagen — Berekening kinderopvangtoeslag 2026, stappen 1 t/m 7
+    url: https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf
+    datum: '2026-11-08'
+  tolerantie: 0
+  toelichting: 56 uur × € 10,90 (onder het maximum van € 11,23) × 96% = € 585,98, afgerond naar beneden; inkomen ruim onder € 56.413
+- onderdeel: netto_loon
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: bijstand
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: huurtoeslag
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: kindgebonden_budget
+  situatie: met_werk
+  waarde: onbekend

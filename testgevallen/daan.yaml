@@ -1,0 +1,57 @@
+# Verzonnen persoon en situatie. Zie testgevallen/README.md.
+naam: Daan
+beschrijving: Daan, 41, alleenstaand, huurt voor € 640 kaal, heeft geen werk en overweegt 24 uur als magazijnmedewerker voor € 15,50 bruto per
+  uur.
+rekendatum: '2026-09-01'
+invoer:
+  leefvorm: alleenstaande
+  leeftijd: 41
+  kinderen: []
+  kostendelers: 0
+  wonen:
+    soort: huur
+    kaleHuurPerMaand: 640
+  nieuwWerk:
+    brutoUurloon: 15.5
+    urenPerWeek: 24
+  vrijlatingFase: start
+verwacht:
+- onderdeel: bijstand
+  situatie: nu
+  waarde: 1419.46
+  bron:
+    titel: Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend? (normen per 1 juli 2026)
+    url: https://www.rijksoverheid.nl/themas/werk/arbeidsomstandigheden/vraag-en-antwoord/bijstand/hoe-hoog-is-mijn-bijstandsuitkering
+    datum: '2026-11-04'
+  tolerantie: 0.01
+  toelichting: Volledige norm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, zonder inkomen
+- onderdeel: zorgtoeslag
+  situatie: nu
+  waarde: 129
+  bron:
+    titel: Belastingdienst — Hoeveel zorgtoeslag krijg ik? (tabel 2026)
+    url: https://www.belastingdienst.nl/wps/wcm/connect/nl/zorgtoeslag/content/hoeveel-zorgtoeslag
+    datum: '2026-11-08'
+  tolerantie: 0
+  toelichting: 'Tabel: toetsingsinkomen tot € 29.500 geeft het maximum'
+- onderdeel: huurtoeslag
+  situatie: nu
+  waarde: 387
+  bron:
+    titel: Dienst Toeslagen — Berekening huurtoeslag 2026, stappen 1 t/m 7
+    url: https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf
+    datum: '2026-11-08'
+  tolerantie: 0
+  toelichting: A € 295.68 + B € 92.17 + C € 0.00 = € 387.85, afgerond naar beneden; rekeninkomen onder het minimum-inkomensijkpunt, dus geen correctie
+- onderdeel: netto_loon
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: bijstand
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: zorgtoeslag
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: huurtoeslag
+  situatie: met_werk
+  waarde: onbekend
