@@ -420,6 +420,15 @@ input[type="range"] {
   font-size: 0.9rem;
 }
 
+.melding.waarschuwing {
+  border-left: 4px solid var(--let-op);
+  margin: 1rem 0;
+}
+
+.melding.waarschuwing p {
+  margin: 0;
+}
+
 table.vergelijking {
   width: 100%;
   border-collapse: collapse;

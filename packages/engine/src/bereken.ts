@@ -234,12 +234,8 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         const formule = vrij.isZero()
           ? `${euro(norm)} − ${euro(inkomen)}`
           : `${euro(norm)} − (${euro(inkomen)} − ${euro(vrij)})`;
-        stap(
-          bijstand.isZero()
-            ? `Bijstand: ${formule} is minder dan nul, dus geen bijstand`
-            : `Bijstand: ${formule} = ${euro(bijstand)}`,
-          bijstand,
-        );
+        // De formule bevat de uitkomst al; geen apart bedrag ernaast.
+        stap(bijstand.isZero() ? `Bijstand: ${formule} is minder dan nul, dus geen bijstand` : `Bijstand: ${formule} = ${euro(bijstand)}`);
       }
       kern.bijstandMaand = bijstand;
       aanname("Bijstand is netto en inclusief vakantietoeslag per maand gerekend; de gemeente betaalt de vakantietoeslag één keer per jaar uit.");
