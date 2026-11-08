@@ -17,7 +17,7 @@
  */
 import { D, NUL, centen, type Bedrag } from "./geld.ts";
 import { Lezer, OntbrekendeParameter, standaardRegels, type RegelSet } from "./regels.ts";
-import { bereken } from "./bereken.ts";
+import { bereken, metVakantiegeld } from "./bereken.ts";
 import { REGIMES, regimeOp } from "./regimes.ts";
 import type { Fase, Invoer, Resultaat } from "./types.ts";
 
@@ -72,7 +72,8 @@ function overigVan(r: Resultaat, s: "huidig" | "werk"): Bedrag {
     .reduce((t, p) => t.plus(D(p.perMaand!)), NUL);
 }
 
-export function maandoverzicht(invoer: Invoer, start: string, regels: RegelSet = standaardRegels): Maandoverzicht {
+export function maandoverzicht(gegeven: Invoer, start: string, regels: RegelSet = standaardRegels): Maandoverzicht {
+  const invoer = metVakantiegeld(gegeven, regels);
   const l = new Lezer(regels, invoer.datum);
   let duur = 6;
   try {
@@ -92,7 +93,7 @@ export function maandoverzicht(invoer: Invoer, start: string, regels: RegelSet =
     if (!cache.has(fase)) cache.set(fase, bereken({ ...invoer, vrijlatingFase: fase, huidigeVrijlating: invoer.huidigWerk ? fase : invoer.huidigeVrijlating }, regels));
     return cache.get(fase)!;
   };
-  const vg = D(invoer.nieuwWerk.vakantiegeld ?? 0.08).plus(1);
+  const vg = D(invoer.nieuwWerk.vakantiegeld ?? 0).plus(1);
 
   // Nu: bijstand (zonder vakantietoeslag), loon zonder vakantiegeld en de rest.
   const r1 = met(faseVan(1));
@@ -159,7 +160,7 @@ export function maandoverzicht(invoer: Invoer, start: string, regels: RegelSet =
       "'Toeslagen e.d.' zijn de toeslagen, de kinderbijslag en andere bedragen die binnenkomen, min de kosten van het werk en de kinderopvang.",
       "Uw loon wordt achteraf verrekend: het loon van een maand gaat af van de bijstand van de maand erna. In de eerste maand krijgt u dus nog de bijstand van nu én uw eerste loon.",
       "Er is aangenomen dat u elke maand loon krijgt, aan het einde van de maand waarin u werkte.",
-      "Het netto loon per maand zonder vakantiegeld is benaderd door het gemiddelde netto loon te delen door 1,08.",
+      `Het netto loon per maand zonder vakantiegeld is benaderd door het gemiddelde netto loon te delen door ${vg.toString().replace(".", ",")}.`,
       "Er is aangenomen dat u uw nieuwe inkomen meteen doorgeeft aan Dienst Toeslagen, zodat uw toeslagen vanaf de eerste maand kloppen.",
       "Alle maanden zijn berekend met de bedragen van nu. Nieuwe bedragen per 1 januari of 1 juli zijn niet meegenomen.",
     ],

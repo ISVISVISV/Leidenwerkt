@@ -547,9 +547,13 @@ function LoonVelden({
   zetPer,
   zetLoon,
   zetUren,
+  allIn,
+  zetAllIn,
   fouten,
 }: {
   prefix: string;
+  allIn: Formulier["allIn"];
+  zetAllIn: (v: Formulier["allIn"]) => void;
   per: Formulier["per"];
   loon: string;
   uren: string;
@@ -593,16 +597,30 @@ function LoonVelden({
         }
         hint={
           per === "uur"
-            ? "Staat in de vacature of het contract."
+            ? "Staat in de vacature of het contract. 'Bruto' is het bedrag vóór belasting."
             : per === "netto"
-              ? "Het bedrag dat u elke maand op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook."
-              : "Zonder vakantiegeld. Staat in het contract of op de loonstrook. 'Bruto' is het bedrag vóór belasting."
+              ? "Het bedrag dat u elke maand op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook. De app telt het vakantiegeld er zelf bij, net als de vakantietoeslag bij de bijstand."
+              : "Vul het loon in zoals het in uw contract of op uw loonstrook staat, zonder vakantiegeld. De app telt het vakantiegeld er zelf bij, net als de vakantietoeslag bij de bijstand. 'Bruto' is het bedrag vóór belasting."
         }
         waarde={loon}
         onChange={zetLoon}
         fout={fouten[loonId]}
         voorvoegsel="€"
       />
+      {per === "uur" && (
+        <Keuze
+          naam={`${prefix}allIn`}
+          legend="Zit het vakantiegeld al in dit uurloon?"
+          hint="Meestal krijgt u het vakantiegeld apart, één keer per jaar. Bij uitzendwerk of in de horeca zit het soms al in het uurloon. Dat heet een all-in uurloon. Het staat in uw contract of op uw loonstrook."
+          waarde={allIn}
+          onChange={zetAllIn}
+          opties={[
+            ["nee", "Nee, ik krijg het apart"],
+            ["ja", "Ja, het is een all-in uurloon"],
+            ["onbekend", "Ik weet het niet"],
+          ]}
+        />
+      )}
     </>
   );
 }
@@ -631,6 +649,8 @@ function StapWerk({ f, zet, fouten }: StapProps) {
             zetPer={(v) => zet("nuPer", v)}
             zetLoon={(v) => zet("nuLoon", v)}
             zetUren={(v) => zet("nuUren", v)}
+            allIn={f.nuAllIn}
+            zetAllIn={(v) => zet("nuAllIn", v)}
             fouten={fouten}
           />
         </fieldset>
@@ -700,6 +720,8 @@ function StapWerk({ f, zet, fouten }: StapProps) {
             zetPer={(v) => zet("per", v)}
             zetLoon={(v) => zet("loon", v)}
             zetUren={(v) => zet("uren", v)}
+            allIn={f.allIn}
+            zetAllIn={(v) => zet("allIn", v)}
             fouten={fouten}
           />
         </>

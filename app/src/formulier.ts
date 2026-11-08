@@ -10,6 +10,7 @@ export function maxUurprijs(l: Lezer, soort: Opvangsoort): number {
 }
 
 export type LoonPer = "maand" | "netto" | "vierweken" | "uur";
+export type AllIn = "nee" | "ja" | "onbekend";
 export type Woonsituatie = "huur" | "koop" | "inwonend" | "dakloos" | "instelling";
 
 export interface KindVeld {
@@ -50,6 +51,9 @@ export interface Formulier {
   nuLoon: string;
   nuUren: string;
   per: LoonPer;
+  /** Bij een uurloon: zit het vakantiegeld er al in (all-in)? */
+  allIn: AllIn;
+  nuAllIn: AllIn;
   loon: string;
   uren: string;
   reiskosten: string;
@@ -80,6 +84,8 @@ export const leegFormulier: Formulier = {
   nuLoon: "",
   nuUren: "",
   per: "maand",
+  allIn: "nee",
+  nuAllIn: "nee",
   loon: "",
   uren: "",
   reiskosten: "",
@@ -197,7 +203,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
           : f.woont === "instelling"
             ? { soort: "instelling" }
             : { soort: "anders" },
-    huidigWerk: f.werktNu ? loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0) : undefined,
+    huidigWerk: f.werktNu ? loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0, undefined, f.nuAllIn) : undefined,
     nieuwWerk: {
       ...nieuwLoon(f, opties.uren),
       reiskostenPerMaand: getal(f.reiskosten),
@@ -218,11 +224,11 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
  * extra werk, anders de uren van het (nieuwe) werk.
  */
 function nieuwLoon(f: Formulier, schuif?: number) {
-  const nu = () => loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0);
+  const nu = () => loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0, undefined, f.nuAllIn);
   if (f.werktNu && f.verandering === "meer") {
-    return loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0, schuif ?? getal(f.meerUren));
+    return loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0, schuif ?? getal(f.meerUren), f.nuAllIn);
   }
-  const ander = loonWerk(f.per, getal(f.loon) ?? 0, getal(f.uren) ?? 0, schuif);
+  const ander = loonWerk(f.per, getal(f.loon) ?? 0, getal(f.uren) ?? 0, schuif, f.allIn);
   if (f.werktNu && f.verandering === "erbij") return { ...nu(), bijbaan: ander };
   return ander;
 }
@@ -239,9 +245,15 @@ export function schuifStart(f: Formulier): { uren: number; wat: "totaal" | "extr
  * vierwekenloon schaalt het loon mee als de gebruiker met de urenschuif
  * een ander aantal uren kiest.
  */
-function loonWerk(per: LoonPer, bedrag: number, uren: number, andereUren?: number) {
+function loonWerk(per: LoonPer, bedrag: number, uren: number, andereUren?: number, allIn: AllIn = "nee") {
   const nieuweUren = andereUren ?? uren;
-  if (per === "uur") return { brutoUurloon: bedrag, urenPerWeek: nieuweUren };
+  if (per === "uur") {
+    return {
+      brutoUurloon: bedrag,
+      urenPerWeek: nieuweUren,
+      ...(allIn === "ja" ? { vakantiegeld: 0 } : allIn === "onbekend" ? { vakantiegeldOnzeker: true } : {}),
+    };
+  }
   const urenFactor = uren > 0 ? nieuweUren / uren : 1;
   if (per === "vierweken") return { brutoVierwekenloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
   if (per === "netto") return { nettoMaandloon: bedrag, urenPerWeek: nieuweUren, urenFactor };

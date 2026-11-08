@@ -97,6 +97,32 @@ function laagste(l: Lezer): PostStatus {
   return laagst;
 }
 
+/** Vakantiegeld van een baan als breuk. Na `metVakantiegeld` altijd ingevuld. */
+function vgVan(w: Werk | undefined): Bedrag {
+  return D(w?.vakantiegeld ?? 0);
+}
+
+/**
+ * Vult bij elke baan het vakantiegeld in met het wettelijke minimum uit de
+ * regeldata (art. 15 Wml), als de invoer het niet zelf noemt.
+ */
+export function metVakantiegeld(invoer: Invoer, regels: RegelSet = standaardRegels): Invoer {
+  let standaard: number | undefined;
+  try {
+    standaard = Number(new Lezer(regels, invoer.datum).breuk("wml.vakantiebijslag").toString());
+  } catch (e) {
+    if (!(e instanceof OntbrekendeParameter)) throw e;
+  }
+  const vul = (w: Werk | undefined): Werk | undefined =>
+    w && { ...w, vakantiegeld: w.vakantiegeld ?? standaard, bijbaan: w.bijbaan ? vul(w.bijbaan) : undefined };
+  return {
+    ...invoer,
+    nieuwWerk: vul(invoer.nieuwWerk)!,
+    huidigWerk: vul(invoer.huidigWerk),
+    partner: invoer.partner && { ...invoer.partner, werk: vul(invoer.partner.werk) },
+  };
+}
+
 /** Bruto jaarloon exclusief vakantiegeld. */
 function brutoJaarExcl(w: Werk | undefined): Bedrag {
   return eigenBrutoJaarExcl(w).plus(w?.bijbaan ? brutoJaarExcl(w.bijbaan) : NUL);
@@ -125,7 +151,7 @@ function metBruto(w: Werk | undefined, regels: RegelSet, datum: string): Werk | 
   if (!w || w.nettoMaandloon === undefined || w.brutoMaandloon !== undefined) return w;
   try {
     const l = new Lezer(regels, datum);
-    const bruto = brutoMaandUitNetto(l, D(w.nettoMaandloon), D(w.vakantiegeld ?? 0.08));
+    const bruto = brutoMaandUitNetto(l, D(w.nettoMaandloon), vgVan(w));
     return { ...w, brutoMaandloon: Number(bruto.toFixed(2)) };
   } catch (e) {
     if (e instanceof OntbrekendeParameter) return w;
@@ -139,7 +165,7 @@ export function brutoMaandloon(w: Werk | undefined): Bedrag {
 }
 
 function brutoJaarloon(w: Werk | undefined): Bedrag {
-  const vg = D(w?.vakantiegeld ?? 0.08);
+  const vg = vgVan(w);
   return eigenBrutoJaarExcl(w).times(vg.plus(1)).plus(w?.bijbaan ? brutoJaarloon(w.bijbaan) : NUL);
 }
 
@@ -182,7 +208,15 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       }
       if (werk?.brutoVierwekenloon !== undefined) stap("Bruto loon per 4 weken", D(werk.brutoVierwekenloon).times(werk.urenFactor ?? 1));
       stap("Bruto loon per maand (gemiddeld, zonder vakantiegeld)", brutoMaandloon(werk));
-      stap("Vakantiegeld per maand (gemiddeld)", bruto.div(12).minus(brutoMaandloon(werk)));
+      if (werk?.vakantiegeld === undefined || D(werk.vakantiegeld).gt(0)) l.breuk("wml.vakantiebijslag");
+      stap(
+        `Vakantiegeld per maand (gemiddeld, ${vgVan(werk).times(100).toString().replace(".", ",")}% van het bruto loon)`,
+        bruto.div(12).minus(brutoMaandloon(werk)),
+      );
+      if (werk?.vakantiegeldOnzeker) {
+        aanname("U wist niet of het vakantiegeld al in uw uurloon zit. Er is gerekend met vakantiegeld erbij. Zit het er al in (all-in), dan houdt u iets minder over dan hier staat.");
+      }
+      if (werk?.vakantiegeld === 0) aanname("U gaf aan dat het vakantiegeld al in uw uurloon zit (all-in). Er is daarom geen vakantiegeld bij opgeteld.");
       stap("Loonbelasting en premies per maand", r.belasting.div(12));
       stap("Korting daarop: algemene heffingskorting per maand", r.ahk.div(12));
       stap("Korting daarop: arbeidskorting per maand", r.arbeidskorting.div(12));
@@ -393,7 +427,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
           stap("Eigen bijdrage: kosten van de opvang min kinderopvangtoeslag", eigen);
           if (eigen.isZero()) return null;
           const vt = l.breuk("pw.vakantietoeslag");
-          const vg = D(werk?.vakantiegeld ?? 0.08);
+          const vg = vgVan(werk);
           // Bijstandsnorm volgens art. 1 onder d: zonder kostendelersnorm, met een verlaging op grond van art. 27,
           // en voor een alleenstaande ouder 90% van de gezinsnorm.
           const zonderKostendelers: Invoer = { ...invoer, kostendelers: 0 };
@@ -405,7 +439,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
           stap("Bijstandsnorm voor de bijzondere bijstand, zonder vakantietoeslag", norm);
           const inkomen = (kern.nettoMaand ?? NUL)
             .div(vg.plus(1))
-            .plus((kern.nettoPartnerMaand ?? NUL).div(D(partnerWerk?.vakantiegeld ?? 0.08).plus(1)))
+            .plus((kern.nettoPartnerMaand ?? NUL).div(vgVan(partnerWerk).plus(1)))
             .plus(nodig(kern.bijstandMaand, "de bijstand").times(D(1).minus(vt)));
           stap(`Netto inkomen van ${paar ? "uw huishouden" : "u"} per maand (loon en bijstand), zonder vakantiegeld`, inkomen);
           const g0 = norm.times(l.breuk("leiden.bb.draagkracht.vrij_tot"));
@@ -427,7 +461,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
           aanname(
             "De gemeente Leiden vergoedt de eigen bijdrage voor kinderopvang als u de opvang anders niet kunt betalen en daardoor niet kunt werken (Beleidsregels bijzondere bijstand 2022). Er is aangenomen dat dat voor u zo is en dat u de vergoeding aanvraagt.",
           );
-          aanname("Voor de vergoeding kijkt de gemeente naar uw inkomen zonder vakantiegeld. Dat is hier benaderd door het gemiddelde netto loon te delen door 1,08.");
+          aanname(`Voor de vergoeding kijkt de gemeente naar uw inkomen zonder vakantiegeld. Dat is hier benaderd door het gemiddelde netto loon te delen door ${vg.plus(1).toString().replace(".", ",")}.`);
           return vergoeding;
         }),
       );
@@ -475,8 +509,9 @@ function som(posten: Post[], uitsluiten: Set<string>): Bedrag {
   return posten.filter((p) => p.perMaand !== null && !uitsluiten.has(p.id)).reduce((s, p) => s.plus(D(p.perMaand!)), NUL);
 }
 
-export function bereken(oorspronkelijk: Invoer, regels: RegelSet = standaardRegels): Resultaat {
-  valideer(oorspronkelijk);
+export function bereken(gegeven: Invoer, regels: RegelSet = standaardRegels): Resultaat {
+  valideer(gegeven);
+  const oorspronkelijk = metVakantiegeld(gegeven, regels);
   const invoer: Invoer = {
     ...oorspronkelijk,
     huidigWerk: metBruto(oorspronkelijk.huidigWerk, regels, oorspronkelijk.datum),

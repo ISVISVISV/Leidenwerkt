@@ -227,3 +227,20 @@ test("overzicht per maand: eerste maand met loon en de bijstand van nu", async (
   await expect(page.locator("section[aria-labelledby='per-maand']")).toContainText("uw eerste loon én nog de bijstand van nu");
   await geenToegankelijkheidsfouten(page);
 });
+
+test("uurloon: vraag of het vakantiegeld al in het uurloon zit", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByLabel("Uw leeftijd").fill("30");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel("In een koopwoning").check();
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("textbox", { name: /Hoeveel uur per week werkt u/ }).fill("20");
+  await page.getByLabel("Bruto loon per uur", { exact: true }).check();
+  await page.getByRole("textbox", { name: "Bruto loon per uur" }).fill("14,50");
+  await page.getByLabel("Ja, het is een all-in uurloon").check();
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  await page.getByText("Bekijk de").click();
+  await expect(page.locator("section[aria-labelledby='aannames'] .aannames")).toContainText("all-in");
+  await geenToegankelijkheidsfouten(page);
+});

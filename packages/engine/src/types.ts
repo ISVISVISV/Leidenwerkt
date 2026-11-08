@@ -41,7 +41,13 @@ export interface Werk {
   /** Factor waarmee het loon wordt vermenigvuldigd, bijvoorbeeld bij een ander aantal uren (urenschuif). */
   urenFactor?: number;
   /** Vakantiegeld als breuk, standaard 0,08. */
+  /**
+   * Vakantiegeld als breuk van het brutoloon. Leeg: het wettelijke minimum uit de
+   * regeldata (wml.vakantiebijslag). 0 bij een all-in uurloon (vakantiegeld zit al in het loon).
+   */
   vakantiegeld?: number;
+  /** De gebruiker weet niet of het vakantiegeld al in het uurloon zit; er is gerekend met vakantiegeld erbij. */
+  vakantiegeldOnzeker?: boolean;
   pensioenpremiePerMaand?: number;
   reiskostenPerMaand?: number;
   reiskostenvergoedingPerMaand?: number;
