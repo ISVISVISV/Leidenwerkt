@@ -90,11 +90,15 @@ Bron: art. 34a en 78ff Pw ([versie 1 januari 2027](https://wetten.overheid.nl/BW
 | Medisch urenbeperkt (lid 1 b) | 15% | geen maximale duur |
 | AOW-leeftijd (lid 1 c) | 25%, tot € 226 | geen maximale duur |
 
-De uitzondering voor jongeren onder de 27 vervalt per 2027 (art. 31 lid 5 noemt dan alleen nog de onderdelen c en k). De wettekst van art. 34a bevat **geen** voorwaarde dat het inkomen onder de bijstandsnorm moet blijven; die voorwaarde stond eerder (op basis van een secundaire bron) in de engine en is verwijderd. Nieuw is ook een bufferbudget van ten hoogste € 1.000 per kalenderjaar (art. 34b); dat rekent de app niet.
+De uitzondering voor jongeren onder de 27 vervalt per 2027 (art. 31 lid 5 noemt dan alleen nog de onderdelen c en k).
+
+**Eerst toetsen aan de bijstandsnorm.** De wettekst van art. 34a noemt geen inkomensgrens, maar de memorie van toelichting wel ([Kamerstuk 36582, nr. 3](https://zoek.officielebekendmakingen.nl/kst-36582-3.html), artikelsgewijze toelichting bij art. 34a): "Bij het niet in aanmerking nemen van inkomsten uit arbeid dient eerst getoetst te worden of er een inkomen onder de bijstandsnorm is. Als het inkomen hoger is dan de bijstandsnorm eindigt het recht op bijstand en wordt niet toegekomen aan de toepassing van het nieuwe artikel 34a." De engine volgt dit: is het netto inkomen van het huishouden hoger dan de norm, dan is er vanaf 2027 geen vrijlating en geen bijstand. (Dit gold niet voor het oude onderdeel n onder het overgangsrecht.) Bij een medische urenbeperking noemde de regering in [Kamerstuk 36582, nr. 6](https://zoek.officielebekendmakingen.nl/kst-36582-6.html) nog een maximum van € 136,26; de vastgestelde wettekst (lid 1 onder b) noemt geen maximum, en die volgt de engine.
+
+Nieuw is ook een bufferbudget van ten hoogste € 1.000 per kalenderjaar (art. 34b); dat rekent de app niet.
 
 **Overgangsrecht (art. 78ff):**
 
-- Lid 2: wie vóór 1 januari 2027 een vrijlating onder n had, houdt het oude onderdeel n zoals het luidde op 31 december 2026 (25%, max. € 289), gedurende ten hoogste 12 maanden na 1 januari 2027. De engine leest daarvoor de parameters op 31 december 2026. Of daarna nog de nieuwe regeling volgt, zegt de wet niet; de app neemt aan van niet en verwijst naar de klantmanager.
+- Lid 2: wie vóór 1 januari 2027 een vrijlating onder n had, houdt het oude onderdeel n zoals het luidde op 31 december 2026 (25%, max. € 289), gedurende ten hoogste 12 maanden na 1 januari 2027. De engine leest daarvoor de parameters op 31 december 2026. Of iemand na afloop daarvan nog de nieuwe bijverdienregeling krijgt, staat niet in de wet en niet in de memorie van toelichting of de andere Kamerstukken van dossier 36582 (op 8 november 2026 doorzocht). Art. 34a lid 1 sluit het niet uit en lid 3 maakt een nieuwe periode mogelijk bij een nieuw dienstverband. De gemeente beslist; de app rekent na de oude periode zonder vrijlating en zegt dat erbij.
 - Lid 3: wie een vrijlating onder r had, krijgt voor de rest van die periode de vrijlating van art. 34a lid 1 onder a (15%, zonder maximum).
 
 ## 4. Loonheffing en heffingskortingen
@@ -143,10 +147,13 @@ Toeslagen zijn een voorschot op het verwachte jaarinkomen. Wie gaat werken en zi
 | Individuele inkomenstoeslag | € 462 (alleenstaande), € 577 (alleenstaande ouder), € 635 (gehuwden), één keer per 12 maanden; 23 jaar of ouder; 5 jaar inkomen tot 100% van de bijstandsnorm. De bedragen bevestigen artikel 4 van de verordening uit 2020 (€ 400 / € 500 / € 550, geïndexeerd); de afwijkende toelichting bij die verordening is niet bepalend | [leiden.nl](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/individuele-inkomenstoeslag/) |
 | Sleutelpas en Kindtegoed | Gratis pas en Kindtegoed tot 130% van het WSM; Kindtegoed per jaar € 150 (0–3), € 350 (4–11), € 550 (12–17); tussen 130% en 140% wel Kindtegoed, geen gratis pas | [Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026](https://lokaleregelgeving.overheid.nl/CVDR747564) |
 | Premies bij werk | In de Re-integratieverordening 2023 staat alleen een premie bij een participatieplaats (€ 220 per 6 maanden), geen uitstroompremie. De landelijke vrijlating bij medische urenbeperking (onder y) geldt ook in Leiden | [Re-integratieverordening Participatiewet 2023 Leiden](https://lokaleregelgeving.overheid.nl/CVDR706023) |
-| Kwijtschelding, collectieve zorgverzekering | nog niet uitgezocht | – |
+| Draagkracht bijzondere bijstand | Geen draagkracht tot 110% van de bijstandsnorm (exclusief vakantietoeslag); daarboven 20% van het meerinkomen tot 130%, 50% tussen 130% en 150%, 100% boven 150% | [Beleidsregels bijzondere bijstand 2022, art. 6](https://lokaleregelgeving.overheid.nl/CVDR677687) |
+| Collectieve aanvullende zorgverzekering, zwembadabonnement | Tot 120% van de bijstandsnorm kan de gemeente (een deel van) de premie vergoeden | idem |
+| Eigen bijdrage kinderopvang (SMI) | Tot 110% van de bijstandsnorm volledig vergoed | idem |
+| Kwijtschelding | nog niet uitgezocht | – |
 
 ## 12. Onafhankelijke toetsing
 
 - `packages/engine/test/officieel.test.ts`: de rekenvoorbeelden van Dienst Toeslagen voor huurtoeslag, zorgtoeslag, kindgebonden budget en kinderopvangtoeslag 2026.
-- `testgevallen/` en [PROEFPERSONEN.md](PROEFPERSONEN.md): fictieve huishoudens met officiële vergelijkingswaarden waar die er zijn.
+- `testgevallen/` en [PROEFPERSONEN.md](PROEFPERSONEN.md): fictieve huishoudens met officiële vergelijkingswaarden waar die er zijn, waaronder drie ingevulde proefberekeningen van Dienst Toeslagen (8 november 2026: Fatima en Youssef, Bram, Sanne 24 uur). Alle negen bedragen kwamen tot op de euro overeen.
 - `packages/engine/test/eigenschappen.test.ts`: de vorm van de wet (geen sprongen, dalend waar het moet).

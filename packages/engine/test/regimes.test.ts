@@ -73,6 +73,11 @@ describe("bijverdienregeling vanaf 2027 (art. 34a Pw)", () => {
     expect(vrijlating(l(), { ...vraag, fase: "start", nettoArbeid: D(1000) }).bedrag.toFixed(2)).toBe("150.00");
     expect(vrijlating(l(), { ...vraag, fase: "start", nettoArbeid: D(3000) }).bedrag.toFixed(2)).toBe("450.00");
   });
+  it("geldt niet als het inkomen boven de bijstandsnorm ligt (memorie van toelichting art. 34a)", () => {
+    const v = vrijlating(l(), { ...vraag, fase: "start", nettoArbeid: D(1500), huishoudinkomen: D(1500), norm: D(1450) });
+    expect(v.bedrag.toFixed(2)).toBe("0.00");
+    expect(vrijlating(l(), { ...vraag, fase: "start", nettoArbeid: D(1400), huishoudinkomen: D(1400), norm: D(1450) }).bedrag.toFixed(2)).toBe("210.00");
+  });
   it("geldt ook onder de 27 jaar", () => {
     expect(vrijlating(l(), { ...vraag, leeftijd: 22, fase: "start", nettoArbeid: D(1000) }).bedrag.toFixed(2)).toBe("150.00");
   });

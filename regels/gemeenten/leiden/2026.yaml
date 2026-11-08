@@ -11,7 +11,7 @@ parameters:
       titel: Beleidsregels Kindtegoed en armoederegelingen Sleutelpas gemeente Leiden 2026 (CVDR747564)
       url: https://lokaleregelgeving.overheid.nl/CVDR747564
       geraadpleegd_op: 2026-11-08
-    notitie: De app rekent de grens uit als 130% van de bijstandsnorm. Of 'WSM' hier gelijk is aan de toepasselijke bijstandsnorm is nog niet bevestigd door de gemeente.
+    notitie: De app rekent de grens uit als 130% van de toepasselijke bijstandsnorm. Dat WSM (wettelijk sociaal minimum) hier de bijstandsnorm is, heeft de beheerder op 8 november 2026 bevestigd.
   - id: leiden.kindtegoed.0_3
     omschrijving: Kindtegoed per kind per jaar, 0 tot en met 3 jaar (art. 2.2)
     eenheid: euro_per_jaar

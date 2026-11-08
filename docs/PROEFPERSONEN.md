@@ -7,8 +7,9 @@ Verzonnen mensen in verzonnen situaties. Per persoon staan de invoer, de uitkoms
 | Persoon | Rekendatum | Kopgetal (verschil per maand) | Officiële waarden binnen tolerantie |
 | --- | --- | --- | --- |
 | [Ayşe](#ayse) | 2026-09-01 | € 378,83 | 2 van 2 |
+| [Bram](#bram) | 2026-09-01 | € 780,40 | 2 van 2 |
 | [Daan](#daan) | 2026-09-01 | € 289,00 | 3 van 3 |
-| [Fatima en Youssef](#fatima-en-youssef) | 2026-09-01 | € 477,28 | 5 van 5 |
+| [Fatima en Youssef](#fatima-en-youssef) | 2026-09-01 | € 477,28 | 8 van 8 |
 | [Henk](#henk) | 2026-09-01 | € 275,83 | 2 van 2 |
 | [Ilse](#ilse-boven-sleutelpasgrens) | 2026-09-01 | € 445,20 | 2 van 2 |
 | [Ilse](#ilse-onder-sleutelpasgrens) | 2026-09-01 | € 414,33 | 2 van 2 |
@@ -20,7 +21,7 @@ Verzonnen mensen in verzonnen situaties. Per persoon staan de invoer, de uitkoms
 | [Rachid](#rachid-net-boven-norm) | 2026-09-01 | € 23,39 | 2 van 2 |
 | [Rachid](#rachid-net-onder-norm) | 2026-09-01 | € 0,00 | 2 van 2 |
 | [Rob](#rob) | 2026-09-01 | € 117,94 | 2 van 2 |
-| [Sanne](#sanne-24-uur) | 2026-09-01 | € 368,33 | 7 van 7 |
+| [Sanne](#sanne-24-uur) | 2026-09-01 | € 368,33 | 10 van 10 |
 | [Sanne](#sanne-maand-1-6) | 2026-09-01 | € 287,71 | 7 van 7 |
 | [Sanne](#sanne-maand-7-36) | 2026-09-01 | € 147,33 | 7 van 7 |
 | [Sanne](#sanne-vanaf-maand-37) | 2026-09-01 | € -1,29 | 7 van 7 |
@@ -70,6 +71,43 @@ Ayşe, 38, alleenstaande moeder van Mila (6), huurt voor € 700. Ze werkt al ee
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/ayse.yaml`.
 
 **Netto loon**: zoek het bruto maandloon (€ 1.759,33) op in de witte maandtabel loonheffing 2026 van de Belastingdienst, met loonheffingskorting. De rekenhulp verdeelt het vakantiegeld over 12 maanden; tel daarom 8% vakantiegeld op of vergelijk met een loonstrook.
+
+</details>
+
+<a id="bram"></a>
+## Bram (`bram.yaml`)
+
+Bram, 44, alleenstaand, huurt voor € 680 kaal. Hij overweegt een voltijdbaan van 36 uur als monteur voor € 16,00 bruto per uur. Met dit inkomen krijgt hij geen bijstand meer en worden zijn huurtoeslag en zorgtoeslag lager.
+
+**Invoer** (rekendatum 2026-09-01)
+
+- Leefvorm: alleenstaand, leeftijd 44
+- Kale huur: € 680,00 per maand
+- Werk straks: bruto € 16,00 per uur, 36 uur per week
+- Vrijlatingsperiode: geen vrijlating
+
+**Uitkomst:** nu € 1.961,46, met werk € 2.741,86 per maand; verschil € 780,40.
+
+| Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
+| --- | --- | ---: | ---: | ---: | --- |
+| Netto loon | met werk | € 2.429,86 | onbekend | – | – |
+| Zorgtoeslag | met werk | € 99,00 | € 99,00 | € 0,00 ✓ | [Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 32.348](https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen), 2026-11-08. Geen toeslagpartner, geen kinderen of medebewoners, kale huur € 680 |
+| Huurtoeslag | met werk | € 213,00 | € 213,00 | € 0,00 ✓ | [Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 32.348](https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen), 2026-11-08. Geen toeslagpartner, geen kinderen of medebewoners, kale huur € 680 |
+
+<details><summary>Invulblad voor de controle</summary>
+
+**Proefberekening Dienst Toeslagen** (belastingdienst.nl/toeslagen, "Proefberekening maken"), jaar 2026:
+
+- Toeslagpartner: nee; uw leeftijd: 44
+- Kinderen: geen
+- Medebewoners (geen partner): geen
+- Huur: kale huur € 680,00 per maand, servicekosten € 0
+- Vermogen: onder de grens
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 32.348,00 (doe twee proefberekeningen)
+
+Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/bram.yaml`.
+
+**Netto loon**: zoek het bruto maandloon (€ 2.496,00) op in de witte maandtabel loonheffing 2026 van de Belastingdienst, met loonheffingskorting. De rekenhulp verdeelt het vakantiegeld over 12 maanden; tel daarom 8% vakantiegeld op of vergelijk met een loonstrook.
 
 </details>
 
@@ -140,9 +178,9 @@ Fatima (38) en Youssef (40) zijn getrouwd en hebben twee kinderen: Sami (13) en 
 | Netto loon | met werk | € 1.353,00 | onbekend | – | – |
 | Bijstand | nu | € 862,72 | onbekend | – | – |
 | Bijstand | met werk | € 0,00 | onbekend | – | – |
-| Zorgtoeslag | met werk | € 233,00 | onbekend | – | – |
-| Huurtoeslag | met werk | € 467,00 | onbekend | – | – |
-| Kindgebonden budget | met werk | € 490,00 | onbekend | – | – |
+| Zorgtoeslag | met werk | € 233,00 | € 233,00 | € 0,00 ✓ | [Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 30.879](https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen), 2026-11-08. Toeslagpartner, kinderen geboren 1-1-2013 en 1-1-2017, kale huur € 760, inkomen aanvrager € 16.623 en partner € 14.256 |
+| Huurtoeslag | met werk | € 467,00 | € 467,00 | € 0,00 ✓ | [Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 30.879](https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen), 2026-11-08. Toeslagpartner, kinderen geboren 1-1-2013 en 1-1-2017, kale huur € 760, inkomen aanvrager € 16.623 en partner € 14.256 |
+| Kindgebonden budget | met werk | € 490,00 | € 490,00 | € 0,00 ✓ | [Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 30.879](https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen), 2026-11-08. Toeslagpartner, kinderen geboren 1-1-2013 en 1-1-2017, kale huur € 760, inkomen aanvrager € 16.623 en partner € 14.256 |
 
 <details><summary>Invulblad voor de controle</summary>
 
@@ -624,11 +662,12 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690, overweegt 24 u
 | Huurtoeslag | nu | € 422,00 | € 422,00 | € 0,00 ✓ | [Dienst Toeslagen — Berekening huurtoeslag 2026, stappen 1 t/m 7](https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf), 2026-11-08. A € 297.49 + B € 124.67 + C € 0.00 = € 422.16, afgerond naar beneden; rekeninkomen onder het minimum-inkomensijkpunt, dus geen correctie |
 | Kinderbijslag | nu | € 99,47 | € 99,47 | € 0,00 ✓ | [SVB — Bedragen kinderbijslag (derde en vierde kwartaal 2026)](https://www.svb.nl/nl/kinderbijslag/bedragen-betaaldagen/bedragen-kinderbijslag), 2026-11-08. € 298,40 per kwartaal (0 t/m 5 jaar) / 3 |
 | Kinderbijslag | met werk | € 99,47 | € 99,47 | € 0,00 ✓ | [SVB — Bedragen kinderbijslag (derde en vierde kwartaal 2026)](https://www.svb.nl/nl/kinderbijslag/bedragen-betaaldagen/bedragen-kinderbijslag), 2026-11-08. € 298,40 per kwartaal (0 t/m 5 jaar) / 3 |
-| Kinderopvangtoeslag | met werk | € 753,00 | € 753,00 | € 0,00 ✓ | [Dienst Toeslagen — Berekening kinderopvangtoeslag 2026, stappen 1 t/m 7](https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf), 2026-11-08. 72 uur × € 10,90 (onder het maximum van € 11,23) × 96% = € 753,41, afgerond naar beneden; inkomen ruim onder € 56.413 |
 | Netto loon | met werk | € 1.766,72 | onbekend | – | – |
 | Bijstand | met werk | € 0,00 | onbekend | – | – |
-| Huurtoeslag | met werk | € 422,00 | onbekend | – | – |
-| Kindgebonden budget | met werk | € 499,00 | onbekend | – | – |
+| Zorgtoeslag | met werk | € 129,00 | € 129,00 | € 0,00 ✓ | [Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 21.835](https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen), 2026-11-08. Geen toeslagpartner, werkt, kind geboren 1-1-2022, kindercentrum 72 uur per maand à € 10,90, kale huur € 690 |
+| Huurtoeslag | met werk | € 422,00 | € 422,00 | € 0,00 ✓ | [Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 21.835](https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen), 2026-11-08. Geen toeslagpartner, werkt, kind geboren 1-1-2022, kindercentrum 72 uur per maand à € 10,90, kale huur € 690 |
+| Kindgebonden budget | met werk | € 499,00 | € 499,00 | € 0,00 ✓ | [Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 21.835](https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen), 2026-11-08. Geen toeslagpartner, werkt, kind geboren 1-1-2022, kindercentrum 72 uur per maand à € 10,90, kale huur € 690 |
+| Kinderopvangtoeslag | met werk | € 753,00 | € 753,00 | € 0,00 ✓ | [Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 21.835](https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen), 2026-11-08. Geen toeslagpartner, werkt, kind geboren 1-1-2022, kindercentrum 72 uur per maand à € 10,90, kale huur € 690 |
 
 <details><summary>Invulblad voor de controle</summary>
 

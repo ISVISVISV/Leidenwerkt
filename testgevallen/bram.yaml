@@ -1,0 +1,39 @@
+# Verzonnen persoon en situatie. Zie testgevallen/README.md.
+naam: Bram
+beschrijving: Bram, 44, alleenstaand, huurt voor € 680 kaal. Hij overweegt een voltijdbaan van 36 uur als monteur voor € 16,00 bruto per uur.
+  Met dit inkomen krijgt hij geen bijstand meer en worden zijn huurtoeslag en zorgtoeslag lager.
+rekendatum: 2026-09-01
+invoer:
+  leefvorm: alleenstaande
+  leeftijd: 44
+  kinderen: []
+  kostendelers: 0
+  wonen:
+    soort: huur
+    kaleHuurPerMaand: 680
+  nieuwWerk:
+    brutoUurloon: 16
+    urenPerWeek: 36
+  vrijlatingFase: geen
+verwacht:
+- onderdeel: netto_loon
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: zorgtoeslag
+  situatie: met_werk
+  waarde: 99
+  tolerantie: 0
+  bron:
+    titel: Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 32.348
+    url: https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen
+    datum: '2026-11-08'
+  toelichting: Geen toeslagpartner, geen kinderen of medebewoners, kale huur € 680
+- onderdeel: huurtoeslag
+  situatie: met_werk
+  waarde: 213
+  tolerantie: 0
+  bron:
+    titel: Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 32.348
+    url: https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen
+    datum: '2026-11-08'
+  toelichting: Geen toeslagpartner, geen kinderen of medebewoners, kale huur € 680

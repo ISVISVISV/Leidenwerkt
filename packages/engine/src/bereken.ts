@@ -224,6 +224,8 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         alleenstaandeOuderMetJongKind: invoer.leefvorm === "alleenstaande_ouder" && heeftJongKind,
         medischUrenbeperkt: invoer.medischUrenbeperkt,
         overgang: invoer.overgang2027,
+        huishoudinkomen: inkomen,
+        norm,
       });
       const vrij = v1.bedrag;
       if (!eigen.isZero()) stap(`Mag u houden: ${v1.uitleg.charAt(0).toLowerCase()}${v1.uitleg.slice(1)}`, vrij);
