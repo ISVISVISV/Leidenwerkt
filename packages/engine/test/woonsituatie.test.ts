@@ -127,3 +127,18 @@ describe("Leiden: vergoeding eigen bijdrage kinderopvang (CVDR677687 art. 1, 6 e
     expect(bb === undefined || Number(bb.perMaand) < 40).toBe(true);
   });
 });
+
+describe("verblijf in een inrichting (art. 23 Pw), bijvoorbeeld een woonvorm met begeleiding", () => {
+  it("alleenstaande: € 449,44 + € 47,00 per 1 juli 2026, zonder kostendelersnorm en zonder huurtoeslag", () => {
+    const r = bereken(basis({ kostendelers: 2, wonen: { soort: "instelling" } }));
+    expect(bijstand(r)).toBe("496.44");
+    expect(r.huidig.posten.find((p) => p.id === "huurtoeslag")).toBeUndefined();
+  });
+  it("gehuwden: € 699,11 + € 106,00", () => {
+    const r = bereken(basis({ leefvorm: "paar", partner: { leeftijd: 40 }, wonen: { soort: "instelling" } }));
+    expect(bijstand(r)).toBe("805.11");
+  });
+  it("per 1 januari 2026: € 443,76 + € 47,00", () => {
+    expect(bijstand(bereken(basis({ datum: "2026-03-01", wonen: { soort: "instelling" } })))).toBe("490.76");
+  });
+});

@@ -10,7 +10,7 @@ export function maxUurprijs(l: Lezer, soort: Opvangsoort): number {
 }
 
 export type LoonPer = "maand" | "netto" | "vierweken" | "uur";
-export type Woonsituatie = "huur" | "koop" | "inwonend" | "dakloos" | "instelling";
+export type Woonsituatie = "huur" | "koop" | "inwonend" | "dakloos" | "instelling" | "zorginstelling";
 
 export interface KindVeld {
   leeftijd: string;
@@ -29,7 +29,7 @@ export interface Formulier {
   kinderen: KindVeld[];
   kostendelers: string;
   huisgenotenInkomen: string;
-  /** Woonsituatie. "instelling": de rekenhulp kan dit niet berekenen. */
+  /** Woonsituatie. "instelling": woonvorm met begeleiding (norm art. 23). "zorginstelling": niet berekend. */
   woont: Woonsituatie;
   /** Eigen voordeur, keuken, wc en douche of bad (alleen bij huur). */
   zelfstandig: boolean;
@@ -122,7 +122,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
     });
     moet("kostendelers", f.kostendelers, 0, 10, "Vul een aantal van 0 tot 10 in.");
   }
-  if (stap === 2 && f.woont === "instelling") fouten.woont = "Voor mensen die in een instelling wonen kan deze rekenhulp nog niet rekenen.";
+  if (stap === 2 && f.woont === "zorginstelling") fouten.woont = "Voor mensen in een zorginstelling kan deze rekenhulp niet rekenen.";
   if (stap === 2 && f.woont === "huur" && (getal(f.kostendelers) ?? 0) > 0) {
     moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
   }
@@ -172,7 +172,9 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
         ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), zelfstandig: f.zelfstandig }
         : f.woont === "inwonend" || f.woont === "dakloos"
           ? { soort: "geen_woonkosten", dakloos: f.woont === "dakloos", betaaltWoonlasten: f.woonlasten }
-          : { soort: "anders" },
+          : f.woont === "instelling"
+            ? { soort: "instelling" }
+            : { soort: "anders" },
     huidigWerk: f.werktNu ? loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0) : undefined,
     nieuwWerk: {
       ...loonWerk(f.per, getal(f.loon) ?? 0, getal(f.uren) ?? 0, opties.uren),

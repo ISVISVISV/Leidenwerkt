@@ -110,3 +110,39 @@ parameters:
       titel: Participatiewet art. 19 lid 3 (wetten.overheid.nl, versie 2026-01-01)
       url: https://wetten.overheid.nl/BWBR0015703/2026-01-01
       geraadpleegd_op: 2026-11-08
+  - id: pw.norm.inrichting.alleenstaande
+    omschrijving: Norm bij verblijf in een inrichting, alleenstaande (ouder), netto incl. vakantietoeslag (art. 23 lid 1 a Pw)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "443.76" }
+    status: geverifieerd
+    bron:
+      titel: Participatiewet art. 23 (wetten.overheid.nl, versie 1 januari 2026)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-01-01#Hoofdstuk3_Paragraaf3.2_Artikel23
+      geraadpleegd_op: 2026-11-08
+  - id: pw.norm.inrichting.gehuwden
+    omschrijving: Norm bij verblijf in een inrichting, gehuwden, netto incl. vakantietoeslag (art. 23 lid 1 b Pw)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "690.27" }
+    status: geverifieerd
+    bron:
+      titel: Participatiewet art. 23 (wetten.overheid.nl, versie 1 januari 2026)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-01-01#Hoofdstuk3_Paragraaf3.2_Artikel23
+      geraadpleegd_op: 2026-11-08
+  - id: pw.norm.inrichting.verhoging_alleenstaande
+    omschrijving: Verhoging van de norm bij verblijf in een inrichting, alleenstaande (ouder) (art. 23 lid 2 a Pw)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "47.00" }
+    status: geverifieerd
+    bron:
+      titel: Participatiewet art. 23 (wetten.overheid.nl, versie 1 januari 2026)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-01-01#Hoofdstuk3_Paragraaf3.2_Artikel23
+      geraadpleegd_op: 2026-11-08
+  - id: pw.norm.inrichting.verhoging_gehuwden
+    omschrijving: Verhoging van de norm bij verblijf in een inrichting, gehuwden (art. 23 lid 2 b Pw)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "106.00" }
+    status: geverifieerd
+    bron:
+      titel: Participatiewet art. 23 (wetten.overheid.nl, versie 1 januari 2026)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-01-01#Hoofdstuk3_Paragraaf3.2_Artikel23
+      geraadpleegd_op: 2026-11-08

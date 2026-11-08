@@ -127,8 +127,8 @@ test("zonder vaste woonplek, met medische urenbeperking: lagere norm, vrijlating
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await page.getByLabel("Uw leeftijd").fill("45");
   await page.getByRole("button", { name: "Volgende stap" }).click();
-  await page.getByLabel("In een instelling, zoals een zorginstelling of beschermd wonen").check();
-  await expect(page.getByText("Deze rekenhulp kan dat nog niet berekenen")).toBeVisible();
+  await page.getByLabel("In een zorginstelling, zoals een verpleeghuis").check();
+  await expect(page.getByText("Deze rekenhulp kan dat niet berekenen")).toBeVisible();
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.getByRole("heading", { name: "Uw woning" })).toBeVisible();
   await page.getByLabel("Ik heb geen vaste woonplek").check();
@@ -168,5 +168,21 @@ test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", asyn
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
   await expect(page.getByRole("table").getByRole("row", { name: /Vergoeding eigen bijdrage kinderopvang/ })).toBeVisible();
   await expect(page.locator(".signalen")).toContainText("vraag haar aan bij de gemeente");
+  await geenToegankelijkheidsfouten(page);
+});
+
+test("woonvorm met begeleiding: instellingsnorm, geen huurtoeslag, uitleg over later zelfstandig wonen", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByLabel("Uw leeftijd").fill("30");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel(/In een woonvorm met begeleiding/).check();
+  await expect(page.getByText("€ 496,44 per maand", { exact: false })).toBeVisible();
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("600");
+  await page.getByRole("textbox", { name: "Uren per week" }).fill("8");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  await expect(page.getByRole("table")).not.toContainText("Huurtoeslag");
+  await expect(page.locator(".signalen")).toContainText("Reken dan opnieuw, met uw nieuwe woning");
   await geenToegankelijkheidsfouten(page);
 });

@@ -14,6 +14,13 @@ export interface NormUitkomst {
 /** Bijstandsnorm per maand (netto, incl. vakantietoeslag) voor het hele huishouden. */
 export function bijstandsnorm(l: Lezer, invoer: Invoer): NormUitkomst {
   const paar = invoer.leefvorm === "paar";
+  if (invoer.wonen.soort === "instelling") {
+    // Art. 23 Pw: norm bij verblijf in een inrichting, verhoogd met het bedrag van lid 2.
+    const norm = paar
+      ? l.bedrag("pw.norm.inrichting.gehuwden").plus(l.bedrag("pw.norm.inrichting.verhoging_gehuwden"))
+      : l.bedrag("pw.norm.inrichting.alleenstaande").plus(l.bedrag("pw.norm.inrichting.verhoging_alleenstaande"));
+    return { norm, uitleg: `Norm bij verblijf in een instelling${paar ? " (gehuwden)" : ""}` };
+  }
   if (invoer.kostendelers <= 0) {
     if (paar) return { norm: l.bedrag("pw.norm.gehuwden"), uitleg: "Norm voor gehuwden of samenwonenden" };
     return { norm: l.bedrag("pw.norm.alleenstaande"), uitleg: "Norm voor een alleenstaande (ouder)" };
@@ -56,7 +63,7 @@ export function woonkorting(l: Lezer, invoer: Invoer): Woonkorting {
   const geen: Woonkorting = { bedrag: NUL, tekst: "", aanname: "" };
   if (invoer.gemeente !== "leiden" || invoer.kostendelers > 0) return geen;
   const w = invoer.wonen;
-  if (w.soort === "anders") return geen;
+  if (w.soort === "anders" || w.soort === "instelling") return geen;
   const gehuwden = l.bedrag("pw.norm.gehuwden");
   const pk = l.breuk("leiden.woonkosten.korting_geen_woonkosten");
   const grens = gehuwden.times(pk);
