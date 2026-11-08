@@ -1,6 +1,6 @@
 # Volgende keer: feedback van de eigenaar (4 november 2026)
 
-Lees dit eerst bij de start van een nieuwe sessie. Werk de punten af en vink ze hier af. [x] = gedaan, [~] = deels.
+Werk de punten af en vink ze hier af. [x] = gedaan, [~] = deels.
 
 ## Invoer
 
@@ -24,6 +24,5 @@ Lees dit eerst bij de start van een nieuwe sessie. Werk de punten af en vink ze 
 
 ## Praktisch
 
-- Repository: github.com/ISVISVISV/Leidenwerkt (gebruikersnaam is gewijzigd van ISVISVISV). Start een nieuwe sessie met deze repository als bron.
+- Repository: github.com/ISVISVISV/Leidenwerkt.
 - Site: isvisvisv.github.io/Leidenwerkt (controleer of de publicatie van 4 november gelukt is).
-- Op de computer van de eigenaar staat een kopie in (lokale kopie); die loopt achter op GitHub zodra er in een nieuwe sessie gewerkt wordt.

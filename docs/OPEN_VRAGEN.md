@@ -1,8 +1,8 @@
 # Open vragen
 
-Stand: 4 november 2026. Elke vraag heeft een eigenaar: uitzoekwerk of **Eigenaar** (besluit of controleert iets wat niet automatisch kan).
+Stand: 4 november 2026. Per vraag staat of het uitzoekwerk is of een besluit van de beheerder.
 
-## Besluiten voor de eigenaar
+## Besluiten voor de beheerder
 
 | # | Vraag | Voorstel | Urgentie |
 | --- | --- | --- | --- |
@@ -11,7 +11,7 @@ Stand: 4 november 2026. Elke vraag heeft een eigenaar: uitzoekwerk of **Eigenaar
 
 Geen van deze punten blokkeert het werk.
 
-## Uit te zoeken (fase 2)
+## Uit te zoeken
 
 | # | Onderwerp | Wat ontbreekt | Waar te vinden |
 | --- | --- | --- | --- |
@@ -30,7 +30,7 @@ Geen van deze punten blokkeert het werk.
 | V13 | Leiden kwijtschelding | Welke norm Leiden hanteert en wie uitvoert | Kwijtscheldingsregeling Leiden |
 | V14 | Leiden collectieve zorgverzekering | Bestaat er een minimapolis, inkomensgrens, bijdrage | leiden.nl |
 
-## Mogelijk voor de eigenaar (later)
+## Voor de beheerder
 
 - Contact met iemand bij Werk & Inkomen Leiden, een sociaal raadsman of schuldhulpverlener om de Leidse regels en een paar voorbeeldcasussen na te lopen.
 - Controle van bronnen die niet automatisch te openen zijn (bijvoorbeeld pagina's die alleen met JavaScript laden).
