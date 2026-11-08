@@ -18,6 +18,7 @@ export interface Formulier {
   partnerBruto: string;
   kinderen: KindVeld[];
   kostendelers: string;
+  huisgenotenInkomen: string;
   huurt: boolean;
   kaleHuur: string;
   /** Vanaf 2027: welke vrijlating de gebruiker op 31 december 2026 al had. */
@@ -42,6 +43,7 @@ export const leegFormulier: Formulier = {
   partnerBruto: "",
   kinderen: [],
   kostendelers: "0",
+  huisgenotenInkomen: "",
   huurt: true,
   kaleHuur: "",
   overgang: "",
@@ -93,7 +95,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (f.leefvorm === "paar" && f.partnerWerkt) moet("partnerBruto", f.partnerBruto, 1, 20000, "Vul een bruto maandloon in.");
     if (f.leefvorm === "alleenstaande_ouder" && f.kinderen.length === 0) fouten.kinderen = "Voeg minstens één kind toe.";
     f.kinderen.forEach((k, i) => {
-      moet(`kind${i}`, k.leeftijd, 0, 30, "Vul een leeftijd in van 0 tot 30 jaar.");
+      moet(`kind${i}`, k.leeftijd, 0, 26, "Vul een leeftijd in van 0 tot en met 26 jaar. Een kind van 27 jaar of ouder telt u hieronder mee als huisgenoot.");
       if (k.opvang) {
         moet(`kind${i}uren`, k.uren, 1, 300, "Vul het aantal uren per maand in.");
         moet(`kind${i}prijs`, k.uurprijs, 1, 30, "Vul de prijs per uur in.");
@@ -101,8 +103,11 @@ export function controleer(f: Formulier, stap: number): Fouten {
     });
     moet("kostendelers", f.kostendelers, 0, 10, "Vul een aantal van 0 tot 10 in.");
   }
+  if (stap === 2 && f.huurt && (getal(f.kostendelers) ?? 0) > 0) {
+    moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
+  }
   if (stap === 2 && f.huurt) {
-    moet("kaleHuur", f.kaleHuur, 1, 3000, "Vul de kale huur per maand in.", false);
+    moet("kaleHuur", f.kaleHuur, 1, 3000, "Vul de kale huur per maand in. Weet u die niet? Kies dan 'Nee, of ik weet het niet'.");
   }
   if (stap === 3) {
     const loonGrens = (per: LoonPer): [number, number, string] =>
@@ -134,6 +139,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
       : undefined,
     kinderen,
     kostendelers: getal(f.kostendelers) ?? 0,
+    huisgenotenInkomenJaar: (getal(f.kostendelers) ?? 0) > 0 ? getal(f.huisgenotenInkomen) : undefined,
     wonen: f.huurt
       ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur) }
       : { soort: "anders" },
@@ -145,7 +151,8 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
       overigeKostenPerMaand: getal(f.overigeKosten),
     },
     vrijlatingFase: opties.fase,
-    huidigeVrijlating: "geen",
+    // De vrijlating hoort bij de persoon, niet bij een baan: wie al werkt, zit nu in dezelfde periode.
+    huidigeVrijlating: f.werktNu ? opties.fase : "geen",
     overgang2027: f.werktNu && f.overgang ? f.overgang : undefined,
   };
 }
@@ -162,4 +169,9 @@ function loonWerk(per: LoonPer, bedrag: number, uren: number, andereUren?: numbe
   if (per === "vierweken") return { brutoVierwekenloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
   if (per === "netto") return { nettoMaandloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
   return { brutoMaandloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
+}
+
+/** Laat alleen tekens door die in een getal horen; letters en andere tekens verdwijnen meteen. */
+export function alleenCijfers(tekst: string, soort: "geheel" | "getal"): string {
+  return soort === "geheel" ? tekst.replace(/[^0-9]/g, "") : tekst.replace(/[^0-9.,]/g, "");
 }

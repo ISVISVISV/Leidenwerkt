@@ -140,9 +140,17 @@ describe("toeslagen", () => {
   it("huurtoeslag met huisgenoten: niet berekend, en het kopgetal is dan te gunstig", () => {
     const r = bereken(basis({ kostendelers: 1, wonen: { soort: "huur", kaleHuurPerMaand: 650 }, nieuwWerk: { brutoMaandloon: 1500 } }));
     expect(post(r, "huidig", "huurtoeslag")!.perMaand).toBeNull();
-    expect(post(r, "huidig", "huurtoeslag")!.reden).toContain("Nog niet ondersteund");
+    expect(post(r, "huidig", "huurtoeslag")!.reden).toContain("huisgenoten");
     expect(r.betrouwbaarheid.niveau).toBe("beperkt");
     expect(r.betrouwbaarheid.richting).toBe("te_gunstig");
+  });
+
+  it("huurtoeslag met huisgenoten: hun inkomen telt mee en het huishouden is meerpersoons", () => {
+    const r = bereken(basis({ kostendelers: 1, huisgenotenInkomenJaar: 26000, wonen: { soort: "huur", kaleHuurPerMaand: 650 } }));
+    const p = post(r, "huidig", "huurtoeslag")!;
+    expect(p.perMaand).not.toBeNull();
+    expect(p.parameters.some((g) => g.id === "ht.minimum_inkomensijkpunt.meerpersoons")).toBe(true);
+    expect(r.nietMeegenomen).toEqual([]);
   });
 
   it("kindgebonden budget alleenstaande ouder met 1 kind van 8 bij laag inkomen", () => {

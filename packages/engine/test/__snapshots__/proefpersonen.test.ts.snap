@@ -352,3 +352,20 @@ exports[`proefpersonen > sanne-vanaf-maand-37.yaml: Sanne 1`] = `
   "verschil": "-1.29",
 }
 `;
+
+exports[`proefpersonen > wim.yaml: Wim 1`] = `
+{
+  "met_werk": {
+    "bijstand": "213.13",
+    "huurtoeslag": "254.00",
+    "loon": "1067.68",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1013.90",
+    "huurtoeslag": "282.00",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "238.91",
+}
+`;

@@ -51,6 +51,12 @@ export interface Invoer {
   kinderen: Kind[];
   /** Aantal huisgenoten van 27 jaar of ouder (niet de partner, niet de eigen kinderen onder 27). */
   kostendelers: number;
+  /**
+   * Bruto jaarinkomen (toetsingsinkomen) van die huisgenoten samen. Telt mee
+   * voor de huurtoeslag (rekeninkomen, art. 1 Wht). Zonder dit bedrag wordt de
+   * huurtoeslag niet berekend als er huisgenoten zijn.
+   */
+  huisgenotenInkomenJaar?: number;
   /** Servicekosten tellen sinds 2026 niet meer mee voor de huurtoeslag; het veld wordt genegeerd. */
   wonen: { soort: "huur"; kaleHuurPerMaand?: number; servicekostenPerMaand?: number } | { soort: "anders" };
   /** Huidige situatie: eventueel werk naast de bijstand. */

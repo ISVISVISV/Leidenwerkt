@@ -48,7 +48,8 @@ describe("huurtoeslag", () => {
       fc.property(inkomen, fc.integer({ min: 150, max: 1200 }), fc.integer({ min: 1, max: 300 }), fc.integer({ min: 1, max: 5 }), (x, huur, dh, pers) => {
         const a = huurtoeslag(l(), D(huur), D(x), pers).perMaand;
         const b = huurtoeslag(l(), D(huur + dh), D(x), pers).perMaand;
-        return b.gte(a) && b.minus(a).lte(dh);
+        // Kleine marge voor afronding in de 40e decimaal (repeterende breuk bij /12).
+        return b.gte(a) && b.minus(a).lte(D(dh).plus("0.000000001"));
       }),
       { numRuns: 300 },
     );

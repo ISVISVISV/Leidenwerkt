@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { bereken, euro, vrijlatingUitleg, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
+import { bereken, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { getal, naarInvoer, vandaag, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */
@@ -37,6 +37,7 @@ const leesbareDatum = (iso: string) =>
 
 export function Uitkomst({ f }: { f: Formulier }) {
   const [uren, setUren] = useState(() => Math.round(getal(f.uren) ?? 24));
+  const maxUren = Math.max(40, Math.round(getal(f.uren) ?? 0));
   const [fase, setFase] = useState<"start" | "later" | "geen">("start");
   const { datum, teruggevallen } = useMemo(() => bruikbareDatum(f), [f]);
 
@@ -59,7 +60,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
         <label htmlFor="urenschuif">
           Uren per week: <output htmlFor="urenschuif">{uren}</output>
         </label>
-        <input id="urenschuif" type="range" min={1} max={40} step={1} value={uren} onChange={(e) => setUren(Number(e.target.value))} />
+        <input id="urenschuif" type="range" min={1} max={maxUren} step={1} value={uren} onChange={(e) => setUren(Number(e.target.value))} />
         {vrijlatingTelt && (
           <fieldset className="keuze compact">
             <legend>Welke periode wilt u zien?</legend>
@@ -76,7 +77,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
       {heeftBijstand && (
         <div className="toelichting">
           <p>
-            <strong>{vrijlatingTelt ? `${gekozen.naam} na de start van uw werk.` : `${gekozen.naam}.`}</strong> {gekozen.regel}
+            <strong>{vrijlatingTelt ? `${gekozen.naam} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.` : `${gekozen.naam}.`}</strong> {gekozen.regel}
           </p>
           {vrijlatingTelt && (
             <p>
@@ -99,6 +100,12 @@ export function Uitkomst({ f }: { f: Formulier }) {
             {onbekend.length > 0 ? `, bijvoorbeeld voor ${onbekend.slice(0, 3).join(", ")}` : ""}. De bedragen die nu gelden kunnen
             anders zijn.
           </p>
+          {regimeOp(vandaag()).id !== regimeOp(datum).id && (
+            <p>
+              Sinds {leesbareDatum(regimeOp(vandaag()).vanaf)} gelden ook andere regels voor het deel van uw loon dat u naast de bijstand mag
+              houden. Hieronder ziet u nog de oude regels. Vraag uw klantmanager wat er voor u verandert.
+            </p>
+          )}
         </div>
       )}
 

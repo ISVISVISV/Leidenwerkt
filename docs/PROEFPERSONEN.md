@@ -25,6 +25,7 @@ Verzonnen mensen in verzonnen situaties. Per persoon staan de invoer, de uitkoms
 | [Sanne](#sanne-maand-1-6) | 2026-09-01 | € 287,71 | 7 van 7 |
 | [Sanne](#sanne-maand-7-36) | 2026-09-01 | € 147,33 | 7 van 7 |
 | [Sanne](#sanne-vanaf-maand-37) | 2026-09-01 | € -1,29 | 7 van 7 |
+| [Wim](#wim) | 2026-09-01 | € 238,91 | 2 van 2 |
 
 <a id="ayse"></a>
 ## Ayşe (`ayse.yaml`)
@@ -228,7 +229,7 @@ Henk, 58, alleenstaand, woont in zijn eigen huis samen met zijn zoon Bas (29), d
 
 - Toeslagpartner: nee; uw leeftijd: 58
 - Kinderen: geen
-- Medebewoners (geen partner): 1 van 27 jaar of ouder
+- Medebewoners (geen partner): 1 van 27 jaar of ouder, samen € ? inkomen per jaar
 - Huurtoeslag: niet aanvragen
 - Vermogen: onder de grens
 - Inkomen 2026 (toetsingsinkomen) zonder werk: € 14.088,00; met werk: € 15.715,00 (doe twee proefberekeningen)
@@ -825,5 +826,42 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690. Ze begint met 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/sanne-vanaf-maand-37.yaml`.
 
 **Netto loon**: zoek het bruto maandloon (€ 1.123,20) op in de witte maandtabel loonheffing 2026 van de Belastingdienst, met loonheffingskorting. De rekenhulp verdeelt het vakantiegeld over 12 maanden; tel daarom 8% vakantiegeld op of vergelijk met een loonstrook.
+
+</details>
+
+<a id="wim"></a>
+## Wim (`wim.yaml`)
+
+Wim, 56, alleenstaand, huurt voor € 720 kaal. Zijn zoon Thijs (30) woont bij hem in en verdient € 26.000 bruto per jaar. Wim krijgt bijstand met de kostendelersnorm en overweegt 16 uur als bezorger voor € 14,50 per uur.
+
+**Invoer** (rekendatum 2026-09-01)
+
+- Leefvorm: alleenstaand, leeftijd 56
+- Huisgenoten van 27 jaar of ouder: 1, samen € 26.000,00 per jaar
+- Kale huur: € 720,00 per maand
+- Werk straks: bruto € 14,50 per uur, 16 uur per week
+- Vrijlatingsperiode: eerste periode
+
+**Uitkomst:** nu € 1.424,90, met werk € 1.663,81 per maand; verschil € 238,91.
+
+| Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
+| --- | --- | ---: | ---: | ---: | --- |
+| Bijstand | nu | € 1.013,90 | € 1.013,90 | € 0,00 ✓ | [Participatiewet art. 22a (kostendelersnorm), wetten.overheid.nl, versie 1 juli 2026](https://wetten.overheid.nl/BWBR0015703/2026-07-01), 2026-11-08. Kostendelersnorm met A = 2: 50% van de gehuwdennorm € 2.027,79 |
+| Huurtoeslag | nu | € 282,00 | € 282,00 | € 0,00 ✓ | [Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 14.088 en een medebewoner met € 26.000](https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen), 2026-11-08. Geen toeslagpartner, geen kinderen, één medebewoner (geboren 15-8-1996) met inkomen € 26.000, kale huur € 720 |
+
+<details><summary>Invulblad voor de controle</summary>
+
+**Proefberekening Dienst Toeslagen** (belastingdienst.nl/toeslagen, "Proefberekening maken"), jaar 2026:
+
+- Toeslagpartner: nee; uw leeftijd: 56
+- Kinderen: geen
+- Medebewoners (geen partner): 1 van 27 jaar of ouder, samen € 26000 inkomen per jaar
+- Huur: kale huur € 720,00 per maand, servicekosten € 0
+- Vermogen: onder de grens
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 14.088,00; met werk: € 15.587,00 (doe twee proefberekeningen)
+
+Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/wim.yaml`.
+
+**Netto loon**: zoek het bruto maandloon (€ 1.005,33) op in de witte maandtabel loonheffing 2026 van de Belastingdienst, met loonheffingskorting. De rekenhulp verdeelt het vakantiegeld over 12 maanden; tel daarom 8% vakantiegeld op of vergelijk met een loonstrook.
 
 </details>
