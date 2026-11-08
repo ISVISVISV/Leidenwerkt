@@ -1,0 +1,26 @@
+gebied: Kinderbijslag 2026, derde en vierde kwartaal
+geldig_van: 2026-07-01
+geldig_tot: 2026-12-31
+parameters:
+  - id: akw.kwartaal.0_5
+    omschrijving: Kinderbijslag per kind per kwartaal, 0 tot en met 5 jaar
+    eenheid: euro_per_kwartaal
+    waarde: { soort: bedrag, bedrag: "298.40" }
+    status: geverifieerd
+    bron: &svb
+      titel: SVB — Bedragen en betaaldagen kinderbijslag
+      url: https://www.svb.nl/nl/kinderbijslag/bedragen-betaaldagen/bedragen-kinderbijslag
+      geraadpleegd_op: 2026-11-08
+    notitie: Kinderbijslag hangt niet af van het inkomen en telt niet mee voor de bijstand (art. 31 lid 2 b Pw).
+  - id: akw.kwartaal.6_11
+    omschrijving: Kinderbijslag per kind per kwartaal, 6 tot en met 11 jaar
+    eenheid: euro_per_kwartaal
+    waarde: { soort: bedrag, bedrag: "362.35" }
+    status: geverifieerd
+    bron: *svb
+  - id: akw.kwartaal.12_17
+    omschrijving: Kinderbijslag per kind per kwartaal, 12 tot en met 17 jaar
+    eenheid: euro_per_kwartaal
+    waarde: { soort: bedrag, bedrag: "426.29" }
+    status: geverifieerd
+    bron: *svb

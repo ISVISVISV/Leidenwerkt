@@ -27,9 +27,12 @@ parameters:
     omschrijving: Maximaal aantal opvanguren per kind per maand waarover toeslag wordt berekend
     eenheid: uren_per_maand
     waarde: { soort: aantal, aantal: "230" }
-    status: onbevestigd
-    bron: *ro_kot
-    notitie: Nog controleren in Wet kinderopvang / Besluit; mogelijke koppeling aan gewerkte uren is nog niet uitgezocht.
+    status: geverifieerd
+    bron: &dt_kot
+      titel: Dienst Toeslagen — Berekening kinderopvangtoeslag 2026 (TG 080-1Z61FD, januari 2026)
+      url: https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf
+      geraadpleegd_op: 2026-11-08
+    notitie: Per jaar geldt ten hoogste het aantal gewerkte maanden × 230 uur; werken beide ouders, dan telt de ouder die het minst werkt.
   - id: kot.tabel
     omschrijving: Kinderopvangtoeslagtabel 2026 (bijlage I Besluit kinderopvangtoeslag, Stb. 2025, 233)
     eenheid: tabel
@@ -105,8 +108,6 @@ parameters:
         - { vanaf: "227916", tot: "231807", eerste_kind: "0.365", volgend_kind: "0.696" }
         - { vanaf: "231808", tot: "235697", eerste_kind: "0.365", volgend_kind: "0.691" }
         - { vanaf: "235698", tot: null, eerste_kind: "0.365", volgend_kind: "0.682" }
-    status: onbevestigd
-    bron:
-      titel: Besluit kinderopvangtoeslag bijlage I (tekst via InView, bron Stb. 2025, 233)
-      url: https://www.inview.nl/openCitation/id45bf86c5cb216c121934ec6f33683759/besluit-kinderopvangtoeslag-bijlage-i
-      geraadpleegd_op: 2026-11-04
+    status: geverifieerd
+    bron: *dt_kot
+    notitie: Tabel letterlijk vergeleken met de brochure van Dienst Toeslagen. Het toetsingsinkomen telt in hele euro's.

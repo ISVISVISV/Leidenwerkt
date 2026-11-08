@@ -124,23 +124,39 @@ describe("bijstand", () => {
 });
 
 describe("toeslagen", () => {
-  it("maximale zorgtoeslag alleenstaande zonder werk", () => {
-    // (2.119 − 1,912% × 29.736) / 12 = 129,204
+  it("maximale zorgtoeslag alleenstaande zonder werk, naar beneden afgerond", () => {
+    // (2.119 − 1,912% × 29.736) / 12 = 129,204 → € 129 (zoals Dienst Toeslagen)
     const r = bereken(basis());
-    expect(post(r, "huidig", "zorgtoeslag")!.perMaand).toBe("129.20");
-    expect(post(r, "huidig", "zorgtoeslag")!.status).toBe("onbevestigd");
+    expect(post(r, "huidig", "zorgtoeslag")!.perMaand).toBe("129.00");
+    expect(post(r, "huidig", "zorgtoeslag")!.status).toBe("geverifieerd");
   });
 
-  it("huurtoeslag wordt niet berekend zolang het minimum-inkomensijkpunt ontbreekt", () => {
+  it("huurtoeslag wordt berekend en is in beide situaties aanwezig", () => {
     const r = bereken(basis({ wonen: { soort: "huur", kaleHuurPerMaand: 650 } }));
+    expect(post(r, "huidig", "huurtoeslag")!.perMaand).not.toBeNull();
+    expect(r.nietMeegenomen).toEqual([]);
+  });
+
+  it("huurtoeslag met huisgenoten: niet berekend, en het kopgetal is dan te gunstig", () => {
+    const r = bereken(basis({ kostendelers: 1, wonen: { soort: "huur", kaleHuurPerMaand: 650 }, nieuwWerk: { brutoMaandloon: 1500 } }));
     expect(post(r, "huidig", "huurtoeslag")!.perMaand).toBeNull();
-    expect(r.nietMeegenomen.some((n) => n.id === "huurtoeslag")).toBe(true);
+    expect(post(r, "huidig", "huurtoeslag")!.reden).toContain("Nog niet ondersteund");
+    expect(r.betrouwbaarheid.niveau).toBe("beperkt");
+    expect(r.betrouwbaarheid.richting).toBe("te_gunstig");
   });
 
   it("kindgebonden budget alleenstaande ouder met 1 kind van 8 bij laag inkomen", () => {
     const r = bereken(basis({ leefvorm: "alleenstaande_ouder", kinderen: [{ leeftijd: 8 }] }));
-    // (2.580 + 3.416) / 12 = 499,67
-    expect(post(r, "huidig", "kgb")!.perMaand).toBe("499.67");
+    // (2.580 + 3.416) / 12 = 499,67 → € 499
+    expect(post(r, "huidig", "kgb")!.perMaand).toBe("499.00");
+  });
+
+  it("kinderbijslag is in beide situaties gelijk en beïnvloedt het verschil niet", () => {
+    const r = bereken(basis({ leefvorm: "alleenstaande_ouder", kinderen: [{ leeftijd: 8 }], nieuwWerk: { brutoMaandloon: 1200 } }));
+    // 3e kwartaal 2026, 6 t/m 11 jaar: € 362,35 per kwartaal
+    expect(post(r, "huidig", "kinderbijslag")!.perMaand).toBe(D("362.35").div(3).toFixed(2));
+    expect(post(r, "werk", "kinderbijslag")!.perMaand).toBe(post(r, "huidig", "kinderbijslag")!.perMaand);
+    expect(post(r, "werk", "kinderbijslag")!.invloed).toBe("nee");
   });
 
   it("kinderopvangtoeslag alleen in de werksituatie, 96% bij laag inkomen", () => {
@@ -152,7 +168,8 @@ describe("toeslagen", () => {
       }),
     );
     expect(post(r, "huidig", "kot")).toBeUndefined();
-    expect(post(r, "werk", "kot")!.perMaand).toBe(D(80).times(11).times("0.96").toFixed(2));
+    // 80 × € 11 × 96% = € 844,80 → € 844
+    expect(post(r, "werk", "kot")!.perMaand).toBe("844.00");
     expect(post(r, "werk", "opvangkosten")!.perMaand).toBe("-880.00");
   });
 });

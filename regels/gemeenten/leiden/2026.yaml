@@ -1,52 +1,86 @@
 gebied: Gemeente Leiden 2026
 geldig_van: 2026-01-01
-geldig_tot: null
+geldig_tot: 2026-12-31
 parameters:
   - id: leiden.sleutelpas.inkomensgrens
-    omschrijving: Gratis Sleutelpas tot dit deel van het wettelijk sociaal minimum
+    omschrijving: Gratis Sleutelpas en Kindtegoed tot dit deel van het wettelijk sociaal minimum (WSM)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "1.30" }
     status: geverifieerd
-    bron:
-      titel: Beleidsregels Sleutelpas gemeente Leiden 2026 (Gemeenteblad 2025, 429670)
-      url: https://zoek.officielebekendmakingen.nl/gmb-2025-429670.pdf
-      geraadpleegd_op: 2026-11-04
-    notitie: Inkomenstoets op netto maandinkomen (art. 32 Pw). Of 'WSM' hier gelijk is aan de toepasselijke bijstandsnorm is nog niet bevestigd.
+    bron: &sleutelpas
+      titel: Beleidsregels Kindtegoed en armoederegelingen Sleutelpas gemeente Leiden 2026 (CVDR747564)
+      url: https://lokaleregelgeving.overheid.nl/CVDR747564
+      geraadpleegd_op: 2026-11-08
+    notitie: De app rekent de grens uit als 130% van de bijstandsnorm. Of 'WSM' hier gelijk is aan de toepasselijke bijstandsnorm is nog niet bevestigd door de gemeente.
+  - id: leiden.kindtegoed.0_3
+    omschrijving: Kindtegoed per kind per jaar, 0 tot en met 3 jaar (art. 2.2)
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "150" }
+    status: geverifieerd
+    bron: *sleutelpas
+  - id: leiden.kindtegoed.4_11
+    omschrijving: Kindtegoed per kind per jaar, 4 tot en met 11 jaar (art. 2.2)
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "350" }
+    status: geverifieerd
+    bron: *sleutelpas
+  - id: leiden.kindtegoed.12_17
+    omschrijving: Kindtegoed per kind per jaar, 12 tot en met 17 jaar (art. 2.2)
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "550" }
+    status: geverifieerd
+    bron: *sleutelpas
   - id: leiden.iit.referteperiode
-    omschrijving: Individuele inkomenstoeslag — aantal jaren met inkomen op bijstandsniveau
+    omschrijving: Individuele inkomenstoeslag — aantal jaren met een inkomen op bijstandsniveau
     eenheid: jaren
     waarde: { soort: aantal, aantal: "5" }
     status: geverifieerd
     bron: &iit
-      titel: Verordening individuele inkomenstoeslag Leiden 2020
-      url: https://lokaleregelgeving.overheid.nl/CVDR634399/
-      geraadpleegd_op: 2026-11-04
+      titel: Gemeente Leiden — Individuele inkomenstoeslag
+      url: https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/individuele-inkomenstoeslag/
+      geraadpleegd_op: 2026-11-08
+  - id: leiden.iit.minimumleeftijd
+    omschrijving: Individuele inkomenstoeslag — minimumleeftijd volgens de voorwaarden op leiden.nl
+    eenheid: jaren
+    waarde: { soort: aantal, aantal: "23" }
+    status: geverifieerd
+    bron: *iit
   - id: leiden.iit.bedrag.alleenstaande
-    omschrijving: Individuele inkomenstoeslag per jaar, alleenstaande (geïndexeerd)
+    omschrijving: Individuele inkomenstoeslag per keer (één keer per 12 maanden), alleenstaande
     eenheid: euro_per_jaar
-    status: ontbrekend
-    notitie: Verordening 2020 noemt € 400, jaarlijks geïndexeerd met CPI; actueel bedrag onbekend.
-  - id: leiden.iit.basis.alleenstaande
-    omschrijving: Individuele inkomenstoeslag per jaar, alleenstaande, bedrag bij invoering in 2020 (sindsdien jaarlijks geïndexeerd)
+    waarde: { soort: bedrag, bedrag: "462" }
+    status: geverifieerd
+    bron: *iit
+    notitie: De pagina noemt geen jaartal; het is het bedrag dat de gemeente op 8 november 2026 publiceerde. In 2020 was het € 400 (verordening, art. 4), daarna jaarlijks geïndexeerd.
+  - id: leiden.iit.bedrag.alleenstaande_ouder
+    omschrijving: Individuele inkomenstoeslag per keer (één keer per 12 maanden), alleenstaande ouder
     eenheid: euro_per_jaar
-    waarde: { soort: bedrag, bedrag: "400" }
-    status: onbevestigd
-    bron: &iit2020
-      titel: Verordening individuele inkomenstoeslag Leiden 2020, artikel 4
-      url: https://lokaleregelgeving.overheid.nl/CVDR634399/
-      geraadpleegd_op: 2026-11-04
-    notitie: Bedrag uit 2020; de verordening schrijft jaarlijkse indexatie met de CPI voor. Actueel bedrag ligt dus hoger.
-  - id: leiden.iit.basis.alleenstaande_ouder
-    omschrijving: Individuele inkomenstoeslag per jaar, alleenstaande ouder, bedrag bij invoering in 2020
+    waarde: { soort: bedrag, bedrag: "577" }
+    status: geverifieerd
+    bron: *iit
+    notitie: Komt overeen met artikel 4 van de verordening uit 2020 (€ 500, geïndexeerd). De afwijkende toelichting bij die verordening is daarmee niet bepalend.
+  - id: leiden.iit.bedrag.gehuwden
+    omschrijving: Individuele inkomenstoeslag per keer (één keer per 12 maanden), gehuwden en samenwonenden
     eenheid: euro_per_jaar
-    waarde: { soort: bedrag, bedrag: "500" }
-    status: onbevestigd
-    bron: *iit2020
-    notitie: Artikel 4 noemt € 500; de toelichting noemt € 550. Het artikel is bepalend.
-  - id: leiden.iit.basis.gehuwden
-    omschrijving: Individuele inkomenstoeslag per jaar, gehuwden, bedrag bij invoering in 2020
-    eenheid: euro_per_jaar
-    waarde: { soort: bedrag, bedrag: "550" }
-    status: onbevestigd
-    bron: *iit2020
-    notitie: Artikel 4 noemt € 550; de toelichting noemt € 500. Het artikel is bepalend.
+    waarde: { soort: bedrag, bedrag: "635" }
+    status: geverifieerd
+    bron: *iit
+    notitie: Komt overeen met artikel 4 van de verordening uit 2020 (€ 550, geïndexeerd).
+  - id: leiden.garantieknop.termijn
+    omschrijving: Verkorte aanvraag bijstand mogelijk binnen dit aantal maanden na het stoppen van de bijstand (art. 3.1 Beleidsregels inkomensvoorzieningen Leiden 2026)
+    eenheid: maanden
+    waarde: { soort: aantal, aantal: "12" }
+    status: geverifieerd
+    bron:
+      titel: Beleidsregels aanvraag en toekenning inkomensvoorzieningen Gemeente Leiden 2026 (CVDR760197), hoofdstuk 3
+      url: https://lokaleregelgeving.overheid.nl/CVDR760197
+      geraadpleegd_op: 2026-11-08
+  - id: leiden.kindtegoed.inkomensgrens
+    omschrijving: Kindtegoed (zonder gratis Sleutelpas) voor huishoudens met kinderen tot dit deel van het WSM (hoofdstuk 4)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "1.40" }
+    status: geverifieerd
+    bron:
+      titel: Beleidsregels Kindtegoed en armoederegelingen Sleutelpas gemeente Leiden 2026 (CVDR747564)
+      url: https://lokaleregelgeving.overheid.nl/CVDR747564
+      geraadpleegd_op: 2026-11-08

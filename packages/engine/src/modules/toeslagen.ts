@@ -2,9 +2,24 @@
  * Toeslagen: zorgtoeslag, huurtoeslag, kindgebonden budget en
  * kinderopvangtoeslag. Alle bedragen per jaar, tenzij anders vermeld.
  */
+import Decimal from "decimal.js";
 import { D, NUL, max, min, type Bedrag } from "../geld.ts";
 import type { Lezer } from "../regels.ts";
 import type { Kind, Opvangsoort } from "../types.ts";
+
+/**
+ * Dienst Toeslagen rondt het bedrag per maand naar beneden af op hele euro's
+ * (Berekening zorgtoeslag, huurtoeslag, kindgebonden budget en
+ * kinderopvangtoeslag 2026, rekenvoorbeelden).
+ */
+export function maandbedragToeslag(perMaand: Bedrag): Bedrag {
+  return max(NUL, perMaand.toDecimalPlaces(0, Decimal.ROUND_DOWN));
+}
+
+/** Toetsingsinkomen in hele euro's (de tabellen van Toeslagen gaan per hele euro). */
+export function heleEuros(b: Bedrag): Bedrag {
+  return b.toDecimalPlaces(0, Decimal.ROUND_DOWN);
+}
 
 /** Zorgtoeslag per jaar. */
 export function zorgtoeslag(l: Lezer, toetsingsinkomen: Bedrag, metPartner: boolean): Bedrag {
@@ -33,8 +48,24 @@ export function kindgebondenBudget(l: Lezer, toetsingsinkomen: Bedrag, kinderen:
   return max(NUL, maximum.minus(afbouw));
 }
 
-/** Huurtoeslag per maand (Wet op de huurtoeslag zoals per 1 januari 2026). */
-export function huurtoeslag(l: Lezer, rekenhuurPerMaand: Bedrag, rekeninkomenJaar: Bedrag, personen: number): Bedrag {
+export interface HuurtoeslagUitkomst {
+  rekenhuur: Bedrag;
+  basishuur: Bedrag;
+  deelA: Bedrag;
+  deelB: Bedrag;
+  deelC: Bedrag;
+  correctie: Bedrag;
+  /** Voor afronding. */
+  perMaand: Bedrag;
+}
+
+/**
+ * Huurtoeslag per maand, volgens de Wet op de huurtoeslag zoals per
+ * 1 januari 2026 en de 7 stappen van Dienst Toeslagen (Berekening
+ * huurtoeslag 2026). Rekenhuur is de kale huur; servicekosten tellen sinds
+ * 2026 niet meer mee. Alleen voor huishoudens met iemand van 21 jaar of ouder.
+ */
+export function huurtoeslag(l: Lezer, kaleHuurPerMaand: Bedrag, rekeninkomenJaar: Bedrag, personen: number): HuurtoeslagUitkomst {
   const meer = personen > 1;
   const basishuur = l.bedrag(meer ? "ht.basishuur.meerpersoons" : "ht.basishuur.eenpersoons");
   const kkg = l.bedrag("ht.kwaliteitskortingsgrens");
@@ -46,13 +77,14 @@ export function huurtoeslag(l: Lezer, rekenhuurPerMaand: Bedrag, rekeninkomenJaa
   const mip = l.bedrag(meer ? "ht.minimum_inkomensijkpunt.meerpersoons" : "ht.minimum_inkomensijkpunt.eenpersoons");
   const afbouw = l.breuk(meer ? "ht.afbouw.meerpersoons" : "ht.afbouw.eenpersoons");
 
-  const rh = min(rekenhuurPerMaand, maxHuur);
-  if (rh.lte(basishuur)) return NUL;
-  const deel1 = max(NUL, min(rh, kkg).minus(basishuur)).times(p1);
-  const deel2 = max(NUL, min(rh, aftop).minus(max(kkg, basishuur))).times(p2);
-  const deel3 = max(NUL, rh.minus(max(aftop, basishuur))).times(p3);
-  const vermindering = max(NUL, rekeninkomenJaar.minus(mip)).times(afbouw).div(12);
-  return max(NUL, deel1.plus(deel2).plus(deel3).minus(vermindering));
+  const rh = min(kaleHuurPerMaand, maxHuur);
+  const nul = { rekenhuur: rh, basishuur, deelA: NUL, deelB: NUL, deelC: NUL, correctie: NUL, perMaand: NUL };
+  if (rh.lte(basishuur)) return nul;
+  const deelA = max(NUL, min(rh, kkg).minus(basishuur)).times(p1);
+  const deelB = max(NUL, min(rh, aftop).minus(max(kkg, basishuur))).times(p2);
+  const deelC = max(NUL, rh.minus(max(aftop, basishuur))).times(p3);
+  const correctie = max(NUL, rekeninkomenJaar.minus(mip)).times(afbouw).div(12);
+  return { rekenhuur: rh, basishuur, deelA, deelB, deelC, correctie, perMaand: max(NUL, deelA.plus(deelB).plus(deelC).minus(correctie)) };
 }
 
 export interface KotUitkomst {
@@ -72,9 +104,9 @@ export function kinderopvangtoeslag(l: Lezer, toetsingsinkomen: Bedrag, kinderen
   const metOpvang = kinderen.filter((k) => k.opvang && k.opvang.urenPerMaand > 0);
   if (metOpvang.length === 0) return { toeslagPerMaand: NUL, kostenPerMaand: NUL, perKind: [] };
   const tabel = l.kotTabel("kot.tabel");
-  const rij =
-    tabel.find((r) => toetsingsinkomen.gte(r.vanaf) && (r.tot === null || toetsingsinkomen.lte(r.tot))) ??
-    tabel[tabel.length - 1];
+  // De tabel gaat per hele euro ("van € 24.150 tot € 25.756"); kies de laatste rij waarvan 'vanaf' niet boven het inkomen ligt.
+  const ti = heleEuros(max(NUL, toetsingsinkomen));
+  const rij = [...tabel].reverse().find((r) => ti.gte(r.vanaf)) ?? tabel[0];
   const maxUren = l.aantal("kot.max_uren_per_maand");
   const gesorteerd = [...metOpvang].sort((a, b) => b.opvang!.urenPerMaand - a.opvang!.urenPerMaand);
   let toeslag = NUL;

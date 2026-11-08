@@ -1,7 +1,7 @@
-export { bereken, brutoMaandloon, InvoerFout } from "./bereken.ts";
-export { RegelSet, standaardRegels, OntbrekendeParameter } from "./regels.ts";
-export type { GebruikteParameter, Bron, Status } from "./regels.ts";
-export { euro } from "./geld.ts";
+export { bereken, brutoMaandloon, InvoerFout, INVLOED, betrouwbaarheid } from "./bereken.ts";
+export { RegelSet, standaardRegels, ruweParameters, OntbrekendeParameter, Lezer } from "./regels.ts";
+export type { GebruikteParameter, Bron, Status, RuweParameter } from "./regels.ts";
+export { euro, D } from "./geld.ts";
 export type * from "./types.ts";
-export { vrijlatingsPeriodes, type Periode } from "./periodes.ts";
-export { D } from "./geld.ts";
+export { vrijlatingsPeriodes, vrijlatingUitleg, type Periode, type VrijlatingUitleg } from "./periodes.ts";
+export { REGIMES, regimeOp, type Regime, type RegimeId } from "./regimes.ts";
