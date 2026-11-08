@@ -522,7 +522,7 @@ export function bereken(oorspronkelijk: Invoer, regels: RegelSet = standaardRege
       "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
       ...(invoer.wonen.soort === "instelling"
         ? [
-            "Er is aangenomen dat u voor uw verblijf in de woonvorm niets betaalt, ook niet als u gaat werken.",
+            "Er is aangenomen dat u voor uw verblijf in de instelling of woonvorm niets betaalt, ook niet als u gaat werken.",
           ]
         : []),
       ...(invoer.wonen.soort === "huur" && invoer.wonen.zelfstandig === false
@@ -698,7 +698,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       soort: "info",
       bron: CITATEN.pw23inrichting,
       tekst:
-        "Deze berekening geldt zolang u in de woonvorm woont. Gaat u daarna zelfstandig wonen, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm, betaalt u zelf huur en boodschappen, en krijgt u misschien huurtoeslag. Reken dan opnieuw, met uw nieuwe woning.",
+        "Deze berekening geldt zolang u in de instelling of woonvorm woont. Gaat u daarna zelfstandig wonen, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm, betaalt u zelf huur en boodschappen, en krijgt u misschien huurtoeslag. Reken dan opnieuw, met uw nieuwe woning.",
     });
   }
   if (invoer.nieuwWerk.brutoVierwekenloon !== undefined) {

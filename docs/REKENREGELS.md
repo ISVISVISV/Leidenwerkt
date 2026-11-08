@@ -85,7 +85,7 @@ Een inrichting is onder meer een instelling die slaapgelegenheid biedt met de mo
 | Alleenstaande (ouder): lid 1 a + verhoging lid 2 a | € 443,76 + € 47,00 | € 449,44 + € 47,00 |
 | Gehuwden: lid 1 b + verhoging lid 2 b | € 690,27 + € 106,00 | € 699,11 + € 106,00 |
 
-Geen kostendelersnorm, geen huurtoeslag; de vrijlating werkt zoals altijd. Aanname: de bewoner betaalt niets voor het verblijf, ook niet met werk (volgens de praktijk in Leiden). Leiden zet de norm om 1 maand (verblijf langer dan 6 maanden) of 3 maanden (korter) na de opname (CVDR760406, hoofdstuk 4); de app rekent met de situatie na de omzetting. Een zorginstelling (verpleging of verzorging) rekent de app niet.
+Geen kostendelersnorm, geen huurtoeslag; de vrijlating werkt zoals altijd. Aanname: de bewoner betaalt niets voor het verblijf, ook niet met werk (volgens de praktijk in Leiden). Leiden zet de norm om 1 maand (verblijf langer dan 6 maanden) of 3 maanden (korter) na de opname (CVDR760406, hoofdstuk 4); de app rekent met de situatie na de omzetting. Een instelling met zorg en een woonvorm met begeleiding zijn één keuze, omdat de wet voor beide dezelfde norm geeft. Een eventuele eigen bijdrage voor zorg rekent de app niet.
 
 ## 2. Kostendelersnorm
 
@@ -181,7 +181,13 @@ De gemeente stelt de draagkracht vast voor een jaar vanaf de aanvraag (art. 6 li
 
 ## 10. Overgangsmaanden en terugbetalen van toeslagen
 
-Toeslagen zijn een voorschot op het verwachte jaarinkomen. Wie gaat werken en zijn inkomen niet doorgeeft, krijgt te veel en moet dat na de definitieve berekening terugbetalen. De app toont per toeslag hoeveel lager die met werk wordt en wat dat na een jaar werk betekent (`terugbetaalrisico` in de uitkomst). Een overzicht per maand van de overgangsperiode is nog niet gebouwd.
+Toeslagen zijn een voorschot op het verwachte jaarinkomen. Wie gaat werken en zijn inkomen niet doorgeeft, krijgt te veel en moet dat na de definitieve berekening terugbetalen. De app toont per toeslag hoeveel lager die met werk wordt en wat dat na een jaar werk betekent (`terugbetaalrisico` in de uitkomst). **Overzicht per maand.** De app toont de eerste 12 maanden na een startmaand die de gebruiker kiest (`maandoverzicht` in de engine):
+
+- Inkomen wordt achteraf verrekend: het loon van maand k gaat af van de bijstand van maand k + 1. Zo werkt het in de praktijk in Leiden, omdat de loonstrook pas na afloop van de maand bekend is. Vanaf 2027 zegt art. 32 lid 2 Pw ook dat inkomen telt in de periode waarin iemand erover kan beschikken. Gevolg: in maand 1 komen het eerste loon en de bijstand van nu samen binnen.
+- De vrijlating hoort bij het loon van de maand waarin het is verdiend; de bijstand van maand 7 wordt dus al verrekend zonder de vrijlating van maand 1 t/m 6.
+- In de bijstand zit 5% vakantietoeslag (art. 19 lid 3 Pw). Die komt in juni, of uiterlijk 3 maanden nadat de bijstand stopt (art. 45 lid 1 Pw). Opgebouwd sinds de vorige juni.
+- Het loon per maand staat zonder vakantiegeld (gemiddeld netto / 1,08); het vakantiegeld komt in mei. De gemeente rekent per maand met het loon inclusief een deel vakantiegeld.
+- Toeslagen zijn vanaf maand 1 aangepast. Alle maanden met de bedragen van de rekendatum; loopt het overzicht over 1 januari 2027, dan meldt de app dat er vanaf dan nieuwe regels gelden.
 
 **Eerste 12 maanden.** Onder het kopgetal staat het verschil over de eerste 12 maanden na de start van het werk: de maanden van de eerste vrijlatingsperiode (tot en met 2026: 6 maanden onder n; vanaf 2027: 12 maanden onder art. 34a) maal het verschil in die periode, plus de overige maanden maal het verschil daarna (`verschilEersteJaar` in de engine). Niet 12 keer het verschil van de eerste maanden: de vrijlating is tijdelijk.
 

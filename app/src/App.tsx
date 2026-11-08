@@ -450,26 +450,17 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           ["koop", "In een koopwoning"],
           ["inwonend", "Bij iemand anders in huis, en ik betaal niets voor mijn woonruimte"],
           ["dakloos", "Ik heb geen vaste woonplek"],
-          ["instelling", "In een woonvorm met begeleiding, waar ik de lagere bijstand voor een instelling krijg"],
-          ["zorginstelling", "In een zorginstelling, zoals een verpleeghuis"],
+          ["instelling", "In een instelling of woonvorm met begeleiding, waar ik een lagere bijstand krijg"],
         ]}
       />
       {f.woont === "instelling" && (
         <div className="melding" role="status">
           <p>
-            In een woonvorm waar dag en nacht begeleiding is, krijgt u een lagere bijstand
+            In een instelling of woonvorm waar dag en nacht zorg of begeleiding is, krijgt u een lagere bijstand
             {instellingsnorm() ? `: ${instellingsnorm()}` : ""}. Dat komt doordat u daar geen huur en boodschappen hoeft te
             betalen. Krijgt u een ander bedrag aan bijstand? Kies dan een andere keuze.
           </p>
           <p>Slaapt u in een daklozenopvang zonder begeleiding? Kies dan "Ik heb geen vaste woonplek".</p>
-        </div>
-      )}
-      {f.woont === "zorginstelling" && (
-        <div className="melding waarschuwing" role="status" id="woont-fout">
-          <p>
-            Woont u in een zorginstelling? Dan betaalt de instelling een groot deel van uw kosten en gelden andere regels. Deze rekenhulp
-            kan dat niet berekenen. Vraag uw klantmanager wat werken voor u betekent.
-          </p>
         </div>
       )}
       {f.woont === "huur" && (
