@@ -11,7 +11,6 @@ Wat er nog op de lijst staat. Afgeronde punten staan in de geschiedenis van de p
 ## Rekenhulp
 
 - [ ] Overzicht per maand van de overgang naar werk: wanneer de bijstand stopt, wanneer het eerste loon komt, en de vakantietoeslag bij uitstroom.
-- [ ] Huurtoeslag: huisgenoten van 18 tot en met 26 jaar en inwonende kinderen met een eigen inkomen.
 - [ ] Leiden: kwijtschelding van gemeentelijke belastingen; een signaal bij 120% van de bijstandsnorm (collectieve zorgverzekering).
 
 ## Toetsing

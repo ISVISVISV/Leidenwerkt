@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
-import { alleenCijfers, controleer, leegFormulier, maxUurprijs, nieuwKind, vandaag, type Fouten, type Formulier } from "./formulier.ts";
+import { alleenCijfers, controleer, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagInkomenAnderen, type Fouten, type Formulier } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -126,6 +126,15 @@ const instellingsnorm = () => {
     const a = l.bedrag("pw.norm.inrichting.alleenstaande").plus(l.bedrag("pw.norm.inrichting.verhoging_alleenstaande"));
     const g = l.bedrag("pw.norm.inrichting.gehuwden").plus(l.bedrag("pw.norm.inrichting.verhoging_gehuwden"));
     return `${euro(a)} per maand voor een alleenstaande, ${euro(g)} voor een stel`;
+  } catch {
+    return "";
+  }
+};
+
+/** Vrijstelling voor het inkomen van een kind jonger dan 23 (huurtoeslag), als tekst. */
+const vrijstellingKind = () => {
+  try {
+    return euro(new Lezer(standaardRegels, vandaag()).bedrag("ht.vrijstelling_kind_onder_23"), true);
   } catch {
     return "";
   }
@@ -342,11 +351,21 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         id="kostendelers"
         soort="geheel"
         voorbeeld="bijv. 0"
-        label="Hoeveel andere volwassenen van 27 jaar of ouder wonen bij u in huis?"
-        hint="Tel uw partner niet mee. Een volwassen kind of een huisgenoot telt wel mee."
+        label="Hoeveel andere mensen van 27 jaar of ouder wonen bij u in huis?"
+        hint="Tel uw partner niet mee. Een kind van 27 jaar of ouder telt wel mee, net als een huisgenoot."
         waarde={f.kostendelers}
         onChange={(v) => zet("kostendelers", v)}
         fout={fouten.kostendelers}
+      />
+      <Veld
+        id="jongeHuisgenoten"
+        soort="geheel"
+        voorbeeld="bijv. 0"
+        label="Hoeveel andere mensen van 18 tot 27 jaar wonen bij u in huis?"
+        hint="Tel uw partner en uw eigen kinderen niet mee; die heeft u hierboven al ingevuld."
+        waarde={f.jongeHuisgenoten}
+        onChange={(v) => zet("jongeHuisgenoten", v)}
+        fout={fouten.jongeHuisgenoten}
       />
     </section>
   );
@@ -401,19 +420,19 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           />
           <Keuze
             naam="zelfstandig"
-            legend="Heeft uw woning een eigen voordeur, keuken, wc en douche of bad?"
-            waarde={f.zelfstandig ? "ja" : "nee"}
-            onChange={(v) => zet("zelfstandig", v === "ja")}
+            legend="Deelt u de voordeur, keuken, wc of douche met mensen die niet bij uw huishouden horen?"
+            waarde={f.zelfstandig ? "nee" : "ja"}
+            onChange={(v) => zet("zelfstandig", v === "nee")}
             opties={[
-              ["ja", "Ja, die zijn alleen voor mijn huishouden"],
-              ["nee", "Nee, ik deel er een of meer met anderen (bijvoorbeeld op een kamer)"],
+              ["nee", "Nee"],
+              ["ja", "Ja, bijvoorbeeld omdat ik op een kamer woon"],
             ]}
           />
-          {(Number(f.kostendelers) || 0) > 0 && (
+          {vraagInkomenAnderen(f) && (
             <Veld
               id="huisgenotenInkomen"
-              label="Bruto jaarinkomen van uw huisgenoten samen"
-              hint="Het inkomen van de huisgenoten van 27 jaar of ouder telt mee voor de huurtoeslag. Een schatting is genoeg. Hebben zij geen inkomen? Vul dan 0 in."
+              label="Bruto jaarinkomen van de anderen in huis, samen"
+              hint={`Dit telt mee voor de huurtoeslag. Tel het inkomen mee van iedereen die bij u woont, behalve uw partner: huisgenoten en kinderen.${vrijstellingKind() ? ` Van een kind jonger dan 23 jaar telt alleen het deel boven ${vrijstellingKind()} per jaar mee.` : ""} Weet u het niet precies? Vul dan een schatting in; hoe beter de schatting, hoe beter de uitkomst. Heeft niemand inkomen? Vul dan 0 in.`}
               waarde={f.huisgenotenInkomen}
               onChange={(v) => zet("huisgenotenInkomen", v)}
               fout={fouten.huisgenotenInkomen}

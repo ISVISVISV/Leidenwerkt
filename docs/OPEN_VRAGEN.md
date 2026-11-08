@@ -20,13 +20,13 @@ Stand: 8 november 2026. Per vraag staat wat ontbreekt en waar het te vinden is.
 | V6 | Verrekening per 2027 | Uniform verrekenen, verrekening vakantiegeld, bufferbudget (art. 34b, max. € 1.000 per jaar); de app rekent dit niet | Regeling Participatiewet, IOAW en IOAZ (versie 2027) |
 | V7 | Netto loon | Officiële vergelijking met de witte maandtabel loonheffing 2026 voor de proefpersonen (nu `onbekend`) | Belastingdienst, loonheffingstabellen 2026 |
 | V8 | Bruto bijstand voor het toetsingsinkomen | De app rekent de bruto bijstand terug uit de netto norm. Toetsen met de groene maandtabel loonheffing 2026 (uitkeringen), zonder echte documenten | Belastingdienst, loonheffingstabellen 2026 |
-| V9 | Huurtoeslag: huisgenoten van 18 tot 27 jaar en inwonende kinderen met inkomen | Hun inkomen telt mee voor de huurtoeslag (kinderen onder 23 boven € 6.218); de app vraagt er nu niet naar | Brochure Berekening huurtoeslag 2026, stap 5 |
 | V10 | Leiden: kwijtschelding | Welke norm Leiden hanteert en wie uitvoert | lokaleregelgeving.overheid.nl, leiden.nl |
 | V12 | Leiden: grenzen van 110%, 120% en 150% | Gevonden in de Beleidsregels bijzondere bijstand 2022 (draagkracht, collectieve zorgverzekering). De eigen bijdrage kinderopvang staat nu als signaal in de app; de 120% voor de collectieve zorgverzekering nog niet. De beleidsregels van 2022 zijn volgens lokaleregelgeving.overheid.nl nog geldend (stand 8 november 2026) | CVDR677687 |
 | V11 | Individuele inkomenstoeslag | leiden.nl noemt "23 jaar of ouder" als voorwaarde maar bedragen "tussen de 21 jaar en de pensioengerechtigde leeftijd"; de verordening van 2020 is niet opnieuw nagelezen op leeftijd | Verordening IIT Leiden (CVDR634399) |
 
 ## Opgelost
 
+- **Huurtoeslag met huisgenoten van elke leeftijd en kinderen met inkomen**: iedereen op het adres telt mee (Awir art. 1 en 7); kinderen jonger dan 23 pas boven € 6.218 (brochure Berekening huurtoeslag 2026, stap 5).
 - **Woonvorm met begeleiding (art. 23 Pw)**: norm bij verblijf in een inrichting ingebouwd, met de verhoging van lid 2. Volgens de praktijk in Leiden betalen bewoners niets voor het verblijf dat invloed heeft op de bijstand; dat is een aanname in de app. Een zorginstelling wordt niet berekend.
 - **Geen of lage woonkosten (Leiden)**: lagere norm volgens de Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026 (CVDR760406, art. 3.1): 10% van de gehuwdennorm zonder woonkosten, 9% zonder woonlasten, 19% samen; bij woonkosten onder 10% het verschil. Alleen bij de norm van art. 21, niet bij de kostendelersnorm. Wonen in een instelling (art. 23) rekent de app niet.
 - **Kamer of onzelfstandige woning**: geen huurtoeslag (voorwaarde zelfstandige woonruimte, belastingdienst.nl "Kan ik huurtoeslag krijgen?").

@@ -63,6 +63,11 @@ export interface Invoer {
    * huurtoeslag niet berekend als er huisgenoten zijn.
    */
   huisgenotenInkomenJaar?: number;
+  /**
+   * Aantal huisgenoten van 18 tot 27 jaar die geen kind van de gebruiker zijn.
+   * Zij tellen niet mee voor de kostendelersnorm, wel voor de huurtoeslag.
+   */
+  jongeHuisgenoten?: number;
   /** Servicekosten tellen sinds 2026 niet meer mee voor de huurtoeslag; het veld wordt genegeerd. */
   wonen:
     | {

@@ -106,13 +106,13 @@ test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, hui
   await expect(leeftijd).toHaveAttribute("placeholder", "bijv. 35");
   await leeftijd.pressSequentially("4a2b");
   await expect(leeftijd).toHaveValue("42");
-  await page.getByLabel(/Hoeveel andere volwassenen/).fill("1");
+  await page.getByLabel(/Hoeveel andere mensen van 27/).fill("1");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByLabel("Kale huur per maand").pressSequentially("7x20,5o0");
   await expect(page.getByLabel("Kale huur per maand")).toHaveValue("720,50");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.getByText("Vul dit in.")).toBeVisible();
-  await page.getByLabel("Bruto jaarinkomen van uw huisgenoten samen").fill("26.000");
+  await page.getByLabel("Bruto jaarinkomen van de anderen in huis, samen").fill("26.000");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.200");
   await page.getByRole("textbox", { name: "Uren per week" }).fill("20");
