@@ -98,3 +98,7 @@ parameters:
     waarde: { soort: bedrag, bedrag: "6218" }
     status: geverifieerd
     bron: *dt_ht
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026, stap 5"
+      tekst: "Voor inwonende kinderen die bij aanvang van 2026 jonger zijn dan 23 jaar, telt alleen het inkomen mee boven de vrijstellingsgrens van € 6.218 per persoon per jaar. Dit geldt ook voor pleeg-, stief- en adoptiekinderen."
+      versie: "juni 2026"

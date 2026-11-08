@@ -35,6 +35,10 @@ Alleen officiële bronnen tellen: wetten.overheid.nl, officielebekendmakingen.nl
 
 <!-- statustabel:eind -->
 
+## Bronvermelding in de app
+
+Bij de vrijlating, de gebruikte regels en elke melding toont de app de naam van de bron. Aanwijzen, Tab of tikken toont de letterlijke tekst, met een link naar de officiële bron. Teksten met bedragen staan bij de parameter in de regeldata (`citaat`), zodat ze per periode kloppen; teksten zonder bedragen staan in `packages/engine/src/citaten.ts`.
+
 ## Data tegenover mechanisme
 
 - Een **gewijzigd bedrag** is regeldata: een nieuw YAML-bestand met een nieuwe `geldig_van`.

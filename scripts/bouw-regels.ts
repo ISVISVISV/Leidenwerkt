@@ -62,6 +62,8 @@ for (const pad of zoekYaml(regelMap).sort()) {
   for (const p of b.parameters) {
     if (p.bron && !officieelDomein(p.bron.url)) fouten.push(`${naam}: ${p.id}: bron ${new URL(p.bron.url).hostname} is geen officieel domein`);
     if (p.status === "geverifieerd" && !p.bron) fouten.push(`${naam}: ${p.id}: 'geverifieerd' mag alleen met een bron`);
+    if (p.citaat && !p.bron) fouten.push(`${naam}: ${p.id}: een citaat hoort bij een bron`);
+    if (p.citaat?.url && !officieelDomein(p.citaat.url)) fouten.push(`${naam}: ${p.id}: citaat-url ${new URL(p.citaat.url).hostname} is geen officieel domein`);
     items.push({ ...p, geldig_van: b.geldig_van, geldig_tot: b.geldig_tot, bestand: naam });
   }
 }

@@ -1,3 +1,4 @@
+import type { Citaat } from "./citaten.ts";
 import type { GebruikteParameter, Status } from "./regels.ts";
 
 export type Leefvorm = "alleenstaande" | "alleenstaande_ouder" | "paar";
@@ -154,6 +155,8 @@ export interface Situatie {
 export interface Signaal {
   soort: "waarschuwing" | "info";
   tekst: string;
+  /** Letterlijke brontekst bij de melding. */
+  bron?: Citaat;
 }
 
 export interface Resultaat {

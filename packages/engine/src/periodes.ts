@@ -6,7 +6,7 @@ import { euro, type Bedrag } from "./geld.ts";
 import { Lezer, OntbrekendeParameter, standaardRegels, type RegelSet } from "./regels.ts";
 import { REGIMES, dagVoor, regimeOp } from "./regimes.ts";
 import type { Fase, Invoer } from "./types.ts";
-import { CITATEN, type Citaat } from "./citaten.ts";
+import { CITATEN, naarCitaat, type Citaat } from "./citaten.ts";
 
 export interface Periode {
   fase: Fase;
@@ -37,11 +37,19 @@ export function vrijlatingUitleg(invoer: Invoer, regels: RegelSet = standaardReg
   const regime = regimeOp(invoer.datum);
   if (regime.id === "pw34a") return { ...u, citaten: [CITATEN.pw34a] };
   const ouderJongKind = invoer.leefvorm === "alleenstaande_ouder" && invoer.kinderen.some((k) => k.leeftijd < 12);
-  const citaten: Citaat[] = [CITATEN.pw31n];
-  if (ouderJongKind && !invoer.medischUrenbeperkt) citaten.push(CITATEN.pw31r);
-  if (invoer.medischUrenbeperkt) citaten.push(CITATEN.pw31y);
   const l = new Lezer(regels, invoer.datum);
-  if (l.bestaat("pw.vrijlating.minimumleeftijd") && l.aantal("pw.vrijlating.minimumleeftijd").gt(invoer.leeftijd)) citaten.push(CITATEN.pw31lid5);
+  const tekst = (id: string) => {
+    const b = l.brontekst(id);
+    return b ? naarCitaat(b.citaat, b.bron, b.geldigVan) : undefined;
+  };
+  const citaten = [
+    tekst("pw.vrijlating_n.percentage"),
+    ouderJongKind && !invoer.medischUrenbeperkt ? tekst("pw.vrijlating_r.percentage") : undefined,
+    invoer.medischUrenbeperkt ? tekst("pw.vrijlating_y.percentage") : undefined,
+    l.bestaat("pw.vrijlating.minimumleeftijd") && l.aantal("pw.vrijlating.minimumleeftijd").gt(invoer.leeftijd)
+      ? tekst("pw.vrijlating.minimumleeftijd")
+      : undefined,
+  ].filter((c): c is Citaat => !!c);
   return { ...u, citaten };
 }
 

@@ -728,3 +728,13 @@ details.uitleg summary {
   margin: -0.5rem 0 1.4rem;
   font-size: 0.9rem;
 }
+
+.signaal-bron {
+  font-size: 0.85rem;
+  color: var(--inkt-zacht);
+}
+
+.bron-onder-vraag {
+  margin: -0.75rem 0 1.4rem;
+  color: var(--inkt-zacht);
+}

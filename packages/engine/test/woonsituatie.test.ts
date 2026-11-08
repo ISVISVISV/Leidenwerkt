@@ -158,3 +158,29 @@ describe("huurtoeslag: iedereen in huis telt mee, ook jonger dan 27 (Awir art. 7
     expect(r.huidig.posten.find((p) => p.id === "huurtoeslag")!.perMaand).toBeNull();
   });
 });
+
+describe("bronvermelding", () => {
+  it("elke melding bij de uitkomst heeft een letterlijke brontekst", async () => {
+    const { huishoudens } = await import("./huishoudens.ts");
+    const extra: Invoer[] = [
+      basis({ wonen: { soort: "instelling" }, nieuwWerk: { brutoMaandloon: 400, urenPerWeek: 8 }, vrijlatingFase: "start" }),
+      basis({ nieuwWerk: { brutoVierwekenloon: 1500, urenPerWeek: 24 }, vrijlatingFase: "start" }),
+      basis({
+        leefvorm: "alleenstaande_ouder",
+        kinderen: [{ leeftijd: 2, opvang: { soort: "dagopvang", urenPerMaand: 80, uurprijs: 12.5 } }],
+        nieuwWerk: { brutoMaandloon: 1800, urenPerWeek: 24 },
+        vrijlatingFase: "start",
+      }),
+    ];
+    for (const invoer of [...Object.values(huishoudens), ...extra]) {
+      for (const s of bereken(invoer).signalen) {
+        expect(s.bron, s.tekst).toBeDefined();
+        expect(s.bron!.tekst.length).toBeGreaterThan(20);
+      }
+    }
+  });
+  it("de vrijlating heeft per periode de wettekst van de juiste datum", () => {
+    expect(vrijlatingUitleg(basis({ datum: "2026-03-01" })).citaten[0].tekst).toContain("€ 285,00 per maand");
+    expect(vrijlatingUitleg(basis({ datum: "2026-08-01" })).citaten[0].tekst).toContain("€ 289,00");
+  });
+});

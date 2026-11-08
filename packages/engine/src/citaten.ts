@@ -1,78 +1,96 @@
 /**
- * Letterlijke wetteksten voor de bronvermelding in de app (de pop-up bij een
- * bron). Alleen tekst die letterlijk is overgenomen van de officiële bron, met
- * de datum van de versie. De app werkt zonder internet, dus de tekst staat hier.
+ * Letterlijke teksten uit officiële bronnen, voor de pop-up bij een bron in de app.
+ *
+ * Teksten met bedragen of percentages die per periode veranderen, staan in de
+ * regeldata (veld `citaat` bij een parameter, zie regels/schema.ts), zodat ze met
+ * een nieuw jaar meekomen. Hier staan alleen teksten zonder zulke bedragen.
+ * De app werkt zonder internet, dus de tekst moet in de app zelf staan.
  */
+import type { GebruikteParameter, Bron, BronCitaat } from "./regels.ts";
+
 export interface Citaat {
   /** Korte naam, bijvoorbeeld "Participatiewet, art. 31 lid 2 onder n". */
   titel: string;
   url: string;
-  /** Versie of datum waarop de tekst is overgenomen. */
+  /** Versie of datum van de tekst. */
   versie: string;
   tekst: string;
 }
 
-const PW_2026 = "https://wetten.overheid.nl/BWBR0015703/2026-07-01";
-const PW_2027 = "https://wetten.overheid.nl/BWBR0015703/2027-01-01";
-
 export const CITATEN = {
-  pw31n: {
-    titel: "Participatiewet, art. 31 lid 2 onder n",
-    url: `${PW_2026}#Hoofdstuk3_Paragraaf3.4_Artikel31_Lid2`,
+  pw3: {
+    titel: "Participatiewet, art. 3 lid 2 en 3",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk1_Paragraaf1.1_Artikel3",
     versie: "geldend vanaf 1 juli 2026",
     tekst:
-      "inkomsten uit arbeid tot 25 procent van deze inkomsten, met een maximum van € 285,00 [Red: per 1 juli 2026: € 289,00] per maand, voor zover hij algemene bijstand ontvangt, waarbij voor een persoon die de pensioengerechtigde leeftijd nog niet heeft bereikt geldt dat die inkomsten gedurende ten hoogste zes maanden niet tot de middelen worden gerekend en dat dit naar het oordeel van het college moet bijdragen aan zijn arbeidsinschakeling;",
-  },
-  pw31r: {
-    titel: "Participatiewet, art. 31 lid 2 onder r",
-    url: `${PW_2026}#Hoofdstuk3_Paragraaf3.4_Artikel31_Lid2`,
-    versie: "geldend vanaf 1 juli 2026",
-    tekst:
-      "inkomsten uit arbeid van een alleenstaande ouder tot 12,5 procent van deze inkomsten, met een maximum van € 177,66 [Red: per 1 juli 2026: € 180,17] per maand, gedurende een aaneengesloten periode van maximaal 30 maanden, voor zover hij algemene bijstand ontvangt en onderdeel y, z of aa niet van toepassing is, ingeval: 1°. hij de volledige zorg heeft voor een tot zijn last komend kind tot 12 jaar, 2°. de periode van zes maanden, bedoeld in onderdeel n, is verstreken, en 3°. dit volgens het college bijdraagt aan zijn arbeidsinschakeling;",
-  },
-  pw31y: {
-    titel: "Participatiewet, art. 31 lid 2 onder y",
-    url: `${PW_2026}#Hoofdstuk3_Paragraaf3.4_Artikel31_Lid2`,
-    versie: "geldend vanaf 1 juli 2026",
-    tekst:
-      "inkomsten uit arbeid van een persoon die medisch urenbeperkt is tot 15 procent van deze inkomsten uit arbeid, met een maximum van € 180,19 [Red: per 1 juli 2026: € 182,73] per maand, voor zover hij algemene bijstand ontvangt, tenzij onderdeel n van toepassing is;",
-  },
-  pw31lid5: {
-    titel: "Participatiewet, art. 31 lid 5",
-    url: `${PW_2026}#Hoofdstuk3_Paragraaf3.4_Artikel31_Lid5`,
-    versie: "geldend vanaf 1 juli 2026",
-    tekst:
-      "Het tweede lid, onderdelen c, j, k, n en r, zijn niet van toepassing op de persoon die jonger is dan 27 jaar, met dien verstande dat onderdeel j wel van toepassing is als het gaat om een persoon jonger dan 27 jaar die behoort tot de doelgroep loonkostensubsidie.",
+      "2. In deze wet en de daarop berustende bepalingen wordt: a. als gehuwd of als echtgenoot mede aangemerkt de ongehuwde die met een ander een gezamenlijke huishouding voert, tenzij het betreft een aanverwant in de eerste graad of een bloedverwant in de eerste graad of indien er sprake is van een zorgbehoefte van of verleend door een bijstandsgerechtigde die de aanleiding vormt om samen te wonen, ongeacht of er sprake is van bloedverwantschap, gedurende de periode dat die zorg wordt verleend; […] 3. Van een gezamenlijke huishouding is sprake indien twee personen hun hoofdverblijf in dezelfde woning hebben en zij blijk geven zorg te dragen voor elkaar door middel van het leveren van een bijdrage in de kosten van de huishouding dan wel anderszins.",
   },
   pw34a: {
     titel: "Participatiewet, art. 34a lid 1 en 2",
-    url: `${PW_2027}#Hoofdstuk3_Paragraaf3.4_Artikel34a`,
+    url: "https://wetten.overheid.nl/BWBR0015703/2027-01-01#Hoofdstuk3_Paragraaf3.4_Artikel34a",
     versie: "geldend vanaf 1 januari 2027",
     tekst:
       "1. Inkomsten uit arbeid worden niet met de algemene bijstand verrekend ten aanzien van degene die: a. de pensioengerechtigde leeftijd nog niet heeft bereikt: gedurende een aaneengesloten periode van maximaal twaalf maanden voor 15 procent van deze inkomsten per maand, indien dit naar het oordeel van het college bijdraagt aan de arbeidsinschakeling van deze persoon; b. medisch urenbeperkt is: voor 15 procent van deze inkomsten per maand; […] 2. Nadat de periode, bedoeld in het eerste lid, onderdeel a, is verstreken kan het college de periode waarin de inkomsten uit arbeid niet worden verrekend verlengen met een door het college te bepalen periode, indien het college een uitbreiding van de arbeidsomvang gelet op de individuele omstandigheden niet mogelijk acht.",
   },
-  leidenWoonkosten: {
-    titel: "Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026 (Leiden), art. 3.1 lid 2",
-    url: "https://lokaleregelgeving.overheid.nl/CVDR760406",
-    versie: "geldend vanaf 14 april 2026",
+  pw23inrichting: {
+    titel: "Participatiewet, art. 1 onder f (inrichting)",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
+    versie: "geldend vanaf 1 juli 2026",
     tekst:
-      "De verlaging in verband met de woonsituatie, als bedoeld in artikel 27 van de wet, bedraagt: a. als de belanghebbende (zelf) geen woonkosten betaalt: 10% van de gehuwden norm. b. als de woonkosten van de belanghebbende (zelf) minder dan 10% van de gehuwden norm zijn: het verschil tussen de daadwerkelijke woonkosten en 10% van de gehuwden norm. c. als belanghebbende (zelf) geen woonlasten betaalt: 9 % van de gehuwdennorm. d. als belanghebbende (zelf) geen woonkosten betaalt en geen woonlasten heeft; 19 % van de gehuwdennorm.",
+      "inrichting: 1°. een instelling die zich blijkens haar doelstelling en feitelijke werkzaamheden richt op het bieden van verpleging of verzorging aan aldaar verblijvende hulpbehoevenden; 2°. een instelling die zich blijkens haar doelstelling en feitelijke werkzaamheden richt op het bieden van slaapgelegenheid, waarbij de mogelijkheid van hulpverlening of begeleiding gedurende meer dan de helft van ieder etmaal aanwezig is;",
+  },
+  pw45: {
+    titel: "Participatiewet, art. 45 lid 1",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
+    versie: "geldend vanaf 1 juli 2026",
+    tekst:
+      "De algemene bijstand wordt per kalendermaand vastgesteld en betaald. In afwijking van de eerste volzin wordt de vakantietoeslag, voorzover niet reeds eerder betaald, jaarlijks betaald in de maand juni over de aan die maand voorafgaande twaalf maanden of zo veel eerder als de vakantietoeslag over deze periode vaststaat, dan wel binnen drie maanden volgend op de maand waarin de algemene bijstand is beëindigd.",
+  },
+  awirTerugvordering: {
+    titel: "Algemene wet inkomensafhankelijke regelingen, art. 26 lid 1",
+    url: "https://wetten.overheid.nl/BWBR0018472/2026-10-01#Hoofdstuk2_Paragraaf3_Artikel26",
+    versie: "geldend vanaf 1 oktober 2026",
+    tekst:
+      "Indien een herziening van een tegemoetkoming of een herziening van een voorschot leidt tot een terug te vorderen bedrag dan wel een verrekening van een voorschot met een tegemoetkoming daartoe leidt, is de belanghebbende het bedrag van de terugvordering in zijn geheel verschuldigd.",
+  },
+  htMedebewoners: {
+    titel: "Wet op de huurtoeslag, art. 7 lid 1",
+    url: "https://wetten.overheid.nl/BWBR0008659/2026-01-01",
+    versie: "geldend vanaf 1 januari 2026",
+    tekst: "Het recht op en de hoogte van de huurtoeslag is afhankelijk van de draagkracht, waaronder begrepen het vermogen, van de huurder, diens partner en de medebewoners.",
+  },
+  htZelfstandig: {
+    titel: "Dienst Toeslagen, Kan ik huurtoeslag krijgen?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/huurtoeslag/content/kan-ik-huurtoeslag-krijgen",
+    versie: "geraadpleegd op 8 november 2026",
+    tekst:
+      "Een zelfstandige woonruimte heeft in ieder geval een eigen toegangsdeur die op slot kan, keuken en wc. En sinds 1 maart 2024 moet de woning ook een eigen wasgelegenheid met douche of bad hebben.",
+  },
+  bbKinderopvang: {
+    titel: "Leiden, beleidsregels bijzondere bijstand 2022, toelichting bij art. 7 onder f",
+    url: "https://lokaleregelgeving.overheid.nl/CVDR677687",
+    versie: "geldend vanaf 1 april 2022",
+    tekst:
+      "Voor de eigen bijdrage in de kosten van kinderopvang kan bijzondere bijstand worden verleend in die gevallen waarin de kosten van kinderopvang een belemmering vormen voor werk, scholing of voor deelname aan een participatietraject. Onder eigen bijdrage verstaan we hier de werkelijk gemaakte kosten voor formele kinderopvang minus de ontvangen tegemoetkomingen voor de kosten van kinderopvang (kinderopvangtoeslag).",
   },
 } satisfies Record<string, Citaat>;
 
 export type CitaatId = keyof typeof CITATEN;
 
-/** Welke wettekst hoort bij een parameter (op begin van de id). */
-const PER_PARAMETER: [string, CitaatId][] = [
-  ["pw.vrijlating_n.", "pw31n"],
-  ["pw.vrijlating_r.", "pw31r"],
-  ["pw.vrijlating_y.", "pw31y"],
-  ["pw.vrijlating.minimumleeftijd", "pw31lid5"],
-  ["pw.bijverdien.", "pw34a"],
-  ["leiden.woonkosten.", "leidenWoonkosten"],
-];
+const DATUM = (iso: string) =>
+  new Date(`${iso}T12:00:00`).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
 
-export function citaatVoorParameter(id: string): Citaat | undefined {
-  const hit = PER_PARAMETER.find(([prefix]) => id.startsWith(prefix));
+/** Zet een citaat uit de regeldata om naar een Citaat voor de app. */
+export function naarCitaat(c: BronCitaat, bron: Bron, geldigVan: string): Citaat {
+  return { titel: c.kop, url: c.url ?? bron.url, versie: c.versie ?? `geldend vanaf ${DATUM(geldigVan)}`, tekst: c.tekst };
+}
+
+/** Teksten zonder bedragen die bij een groep parameters horen (op begin van de id). */
+const PER_PARAMETER: [string, CitaatId][] = [["pw.bijverdien.", "pw34a"]];
+
+/** De letterlijke brontekst bij een gebruikte parameter, als die er is. */
+export function citaatVoorParameter(g: GebruikteParameter): Citaat | undefined {
+  if (g.citaat && g.bron) return naarCitaat(g.citaat, g.bron, g.geldigVan);
+  const hit = PER_PARAMETER.find(([prefix]) => g.id.startsWith(prefix));
   return hit ? CITATEN[hit[1]] : undefined;
 }

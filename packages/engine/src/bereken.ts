@@ -12,6 +12,7 @@ import { bijstandsnorm, aanvulling, woonkorting } from "./modules/bijstand.ts";
 import { vrijlating } from "./modules/vrijlating.ts";
 import { zorgtoeslag, kindgebondenBudget, huurtoeslag, kinderopvangtoeslag, maandbedragToeslag } from "./modules/toeslagen.ts";
 import { regimeOp } from "./regimes.ts";
+import { CITATEN, naarCitaat, type Citaat } from "./citaten.ts";
 import type {
   Betrouwbaarheid,
   Fase,
@@ -580,6 +581,12 @@ function terugbetaalrisico(huidig: Situatie, werk: Situatie): TerugbetaalRisico[
   return uit;
 }
 
+/** Letterlijke brontekst bij een parameter, voor een melding. */
+function bronVan(l: Lezer, id: string): Citaat | undefined {
+  const b = l.brontekst(id);
+  return b ? naarCitaat(b.citaat, b.bron, b.geldigVan) : undefined;
+}
+
 function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situatie, risico: TerugbetaalRisico[]): Signaal[] {
   const uit: Signaal[] = [];
   const bijstandNu = bedragVan(huidig, "bijstand");
@@ -598,6 +605,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       const termijn = l.aantal("leiden.garantieknop.termijn").toString();
       uit.push({
         soort: "info",
+        bron: bronVan(l, "leiden.garantieknop.termijn"),
         tekst: `Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk binnen ${termijn} maanden nadat uw bijstand is gestopt? Dan kunt u in Leiden een eenvoudigere aanvraag doen. De gemeente gebruikt dan de gegevens die zij al van u heeft, als uw woonadres, gezin, inkomen en vermogen niet zijn veranderd.`,
       });
     });
@@ -607,6 +615,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     const lijst = risico.map((r) => `${r.label.toLowerCase()} ${euro(r.minderPerMaand, true)}`).join(", ");
     uit.push({
       soort: "waarschuwing",
+      bron: CITATEN.awirTerugvordering,
       tekst: `Uw toeslagen worden samen ${euro(totaal, true)} per maand lager (${lijst}). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Doet u dat niet, dan krijgt u elke maand ${euro(totaal, true)} te veel. Na een jaar werk moet u dan ongeveer ${euro(totaal.times(12), true)} terugbetalen. Dat hoort u pas bij de definitieve berekening, na afloop van het jaar.`,
     });
   }
@@ -630,9 +639,13 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
           tekst += ` Het Kindtegoed van ${euro(kindtegoed, true)} per jaar houdt u waarschijnlijk wel, tot ongeveer ${euro(norm.times(grens2), true)} netto per maand.`;
         }
       }
-      uit.push({ soort: "info", tekst });
+      uit.push({ soort: "info", tekst, bron: bronVan(l, "leiden.sleutelpas.inkomensgrens") });
     } else {
-      uit.push({ soort: "info", tekst: `U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.${kt}` });
+      uit.push({
+        soort: "info",
+        tekst: `U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.${kt}`,
+        bron: bronVan(l, "leiden.sleutelpas.inkomensgrens"),
+      });
     }
   });
 
@@ -646,6 +659,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       if (minLeeftijd.gt(invoer.leeftijd)) return;
       uit.push({
         soort: "info",
+        bron: bronVan(l, "leiden.iit.referteperiode"),
         tekst: `Individuele inkomenstoeslag: heeft u al ${jaren} jaar of langer een inkomen op bijstandsniveau, dan kunt u in Leiden één keer per 12 maanden ${euro(bedrag, true)} krijgen. Verdient u door het werk meer dan de bijstandsnorm, dan voldoet u niet meer aan die voorwaarde. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
       });
     });
@@ -659,6 +673,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     const rest = vergoeding ? eigen.minus(vergoeding) : eigen;
     uit.push({
       soort: "waarschuwing",
+      bron: CITATEN.bbKinderopvang,
       tekst:
         vergoeding && vergoeding.gt(0)
           ? `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. De gemeente Leiden vergoedt dat deel met bijzondere bijstand als u de opvang anders niet kunt betalen en daardoor niet kunt werken. Hoeveel u krijgt, hangt af van uw inkomen: hier is ${euro(vergoeding, true)} per maand meegerekend${rest.gt("0.5") ? ` en betaalt u zelf ${euro(rest, true)}` : ""}. Dit geldt ook als u door het werk geen bijstand meer krijgt. U krijgt de vergoeding niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.`
@@ -668,6 +683,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   if (invoer.wonen.soort === "instelling") {
     uit.push({
       soort: "info",
+      bron: CITATEN.pw23inrichting,
       tekst:
         "Deze berekening geldt zolang u in de woonvorm woont. Gaat u daarna zelfstandig wonen, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm, betaalt u zelf huur en boodschappen, en krijgt u misschien huurtoeslag. Reken dan opnieuw, met uw nieuwe woning.",
     });
@@ -675,6 +691,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   if (invoer.nieuwWerk.brutoVierwekenloon !== undefined) {
     uit.push({
       soort: "waarschuwing",
+      bron: CITATEN.pw45,
       tekst:
         "U krijgt 13 keer per jaar loon. Eén keer per jaar krijgt u twee keer loon in dezelfde maand. In die maand krijgt u waarschijnlijk minder of geen bijstand, omdat de gemeente per maand kijkt wat u verdiende.",
     });
