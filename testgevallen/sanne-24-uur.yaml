@@ -77,24 +77,45 @@ verwacht:
     datum: '2026-11-08'
   tolerantie: 0.01
   toelichting: € 298,40 per kwartaal (0 t/m 5 jaar) / 3
-- onderdeel: kinderopvangtoeslag
-  situatie: met_werk
-  waarde: 753
-  bron:
-    titel: Dienst Toeslagen — Berekening kinderopvangtoeslag 2026, stappen 1 t/m 7
-    url: https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf
-    datum: '2026-11-08'
-  tolerantie: 0
-  toelichting: 72 uur × € 10,90 (onder het maximum van € 11,23) × 96% = € 753,41, afgerond naar beneden; inkomen ruim onder € 56.413
 - onderdeel: netto_loon
   situatie: met_werk
   waarde: onbekend
 - onderdeel: bijstand
   situatie: met_werk
   waarde: onbekend
+- onderdeel: zorgtoeslag
+  situatie: met_werk
+  waarde: 129
+  tolerantie: 0
+  bron:
+    titel: Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 21.835
+    url: https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen
+    datum: '2026-11-08'
+  toelichting: Geen toeslagpartner, werkt, kind geboren 1-1-2022, kindercentrum 72 uur per maand à € 10,90, kale huur € 690
 - onderdeel: huurtoeslag
   situatie: met_werk
-  waarde: onbekend
+  waarde: 422
+  tolerantie: 0
+  bron:
+    titel: Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 21.835
+    url: https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen
+    datum: '2026-11-08'
+  toelichting: Geen toeslagpartner, werkt, kind geboren 1-1-2022, kindercentrum 72 uur per maand à € 10,90, kale huur € 690
 - onderdeel: kindgebonden_budget
   situatie: met_werk
-  waarde: onbekend
+  waarde: 499
+  tolerantie: 0
+  bron:
+    titel: Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 21.835
+    url: https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen
+    datum: '2026-11-08'
+  toelichting: Geen toeslagpartner, werkt, kind geboren 1-1-2022, kindercentrum 72 uur per maand à € 10,90, kale huur € 690
+- onderdeel: kinderopvangtoeslag
+  situatie: met_werk
+  waarde: 753
+  tolerantie: 0
+  bron:
+    titel: Dienst Toeslagen — Proefberekening toeslagen 2026, ingevuld met toetsingsinkomen € 21.835
+    url: https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen
+    datum: '2026-11-08'
+  toelichting: Geen toeslagpartner, werkt, kind geboren 1-1-2022, kindercentrum 72 uur per maand à € 10,90, kale huur € 690

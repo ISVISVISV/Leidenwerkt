@@ -6,11 +6,7 @@ Stand: 8 november 2026. Per vraag staat of het uitzoekwerk is of een besluit of 
 
 | # | Vraag of actie | Waarom | Urgentie |
 | --- | --- | --- | --- |
-| B1 | Branch protection en CODEOWNERS activeren | Zonder deze instelling kan iedereen met schrijfrechten nog rechtstreeks naar `main`. Stappen in [ONDERHOUD.md](ONDERHOUD.md#branch-protection-instellen-eenmalig-door-de-eigenaar-op-github) | Hoog |
-| B2 | Proefberekeningen van Dienst Toeslagen invullen voor een paar proefpersonen | De proefberekening is een interactief formulier. Per persoon staat een invulblad in [PROEFPERSONEN.md](PROEFPERSONEN.md). Zet de uitkomsten met datum in `testgevallen/*.yaml` | Normaal |
-| B3 | Geanonimiseerde echte documenten aanleveren (uitkeringsspecificatie bijstand, toeslagbeschikking, loonstrook) | Onafhankelijke toets van netto loon, bruto bijstand (toetsingsinkomen) en vrijlating | Normaal |
-| B4 | Navraag gemeente Leiden: is 'WSM' in de Sleutelpasregels gelijk aan de toepasselijke bijstandsnorm? Welke inkomensgrens geldt voor gehuwden? | Bepaalt de grens van de gratis Sleutelpas en het Kindtegoed in de app | Normaal |
-| B5 | Navraag gemeente Leiden: krijgt iemand die in 2027 het overgangsrecht van onderdeel n gebruikt daarna nog de nieuwe bijverdienregeling (art. 34a)? En hoe past Leiden "bijdragen aan arbeidsinschakeling" toe? | De wet zegt het niet; de app neemt nu aan van niet en verwijst naar de klantmanager | Normaal |
+| B5 | Navraag gemeente Leiden (alleen als het praktisch kan): krijgt iemand die in 2027 het overgangsrecht van onderdeel n gebruikt daarna nog de nieuwe bijverdienregeling (art. 34a)? | Wet, memorie van toelichting en de andere Kamerstukken van dossier 36582 zeggen het niet (doorzocht op 8 november 2026). De gemeente beslist; de app zegt dat erbij | Laag |
 | B6 | Kiest u als uitgangspunt voor 2027 de nieuwe regels als standaard (zodra de normen bekend zijn)? | De app volgt nu de datum van vandaag; vanaf 1 januari 2027 vanzelf de nieuwe regels, of de laatste bekende met een waarschuwing | Laag |
 
 ## Uit te zoeken
@@ -24,12 +20,19 @@ Stand: 8 november 2026. Per vraag staat of het uitzoekwerk is of een besluit of 
 | V5 | Kostendelersnorm 2027 | Art. 19a en 22a in de versie per 1 januari 2027 nalezen (nu `onbevestigd`, overgenomen van 2026) | wetten.overheid.nl/BWBR0015703/2027-01-01 |
 | V6 | Verrekening per 2027 | Uniform verrekenen, verrekening vakantiegeld, bufferbudget (art. 34b, max. € 1.000 per jaar); de app rekent dit niet | Regeling Participatiewet, IOAW en IOAZ (versie 2027) |
 | V7 | Netto loon | Officiële vergelijking met de witte maandtabel loonheffing 2026 voor de proefpersonen (nu `onbekend`) | Belastingdienst, loonheffingstabellen 2026 |
-| V8 | Bruto bijstand voor het toetsingsinkomen | De app rekent de bruto bijstand terug uit de netto norm; de gemeente gebruikt het werkelijke bruto bedrag. Toetsen met een uitkeringsspecificatie (B3) | Uitkeringsspecificatie |
+| V8 | Bruto bijstand voor het toetsingsinkomen | De app rekent de bruto bijstand terug uit de netto norm. Toetsen met de groene maandtabel loonheffing 2026 (uitkeringen), zonder echte documenten | Belastingdienst, loonheffingstabellen 2026 |
 | V9 | Huurtoeslag met medebewoners | Inkomen van huisgenoten (rekeninkomen); nu niet ondersteund en gemeld | Wet op de huurtoeslag, brochure stap 5 |
-| V10 | Leiden: kwijtschelding en collectieve zorgverzekering | Welke norm Leiden hanteert en wie uitvoert; bestaat er een minimapolis | lokaleregelgeving.overheid.nl, leiden.nl |
+| V10 | Leiden: kwijtschelding | Welke norm Leiden hanteert en wie uitvoert | lokaleregelgeving.overheid.nl, leiden.nl |
+| V12 | Leiden: grenzen van 110%, 120% en 150% | Gevonden in de Beleidsregels bijzondere bijstand 2022 (draagkracht, collectieve zorgverzekering, eigen bijdrage kinderopvang); nog niet als signaal in de app. Zijn de beleidsregels van 2022 nog de geldende? (laatste versie op lokaleregelgeving.overheid.nl) | CVDR677687 |
 | V11 | Individuele inkomenstoeslag | leiden.nl noemt "23 jaar of ouder" als voorwaarde maar bedragen "tussen de 21 jaar en de pensioengerechtigde leeftijd"; de verordening van 2020 is niet opnieuw nagelezen op leeftijd | Verordening IIT Leiden (CVDR634399) |
 
 ## Opgelost op 8 november 2026
+
+- **Branch protection en CODEOWNERS**: ingesteld door de beheerder.
+- **Proefberekeningen Dienst Toeslagen**: drie ingevuld (Fatima en Youssef, Bram, Sanne 24 uur); alle negen bedragen kwamen tot op de euro overeen met de app.
+- **Sleutelpas**: 'WSM' is de toepasselijke bijstandsnorm (bevestigd door de beheerder).
+- **Art. 34a, toets vooraf**: volgens de memorie van toelichting geldt de bijverdienregeling niet als het inkomen boven de bijstandsnorm ligt; ingebouwd.
+- **Echte documenten**: niet nodig; de toets loopt via officiële rekenvoorbeelden, proefberekeningen en loonheffingstabellen.
 
 - **Minimum-inkomensijkpunt huurtoeslag 2026**: € 23.425 / € 31.500 (Stcrt. 2025, 39783). Basishuur, grenzen en percentages bevestigd in de wet, het Besluit op de huurtoeslag en de brochure van Dienst Toeslagen. Servicekosten tellen sinds 2026 niet meer mee.
 - **Kinderbijslag 2026**: bedragen per halfjaar van de SVB.

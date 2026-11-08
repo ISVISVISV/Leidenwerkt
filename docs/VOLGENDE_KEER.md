@@ -11,7 +11,7 @@ Werk de punten af en vink ze hier af. [x] = gedaan, [~] = deels.
 - [x] **Zin "Het geldt alleen als de gemeente vindt…"** vervangen door "Vraag uw klantmanager of de vrijlating voor u geldt. De gemeente beslist dat."
 - [x] **Huurtoeslag berekenen**: minimum-inkomensijkpunt gevonden, formule getoetst aan twee rekenvoorbeelden van Dienst Toeslagen. Medebewoners met eigen inkomen: nog niet ondersteund, de app meldt dat.
 - [x] **Kinderbijslag**: kwartaalbedragen 2026 van de SVB.
-- [~] **Proefberekeningen van Toeslagen**: de gepubliceerde rekenvoorbeelden zijn tests; de interactieve proefberekening per proefpersoon moet de eigenaar nog invullen (invulbladen in PROEFPERSONEN.md).
+- [x] **Proefberekeningen van Toeslagen**: de gepubliceerde rekenvoorbeelden zijn tests, en drie proefberekeningen zijn ingevuld en vastgelegd in `testgevallen/`.
 
 ## Volgende stappen
 
@@ -20,7 +20,8 @@ Werk de punten af en vink ze hier af. [x] = gedaan, [~] = deels.
 - [ ] Overzicht per maand van de overgangsperiode (wanneer stopt de bijstand, wanneer komt het eerste loon, vakantietoeslag bij uitstroom).
 - [ ] Vraag naar een medische urenbeperking in het formulier (de engine ondersteunt het al).
 - [ ] Huurtoeslag met medebewoners.
-- [ ] Leiden: kwijtschelding en collectieve zorgverzekering.
+- [ ] Leiden: kwijtschelding; signalen bij 110% (bijzondere bijstand, eigen bijdrage kinderopvang) en 120% (collectieve zorgverzekering) van de bijstandsnorm.
+- [ ] Netto loon en bruto bijstand toetsen aan de witte en groene maandtabel loonheffing 2026.
 - [ ] Toetsen met een klantmanager of sociaal raadsman aan de hand van PROEFPERSONEN.md.
 
 ## Eerdere feedback (4 november 2026)

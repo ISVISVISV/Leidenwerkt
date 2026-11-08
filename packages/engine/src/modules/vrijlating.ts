@@ -26,6 +26,9 @@ export interface VrijlatingVraag {
   medischUrenbeperkt?: boolean;
   /** Welke vrijlating de persoon op 31 december 2026 had (alleen relevant vanaf 2027). */
   overgang?: Overgang2027;
+  /** Netto inkomen van het huishouden en de bijstandsnorm (voor de toets vooraf bij art. 34a). */
+  huishoudinkomen?: Bedrag;
+  norm?: Bedrag;
 }
 
 export interface VrijlatingUitkomst {
@@ -86,6 +89,14 @@ function pw31(l: Lezer, v: VrijlatingVraag): VrijlatingUitkomst {
 }
 
 function pw34a(l: Lezer, v: VrijlatingVraag): VrijlatingUitkomst {
+  const nieuw = REGIMES.find((r) => r.id === "pw34a")!;
+  const overgangN = v.overgang === "n" && v.fase !== "geen" && l.datum < plusMaanden(nieuw.vanaf, l.aantal("pw.overgang_n.duur").toNumber());
+  // Memorie van toelichting bij art. 34a (Kamerstuk 36582, nr. 3): "eerst getoetst [...] of er een inkomen
+  // onder de bijstandsnorm is. Als het inkomen hoger is dan de bijstandsnorm eindigt het recht op bijstand
+  // en wordt niet toegekomen aan de toepassing van het nieuwe artikel 34a." Niet bij het oude onderdeel n.
+  if (!overgangN && v.huishoudinkomen && v.norm && v.huishoudinkomen.gt(v.norm)) {
+    return geen("Uw inkomen is hoger dan de bijstandsnorm. Dan stopt de bijstand en geldt de bijverdienregeling niet");
+  }
   if (v.medischUrenbeperkt) {
     const p = l.breuk("pw.bijverdien.medisch_percentage");
     return {
@@ -96,7 +107,6 @@ function pw34a(l: Lezer, v: VrijlatingVraag): VrijlatingUitkomst {
   }
   if (v.fase === "geen") return geen("Geen vrijlating toegepast");
 
-  const nieuw = REGIMES.find((r) => r.id === "pw34a")!;
   if (v.overgang === "n") {
     const einde = plusMaanden(nieuw.vanaf, l.aantal("pw.overgang_n.duur").toNumber());
     if (l.datum < einde) {

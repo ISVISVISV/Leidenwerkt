@@ -24,6 +24,23 @@ exports[`proefpersonen > ayse.yaml: Ayşe 1`] = `
 }
 `;
 
+exports[`proefpersonen > bram.yaml: Bram 1`] = `
+{
+  "met_werk": {
+    "bijstand": "0.00",
+    "huurtoeslag": "213.00",
+    "loon": "2429.86",
+    "zorgtoeslag": "99.00",
+  },
+  "nu": {
+    "bijstand": "1419.46",
+    "huurtoeslag": "413.00",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "780.40",
+}
+`;
+
 exports[`proefpersonen > daan.yaml: Daan 1`] = `
 {
   "met_werk": {
