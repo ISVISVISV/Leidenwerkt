@@ -94,3 +94,26 @@ test("huurder van 25: huurtoeslag berekend, geen vrijlating onder 27, toeslagris
   await expect(page.locator(".toelichting")).toContainText("jonger bent dan 27 jaar");
   await geenToegankelijkheidsfouten(page);
 });
+
+test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, huisgenoten tellen mee voor huurtoeslag", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  const leeftijd = page.getByLabel("Uw leeftijd");
+  await expect(leeftijd).toHaveAttribute("placeholder", "bijv. 35");
+  await leeftijd.pressSequentially("4a2b");
+  await expect(leeftijd).toHaveValue("42");
+  await page.getByLabel(/Hoeveel andere volwassenen/).fill("1");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel("Kale huur per maand").pressSequentially("7x20,5o0");
+  await expect(page.getByLabel("Kale huur per maand")).toHaveValue("720,50");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await expect(page.getByText("Vul dit in.")).toBeVisible();
+  await page.getByLabel("Bruto jaarinkomen van uw huisgenoten samen").fill("26.000");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.200");
+  await page.getByRole("textbox", { name: "Uren per week" }).fill("20");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  await expect(page.getByRole("table").getByRole("row", { name: /Huurtoeslag/ })).not.toContainText("niet berekend");
+  await expect(page.locator(".signalen")).not.toContainText("De vrijlating is tijdelijk");
+  await geenToegankelijkheidsfouten(page);
+});

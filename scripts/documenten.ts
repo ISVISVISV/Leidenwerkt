@@ -32,7 +32,7 @@ function invoerZinnen(u: Uitkomst): string[] {
         .join("; ")}`,
     );
   }
-  if (i.kostendelers) regels.push(`Huisgenoten van 27 jaar of ouder: ${i.kostendelers}`);
+  if (i.kostendelers) regels.push(`Huisgenoten van 27 jaar of ouder: ${i.kostendelers}${i.huisgenotenInkomenJaar !== undefined ? `, samen ${eur(i.huisgenotenInkomenJaar)} per jaar` : ""}`);
   regels.push(i.wonen?.soort === "huur" ? `Kale huur: ${eur(i.wonen.kaleHuurPerMaand)} per maand` : "Geen huurtoeslag (geen huurwoning op eigen naam)");
   const werk = (w: any) =>
     w.brutoMaandloon !== undefined
@@ -67,7 +67,7 @@ function invulblad(u: Uitkomst): string[] {
     "",
     `- Toeslagpartner: ${i.leefvorm === "paar" ? `ja, ${i.partner.leeftijd} jaar` : "nee"}; uw leeftijd: ${i.leeftijd}`,
     `- Kinderen: ${i.kinderen?.length ? i.kinderen.map((k: any) => `${k.leeftijd} jaar`).join(", ") : "geen"}`,
-    `- Medebewoners (geen partner): ${i.kostendelers ? `${i.kostendelers} van 27 jaar of ouder` : "geen"}`,
+    `- Medebewoners (geen partner): ${i.kostendelers ? `${i.kostendelers} van 27 jaar of ouder, samen € ${i.huisgenotenInkomenJaar ?? "?"} inkomen per jaar` : "geen"}`,
     i.wonen?.soort === "huur" ? `- Huur: kale huur ${eur(i.wonen.kaleHuurPerMaand)} per maand, servicekosten € 0` : "- Huurtoeslag: niet aanvragen",
     `- Vermogen: onder de grens`,
     `- Inkomen ${jaar} (toetsingsinkomen) zonder werk: ${toetsingsinkomen(u, "huidig") ?? "–"}; met werk: ${toetsingsinkomen(u, "werk") ?? "–"} (doe twee proefberekeningen)`,

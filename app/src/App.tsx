@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { controleer, leegFormulier, nieuwKind, vandaag, type Fouten, type Formulier } from "./formulier.ts";
+import { alleenCijfers, controleer, leegFormulier, nieuwKind, vandaag, type Fouten, type Formulier } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -123,7 +123,12 @@ function Veld(props: {
   voorvoegsel?: string;
   achtervoegsel?: string;
   breed?: boolean;
+  /** "geheel": alleen cijfers (leeftijd, aantallen); "getal": ook komma en punt (bedragen, uren). */
+  soort?: "geheel" | "getal";
+  /** Voorbeeld dat licht in het lege vak staat. */
+  voorbeeld?: string;
 }) {
+  const soort = props.soort ?? "getal";
   const hintId = props.hint ? `${props.id}-hint` : undefined;
   const foutId = props.fout ? `${props.id}-fout` : undefined;
   return (
@@ -146,13 +151,14 @@ function Veld(props: {
         <input
           id={props.id}
           type="text"
-          inputMode="decimal"
+          inputMode={soort === "geheel" ? "numeric" : "decimal"}
+          placeholder={props.voorbeeld}
           autoComplete="off"
           className={props.breed ? "breed" : undefined}
           value={props.waarde}
           aria-invalid={props.fout ? true : undefined}
           aria-describedby={[hintId, foutId].filter(Boolean).join(" ") || undefined}
-          onChange={(e) => props.onChange(e.target.value)}
+          onChange={(e) => props.onChange(alleenCijfers(e.target.value, soort))}
         />
         {props.achtervoegsel && <span>{props.achtervoegsel}</span>}
       </div>
@@ -194,12 +200,14 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           ["paar", "Met een partner (getrouwd of samenwonend)"],
         ]}
       />
-      <Veld id="leeftijd" label="Uw leeftijd" waarde={f.leeftijd} onChange={(v) => zet("leeftijd", v)} fout={fouten.leeftijd} achtervoegsel="jaar" />
+      <Veld id="leeftijd" label="Uw leeftijd" soort="geheel" voorbeeld="bijv. 35" waarde={f.leeftijd} onChange={(v) => zet("leeftijd", v)} fout={fouten.leeftijd} achtervoegsel="jaar" />
 
       {f.leefvorm === "paar" && (
         <>
           <Veld
             id="partnerLeeftijd"
+            soort="geheel"
+            voorbeeld="bijv. 40"
             label="Leeftijd van uw partner"
             waarde={f.partnerLeeftijd}
             onChange={(v) => zet("partnerLeeftijd", v)}
@@ -219,6 +227,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           {f.partnerWerkt && (
             <Veld
               id="partnerBruto"
+              voorbeeld="bijv. 1.200"
               label="Bruto maandloon van uw partner"
               hint="Zonder vakantiegeld. Dit staat op de loonstrook."
               waarde={f.partnerBruto}
@@ -238,6 +247,8 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
             <div className="kind" key={i}>
               <Veld
                 id={`kind${i}`}
+                soort="geheel"
+                voorbeeld="bijv. 6"
                 label={`Leeftijd kind ${i + 1}`}
                 waarde={k.leeftijd}
                 onChange={(v) => zetKind(i, { leeftijd: v })}
@@ -263,9 +274,10 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                       ["gastouder", "Gastouder"],
                     ]}
                   />
-                  <Veld id={`kind${i}uren`} label="Uren opvang per maand" waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
+                  <Veld id={`kind${i}uren`} label="Uren opvang per maand" voorbeeld="bijv. 60" waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
                   <Veld
                     id={`kind${i}prijs`}
+                    voorbeeld="bijv. 11,00"
                     label="Prijs per uur"
                     hint="Vraag dit na bij de opvang. Weet u het niet, vul dan 11 in."
                     waarde={k.uurprijs}
@@ -288,6 +300,8 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
 
       <Veld
         id="kostendelers"
+        soort="geheel"
+        voorbeeld="bijv. 0"
         label="Hoeveel andere volwassenen van 27 jaar of ouder wonen bij u in huis?"
         hint="Tel uw partner niet mee. Een volwassen kind of een huisgenoot telt wel mee."
         waarde={f.kostendelers}
@@ -315,6 +329,7 @@ function StapWoning({ f, zet, fouten }: StapProps) {
         <>
           <Veld
             id="kaleHuur"
+            voorbeeld="bijv. 650"
             label="Kale huur per maand"
             hint="De huur zonder servicekosten, gas, water en licht. Staat in uw huurcontract. Servicekosten tellen sinds 2026 niet mee voor de huurtoeslag."
             waarde={f.kaleHuur}
@@ -322,6 +337,18 @@ function StapWoning({ f, zet, fouten }: StapProps) {
             fout={fouten.kaleHuur}
             voorvoegsel="€"
           />
+          {(Number(f.kostendelers) || 0) > 0 && (
+            <Veld
+              id="huisgenotenInkomen"
+              label="Bruto jaarinkomen van uw huisgenoten samen"
+              hint="Het inkomen van de huisgenoten van 27 jaar of ouder telt mee voor de huurtoeslag. Een schatting is genoeg. Hebben zij geen inkomen? Vul dan 0 in."
+              waarde={f.huisgenotenInkomen}
+              onChange={(v) => zet("huisgenotenInkomen", v)}
+              fout={fouten.huisgenotenInkomen}
+              voorvoegsel="€"
+              voorbeeld="bijv. 25.000"
+            />
+          )}
         </>
       )}
     </section>
@@ -365,6 +392,7 @@ function LoonVelden({
       />
       <Veld
         id={loonId}
+        voorbeeld={per === "uur" ? "bijv. 15,00" : per === "vierweken" ? "bijv. 1.650" : per === "netto" ? "bijv. 1.300" : "bijv. 1.800"}
         label={
           per === "uur" ? "Bruto loon per uur" : per === "vierweken" ? "Bruto loon per 4 weken" : per === "netto" ? "Netto loon per maand" : "Bruto loon per maand"
         }
@@ -380,7 +408,7 @@ function LoonVelden({
         fout={fouten[loonId]}
         voorvoegsel="€"
       />
-      <Veld id={urenId} label="Uren per week" waarde={uren} onChange={zetUren} fout={fouten[urenId]} achtervoegsel="uur" />
+      <Veld id={urenId} label="Uren per week" voorbeeld="bijv. 24" waarde={uren} onChange={zetUren} fout={fouten[urenId]} achtervoegsel="uur" />
     </>
   );
 }
@@ -446,6 +474,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
       />
       <Veld
         id="reiskosten"
+        voorbeeld="bijv. 40"
         label="Reiskosten per maand"
         hint="Bijvoorbeeld bus, trein of benzine. Laat leeg als u fietst of loopt."
         waarde={f.reiskosten}
@@ -455,6 +484,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
       />
       <Veld
         id="vergoeding"
+        voorbeeld="bijv. 40"
         label="Reiskostenvergoeding van de werkgever per maand"
         waarde={f.vergoeding}
         onChange={(v) => zet("vergoeding", v)}
@@ -463,6 +493,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
       />
       <Veld
         id="overigeKosten"
+        voorbeeld="bijv. 10"
         label="Andere kosten door het werk per maand"
         hint="Bijvoorbeeld werkkleding. Kosten voor kinderopvang vult u bij stap 1 in."
         waarde={f.overigeKosten}

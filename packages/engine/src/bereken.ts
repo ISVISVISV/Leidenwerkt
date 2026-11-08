@@ -12,7 +12,6 @@ import { bijstandsnorm, aanvulling } from "./modules/bijstand.ts";
 import { vrijlating } from "./modules/vrijlating.ts";
 import { zorgtoeslag, kindgebondenBudget, huurtoeslag, kinderopvangtoeslag, maandbedragToeslag } from "./modules/toeslagen.ts";
 import { regimeOp } from "./regimes.ts";
-import { vrijlatingsPeriodes } from "./periodes.ts";
 import type {
   Betrouwbaarheid,
   Fase,
@@ -275,14 +274,21 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     const wonen = invoer.wonen;
     posten.push(
       maakPost(regels, datum, "huurtoeslag", "Huurtoeslag", "toeslag", ({ l, stap, aanname }) => {
-        if (invoer.kostendelers > 0) {
+        if (invoer.kostendelers > 0 && invoer.huisgenotenInkomenJaar === undefined) {
           throw new Afhankelijk(
-            "Nog niet ondersteund: als er andere volwassenen bij u wonen, telt hun inkomen mee voor de huurtoeslag. Dat kan de rekenhulp nog niet uitrekenen.",
+            "Het inkomen van uw huisgenoten telt mee voor de huurtoeslag. Vul bij 'Uw woning' in wat zij samen per jaar verdienen.",
           );
         }
-        const ti = toetsingsinkomen(l, stap, aanname);
-        const personen = 1 + (paar ? 1 : 0) + invoer.kinderen.length;
-        const h = huurtoeslag(l, D(wonen.kaleHuurPerMaand ?? 0), ti, personen);
+        let rekeninkomen = toetsingsinkomen(l, stap, aanname);
+        if (invoer.kostendelers > 0) {
+          const huisgenoten = D(invoer.huisgenotenInkomenJaar ?? 0);
+          stap("Plus het jaarinkomen van uw huisgenoten (dit telt mee voor de huurtoeslag)", huisgenoten);
+          rekeninkomen = rekeninkomen.plus(huisgenoten);
+          stap("Rekeninkomen: het inkomen van iedereen in huis samen", rekeninkomen);
+          aanname("Voor de huurtoeslag tellen ook huisgenoten jonger dan 27 jaar mee. De rekenhulp vraagt alleen naar huisgenoten van 27 jaar of ouder.");
+        }
+        const personen = 1 + (paar ? 1 : 0) + invoer.kinderen.length + invoer.kostendelers;
+        const h = huurtoeslag(l, D(wonen.kaleHuurPerMaand ?? 0), rekeninkomen, personen);
         stap("Rekenhuur: de kale huur, tot de maximale huurgrens", h.rekenhuur);
         stap("Basishuur: dit deel betaalt u altijd zelf", h.basishuur);
         if (!h.deelA.isZero()) stap("Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed", h.deelA);
@@ -529,15 +535,6 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       });
     });
   }
-  if (invoer.vrijlatingFase === "start" && bijstandWerk && bijstandWerk.gt(0)) {
-    const periodes = vrijlatingsPeriodes(invoer, regels);
-    if (periodes.length > 1) {
-      uit.push({
-        soort: "waarschuwing",
-        tekst: `De vrijlating is tijdelijk (${periodes[0].naam.toLowerCase()}). Daarna gaat een groter deel van uw loon van de bijstand af. Kies hierboven "${periodes[1].naam}" om te zien wat u dan overhoudt.`,
-      });
-    }
-  }
   if (risico.length > 0) {
     const totaal = risico.reduce((s, r) => s.plus(D(r.minderPerMaand)), NUL);
     const lijst = risico.map((r) => `${r.label.toLowerCase()} ${euro(r.minderPerMaand, true)}`).join(", ");
@@ -604,6 +601,9 @@ function valideer(invoer: Invoer) {
   if (invoer.partner && (invoer.partner.leeftijd < 21 || invoer.partner.leeftijd >= 67)) fouten.push("partner moet 21 jaar of ouder zijn en jonger dan de AOW-leeftijd");
   if (invoer.leefvorm === "alleenstaande_ouder" && invoer.kinderen.length === 0) fouten.push("alleenstaande ouder zonder kinderen");
   if (invoer.kostendelers < 0 || !Number.isInteger(invoer.kostendelers)) fouten.push("aantal kostendelers ongeldig");
+  if (invoer.huisgenotenInkomenJaar !== undefined && (!Number.isFinite(invoer.huisgenotenInkomenJaar) || invoer.huisgenotenInkomenJaar < 0)) {
+    fouten.push("inkomen huisgenoten ongeldig");
+  }
   for (const w of [invoer.nieuwWerk, invoer.huidigWerk, invoer.partner?.werk]) {
     if (!w) continue;
     for (const v of [w.brutoMaandloon, w.brutoVierwekenloon, w.nettoMaandloon, w.brutoUurloon, w.urenPerWeek, w.reiskostenPerMaand, w.overigeKostenPerMaand]) {

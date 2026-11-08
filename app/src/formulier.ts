@@ -18,6 +18,7 @@ export interface Formulier {
   partnerBruto: string;
   kinderen: KindVeld[];
   kostendelers: string;
+  huisgenotenInkomen: string;
   huurt: boolean;
   kaleHuur: string;
   /** Vanaf 2027: welke vrijlating de gebruiker op 31 december 2026 al had. */
@@ -42,6 +43,7 @@ export const leegFormulier: Formulier = {
   partnerBruto: "",
   kinderen: [],
   kostendelers: "0",
+  huisgenotenInkomen: "",
   huurt: true,
   kaleHuur: "",
   overgang: "",
@@ -101,6 +103,9 @@ export function controleer(f: Formulier, stap: number): Fouten {
     });
     moet("kostendelers", f.kostendelers, 0, 10, "Vul een aantal van 0 tot 10 in.");
   }
+  if (stap === 2 && f.huurt && (getal(f.kostendelers) ?? 0) > 0) {
+    moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
+  }
   if (stap === 2 && f.huurt) {
     moet("kaleHuur", f.kaleHuur, 1, 3000, "Vul de kale huur per maand in.", false);
   }
@@ -134,6 +139,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
       : undefined,
     kinderen,
     kostendelers: getal(f.kostendelers) ?? 0,
+    huisgenotenInkomenJaar: (getal(f.kostendelers) ?? 0) > 0 ? getal(f.huisgenotenInkomen) : undefined,
     wonen: f.huurt
       ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur) }
       : { soort: "anders" },
@@ -162,4 +168,9 @@ function loonWerk(per: LoonPer, bedrag: number, uren: number, andereUren?: numbe
   if (per === "vierweken") return { brutoVierwekenloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
   if (per === "netto") return { nettoMaandloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
   return { brutoMaandloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
+}
+
+/** Laat alleen tekens door die in een getal horen; letters en andere tekens verdwijnen meteen. */
+export function alleenCijfers(tekst: string, soort: "geheel" | "getal"): string {
+  return soort === "geheel" ? tekst.replace(/[^0-9]/g, "") : tekst.replace(/[^0-9.,]/g, "");
 }

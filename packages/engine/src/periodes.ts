@@ -36,7 +36,7 @@ export function vrijlatingUitleg(invoer: Invoer, regels: RegelSet = standaardReg
     if (regime.id === "pw34a") {
       const p = l.breuk("pw.bijverdien.percentage");
       const duur = l.aantal("pw.bijverdien.duur").toNumber();
-      const medisch = `Heeft u een medische urenbeperking? Dan mag u ${pct(l.breuk("pw.bijverdien.medisch_percentage"))} van uw netto loon houden, zonder einddatum.`;
+      const medisch = `Heeft u een medische urenbeperking? Dan geldt in plaats hiervan een andere vrijlating: ${pct(l.breuk("pw.bijverdien.medisch_percentage"))} van uw netto loon, zonder einddatum. U krijgt nooit twee vrijlatingen tegelijk.`;
       const bron = `${regime.grondslag}.`;
       if (invoer.overgang2027 === "n") {
         const oud = l.op(dagVoor(REGIMES.find((r) => r.id === "pw34a")!));
@@ -82,7 +82,8 @@ export function vrijlatingUitleg(invoer: Invoer, regels: RegelSet = standaardReg
     }
 
     // Regime tot en met 2026: art. 31 lid 2 onder n, r en y Pw.
-    const medisch = `Heeft u een medische urenbeperking? Dan mag u ${pct(l.breuk("pw.vrijlating_y.percentage"))} van uw netto loon houden, maximaal ${euro(l.bedrag("pw.vrijlating_y.maximum"))} per maand, zonder einddatum.`;
+    // Art. 31 lid 2 y geldt "tenzij onderdeel n van toepassing is"; onderdeel r geldt alleen als y niet van toepassing is.
+    const medisch = `Heeft u een medische urenbeperking? Dan krijgt u na de eerste ${l.aantal("pw.vrijlating_n.duur").toString()} maanden (of als u jonger bent dan 27 jaar meteen) een andere vrijlating: ${pct(l.breuk("pw.vrijlating_y.percentage"))} van uw netto loon, maximaal ${euro(l.bedrag("pw.vrijlating_y.maximum"))} per maand, zonder einddatum. U krijgt nooit twee vrijlatingen tegelijk.`;
     const bron = "Participatiewet art. 31 lid 2 onder n, r en y, en lid 5.";
     const minLeeftijd = l.aantal("pw.vrijlating.minimumleeftijd");
     if (minLeeftijd.gt(invoer.leeftijd)) {

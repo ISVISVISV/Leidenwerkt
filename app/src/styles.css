@@ -18,6 +18,7 @@
   --let-op: #8a4b00;
   --let-op-zacht: #f8ead2;
   --focus: #1b4fd1;
+  --voorbeeld: #6b6d73;
   color-scheme: light dark;
   font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
   font-size: 112.5%;
@@ -43,6 +44,7 @@
     --let-op: #f3b866;
     --let-op-zacht: #382a15;
     --focus: #8fb2ff;
+    --voorbeeld: #8e9096;
   }
 }
 
@@ -214,6 +216,12 @@ input[type="text"] {
   border-radius: 4px;
   background: var(--veld);
   color: var(--inkt);
+}
+
+/* Voorbeeldtekst in een leeg vak: lichter dan gewone tekst, maar met genoeg contrast (WCAG 1.4.3). */
+input::placeholder {
+  color: var(--voorbeeld);
+  opacity: 1;
 }
 
 input.breed {
