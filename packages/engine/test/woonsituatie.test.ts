@@ -194,3 +194,17 @@ describe("twee banen (bijbaan)", () => {
     expect(bijstand(twee, "werk")).toBe(bijstand(een, "werk"));
   });
 });
+
+describe("vakantiegeld (art. 15 Wml, uit de regeldata)", () => {
+  const loon = (w: Invoer["nieuwWerk"]) =>
+    Number(bereken(basis({ nieuwWerk: w, vrijlatingFase: "start" })).werk.posten.find((p) => p.id === "loon")!.perMaand);
+  it("zonder opgave rekent de app met 8% uit de regeldata, en noemt die regel als bron", () => {
+    const r = bereken(basis({ nieuwWerk: { brutoUurloon: 15, urenPerWeek: 20 }, vrijlatingFase: "start" }));
+    const p = r.werk.posten.find((x) => x.id === "loon")!;
+    expect(p.parameters.some((g) => g.id === "wml.vakantiebijslag")).toBe(true);
+    expect(loon({ brutoUurloon: 15, urenPerWeek: 20 })).toBe(loon({ brutoUurloon: 15, urenPerWeek: 20, vakantiegeld: 0.08 }));
+  });
+  it("all-in uurloon: geen vakantiegeld erbij, dus minder netto", () => {
+    expect(loon({ brutoUurloon: 15, urenPerWeek: 20, vakantiegeld: 0 })).toBeLessThan(loon({ brutoUurloon: 15, urenPerWeek: 20 }));
+  });
+});

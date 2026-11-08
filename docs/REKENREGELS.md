@@ -133,6 +133,8 @@ Nieuw is ook een bufferbudget van ten hoogste € 1.000 per kalenderjaar (art. 3
 
 Ongewijzigd ten opzichte van de vorige stand; alle waarden 2026 `geverifieerd` ([Belastingdienst, tarieven en heffingskortingen 2026](https://www.belastingdienst.nl/wps/wcm/connect/nl/voorlopige-aanslag/content/voorlopige-aanslag-tarieven-en-heffingskortingen)). Het netto loon wordt benaderd met een jaarberekening; zie ADR 0004. Waarden 2027: na aanneming van het Belastingplan (december 2026).
 
+**Vakantiegeld.** De gebruiker vult het loon in zoals in het contract, zonder vakantiegeld. De app telt het wettelijke minimum erbij: 8% van het brutoloon (art. 15 lid 1 Wet minimumloon en minimumvakantiebijslag; parameter `wml.vakantiebijslag`). In de opbouwtabel staat het netto loon per maand inclusief vakantiegeld, gemiddeld over 12 maanden, net als de bijstand inclusief vakantietoeslag. Bij een uurloon vraagt de app of het vakantiegeld er al in zit (all-in); dan telt ze het niet nog eens. Weet de gebruiker het niet, dan rekent ze met vakantiegeld erbij en zegt dat erbij.
+
 **Wie al werkt.** De app vraagt wat er verandert: meer uren bij het huidige werk (zelfde uurloon, nieuw totaal aantal uren), ander werk in plaats van het huidige, of werk erbij. Bij werk erbij telt het loon van beide banen op en wordt de belasting over het totaal berekend, zoals bij de aangifte; op de loonstroken kan het anders verdeeld zijn, omdat één werkgever de heffingskortingen toepast.
 
 ## 5. Zorgtoeslag

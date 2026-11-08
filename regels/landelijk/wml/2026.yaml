@@ -1,0 +1,18 @@
+gebied: Wet minimumloon en minimumvakantiebijslag
+geldig_van: 2026-01-01
+geldig_tot: null
+parameters:
+  - id: wml.vakantiebijslag
+    omschrijving: Vakantiegeld (vakantiebijslag) als deel van het brutoloon, ten minste (art. 15 lid 1 Wml)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.08" }
+    status: geverifieerd
+    bron:
+      titel: Wet minimumloon en minimumvakantiebijslag art. 15 (wetten.overheid.nl, versie 1 juli 2026)
+      url: https://wetten.overheid.nl/BWBR0002638/2026-07-01
+      geraadpleegd_op: 2026-11-08
+    citaat:
+      kop: "Wet minimumloon en minimumvakantiebijslag, art. 15 lid 1"
+      tekst: "De werknemer heeft jegens de werkgever recht op een vakantiebijslag ten minste tot een bedrag van 8% van zijn ten laste van de werkgever komende loon, alsmede van de uitkeringen waarop hij tijdens de dienstbetrekking krachtens de Ziektewet, hoofdstuk 3, afdeling 2, paragraaf 1 of de artikelen 4:2b of 6:3 van de Wet arbeid en zorg en de Werkloosheidswet aanspraak heeft, met dien verstande, dat het bedrag waarmede de som van dit loon en deze uitkeringen het drievoud van het minimumloon overschrijdt buiten beschouwing blijft."
+      versie: "geldend vanaf 1 juli 2026"
+    notitie: Wettelijk minimum. Een cao kan meer geven; bij een all-in uurloon zit het vakantiegeld al in het uurloon (de app vraagt daarnaar).
