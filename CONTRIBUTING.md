@@ -19,6 +19,7 @@ Iedereen mag een wijziging voorstellen. Alleen wat de beheerder heeft gecontrole
 
 - **Bron**: elke nieuwe of gewijzigde waarde heeft een bron op een officieel domein (wetten.overheid.nl, officielebekendmakingen.nl, lokaleregelgeving.overheid.nl, rijksoverheid.nl, belastingdienst.nl, svb.nl, leiden.nl). De beheerder opent de bron zelf en vergelijkt de waarde letterlijk. Rekensites van derden tellen niet.
 - **Status**: `geverifieerd` alleen als de waarde letterlijk in de officiële bron staat; anders `onbevestigd`.
+- **Citaten**: de tekst in een `citaat` (regeldata) of in `packages/engine/src/citaten.ts` staat woord voor woord in de officiële bron. Weglatingen staan als […]. Elke melding bij de uitkomst heeft een brontekst; een test controleert dat.
 - **Sprongen**: een bedrag dat meer dan 10% afwijkt van de vorige periode heeft een `notitie` met de reden (de CI weigert het anders).
 - **Effect**: het overzicht bij de pull request laat zien wat de wijziging met de proefpersonen doet. Grote of onverwachte verschuivingen worden nagevraagd.
 - **Mechanisme of data**: een gewijzigd bedrag hoort alleen in `regels/`. Een gewijzigde voorwaarde of rekenvolgorde hoort in de engine, met tests (zie `packages/engine/src/regimes.ts`).

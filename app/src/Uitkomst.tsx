@@ -157,8 +157,14 @@ export function Uitkomst({ f }: { f: Formulier }) {
           <h2 id="let-op">Goed om te weten</h2>
           <ul className="signalen">
             {r.signalen.map((s, i) => (
-              <li key={i} className={s.soort}>
+              <li key={i} className={`${s.soort} bron-blok`}>
                 {s.tekst}
+                {s.bron && (
+                  <span className="signaal-bron">
+                    {" "}
+                    Bron: <Bron citaat={s.bron} />
+                  </span>
+                )}
               </li>
             ))}
           </ul>
@@ -359,8 +365,8 @@ function Uitleg({ r }: { r: Resultaat }) {
                         <>
                           {" "}
                           (
-                          {citaatVoorParameter(g.id) ? (
-                            <Bron citaat={citaatVoorParameter(g.id)!} label={g.bron.titel} />
+                          {citaatVoorParameter(g) ? (
+                            <Bron citaat={citaatVoorParameter(g)!} label={g.bron.titel} />
                           ) : (
                             <a href={g.bron.url} rel="noreferrer noopener" target="_blank">
                               {g.bron.titel}

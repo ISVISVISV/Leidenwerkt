@@ -5,4 +5,4 @@ export { euro, D } from "./geld.ts";
 export type * from "./types.ts";
 export { vrijlatingsPeriodes, vrijlatingUitleg, type Periode, type VrijlatingUitleg } from "./periodes.ts";
 export { REGIMES, regimeOp, type Regime, type RegimeId } from "./regimes.ts";
-export { CITATEN, citaatVoorParameter, type Citaat, type CitaatId } from "./citaten.ts";
+export { CITATEN, citaatVoorParameter, naarCitaat, type Citaat, type CitaatId } from "./citaten.ts";

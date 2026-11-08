@@ -23,6 +23,18 @@ export const Bron = z.object({
   geraadpleegd_op: datum,
 });
 
+/**
+ * Letterlijke tekst uit de bron, voor de pop-up in de app. Alleen tekst die
+ * woord voor woord in de officiële bron staat. 'url' kan naar een artikel wijzen.
+ */
+export const Citaat = z.object({
+  kop: z.string().min(3),
+  tekst: z.string().min(10),
+  url: z.string().url().optional(),
+  /** Welke versie van de tekst, bijvoorbeeld "geldend vanaf 1 juli 2026". */
+  versie: z.string().optional(),
+});
+
 const Schijf = z.object({
   vanaf: getal,
   tot: getal.nullable(),
@@ -65,6 +77,7 @@ export const Parameter = z
     waarde: Waarde.optional(),
     status: Status,
     bron: Bron.optional(),
+    citaat: Citaat.optional(),
     notitie: z.string().optional(),
   })
   .superRefine((p, ctx) => {

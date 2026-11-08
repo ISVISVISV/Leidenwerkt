@@ -13,6 +13,14 @@ export interface Bron {
   geraadpleegd_op: string;
 }
 
+/** Letterlijke tekst uit de bron (zie regels/schema.ts). */
+export interface BronCitaat {
+  kop: string;
+  tekst: string;
+  url?: string;
+  versie?: string;
+}
+
 export interface Schijf {
   vanaf: Bedrag;
   tot: Bedrag | null;
@@ -34,6 +42,7 @@ export interface RuweParameter {
   waarde?: any;
   status: Status;
   bron?: Bron;
+  citaat?: BronCitaat;
   notitie?: string;
   geldig_van: string;
   geldig_tot: string | null;
@@ -45,6 +54,7 @@ export interface GebruikteParameter {
   waarde: string;
   status: Status;
   bron?: Bron;
+  citaat?: BronCitaat;
   geldigVan: string;
   notitie?: string;
 }
@@ -155,10 +165,17 @@ export class Lezer {
         waarde,
         status: p.status,
         bron: p.bron,
+        citaat: p.citaat,
         geldigVan: p.geldig_van,
         notitie: p.notitie,
       });
     }
+  }
+
+  /** De letterlijke brontekst bij een parameter op deze datum, zonder de parameter als 'gebruikt' te noteren. */
+  brontekst(id: string): { citaat: BronCitaat; bron: Bron; geldigVan: string } | undefined {
+    const p = this.regels.zoek(id, this.datum);
+    return p?.citaat && p.bron ? { citaat: p.citaat, bron: p.bron, geldigVan: p.geldig_van } : undefined;
   }
 
   bestaat(id: string): boolean {

@@ -12,6 +12,10 @@ parameters:
       url: https://lokaleregelgeving.overheid.nl/CVDR747564
       geraadpleegd_op: 2026-11-08
     notitie: De app rekent de grens uit als 130% van de bijstandsnorm die voor het huishouden geldt; dat is in Leiden het wettelijk sociaal minimum (WSM) voor mensen met bijstand.
+    citaat: &csleutelpas
+      kop: "Leiden, beleidsregels Kindtegoed en Sleutelpas 2026"
+      tekst: "De Sleutelpas is gratis beschikbaar voor inwoners met een inkomen tot 130% van het wettelijk sociaal minimum."
+      versie: "geldend vanaf 28 oktober 2026"
   - id: leiden.kindtegoed.0_3
     omschrijving: Kindtegoed per kind per jaar, 0 tot en met 3 jaar (art. 2.2)
     eenheid: euro_per_jaar
@@ -39,6 +43,10 @@ parameters:
       titel: Gemeente Leiden — Individuele inkomenstoeslag
       url: https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/individuele-inkomenstoeslag/
       geraadpleegd_op: 2026-11-08
+    citaat:
+      kop: "Gemeente Leiden, Individuele inkomenstoeslag (voorwaarden en bedragen)"
+      tekst: "U woont in Leiden. U bent 23 jaar of ouder, maar u hebt nog niet de AOW-leeftijd bereikt. U hebt een langdurig laag inkomen. Dat is als u 5 jaar (of langer) een inkomen hebt van maximaal 100% van de geldende bijstandsnorm. U kreeg in de afgelopen 12 maanden geen individuele inkomenstoeslag. […] alleenstaande: € 462,00 alleenstaande ouder: € 577,00 gehuwden: € 635,00"
+      versie: "geraadpleegd op 8 november 2026"
   - id: leiden.iit.minimumleeftijd
     omschrijving: Individuele inkomenstoeslag — minimumleeftijd volgens de voorwaarden op leiden.nl
     eenheid: jaren
@@ -75,6 +83,10 @@ parameters:
       titel: Beleidsregels aanvraag en toekenning inkomensvoorzieningen Gemeente Leiden 2026 (CVDR760197), hoofdstuk 3
       url: https://lokaleregelgeving.overheid.nl/CVDR760197
       geraadpleegd_op: 2026-11-08
+    citaat: &cgarantie
+      kop: "Leiden, beleidsregels inkomensvoorzieningen 2026, art. 3.1"
+      tekst: "De gemeente maakt gebruik van de bevoegdheid om gegevens die bij haar berusten in verband met eerdere bijstandsverlening als bedoeld in artikel 43a, eerste lid, van de Wet, opnieuw te gebruiken, wanneer: a. de nieuwe aanvraag is ingediend binnen twaalf maanden na het eindigen van de algemene bijstand; en b. de eerdere bijstandsverlening is beëindigd vanwege: I. het aanvaarden van werk; II. een uitsluitingsgrond als bedoeld in artikel 13, eerste lid onder a van de Wet; of III. het volgen van een studie of opleiding."
+      versie: "geldend vanaf 1 januari 2026"
   - id: leiden.kindtegoed.inkomensgrens
     omschrijving: Kindtegoed (zonder gratis Sleutelpas) voor huishoudens met kinderen tot dit deel van het WSM (hoofdstuk 4)
     eenheid: breuk
@@ -94,6 +106,10 @@ parameters:
       url: https://lokaleregelgeving.overheid.nl/CVDR760406
       geraadpleegd_op: 2026-11-08
     notitie: Geldt sinds 14 april 2026. Bij woonkosten onder 10% van de gehuwdennorm is de verlaging het verschil (lid 2 b). Alleen bij de norm van art. 21 Pw, dus niet bij de kostendelersnorm.
+    citaat: &cwoon
+      kop: "Leiden, beleidsregels lage woonkosten 2026, art. 3.1 lid 2"
+      tekst: "De verlaging in verband met de woonsituatie, als bedoeld in artikel 27 van de wet, bedraagt: a. als de belanghebbende (zelf) geen woonkosten betaalt: 10% van de gehuwden norm. b. als de woonkosten van de belanghebbende (zelf) minder dan 10% van de gehuwden norm zijn: het verschil tussen de daadwerkelijke woonkosten en 10% van de gehuwden norm. c. als belanghebbende (zelf) geen woonlasten betaalt: 9 % van de gehuwdennorm. d. als belanghebbende (zelf) geen woonkosten betaalt en geen woonlasten heeft; 19 % van de gehuwdennorm."
+      versie: "geldend vanaf 14 april 2026"
   - id: leiden.woonkosten.korting_geen_woonlasten
     omschrijving: Extra verlaging van de bijstandsnorm als u zelf geen woonlasten (gas, elektriciteit, water) betaalt (art. 3.1 lid 2 c en d, deel van de gehuwdennorm)
     eenheid: breuk
@@ -101,6 +117,7 @@ parameters:
     status: geverifieerd
     bron: *woonkosten
     notitie: Geldt sinds 14 april 2026. Samen met geen woonkosten is de verlaging 19% (lid 2 d).
+    citaat: *cwoon
   - id: leiden.bb.draagkracht.vrij_tot
     omschrijving: Bijzondere bijstand — geen draagkracht bij een inkomen tot dit deel van de bijstandsnorm, beide zonder vakantietoeslag (art. 6 lid 1)
     eenheid: breuk
@@ -111,39 +128,52 @@ parameters:
       url: https://lokaleregelgeving.overheid.nl/CVDR677687
       geraadpleegd_op: 2026-11-08
     notitie: Geldend van 11-06-2022 tot heden (stand 8 november 2026). Bijstandsnorm volgens art. 1 onder d, inclusief een verlaging op grond van art. 27; zonder kostendelersnorm.
+    citaat: &cdraag
+      kop: "Leiden, beleidsregels bijzondere bijstand 2022, art. 6"
+      tekst: "1. Voor de toepassing van dit hoofdstuk hebben de personen, die een inkomen (exclusief vakantietoeslag) hebben tot 110% van de voor hen van toepassing zijnde bijstandsnorm (exclusief vakantietoeslag) en die geen vermogen hebben boven de voor hen in artikel 34, derde lid, van de wet genoemde vermogensgrens geen draagkracht. […] 2. Indien belanghebbende een hoger inkomen heeft dan 110% van de bijstandsnorm wordt de draagkracht vastgesteld op 20% van het meerinkomen tot 130% van de bijstandsnorm, 50% van het meerinkomen tussen 130% en 150% van de bijstandsnorm en 100% van het meerinkomen voor zover dat meer bedraagt dan 150% van de bijstandsnorm."
+      versie: "geldend vanaf 1 april 2022"
   - id: leiden.bb.draagkracht.grens1
     omschrijving: Bijzondere bijstand — tot dit deel van de bijstandsnorm telt 20% van het meerinkomen als draagkracht (art. 6 lid 2)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "1.30" }
     status: geverifieerd
     bron: *bijzondere_bijstand
+    citaat: *cdraag
   - id: leiden.bb.draagkracht.grens2
     omschrijving: Bijzondere bijstand — tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen; daarboven 100% (art. 6 lid 2)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "1.50" }
     status: geverifieerd
     bron: *bijzondere_bijstand
+    citaat: *cdraag
   - id: leiden.bb.draagkracht.pct1
     omschrijving: Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 110% en 130% van de bijstandsnorm (art. 6 lid 2)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.20" }
     status: geverifieerd
     bron: *bijzondere_bijstand
+    citaat: *cdraag
   - id: leiden.bb.draagkracht.pct2
     omschrijving: Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 130% en 150% van de bijstandsnorm (art. 6 lid 2)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.50" }
     status: geverifieerd
     bron: *bijzondere_bijstand
+    citaat: *cdraag
   - id: leiden.bb.draagkracht.pct3
     omschrijving: Bijzondere bijstand — draagkracht, deel van het meerinkomen boven 150% van de bijstandsnorm (art. 6 lid 2)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "1.00" }
     status: geverifieerd
     bron: *bijzondere_bijstand
+    citaat: *cdraag
   - id: leiden.bb.rekennorm_alleenstaande_ouder
     omschrijving: Bijzondere bijstand — de bijstandsnorm van een alleenstaande ouder is voor deze beleidsregels dit deel van de gezinsnorm (art. 1 onder d)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.90" }
     status: geverifieerd
     bron: *bijzondere_bijstand
+    citaat: &crekennorm
+      kop: "Leiden, beleidsregels bijzondere bijstand 2022, art. 1 onder d"
+      tekst: "bijstandsnorm: de bijstandsnorm als bedoeld in de artikelen 20 tot en met 24 van de wet, inclusief de verlaging van de norm op grond van artikel 27 of 28 van de wet. Voor de toepassing van deze beleidsregels wordt de bijstandsnorm van een alleenstaande ouder gesteld op 90% van de bijstandsnorm voor een gezin."
+      versie: "geldend vanaf 1 april 2022"

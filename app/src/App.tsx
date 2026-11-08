@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
+import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
+import { Bron } from "./Bron.tsx";
 import { alleenCijfers, controleer, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagInkomenAnderen, type Fouten, type Formulier } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
@@ -256,6 +257,9 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           boodschappen of de rekeningen te betalen? Dan ziet de gemeente u meestal als partners. Uw ouder of kind is nooit uw partner. Woont
           iemand bij u omdat u voor hem of haar zorgt, of andersom? Dan ook niet. De gemeente beslist.
         </p>
+        <p className="klein bron-blok">
+          Bron: <Bron citaat={CITATEN.pw3} />
+        </p>
       </details>
       <Veld id="leeftijd" label="Uw leeftijd" soort="geheel" voorbeeld="bijv. 35" waarde={f.leeftijd} onChange={(v) => zet("leeftijd", v)} fout={fouten.leeftijd} achtervoegsel="jaar" />
 
@@ -448,6 +452,10 @@ function StapWoning({ f, zet, fouten }: StapProps) {
               ["ja", "Ja, bijvoorbeeld omdat ik op een kamer woon"],
             ]}
           />
+          <p className="klein bron-blok bron-onder-vraag">
+            Waarom we dit vragen: huurtoeslag is er meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche. Bron:{" "}
+            <Bron citaat={CITATEN.htZelfstandig} />
+          </p>
           {vraagInkomenAnderen(f) && (
             <Veld
               id="huisgenotenInkomen"
@@ -459,6 +467,11 @@ function StapWoning({ f, zet, fouten }: StapProps) {
               voorvoegsel="€"
               voorbeeld="bijv. 25.000"
             />
+          )}
+          {vraagInkomenAnderen(f) && (
+            <p className="klein bron-blok bron-onder-vraag">
+              Bron: <Bron citaat={CITATEN.htMedebewoners} />
+            </p>
           )}
         </>
       )}

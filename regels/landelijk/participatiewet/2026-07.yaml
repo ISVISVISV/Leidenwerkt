@@ -11,12 +11,18 @@ parameters:
       titel: Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?
       url: https://www.rijksoverheid.nl/themas/werk/arbeidsomstandigheden/vraag-en-antwoord/bijstand/hoe-hoog-is-mijn-bijstandsuitkering
       geraadpleegd_op: 2026-11-04
+    citaat: &c21
+      kop: "Participatiewet, art. 21"
+      tekst: "Voor belanghebbenden van 21 jaar of ouder doch jonger dan de pensioengerechtigde leeftijd is de norm per kalendermaand, indien het betreft: a. een alleenstaande of een alleenstaande ouder zonder kostendelende medebewoners: € 1.419,46; b. gehuwden waarvan beide echtgenoten jonger zijn dan de pensioengerechtigde leeftijd, zonder kostendelende medebewoners: € 2.027,79."
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel21
+      versie: "geldend vanaf 1 juli 2026"
   - id: pw.norm.gehuwden
     omschrijving: Bijstandsnorm gehuwden/samenwonenden, beiden 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 b Pw)
     eenheid: euro_per_maand
     waarde: { soort: bedrag, bedrag: "2027.79" }
     status: geverifieerd
     bron: *rijksoverheid_normen
+    citaat: *c21
   - id: pw.vrijlating_n.percentage
     omschrijving: Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid)
     eenheid: breuk
@@ -26,54 +32,79 @@ parameters:
       titel: Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026)
       url: https://wetten.overheid.nl/BWBR0015703/2026-07-01
       geraadpleegd_op: 2026-11-08
+    citaat: &c31n
+      kop: "Participatiewet, art. 31 lid 2 onder n"
+      tekst: "inkomsten uit arbeid tot 25 procent van deze inkomsten, met een maximum van € 285,00 [Red: per 1 juli 2026: € 289,00] per maand, voor zover hij algemene bijstand ontvangt, waarbij voor een persoon die de pensioengerechtigde leeftijd nog niet heeft bereikt geldt dat die inkomsten gedurende ten hoogste zes maanden niet tot de middelen worden gerekend en dat dit naar het oordeel van het college moet bijdragen aan zijn arbeidsinschakeling;"
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.4_Artikel31_Lid2
+      versie: "geldend vanaf 1 juli 2026"
   - id: pw.vrijlating_n.maximum
     omschrijving: Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw)
     eenheid: euro_per_maand
     waarde: { soort: bedrag, bedrag: "289.00" }
     status: geverifieerd
     bron: *pw31
+    citaat: *c31n
   - id: pw.vrijlating_n.duur
     omschrijving: Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd)
     eenheid: maanden
     waarde: { soort: aantal, aantal: "6" }
     status: geverifieerd
     bron: *pw31
+    citaat: *c31n
   - id: pw.vrijlating_r.percentage
     omschrijving: Vrijlating alleenstaande ouder met volledige zorg voor een kind tot 12 jaar (art. 31 lid 2 onder r Pw)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.125" }
     status: geverifieerd
     bron: *pw31
+    citaat: &c31r
+      kop: "Participatiewet, art. 31 lid 2 onder r"
+      tekst: "inkomsten uit arbeid van een alleenstaande ouder tot 12,5 procent van deze inkomsten, met een maximum van € 177,66 [Red: per 1 juli 2026: € 180,17] per maand, gedurende een aaneengesloten periode van maximaal 30 maanden, voor zover hij algemene bijstand ontvangt en onderdeel y, z of aa niet van toepassing is, ingeval: 1°. hij de volledige zorg heeft voor een tot zijn last komend kind tot 12 jaar, 2°. de periode van zes maanden, bedoeld in onderdeel n, is verstreken, en 3°. dit volgens het college bijdraagt aan zijn arbeidsinschakeling;"
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.4_Artikel31_Lid2
+      versie: "geldend vanaf 1 juli 2026"
   - id: pw.vrijlating_r.maximum
     omschrijving: Maximaal vrij te laten bedrag alleenstaande ouder per maand (art. 31 lid 2 onder r Pw)
     eenheid: euro_per_maand
     waarde: { soort: bedrag, bedrag: "180.17" }
     status: geverifieerd
     bron: *pw31
+    citaat: *c31r
   - id: pw.vrijlating_r.duur
     omschrijving: Maximale duur vrijlating onder r (aaneengesloten maanden, na de periode onder n)
     eenheid: maanden
     waarde: { soort: aantal, aantal: "30" }
     status: geverifieerd
     bron: *pw31
+    citaat: *c31r
   - id: pw.vrijlating_y.percentage
     omschrijving: Vrijlating bij een medische urenbeperking (art. 31 lid 2 onder y Pw), zonder maximale duur
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.15" }
     status: geverifieerd
     bron: *pw31
+    citaat: &c31y
+      kop: "Participatiewet, art. 31 lid 2 onder y"
+      tekst: "inkomsten uit arbeid van een persoon die medisch urenbeperkt is tot 15 procent van deze inkomsten uit arbeid, met een maximum van € 180,19 [Red: per 1 juli 2026: € 182,73] per maand, voor zover hij algemene bijstand ontvangt, tenzij onderdeel n van toepassing is;"
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.4_Artikel31_Lid2
+      versie: "geldend vanaf 1 juli 2026"
   - id: pw.vrijlating_y.maximum
     omschrijving: Maximaal vrij te laten bedrag bij een medische urenbeperking per maand (art. 31 lid 2 onder y Pw)
     eenheid: euro_per_maand
     waarde: { soort: bedrag, bedrag: "182.73" }
     status: geverifieerd
     bron: *pw31
+    citaat: *c31y
   - id: pw.vrijlating.minimumleeftijd
     omschrijving: Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw)
     eenheid: jaren
     waarde: { soort: aantal, aantal: "27" }
     status: geverifieerd
     bron: *pw31
+    citaat: &c31l5
+      kop: "Participatiewet, art. 31 lid 5"
+      tekst: "Het tweede lid, onderdelen c, j, k, n en r, zijn niet van toepassing op de persoon die jonger is dan 27 jaar, met dien verstande dat onderdeel j wel van toepassing is als het gaat om een persoon jonger dan 27 jaar die behoort tot de doelgroep loonkostensubsidie."
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.4_Artikel31_Lid5
+      versie: "geldend vanaf 1 juli 2026"
   - id: pw.premie.maximum
     omschrijving: Premie die niet meetelt als inkomen, als die helpt bij werk (art. 31 lid 2 onder j Pw), per kalenderjaar
     eenheid: euro_per_jaar
@@ -110,6 +141,11 @@ parameters:
       titel: Participatiewet art. 19 lid 3 (wetten.overheid.nl, versie 2026-07-01)
       url: https://wetten.overheid.nl/BWBR0015703/2026-07-01
       geraadpleegd_op: 2026-11-08
+    citaat: &c19
+      kop: "Participatiewet, art. 19 lid 3"
+      tekst: "In de algemene bijstand is een vakantietoeslag begrepen ter hoogte van 4,8 procent [Red: per 1 januari 2009: 5 procent] van die bijstand."
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.1_Artikel19
+      versie: "geldend vanaf 1 juli 2026"
   - id: pw.norm.inrichting.alleenstaande
     omschrijving: Norm bij verblijf in een inrichting, alleenstaande (ouder), netto incl. vakantietoeslag (art. 23 lid 1 a Pw)
     eenheid: euro_per_maand
@@ -119,6 +155,11 @@ parameters:
       titel: Participatiewet art. 23 (wetten.overheid.nl, versie 1 juli 2026)
       url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel23
       geraadpleegd_op: 2026-11-08
+    citaat: &c23
+      kop: "Participatiewet, art. 23 lid 1 en 2"
+      tekst: "1. Bij een verblijf in een inrichting is de norm per kalendermaand, indien het betreft: a. een alleenstaande of een alleenstaande ouder: € 449,44; b. gehuwden: € 699,11. 2. Het bedrag van de norm, bedoeld in het eerste lid, wordt verhoogd met: a. voor een alleenstaande of een alleenstaande ouder € 47,00; b. voor gehuwden € 106,00."
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel23
+      versie: "geldend vanaf 1 juli 2026"
   - id: pw.norm.inrichting.gehuwden
     omschrijving: Norm bij verblijf in een inrichting, gehuwden, netto incl. vakantietoeslag (art. 23 lid 1 b Pw)
     eenheid: euro_per_maand
@@ -128,6 +169,7 @@ parameters:
       titel: Participatiewet art. 23 (wetten.overheid.nl, versie 1 juli 2026)
       url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel23
       geraadpleegd_op: 2026-11-08
+    citaat: *c23
   - id: pw.norm.inrichting.verhoging_alleenstaande
     omschrijving: Verhoging van de norm bij verblijf in een inrichting, alleenstaande (ouder) (art. 23 lid 2 a Pw)
     eenheid: euro_per_maand
@@ -137,6 +179,7 @@ parameters:
       titel: Participatiewet art. 23 (wetten.overheid.nl, versie 1 juli 2026)
       url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel23
       geraadpleegd_op: 2026-11-08
+    citaat: *c23
   - id: pw.norm.inrichting.verhoging_gehuwden
     omschrijving: Verhoging van de norm bij verblijf in een inrichting, gehuwden (art. 23 lid 2 b Pw)
     eenheid: euro_per_maand
@@ -146,3 +189,4 @@ parameters:
       titel: Participatiewet art. 23 (wetten.overheid.nl, versie 1 juli 2026)
       url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel23
       geraadpleegd_op: 2026-11-08
+    citaat: *c23
