@@ -1,0 +1,85 @@
+# Wat er bewaakt wordt op nieuwe versies en publicaties. scripts/bewaking.ts
+# leest dit bestand elke week (.github/workflows/bewaking.yml) en opent een
+# issue met de link als er iets nieuws is. Zie docs/ONDERHOUD.md.
+#
+# Interfaces (op 8 november 2026 nagelopen):
+# - wetten:     SRU 1.2 van het Basiswettenbestand
+#               https://zoekservice.overheid.nl/sru/Search?operation=searchRetrieve&version=1.2&x-connection=BWB
+#               query: dcterms.identifier=<BWB-id> and dcterms.modified>=<datum>
+# - publicaties: SRU 2.0 van de officiële publicaties (Staatscourant, Staatsblad)
+#               https://repository.overheid.nl/sru   (dt.title, dt.modified, w.publicatienaam)
+# - lokaal:     SRU 1.2 van lokale regelgeving (CVDR)
+#               https://zoekservice.overheid.nl/sru/Search?...&x-connection=cvdr
+#               query: dcterms.creator="Leiden" and dcterms.modified>=<datum>
+
+wetten:
+  - id: BWBR0015703
+    naam: Participatiewet
+    raakt: [pw.]
+  - id: BWBR0015738
+    naam: Regeling Participatiewet, IOAW en IOAZ
+    raakt: [pw.]
+  - id: BWBR0008659
+    naam: Wet op de huurtoeslag
+    raakt: [ht.]
+  - id: BWBR0008763
+    naam: Besluit op de huurtoeslag
+    raakt: [ht.]
+  - id: BWBR0018451
+    naam: Wet op de zorgtoeslag
+    raakt: [zt.]
+  - id: BWBR0022751
+    naam: Wet op het kindgebonden budget
+    raakt: [kgb.]
+  - id: BWBR0002368
+    naam: Algemene Kinderbijslagwet
+    raakt: [akw.]
+  - id: BWBR0017017
+    naam: Wet kinderopvang
+    raakt: [kot.]
+  - id: BWBR0017321
+    naam: Besluit kinderopvangtoeslag
+    raakt: [kot.]
+  - id: BWBR0011353
+    naam: Wet inkomstenbelasting 2001
+    raakt: [ib.]
+  - id: BWBR0002471
+    naam: Wet op de loonbelasting 1964
+    raakt: [ib.]
+  - id: BWBR0018472
+    naam: Algemene wet inkomensafhankelijke regelingen
+    raakt: [zt., ht., kgb., kot.]
+
+publicaties:
+  - naam: Bijstandsnormen en bedragen Participatiewet (per 1 januari en 1 juli)
+    query: 'w.publicatienaam==Staatscourant and dt.title all "gewijzigde bedragen"'
+    raakt: [pw.]
+  - naam: Regeling huurtoeslaggrenzen
+    query: 'w.publicatienaam==Staatscourant and dt.title any "huurtoeslaggrenzen"'
+    raakt: [ht.]
+  - naam: Standaardpremie zorgtoeslag
+    query: 'w.publicatienaam==Staatscourant and dt.title any "standaardpremie"'
+    raakt: [zt.]
+  - naam: Besluit kinderopvangtoeslag (tabel en maximum uurprijzen)
+    query: 'w.publicatienaam==Staatsblad and dt.title any "kinderopvangtoeslag"'
+    raakt: [kot.]
+  - naam: Kindgebonden budget
+    query: 'dt.title any "kindgebonden" and (w.publicatienaam==Staatsblad or w.publicatienaam==Staatscourant)'
+    raakt: [kgb.]
+  - naam: Belastingplan (tarieven en heffingskortingen)
+    query: 'w.publicatienaam==Staatsblad and dt.title any "Belastingplan"'
+    raakt: [ib.]
+  - naam: Participatiewet in balans (inwerkingtreding en uitvoering)
+    query: 'dt.title all "Participatiewet in balans" and (w.publicatienaam==Staatsblad or w.publicatienaam==Staatscourant)'
+    raakt: [pw.]
+
+lokaal:
+  - gemeente: Leiden
+    naam: Leidse regelingen (bijstand, inkomenstoeslag, Sleutelpas, kwijtschelding)
+    titelwoorden: bijstand inkomenstoeslag inkomensvoorzieningen Participatiewet Sleutelpas Kindtegoed minima kwijtschelding re-integratie
+    raakt: [leiden.]
+
+# Waarschuwing ruim vóór het einde van een geldigheidsperiode zonder opvolger.
+waarschuw_dagen_voor_einde: 45
+# Begin december en begin juni: issue met alle parameters die ontbrekend of onbevestigd zijn.
+halfjaarlijkse_controle_maanden: [6, 12]

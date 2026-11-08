@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { bereken, euro, vrijlatingsPeriodes, D, type Post, type Resultaat } from "@leidenwerkt/engine";
+import { bereken, euro, vrijlatingUitleg, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { getal, naarInvoer, vandaag, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */
@@ -15,6 +15,23 @@ function bruikbareDatum(f: Formulier): { datum: string; teruggevallen: boolean }
   return { datum: start, teruggevallen: false };
 }
 
+const ONDERDELEN: [string, string][] = [
+  ["pw.", "de bijstand"],
+  ["ib.", "de belasting"],
+  ["zt.", "de zorgtoeslag"],
+  ["ht.", "de huurtoeslag"],
+  ["kgb.", "het kindgebonden budget"],
+  ["kot.", "de kinderopvangtoeslag"],
+  ["akw.", "de kinderbijslag"],
+  ["leiden.", "de Leidse regelingen"],
+];
+
+/** Welke onderdelen nog geen officiële bedragen hebben voor een datum. */
+function onbekendeOnderdelen(datum: string): string[] {
+  const ids = standaardRegels.onbekendOp(datum).map((o) => o.id);
+  return ONDERDELEN.filter(([prefix]) => ids.some((id) => id.startsWith(prefix))).map(([, naam]) => naam);
+}
+
 const leesbareDatum = (iso: string) =>
   new Date(`${iso}T12:00:00`).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
 
@@ -23,13 +40,16 @@ export function Uitkomst({ f }: { f: Formulier }) {
   const [fase, setFase] = useState<"start" | "later" | "geen">("start");
   const { datum, teruggevallen } = useMemo(() => bruikbareDatum(f), [f]);
 
-  const periodes = useMemo(() => vrijlatingsPeriodes(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
+  const uitleg = useMemo(() => vrijlatingUitleg(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
+  const periodes = uitleg.periodes;
+  const onbekend = useMemo(() => (teruggevallen ? onbekendeOnderdelen(vandaag()) : []), [teruggevallen]);
   const r = useMemo(() => bereken(naarInvoer(f, { uren, fase, datum })), [f, uren, fase, datum]);
   const zonder = useMemo(() => bereken(naarInvoer(f, { uren, fase: "geen", datum })), [f, uren, datum]);
   const voordeel = D(r.werk.besteedbaarPerMaand).minus(zonder.werk.besteedbaarPerMaand);
   const gekozen = periodes.find((p) => p.fase === fase) ?? periodes[0];
   const bijstandMetWerk = r.werk.posten.find((p) => p.id === "bijstand");
-  const vrijlatingTelt = periodes.length > 1 && bijstandMetWerk?.perMaand !== null && bijstandMetWerk?.perMaand !== "0.00";
+  const heeftBijstand = !!bijstandMetWerk && bijstandMetWerk.perMaand !== null && bijstandMetWerk.perMaand !== "0.00";
+  const vrijlatingTelt = periodes.length > 1 && heeftBijstand;
 
   return (
     <section className="uitkomst">
@@ -53,24 +73,33 @@ export function Uitkomst({ f }: { f: Formulier }) {
         )}
       </div>
 
-      {vrijlatingTelt && (
+      {heeftBijstand && (
         <div className="toelichting">
           <p>
-            <strong>{gekozen.naam} na de start van uw werk.</strong> {gekozen.regel}
+            <strong>{vrijlatingTelt ? `${gekozen.naam} na de start van uw werk.` : `${gekozen.naam}.`}</strong> {gekozen.regel}
           </p>
-          <p>
-            {voordeel.gt("0.5")
-              ? `Dit levert u in deze periode ${euro(voordeel, true)} per maand extra op.`
-              : "In deze periode levert de vrijlating u niets extra op."}{" "}
-            Het geldt alleen als de gemeente vindt dat het werk u helpt om meer te gaan werken.
-          </p>
+          {vrijlatingTelt && (
+            <p>
+              {voordeel.gt("0.5")
+                ? `Dit levert u in deze periode ${euro(voordeel, true)} per maand extra op.`
+                : "In deze periode levert de vrijlating u niets extra op."}{" "}
+              Vraag uw klantmanager of de vrijlating voor u geldt. De gemeente beslist dat.
+            </p>
+          )}
+          {uitleg.medisch && <p>{uitleg.medisch}</p>}
+          <p className="klein">Bron: {uitleg.bron}</p>
         </div>
       )}
 
       {teruggevallen && (
-        <p className="melding">
-          Voor vandaag zijn nog niet alle officiële bedragen bekend. Daarom is gerekend met de regels van {leesbareDatum(datum)}.
-        </p>
+        <div className="melding waarschuwing" role="status">
+          <p>
+            <strong>Let op: deze berekening gebruikt de regels van {leesbareDatum(datum)}.</strong> Voor vandaag (
+            {leesbareDatum(vandaag())}) zijn nog niet alle officiële bedragen bekend
+            {onbekend.length > 0 ? `, bijvoorbeeld voor ${onbekend.slice(0, 3).join(", ")}` : ""}. De bedragen die nu gelden kunnen
+            anders zijn.
+          </p>
+        </div>
       )}
 
       <Vergelijking r={r} />
@@ -126,13 +155,9 @@ function Antwoord({ r, uren, periode }: { r: Resultaat; uren: number; periode?: 
       <p className="antwoord-sub">
         Bij {uren} uur per week{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}. Per jaar is dat {Math.abs(v) < 10 ? "ongeveer gelijk" : `${euro(r.verschilPerJaar.replace("-", ""), true)} ${v > 0 ? "meer" : "minder"}`}.
       </p>
-      {r.zekerheid === "onbevestigd" && (
+      {r.betrouwbaarheid.niveau !== "goed" && <p className="antwoord-noot">{r.betrouwbaarheid.tekst}</p>}
+      {r.zekerheid === "onbevestigd" && r.betrouwbaarheid.niveau === "beperkt" && (
         <p className="antwoord-noot">Een deel van de bedragen is nog niet officieel bevestigd. Ze zijn hieronder gemarkeerd met een sterretje.</p>
-      )}
-      {r.nietMeegenomen.length > 0 && (
-        <p className="antwoord-noot">
-          Niet meegerekend: {r.nietMeegenomen.map((n) => n.label.toLowerCase()).join(", ")}. Zie de uitleg hieronder.
-        </p>
       )}
     </div>
   );

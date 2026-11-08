@@ -74,3 +74,23 @@ test.describe("donkere modus", () => {
     await geenToegankelijkheidsfouten(page);
   });
 });
+
+test("huurder van 25: huurtoeslag berekend, geen vrijlating onder 27, toeslagrisico concreet", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByLabel("Uw leeftijd").fill("25");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel("Kale huur per maand").fill("650");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("2.600");
+  await page.getByRole("textbox", { name: "Uren per week" }).fill("32");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+
+  const tabel = page.getByRole("table");
+  await expect(tabel.getByRole("row", { name: /Huurtoeslag/ })).not.toContainText("niet berekend");
+  await expect(page.locator(".antwoord")).not.toContainText("Niet meegerekend");
+  await expect(page.locator(".signalen")).toContainText("Na een jaar werk moet u dan ongeveer");
+  await page.getByLabel(/Uren per week:/).fill("8");
+  await expect(page.locator(".toelichting")).toContainText("jonger bent dan 27 jaar");
+  await geenToegankelijkheidsfouten(page);
+});

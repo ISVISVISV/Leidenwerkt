@@ -11,12 +11,13 @@
   ],
   "scripts": {
     "regels": "tsx scripts/bouw-regels.ts",
-    "test": "npm run regels && vitest run",
+    "test": "npm run regels && vitest run && tsx scripts/documenten.ts --check",
     "typecheck": "npm run regels && tsc -b",
     "dev": "npm run regels && npm run dev -w app",
     "build": "npm run regels && npm run build -w app",
     "build:los": "npm run regels && npm run build:los -w app",
-    "test:e2e": "npm run build && playwright test"
+    "test:e2e": "npm run build && playwright test",
+    "docs": "tsx scripts/documenten.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",

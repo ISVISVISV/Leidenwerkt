@@ -7,35 +7,31 @@ parameters:
     eenheid: euro_per_jaar
     waarde: { soort: bedrag, bedrag: "2119" }
     status: geverifieerd
-    bron:
-      titel: Staatscourant 2025, 40022 — vaststelling standaardpremie 2026
-      url: https://zoek.officielebekendmakingen.nl/stcrt-2025-40022.pdf
-      geraadpleegd_op: 2026-11-04
+    bron: &dt_zt
+      titel: Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026)
+      url: https://download.belastingdienst.nl/toeslagen/docs/berekening_zorgtoeslag_tg0821z62fd.pdf
+      geraadpleegd_op: 2026-11-08
   - id: zt.drempelinkomen
-    omschrijving: Drempelinkomen zorgtoeslag (jaarbedrag minimumloon)
+    omschrijving: Drempelinkomen zorgtoeslag
     eenheid: euro_per_jaar
     waarde: { soort: bedrag, bedrag: "29736" }
-    status: onbevestigd
-    bron: &kamer_zt
-      titel: Kamerantwoord met geraamde parameters zorgtoeslag 2026
-      url: https://app.1848.nl/static/pdf/80/6e/806ea2be468b5d0bb4463623bc5e5105d59e03f0.pdf
-      geraadpleegd_op: 2026-11-04
-    notitie: Raming. Met de vastgestelde standaardpremie levert dit een inkomensgrens van ca. € 41.000 op; secundaire bronnen noemen € 40.857. Definitief drempelinkomen nog controleren.
+    status: geverifieerd
+    bron: *dt_zt
   - id: zt.normpercentage.zonder_partner
     omschrijving: Normpercentage van het drempelinkomen, zonder toeslagpartner
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.01912" }
-    status: onbevestigd
-    bron: *kamer_zt
+    status: geverifieerd
+    bron: *dt_zt
   - id: zt.normpercentage.met_partner
     omschrijving: Normpercentage van het drempelinkomen, met toeslagpartner
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.04289" }
-    status: onbevestigd
-    bron: *kamer_zt
+    status: geverifieerd
+    bron: *dt_zt
   - id: zt.afbouwpercentage
     omschrijving: Percentage van het toetsingsinkomen boven het drempelinkomen
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.1373" }
-    status: onbevestigd
-    bron: *kamer_zt
+    status: geverifieerd
+    bron: *dt_zt

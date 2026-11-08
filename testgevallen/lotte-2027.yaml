@@ -1,0 +1,37 @@
+# Verzonnen persoon en situatie. Zie testgevallen/README.md.
+naam: Lotte
+beschrijving: Lotte, 33, alleenstaand, huurt voor € 620. Ze werkt sinds oktober 2026 16 uur per week (€ 15,00 per uur) en kreeg op 31 december
+  2026 de vrijlating van 25%. In februari 2027 breidt ze uit naar 24 uur. Overgangsrecht art. 78ff lid 2 Pw.
+rekendatum: '2027-02-01'
+invoer:
+  leefvorm: alleenstaande
+  leeftijd: 33
+  kinderen: []
+  kostendelers: 0
+  wonen:
+    soort: huur
+    kaleHuurPerMaand: 620
+  huidigWerk:
+    brutoUurloon: 15
+    urenPerWeek: 16
+  huidigeVrijlating: start
+  nieuwWerk:
+    brutoUurloon: 15
+    urenPerWeek: 24
+  vrijlatingFase: start
+  overgang2027: n
+verwacht:
+- onderdeel: bijstand
+  situatie: nu
+  waarde: onbekend
+- onderdeel: bijstand
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: netto_loon
+  situatie: met_werk
+  waarde: onbekend
+- onderdeel: huurtoeslag
+  situatie: met_werk
+  waarde: onbekend
+opmerking: De bijstandsnormen, belastingtarieven en toeslagbedragen voor 2027 zijn nog niet gepubliceerd. Tot dan bewaakt alleen de snapshot dit
+  geval; de engine rekent het overgangsrecht met de bedragen van 31 december 2026 (zie regimes.test.ts).

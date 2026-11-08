@@ -1,4 +1,4 @@
-gebied: Participatiewet vanaf 1 januari 2027 (Participatiewet in balans, fase 3)
+gebied: Participatiewet vanaf 1 januari 2027 (Participatiewet in balans)
 geldig_van: 2027-01-01
 geldig_tot: null
 parameters:
@@ -6,58 +6,58 @@ parameters:
     omschrijving: Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag
     eenheid: euro_per_maand
     status: ontbrekend
-    notitie: Normenbrief 1 januari 2027 verwacht begin december 2026.
+    notitie: Normenbrief en Staatscourant-mededeling per 1 januari 2027 verwacht begin december 2026.
   - id: pw.norm.gehuwden
     omschrijving: Bijstandsnorm gehuwden/samenwonenden, beiden 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag
     eenheid: euro_per_maand
     status: ontbrekend
-    notitie: Normenbrief 1 januari 2027 verwacht begin december 2026.
+    notitie: Normenbrief en Staatscourant-mededeling per 1 januari 2027 verwacht begin december 2026.
   - id: pw.bijverdien.percentage
-    omschrijving: Bijverdienregeling art. 34a Pw, jonger dan AOW-leeftijd (percentage van inkomsten uit arbeid)
+    omschrijving: Bijverdienregeling art. 34a lid 1 onder a Pw, onder de AOW-leeftijd (deel van de inkomsten uit arbeid per maand)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.15" }
-    status: onbevestigd
-    bron: &schulinck_34a
-      titel: Binnenlands Bestuur / Schulinck — Inkomstenvrijlating in de Participatiewet in balans
-      url: https://www.binnenlandsbestuur.nl/sociaal/schulinck-sociaal-domein/inkomstenvrijlating-in-de-participatiewet-in-balans
-      geraadpleegd_op: 2026-11-04
-    notitie: Volgens de bron geldt de regeling alleen zolang het inkomen niet hoger is dan de bijstandsnorm. Wettekst art. 34a nog controleren, ook op een eventueel maximumbedrag.
+    status: geverifieerd
+    bron: &pw2027
+      titel: Participatiewet art. 34a en 78ff (wetten.overheid.nl, versie 1 januari 2027)
+      url: https://wetten.overheid.nl/BWBR0015703/2027-01-01
+      geraadpleegd_op: 2026-11-08
+    notitie: De wettekst noemt voor deze groep geen maximumbedrag en geen inkomensgrens.
   - id: pw.bijverdien.duur
-    omschrijving: Maximale duur bijverdienregeling (aaneengesloten maanden, verlenging door gemeente mogelijk)
+    omschrijving: Maximale duur bijverdienregeling (aaneengesloten maanden); het college kan verlengen als meer uren werken niet mogelijk is (art. 34a lid 2)
     eenheid: maanden
     waarde: { soort: aantal, aantal: "12" }
-    status: onbevestigd
-    bron: *schulinck_34a
+    status: geverifieerd
+    bron: *pw2027
+  - id: pw.bijverdien.medisch_percentage
+    omschrijving: Bijverdienregeling bij een medische urenbeperking (art. 34a lid 1 onder b Pw), zonder maximale duur
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.15" }
+    status: geverifieerd
+    bron: *pw2027
+  - id: pw.overgang_n.duur
+    omschrijving: Overgangsrecht vrijlating onder n (art. 78ff lid 2 Pw) — het oude onderdeel n blijft ten hoogste zoveel maanden na 1 januari 2027 gelden
+    eenheid: maanden
+    waarde: { soort: aantal, aantal: "12" }
+    status: geverifieerd
+    bron: *pw2027
   - id: pw.kostendeler.minimumleeftijd
-    omschrijving: Minimumleeftijd van een huisgenoot om als kostendelende medebewoner mee te tellen
+    omschrijving: Minimumleeftijd van een huisgenoot om als kostendelende medebewoner mee te tellen (art. 19a Pw)
     eenheid: jaren
     waarde: { soort: aantal, aantal: "27" }
     status: onbevestigd
-    bron:
-      titel: Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?
-      url: https://www.rijksoverheid.nl/themas/werk/arbeidsomstandigheden/vraag-en-antwoord/bijstand/hoe-hoog-is-mijn-bijstandsuitkering
-      geraadpleegd_op: 2026-11-04
+    bron: *pw2027
+    notitie: Overgenomen van de versie per 1 juli 2026; de versie per 1 januari 2027 is op dit artikel nog niet nagelezen.
   - id: pw.kostendeler.basis
     omschrijving: Vast deel in de kostendelersformule (art. 22a lid 1 Pw)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.40" }
     status: onbevestigd
-    bron: &inview_22a
-      titel: Participatiewet artikel 22a (tekst via InView)
-      url: https://inview.nl/document/id67413a09bef84d4eb80a9f6836af0ab4/participatiewet-artikel-22a-kostendelersnorm-01-07-2024-tot
-      geraadpleegd_op: 2026-11-04
+    bron: *pw2027
+    notitie: Overgenomen van de versie per 1 juli 2026; de versie per 1 januari 2027 is op dit artikel nog niet nagelezen.
   - id: pw.kostendeler.per_persoon
     omschrijving: Deel per persoon in de kostendelersformule (art. 22a lid 1 Pw)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.30" }
     status: onbevestigd
-    bron: *inview_22a
-  - id: pw.vakantietoeslag.opslag
-    omschrijving: Vakantietoeslag als opslag op de netto norm exclusief vakantietoeslag (5%)
-    eenheid: breuk
-    waarde: { soort: percentage, breuk: "0.05" }
-    status: onbevestigd
-    bron:
-      titel: Schulinck — Bijstandsnormen (normenblad incl./excl. vakantietoeslag)
-      url: https://www.schulinck.nl/app/uploads/Bijstandsnormen.pdf
-      geraadpleegd_op: 2026-11-04
+    bron: *pw2027
+    notitie: Overgenomen van de versie per 1 juli 2026; de versie per 1 januari 2027 is op dit artikel nog niet nagelezen.

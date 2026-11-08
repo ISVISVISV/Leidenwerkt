@@ -2,15 +2,51 @@
  * Vergelijkt de huidige situatie met de situatie na (meer) werken.
  * Elke post wordt los berekend; ontbreekt een regel, dan wordt die post
  * niet berekend en valt hij buiten het verschil, in plaats van te gokken.
+ * Elke post zegt of hij het verschil beïnvloedt en welke kant hij op gaat,
+ * zodat de app kan melden hoe betrouwbaar het kopgetal is.
  */
 import { D, NUL, centen, euro, type Bedrag } from "./geld.ts";
 import { Lezer, OntbrekendeParameter, standaardRegels, type RegelSet } from "./regels.ts";
 import { nettoLoon, brutoUitNetto, brutoMaandUitNetto, stuksgewijs, type LoonUitkomst } from "./modules/belasting.ts";
-import { bijstandsnorm, vrijlating, aanvulling } from "./modules/bijstand.ts";
-import { zorgtoeslag, kindgebondenBudget, huurtoeslag, kinderopvangtoeslag } from "./modules/toeslagen.ts";
-import type { Invoer, Post, PostStatus, Postsoort, Resultaat, Signaal, Situatie, Stap, Werk } from "./types.ts";
+import { bijstandsnorm, aanvulling } from "./modules/bijstand.ts";
+import { vrijlating } from "./modules/vrijlating.ts";
+import { zorgtoeslag, kindgebondenBudget, huurtoeslag, kinderopvangtoeslag, maandbedragToeslag } from "./modules/toeslagen.ts";
+import { regimeOp } from "./regimes.ts";
+import { vrijlatingsPeriodes } from "./periodes.ts";
+import type {
+  Betrouwbaarheid,
+  Fase,
+  Invloed,
+  Invoer,
+  Post,
+  PostStatus,
+  Postsoort,
+  Resultaat,
+  Richting,
+  Signaal,
+  Situatie,
+  Stap,
+  TerugbetaalRisico,
+  Werk,
+} from "./types.ts";
 
 const STATUS_VOLGORDE: PostStatus[] = ["ontbrekend", "onbevestigd", "geverifieerd", "invoer"];
+
+/** Of een post het verschil beïnvloedt en wat hij doet als het inkomen uit werk stijgt. */
+export const INVLOED: Record<string, { invloed: Invloed; richting?: Richting }> = {
+  loon: { invloed: "ja", richting: "stijgt" },
+  loon_partner: { invloed: "nee" },
+  bijstand: { invloed: "ja", richting: "daalt" },
+  zorgtoeslag: { invloed: "ja", richting: "daalt" },
+  huurtoeslag: { invloed: "ja", richting: "daalt" },
+  kgb: { invloed: "ja", richting: "daalt" },
+  kinderbijslag: { invloed: "nee" },
+  kot: { invloed: "ja", richting: "stijgt" },
+  opvangkosten: { invloed: "ja", richting: "daalt" },
+  iack: { invloed: "ja", richting: "stijgt" },
+  reisvergoeding: { invloed: "ja", richting: "stijgt" },
+  werkkosten: { invloed: "ja", richting: "daalt" },
+};
 
 class Afhankelijk extends Error {}
 
@@ -37,24 +73,24 @@ function maakPost(
     stap: (tekst, bedrag) => stappen.push({ tekst, bedrag: bedrag ? centen(bedrag) : undefined }),
     aanname: (t) => aannames.push(t),
   };
+  const meta = INVLOED[id] ?? { invloed: "onbekend" as const };
   try {
     const bedrag = fn(b);
     if (bedrag === null) return null;
-    return { id, label, soort, perMaand: centen(bedrag), status: laagste(l), stappen, parameters: l.gebruikt, aannames };
+    return { id, label, soort, perMaand: centen(bedrag), status: laagste(l), stappen, parameters: l.gebruikt, aannames, ...meta };
   } catch (e) {
     if (e instanceof OntbrekendeParameter || e instanceof Afhankelijk) {
       const reden =
         e instanceof OntbrekendeParameter
           ? `Gegevens ontbreken (${e.parameterId})${e.toelichting ? `: ${e.toelichting}` : ""}`
           : e.message;
-      return { id, label, soort, perMaand: null, status: "ontbrekend", stappen, parameters: l.gebruikt, aannames, reden };
+      return { id, label, soort, perMaand: null, status: "ontbrekend", stappen, parameters: l.gebruikt, aannames, reden, ...meta };
     }
     throw e;
   }
 }
 
 function laagste(l: Lezer): PostStatus {
-  if (l.gebruikt.length === 0) return "invoer";
   let laagst: PostStatus = "invoer";
   for (const p of l.gebruikt) if (STATUS_VOLGORDE.indexOf(p.status) < STATUS_VOLGORDE.indexOf(laagst)) laagst = p.status;
   return laagst;
@@ -109,13 +145,9 @@ interface Kern {
   bijstandMaand?: Bedrag;
 }
 
-function situatie(
-  invoer: Invoer,
-  regels: RegelSet,
-  naam: "huidig" | "werk",
-  werk: Werk | undefined,
-  fase: Invoer["vrijlatingFase"],
-): Post[] {
+const AFGEROND = "Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet";
+
+function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", werk: Werk | undefined, fase: Fase): Post[] {
   const datum = invoer.datum;
   const paar = invoer.leefvorm === "paar";
   const partnerWerk = invoer.partner?.werk;
@@ -177,17 +209,34 @@ function situatie(
       const eigen = brutoJaarloon(werk).isZero() ? NUL : nodig(kern.nettoMaand, "het netto loon");
       const partner = brutoJaarloon(partnerWerk).isZero() ? NUL : nodig(kern.nettoPartnerMaand, "het netto loon van de partner");
       const { norm, uitleg } = bijstandsnorm(l, invoer);
-      stap(uitleg, norm);
       const inkomen = eigen.plus(partner);
-      if (!inkomen.isZero()) stap("Netto inkomen uit werk in het huishouden", inkomen);
-      const v1 = vrijlating(l, fase, eigen, inkomen, norm, invoer.leefvorm === "alleenstaande_ouder" && heeftJongKind);
-      const v2 = paar ? vrijlating(l, fase, partner, inkomen, norm, false) : { bedrag: NUL, uitleg: "", aannames: [] };
-      const vrij = v1.bedrag.plus(v2.bedrag);
-      if (!eigen.isZero()) stap(v1.uitleg, v1.bedrag);
-      if (!partner.isZero() && v2.uitleg) stap(`Partner: ${v2.uitleg}`, v2.bedrag);
-      [...v1.aannames, ...v2.aannames].forEach(aanname);
+      if (inkomen.isZero()) {
+        stap(`${uitleg}. Zonder inkomen krijgt u de hele norm`, norm);
+      } else {
+        stap(uitleg, norm);
+        if (!eigen.isZero()) stap("Uw netto loon", eigen);
+        if (!partner.isZero()) stap("Netto loon van uw partner", partner);
+      }
+      const v1 = vrijlating(l, {
+        fase,
+        nettoArbeid: eigen,
+        leeftijd: invoer.leeftijd,
+        alleenstaandeOuderMetJongKind: invoer.leefvorm === "alleenstaande_ouder" && heeftJongKind,
+        medischUrenbeperkt: invoer.medischUrenbeperkt,
+        overgang: invoer.overgang2027,
+      });
+      const vrij = v1.bedrag;
+      if (!eigen.isZero()) stap(`Mag u houden: ${v1.uitleg.charAt(0).toLowerCase()}${v1.uitleg.slice(1)}`, vrij);
+      if (!partner.isZero()) aanname("Voor het loon van uw partner is geen vrijlating meegerekend.");
+      v1.aannames.forEach(aanname);
       const bijstand = aanvulling(norm, inkomen, vrij);
-      stap("Bijstand = norm − (inkomen − vrijgelaten deel)", bijstand);
+      if (!inkomen.isZero()) {
+        const formule = vrij.isZero()
+          ? `${euro(norm)} − ${euro(inkomen)}`
+          : `${euro(norm)} − (${euro(inkomen)} − ${euro(vrij)})`;
+        // De formule bevat de uitkomst al; geen apart bedrag ernaast.
+        stap(bijstand.isZero() ? `Bijstand: ${formule} is minder dan nul, dus geen bijstand` : `Bijstand: ${formule} = ${euro(bijstand)}`);
+      }
       kern.bijstandMaand = bijstand;
       aanname("Bijstand is netto en inclusief vakantietoeslag per maand gerekend; de gemeente betaalt de vakantietoeslag één keer per jaar uit.");
       aanname("Er is aangenomen dat er geen vermogen boven de vermogensgrens is en dat aan alle voorwaarden voor bijstand wordt voldaan.");
@@ -212,9 +261,10 @@ function situatie(
     maakPost(regels, datum, "zorgtoeslag", "Zorgtoeslag", "toeslag", ({ l, stap, aanname }) => {
       const ti = toetsingsinkomen(l, stap, aanname);
       const jaar = zorgtoeslag(l, ti, paar);
-      stap("Zorgtoeslag per maand", jaar.div(12));
+      const maand = maandbedragToeslag(jaar.div(12));
+      stap(`Zorgtoeslag per maand. ${AFGEROND}`, maand);
       aanname("Er is aangenomen dat het vermogen onder de vermogensgrens blijft.");
-      return jaar.div(12);
+      return maand;
     }),
   );
 
@@ -224,33 +274,53 @@ function situatie(
     posten.push(
       maakPost(regels, datum, "huurtoeslag", "Huurtoeslag", "toeslag", ({ l, stap, aanname }) => {
         if (invoer.kostendelers > 0) {
-          throw new Afhankelijk("Met volwassen medebewoners telt hun inkomen mee voor de huurtoeslag; dat ondersteunt de rekenhulp nog niet");
+          throw new Afhankelijk(
+            "Nog niet ondersteund: als er andere volwassenen bij u wonen, telt hun inkomen mee voor de huurtoeslag. Dat kan de rekenhulp nog niet uitrekenen.",
+          );
         }
         const ti = toetsingsinkomen(l, stap, aanname);
-        const rekenhuur = D(wonen.kaleHuurPerMaand ?? 0).plus(D(wonen.servicekostenPerMaand ?? 0));
         const personen = 1 + (paar ? 1 : 0) + invoer.kinderen.length;
-        stap("Rekenhuur (kale huur plus servicekosten die meetellen)", rekenhuur);
-        aanname("Alle opgegeven servicekosten zijn als subsidiabel aangenomen; in werkelijkheid tellen alleen bepaalde servicekosten mee.");
-        return huurtoeslag(l, rekenhuur, ti, personen);
+        const h = huurtoeslag(l, D(wonen.kaleHuurPerMaand ?? 0), ti, personen);
+        stap("Rekenhuur: de kale huur, tot de maximale huurgrens", h.rekenhuur);
+        stap("Basishuur: dit deel betaalt u altijd zelf", h.basishuur);
+        if (!h.deelA.isZero()) stap("Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed", h.deelA);
+        if (!h.deelB.isZero()) stap("Deel B: het deel tot de aftoppingsgrens, 65% vergoed", h.deelB);
+        if (!h.deelC.isZero()) stap("Deel C: het deel boven de aftoppingsgrens, 40% vergoed", h.deelC);
+        if (!h.correctie.isZero()) stap("Min de correctie omdat het inkomen boven het minimum-inkomensijkpunt ligt", h.correctie);
+        const maand = maandbedragToeslag(h.perMaand);
+        stap(`Huurtoeslag per maand. ${AFGEROND}`, maand);
+        if (wonen.servicekostenPerMaand) aanname("Servicekosten tellen sinds 2026 niet meer mee voor de huurtoeslag.");
+        aanname("Er is aangenomen dat het vermogen onder de vermogensgrens blijft en dat u een zelfstandige woning huurt.");
+        return maand;
       }),
     );
   }
 
-  // 5. Kindgebonden budget
-  if (invoer.kinderen.some((k) => k.leeftijd < 18)) {
+  // 5. Kindgebonden budget en kinderbijslag
+  const minderjarig = invoer.kinderen.filter((k) => k.leeftijd < 18);
+  if (minderjarig.length > 0) {
     posten.push(
       maakPost(regels, datum, "kgb", "Kindgebonden budget", "toeslag", ({ l, stap, aanname }) => {
         const ti = toetsingsinkomen(l, stap, aanname);
         const jaar = kindgebondenBudget(l, ti, invoer.kinderen, paar);
-        stap("Kindgebonden budget per maand", jaar.div(12));
+        const maand = maandbedragToeslag(jaar.div(12));
+        stap(`Kindgebonden budget per maand. ${AFGEROND}`, maand);
         aanname("Het kindgebonden budget telt niet mee als inkomen voor de bijstand.");
-        return jaar.div(12);
+        return maand;
       }),
     );
     posten.push(
-      maakPost(regels, datum, "kinderbijslag", "Kinderbijslag", "toeslag", ({ l }) => {
-        l.bedrag("akw.kwartaal.0_5");
-        return NUL;
+      maakPost(regels, datum, "kinderbijslag", "Kinderbijslag", "toeslag", ({ l, stap, aanname }) => {
+        let totaal = NUL;
+        for (const k of minderjarig) {
+          const id = k.leeftijd <= 5 ? "akw.kwartaal.0_5" : k.leeftijd <= 11 ? "akw.kwartaal.6_11" : "akw.kwartaal.12_17";
+          const kwartaal = l.bedrag(id);
+          stap(`Kind van ${k.leeftijd} jaar: ${euro(kwartaal)} per kwartaal, per maand`, kwartaal.div(3));
+          totaal = totaal.plus(kwartaal.div(3));
+        }
+        aanname("Kinderbijslag hangt niet af van uw inkomen en telt niet mee voor de bijstand. De SVB betaalt per kwartaal; hier staat een derde daarvan per maand.");
+        stap("Kinderbijslag per maand, alle kinderen samen", totaal);
+        return totaal;
       }),
     );
   }
@@ -265,11 +335,13 @@ function situatie(
         const ti = toetsingsinkomen(l, stap, aanname);
         const r = kinderopvangtoeslag(l, ti, invoer.kinderen);
         r.perKind.forEach((k, i) =>
-          stap(`${i === 0 ? "Eerste kind" : "Volgend kind"} (${k.leeftijd} jaar, ${k.uren} uur): ${k.percentage.times(100).toString()}% vergoed`, k.toeslag),
+          stap(`${i === 0 ? "Eerste kind" : "Volgend kind"} (${k.leeftijd} jaar, ${k.uren} uur): ${k.percentage.times(100).toString().replace(".", ",")}% vergoed`, k.toeslag),
         );
         kostenPerMaand = r.kostenPerMaand;
+        const maand = maandbedragToeslag(r.toeslagPerMaand);
+        stap(`Kinderopvangtoeslag per maand. ${AFGEROND}`, maand);
         aanname("Er is aangenomen dat het aantal opvanguren past bij het aantal gewerkte uren.");
-        return r.toeslagPerMaand;
+        return maand;
       }),
     );
     posten.push(
@@ -333,9 +405,11 @@ export function bereken(oorspronkelijk: Invoer, regels: RegelSet = standaardRege
   const werkPosten = situatie(invoer, regels, "werk", invoer.nieuwWerk, invoer.vrijlatingFase);
 
   // Posten die ergens niet berekend konden worden, vallen in beide situaties buiten het verschil.
-  const nietMeegenomen = new Map<string, { id: string; label: string; reden: string }>();
+  const nietMeegenomen = new Map<string, Resultaat["nietMeegenomen"][number]>();
   for (const p of [...huidigePosten, ...werkPosten]) {
-    if (p.perMaand === null) nietMeegenomen.set(p.id, { id: p.id, label: p.label, reden: p.reden ?? "Niet berekend" });
+    if (p.perMaand === null) {
+      nietMeegenomen.set(p.id, { id: p.id, label: p.label, reden: p.reden ?? "Niet berekend", invloed: p.invloed, richting: p.richting });
+    }
   }
   const uit = new Set(nietMeegenomen.keys());
   const besteedbaarHuidig = som(huidigePosten, uit);
@@ -347,6 +421,8 @@ export function bereken(oorspronkelijk: Invoer, regels: RegelSet = standaardRege
 
   const huidig: Situatie = { naam: "huidig", posten: huidigePosten, besteedbaarPerMaand: centen(besteedbaarHuidig) };
   const werk: Situatie = { naam: "werk", posten: werkPosten, besteedbaarPerMaand: centen(besteedbaarWerk) };
+  const regime = regimeOp(invoer.datum);
+  const risico = terugbetaalrisico(huidig, werk);
 
   return {
     datum: invoer.datum,
@@ -356,11 +432,50 @@ export function bereken(oorspronkelijk: Invoer, regels: RegelSet = standaardRege
     verschilPerJaar: centen(verschil.times(12)),
     nietMeegenomen: [...nietMeegenomen.values()],
     zekerheid,
-    signalen: signalen(invoer, regels, huidig, werk),
+    betrouwbaarheid: betrouwbaarheid([...nietMeegenomen.values()], zekerheid),
+    regime: { id: regime.id, naam: regime.naam, grondslag: regime.grondslag },
+    terugbetaalrisico: risico,
+    signalen: signalen(invoer, regels, huidig, werk, risico),
     aannames: [
       "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
       "Zorgpremie, eigen risico en andere vaste lasten zijn in beide situaties gelijk en daarom weggelaten.",
     ],
+  };
+}
+
+/** Hoe betrouwbaar is het kopgetal, en welke kant gaat een fout waarschijnlijk op? */
+export function betrouwbaarheid(nietMeegenomen: Resultaat["nietMeegenomen"], zekerheid: "geverifieerd" | "onbevestigd"): Betrouwbaarheid {
+  const relevant = nietMeegenomen.filter((n) => n.invloed !== "nee");
+  if (relevant.length === 0) {
+    return zekerheid === "geverifieerd"
+      ? { niveau: "goed", richting: "geen", tekst: "Alle onderdelen zijn berekend met officiële bedragen." }
+      : {
+          niveau: "redelijk",
+          richting: "onbekend",
+          tekst: "Alle onderdelen zijn berekend, maar een deel van de bedragen is nog niet officieel bevestigd.",
+        };
+  }
+  const dalers = relevant.filter((n) => n.richting === "daalt");
+  const stijgers = relevant.filter((n) => n.richting === "stijgt");
+  const namen = (l: typeof relevant) => l.map((n) => n.label.toLowerCase()).join(" en ");
+  if (dalers.length > 0 && stijgers.length === 0) {
+    return {
+      niveau: "beperkt",
+      richting: "te_gunstig",
+      tekst: `Niet meegerekend: ${namen(dalers)}. Die wordt lager als u gaat werken. Het echte verschil is daarom waarschijnlijk kleiner dan hierboven staat.`,
+    };
+  }
+  if (stijgers.length > 0 && dalers.length === 0) {
+    return {
+      niveau: "beperkt",
+      richting: "te_ongunstig",
+      tekst: `Niet meegerekend: ${namen(stijgers)}. Die komt erbij of wordt hoger als u gaat werken. Het echte verschil is daarom waarschijnlijk groter dan hierboven staat.`,
+    };
+  }
+  return {
+    niveau: "beperkt",
+    richting: "onbekend",
+    tekst: `Niet meegerekend: ${namen(relevant)}. Daardoor kan het echte verschil hoger of lager zijn dan hierboven staat.`,
   };
 }
 
@@ -369,69 +484,105 @@ function bedragVan(s: Situatie, id: string): Bedrag | null {
   return p && p.perMaand !== null ? D(p.perMaand) : null;
 }
 
-function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situatie): Signaal[] {
-  const uit: Signaal[] = [];
-  const bijstandNu = bedragVan(huidig, "bijstand");
-  const bijstandWerk = bedragVan(werk, "bijstand");
-
-  if (bijstandNu && bijstandNu.gt(0) && bijstandWerk && bijstandWerk.isZero()) {
-    uit.push({
-      soort: "info",
-      tekst:
-        "U heeft met dit werk waarschijnlijk geen bijstand meer nodig. Stopt het werk binnen 12 maanden, dan kunt u in Leiden een verkorte aanvraag doen (de 'Garantieknop').",
-    });
-  }
-  if (invoer.vrijlatingFase === "start" && bijstandWerk && bijstandWerk.gt(0)) {
-    uit.push({
-      soort: "waarschuwing",
-      tekst:
-        "De vrijlating is tijdelijk. Daarna gaat een groter deel van uw loon van de bijstand af. Kies hierboven een latere periode om te zien wat u dan overhoudt.",
-    });
-  }
+/** Toeslagen die met werk lager worden: wat u te veel krijgt als u niets doorgeeft. */
+function terugbetaalrisico(huidig: Situatie, werk: Situatie): TerugbetaalRisico[] {
+  const uit: TerugbetaalRisico[] = [];
   for (const id of ["zorgtoeslag", "huurtoeslag", "kgb"]) {
     const a = bedragVan(huidig, id);
     const b = bedragVan(werk, id);
-    if (a && b && b.lt(a.minus(5))) {
+    if (a && b && b.lt(a)) {
+      const minder = a.minus(b);
       uit.push({
-        soort: "waarschuwing",
-        tekst:
-          "Uw toeslagen worden lager. Geef uw nieuwe inkomen meteen door via Mijn toeslagen; anders moet u later geld terugbetalen.",
+        id,
+        label: huidig.posten.find((p) => p.id === id)!.label,
+        nuPerMaand: centen(a),
+        straksPerMaand: centen(b),
+        minderPerMaand: centen(minder),
+        perJaar: centen(minder.times(12)),
       });
-      break;
     }
   }
+  return uit;
+}
 
-  // Leiden: Sleutelpas (gratis tot 130% van het sociaal minimum).
+function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situatie, risico: TerugbetaalRisico[]): Signaal[] {
+  const uit: Signaal[] = [];
+  const bijstandNu = bedragVan(huidig, "bijstand");
+  const bijstandWerk = bedragVan(werk, "bijstand");
   const l = new Lezer(regels, invoer.datum);
-  try {
-    const grens = l.breuk("leiden.sleutelpas.inkomensgrens");
-    const norm = bijstandsnorm(l, invoer).norm;
-    const inkomen = ["loon", "loon_partner", "bijstand"].reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
-    if (inkomen.gt(norm.times(grens))) {
-      uit.push({
-        soort: "info",
-        tekst: `Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens: ongeveer ${euro(norm.times(grens), true)} netto per maand).`,
-      });
-    } else {
-      uit.push({ soort: "info", tekst: "U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden." });
-    }
-  } catch (e) {
-    if (!(e instanceof OntbrekendeParameter)) throw e;
-  }
-  if (bijstandNu && bijstandNu.gt(0)) {
-    const l2 = new Lezer(regels, invoer.datum);
+  const probeer = (fn: () => void) => {
     try {
-      const id =
-        invoer.leefvorm === "paar" ? "leiden.iit.basis.gehuwden" : invoer.leefvorm === "alleenstaande_ouder" ? "leiden.iit.basis.alleenstaande_ouder" : "leiden.iit.basis.alleenstaande";
-      const bedrag = l2.bedrag(id);
-      const jaren = l2.aantal("leiden.iit.referteperiode");
-      uit.push({
-        soort: "info",
-        tekst: `Individuele inkomenstoeslag: heeft u al ${jaren} jaar een inkomen op bijstandsniveau, dan kunt u in Leiden één keer per jaar een extra bedrag krijgen. Voor uw situatie was dat ${euro(bedrag, true)} per jaar toen de regeling in 2020 begon; het bedrag wordt elk jaar verhoogd met de inflatie. Gaat uw inkomen boven de bijstandsnorm, dan vervalt dit recht. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
-      });
+      fn();
     } catch (e) {
       if (!(e instanceof OntbrekendeParameter)) throw e;
     }
+  };
+
+  if (bijstandNu && bijstandNu.gt(0) && bijstandWerk && bijstandWerk.isZero()) {
+    probeer(() => {
+      const termijn = l.aantal("leiden.garantieknop.termijn").toString();
+      uit.push({
+        soort: "info",
+        tekst: `Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk binnen ${termijn} maanden nadat uw bijstand is gestopt? Dan kunt u in Leiden een eenvoudigere aanvraag doen. De gemeente gebruikt dan de gegevens die zij al van u heeft, als uw woonadres, gezin, inkomen en vermogen niet zijn veranderd.`,
+      });
+    });
+  }
+  if (invoer.vrijlatingFase === "start" && bijstandWerk && bijstandWerk.gt(0)) {
+    const periodes = vrijlatingsPeriodes(invoer, regels);
+    if (periodes.length > 1) {
+      uit.push({
+        soort: "waarschuwing",
+        tekst: `De vrijlating is tijdelijk (${periodes[0].naam.toLowerCase()}). Daarna gaat een groter deel van uw loon van de bijstand af. Kies hierboven "${periodes[1].naam}" om te zien wat u dan overhoudt.`,
+      });
+    }
+  }
+  if (risico.length > 0) {
+    const totaal = risico.reduce((s, r) => s.plus(D(r.minderPerMaand)), NUL);
+    const lijst = risico.map((r) => `${r.label.toLowerCase()} ${euro(r.minderPerMaand, true)}`).join(", ");
+    uit.push({
+      soort: "waarschuwing",
+      tekst: `Uw toeslagen worden samen ${euro(totaal, true)} per maand lager (${lijst}). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Doet u dat niet, dan krijgt u elke maand ${euro(totaal, true)} te veel. Na een jaar werk moet u dan ongeveer ${euro(totaal.times(12), true)} terugbetalen. Dat hoort u pas bij de definitieve berekening, na afloop van het jaar.`,
+    });
+  }
+
+  // Leiden: Sleutelpas en Kindtegoed (tot 130% van het sociaal minimum; Kindtegoed tot 140%).
+  probeer(() => {
+    const grens = l.breuk("leiden.sleutelpas.inkomensgrens");
+    const norm = bijstandsnorm(l, invoer).norm;
+    const inkomen = ["loon", "loon_partner", "bijstand"].reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
+    const kinderen = invoer.kinderen.filter((k) => k.leeftijd < 18);
+    let kindtegoed = NUL;
+    for (const k of kinderen) {
+      kindtegoed = kindtegoed.plus(l.bedrag(k.leeftijd <= 3 ? "leiden.kindtegoed.0_3" : k.leeftijd <= 11 ? "leiden.kindtegoed.4_11" : "leiden.kindtegoed.12_17"));
+    }
+    const kt = kinderen.length > 0 ? ` Voor uw ${kinderen.length === 1 ? "kind" : "kinderen"} krijgt u dan ook Kindtegoed: ${euro(kindtegoed, true)} per jaar voor schoolspullen, sport en cultuur.` : "";
+    if (inkomen.gt(norm.times(grens))) {
+      let tekst = `Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens: ongeveer ${euro(norm.times(grens), true)} netto per maand).`;
+      if (kinderen.length > 0) {
+        const grens2 = l.breuk("leiden.kindtegoed.inkomensgrens");
+        if (!inkomen.gt(norm.times(grens2))) {
+          tekst += ` Het Kindtegoed van ${euro(kindtegoed, true)} per jaar houdt u waarschijnlijk wel, tot ongeveer ${euro(norm.times(grens2), true)} netto per maand.`;
+        }
+      }
+      uit.push({ soort: "info", tekst });
+    } else {
+      uit.push({ soort: "info", tekst: `U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.${kt}` });
+    }
+  });
+
+  if (bijstandNu && bijstandNu.gt(0)) {
+    probeer(() => {
+      const id =
+        invoer.leefvorm === "paar" ? "leiden.iit.bedrag.gehuwden" : invoer.leefvorm === "alleenstaande_ouder" ? "leiden.iit.bedrag.alleenstaande_ouder" : "leiden.iit.bedrag.alleenstaande";
+      const bedrag = l.bedrag(id);
+      const jaren = l.aantal("leiden.iit.referteperiode").toString();
+      const minLeeftijd = l.aantal("leiden.iit.minimumleeftijd");
+      if (minLeeftijd.gt(invoer.leeftijd)) return;
+      uit.push({
+        soort: "info",
+        tekst: `Individuele inkomenstoeslag: heeft u al ${jaren} jaar of langer een inkomen op bijstandsniveau, dan kunt u in Leiden één keer per 12 maanden ${euro(bedrag, true)} krijgen. Verdient u door het werk meer dan de bijstandsnorm, dan voldoet u niet meer aan die voorwaarde. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
+      });
+    });
   }
   if (invoer.nieuwWerk.brutoVierwekenloon !== undefined) {
     uit.push({

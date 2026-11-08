@@ -11,7 +11,8 @@ Gratis, open rekenhulp voor inwoners van Leiden met bijstand. De vraag die de ap
 ```bash
 npm install
 npm run dev        # ontwikkelserver
-npm test           # regeldata controleren + unit- en eigenschapstests
+npm test           # regeldata controleren + unit-, eigenschaps- en proefpersonentests
+npm run docs       # PROEFPERSONEN.md en de statustabel in REKENREGELS.md opnieuw maken
 npm run test:e2e   # bouwen + browsertest met toegankelijkheidscontrole (axe)
 npm run build      # statische site in app/dist
 npm run build:los  # één zelfstandig HTML-bestand in app/dist-los
@@ -26,10 +27,12 @@ Voor `test:e2e` is Chromium nodig (`npx playwright install chromium`) of een bes
 | `regels/` | Normbedragen en parameters als YAML, per onderwerp en periode, met bron |
 | `packages/engine/` | Rekenengine in TypeScript, los van de app, met uitlegspoor |
 | `app/` | React-app (Vite) |
+| `testgevallen/` | Proefpersonen: verzonnen huishoudens met officiële vergelijkingswaarden |
+| `scripts/` | Regeldata bouwen en controleren, documentatie genereren, overzicht bij pull requests, bewaking van wetten |
 | `e2e/` | Browsertests |
 | `docs/` | Rekenregels, architectuur, onderhoud, risico's, open vragen, besluiten |
 
-Zie [docs/ARCHITECTUUR.md](docs/ARCHITECTUUR.md) en [docs/ONDERHOUD.md](docs/ONDERHOUD.md).
+Zie [docs/ARCHITECTUUR.md](docs/ARCHITECTUUR.md), [docs/ONDERHOUD.md](docs/ONDERHOUD.md) en [docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md). Wijzigingen gaan via pull requests; zie [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Status
 

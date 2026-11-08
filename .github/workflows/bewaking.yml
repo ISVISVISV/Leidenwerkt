@@ -1,0 +1,44 @@
+name: Bewaking wet- en regelgeving
+
+# Elke maandag: nieuwe versies van wetten (BWB), publicaties in Staatscourant
+# en Staatsblad, Leidse regelingen (CVDR), aflopende regeldata en (begin juni
+# en december) de lijst met ontbrekende of onbevestigde parameters.
+# Elke vondst wordt een issue met het label 'bewaking'. Zie docs/ONDERHOUD.md.
+on:
+  schedule:
+    - cron: "17 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      sinds:
+        description: "Zoek wijzigingen vanaf deze datum (JJJJ-MM-DD); leeg = afgelopen 8 dagen"
+        required: false
+      droog:
+        description: "Alleen tonen, geen issues openen"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  bewaking:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run regels
+      - name: Bronnen nalopen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SINDS: ${{ inputs.sinds }}
+          DROOG: ${{ inputs.droog }}
+        run: |
+          ARGS=()
+          if [ -n "$SINDS" ]; then ARGS+=(--sinds "$SINDS"); fi
+          if [ "$DROOG" = "true" ]; then ARGS+=(--droog); fi
+          npx tsx scripts/bewaking.ts "${ARGS[@]}" | tee -a "$GITHUB_STEP_SUMMARY"

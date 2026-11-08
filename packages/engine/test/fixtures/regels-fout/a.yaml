@@ -1,0 +1,16 @@
+gebied: Testdata met fouten
+geldig_van: 2026-01-01
+geldig_tot: 2026-06-30
+parameters:
+  - id: test.bedrag
+    omschrijving: Bedrag dat te veel springt
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "100" }
+    status: geverifieerd
+    bron: { titel: Officieel, url: "https://wetten.overheid.nl/x", geraadpleegd_op: 2026-11-08 }
+  - id: test.blog
+    omschrijving: Bron van een blog
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "5" }
+    status: onbevestigd
+    bron: { titel: Blog, url: "https://www.rekensite.example/x", geraadpleegd_op: 2026-11-08 }

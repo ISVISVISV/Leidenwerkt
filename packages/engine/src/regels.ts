@@ -27,7 +27,7 @@ export interface KotRij {
   volgendKind: Bedrag;
 }
 
-interface RuweParameter {
+export interface RuweParameter {
   id: string;
   omschrijving: string;
   eenheid: string;
@@ -86,6 +86,30 @@ export class RegelSet {
     return gevonden;
   }
 
+  /**
+   * Parameters waarvan de laatste geldigheidsperiode vóór `datum` eindigt,
+   * of die op `datum` de status 'ontbrekend' hebben. Gebruikt voor de
+   * waarschuwing dat de regels voor een datum nog niet (allemaal) bekend zijn.
+   */
+  onbekendOp(datum: string): { id: string; omschrijving: string; laatsteDag: string | null }[] {
+    const uit: { id: string; omschrijving: string; laatsteDag: string | null }[] = [];
+    for (const [id, lijst] of this.perId) {
+      const laatste = lijst[lijst.length - 1];
+      const p = this.zoek(id, datum);
+      const verlopen = !!laatste.geldig_tot && laatste.geldig_tot < datum;
+      if (verlopen || (p && p.status === "ontbrekend" && lijst.some((x) => x.status !== "ontbrekend"))) {
+        const bekend = [...lijst].reverse().find((x) => x.status !== "ontbrekend");
+        uit.push({ id, omschrijving: laatste.omschrijving, laatsteDag: verlopen ? laatste.geldig_tot : (bekend?.geldig_tot ?? null) });
+      }
+    }
+    return uit;
+  }
+
+  /** Alle ids, voor controles. */
+  ids(): string[] {
+    return [...this.perId.keys()];
+  }
+
   /** Datum van de meest recente geldigheid, voor weergave "regels bijgewerkt tot". */
   laatsteGeldigheid(): string {
     let max = "";
@@ -94,18 +118,27 @@ export class RegelSet {
   }
 }
 
-export const standaardRegels = new RegelSet((data as { parameters: RuweParameter[] }).parameters);
+export const ruweParameters = (data as { parameters: RuweParameter[] }).parameters;
+export const standaardRegels = new RegelSet(ruweParameters);
 
 /**
  * Leest parameters voor één berekening en houdt bij welke zijn gebruikt.
  */
 export class Lezer {
-  readonly gebruikt: GebruikteParameter[] = [];
-
   constructor(
     private readonly regels: RegelSet,
     readonly datum: string,
+    readonly gebruikt: GebruikteParameter[] = [],
   ) {}
+
+  /**
+   * Lezer voor een andere datum die in hetzelfde uitlegspoor schrijft.
+   * Alleen voor overgangsrecht, waar de wet verwijst naar regels zoals
+   * die op een eerdere dag luidden.
+   */
+  op(datum: string): Lezer {
+    return new Lezer(this.regels, datum, this.gebruikt);
+  }
 
   private haal(id: string): RuweParameter {
     const p = this.regels.zoek(id, this.datum);

@@ -17,76 +17,87 @@ parameters:
     waarde: { soort: bedrag, bedrag: "2002.13" }
     status: geverifieerd
     bron: *rijksoverheid_normen
-  - id: pw.vakantietoeslag.opslag
-    omschrijving: Vakantietoeslag als opslag op de netto norm exclusief vakantietoeslag (5%)
-    eenheid: breuk
-    waarde: { soort: percentage, breuk: "0.05" }
-    status: onbevestigd
-    bron: &schulinck_normen
-      titel: Schulinck — Bijstandsnormen (normenblad incl./excl. vakantietoeslag)
-      url: https://www.schulinck.nl/app/uploads/Bijstandsnormen.pdf
-      geraadpleegd_op: 2026-11-04
-    notitie: Afgeleid uit de verhouding incl./excl. vakantietoeslag op het normenblad (1419,46 / 1348,49).
   - id: pw.vrijlating_n.percentage
-    omschrijving: Inkomstenvrijlating art. 31 lid 2 onder n Pw (percentage van inkomsten uit arbeid)
+    omschrijving: Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.25" }
-    status: onbevestigd
-    bron: &vng_kwijtschelding_jan
-      titel: VNG — Normbedragen kwijtschelding belastingen per 1 januari 2026
-      url: https://vng.nl/sites/default/files/2026-01/normbedragen-kwijtschelding-belastingen-per-1-januari-2026.docx
-      geraadpleegd_op: 2026-11-04
-    notitie: Percentage nog controleren in de wettekst (wetten.overheid.nl).
+    status: geverifieerd
+    bron: &pw31
+      titel: Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; noemt ook het bedrag tot 1 juli)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01
+      geraadpleegd_op: 2026-11-08
   - id: pw.vrijlating_n.maximum
     omschrijving: Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw)
     eenheid: euro_per_maand
     waarde: { soort: bedrag, bedrag: "285.00" }
-    status: onbevestigd
-    bron: *vng_kwijtschelding_jan
+    status: geverifieerd
+    bron: *pw31
   - id: pw.vrijlating_n.duur
-    omschrijving: Maximale duur vrijlating onder n (aaneengesloten maanden)
+    omschrijving: Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd)
     eenheid: maanden
     waarde: { soort: aantal, aantal: "6" }
-    status: onbevestigd
-    bron: *vng_kwijtschelding_jan
+    status: geverifieerd
+    bron: *pw31
   - id: pw.vrijlating_r.percentage
-    omschrijving: Vrijlating alleenstaande ouder met kind tot 12 jaar (art. 31 lid 2 onder r Pw)
+    omschrijving: Vrijlating alleenstaande ouder met volledige zorg voor een kind tot 12 jaar (art. 31 lid 2 onder r Pw)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.125" }
-    status: onbevestigd
-    bron: &lokale_r
-      titel: Lokale regelgeving — beleidsregel met omschrijving art. 31 lid 2 onder r Pw
-      url: https://lokaleregelgeving.overheid.nl/CVDR694103
-      geraadpleegd_op: 2026-11-04
+    status: geverifieerd
+    bron: *pw31
   - id: pw.vrijlating_r.maximum
     omschrijving: Maximaal vrij te laten bedrag alleenstaande ouder per maand (art. 31 lid 2 onder r Pw)
     eenheid: euro_per_maand
-    status: ontbrekend
-    notitie: Bedrag per 1 januari 2026 nog niet in een officiële bron gevonden.
+    waarde: { soort: bedrag, bedrag: "177.66" }
+    status: geverifieerd
+    bron: *pw31
   - id: pw.vrijlating_r.duur
-    omschrijving: Maximale duur vrijlating onder r (aaneengesloten maanden)
+    omschrijving: Maximale duur vrijlating onder r (aaneengesloten maanden, na de periode onder n)
     eenheid: maanden
     waarde: { soort: aantal, aantal: "30" }
-    status: onbevestigd
-    bron: *lokale_r
-  - id: pw.kostendeler.minimumleeftijd
-    omschrijving: Minimumleeftijd van een huisgenoot om als kostendelende medebewoner mee te tellen
+    status: geverifieerd
+    bron: *pw31
+  - id: pw.vrijlating_y.percentage
+    omschrijving: Vrijlating bij een medische urenbeperking (art. 31 lid 2 onder y Pw), zonder maximale duur
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.15" }
+    status: geverifieerd
+    bron: *pw31
+  - id: pw.vrijlating_y.maximum
+    omschrijving: Maximaal vrij te laten bedrag bij een medische urenbeperking per maand (art. 31 lid 2 onder y Pw)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "180.19" }
+    status: geverifieerd
+    bron: *pw31
+  - id: pw.vrijlating.minimumleeftijd
+    omschrijving: Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw)
     eenheid: jaren
     waarde: { soort: aantal, aantal: "27" }
     status: geverifieerd
-    bron: *rijksoverheid_normen
+    bron: *pw31
+  - id: pw.premie.maximum
+    omschrijving: Premie die niet meetelt als inkomen, als die helpt bij werk (art. 31 lid 2 onder j Pw), per kalenderjaar
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "3398.00" }
+    status: geverifieerd
+    bron: *pw31
+  - id: pw.kostendeler.minimumleeftijd
+    omschrijving: Minimumleeftijd van een huisgenoot om als kostendelende medebewoner mee te tellen (art. 19a Pw)
+    eenheid: jaren
+    waarde: { soort: aantal, aantal: "27" }
+    status: geverifieerd
+    bron: &pw22a
+      titel: Participatiewet art. 19a en 22a (wetten.overheid.nl, versie 1 juli 2026)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01
+      geraadpleegd_op: 2026-11-08
   - id: pw.kostendeler.basis
     omschrijving: Vast deel in de kostendelersformule ((40% + A × 30%) / A) × gehuwdennorm (art. 22a lid 1 Pw)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.40" }
-    status: onbevestigd
-    bron: &inview_22a
-      titel: Participatiewet artikel 22a (tekst via InView)
-      url: https://inview.nl/document/id67413a09bef84d4eb80a9f6836af0ab4/participatiewet-artikel-22a-kostendelersnorm-01-07-2024-tot
-      geraadpleegd_op: 2026-11-04
+    status: geverifieerd
+    bron: *pw22a
   - id: pw.kostendeler.per_persoon
-    omschrijving: Deel per persoon in de kostendelersformule ((40% + A × 30%) / A)
+    omschrijving: Deel per persoon in de kostendelersformule ((40% + A × 30%) / A) × gehuwdennorm (art. 22a lid 1 Pw)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.30" }
-    status: onbevestigd
-    bron: *inview_22a
+    status: geverifieerd
+    bron: *pw22a

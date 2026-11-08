@@ -20,7 +20,8 @@ export interface Formulier {
   kostendelers: string;
   huurt: boolean;
   kaleHuur: string;
-  servicekosten: string;
+  /** Vanaf 2027: welke vrijlating de gebruiker op 31 december 2026 al had. */
+  overgang: "" | "n" | "r";
   werktNu: boolean;
   nuPer: LoonPer;
   nuLoon: string;
@@ -43,7 +44,7 @@ export const leegFormulier: Formulier = {
   kostendelers: "0",
   huurt: true,
   kaleHuur: "",
-  servicekosten: "",
+  overgang: "",
   werktNu: false,
   nuPer: "maand",
   nuLoon: "",
@@ -102,7 +103,6 @@ export function controleer(f: Formulier, stap: number): Fouten {
   }
   if (stap === 2 && f.huurt) {
     moet("kaleHuur", f.kaleHuur, 1, 3000, "Vul de kale huur per maand in.", false);
-    moet("servicekosten", f.servicekosten, 0, 500, "Vul een bedrag van 0 tot 500 in.", false);
   }
   if (stap === 3) {
     const loonGrens = (per: LoonPer): [number, number, string] =>
@@ -135,7 +135,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     kinderen,
     kostendelers: getal(f.kostendelers) ?? 0,
     wonen: f.huurt
-      ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), servicekostenPerMaand: getal(f.servicekosten) }
+      ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur) }
       : { soort: "anders" },
     huidigWerk: f.werktNu ? loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0) : undefined,
     nieuwWerk: {
@@ -146,6 +146,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     },
     vrijlatingFase: opties.fase,
     huidigeVrijlating: "geen",
+    overgang2027: f.werktNu && f.overgang ? f.overgang : undefined,
   };
 }
 

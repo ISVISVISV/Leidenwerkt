@@ -1,6 +1,16 @@
 import type { GebruikteParameter, Status } from "./regels.ts";
 
 export type Leefvorm = "alleenstaande" | "alleenstaande_ouder" | "paar";
+/**
+ * Periode van de vrijlating op het nieuwe werk:
+ * - "start": de eerste periode (tot en met 2026: art. 31 lid 2 n, eerste 6 maanden;
+ *   vanaf 2027: art. 34a, eerste 12 maanden; bij overgangsrecht: de rest van de oude periode)
+ * - "later": daarna (tot en met 2026 voor een alleenstaande ouder: onder r)
+ * - "geen": geen vrijlating
+ */
+export type Fase = "start" | "later" | "geen";
+/** Vrijlating die iemand op 31 december 2026 al had (overgangsrecht art. 78ff Pw). */
+export type Overgang2027 = "n" | "r";
 export type Opvangsoort = "dagopvang" | "bso" | "gastouder";
 
 export interface Kind {
@@ -41,6 +51,7 @@ export interface Invoer {
   kinderen: Kind[];
   /** Aantal huisgenoten van 27 jaar of ouder (niet de partner, niet de eigen kinderen onder 27). */
   kostendelers: number;
+  /** Servicekosten tellen sinds 2026 niet meer mee voor de huurtoeslag; het veld wordt genegeerd. */
   wonen: { soort: "huur"; kaleHuurPerMaand?: number; servicekostenPerMaand?: number } | { soort: "anders" };
   /** Huidige situatie: eventueel werk naast de bijstand. */
   huidigWerk?: Werk;
@@ -52,13 +63,27 @@ export interface Invoer {
    * - "later": na afloop daarvan (alleenstaande ouder: onder r)
    * - "geen": geen vrijlating
    */
-  vrijlatingFase: "start" | "later" | "geen";
+  vrijlatingFase: Fase;
   /** Vrijlating op het huidige werk naast de bijstand (standaard "geen"). */
-  huidigeVrijlating?: "start" | "later" | "geen";
+  huidigeVrijlating?: Fase;
+  /** Vanaf 2027: welke vrijlating de gebruiker op 31 december 2026 al had. */
+  overgang2027?: Overgang2027;
+  /** Medische urenbeperking vastgesteld (art. 31 lid 2 y, vanaf 2027 art. 34a lid 1 b). */
+  medischUrenbeperkt?: boolean;
 }
 
 export type PostStatus = Status | "invoer";
 export type Postsoort = "inkomen" | "toeslag" | "kosten";
+
+/**
+ * Of een post het verschil tussen nu en met werk beïnvloedt.
+ * - "ja": hangt af van het inkomen of bestaat alleen met werk
+ * - "nee": is in beide situaties gelijk (bijvoorbeeld kinderbijslag)
+ * - "onbekend": niet te zeggen
+ */
+export type Invloed = "ja" | "nee" | "onbekend";
+/** Richting van de post als het inkomen uit werk stijgt. */
+export type Richting = "daalt" | "stijgt" | "wisselt";
 
 export interface Stap {
   tekst: string;
@@ -77,6 +102,9 @@ export interface Post {
   aannames: string[];
   /** Reden waarom de post niet berekend is. */
   reden?: string;
+  invloed: Invloed;
+  /** Wat er met de post gebeurt als het inkomen uit werk stijgt (alleen bij invloed "ja"). */
+  richting?: Richting;
 }
 
 export interface Situatie {
@@ -98,9 +126,32 @@ export interface Resultaat {
   verschilPerMaand: string;
   verschilPerJaar: string;
   /** Posten die in minstens één situatie niet berekend konden worden en dus buiten het verschil vallen. */
-  nietMeegenomen: { id: string; label: string; reden: string }[];
+  nietMeegenomen: { id: string; label: string; reden: string; invloed: Invloed; richting?: Richting }[];
   /** Laagste zekerheid van alle gebruikte gegevens. */
   zekerheid: "geverifieerd" | "onbevestigd";
+  /** Hoe betrouwbaar het kopgetal is en welke kant een fout waarschijnlijk op gaat. */
+  betrouwbaarheid: Betrouwbaarheid;
+  /** Regime voor de verrekening van inkomsten op de rekendatum. */
+  regime: { id: string; naam: string; grondslag: string };
+  /** Toeslagen die met werk lager worden: wat u terug moet betalen als u niets doorgeeft. */
+  terugbetaalrisico: TerugbetaalRisico[];
   signalen: Signaal[];
   aannames: string[];
+}
+
+export interface Betrouwbaarheid {
+  niveau: "goed" | "redelijk" | "beperkt";
+  /** Waarschijnlijke richting van de fout in het kopgetal. */
+  richting: "te_gunstig" | "te_ongunstig" | "onbekend" | "geen";
+  tekst: string;
+}
+
+export interface TerugbetaalRisico {
+  id: string;
+  label: string;
+  nuPerMaand: string;
+  straksPerMaand: string;
+  minderPerMaand: string;
+  /** Wat u na een heel jaar werk ongeveer terugbetaalt als u niets doorgeeft. */
+  perJaar: string;
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { controleer, leegFormulier, nieuwKind, type Fouten, type Formulier } from "./formulier.ts";
+import { controleer, leegFormulier, nieuwKind, vandaag, type Fouten, type Formulier } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -316,19 +316,10 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           <Veld
             id="kaleHuur"
             label="Kale huur per maand"
-            hint="De huur zonder servicekosten, gas, water en licht. Staat in uw huurcontract."
+            hint="De huur zonder servicekosten, gas, water en licht. Staat in uw huurcontract. Servicekosten tellen sinds 2026 niet mee voor de huurtoeslag."
             waarde={f.kaleHuur}
             onChange={(v) => zet("kaleHuur", v)}
             fout={fouten.kaleHuur}
-            voorvoegsel="€"
-          />
-          <Veld
-            id="servicekosten"
-            label="Servicekosten per maand (als u die betaalt)"
-            hint="Bijvoorbeeld voor schoonmaak van het trappenhuis of de lift."
-            waarde={f.servicekosten}
-            onChange={(v) => zet("servicekosten", v)}
-            fout={fouten.servicekosten}
             voorvoegsel="€"
           />
         </>
@@ -421,6 +412,20 @@ function StapWerk({ f, zet, fouten }: StapProps) {
             fouten={fouten}
           />
         </fieldset>
+      )}
+
+      {f.werktNu && vandaag() >= "2027-01-01" && vandaag() < "2028-01-01" && (
+        <Keuze
+          naam="overgang"
+          legend="Mocht u in december 2026 al een deel van uw loon houden naast de bijstand?"
+          waarde={f.overgang}
+          onChange={(v) => zet("overgang", v)}
+          opties={[
+            ["", "Nee, of ik weet het niet"],
+            ["n", "Ja, 25% van mijn loon (de eerste 6 maanden)"],
+            ["r", "Ja, 12,5% als alleenstaande ouder"],
+          ]}
+        />
       )}
 
       <h2>{f.werktNu ? "Uw werk straks, alles bij elkaar" : "Het werk dat u overweegt"}</h2>
