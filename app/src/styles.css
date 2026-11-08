@@ -164,33 +164,38 @@ a {
   font-weight: 700;
 }
 
-/* Knop "i": rond, minstens 24 × 24 pixels (WCAG 2.5.8) */
+/* Knop "i": een getekend icoon, zodat de i precies in het midden staat. Klikvlak minstens 24 × 24 pixels (WCAG 2.5.8). */
 .info-knop {
-  flex: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.6rem;
-  height: 1.6rem;
-  margin-left: 0.35rem;
+  width: 28px;
+  height: 28px;
+  margin-left: 0.3rem;
   padding: 0;
-  border: 2px solid var(--inkt-zacht);
+  border: 0;
   border-radius: 50%;
-  background: var(--veld);
-  color: var(--inkt);
-  font: inherit;
-  font-size: 0.85rem;
-  font-weight: 700;
-  font-style: italic;
-  line-height: 1;
+  background: none;
+  color: var(--inkt-zacht);
   cursor: pointer;
-  vertical-align: middle;
+  vertical-align: -0.4em;
+}
+
+.info-knop:hover {
+  color: var(--inkt);
 }
 
 .info-knop[aria-expanded="true"] {
-  background: var(--inkt);
-  color: var(--papier);
-  border-color: var(--inkt);
+  color: var(--inkt);
+}
+
+.info-knop[aria-expanded="true"] svg circle:first-child {
+  fill: var(--inkt);
+}
+
+.info-knop[aria-expanded="true"] svg circle:last-of-type,
+.info-knop[aria-expanded="true"] svg rect {
+  fill: var(--papier);
 }
 
 /* Voortgang: een echte reeks van vier stappen */

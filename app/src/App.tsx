@@ -154,7 +154,11 @@ type StapProps = { f: Formulier; zet: <K extends keyof Formulier>(k: K, v: Formu
 function InfoKnop({ open, onToggle, controls, onderwerp }: { open: boolean; onToggle: () => void; controls: string; onderwerp: string }) {
   return (
     <button type="button" className="info-knop" aria-expanded={open} aria-controls={controls} onClick={onToggle}>
-      <span aria-hidden="true">i</span>
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22">
+        <circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="12" cy="7.6" r="1.35" fill="currentColor" />
+        <rect x="10.9" y="10.4" width="2.2" height="7.2" rx="1.1" fill="currentColor" />
+      </svg>
       <span className="sr">{open ? `Uitleg verbergen: ${onderwerp}` : `Uitleg: ${onderwerp}`}</span>
     </button>
   );
