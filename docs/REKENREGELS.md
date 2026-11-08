@@ -183,17 +183,7 @@ De gemeente stelt de draagkracht vast voor een jaar vanaf de aanvraag (art. 6 li
 
 ## 10. Overgangsmaanden en terugbetalen van toeslagen
 
-Toeslagen zijn een voorschot op het verwachte jaarinkomen. Wie gaat werken en zijn inkomen niet doorgeeft, krijgt te veel en moet dat na de definitieve berekening terugbetalen. De app toont per toeslag hoeveel lager die met werk wordt en wat dat na een jaar werk betekent (`terugbetaalrisico` in de uitkomst). **Overzicht per maand.** De app toont de eerste 12 maanden na een startmaand die de gebruiker kiest (`maandoverzicht` in de engine):
-
-- Inkomen wordt achteraf verrekend: het loon van maand k gaat af van de bijstand van maand k + 1. Zo werkt het in de praktijk in Leiden, omdat de loonstrook pas na afloop van de maand bekend is. Vanaf 2027 zegt art. 32 lid 2 Pw ook dat inkomen telt in de periode waarin iemand erover kan beschikken. Gevolg: in maand 1 komen het eerste loon en de bijstand van nu samen binnen.
-- De vrijlating hoort bij het loon van de maand waarin het is verdiend; de bijstand van maand 7 wordt dus al verrekend zonder de vrijlating van maand 1 t/m 6.
-- In de bijstand zit 5% vakantietoeslag (art. 19 lid 3 Pw). Die komt in juni, of uiterlijk 3 maanden nadat de bijstand stopt (art. 45 lid 1 Pw). Opgebouwd sinds de vorige juni.
-- Het loon per maand staat zonder vakantiegeld (gemiddeld netto / 1,08); het vakantiegeld komt in mei. De gemeente rekent per maand met het loon inclusief een deel vakantiegeld.
-- Toeslagen zijn vanaf maand 1 aangepast. Alle maanden met de bedragen van de rekendatum; loopt het overzicht over 1 januari 2027, dan meldt de app dat er vanaf dan nieuwe regels gelden.
-
-**Eerste 12 maanden.** Onder het kopgetal staat het verschil over de eerste 12 maanden na de start van het werk: de maanden van de eerste vrijlatingsperiode (tot en met 2026: 6 maanden onder n; vanaf 2027: 12 maanden onder art. 34a) maal het verschil in die periode, plus de overige maanden maal het verschil daarna (`verschilEersteJaar` in de engine). Niet 12 keer het verschil van de eerste maanden: de vrijlating is tijdelijk.
-
-**Urengrens.** Bij de urenschuif staat vanaf hoeveel uur per week de bijstand (in de gekozen periode) op nul komt, bij hetzelfde uurloon.
+Toeslagen zijn een voorschot op het verwachte jaarinkomen. Wie gaat werken en zijn inkomen niet doorgeeft, krijgt te veel en moet dat na de definitieve berekening terugbetalen. De app toont per toeslag hoeveel lager die met werk wordt en wat dat na een jaar werk betekent (`terugbetaalrisico` in de uitkomst). 
 
 ## 11. Leiden
 
