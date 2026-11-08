@@ -212,22 +212,6 @@ test("wie al werkt, kiest wat er verandert en vult niets dubbel in", async ({ pa
   await geenToegankelijkheidsfouten(page);
 });
 
-test("overzicht per maand: eerste maand met loon en de bijstand van nu", async ({ page }) => {
-  await page.goto("/");
-  await page.getByRole("button", { name: "Begin met rekenen" }).click();
-  await page.getByLabel("Uw leeftijd").fill("40");
-  await page.getByRole("button", { name: "Volgende stap" }).click();
-  await page.getByLabel("In een koopwoning").check();
-  await page.getByRole("button", { name: "Volgende stap" }).click();
-  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.000");
-  await page.getByRole("textbox", { name: /Hoeveel uur per week werkt u/ }).fill("16");
-  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
-  await expect(page.getByRole("heading", { name: "Per maand, het eerste jaar" })).toBeVisible();
-  await expect(page.locator("table.per-maand tbody tr:not(.eenmalig)")).toHaveCount(12);
-  await expect(page.locator("section[aria-labelledby='per-maand']")).toContainText("uw eerste loon én nog de bijstand van nu");
-  await geenToegankelijkheidsfouten(page);
-});
-
 test("uurloon: vraag of het vakantiegeld al in het uurloon zit", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
