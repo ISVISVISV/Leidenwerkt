@@ -142,3 +142,19 @@ describe("verblijf in een inrichting (art. 23 Pw), bijvoorbeeld een woonvorm met
     expect(bijstand(bereken(basis({ datum: "2026-03-01", wonen: { soort: "instelling" } })))).toBe("490.76");
   });
 });
+
+describe("huurtoeslag: iedereen in huis telt mee, ook jonger dan 27 (Awir art. 7; brochure stap 5)", () => {
+  const huur = { soort: "huur" as const, kaleHuurPerMaand: 700 };
+  it("een huisgenoot van 18 tot 27 telt mee voor het aantal personen en het inkomen", () => {
+    const zonder = bereken(basis({ wonen: huur }));
+    const met = bereken(basis({ wonen: huur, jongeHuisgenoten: 1, huisgenotenInkomenJaar: 15000 }));
+    const ht = (r: Resultaat) => Number(r.huidig.posten.find((p) => p.id === "huurtoeslag")!.perMaand);
+    expect(ht(met)).toBeLessThan(ht(zonder));
+    // De bijstand verandert niet: de kostendelersnorm geldt pas vanaf 27 jaar.
+    expect(bijstand(met)).toBe(bijstand(zonder));
+  });
+  it("zonder inkomen van de jonge huisgenoot: huurtoeslag niet berekend", () => {
+    const r = bereken(basis({ wonen: huur, jongeHuisgenoten: 1 }));
+    expect(r.huidig.posten.find((p) => p.id === "huurtoeslag")!.perMaand).toBeNull();
+  });
+});

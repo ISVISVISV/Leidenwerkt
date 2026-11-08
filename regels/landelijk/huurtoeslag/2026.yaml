@@ -92,3 +92,9 @@ parameters:
     waarde: { soort: bedrag, bedrag: "31500" }
     status: geverifieerd
     bron: *stcrt_ht
+  - id: ht.vrijstelling_kind_onder_23
+    omschrijving: Van inwonende kinderen die aan het begin van het jaar jonger zijn dan 23 telt alleen het inkomen boven dit bedrag per persoon per jaar mee (stap 5)
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "6218" }
+    status: geverifieerd
+    bron: *dt_ht

@@ -283,20 +283,22 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     const wonen = invoer.wonen;
     posten.push(
       maakPost(regels, datum, "huurtoeslag", "Huurtoeslag", "toeslag", ({ l, stap, aanname }) => {
-        if (invoer.kostendelers > 0 && invoer.huisgenotenInkomenJaar === undefined) {
+        const huisgenoten = invoer.kostendelers + (invoer.jongeHuisgenoten ?? 0);
+        if (huisgenoten > 0 && invoer.huisgenotenInkomenJaar === undefined) {
           throw new Afhankelijk(
             "Het inkomen van uw huisgenoten telt mee voor de huurtoeslag. Vul bij 'Uw woning' in wat zij samen per jaar verdienen.",
           );
         }
         let rekeninkomen = toetsingsinkomen(l, stap, aanname);
-        if (invoer.kostendelers > 0) {
-          const huisgenoten = D(invoer.huisgenotenInkomenJaar ?? 0);
-          stap("Plus het jaarinkomen van uw huisgenoten (dit telt mee voor de huurtoeslag)", huisgenoten);
-          rekeninkomen = rekeninkomen.plus(huisgenoten);
+        if (invoer.huisgenotenInkomenJaar !== undefined) {
+          const anderen = D(invoer.huisgenotenInkomenJaar);
+          stap("Plus het jaarinkomen van de anderen in huis (dit telt mee voor de huurtoeslag)", anderen);
+          rekeninkomen = rekeninkomen.plus(anderen);
           stap("Rekeninkomen: het inkomen van iedereen in huis samen", rekeninkomen);
-          aanname("Voor de huurtoeslag tellen ook huisgenoten jonger dan 27 jaar mee. De rekenhulp vraagt alleen naar huisgenoten van 27 jaar of ouder.");
+        } else if (invoer.kinderen.some((k) => k.leeftijd >= 18)) {
+          aanname("Er is aangenomen dat uw kinderen geen inkomen hebben. Heeft een kind wel inkomen, dan telt dat mee voor de huurtoeslag.");
         }
-        const personen = 1 + (paar ? 1 : 0) + invoer.kinderen.length + invoer.kostendelers;
+        const personen = 1 + (paar ? 1 : 0) + invoer.kinderen.length + huisgenoten;
         const h = huurtoeslag(l, D(wonen.kaleHuurPerMaand ?? 0), rekeninkomen, personen);
         stap("Rekenhuur: de kale huur, tot de maximale huurgrens", h.rekenhuur);
         stap("Basishuur: dit deel betaalt u altijd zelf", h.basishuur);
@@ -693,6 +695,9 @@ function valideer(invoer: Invoer) {
   if (invoer.partner && (invoer.partner.leeftijd < 21 || invoer.partner.leeftijd >= 67)) fouten.push("partner moet 21 jaar of ouder zijn en jonger dan de AOW-leeftijd");
   if (invoer.leefvorm === "alleenstaande_ouder" && invoer.kinderen.length === 0) fouten.push("alleenstaande ouder zonder kinderen");
   if (invoer.kostendelers < 0 || !Number.isInteger(invoer.kostendelers)) fouten.push("aantal kostendelers ongeldig");
+  if (invoer.jongeHuisgenoten !== undefined && (invoer.jongeHuisgenoten < 0 || !Number.isInteger(invoer.jongeHuisgenoten))) {
+    fouten.push("aantal jonge huisgenoten ongeldig");
+  }
   if (invoer.huisgenotenInkomenJaar !== undefined && (!Number.isFinite(invoer.huisgenotenInkomenJaar) || invoer.huisgenotenInkomenJaar < 0)) {
     fouten.push("inkomen huisgenoten ongeldig");
   }

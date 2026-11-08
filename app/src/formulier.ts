@@ -28,6 +28,8 @@ export interface Formulier {
   partnerBruto: string;
   kinderen: KindVeld[];
   kostendelers: string;
+  /** Huisgenoten van 18 tot 27 jaar die geen kind van de gebruiker zijn. */
+  jongeHuisgenoten: string;
   huisgenotenInkomen: string;
   /** Woonsituatie. "instelling": woonvorm met begeleiding (norm art. 23). "zorginstelling": niet berekend. */
   woont: Woonsituatie;
@@ -59,6 +61,7 @@ export const leegFormulier: Formulier = {
   partnerBruto: "",
   kinderen: [],
   kostendelers: "0",
+  jongeHuisgenoten: "0",
   huisgenotenInkomen: "",
   woont: "huur",
   zelfstandig: true,
@@ -98,6 +101,12 @@ export function vandaag(): string {
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
 }
 
+/** Het inkomen van de anderen in huis is nodig voor de huurtoeslag: huisgenoten, of kinderen van 18 of ouder. */
+export function vraagInkomenAnderen(f: Formulier): boolean {
+  const huisgenoten = (getal(f.kostendelers) ?? 0) + (getal(f.jongeHuisgenoten) ?? 0);
+  return f.woont === "huur" && f.zelfstandig && (huisgenoten > 0 || f.kinderen.some((k) => (getal(k.leeftijd) ?? 0) >= 18));
+}
+
 export type Fouten = Partial<Record<string, string>>;
 
 export function controleer(f: Formulier, stap: number): Fouten {
@@ -121,9 +130,10 @@ export function controleer(f: Formulier, stap: number): Fouten {
       }
     });
     moet("kostendelers", f.kostendelers, 0, 10, "Vul een aantal van 0 tot 10 in.");
+    moet("jongeHuisgenoten", f.jongeHuisgenoten, 0, 10, "Vul een aantal van 0 tot 10 in.");
   }
   if (stap === 2 && f.woont === "zorginstelling") fouten.woont = "Voor mensen in een zorginstelling kan deze rekenhulp niet rekenen.";
-  if (stap === 2 && f.woont === "huur" && (getal(f.kostendelers) ?? 0) > 0) {
+  if (stap === 2 && vraagInkomenAnderen(f)) {
     moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
   }
   if (stap === 2 && f.woont === "huur") {
@@ -166,7 +176,8 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
       : undefined,
     kinderen,
     kostendelers: getal(f.kostendelers) ?? 0,
-    huisgenotenInkomenJaar: (getal(f.kostendelers) ?? 0) > 0 ? getal(f.huisgenotenInkomen) : undefined,
+    jongeHuisgenoten: getal(f.jongeHuisgenoten) ?? 0,
+    huisgenotenInkomenJaar: vraagInkomenAnderen(f) ? getal(f.huisgenotenInkomen) : undefined,
     wonen:
       f.woont === "huur"
         ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), zelfstandig: f.zelfstandig }
