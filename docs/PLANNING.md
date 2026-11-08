@@ -10,7 +10,6 @@ Wat er nog op de lijst staat. Afgeronde punten staan in de geschiedenis van de p
 
 ## Rekenhulp
 
-- [ ] Overzicht per maand van de overgang naar werk: wanneer de bijstand stopt, wanneer het eerste loon komt, en de vakantietoeslag bij uitstroom.
 - [ ] Leiden: kwijtschelding van gemeentelijke belastingen; een signaal bij 120% van de bijstandsnorm (collectieve zorgverzekering).
 
 ## Toetsing

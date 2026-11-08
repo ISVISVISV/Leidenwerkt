@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
+import { Fragment, useMemo, useState } from "react";
+import { bereken, maandoverzicht, CITATEN, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
 import { naarInvoer, schuifStart, vandaag, type Formulier } from "./formulier.ts";
 
@@ -154,6 +154,8 @@ export function Uitkomst({ f }: { f: Formulier }) {
       )}
 
       <Vergelijking r={r} />
+
+      <PerMaand f={f} uren={uren} datum={datum} />
 
       {r.signalen.length > 0 && (
         <section aria-labelledby="let-op">
@@ -386,6 +388,104 @@ function Uitleg({ r }: { r: Resultaat }) {
           </details>
         );
       })}
+    </section>
+  );
+}
+
+const maandNaam = (jm: string, metJaar = true) =>
+  new Date(`${jm}-01T12:00:00`).toLocaleDateString("nl-NL", metJaar ? { month: "long", year: "numeric" } : { month: "long" });
+
+const maandKort = (jm: string, metJaar: boolean) =>
+  new Date(`${jm}-01T12:00:00`).toLocaleDateString("nl-NL", metJaar ? { month: "short", year: "numeric" } : { month: "short" }).replace(".", "");
+
+/** Overzicht van de eerste 12 maanden na de start van het werk. */
+function PerMaand({ f, uren, datum }: { f: Formulier; uren: number; datum: string }) {
+  const opties = useMemo(() => {
+    const [j, m] = vandaag().split("-").map(Number);
+    return Array.from({ length: 12 }, (_, i) => {
+      const d = new Date(j, m + i, 1);
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    });
+  }, []);
+  const [start, setStart] = useState(opties[0]);
+  const o = useMemo(() => maandoverzicht(naarInvoer(f, { uren, fase: "start", datum }), start), [f, uren, datum, start]);
+  const eerste = o.maanden[0];
+  const extraEerste = D(eerste.totaal).minus(o.nu);
+  return (
+    <section aria-labelledby="per-maand">
+      <h2 id="per-maand">Per maand, het eerste jaar</h2>
+      <div className="veld">
+        <label htmlFor="startmaand">In welke maand begint u met werken?</label>
+        <select id="startmaand" value={start} onChange={(e) => setStart(e.target.value)}>
+          {opties.map((m) => (
+            <option key={m} value={m}>
+              {maandNaam(m)}
+            </option>
+          ))}
+        </select>
+      </div>
+      <p>
+        Nu krijgt u ongeveer <strong>{euro(o.nu, true)}</strong> per maand.
+        {extraEerste.gt(10) &&
+          ` In ${maandNaam(eerste.maand, false)} krijgt u uw eerste loon én nog de bijstand van nu, omdat de gemeente uw loon pas een maand later verrekent. Zet dat geld apart: stopt uw werk later, dan gaat uw laatste loon nog af van de bijstand van de maand erna.`}
+        {o.bijstandStopt && ` Vanaf ${maandNaam(o.bijstandStopt)} krijgt u geen bijstand meer.`}
+      </p>
+      {o.andereRegelsVanaf && (
+        <p className="melding waarschuwing">
+          Vanaf {maandNaam(o.andereRegelsVanaf)} gelden nieuwe regels voor het deel van uw loon dat u naast de bijstand mag houden. De
+          bedragen daarvoor zijn nog niet allemaal bekend. Daarom staan de maanden vanaf {maandNaam(o.andereRegelsVanaf)} hier nog met
+          de regels van nu. Vraag uw klantmanager wat er voor u verandert.
+        </p>
+      )}
+      <div className="tabel-schuif" tabIndex={0} role="region" aria-labelledby="per-maand">
+        <table className="per-maand">
+          <thead>
+            <tr>
+              <th scope="col">Maand</th>
+              <th scope="col">Loon</th>
+              <th scope="col">Bijstand</th>
+              <th scope="col">Toeslagen e.d.</th>
+              <th scope="col">Totaal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {o.maanden.map((m, i) => (
+              <Fragment key={m.maand}>
+                <tr>
+                  <th scope="row">
+                    {maandKort(m.maand, i === 0 || m.maand.endsWith("-01"))}
+                    {!(i === 0 || m.maand.endsWith("-01")) && <span className="sr"> {m.maand.slice(0, 4)}</span>}
+                  </th>
+                  <td>{euro(m.loon, true)}</td>
+                  <td>{euro(m.bijstand, true)}</td>
+                  <td>{euro(m.overig, true)}</td>
+                  <td>
+                    <strong>{euro(m.totaal, true)}</strong>
+                  </td>
+                </tr>
+                {m.eenmalig.map((e) => (
+                  <tr key={e.wat} className="eenmalig">
+                    <td colSpan={5}>
+                      Plus eenmalig: {e.wat.charAt(0).toLowerCase() + e.wat.slice(1)}, ongeveer {euro(e.bedrag, true)} (zit in het totaal)
+                    </td>
+                  </tr>
+                ))}
+              </Fragment>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <details className="uitleg">
+        <summary>Waar dit overzicht van uitgaat</summary>
+        <ul className="aannames">
+          {o.aannames.map((a) => (
+            <li key={a}>{a}</li>
+          ))}
+        </ul>
+        <p className="klein bron-blok">
+          Bron: <Bron citaat={CITATEN.pw45} />
+        </p>
+      </details>
     </section>
   );
 }

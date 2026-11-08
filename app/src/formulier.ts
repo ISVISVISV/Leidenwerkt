@@ -10,7 +10,7 @@ export function maxUurprijs(l: Lezer, soort: Opvangsoort): number {
 }
 
 export type LoonPer = "maand" | "netto" | "vierweken" | "uur";
-export type Woonsituatie = "huur" | "koop" | "inwonend" | "dakloos" | "instelling" | "zorginstelling";
+export type Woonsituatie = "huur" | "koop" | "inwonend" | "dakloos" | "instelling";
 
 export interface KindVeld {
   leeftijd: string;
@@ -31,7 +31,7 @@ export interface Formulier {
   /** Huisgenoten van 18 tot 27 jaar die geen kind van de gebruiker zijn. */
   jongeHuisgenoten: string;
   huisgenotenInkomen: string;
-  /** Woonsituatie. "instelling": woonvorm met begeleiding (norm art. 23). "zorginstelling": niet berekend. */
+  /** Woonsituatie. "instelling": instelling of woonvorm met begeleiding (norm art. 23 Pw). */
   woont: Woonsituatie;
   /** Eigen voordeur, keuken, wc en douche of bad (alleen bij huur). */
   zelfstandig: boolean;
@@ -138,7 +138,6 @@ export function controleer(f: Formulier, stap: number): Fouten {
     moet("kostendelers", f.kostendelers, 0, 10, "Vul een aantal van 0 tot 10 in.");
     moet("jongeHuisgenoten", f.jongeHuisgenoten, 0, 10, "Vul een aantal van 0 tot 10 in.");
   }
-  if (stap === 2 && f.woont === "zorginstelling") fouten.woont = "Voor mensen in een zorginstelling kan deze rekenhulp niet rekenen.";
   if (stap === 2 && vraagInkomenAnderen(f)) {
     moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
   }
