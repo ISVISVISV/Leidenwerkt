@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { bereken, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
+import { bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
+import { Bron } from "./Bron.tsx";
 import { getal, naarInvoer, vandaag, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */
@@ -38,11 +39,12 @@ const leesbareDatum = (iso: string) =>
 export function Uitkomst({ f }: { f: Formulier }) {
   const [uren, setUren] = useState(() => Math.round(getal(f.uren) ?? 24));
   const maxUren = Math.max(40, Math.round(getal(f.uren) ?? 0));
-  const [fase, setFase] = useState<"start" | "later" | "geen">("start");
+  const [gekozenFase, setFase] = useState<"start" | "later" | "geen">("start");
   const { datum, teruggevallen } = useMemo(() => bruikbareDatum(f), [f]);
 
   const uitleg = useMemo(() => vrijlatingUitleg(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
   const periodes = uitleg.periodes;
+  const fase = periodes.some((p) => p.fase === gekozenFase) ? gekozenFase : periodes[0].fase;
   const onbekend = useMemo(() => (teruggevallen ? onbekendeOnderdelen(vandaag()) : []), [teruggevallen]);
   const r = useMemo(() => bereken(naarInvoer(f, { uren, fase, datum })), [f, uren, fase, datum]);
   const zonder = useMemo(() => bereken(naarInvoer(f, { uren, fase: "geen", datum })), [f, uren, datum]);
@@ -50,18 +52,48 @@ export function Uitkomst({ f }: { f: Formulier }) {
   const gekozen = periodes.find((p) => p.fase === fase) ?? periodes[0];
   const bijstandMetWerk = r.werk.posten.find((p) => p.id === "bijstand");
   const heeftBijstand = !!bijstandMetWerk && bijstandMetWerk.perMaand !== null && bijstandMetWerk.perMaand !== "0.00";
-  const vrijlatingTelt = periodes.length > 1 && heeftBijstand;
+  const vrijlatingTelt = heeftBijstand && periodes.some((p) => p.fase !== "geen");
+  const meerPeriodes = vrijlatingTelt && periodes.length > 1;
+  const eersteJaar = useMemo(() => verschilEersteJaar(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
+  // Vanaf hoeveel uur per week is er (in de gekozen periode) geen bijstand meer nodig?
+  const grensUren = useMemo(() => {
+    const nu = bereken(naarInvoer(f, { uren: 1, fase, datum })).huidig.posten.find((p) => p.id === "bijstand");
+    if (!nu || nu.perMaand === null || nu.perMaand === "0.00") return undefined;
+    for (let u = 1; u <= maxUren; u++) {
+      const b = bereken(naarInvoer(f, { uren: u, fase, datum })).werk.posten.find((p) => p.id === "bijstand");
+      if (b && b.perMaand === "0.00") return u;
+    }
+    return null;
+  }, [f, fase, datum, maxUren]);
 
   return (
     <section className="uitkomst">
-      <Antwoord r={r} uren={uren} periode={vrijlatingTelt ? gekozen.naam : undefined} />
+      <Antwoord r={r} uren={uren} periode={meerPeriodes ? gekozen.naam : undefined} eersteJaar={eersteJaar.bedrag} />
 
       <div className="bediening">
         <label htmlFor="urenschuif">
           Uren per week: <output htmlFor="urenschuif">{uren}</output>
         </label>
-        <input id="urenschuif" type="range" min={1} max={maxUren} step={1} value={uren} onChange={(e) => setUren(Number(e.target.value))} />
-        {vrijlatingTelt && (
+        <input
+          id="urenschuif"
+          type="range"
+          min={1}
+          max={maxUren}
+          step={1}
+          value={uren}
+          aria-describedby={grensUren !== undefined ? "urengrens" : undefined}
+          onChange={(e) => setUren(Number(e.target.value))}
+        />
+        {grensUren !== undefined && (
+          <p className="urengrens" id="urengrens">
+            {grensUren === null
+              ? `Ook bij ${maxUren} uur per week krijgt u nog wat bijstand erbij.`
+              : grensUren === 1
+                ? "Met dit loon heeft u al vanaf 1 uur per week geen bijstand meer nodig."
+                : `Vanaf ${grensUren} uur per week heeft u met dit uurloon geen bijstand meer nodig${meerPeriodes ? " (in deze periode)" : ""}. ${uren >= grensUren ? `Bij ${uren} uur is dat zo.` : `Bij ${uren} uur krijgt u nog bijstand erbij.`}`}
+          </p>
+        )}
+        {meerPeriodes && (
           <fieldset className="keuze compact">
             <legend>Welke periode wilt u zien?</legend>
             {periodes.map((p) => (
@@ -77,7 +109,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
       {heeftBijstand && (
         <div className="toelichting">
           <p>
-            <strong>{vrijlatingTelt ? `${gekozen.naam} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.` : `${gekozen.naam}.`}</strong> {gekozen.regel}
+            <strong>{meerPeriodes ? `${gekozen.naam} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.` : `${gekozen.naam}.`}</strong> {gekozen.regel}
           </p>
           {vrijlatingTelt && (
             <p>
@@ -87,8 +119,17 @@ export function Uitkomst({ f }: { f: Formulier }) {
               Vraag uw klantmanager of de vrijlating voor u geldt. De gemeente beslist dat.
             </p>
           )}
-          {uitleg.medisch && <p>{uitleg.medisch}</p>}
-          <p className="klein">Bron: {uitleg.bron}</p>
+          <p className="klein bron-blok">
+            Bron:{" "}
+            {uitleg.citaten.length > 0
+              ? uitleg.citaten.map((c, i) => (
+                  <span key={c.titel}>
+                    {i > 0 && ", "}
+                    <Bron citaat={c} label={c.titel.replace(/^Participatiewet, /, i === 0 ? "Participatiewet, " : "")} />
+                  </span>
+                ))
+              : uitleg.bron}
+          </p>
         </div>
       )}
 
@@ -147,7 +188,12 @@ export function Uitkomst({ f }: { f: Formulier }) {
   );
 }
 
-function Antwoord({ r, uren, periode }: { r: Resultaat; uren: number; periode?: string }) {
+function Antwoord({ r, uren, periode, eersteJaar }: { r: Resultaat; uren: number; periode?: string; eersteJaar: string }) {
+  const j = Number(eersteJaar);
+  const jaarzin =
+    Math.abs(j) < 120
+      ? "Ook over de eerste 12 maanden samen houdt u ongeveer evenveel over als nu."
+      : `In de eerste 12 maanden is dat samen ongeveer ${euro(eersteJaar.replace("-", ""), true)} ${j > 0 ? "meer" : "minder"}.`;
   const v = Number(r.verschilPerMaand);
   const bedrag = euro(r.verschilPerMaand.replace("-", ""), true);
   const zin =
@@ -160,7 +206,7 @@ function Antwoord({ r, uren, periode }: { r: Resultaat; uren: number; periode?: 
     <div className={`antwoord ${Math.abs(v) < 10 ? "gelijk" : v > 0 ? "meer" : "minder"}`} aria-live="polite">
       <p className="antwoord-zin">{zin}</p>
       <p className="antwoord-sub">
-        Bij {uren} uur per week{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}. Per jaar is dat {Math.abs(v) < 10 ? "ongeveer gelijk" : `${euro(r.verschilPerJaar.replace("-", ""), true)} ${v > 0 ? "meer" : "minder"}`}.
+        Bij {uren} uur per week{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}. {jaarzin}
       </p>
       {r.betrouwbaarheid.niveau !== "goed" && <p className="antwoord-noot">{r.betrouwbaarheid.tekst}</p>}
       {r.zekerheid === "onbevestigd" && r.betrouwbaarheid.niveau === "beperkt" && (
@@ -306,13 +352,21 @@ function Uitleg({ r }: { r: Resultaat }) {
                 <h3>Gebruikte regels</h3>
                 <ul className="bronnen">
                   {params.map((g) => (
-                    <li key={g.id}>
+                    <li key={g.id} className="bron-blok">
                       {g.omschrijving}: <strong>{g.waarde}</strong>
                       {g.status === "onbevestigd" && <span className="label-onzeker"> nog niet officieel bevestigd</span>}
                       {g.bron && (
                         <>
                           {" "}
-                          (<a href={g.bron.url} rel="noreferrer noopener" target="_blank">{g.bron.titel}</a>)
+                          (
+                          {citaatVoorParameter(g.id) ? (
+                            <Bron citaat={citaatVoorParameter(g.id)!} label={g.bron.titel} />
+                          ) : (
+                            <a href={g.bron.url} rel="noreferrer noopener" target="_blank">
+                              {g.bron.titel}
+                            </a>
+                          )}
+                          )
                         </>
                       )}
                     </li>

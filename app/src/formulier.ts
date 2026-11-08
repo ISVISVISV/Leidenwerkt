@@ -1,6 +1,16 @@
-import type { Invoer, Kind, Leefvorm, Opvangsoort } from "@leidenwerkt/engine";
+import { Lezer, standaardRegels, type Invoer, type Kind, type Leefvorm, type Opvangsoort } from "@leidenwerkt/engine";
+
+/** Hoogste uurprijs waarover kinderopvangtoeslag wordt gegeven, voor de rekendatum. */
+export function maxUurprijs(l: Lezer, soort: Opvangsoort): number {
+  try {
+    return Number(l.bedrag(`kot.max_uurprijs.${soort}`).toFixed(2));
+  } catch {
+    return 0;
+  }
+}
 
 export type LoonPer = "maand" | "netto" | "vierweken" | "uur";
+export type Woonsituatie = "huur" | "koop" | "inwonend" | "dakloos" | "instelling";
 
 export interface KindVeld {
   leeftijd: string;
@@ -19,11 +29,17 @@ export interface Formulier {
   kinderen: KindVeld[];
   kostendelers: string;
   huisgenotenInkomen: string;
-  huurt: boolean;
+  /** Woonsituatie. "instelling": de rekenhulp kan dit niet berekenen. */
+  woont: Woonsituatie;
+  /** Eigen voordeur, keuken, wc en douche of bad (alleen bij huur). */
+  zelfstandig: boolean;
+  /** Betaalt zelf gas, licht en water (alleen zonder woonkosten). */
+  woonlasten: boolean;
   kaleHuur: string;
   /** Vanaf 2027: welke vrijlating de gebruiker op 31 december 2026 al had. */
   overgang: "" | "n" | "r";
   werktNu: boolean;
+  medisch: boolean;
   nuPer: LoonPer;
   nuLoon: string;
   nuUren: string;
@@ -44,10 +60,13 @@ export const leegFormulier: Formulier = {
   kinderen: [],
   kostendelers: "0",
   huisgenotenInkomen: "",
-  huurt: true,
+  woont: "huur",
+  zelfstandig: true,
+  woonlasten: false,
   kaleHuur: "",
   overgang: "",
   werktNu: false,
+  medisch: false,
   nuPer: "maand",
   nuLoon: "",
   nuUren: "",
@@ -98,16 +117,17 @@ export function controleer(f: Formulier, stap: number): Fouten {
       moet(`kind${i}`, k.leeftijd, 0, 26, "Vul een leeftijd in van 0 tot en met 26 jaar. Een kind van 27 jaar of ouder telt u hieronder mee als huisgenoot.");
       if (k.opvang) {
         moet(`kind${i}uren`, k.uren, 1, 300, "Vul het aantal uren per maand in.");
-        moet(`kind${i}prijs`, k.uurprijs, 1, 30, "Vul de prijs per uur in.");
+        moet(`kind${i}prijs`, k.uurprijs, 1, 30, "Vul een prijs per uur in, bijvoorbeeld 11,50. Weet u het niet? Laat het vak dan leeg.", false);
       }
     });
     moet("kostendelers", f.kostendelers, 0, 10, "Vul een aantal van 0 tot 10 in.");
   }
-  if (stap === 2 && f.huurt && (getal(f.kostendelers) ?? 0) > 0) {
+  if (stap === 2 && f.woont === "instelling") fouten.woont = "Voor mensen die in een instelling wonen kan deze rekenhulp nog niet rekenen.";
+  if (stap === 2 && f.woont === "huur" && (getal(f.kostendelers) ?? 0) > 0) {
     moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
   }
-  if (stap === 2 && f.huurt) {
-    moet("kaleHuur", f.kaleHuur, 1, 3000, "Vul de kale huur per maand in. Weet u die niet? Kies dan 'Nee, of ik weet het niet'.");
+  if (stap === 2 && f.woont === "huur") {
+    moet("kaleHuur", f.kaleHuur, 1, 3000, "Vul de kale huur per maand in. Die staat in uw huurcontract of op het overzicht van de verhuurder.");
   }
   if (stap === 3) {
     const loonGrens = (per: LoonPer): [number, number, string] =>
@@ -124,10 +144,17 @@ export function controleer(f: Formulier, stap: number): Fouten {
 }
 
 export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["vrijlatingFase"]; datum: string }): Invoer {
-  const kinderen: Kind[] = f.kinderen.map((k) => ({
-    leeftijd: getal(k.leeftijd) ?? 0,
-    opvang: k.opvang ? { soort: k.soort, urenPerMaand: getal(k.uren) ?? 0, uurprijs: getal(k.uurprijs) ?? 0 } : undefined,
-  }));
+  const l = new Lezer(standaardRegels, opties.datum);
+  const kinderen: Kind[] = f.kinderen.map((k) => {
+    const prijs = getal(k.uurprijs);
+    const geschat = prijs === undefined;
+    return {
+      leeftijd: getal(k.leeftijd) ?? 0,
+      opvang: k.opvang
+        ? { soort: k.soort, urenPerMaand: getal(k.uren) ?? 0, uurprijs: geschat ? maxUurprijs(l, k.soort) : prijs, uurprijsGeschat: geschat || undefined }
+        : undefined,
+    };
+  });
   const paar = f.leefvorm === "paar";
   return {
     datum: opties.datum,
@@ -140,9 +167,12 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     kinderen,
     kostendelers: getal(f.kostendelers) ?? 0,
     huisgenotenInkomenJaar: (getal(f.kostendelers) ?? 0) > 0 ? getal(f.huisgenotenInkomen) : undefined,
-    wonen: f.huurt
-      ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur) }
-      : { soort: "anders" },
+    wonen:
+      f.woont === "huur"
+        ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), zelfstandig: f.zelfstandig }
+        : f.woont === "inwonend" || f.woont === "dakloos"
+          ? { soort: "geen_woonkosten", dakloos: f.woont === "dakloos", betaaltWoonlasten: f.woonlasten }
+          : { soort: "anders" },
     huidigWerk: f.werktNu ? loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0) : undefined,
     nieuwWerk: {
       ...loonWerk(f.per, getal(f.loon) ?? 0, getal(f.uren) ?? 0, opties.uren),
@@ -154,6 +184,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     // De vrijlating hoort bij de persoon, niet bij een baan: wie al werkt, zit nu in dezelfde periode.
     huidigeVrijlating: f.werktNu ? opties.fase : "geen",
     overgang2027: f.werktNu && f.overgang ? f.overgang : undefined,
+    medischUrenbeperkt: f.medisch || undefined,
   };
 }
 

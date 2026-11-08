@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Lezer, standaardRegels } from "@leidenwerkt/engine";
-import { alleenCijfers, controleer, leegFormulier, nieuwKind, vandaag, type Fouten, type Formulier } from "./formulier.ts";
+import { Lezer, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
+import { alleenCijfers, controleer, leegFormulier, maxUurprijs, nieuwKind, vandaag, type Fouten, type Formulier } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -28,7 +28,7 @@ export function App() {
     <div className="pagina">
       <header className="kopregel">
         <p className="merk">Leidenwerkt</p>
-        <p className="kopregel-tekst">Gratis rekenhulp voor inwoners van Leiden met bijstand</p>
+        <p className="kopregel-tekst">Gratis rekenhulp voor Leidenaren met bijstand</p>
       </header>
 
       <main>
@@ -41,6 +41,7 @@ export function App() {
                 <li key={naam} aria-current={i + 1 === stap ? "step" : undefined} className={i + 1 < stap ? "klaar" : undefined}>
                   <span className="nummer">{i + 1}</span>
                   <span className="naam">{naam}</span>
+                  {i + 1 < stap && <span className="sr"> (klaar)</span>}
                 </li>
               ))}
             </ol>
@@ -112,6 +113,12 @@ function Start({ onStart }: { onStart: () => void }) {
   );
 }
 
+/** Hoogste uurprijs voor de toeslag, als tekst ("11,23"), of leeg als die voor vandaag niet bekend is. */
+const maxPrijsTekst = (soort: Opvangsoort) => {
+  const p = maxUurprijs(new Lezer(standaardRegels, vandaag()), soort);
+  return p > 0 ? p.toFixed(2).replace(".", ",") : "";
+};
+
 /** De overgangsvraag heeft pas zin als de bijstandsnormen voor vandaag bekend zijn. */
 const normenBekend = () => new Lezer(standaardRegels, vandaag()).bestaat("pw.norm.alleenstaande");
 
@@ -149,10 +156,13 @@ function Veld(props: {
         </p>
       )}
       <div className="invoer">
-        <span className="voorvoegsel" aria-hidden="true">
-          {props.voorvoegsel ?? ""}
-        </span>
-        <input
+        <span className={`vak${props.voorvoegsel ? " met-voorvoegsel" : ""}`}>
+          {props.voorvoegsel && (
+            <span className="voorvoegsel" aria-hidden="true">
+              {props.voorvoegsel}
+            </span>
+          )}
+          <input
           id={props.id}
           type="text"
           inputMode={soort === "geheel" ? "numeric" : "decimal"}
@@ -163,7 +173,8 @@ function Veld(props: {
           aria-invalid={props.fout ? true : undefined}
           aria-describedby={[hintId, foutId].filter(Boolean).join(" ") || undefined}
           onChange={(e) => props.onChange(alleenCijfers(e.target.value, soort))}
-        />
+          />
+        </span>
         {props.achtervoegsel && <span>{props.achtervoegsel}</span>}
       </div>
     </div>
@@ -191,7 +202,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
     <section>
       <Keuze
         naam="leefvorm"
-        legend="Hoe woont u?"
+        legend="Met wie woont u?"
         waarde={f.leefvorm}
         onChange={(v) => {
           zet("leefvorm", v);
@@ -201,7 +212,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         opties={[
           ["alleenstaande", "Alleen, zonder kinderen"],
           ["alleenstaande_ouder", "Alleen, met kinderen"],
-          ["paar", "Met een partner (getrouwd of samenwonend)"],
+          ["paar", "Met een partner (getrouwd of samenwonend), met of zonder kinderen"],
         ]}
       />
       <Veld id="leeftijd" label="Uw leeftijd" soort="geheel" voorbeeld="bijv. 35" waarde={f.leeftijd} onChange={(v) => zet("leeftijd", v)} fout={fouten.leeftijd} achtervoegsel="jaar" />
@@ -281,9 +292,13 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                   <Veld id={`kind${i}uren`} label="Uren opvang per maand" voorbeeld="bijv. 60" waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
                   <Veld
                     id={`kind${i}prijs`}
-                    voorbeeld="bijv. 11,00"
+                    voorbeeld={`bijv. ${maxPrijsTekst(k.soort) || "11,00"}`}
                     label="Prijs per uur"
-                    hint="Vraag dit na bij de opvang. Weet u het niet, vul dan 11 in."
+                    hint={
+                      maxPrijsTekst(k.soort)
+                        ? `Vraag dit na bij de opvang. Weet u het niet? Laat het vak dan leeg. Dan rekent de app met € ${maxPrijsTekst(k.soort)} per uur: het hoogste uurtarief waarover u toeslag krijgt.`
+                        : "Vraag dit na bij de opvang. Weet u het niet? Laat het vak dan leeg."
+                    }
                     waarde={k.uurprijs}
                     onChange={(v) => zetKind(i, { uurprijs: v })}
                     fout={fouten[`kind${i}prijs`]}
@@ -320,16 +335,28 @@ function StapWoning({ f, zet, fouten }: StapProps) {
   return (
     <section>
       <Keuze
-        naam="huurt"
-        legend="Huurt u uw woning?"
-        waarde={f.huurt ? "ja" : "nee"}
-        onChange={(v) => zet("huurt", v === "ja")}
+        naam="woont"
+        legend="Waar woont u?"
+        waarde={f.woont}
+        onChange={(v) => zet("woont", v)}
         opties={[
-          ["ja", "Ja, ik huur"],
-          ["nee", "Nee, of ik weet het niet"],
+          ["huur", "In een huurwoning of op een kamer"],
+          ["koop", "In een koopwoning"],
+          ["inwonend", "Bij iemand anders in huis, en ik betaal niets voor mijn woonruimte"],
+          ["dakloos", "Ik heb geen vaste woonplek"],
+          ["instelling", "In een instelling, zoals een zorginstelling of beschermd wonen"],
         ]}
       />
-      {f.huurt && (
+      {f.woont === "instelling" && (
+        <div className="melding waarschuwing" role="status" id="woont-fout">
+          <p>
+            Woont u in een instelling? Dan krijgt u een ander bedrag aan bijstand, omdat de instelling een deel van uw kosten betaalt. Deze
+            rekenhulp kan dat nog niet berekenen. Vraag uw klantmanager wat werken voor u betekent.
+          </p>
+          <p>Slaapt u in een daklozenopvang zonder begeleiding? Kies dan "Ik heb geen vaste woonplek".</p>
+        </div>
+      )}
+      {f.woont === "huur" && (
         <>
           <Veld
             id="kaleHuur"
@@ -340,6 +367,16 @@ function StapWoning({ f, zet, fouten }: StapProps) {
             onChange={(v) => zet("kaleHuur", v)}
             fout={fouten.kaleHuur}
             voorvoegsel="€"
+          />
+          <Keuze
+            naam="zelfstandig"
+            legend="Heeft uw woning een eigen voordeur, keuken, wc en douche of bad?"
+            waarde={f.zelfstandig ? "ja" : "nee"}
+            onChange={(v) => zet("zelfstandig", v === "ja")}
+            opties={[
+              ["ja", "Ja, die zijn alleen voor mijn huishouden"],
+              ["nee", "Nee, ik deel er een of meer met anderen (bijvoorbeeld op een kamer)"],
+            ]}
           />
           {(Number(f.kostendelers) || 0) > 0 && (
             <Veld
@@ -354,6 +391,18 @@ function StapWoning({ f, zet, fouten }: StapProps) {
             />
           )}
         </>
+      )}
+      {(f.woont === "inwonend" || f.woont === "dakloos") && (
+        <Keuze
+          naam="woonlasten"
+          legend="Betaalt u zelf voor gas, licht of water?"
+          waarde={f.woonlasten ? "ja" : "nee"}
+          onChange={(v) => zet("woonlasten", v === "ja")}
+          opties={[
+            ["nee", "Nee"],
+            ["ja", "Ja"],
+          ]}
+        />
       )}
     </section>
   );
@@ -445,6 +494,17 @@ function StapWerk({ f, zet, fouten }: StapProps) {
           />
         </fieldset>
       )}
+
+      <Keuze
+        naam="medisch"
+        legend="Heeft de gemeente vastgesteld dat u door uw gezondheid minder uren kunt werken?"
+        waarde={f.medisch ? "ja" : "nee"}
+        onChange={(v) => zet("medisch", v === "ja")}
+        opties={[
+          ["nee", "Nee, of ik weet het niet"],
+          ["ja", "Ja, ik heb een medische urenbeperking"],
+        ]}
+      />
 
       {f.werktNu && vandaag() >= "2027-01-01" && vandaag() < "2028-01-01" && normenBekend() && (
         <Keuze

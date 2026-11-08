@@ -11,7 +11,7 @@ parameters:
       titel: Beleidsregels Kindtegoed en armoederegelingen Sleutelpas gemeente Leiden 2026 (CVDR747564)
       url: https://lokaleregelgeving.overheid.nl/CVDR747564
       geraadpleegd_op: 2026-11-08
-    notitie: De app rekent de grens uit als 130% van de toepasselijke bijstandsnorm. Dat WSM (wettelijk sociaal minimum) hier de bijstandsnorm is, heeft de beheerder op 8 november 2026 bevestigd.
+    notitie: De app rekent de grens uit als 130% van de bijstandsnorm die voor het huishouden geldt; dat is in Leiden het wettelijk sociaal minimum (WSM) voor mensen met bijstand.
   - id: leiden.kindtegoed.0_3
     omschrijving: Kindtegoed per kind per jaar, 0 tot en met 3 jaar (art. 2.2)
     eenheid: euro_per_jaar
@@ -84,3 +84,20 @@ parameters:
       titel: Beleidsregels Kindtegoed en armoederegelingen Sleutelpas gemeente Leiden 2026 (CVDR747564)
       url: https://lokaleregelgeving.overheid.nl/CVDR747564
       geraadpleegd_op: 2026-11-08
+  - id: leiden.woonkosten.korting_geen_woonkosten
+    omschrijving: Verlaging van de bijstandsnorm als u zelf geen woonkosten betaalt, bijvoorbeeld zonder vaste woonplek of als iemand anders de huur betaalt (art. 3.1 lid 2 a, deel van de gehuwdennorm)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.10" }
+    status: geverifieerd
+    bron: &woonkosten
+      titel: Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026 (CVDR760406), art. 3.1
+      url: https://lokaleregelgeving.overheid.nl/CVDR760406
+      geraadpleegd_op: 2026-11-08
+    notitie: Geldt sinds 14 april 2026. Bij woonkosten onder 10% van de gehuwdennorm is de verlaging het verschil (lid 2 b). Alleen bij de norm van art. 21 Pw, dus niet bij de kostendelersnorm.
+  - id: leiden.woonkosten.korting_geen_woonlasten
+    omschrijving: Extra verlaging van de bijstandsnorm als u zelf geen woonlasten (gas, elektriciteit, water) betaalt (art. 3.1 lid 2 c en d, deel van de gehuwdennorm)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.09" }
+    status: geverifieerd
+    bron: *woonkosten
+    notitie: Geldt sinds 14 april 2026. Samen met geen woonkosten is de verlaging 19% (lid 2 d).

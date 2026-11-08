@@ -8,7 +8,7 @@
 import { D, NUL, centen, euro, type Bedrag } from "./geld.ts";
 import { Lezer, OntbrekendeParameter, standaardRegels, type RegelSet } from "./regels.ts";
 import { nettoLoon, brutoUitNetto, brutoMaandUitNetto, stuksgewijs, type LoonUitkomst } from "./modules/belasting.ts";
-import { bijstandsnorm, aanvulling } from "./modules/bijstand.ts";
+import { bijstandsnorm, aanvulling, woonkorting } from "./modules/bijstand.ts";
 import { vrijlating } from "./modules/vrijlating.ts";
 import { zorgtoeslag, kindgebondenBudget, huurtoeslag, kinderopvangtoeslag, maandbedragToeslag } from "./modules/toeslagen.ts";
 import { regimeOp } from "./regimes.ts";
@@ -207,12 +207,20 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     maakPost(regels, datum, "bijstand", "Bijstand", "inkomen", ({ l, stap, aanname }) => {
       const eigen = brutoJaarloon(werk).isZero() ? NUL : nodig(kern.nettoMaand, "het netto loon");
       const partner = brutoJaarloon(partnerWerk).isZero() ? NUL : nodig(kern.nettoPartnerMaand, "het netto loon van de partner");
-      const { norm, uitleg } = bijstandsnorm(l, invoer);
+      const basisnorm = bijstandsnorm(l, invoer);
+      const korting = woonkorting(l, invoer);
+      const norm = basisnorm.norm.minus(korting.bedrag);
+      const uitleg = basisnorm.uitleg;
       const inkomen = eigen.plus(partner);
+      if (!korting.bedrag.isZero()) {
+        stap(uitleg, basisnorm.norm);
+        stap(korting.tekst, korting.bedrag.neg());
+        aanname(korting.aanname);
+      }
       if (inkomen.isZero()) {
-        stap(`${uitleg}. Zonder inkomen krijgt u de hele norm`, norm);
+        stap(korting.bedrag.isZero() ? `${uitleg}. Zonder inkomen krijgt u de hele norm` : "Uw norm. Zonder inkomen krijgt u de hele norm", norm);
       } else {
-        stap(uitleg, norm);
+        stap(korting.bedrag.isZero() ? uitleg : "Uw norm", norm);
         if (!eigen.isZero()) stap("Uw netto loon", eigen);
         if (!partner.isZero()) stap("Netto loon van uw partner", partner);
       }
@@ -270,7 +278,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
   );
 
   // 4. Huurtoeslag
-  if (invoer.wonen.soort === "huur" && invoer.wonen.kaleHuurPerMaand) {
+  if (invoer.wonen.soort === "huur" && invoer.wonen.kaleHuurPerMaand && invoer.wonen.zelfstandig !== false) {
     const wonen = invoer.wonen;
     posten.push(
       maakPost(regels, datum, "huurtoeslag", "Huurtoeslag", "toeslag", ({ l, stap, aanname }) => {
@@ -298,7 +306,8 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         const maand = maandbedragToeslag(h.perMaand);
         stap(`Huurtoeslag per maand. ${AFGEROND}`, maand);
         if (wonen.servicekostenPerMaand) aanname("Servicekosten tellen sinds 2026 niet meer mee voor de huurtoeslag.");
-        aanname("Er is aangenomen dat het vermogen onder de vermogensgrens blijft en dat u een zelfstandige woning huurt.");
+        aanname("Er is aangenomen dat het vermogen onder de vermogensgrens blijft.");
+        aanname("U huurt een zelfstandige woning: met een eigen voordeur die op slot kan, een eigen keuken, wc en douche of bad. Alleen dan krijgt u meestal huurtoeslag.");
         return maand;
       }),
     );
@@ -349,6 +358,9 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         const maand = maandbedragToeslag(r.toeslagPerMaand);
         stap(`Kinderopvangtoeslag per maand. ${AFGEROND}`, maand);
         aanname("Er is aangenomen dat het aantal opvanguren past bij het aantal gewerkte uren.");
+        if (opvangKinderen.some((k) => k.opvang!.uurprijsGeschat)) {
+          aanname("U wist de prijs per uur van de opvang niet. Er is gerekend met het hoogste uurtarief waarover u toeslag krijgt. Is de opvang duurder, dan betaalt u het verschil zelf.");
+        }
         return maand;
       }),
     );
@@ -446,7 +458,10 @@ export function bereken(oorspronkelijk: Invoer, regels: RegelSet = standaardRege
     signalen: signalen(invoer, regels, huidig, werk, risico),
     aannames: [
       "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
-      "Zorgpremie, eigen risico en andere vaste lasten zijn in beide situaties gelijk en daarom weggelaten.",
+      "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+      ...(invoer.wonen.soort === "huur" && invoer.wonen.zelfstandig === false
+        ? ["U huurt een woning zonder eigen voordeur, keuken, wc of douche, bijvoorbeeld een kamer. Daarvoor krijgt u meestal geen huurtoeslag, dus die is niet meegerekend. Voor sommige kamers kan het wel; dat ziet u met de proefberekening van Dienst Toeslagen."]
+        : []),
     ],
   };
 }
@@ -583,6 +598,15 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       });
     });
   }
+  // Leiden: bijzondere bijstand voor de eigen bijdrage kinderopvang (Beleidsregels bijzondere bijstand 2022, CVDR677687).
+  const opvang = bedragVan(werk, "opvangkosten");
+  const kot = bedragVan(werk, "kot") ?? NUL;
+  if (invoer.gemeente === "leiden" && opvang && opvang.neg().minus(kot).gt("0.5")) {
+    uit.push({
+      soort: "info",
+      tekst: `Na de kinderopvangtoeslag betaalt u zelf nog ongeveer ${euro(opvang.neg().minus(kot), true)} per maand voor de opvang. Houden die kosten u tegen om te gaan werken? Dan kunt u bij de gemeente Leiden bijzondere bijstand vragen voor dit deel. De gemeente kijkt daarbij naar uw inkomen. Krijgt u het, dan houdt u meer over dan hier staat.`,
+    });
+  }
   if (invoer.nieuwWerk.brutoVierwekenloon !== undefined) {
     uit.push({
       soort: "waarschuwing",
@@ -618,4 +642,23 @@ export class InvoerFout extends Error {
   constructor(readonly fouten: string[]) {
     super(fouten.join("; "));
   }
+}
+
+/**
+ * Verschil in de eerste 12 maanden na de start van het werk: de maanden van de
+ * eerste vrijlatingsperiode ("start") plus de maanden daarna ("later").
+ */
+export function verschilEersteJaar(invoer: Invoer, regels: RegelSet = standaardRegels): { bedrag: string; startMaanden: number } {
+  const l = new Lezer(regels, invoer.datum);
+  let duur = 6;
+  try {
+    duur = l.aantal(regimeOp(invoer.datum).id === "pw34a" ? "pw.bijverdien.duur" : "pw.vrijlating_n.duur").toNumber();
+  } catch (e) {
+    if (!(e instanceof OntbrekendeParameter)) throw e;
+  }
+  const start = Math.min(12, duur);
+  const metFase = (fase: Fase) =>
+    D(bereken({ ...invoer, vrijlatingFase: fase, huidigeVrijlating: invoer.huidigWerk ? fase : invoer.huidigeVrijlating }, regels).verschilPerMaand);
+  const totaal = metFase("start").times(start).plus(start < 12 ? metFase("later").times(12 - start) : NUL);
+  return { bedrag: centen(totaal), startMaanden: start };
 }

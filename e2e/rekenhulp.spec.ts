@@ -25,7 +25,7 @@ test("alleenstaande doorloopt de stappen en krijgt een antwoord", async ({ page 
 
   // Stap 2
   await expect(page.getByRole("heading", { name: "Uw woning" })).toBeVisible();
-  await page.getByLabel("Nee, of ik weet het niet").check();
+  await page.getByLabel("In een koopwoning").check();
   await page.getByRole("button", { name: "Volgende stap" }).click();
 
   // Stap 3
@@ -64,7 +64,7 @@ test.describe("donkere modus", () => {
     // Huurt u, dan is de kale huur verplicht.
     await page.getByRole("button", { name: "Volgende stap" }).click();
     await expect(page.getByText("Vul dit in.")).toBeVisible();
-    await page.getByLabel("Nee, of ik weet het niet").check();
+    await page.getByLabel("In een koopwoning").check();
     await page.getByRole("button", { name: "Volgende stap" }).click();
     await page.getByLabel("Netto loon per maand (wat op mijn rekening komt)").check();
     await page.getByRole("textbox", { name: "Netto loon per maand" }).fill("1.100");
@@ -119,5 +119,31 @@ test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, hui
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
   await expect(page.getByRole("table").getByRole("row", { name: /Huurtoeslag/ })).not.toContainText("niet berekend");
   await expect(page.locator(".signalen")).not.toContainText("De vrijlating is tijdelijk");
+  await geenToegankelijkheidsfouten(page);
+});
+
+test("zonder vaste woonplek, met medische urenbeperking: lagere norm, vrijlating onder y, jaarbedrag, urengrens en wettekst", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByLabel("Uw leeftijd").fill("45");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel("In een instelling, zoals een zorginstelling of beschermd wonen").check();
+  await expect(page.getByText("Deze rekenhulp kan dat nog niet berekenen")).toBeVisible();
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await expect(page.getByRole("heading", { name: "Uw woning" })).toBeVisible();
+  await page.getByLabel("Ik heb geen vaste woonplek").check();
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel("Ja, ik heb een medische urenbeperking").check();
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.000");
+  await page.getByRole("textbox", { name: "Uren per week" }).fill("16");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  await expect(page.locator(".antwoord")).toContainText("In de eerste 12 maanden");
+  await expect(page.locator("#urengrens")).toContainText("uur per week heeft u met dit uurloon geen bijstand meer nodig");
+  await page.getByLabel("Vanaf maand 7").check();
+  await expect(page.locator(".toelichting")).toContainText("Met een medische urenbeperking mag u 15%");
+  const bron = page.locator(".toelichting .bron").filter({ hasText: "onder y" });
+  await bron.getByRole("button", { name: "Wettekst tonen" }).click();
+  await expect(bron.getByRole("tooltip")).toContainText("medisch urenbeperkt");
+  await page.getByText("Bijstand", { exact: true }).first().click();
   await geenToegankelijkheidsfouten(page);
 });
