@@ -560,8 +560,19 @@ function LoonVelden({
 }) {
   const loonId = prefix === "nu" ? "nuLoon" : "loon";
   const urenId = prefix === "nu" ? "nuUren" : "uren";
+  const voor = per === "uur" ? "" : " voor deze uren";
   return (
     <>
+      <Veld
+        id={urenId}
+        label={prefix === "nu" ? "Hoeveel uur per week werkt u nu?" : "Hoeveel uur per week werkt u?"}
+        voorbeeld="bijv. 24"
+        hint="Hiermee rekent de app uit wat u per uur verdient. Zo ziet u bij de uitkomst wat meer of minder uren oplevert."
+        waarde={uren}
+        onChange={zetUren}
+        fout={fouten[urenId]}
+        achtervoegsel="uur"
+      />
       <Keuze
         naam={`${prefix}per`}
         legend="Welk loon weet u?"
@@ -578,7 +589,7 @@ function LoonVelden({
         id={loonId}
         voorbeeld={per === "uur" ? "bijv. 15,00" : per === "vierweken" ? "bijv. 1.650" : per === "netto" ? "bijv. 1.300" : "bijv. 1.800"}
         label={
-          per === "uur" ? "Bruto loon per uur" : per === "vierweken" ? "Bruto loon per 4 weken" : per === "netto" ? "Netto loon per maand" : "Bruto loon per maand"
+          (per === "uur" ? "Bruto loon per uur" : per === "vierweken" ? "Bruto loon per 4 weken" : per === "netto" ? "Netto loon per maand" : "Bruto loon per maand") + voor
         }
         hint={
           per === "uur"
@@ -592,7 +603,6 @@ function LoonVelden({
         fout={fouten[loonId]}
         voorvoegsel="€"
       />
-      <Veld id={urenId} label="Uren per week" voorbeeld="bijv. 24" waarde={uren} onChange={zetUren} fout={fouten[urenId]} achtervoegsel="uur" />
     </>
   );
 }
