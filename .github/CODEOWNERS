@@ -1,0 +1,7 @@
+# Wijzigingen in regeldata, rekenengine, proefpersonen en CI vragen review van de beheerder.
+# Werkt alleen samen met branch protection ("Require review from Code Owners"); zie docs/ONDERHOUD.md.
+/regels/            @ISVISVISV
+/packages/engine/   @ISVISVISV
+/testgevallen/      @ISVISVISV
+/scripts/           @ISVISVISV
+/.github/           @ISVISVISV
