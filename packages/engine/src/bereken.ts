@@ -5,7 +5,7 @@
  * Elke post zegt of hij het verschil beïnvloedt en welke kant hij op gaat,
  * zodat de app kan melden hoe betrouwbaar het kopgetal is.
  */
-import { D, NUL, centen, euro, type Bedrag } from "./geld.ts";
+import { D, NUL, centen, euro, max, type Bedrag } from "./geld.ts";
 import { Lezer, OntbrekendeParameter, standaardRegels, type RegelSet } from "./regels.ts";
 import { nettoLoon, brutoUitNetto, brutoMaandUitNetto, stuksgewijs, type LoonUitkomst } from "./modules/belasting.ts";
 import { bijstandsnorm, aanvulling, woonkorting } from "./modules/bijstand.ts";
@@ -42,6 +42,7 @@ export const INVLOED: Record<string, { invloed: Invloed; richting?: Richting }> 
   kinderbijslag: { invloed: "nee" },
   kot: { invloed: "ja", richting: "stijgt" },
   opvangkosten: { invloed: "ja", richting: "daalt" },
+  bb_opvang: { invloed: "ja", richting: "wisselt" },
   iack: { invloed: "ja", richting: "stijgt" },
   reisvergoeding: { invloed: "ja", richting: "stijgt" },
   werkkosten: { invloed: "ja", richting: "daalt" },
@@ -347,6 +348,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
   const iedereenWerkt = !brutoJaarloon(werk).isZero() && (!paar || !brutoJaarloon(partnerWerk).isZero());
   if (naam === "werk" && opvangKinderen.length > 0 && iedereenWerkt) {
     let kostenPerMaand: Bedrag | undefined;
+    let kotPerMaand: Bedrag | undefined;
     posten.push(
       maakPost(regels, datum, "kot", "Kinderopvangtoeslag", "toeslag", ({ l, stap, aanname }) => {
         const ti = toetsingsinkomen(l, stap, aanname);
@@ -356,6 +358,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         );
         kostenPerMaand = r.kostenPerMaand;
         const maand = maandbedragToeslag(r.toeslagPerMaand);
+        kotPerMaand = maand;
         stap(`Kinderopvangtoeslag per maand. ${AFGEROND}`, maand);
         aanname("Er is aangenomen dat het aantal opvanguren past bij het aantal gewerkte uren.");
         if (opvangKinderen.some((k) => k.opvang!.uurprijsGeschat)) {
@@ -371,6 +374,53 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         return kostenPerMaand ? kostenPerMaand.neg() : kosten.neg();
       }),
     );
+    if (invoer.gemeente === "leiden") {
+      posten.push(
+        maakPost(regels, datum, "bb_opvang", "Vergoeding eigen bijdrage kinderopvang (gemeente)", "inkomen", ({ l, stap, aanname }) => {
+          const kosten = nodig(kostenPerMaand, "de kosten van de opvang");
+          const eigen = max(NUL, kosten.minus(nodig(kotPerMaand, "de kinderopvangtoeslag")));
+          stap("Eigen bijdrage: kosten van de opvang min kinderopvangtoeslag", eigen);
+          if (eigen.isZero()) return null;
+          const vt = l.breuk("pw.vakantietoeslag");
+          const vg = D(werk?.vakantiegeld ?? 0.08);
+          // Bijstandsnorm volgens art. 1 onder d: zonder kostendelersnorm, met een verlaging op grond van art. 27,
+          // en voor een alleenstaande ouder 90% van de gezinsnorm.
+          const zonderKostendelers: Invoer = { ...invoer, kostendelers: 0 };
+          const basis =
+            invoer.leefvorm === "alleenstaande_ouder"
+              ? l.bedrag("pw.norm.gehuwden").times(l.breuk("leiden.bb.rekennorm_alleenstaande_ouder"))
+              : bijstandsnorm(l, zonderKostendelers).norm;
+          const norm = basis.minus(woonkorting(l, zonderKostendelers).bedrag).times(D(1).minus(vt));
+          stap("Bijstandsnorm voor de bijzondere bijstand, zonder vakantietoeslag", norm);
+          const inkomen = (kern.nettoMaand ?? NUL)
+            .div(vg.plus(1))
+            .plus((kern.nettoPartnerMaand ?? NUL).div(D(partnerWerk?.vakantiegeld ?? 0.08).plus(1)))
+            .plus(nodig(kern.bijstandMaand, "de bijstand").times(D(1).minus(vt)));
+          stap(`Netto inkomen van ${paar ? "uw huishouden" : "u"} per maand (loon en bijstand), zonder vakantiegeld`, inkomen);
+          const g0 = norm.times(l.breuk("leiden.bb.draagkracht.vrij_tot"));
+          const g1 = norm.times(l.breuk("leiden.bb.draagkracht.grens1"));
+          const g2 = norm.times(l.breuk("leiden.bb.draagkracht.grens2"));
+          const deel = (van: Bedrag, tot: Bedrag | null) => max(NUL, (tot && inkomen.gt(tot) ? tot : inkomen).minus(van));
+          const draagkracht = deel(g0, g1)
+            .times(l.breuk("leiden.bb.draagkracht.pct1"))
+            .plus(deel(g1, g2).times(l.breuk("leiden.bb.draagkracht.pct2")))
+            .plus(deel(g2, null).times(l.breuk("leiden.bb.draagkracht.pct3")));
+          stap(
+            draagkracht.isZero()
+              ? `Uw inkomen is niet hoger dan ${euro(g0)} (110% van de norm). U hoeft zelf niets bij te dragen`
+              : "Wat u zelf moet bijdragen (draagkracht): een deel van uw inkomen boven 110% van de norm",
+            draagkracht,
+          );
+          const vergoeding = max(NUL, eigen.minus(draagkracht));
+          stap("Vergoeding: eigen bijdrage min wat u zelf moet bijdragen", vergoeding);
+          aanname(
+            "De gemeente Leiden kan de eigen bijdrage voor kinderopvang vergoeden als die kosten u tegenhouden om te werken. U moet dit zelf aanvragen bij de gemeente, het liefst voordat u begint. Er is aangenomen dat u het krijgt.",
+          );
+          aanname("Voor de vergoeding kijkt de gemeente naar uw inkomen zonder vakantiegeld. Dat is hier benaderd door het gemiddelde netto loon te delen door 1,08.");
+          return vergoeding;
+        }),
+      );
+    }
   }
 
   // 7. Combinatiekorting (alleenstaande ouder met kind onder 12, via aangifte)
@@ -601,10 +651,16 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   // Leiden: bijzondere bijstand voor de eigen bijdrage kinderopvang (Beleidsregels bijzondere bijstand 2022, CVDR677687).
   const opvang = bedragVan(werk, "opvangkosten");
   const kot = bedragVan(werk, "kot") ?? NUL;
+  const vergoeding = bedragVan(werk, "bb_opvang");
   if (invoer.gemeente === "leiden" && opvang && opvang.neg().minus(kot).gt("0.5")) {
+    const eigen = opvang.neg().minus(kot);
+    const rest = vergoeding ? eigen.minus(vergoeding) : eigen;
     uit.push({
-      soort: "info",
-      tekst: `Na de kinderopvangtoeslag betaalt u zelf nog ongeveer ${euro(opvang.neg().minus(kot), true)} per maand voor de opvang. Houden die kosten u tegen om te gaan werken? Dan kunt u bij de gemeente Leiden bijzondere bijstand vragen voor dit deel. De gemeente kijkt daarbij naar uw inkomen. Krijgt u het, dan houdt u meer over dan hier staat.`,
+      soort: "waarschuwing",
+      tekst:
+        vergoeding && vergoeding.gt(0)
+          ? `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. De gemeente Leiden kan dat vergoeden met bijzondere bijstand; hier is ${euro(vergoeding, true)} per maand meegerekend${rest.gt("0.5") ? ` en betaalt u zelf ${euro(rest, true)}` : ""}. Die vergoeding krijgt u niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.`
+          : `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. Met dit inkomen vergoedt de gemeente Leiden daarvan waarschijnlijk niets: volgens de regels van de gemeente kunt u dit zelf betalen. Twijfelt u? Vraag het na bij de gemeente.`,
     });
   }
   if (invoer.nieuwWerk.brutoVierwekenloon !== undefined) {

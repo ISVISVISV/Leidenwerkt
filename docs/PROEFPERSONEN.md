@@ -21,10 +21,10 @@ Verzonnen mensen in verzonnen situaties. Per persoon staan de invoer, de uitkoms
 | [Rachid](#rachid-net-boven-norm) | 2026-09-01 | € 23,39 | 2 van 2 |
 | [Rachid](#rachid-net-onder-norm) | 2026-09-01 | € 0,00 | 2 van 2 |
 | [Rob](#rob) | 2026-09-01 | € 117,94 | 2 van 2 |
-| [Sanne](#sanne-24-uur) | 2026-09-01 | € 368,33 | 10 van 10 |
-| [Sanne](#sanne-maand-1-6) | 2026-09-01 | € 287,71 | 7 van 7 |
-| [Sanne](#sanne-maand-7-36) | 2026-09-01 | € 147,33 | 7 van 7 |
-| [Sanne](#sanne-vanaf-maand-37) | 2026-09-01 | € -1,29 | 7 van 7 |
+| [Sanne](#sanne-24-uur) | 2026-09-01 | € 400,13 | 10 van 10 |
+| [Sanne](#sanne-maand-1-6) | 2026-09-01 | € 313,11 | 7 van 7 |
+| [Sanne](#sanne-maand-7-36) | 2026-09-01 | € 172,73 | 7 van 7 |
+| [Sanne](#sanne-vanaf-maand-37) | 2026-09-01 | € 24,11 | 7 van 7 |
 | [Wim](#wim) | 2026-09-01 | € 238,91 | 2 van 2 |
 
 <a id="ayse"></a>
@@ -653,7 +653,7 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690, overweegt 24 u
 - Werk straks: bruto € 16,20 per uur, 24 uur per week
 - Vrijlatingsperiode: eerste periode
 
-**Uitkomst:** nu € 2.568,93, met werk € 2.937,26 per maand; verschil € 368,33.
+**Uitkomst:** nu € 2.568,93, met werk € 2.969,06 per maand; verschil € 400,13.
 
 | Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -701,7 +701,7 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690. Ze begint met 
 - Werk straks: bruto € 16,20 per uur, 16 uur per week
 - Vrijlatingsperiode: eerste periode
 
-**Uitkomst:** nu € 2.568,93, met werk € 2.856,64 per maand; verschil € 287,71.
+**Uitkomst:** nu € 2.568,93, met werk € 2.882,04 per maand; verschil € 313,11.
 
 | Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -748,7 +748,7 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690. Ze begint met 
 - Werk straks: bruto € 16,20 per uur, 16 uur per week
 - Vrijlatingsperiode: periode daarna
 
-**Uitkomst:** nu € 2.568,93, met werk € 2.716,26 per maand; verschil € 147,33.
+**Uitkomst:** nu € 2.568,93, met werk € 2.741,66 per maand; verschil € 172,73.
 
 | Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -795,7 +795,7 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690. Ze begint met 
 - Werk straks: bruto € 16,20 per uur, 16 uur per week
 - Vrijlatingsperiode: geen vrijlating
 
-**Uitkomst:** nu € 2.568,93, met werk € 2.567,64 per maand; verschil € -1,29.
+**Uitkomst:** nu € 2.568,93, met werk € 2.593,04 per maand; verschil € 24,11.
 
 | Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
 | --- | --- | ---: | ---: | ---: | --- |

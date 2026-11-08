@@ -260,6 +260,7 @@ exports[`proefpersonen > rob.yaml: Rob 1`] = `
 exports[`proefpersonen > sanne-24-uur.yaml: Sanne 1`] = `
 {
   "met_werk": {
+    "bb_opvang": "31.80",
     "bijstand": "0.00",
     "huurtoeslag": "422.00",
     "iack": "52.87",
@@ -277,13 +278,14 @@ exports[`proefpersonen > sanne-24-uur.yaml: Sanne 1`] = `
     "kinderbijslag": "99.47",
     "zorgtoeslag": "129.00",
   },
-  "verschil": "368.33",
+  "verschil": "400.13",
 }
 `;
 
 exports[`proefpersonen > sanne-maand-1-6.yaml: Sanne 1`] = `
 {
   "met_werk": {
+    "bb_opvang": "25.40",
     "bijstand": "519.52",
     "huurtoeslag": "422.00",
     "iack": "24.11",
@@ -301,13 +303,14 @@ exports[`proefpersonen > sanne-maand-1-6.yaml: Sanne 1`] = `
     "kinderbijslag": "99.47",
     "zorgtoeslag": "129.00",
   },
-  "verschil": "287.71",
+  "verschil": "313.11",
 }
 `;
 
 exports[`proefpersonen > sanne-maand-7-36.yaml: Sanne 1`] = `
 {
   "met_werk": {
+    "bb_opvang": "25.40",
     "bijstand": "379.14",
     "huurtoeslag": "422.00",
     "iack": "24.11",
@@ -325,13 +328,14 @@ exports[`proefpersonen > sanne-maand-7-36.yaml: Sanne 1`] = `
     "kinderbijslag": "99.47",
     "zorgtoeslag": "129.00",
   },
-  "verschil": "147.33",
+  "verschil": "172.73",
 }
 `;
 
 exports[`proefpersonen > sanne-vanaf-maand-37.yaml: Sanne 1`] = `
 {
   "met_werk": {
+    "bb_opvang": "25.40",
     "bijstand": "230.52",
     "huurtoeslag": "422.00",
     "iack": "24.11",
@@ -349,7 +353,7 @@ exports[`proefpersonen > sanne-vanaf-maand-37.yaml: Sanne 1`] = `
     "kinderbijslag": "99.47",
     "zorgtoeslag": "129.00",
   },
-  "verschil": "-1.29",
+  "verschil": "24.11",
 }
 `;
 

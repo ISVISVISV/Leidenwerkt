@@ -147,3 +147,26 @@ test("zonder vaste woonplek, met medische urenbeperking: lagere norm, vrijlating
   await page.getByText("Bijstand", { exact: true }).first().click();
   await geenToegankelijkheidsfouten(page);
 });
+
+test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByLabel("Met mijn partner en kinderen").check();
+  await page.getByLabel("Uw leeftijd").fill("33");
+  await page.getByLabel("Leeftijd van uw partner").fill("35");
+  await page.getByRole("group", { name: "Heeft uw partner betaald werk?" }).getByLabel("Ja").check();
+  await page.getByRole("textbox", { name: "Bruto maandloon van uw partner" }).fill("700");
+  await page.getByLabel("Leeftijd kind 1").fill("2");
+  await page.getByText("Dit kind gaat naar de kinderopvang").click();
+  await page.getByLabel("Uren opvang per maand").fill("70");
+  await page.getByLabel("Prijs per uur").fill("12,50");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel("In een koopwoning").check();
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.300");
+  await page.getByRole("textbox", { name: "Uren per week" }).fill("20");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  await expect(page.getByRole("table").getByRole("row", { name: /Vergoeding eigen bijdrage kinderopvang/ })).toBeVisible();
+  await expect(page.locator(".signalen")).toContainText("vraag haar aan bij de gemeente");
+  await geenToegankelijkheidsfouten(page);
+});

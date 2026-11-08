@@ -152,7 +152,15 @@ Inkomensonafhankelijk; telt niet mee voor de bijstand (art. 31 lid 2 b Pw) en be
 
 Toeslag per kind = uren (max. 230 per maand) × min(uurprijs, maximum) × percentage uit de tabel. Maxima 2026: dagopvang € 11,23, bso € 9,98, gastouder € 8,49. Eerste kind = kind met de meeste uren. Per jaar ten hoogste het aantal gewerkte maanden × 230 uur (bij twee ouders: de ouder die het minst werkt). Tabel en voorbeelden: [Dienst Toeslagen, Berekening kinderopvangtoeslag 2026](https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf).
 
-Weet de gebruiker de uurprijs niet, dan rekent de app met het maximum voor de soort opvang en zegt dat erbij. Blijft er na de toeslag een eigen bijdrage over, dan noemt de app dat de gemeente Leiden daarvoor bijzondere bijstand kan geven als de kosten een belemmering zijn voor werk (zie hoofdstuk 11). Dat bedrag rekent de app niet mee.
+Weet de gebruiker de uurprijs niet, dan rekent de app met het maximum voor de soort opvang en zegt dat erbij. **Vergoeding van de eigen bijdrage (Leiden).** Blijft er na de toeslag een eigen bijdrage over, dan rekent de app een vergoeding van de gemeente mee (bijzondere bijstand, [Beleidsregels bijzondere bijstand 2022](https://lokaleregelgeving.overheid.nl/CVDR677687), art. 7 onder f: "kan worden verleend" als de kosten een belemmering zijn voor werk). In de praktijk kent Leiden deze vergoeding aan werkende ouders toe; de app gaat ervan uit dat de aanvraag wordt toegekend en zegt dat erbij. Berekening per maand:
+
+1. Eigen bijdrage = kosten van de opvang − kinderopvangtoeslag.
+2. Norm (art. 1 onder d): de bijstandsnorm zonder kostendelersnorm, met een verlaging op grond van art. 27; voor een alleenstaande ouder 90% van de gezinsnorm. Zonder vakantietoeslag: × (1 − 5%) (art. 19 lid 3 Pw).
+3. Inkomen: netto loon (en dat van de partner) zonder vakantiegeld (benaderd als gemiddeld netto / 1,08) plus de bijstand zonder vakantietoeslag. Toeslagen tellen niet mee.
+4. Draagkracht (art. 6 lid 2): niets tot 110% van de norm; 20% van het inkomen tussen 110% en 130%; 50% tussen 130% en 150%; 100% daarboven.
+5. Vergoeding = eigen bijdrage − draagkracht, niet lager dan nul.
+
+De gemeente stelt de draagkracht vast voor een jaar vanaf de aanvraag (art. 6 lid 1); de app rekent met het maandinkomen in de gekozen situatie.
 
 ## 10. Overgangsmaanden en terugbetalen van toeslagen
 

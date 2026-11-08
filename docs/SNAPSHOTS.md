@@ -22,3 +22,17 @@ Geen wijziging in de snapshots 2026. De toets vooraf bij art. 34a en de huurtoes
 ## Lagere norm bij geen woonkosten, kamer zonder huurtoeslag, medische urenbeperking
 
 Geen wijziging in de snapshots 2026. De vastgelegde huishoudens huren een zelfstandige woning of hebben woonsituatie "anders", en hebben geen medische urenbeperking.
+
+## Vergoeding eigen bijdrage kinderopvang (Leiden)
+
+Nieuwe post `bb_opvang` met werk, voor huishoudens met kinderopvang (Beleidsregels bijzondere bijstand 2022, art. 1, 6 en 7 onder f):
+
+| Huishouden of proefpersoon | Vergoeding | Verschil |
+| --- | --- | --- |
+| Snapshot "alleenstaande ouder, kind 4 met opvang" | € 36,00 | € 299,48 → € 335,48 |
+| Sanne, 24 uur | € 31,80 | € 368,33 → € 400,13 |
+| Sanne, maand 1 t/m 6 | € 25,40 | € 287,71 → € 313,11 |
+| Sanne, maand 7 t/m 36 | € 25,40 | € 147,33 → € 172,73 |
+| Sanne, vanaf maand 37 | € 25,40 | € −1,29 → € 24,11 |
+
+Bij Sanne blijft het inkomen onder 110% van de rekennorm, dus de hele eigen bijdrage wordt vergoed.
