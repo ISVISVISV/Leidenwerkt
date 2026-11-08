@@ -90,7 +90,7 @@ function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg,
             {
               fase: "start",
               naam: "Zolang u bijstand krijgt",
-              regel: `Met een medische urenbeperking mag u ${pct(l.breuk("pw.bijverdien.medisch_percentage"))} van uw netto loon houden naast de bijstand. Er is geen maximumbedrag en geen einddatum. Vraag uw klantmanager of de gemeente uw urenbeperking heeft vastgesteld.`,
+              regel: `Met een medische urenbeperking mag u ${pct(l.breuk("pw.bijverdien.medisch_percentage"))} van uw netto loon houden naast de bijstand. Er is geen maximumbedrag en geen einddatum.`,
             },
           ],
           bron,
@@ -116,7 +116,7 @@ function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg,
     const bron = "Participatiewet art. 31 lid 2 onder n, r en y, en lid 5.";
     const minLeeftijd = l.aantal("pw.vrijlating.minimumleeftijd");
     const yRegel = () =>
-      `Met een medische urenbeperking mag u ${pct(l.breuk("pw.vrijlating_y.percentage"))} van uw netto loon houden, maximaal ${euro(l.bedrag("pw.vrijlating_y.maximum"))} per maand, zolang u bijstand krijgt. Vraag uw klantmanager of de gemeente uw urenbeperking heeft vastgesteld.`;
+      `Met een medische urenbeperking mag u ${pct(l.breuk("pw.vrijlating_y.percentage"))} van uw netto loon houden, maximaal ${euro(l.bedrag("pw.vrijlating_y.maximum"))} per maand, zolang u bijstand krijgt.`;
     if (invoer.medischUrenbeperkt && minLeeftijd.gt(invoer.leeftijd)) {
       return { periodes: [{ fase: "later", naam: "Vanaf de start", regel: yRegel() }], bron };
     }

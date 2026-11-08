@@ -55,16 +55,16 @@ export function Uitkomst({ f }: { f: Formulier }) {
   const vrijlatingTelt = heeftBijstand && periodes.some((p) => p.fase !== "geen");
   const meerPeriodes = vrijlatingTelt && periodes.length > 1;
   const eersteJaar = useMemo(() => verschilEersteJaar(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
-  // Vanaf hoeveel uur per week is er (in de gekozen periode) geen bijstand meer nodig?
+  // Vanaf hoeveel uur per week is er blijvend geen bijstand meer nodig? Zonder vrijlating, want die is tijdelijk.
   const grensUren = useMemo(() => {
-    const nu = bereken(naarInvoer(f, { uren: 1, fase, datum })).huidig.posten.find((p) => p.id === "bijstand");
+    const nu = bereken(naarInvoer(f, { uren: 1, fase: "geen", datum })).huidig.posten.find((p) => p.id === "bijstand");
     if (!nu || nu.perMaand === null || nu.perMaand === "0.00") return undefined;
     for (let u = 1; u <= maxUren; u++) {
-      const b = bereken(naarInvoer(f, { uren: u, fase, datum })).werk.posten.find((p) => p.id === "bijstand");
+      const b = bereken(naarInvoer(f, { uren: u, fase: "geen", datum })).werk.posten.find((p) => p.id === "bijstand");
       if (b && b.perMaand === "0.00") return u;
     }
     return null;
-  }, [f, fase, datum, maxUren]);
+  }, [f, datum, maxUren]);
 
   return (
     <section className="uitkomst">
@@ -87,10 +87,10 @@ export function Uitkomst({ f }: { f: Formulier }) {
         {grensUren !== undefined && (
           <p className="urengrens" id="urengrens">
             {grensUren === null
-              ? `Ook bij ${maxUren} uur per week krijgt u nog wat bijstand erbij.`
+              ? `Ook bij ${maxUren} uur per week vult de bijstand uw loon nog aan.`
               : grensUren === 1
-                ? "Met dit loon heeft u al vanaf 1 uur per week geen bijstand meer nodig."
-                : `Vanaf ${grensUren} uur per week heeft u met dit uurloon geen bijstand meer nodig${meerPeriodes ? " (in deze periode)" : ""}. ${uren >= grensUren ? `Bij ${uren} uur is dat zo.` : `Bij ${uren} uur krijgt u nog bijstand erbij.`}`}
+                ? "Met dit loon heeft u vanaf 1 uur per week geen bijstand meer nodig."
+                : `Vanaf ${grensUren} uur per week heeft u met dit uurloon geen bijstand meer nodig.${uren < grensUren ? ` Bij ${uren} uur vult de bijstand uw loon nog aan.` : ""}`}
           </p>
         )}
         {meerPeriodes && (
