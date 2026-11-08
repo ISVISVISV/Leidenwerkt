@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
 import { alleenCijfers, controleer, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagInkomenAnderen, type Fouten, type Formulier } from "./formulier.ts";
@@ -150,10 +150,20 @@ const normenBekend = () => new Lezer(standaardRegels, vandaag()).bestaat("pw.nor
 
 type StapProps = { f: Formulier; zet: <K extends keyof Formulier>(k: K, v: Formulier[K]) => void; fouten: Fouten };
 
+/** Knop "i" die uitleg toont of verbergt. De uitleg blijft staan tot de gebruiker hem weer sluit. */
+function InfoKnop({ open, onToggle, controls, onderwerp }: { open: boolean; onToggle: () => void; controls: string; onderwerp: string }) {
+  return (
+    <button type="button" className="info-knop" aria-expanded={open} aria-controls={controls} onClick={onToggle}>
+      <span aria-hidden="true">i</span>
+      <span className="sr">{open ? `Uitleg verbergen: ${onderwerp}` : `Uitleg: ${onderwerp}`}</span>
+    </button>
+  );
+}
+
 function Veld(props: {
   id: string;
   label: string;
-  hint?: string;
+  hint?: ReactNode;
   waarde: string;
   onChange: (v: string) => void;
   fout?: string;
@@ -166,15 +176,19 @@ function Veld(props: {
   voorbeeld?: string;
 }) {
   const soort = props.soort ?? "getal";
+  const [uitleg, setUitleg] = useState(false);
   const hintId = props.hint ? `${props.id}-hint` : undefined;
   const foutId = props.fout ? `${props.id}-fout` : undefined;
   return (
     <div className={`veld${props.fout ? " fout" : ""}`}>
-      <label htmlFor={props.id}>{props.label}</label>
+      <div className="label-rij">
+        <label htmlFor={props.id}>{props.label}</label>
+        {props.hint && <InfoKnop open={uitleg} onToggle={() => setUitleg(!uitleg)} controls={hintId!} onderwerp={props.label} />}
+      </div>
       {props.hint && (
-        <p className="hint" id={hintId}>
+        <div className="hint" id={hintId} hidden={!uitleg}>
           {props.hint}
-        </p>
+        </div>
       )}
       {props.fout && (
         <p className="foutmelding" id={foutId}>
@@ -197,7 +211,7 @@ function Veld(props: {
           className={props.breed ? "breed" : undefined}
           value={props.waarde}
           aria-invalid={props.fout ? true : undefined}
-          aria-describedby={[hintId, foutId].filter(Boolean).join(" ") || undefined}
+          aria-describedby={[uitleg ? hintId : undefined, foutId].filter(Boolean).join(" ") || undefined}
           onChange={(e) => props.onChange(alleenCijfers(e.target.value, soort))}
           />
         </span>
@@ -210,24 +224,28 @@ function Veld(props: {
 function Keuze<T extends string>(props: {
   naam: string;
   legend: string;
-  hint?: string;
+  hint?: ReactNode;
   fout?: string;
   opties: [T, string][];
   waarde: T;
   onChange: (v: T) => void;
 }) {
+  const [uitleg, setUitleg] = useState(false);
   const hintId = `${props.naam}-hint`;
   const foutId = `${props.naam}-fout`;
   return (
     <fieldset
       className={`keuze${props.fout ? " fout" : ""}`}
-      aria-describedby={[props.hint ? hintId : "", props.fout ? foutId : ""].filter(Boolean).join(" ") || undefined}
+      aria-describedby={[props.hint && uitleg ? hintId : "", props.fout ? foutId : ""].filter(Boolean).join(" ") || undefined}
     >
-      <legend>{props.legend}</legend>
+      <legend>
+        {props.legend}
+        {props.hint && <InfoKnop open={uitleg} onToggle={() => setUitleg(!uitleg)} controls={hintId} onderwerp={props.legend} />}
+      </legend>
       {props.hint && (
-        <p className="hint" id={hintId}>
+        <div className="hint" id={hintId} hidden={!uitleg}>
           {props.hint}
-        </p>
+        </div>
       )}
       {props.fout && (
         <p className="foutmelding" id={foutId}>
@@ -258,7 +276,19 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
       <Keuze
         naam="leefvorm"
         legend="Met wie woont u?"
-        hint="Een partner is uw man of vrouw, of iemand met wie u samenwoont en de kosten van het huishouden deelt."
+        hint={
+          <>
+            <p>Een partner is uw man of vrouw, of iemand met wie u samenwoont en de kosten van het huishouden deelt.</p>
+            <p>
+              Dat hoeft geen liefdesrelatie te zijn. Woont u samen en zorgt u voor elkaar, bijvoorbeeld door samen de boodschappen of de
+              rekeningen te betalen? Dan ziet de gemeente u meestal als partners. Uw ouder of kind is nooit uw partner. Woont iemand bij u
+              omdat u voor hem of haar zorgt, of andersom? Dan ook niet. De gemeente beslist.
+            </p>
+            <p className="bron-blok">
+              Bron: <Bron citaat={CITATEN.pw3} />
+            </p>
+          </>
+        }
         waarde={f.leefvorm === "paar" && f.kinderen.length > 0 ? "paar_kinderen" : f.leefvorm}
         onChange={(v) => {
           const metKinderen = v === "alleenstaande_ouder" || v === "paar_kinderen";
@@ -273,17 +303,6 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           ["paar_kinderen", "Met mijn partner en kinderen"],
         ]}
       />
-      <details className="uitleg klein-uitleg">
-        <summary>Twijfelt u of iemand uw partner is?</summary>
-        <p>
-          Voor de bijstand hoeft een partner geen liefdesrelatie te zijn. Woont u samen en zorgt u voor elkaar, bijvoorbeeld door samen de
-          boodschappen of de rekeningen te betalen? Dan ziet de gemeente u meestal als partners. Uw ouder of kind is nooit uw partner. Woont
-          iemand bij u omdat u voor hem of haar zorgt, of andersom? Dan ook niet. De gemeente beslist.
-        </p>
-        <p className="klein bron-blok">
-          Bron: <Bron citaat={CITATEN.pw3} />
-        </p>
-      </details>
       <Veld id="leeftijd" label="Uw leeftijd" soort="geheel" voorbeeld="bijv. 35" waarde={f.leeftijd} onChange={(v) => zet("leeftijd", v)} fout={fouten.leeftijd} achtervoegsel="jaar" />
 
       {f.leefvorm === "paar" && (
@@ -468,6 +487,12 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           <Keuze
             naam="zelfstandig"
             legend="Deelt u de voordeur, keuken, wc of douche met mensen die niet bij uw huishouden horen?"
+            hint={
+              <p className="bron-blok">
+                Huurtoeslag is er meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche. Bron:{" "}
+                <Bron citaat={CITATEN.htZelfstandig} />
+              </p>
+            }
             waarde={f.zelfstandig ? "nee" : "ja"}
             onChange={(v) => zet("zelfstandig", v === "nee")}
             opties={[
@@ -475,15 +500,24 @@ function StapWoning({ f, zet, fouten }: StapProps) {
               ["ja", "Ja, bijvoorbeeld omdat ik op een kamer woon"],
             ]}
           />
-          <p className="klein bron-blok bron-onder-vraag">
-            Waarom we dit vragen: huurtoeslag is er meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche. Bron:{" "}
-            <Bron citaat={CITATEN.htZelfstandig} />
-          </p>
+
           {vraagInkomenAnderen(f) && (
             <Veld
               id="huisgenotenInkomen"
               label="Bruto jaarinkomen van de anderen in huis, samen"
-              hint={`Dit telt mee voor de huurtoeslag. Tel het inkomen mee van iedereen die bij u woont, behalve uw partner: huisgenoten en kinderen.${vrijstellingKind() ? ` Van een kind jonger dan 23 jaar telt alleen het deel boven ${vrijstellingKind()} per jaar mee.` : ""} Weet u het niet precies? Vul dan een schatting in; hoe beter de schatting, hoe beter de uitkomst. Heeft niemand inkomen? Vul dan 0 in.`}
+              hint={
+                <>
+                  <p>
+                    Dit telt mee voor de huurtoeslag. Tel het inkomen mee van iedereen die bij u woont, behalve uw partner: huisgenoten en
+                    kinderen.{vrijstellingKind() ? ` Van een kind jonger dan 23 jaar telt alleen het deel boven ${vrijstellingKind()} per jaar mee.` : ""}{" "}
+                    Weet u het niet precies? Vul dan een schatting in; hoe beter de schatting, hoe beter de uitkomst. Heeft niemand inkomen? Vul dan
+                    0 in.
+                  </p>
+                  <p className="bron-blok">
+                    Bron: <Bron citaat={CITATEN.htMedebewoners} />
+                  </p>
+                </>
+              }
               waarde={f.huisgenotenInkomen}
               onChange={(v) => zet("huisgenotenInkomen", v)}
               fout={fouten.huisgenotenInkomen}
@@ -491,14 +525,10 @@ function StapWoning({ f, zet, fouten }: StapProps) {
               voorbeeld="bijv. 25.000"
             />
           )}
-          {vraagInkomenAnderen(f) && (
-            <p className="klein bron-blok bron-onder-vraag">
-              Bron: <Bron citaat={CITATEN.htMedebewoners} />
-            </p>
-          )}
+
         </>
       )}
-      {(f.woont === "inwonend" || f.woont === "dakloos") && (
+      {f.woont === "inwonend" && (
         <Keuze
           naam="woonlasten"
           legend="Betaalt u zelf voor gas, licht of water?"

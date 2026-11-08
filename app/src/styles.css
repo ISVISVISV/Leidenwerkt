@@ -139,7 +139,58 @@ a {
 }
 
 .hint {
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid var(--lijn);
+  background: var(--vlak);
+  border-radius: 0 4px 4px 0;
+  position: relative;
+}
+
+.hint p {
+  margin: 0 0 0.4rem;
+}
+
+.hint p:last-child {
+  margin-bottom: 0;
+}
+
+.label-rij {
+  margin-bottom: 0.3rem;
+}
+
+.label-rij > label {
+  display: inline;
+  font-weight: 700;
+}
+
+/* Knop "i": rond, minstens 24 × 24 pixels (WCAG 2.5.8) */
+.info-knop {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-left: 0.35rem;
+  padding: 0;
+  border: 2px solid var(--inkt-zacht);
+  border-radius: 50%;
+  background: var(--veld);
+  color: var(--inkt);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.info-knop[aria-expanded="true"] {
+  background: var(--inkt);
+  color: var(--papier);
+  border-color: var(--inkt);
 }
 
 /* Voortgang: een echte reeks van vier stappen */
