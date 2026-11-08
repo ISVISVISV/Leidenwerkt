@@ -23,7 +23,7 @@ Stand: 8 november 2026. Per vraag staat of het uitzoekwerk is of een besluit of 
 | V8 | Bruto bijstand voor het toetsingsinkomen | De app rekent de bruto bijstand terug uit de netto norm. Toetsen met de groene maandtabel loonheffing 2026 (uitkeringen), zonder echte documenten | Belastingdienst, loonheffingstabellen 2026 |
 | V9 | Huurtoeslag met medebewoners | Inkomen van huisgenoten (rekeninkomen); nu niet ondersteund en gemeld | Wet op de huurtoeslag, brochure stap 5 |
 | V10 | Leiden: kwijtschelding | Welke norm Leiden hanteert en wie uitvoert | lokaleregelgeving.overheid.nl, leiden.nl |
-| V12 | Leiden: grenzen van 110%, 120% en 150% | Gevonden in de Beleidsregels bijzondere bijstand 2022 (draagkracht, collectieve zorgverzekering, eigen bijdrage kinderopvang); nog niet als signaal in de app. Zijn de beleidsregels van 2022 nog de geldende? (laatste versie op lokaleregelgeving.overheid.nl) | CVDR677687 |
+| V12 | Leiden: grenzen van 110%, 120% en 150% | Gevonden in de Beleidsregels bijzondere bijstand 2022 (draagkracht, collectieve zorgverzekering, eigen bijdrage kinderopvang); nog niet als signaal in de app. De beleidsregels van 2022 zijn volgens lokaleregelgeving.overheid.nl nog geldend (stand 8 november 2026) | CVDR677687 |
 | V11 | Individuele inkomenstoeslag | leiden.nl noemt "23 jaar of ouder" als voorwaarde maar bedragen "tussen de 21 jaar en de pensioengerechtigde leeftijd"; de verordening van 2020 is niet opnieuw nagelezen op leeftijd | Verordening IIT Leiden (CVDR634399) |
 
 ## Opgelost op 8 november 2026
