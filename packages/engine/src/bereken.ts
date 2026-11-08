@@ -414,7 +414,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
           const vergoeding = max(NUL, eigen.minus(draagkracht));
           stap("Vergoeding: eigen bijdrage min wat u zelf moet bijdragen", vergoeding);
           aanname(
-            "De gemeente Leiden kan de eigen bijdrage voor kinderopvang vergoeden als die kosten u tegenhouden om te werken. U moet dit zelf aanvragen bij de gemeente, het liefst voordat u begint. Er is aangenomen dat u het krijgt.",
+            "De gemeente Leiden vergoedt de eigen bijdrage voor kinderopvang als u de opvang anders niet kunt betalen en daardoor niet kunt werken (Beleidsregels bijzondere bijstand 2022). Er is aangenomen dat dat voor u zo is en dat u de vergoeding aanvraagt.",
           );
           aanname("Voor de vergoeding kijkt de gemeente naar uw inkomen zonder vakantiegeld. Dat is hier benaderd door het gemiddelde netto loon te delen door 1,08.");
           return vergoeding;
@@ -509,6 +509,11 @@ export function bereken(oorspronkelijk: Invoer, regels: RegelSet = standaardRege
     aannames: [
       "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
       "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+      ...(invoer.wonen.soort === "instelling"
+        ? [
+            "U woont in een woonvorm met begeleiding en krijgt de lagere bijstand voor een instelling. Er is aangenomen dat u voor uw verblijf niets betaalt, ook niet als u gaat werken.",
+          ]
+        : []),
       ...(invoer.wonen.soort === "huur" && invoer.wonen.zelfstandig === false
         ? ["U huurt een woning zonder eigen voordeur, keuken, wc of douche, bijvoorbeeld een kamer. Daarvoor krijgt u meestal geen huurtoeslag, dus die is niet meegerekend. Voor sommige kamers kan het wel; dat ziet u met de proefberekening van Dienst Toeslagen."]
         : []),
@@ -659,8 +664,15 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       soort: "waarschuwing",
       tekst:
         vergoeding && vergoeding.gt(0)
-          ? `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. De gemeente Leiden kan dat vergoeden met bijzondere bijstand; hier is ${euro(vergoeding, true)} per maand meegerekend${rest.gt("0.5") ? ` en betaalt u zelf ${euro(rest, true)}` : ""}. Die vergoeding krijgt u niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.`
+          ? `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. De gemeente Leiden vergoedt dat deel met bijzondere bijstand als u de opvang anders niet kunt betalen en daardoor niet kunt werken. Hoeveel u krijgt, hangt af van uw inkomen: hier is ${euro(vergoeding, true)} per maand meegerekend${rest.gt("0.5") ? ` en betaalt u zelf ${euro(rest, true)}` : ""}. Dit geldt ook als u door het werk geen bijstand meer krijgt. U krijgt de vergoeding niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.`
           : `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. Met dit inkomen vergoedt de gemeente Leiden daarvan waarschijnlijk niets: volgens de regels van de gemeente kunt u dit zelf betalen. Twijfelt u? Vraag het na bij de gemeente.`,
+    });
+  }
+  if (invoer.wonen.soort === "instelling") {
+    uit.push({
+      soort: "info",
+      tekst:
+        "Deze berekening geldt zolang u in de woonvorm woont. Gaat u daarna zelfstandig wonen, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm, betaalt u zelf huur en boodschappen, en krijgt u misschien huurtoeslag. Reken dan opnieuw, met uw nieuwe woning.",
     });
   }
   if (invoer.nieuwWerk.brutoVierwekenloon !== undefined) {

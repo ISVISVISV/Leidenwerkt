@@ -79,7 +79,12 @@ export interface Invoer {
      * anders betaalt de woonkosten. Leiden verlaagt dan de norm (art. 27 Pw,
      * beleidsregels CVDR760406 art. 3.1).
      */
-    | { soort: "geen_woonkosten"; dakloos?: boolean; betaaltWoonlasten: boolean };
+    | { soort: "geen_woonkosten"; dakloos?: boolean; betaaltWoonlasten: boolean }
+    /**
+     * Verblijf in een inrichting (art. 1 onder f Pw), bijvoorbeeld een woonvorm met
+     * begeleiding: de norm van art. 23, geen kostendelersnorm, geen huurtoeslag.
+     */
+    | { soort: "instelling" };
   /** Huidige situatie: eventueel werk naast de bijstand. */
   huidigWerk?: Werk;
   /** Het werk dat de gebruiker overweegt. */

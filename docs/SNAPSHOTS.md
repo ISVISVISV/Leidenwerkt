@@ -36,3 +36,7 @@ Nieuwe post `bb_opvang` met werk, voor huishoudens met kinderopvang (Beleidsrege
 | Sanne, vanaf maand 37 | € 25,40 | € −1,29 → € 24,11 |
 
 Bij Sanne blijft het inkomen onder 110% van de rekennorm, dus de hele eigen bijdrage wordt vergoed.
+
+## Woonvorm met begeleiding (art. 23 Pw)
+
+Geen wijziging in de snapshots 2026; geen van de vastgelegde huishoudens woont in een instelling.

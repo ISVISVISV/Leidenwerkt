@@ -70,7 +70,18 @@ Grondslag: art. 27 Pw en de [Beleidsregels Vermogen en Algemene Bijstandsnorm bi
 | Zelf geen woonlasten (gas, elektriciteit, water) | 9% |
 | Geen woonkosten en geen woonlasten | 19% |
 
-De app vraagt bij 'Uw woning' waar iemand woont. Bij "geen vaste woonplek" en "bij iemand in, zonder te betalen" volgt de vraag of iemand zelf gas, licht of water betaalt. Wonen in een instelling (art. 23 Pw, andere normen) berekent de app niet; ze meldt dat.
+De app vraagt bij 'Uw woning' waar iemand woont. Bij "geen vaste woonplek" en "bij iemand in, zonder te betalen" volgt de vraag of iemand zelf gas, licht of water betaalt.
+
+### Verblijf in een inrichting (art. 23 Pw)
+
+Een inrichting is onder meer een instelling die slaapgelegenheid biedt met de mogelijkheid van hulp of begeleiding gedurende meer dan de helft van elk etmaal (art. 1 onder f Pw). Daar geldt de norm van art. 23, omdat huur en levensmiddelen al betaald worden. De app rekent hiermee bij de keuze "woonvorm met begeleiding":
+
+| | 1 jan 2026 | 1 jul 2026 |
+| --- | --- | --- |
+| Alleenstaande (ouder): lid 1 a + verhoging lid 2 a | € 443,76 + € 47,00 | € 449,44 + € 47,00 |
+| Gehuwden: lid 1 b + verhoging lid 2 b | € 690,27 + € 106,00 | € 699,11 + € 106,00 |
+
+Geen kostendelersnorm, geen huurtoeslag; de vrijlating werkt zoals altijd. Aanname: de bewoner betaalt niets voor het verblijf, ook niet met werk (volgens de praktijk in Leiden). Leiden zet de norm om 1 maand (verblijf langer dan 6 maanden) of 3 maanden (korter) na de opname (CVDR760406, hoofdstuk 4); de app rekent met de situatie na de omzetting. Een zorginstelling (verpleging of verzorging) rekent de app niet.
 
 ## 2. Kostendelersnorm
 
@@ -152,7 +163,7 @@ Inkomensonafhankelijk; telt niet mee voor de bijstand (art. 31 lid 2 b Pw) en be
 
 Toeslag per kind = uren (max. 230 per maand) × min(uurprijs, maximum) × percentage uit de tabel. Maxima 2026: dagopvang € 11,23, bso € 9,98, gastouder € 8,49. Eerste kind = kind met de meeste uren. Per jaar ten hoogste het aantal gewerkte maanden × 230 uur (bij twee ouders: de ouder die het minst werkt). Tabel en voorbeelden: [Dienst Toeslagen, Berekening kinderopvangtoeslag 2026](https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf).
 
-Weet de gebruiker de uurprijs niet, dan rekent de app met het maximum voor de soort opvang en zegt dat erbij. **Vergoeding van de eigen bijdrage (Leiden).** Blijft er na de toeslag een eigen bijdrage over, dan rekent de app een vergoeding van de gemeente mee (bijzondere bijstand, [Beleidsregels bijzondere bijstand 2022](https://lokaleregelgeving.overheid.nl/CVDR677687), art. 7 onder f: "kan worden verleend" als de kosten een belemmering zijn voor werk). In de praktijk kent Leiden deze vergoeding aan werkende ouders toe; de app gaat ervan uit dat de aanvraag wordt toegekend en zegt dat erbij. Berekening per maand:
+Weet de gebruiker de uurprijs niet, dan rekent de app met het maximum voor de soort opvang en zegt dat erbij. **Vergoeding van de eigen bijdrage (Leiden).** Blijft er na de toeslag een eigen bijdrage over, dan rekent de app een vergoeding van de gemeente mee (bijzondere bijstand, [Beleidsregels bijzondere bijstand 2022](https://lokaleregelgeving.overheid.nl/CVDR677687), art. 7 onder f: kan worden verleend als de kosten van kinderopvang een belemmering vormen voor werk). De voorwaarde is dus dat de opvang nodig is om te kunnen werken; in de praktijk kent Leiden de vergoeding aan werkende ouders toe. De app gaat ervan uit dat de aanvraag wordt toegekend, en zegt in de uitkomst wanneer de gemeente vergoedt, dat het ook geldt zonder bijstand, en dat de vergoeding aangevraagd moet worden. Berekening per maand:
 
 1. Eigen bijdrage = kosten van de opvang − kinderopvangtoeslag.
 2. Norm (art. 1 onder d): de bijstandsnorm zonder kostendelersnorm, met een verlaging op grond van art. 27; voor een alleenstaande ouder 90% van de gezinsnorm. Zonder vakantietoeslag: × (1 − 5%) (art. 19 lid 3 Pw).

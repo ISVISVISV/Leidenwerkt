@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Lezer, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
+import { Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { alleenCijfers, controleer, leegFormulier, maxUurprijs, nieuwKind, vandaag, type Fouten, type Formulier } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
@@ -117,6 +117,18 @@ function Start({ onStart }: { onStart: () => void }) {
 const maxPrijsTekst = (soort: Opvangsoort) => {
   const p = maxUurprijs(new Lezer(standaardRegels, vandaag()), soort);
   return p > 0 ? p.toFixed(2).replace(".", ",") : "";
+};
+
+/** Bijstand bij verblijf in een instelling (art. 23 Pw) voor vandaag, als tekst. */
+const instellingsnorm = () => {
+  const l = new Lezer(standaardRegels, vandaag());
+  try {
+    const a = l.bedrag("pw.norm.inrichting.alleenstaande").plus(l.bedrag("pw.norm.inrichting.verhoging_alleenstaande"));
+    const g = l.bedrag("pw.norm.inrichting.gehuwden").plus(l.bedrag("pw.norm.inrichting.verhoging_gehuwden"));
+    return `${euro(a)} per maand voor een alleenstaande, ${euro(g)} voor een stel`;
+  } catch {
+    return "";
+  }
 };
 
 /** De overgangsvraag heeft pas zin als de bijstandsnormen voor vandaag bekend zijn. */
@@ -353,16 +365,26 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           ["koop", "In een koopwoning"],
           ["inwonend", "Bij iemand anders in huis, en ik betaal niets voor mijn woonruimte"],
           ["dakloos", "Ik heb geen vaste woonplek"],
-          ["instelling", "In een instelling, zoals een zorginstelling of beschermd wonen"],
+          ["instelling", "In een woonvorm met begeleiding, waar ik de lagere bijstand voor een instelling krijg"],
+          ["zorginstelling", "In een zorginstelling, zoals een verpleeghuis"],
         ]}
       />
       {f.woont === "instelling" && (
-        <div className="melding waarschuwing" role="status" id="woont-fout">
+        <div className="melding" role="status">
           <p>
-            Woont u in een instelling? Dan krijgt u een ander bedrag aan bijstand, omdat de instelling een deel van uw kosten betaalt. Deze
-            rekenhulp kan dat nog niet berekenen. Vraag uw klantmanager wat werken voor u betekent.
+            In een woonvorm waar dag en nacht begeleiding is, krijgt u een lagere bijstand
+            {instellingsnorm() ? `: ${instellingsnorm()}` : ""}. Dat komt doordat u daar geen huur en boodschappen hoeft te
+            betalen. Krijgt u een ander bedrag aan bijstand? Kies dan een andere keuze.
           </p>
           <p>Slaapt u in een daklozenopvang zonder begeleiding? Kies dan "Ik heb geen vaste woonplek".</p>
+        </div>
+      )}
+      {f.woont === "zorginstelling" && (
+        <div className="melding waarschuwing" role="status" id="woont-fout">
+          <p>
+            Woont u in een zorginstelling? Dan betaalt de instelling een groot deel van uw kosten en gelden andere regels. Deze rekenhulp
+            kan dat niet berekenen. Vraag uw klantmanager wat werken voor u betekent.
+          </p>
         </div>
       )}
       {f.woont === "huur" && (
