@@ -216,7 +216,7 @@ function Antwoord({ r, uren, periode, eersteJaar }: { r: Resultaat; uren: number
   );
 }
 
-const VOLGORDE = ["loon", "loon_partner", "bijstand", "reisvergoeding", "iack", "zorgtoeslag", "huurtoeslag", "kgb", "kinderbijslag", "kot", "opvangkosten", "werkkosten"];
+const VOLGORDE = ["loon", "loon_partner", "bijstand", "reisvergoeding", "iack", "zorgtoeslag", "huurtoeslag", "kgb", "kinderbijslag", "kot", "bb_opvang", "opvangkosten", "werkkosten"];
 const opVolgorde = (a: string, b: string) => VOLGORDE.indexOf(a) - VOLGORDE.indexOf(b);
 
 function waarde(p: Post | undefined): string {

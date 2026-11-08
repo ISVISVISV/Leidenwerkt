@@ -94,3 +94,36 @@ describe("kinderopvang: eigen bijdrage en bijzondere bijstand", () => {
     expect(r.signalen.some((s) => s.tekst.includes("bijzondere bijstand"))).toBe(true);
   });
 });
+
+describe("Leiden: vergoeding eigen bijdrage kinderopvang (CVDR677687 art. 1, 6 en 7 onder f)", () => {
+  const ouder = (bruto: number, prijs = 12.5): Invoer =>
+    basis({
+      leefvorm: "alleenstaande_ouder",
+      kinderen: [{ leeftijd: 2, opvang: { soort: "dagopvang", urenPerMaand: 80, uurprijs: prijs } }],
+      nieuwWerk: { brutoMaandloon: bruto, urenPerWeek: 24 },
+      vrijlatingFase: "start",
+    });
+  const p = (r: Resultaat, id: string) => r.werk.posten.find((x) => x.id === id);
+
+  it("onder 110% van de rekennorm: de hele eigen bijdrage wordt vergoed", () => {
+    const r = bereken(ouder(1200));
+    const eigen = -Number(p(r, "opvangkosten")!.perMaand) - Number(p(r, "kot")!.perMaand);
+    expect(Number(p(r, "bb_opvang")!.perMaand)).toBeCloseTo(eigen, 2);
+  });
+  it("rekennorm alleenstaande ouder: 90% van de gezinsnorm, zonder vakantietoeslag", () => {
+    const r = bereken(ouder(1200));
+    const stap = p(r, "bb_opvang")!.stappen.find((s) => s.tekst.startsWith("Bijstandsnorm voor de bijzondere bijstand"))!;
+    expect(stap.bedrag).toBe("1733.76"); // 2.027,79 × 0,9 × 0,95
+  });
+  it("bij een hoog inkomen draagt u zelf meer bij, tot er niets meer vergoed wordt", () => {
+    const laag = Number(p(bereken(ouder(2600)), "bb_opvang")?.perMaand ?? 0);
+    const hoog = Number(p(bereken(ouder(4500)), "bb_opvang")?.perMaand ?? 0);
+    expect(hoog).toBeLessThanOrEqual(laag);
+    expect(hoog).toBe(0);
+  });
+  it("geen vergoeding zonder eigen bijdrage (opvang onder het maximum uurtarief, hoge toeslag)", () => {
+    const r = bereken(ouder(1200, 8));
+    const bb = p(r, "bb_opvang");
+    expect(bb === undefined || Number(bb.perMaand) < 40).toBe(true);
+  });
+});

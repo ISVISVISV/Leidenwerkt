@@ -100,8 +100,9 @@ exports[`snapshots 2026 > alleenstaande ouder, kind 4 met opvang 1`] = `
     "zorgtoeslag": "129.00",
   },
   "nietMeegenomen": [],
-  "verschil": "299.48",
+  "verschil": "335.48",
   "werk": {
+    "bb_opvang": "36.00",
     "bijstand": "70.14",
     "huurtoeslag": "422.00",
     "iack": "46.48",

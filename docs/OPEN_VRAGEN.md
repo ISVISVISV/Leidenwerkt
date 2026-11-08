@@ -29,7 +29,7 @@ Stand: 8 november 2026. Per vraag staat wat ontbreekt en waar het te vinden is.
 
 - **Geen of lage woonkosten (Leiden)**: lagere norm volgens de Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026 (CVDR760406, art. 3.1): 10% van de gehuwdennorm zonder woonkosten, 9% zonder woonlasten, 19% samen; bij woonkosten onder 10% het verschil. Alleen bij de norm van art. 21, niet bij de kostendelersnorm. Wonen in een instelling (art. 23) rekent de app niet.
 - **Kamer of onzelfstandige woning**: geen huurtoeslag (voorwaarde zelfstandige woonruimte, belastingdienst.nl "Kan ik huurtoeslag krijgen?").
-- **Eigen bijdrage kinderopvang**: Leiden kan bijzondere bijstand geven als de kosten een belemmering zijn voor werk (CVDR677687, onderdeel kinderopvang werk, scholing, participatie). Geen recht van rechtswege; de app noemt het als mogelijkheid.
+- **Eigen bijdrage kinderopvang**: Leiden kan bijzondere bijstand geven als de kosten een belemmering zijn voor werk (CVDR677687, art. 7 onder f). Volgens de praktijk in Leiden wordt dit aan werkende ouders toegekend. De app rekent de vergoeding mee met de draagkrachtregels van art. 6 en de rekennorm van art. 1 onder d, en zegt dat het aangevraagd moet worden.
 
 - **Huurtoeslag met huisgenoten van 27+**: ingebouwd en getoetst aan een proefberekening (Wim, € 282).
 - **Proefberekeningen Dienst Toeslagen**: drie ingevuld (Fatima en Youssef, Bram, Sanne 24 uur); alle negen bedragen kwamen tot op de euro overeen met de app.

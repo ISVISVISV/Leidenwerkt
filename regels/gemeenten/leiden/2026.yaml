@@ -101,3 +101,49 @@ parameters:
     status: geverifieerd
     bron: *woonkosten
     notitie: Geldt sinds 14 april 2026. Samen met geen woonkosten is de verlaging 19% (lid 2 d).
+  - id: leiden.bb.draagkracht.vrij_tot
+    omschrijving: Bijzondere bijstand — geen draagkracht bij een inkomen tot dit deel van de bijstandsnorm, beide zonder vakantietoeslag (art. 6 lid 1)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "1.10" }
+    status: geverifieerd
+    bron: &bijzondere_bijstand
+      titel: Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687)
+      url: https://lokaleregelgeving.overheid.nl/CVDR677687
+      geraadpleegd_op: 2026-11-08
+    notitie: Geldend van 11-06-2022 tot heden (stand 8 november 2026). Bijstandsnorm volgens art. 1 onder d, inclusief een verlaging op grond van art. 27; zonder kostendelersnorm.
+  - id: leiden.bb.draagkracht.grens1
+    omschrijving: Bijzondere bijstand — tot dit deel van de bijstandsnorm telt 20% van het meerinkomen als draagkracht (art. 6 lid 2)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "1.30" }
+    status: geverifieerd
+    bron: *bijzondere_bijstand
+  - id: leiden.bb.draagkracht.grens2
+    omschrijving: Bijzondere bijstand — tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen; daarboven 100% (art. 6 lid 2)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "1.50" }
+    status: geverifieerd
+    bron: *bijzondere_bijstand
+  - id: leiden.bb.draagkracht.pct1
+    omschrijving: Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 110% en 130% van de bijstandsnorm (art. 6 lid 2)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.20" }
+    status: geverifieerd
+    bron: *bijzondere_bijstand
+  - id: leiden.bb.draagkracht.pct2
+    omschrijving: Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 130% en 150% van de bijstandsnorm (art. 6 lid 2)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.50" }
+    status: geverifieerd
+    bron: *bijzondere_bijstand
+  - id: leiden.bb.draagkracht.pct3
+    omschrijving: Bijzondere bijstand — draagkracht, deel van het meerinkomen boven 150% van de bijstandsnorm (art. 6 lid 2)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "1.00" }
+    status: geverifieerd
+    bron: *bijzondere_bijstand
+  - id: leiden.bb.rekennorm_alleenstaande_ouder
+    omschrijving: Bijzondere bijstand — de bijstandsnorm van een alleenstaande ouder is voor deze beleidsregels dit deel van de gezinsnorm (art. 1 onder d)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.90" }
+    status: geverifieerd
+    bron: *bijzondere_bijstand

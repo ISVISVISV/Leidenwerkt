@@ -181,10 +181,16 @@ function Veld(props: {
   );
 }
 
-function Keuze<T extends string>(props: { naam: string; legend: string; opties: [T, string][]; waarde: T; onChange: (v: T) => void }) {
+function Keuze<T extends string>(props: { naam: string; legend: string; hint?: string; opties: [T, string][]; waarde: T; onChange: (v: T) => void }) {
+  const hintId = `${props.naam}-hint`;
   return (
-    <fieldset className="keuze">
+    <fieldset className="keuze" aria-describedby={props.hint ? hintId : undefined}>
       <legend>{props.legend}</legend>
+      {props.hint && (
+        <p className="hint" id={hintId}>
+          {props.hint}
+        </p>
+      )}
       {props.opties.map(([w, tekst]) => (
         <label key={w} className="optie">
           <input type="radio" name={props.naam} checked={props.waarde === w} onChange={() => props.onChange(w)} />
@@ -203,16 +209,19 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
       <Keuze
         naam="leefvorm"
         legend="Met wie woont u?"
-        waarde={f.leefvorm}
+        hint="Een partner is uw man of vrouw, of iemand met wie u samenwoont als stel."
+        waarde={f.leefvorm === "paar" && f.kinderen.length > 0 ? "paar_kinderen" : f.leefvorm}
         onChange={(v) => {
-          zet("leefvorm", v);
-          if (v === "alleenstaande_ouder" && f.kinderen.length === 0) zet("kinderen", [nieuwKind()]);
-          if (v === "alleenstaande") zet("kinderen", []);
+          const metKinderen = v === "alleenstaande_ouder" || v === "paar_kinderen";
+          zet("leefvorm", v === "paar_kinderen" ? "paar" : v);
+          if (metKinderen && f.kinderen.length === 0) zet("kinderen", [nieuwKind()]);
+          if (!metKinderen) zet("kinderen", []);
         }}
         opties={[
-          ["alleenstaande", "Alleen, zonder kinderen"],
-          ["alleenstaande_ouder", "Alleen, met kinderen"],
-          ["paar", "Met een partner (getrouwd of samenwonend), met of zonder kinderen"],
+          ["alleenstaande", "Alleen"],
+          ["alleenstaande_ouder", "Alleen met mijn kinderen"],
+          ["paar", "Met mijn partner"],
+          ["paar_kinderen", "Met mijn partner en kinderen"],
         ]}
       />
       <Veld id="leeftijd" label="Uw leeftijd" soort="geheel" voorbeeld="bijv. 35" waarde={f.leeftijd} onChange={(v) => zet("leeftijd", v)} fout={fouten.leeftijd} achtervoegsel="jaar" />
@@ -254,7 +263,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         </>
       )}
 
-      {f.leefvorm !== "alleenstaande" && (
+      {(f.leefvorm === "alleenstaande_ouder" || (f.leefvorm === "paar" && f.kinderen.length > 0)) && (
         <fieldset className="groep">
           <legend>Kinderen die bij u wonen</legend>
           {fouten.kinderen && <p className="foutmelding">{fouten.kinderen}</p>}

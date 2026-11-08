@@ -101,3 +101,12 @@ parameters:
     waarde: { soort: percentage, breuk: "0.30" }
     status: geverifieerd
     bron: *pw22a
+  - id: pw.vakantietoeslag
+    omschrijving: Vakantietoeslag als deel van de algemene bijstand; de normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.05" }
+    status: geverifieerd
+    bron:
+      titel: Participatiewet art. 19 lid 3 (wetten.overheid.nl, versie 2026-01-01)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-01-01
+      geraadpleegd_op: 2026-11-08
