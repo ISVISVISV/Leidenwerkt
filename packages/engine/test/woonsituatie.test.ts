@@ -184,3 +184,13 @@ describe("bronvermelding", () => {
     expect(vrijlatingUitleg(basis({ datum: "2026-08-01" })).citaten[0].tekst).toContain("€ 289,00");
   });
 });
+
+describe("twee banen (bijbaan)", () => {
+  it("het loon telt op en de belasting gaat over het totaal", () => {
+    const twee = bereken(basis({ nieuwWerk: { brutoMaandloon: 900, bijbaan: { brutoMaandloon: 400 } }, vrijlatingFase: "start" }));
+    const een = bereken(basis({ nieuwWerk: { brutoMaandloon: 1300 }, vrijlatingFase: "start" }));
+    const loon = (r: Resultaat) => r.werk.posten.find((p) => p.id === "loon")!.perMaand;
+    expect(loon(twee)).toBe(loon(een));
+    expect(bijstand(twee, "werk")).toBe(bijstand(een, "werk"));
+  });
+});

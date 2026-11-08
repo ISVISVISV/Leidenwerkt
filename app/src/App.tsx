@@ -207,19 +207,42 @@ function Veld(props: {
   );
 }
 
-function Keuze<T extends string>(props: { naam: string; legend: string; hint?: string; opties: [T, string][]; waarde: T; onChange: (v: T) => void }) {
+function Keuze<T extends string>(props: {
+  naam: string;
+  legend: string;
+  hint?: string;
+  fout?: string;
+  opties: [T, string][];
+  waarde: T;
+  onChange: (v: T) => void;
+}) {
   const hintId = `${props.naam}-hint`;
+  const foutId = `${props.naam}-fout`;
   return (
-    <fieldset className="keuze" aria-describedby={props.hint ? hintId : undefined}>
+    <fieldset
+      className={`keuze${props.fout ? " fout" : ""}`}
+      aria-describedby={[props.hint ? hintId : "", props.fout ? foutId : ""].filter(Boolean).join(" ") || undefined}
+    >
       <legend>{props.legend}</legend>
       {props.hint && (
         <p className="hint" id={hintId}>
           {props.hint}
         </p>
       )}
+      {props.fout && (
+        <p className="foutmelding" id={foutId}>
+          {props.fout}
+        </p>
+      )}
       {props.opties.map(([w, tekst]) => (
         <label key={w} className="optie">
-          <input type="radio" name={props.naam} checked={props.waarde === w} onChange={() => props.onChange(w)} />
+          <input
+            type="radio"
+            name={props.naam}
+            checked={props.waarde === w}
+            aria-invalid={props.fout ? true : undefined}
+            onChange={() => props.onChange(w)}
+          />
           <span>{tekst}</span>
         </label>
       ))}
@@ -603,27 +626,58 @@ function StapWerk({ f, zet, fouten }: StapProps) {
         />
       )}
 
-      <h2>{f.werktNu ? "Uw werk straks, alles bij elkaar" : "Het werk dat u overweegt"}</h2>
       {f.werktNu && (
-        <p className="hint">
-          Vul hier in wat u straks in totaal verdient en werkt. Houdt u uw huidige baan en komt er werk bij? Tel dan beide bij elkaar op.
-        </p>
+        <Keuze
+          naam="verandering"
+          legend="Wat verandert er aan uw werk?"
+          waarde={f.verandering}
+          onChange={(v) => zet("verandering", v)}
+          fout={fouten.verandering}
+          opties={[
+            ["meer", "Ik ga meer uren werken bij mijn huidige werk"],
+            ["ander", "Ik krijg ander werk in plaats van mijn huidige werk"],
+            ["erbij", "Ik neem er werk bij, naast mijn huidige werk"],
+          ]}
+        />
       )}
-      <LoonVelden
-        prefix="straks"
-        per={f.per}
-        loon={f.loon}
-        uren={f.uren}
-        zetPer={(v) => zet("per", v)}
-        zetLoon={(v) => zet("loon", v)}
-        zetUren={(v) => zet("uren", v)}
-        fouten={fouten}
-      />
+
+      {f.werktNu && f.verandering === "meer" && (
+        <Veld
+          id="meerUren"
+          voorbeeld={`bijv. ${Math.min(60, (Number(f.nuUren) || 16) + 8)}`}
+          label="Hoeveel uur per week gaat u in totaal werken?"
+          hint={`Nu werkt u ${f.nuUren || "…"} uur per week. De rekenhulp gaat uit van hetzelfde uurloon.`}
+          waarde={f.meerUren}
+          onChange={(v) => zet("meerUren", v)}
+          fout={fouten.meerUren}
+          achtervoegsel="uur"
+        />
+      )}
+
+      {(!f.werktNu || f.verandering === "ander" || f.verandering === "erbij") && (
+        <>
+          <h2>{!f.werktNu ? "Het werk dat u overweegt" : f.verandering === "erbij" ? "Het extra werk" : "Het nieuwe werk"}</h2>
+          <LoonVelden
+            prefix="straks"
+            per={f.per}
+            loon={f.loon}
+            uren={f.uren}
+            zetPer={(v) => zet("per", v)}
+            zetLoon={(v) => zet("loon", v)}
+            zetUren={(v) => zet("uren", v)}
+            fouten={fouten}
+          />
+        </>
+      )}
       <Veld
         id="reiskosten"
         voorbeeld="bijv. 40"
-        label="Reiskosten per maand"
-        hint="Bijvoorbeeld bus, trein of benzine. Laat leeg als u fietst of loopt."
+        label={f.werktNu ? "Extra reiskosten per maand" : "Reiskosten per maand"}
+        hint={
+          f.werktNu
+            ? "Alleen wat u straks meer kwijt bent dan nu. Bijvoorbeeld bus, trein of benzine."
+            : "Bijvoorbeeld bus, trein of benzine. Laat leeg als u fietst of loopt."
+        }
         waarde={f.reiskosten}
         onChange={(v) => zet("reiskosten", v)}
         fout={fouten.reiskosten}
@@ -632,7 +686,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
       <Veld
         id="vergoeding"
         voorbeeld="bijv. 40"
-        label="Reiskostenvergoeding van de werkgever per maand"
+        label={f.werktNu ? "Extra reiskostenvergoeding van de werkgever per maand" : "Reiskostenvergoeding van de werkgever per maand"}
         waarde={f.vergoeding}
         onChange={(v) => zet("vergoeding", v)}
         fout={fouten.vergoeding}
@@ -641,7 +695,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
       <Veld
         id="overigeKosten"
         voorbeeld="bijv. 10"
-        label="Andere kosten door het werk per maand"
+        label={f.werktNu ? "Andere extra kosten door het werk per maand" : "Andere kosten door het werk per maand"}
         hint="Bijvoorbeeld werkkleding. Kosten voor kinderopvang vult u bij stap 1 in."
         waarde={f.overigeKosten}
         onChange={(v) => zet("overigeKosten", v)}

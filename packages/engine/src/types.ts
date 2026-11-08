@@ -46,6 +46,11 @@ export interface Werk {
   reiskostenPerMaand?: number;
   reiskostenvergoedingPerMaand?: number;
   overigeKostenPerMaand?: number;
+  /**
+   * Een tweede baan naast deze. Het loon telt op; belasting wordt berekend over
+   * het totaal, zoals bij de aangifte. Kosten en vergoedingen staan bij de hoofdbaan.
+   */
+  bijbaan?: Werk;
 }
 
 export interface Invoer {

@@ -41,6 +41,10 @@ export interface Formulier {
   /** Vanaf 2027: welke vrijlating de gebruiker op 31 december 2026 al had. */
   overgang: "" | "n" | "r";
   werktNu: boolean;
+  /** Wie al werkt: wat verandert er? Meer uren, ander werk of werk erbij. */
+  verandering: "" | "meer" | "ander" | "erbij";
+  /** Bij "meer": het nieuwe totaal aantal uren bij het huidige werk. */
+  meerUren: string;
   medisch: boolean;
   nuPer: LoonPer;
   nuLoon: string;
@@ -69,6 +73,8 @@ export const leegFormulier: Formulier = {
   kaleHuur: "",
   overgang: "",
   werktNu: false,
+  verandering: "",
+  meerUren: "",
   medisch: false,
   nuPer: "maand",
   nuLoon: "",
@@ -145,9 +151,15 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (f.werktNu) {
       moet("nuLoon", f.nuLoon, ...loonGrens(f.nuPer));
       moet("nuUren", f.nuUren, 1, 60, "Vul het aantal uren per week in.");
+      if (!f.verandering) fouten.verandering = "Kies wat er verandert.";
     }
-    moet("loon", f.loon, ...loonGrens(f.per));
-    moet("uren", f.uren, 1, 60, "Vul het aantal uren per week in.");
+    if (f.werktNu && f.verandering === "meer") {
+      const nu = getal(f.nuUren) ?? 0;
+      moet("meerUren", f.meerUren, nu + 1, 60, `Vul in hoeveel uur u straks in totaal werkt: meer dan ${nu} en hoogstens 60.`);
+    } else if (!f.werktNu || f.verandering) {
+      moet("loon", f.loon, ...loonGrens(f.per));
+      moet("uren", f.uren, 1, 60, "Vul het aantal uren per week in.");
+    }
     for (const v of ["reiskosten", "vergoeding", "overigeKosten"] as const) moet(v, f[v], 0, 2000, "Vul een bedrag in.", false);
   }
   return fouten;
@@ -188,7 +200,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
             : { soort: "anders" },
     huidigWerk: f.werktNu ? loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0) : undefined,
     nieuwWerk: {
-      ...loonWerk(f.per, getal(f.loon) ?? 0, getal(f.uren) ?? 0, opties.uren),
+      ...nieuwLoon(f, opties.uren),
       reiskostenPerMaand: getal(f.reiskosten),
       reiskostenvergoedingPerMaand: getal(f.vergoeding),
       overigeKostenPerMaand: getal(f.overigeKosten),
@@ -199,6 +211,28 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     overgang2027: f.werktNu && f.overgang ? f.overgang : undefined,
     medischUrenbeperkt: f.medisch || undefined,
   };
+}
+
+/**
+ * Het werk straks, afhankelijk van wat er verandert. `schuif` is het aantal uren
+ * van de urenschuif: bij "meer" het nieuwe totaal, bij "erbij" de uren van het
+ * extra werk, anders de uren van het (nieuwe) werk.
+ */
+function nieuwLoon(f: Formulier, schuif?: number) {
+  const nu = () => loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0);
+  if (f.werktNu && f.verandering === "meer") {
+    return loonWerk(f.nuPer, getal(f.nuLoon) ?? 0, getal(f.nuUren) ?? 0, schuif ?? getal(f.meerUren));
+  }
+  const ander = loonWerk(f.per, getal(f.loon) ?? 0, getal(f.uren) ?? 0, schuif);
+  if (f.werktNu && f.verandering === "erbij") return { ...nu(), bijbaan: ander };
+  return ander;
+}
+
+/** Het aantal uren waarmee de urenschuif begint, en wat de schuif voorstelt. */
+export function schuifStart(f: Formulier): { uren: number; wat: "totaal" | "extra" } {
+  if (f.werktNu && f.verandering === "meer") return { uren: Math.round(getal(f.meerUren) ?? 24), wat: "totaal" };
+  if (f.werktNu && f.verandering === "erbij") return { uren: Math.round(getal(f.uren) ?? 8), wat: "extra" };
+  return { uren: Math.round(getal(f.uren) ?? 24), wat: "totaal" };
 }
 
 /**

@@ -99,6 +99,11 @@ function laagste(l: Lezer): PostStatus {
 
 /** Bruto jaarloon exclusief vakantiegeld. */
 function brutoJaarExcl(w: Werk | undefined): Bedrag {
+  return eigenBrutoJaarExcl(w).plus(w?.bijbaan ? brutoJaarExcl(w.bijbaan) : NUL);
+}
+
+/** Bruto jaarloon exclusief vakantiegeld van deze baan, zonder bijbaan. */
+function eigenBrutoJaarExcl(w: Werk | undefined): Bedrag {
   if (!w) return NUL;
   const f = D(w.urenFactor ?? 1);
   if (w.brutoMaandloon !== undefined) return D(w.brutoMaandloon).times(12).times(f);
@@ -113,6 +118,10 @@ function brutoJaarExcl(w: Werk | undefined): Bedrag {
  * de post 'Netto loon' dat het niet berekend kon worden.
  */
 function metBruto(w: Werk | undefined, regels: RegelSet, datum: string): Werk | undefined {
+  if (w?.bijbaan) {
+    const { bijbaan, ...hoofd } = w;
+    return { ...metBruto(hoofd, regels, datum)!, bijbaan: metBruto(bijbaan, regels, datum) };
+  }
   if (!w || w.nettoMaandloon === undefined || w.brutoMaandloon !== undefined) return w;
   try {
     const l = new Lezer(regels, datum);
@@ -131,11 +140,11 @@ export function brutoMaandloon(w: Werk | undefined): Bedrag {
 
 function brutoJaarloon(w: Werk | undefined): Bedrag {
   const vg = D(w?.vakantiegeld ?? 0.08);
-  return brutoJaarExcl(w).times(vg.plus(1));
+  return eigenBrutoJaarExcl(w).times(vg.plus(1)).plus(w?.bijbaan ? brutoJaarloon(w.bijbaan) : NUL);
 }
 
 function pensioenJaar(w: Werk | undefined): Bedrag {
-  return D(w?.pensioenpremiePerMaand ?? 0).times(12);
+  return D(w?.pensioenpremiePerMaand ?? 0).times(12).plus(w?.bijbaan ? pensioenJaar(w.bijbaan) : NUL);
 }
 
 interface Kern {
@@ -184,6 +193,10 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         aanname("Bij een vierwekenloon krijgt u 13 keer per jaar loon. Het loon is hier omgerekend naar een gemiddelde maand.");
       }
       aanname("Netto loon is benaderd met een jaarberekening; de loonstrook kan een paar euro afwijken.");
+      if (werk?.bijbaan) {
+        stap("Waarvan het extra werk, bruto per maand (zonder vakantiegeld)", brutoMaandloon(werk.bijbaan));
+        aanname("Met twee banen is de belasting berekend over het totaal, zoals bij de belastingaangifte. Op de loonstroken kan het anders verdeeld zijn, omdat maar één werkgever de heffingskorting toepast.");
+      }
       return kern.nettoMaand;
     }),
   );
@@ -713,7 +726,7 @@ function valideer(invoer: Invoer) {
   if (invoer.huisgenotenInkomenJaar !== undefined && (!Number.isFinite(invoer.huisgenotenInkomenJaar) || invoer.huisgenotenInkomenJaar < 0)) {
     fouten.push("inkomen huisgenoten ongeldig");
   }
-  for (const w of [invoer.nieuwWerk, invoer.huidigWerk, invoer.partner?.werk]) {
+  for (const w of [invoer.nieuwWerk, invoer.nieuwWerk.bijbaan, invoer.huidigWerk, invoer.huidigWerk?.bijbaan, invoer.partner?.werk]) {
     if (!w) continue;
     for (const v of [w.brutoMaandloon, w.brutoVierwekenloon, w.nettoMaandloon, w.brutoUurloon, w.urenPerWeek, w.reiskostenPerMaand, w.overigeKostenPerMaand]) {
       if (v !== undefined && (!Number.isFinite(v) || v < 0)) fouten.push("bedragen en uren mogen niet negatief zijn");

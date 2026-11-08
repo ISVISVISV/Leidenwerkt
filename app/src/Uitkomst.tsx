@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { getal, naarInvoer, vandaag, type Formulier } from "./formulier.ts";
+import { naarInvoer, schuifStart, vandaag, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */
 function bruikbareDatum(f: Formulier): { datum: string; teruggevallen: boolean } {
@@ -37,8 +37,11 @@ const leesbareDatum = (iso: string) =>
   new Date(`${iso}T12:00:00`).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
 
 export function Uitkomst({ f }: { f: Formulier }) {
-  const [uren, setUren] = useState(() => Math.round(getal(f.uren) ?? 24));
-  const maxUren = Math.max(40, Math.round(getal(f.uren) ?? 0));
+  const start = schuifStart(f);
+  const extra = start.wat === "extra";
+  const [uren, setUren] = useState(() => start.uren);
+  const maxUren = Math.max(extra ? 32 : 40, start.uren);
+  const urenTekst = (u: number) => `${u} uur ${extra ? "extra werk " : ""}per week`;
   const [gekozenFase, setFase] = useState<"start" | "later" | "geen">("start");
   const { datum, teruggevallen } = useMemo(() => bruikbareDatum(f), [f]);
 
@@ -68,11 +71,11 @@ export function Uitkomst({ f }: { f: Formulier }) {
 
   return (
     <section className="uitkomst">
-      <Antwoord r={r} uren={uren} periode={meerPeriodes ? gekozen.naam : undefined} eersteJaar={eersteJaar.bedrag} />
+      <Antwoord r={r} urenTekst={urenTekst(uren)} periode={meerPeriodes ? gekozen.naam : undefined} eersteJaar={eersteJaar.bedrag} />
 
       <div className="bediening">
         <label htmlFor="urenschuif">
-          Uren per week: <output htmlFor="urenschuif">{uren}</output>
+          {extra ? "Uren extra werk per week" : "Uren per week"}: <output htmlFor="urenschuif">{uren}</output>
         </label>
         <input
           id="urenschuif"
@@ -87,10 +90,10 @@ export function Uitkomst({ f }: { f: Formulier }) {
         {grensUren !== undefined && (
           <p className="urengrens" id="urengrens">
             {grensUren === null
-              ? `Ook bij ${maxUren} uur per week vult de bijstand uw loon nog aan.`
+              ? `Ook bij ${urenTekst(maxUren)} vult de bijstand uw loon nog aan.`
               : grensUren === 1
-                ? "Met dit loon heeft u vanaf 1 uur per week geen bijstand meer nodig."
-                : `Vanaf ${grensUren} uur per week heeft u met dit uurloon geen bijstand meer nodig.${uren < grensUren ? ` Bij ${uren} uur vult de bijstand uw loon nog aan.` : ""}`}
+                ? `Met dit loon heeft u vanaf ${urenTekst(1)} geen bijstand meer nodig.`
+                : `Vanaf ${urenTekst(grensUren)} heeft u met dit uurloon geen bijstand meer nodig.${uren < grensUren ? ` Bij ${uren} uur vult de bijstand uw loon nog aan.` : ""}`}
           </p>
         )}
         {meerPeriodes && (
@@ -194,7 +197,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
   );
 }
 
-function Antwoord({ r, uren, periode, eersteJaar }: { r: Resultaat; uren: number; periode?: string; eersteJaar: string }) {
+function Antwoord({ r, urenTekst, periode, eersteJaar }: { r: Resultaat; urenTekst: string; periode?: string; eersteJaar: string }) {
   const j = Number(eersteJaar);
   const jaarzin =
     Math.abs(j) < 120
@@ -212,7 +215,7 @@ function Antwoord({ r, uren, periode, eersteJaar }: { r: Resultaat; uren: number
     <div className={`antwoord ${Math.abs(v) < 10 ? "gelijk" : v > 0 ? "meer" : "minder"}`} aria-live="polite">
       <p className="antwoord-zin">{zin}</p>
       <p className="antwoord-sub">
-        Bij {uren} uur per week{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}. {jaarzin}
+        Bij {urenTekst}{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}. {jaarzin}
       </p>
       {r.betrouwbaarheid.niveau !== "goed" && <p className="antwoord-noot">{r.betrouwbaarheid.tekst}</p>}
       {r.zekerheid === "onbevestigd" && r.betrouwbaarheid.niveau === "beperkt" && (
