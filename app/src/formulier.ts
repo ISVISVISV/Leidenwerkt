@@ -13,8 +13,35 @@ export type LoonPer = "maand" | "netto" | "vierweken" | "uur";
 export type AllIn = "nee" | "ja" | "onbekend";
 export type Woonsituatie = "huur" | "koop" | "inwonend" | "dakloos" | "instelling";
 
+/** Geboortedatum zoals ingevuld: dag, maand en jaar als tekst. */
+export interface Geboortedatum {
+  dag: string;
+  maand: string;
+  jaar: string;
+}
+
+export const legeDatum = (): Geboortedatum => ({ dag: "", maand: "", jaar: "" });
+
+/** De datum als JJJJ-MM-DD, of undefined als hij niet (volledig) is ingevuld of niet bestaat. */
+export function isoDatum(g: Geboortedatum): string | undefined {
+  if (!/^\d{1,2}$/.test(g.dag) || !/^\d{1,2}$/.test(g.maand) || !/^\d{4}$/.test(g.jaar)) return undefined;
+  const [d, m, j] = [Number(g.dag), Number(g.maand), Number(g.jaar)];
+  const datum = new Date(j, m - 1, d);
+  if (datum.getFullYear() !== j || datum.getMonth() !== m - 1 || datum.getDate() !== d) return undefined;
+  const p = (n: number) => String(n).padStart(2, "0");
+  return `${j}-${p(m)}-${p(d)}`;
+}
+
+/** Leeftijd in hele jaren op een datum (JJJJ-MM-DD). Undefined bij een ongeldige of toekomstige geboortedatum. */
+export function leeftijdOp(g: Geboortedatum, datum: string): number | undefined {
+  const geboren = isoDatum(g);
+  if (!geboren || geboren > datum) return undefined;
+  const jaren = Number(datum.slice(0, 4)) - Number(geboren.slice(0, 4));
+  return datum.slice(5) < geboren.slice(5) ? jaren - 1 : jaren;
+}
+
 export interface KindVeld {
-  leeftijd: string;
+  geboren: Geboortedatum;
   opvang: boolean;
   soort: Opvangsoort;
   uren: string;
@@ -23,8 +50,8 @@ export interface KindVeld {
 
 export interface Formulier {
   leefvorm: Leefvorm;
-  leeftijd: string;
-  partnerLeeftijd: string;
+  geboren: Geboortedatum;
+  partnerGeboren: Geboortedatum;
   partnerWerkt: boolean;
   partnerBruto: string;
   kinderen: KindVeld[];
@@ -67,8 +94,8 @@ export interface Formulier {
 
 export const leegFormulier: Formulier = {
   leefvorm: "alleenstaande",
-  leeftijd: "",
-  partnerLeeftijd: "",
+  geboren: legeDatum(),
+  partnerGeboren: legeDatum(),
   partnerWerkt: false,
   partnerBruto: "",
   kinderen: [],
@@ -99,7 +126,7 @@ export const leegFormulier: Formulier = {
   overigeKosten: "",
 };
 
-export const nieuwKind = (): KindVeld => ({ leeftijd: "", opvang: false, soort: "dagopvang", uren: "", uurprijs: "" });
+export const nieuwKind = (): KindVeld => ({ geboren: legeDatum(), opvang: false, soort: "dagopvang", uren: "", uurprijs: "" });
 
 /** Leest "15,50", "15.50" of "1.250,00" als getal; leeg geeft undefined. */
 export function getal(tekst: string): number | undefined {
@@ -122,7 +149,16 @@ export function vandaag(): string {
 /** Het inkomen van de anderen in huis is nodig voor de huurtoeslag: huisgenoten, of kinderen van 18 of ouder. */
 export function vraagInkomenAnderen(f: Formulier): boolean {
   const huisgenoten = (getal(f.kostendelers) ?? 0) + (getal(f.jongeHuisgenoten) ?? 0);
-  return f.woont === "huur" && f.zelfstandig && (huisgenoten > 0 || f.kinderen.some((k) => (getal(k.leeftijd) ?? 0) >= 18));
+  return f.woont === "huur" && f.zelfstandig && (huisgenoten > 0 || f.kinderen.some((k) => (leeftijdOp(k.geboren, vandaag()) ?? 0) >= 18));
+}
+
+/** Hoogste aantal opvanguren per kind per maand waarover toeslag wordt berekend (uit de regeldata). */
+export function maxOpvanguren(): number | undefined {
+  try {
+    return new Lezer(standaardRegels, vandaag()).aantal("kot.max_uren_per_maand").toNumber();
+  } catch {
+    return undefined;
+  }
 }
 
 export type Fouten = Partial<Record<string, string>>;
@@ -136,14 +172,33 @@ export function controleer(f: Formulier, stap: number): Fouten {
     } else if (Number.isNaN(n) || n < min || n > maxi) fouten[veld] = melding;
   };
   if (stap === 1) {
-    moet("leeftijd", f.leeftijd, 21, 66, "Deze rekenhulp werkt voor leeftijden van 21 tot 67 jaar.");
-    if (f.leefvorm === "paar") moet("partnerLeeftijd", f.partnerLeeftijd, 21, 66, "Uw partner moet 21 tot 67 jaar zijn.");
+    const geboren = (veld: string, g: Geboortedatum, min: number, maxi: number, melding: string) => {
+      if (!g.dag && !g.maand && !g.jaar) fouten[veld] = "Vul dit in.";
+      else if (!isoDatum(g)) fouten[veld] = "Vul een datum in die bestaat, met dag, maand en jaar. Bijvoorbeeld 14 3 1990.";
+      else if (isoDatum(g)! > vandaag()) fouten[veld] = "Deze datum ligt in de toekomst. Vul de geboortedatum in.";
+      else {
+        const leeftijd = leeftijdOp(g, vandaag())!;
+        if (leeftijd < min || leeftijd > maxi) fouten[veld] = melding;
+      }
+    };
+    geboren("geboren", f.geboren, 21, 66, "Deze rekenhulp werkt voor mensen van 21 tot 67 jaar.");
+    if (f.leefvorm === "paar") geboren("partnerGeboren", f.partnerGeboren, 21, 66, "Uw partner moet 21 tot 67 jaar zijn.");
+    const maxOpvang = maxOpvanguren();
     if (f.leefvorm === "paar" && f.partnerWerkt) moet("partnerBruto", f.partnerBruto, 1, 20000, "Vul een bruto maandloon in.");
     if (f.leefvorm === "alleenstaande_ouder" && f.kinderen.length === 0) fouten.kinderen = "Voeg minstens één kind toe.";
     f.kinderen.forEach((k, i) => {
-      moet(`kind${i}`, k.leeftijd, 0, 26, "Vul een leeftijd in van 0 tot en met 26 jaar. Een kind van 27 jaar of ouder telt u hieronder mee als huisgenoot.");
+      geboren(`kind${i}`, k.geboren, 0, 26, "Dit kind is 27 jaar of ouder. Haal het hier weg en tel het hieronder mee als huisgenoot.");
       if (k.opvang) {
-        moet(`kind${i}uren`, k.uren, 1, 300, "Vul het aantal uren per maand in.");
+        // Zonder bekende grens: hoogstens het aantal uren in een maand.
+        moet(
+          `kind${i}uren`,
+          k.uren,
+          1,
+          maxOpvang ?? 744,
+          maxOpvang
+            ? `Vul 1 tot ${maxOpvang} uur per maand in. U krijgt kinderopvangtoeslag over hoogstens ${maxOpvang} uur per kind per maand. Heeft u meer uren? Vul dan ${maxOpvang} in.`
+            : "Vul het aantal uren per maand in.",
+        );
         moet(`kind${i}prijs`, k.uurprijs, 1, 30, "Vul een prijs per uur in, bijvoorbeeld 11,50. Weet u het niet? Laat het vak dan leeg.", false);
       }
     });
@@ -195,7 +250,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     const prijs = getal(k.uurprijs);
     const geschat = prijs === undefined;
     return {
-      leeftijd: getal(k.leeftijd) ?? 0,
+      leeftijd: leeftijdOp(k.geboren, opties.datum) ?? 0,
       opvang: k.opvang
         ? { soort: k.soort, urenPerMaand: getal(k.uren) ?? 0, uurprijs: geschat ? maxUurprijs(l, k.soort) : prijs, uurprijsGeschat: geschat || undefined }
         : undefined,
@@ -206,9 +261,9 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     datum: opties.datum,
     gemeente: "leiden",
     leefvorm: f.leefvorm,
-    leeftijd: getal(f.leeftijd) ?? 0,
+    leeftijd: leeftijdOp(f.geboren, opties.datum) ?? 0,
     partner: paar
-      ? { leeftijd: getal(f.partnerLeeftijd) ?? 0, werk: f.partnerWerkt ? { brutoMaandloon: getal(f.partnerBruto) ?? 0 } : undefined }
+      ? { leeftijd: leeftijdOp(f.partnerGeboren, opties.datum) ?? 0, werk: f.partnerWerkt ? { brutoMaandloon: getal(f.partnerBruto) ?? 0 } : undefined }
       : undefined,
     kinderen,
     kostendelers: getal(f.kostendelers) ?? 0,
