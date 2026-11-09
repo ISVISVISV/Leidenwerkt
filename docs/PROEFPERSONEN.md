@@ -165,7 +165,7 @@ Daan, 41, alleenstaand, heeft geen vaste woonplek en overweegt 24 uur als magazi
 
 | Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
 | --- | --- | ---: | ---: | ---: | --- |
-| Bijstand | nu | € 1.034,18 | € 1.034,18 | € 0,00 ✓ | [Leiden, Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026, art. 3.1 lid 2 d; Participatiewet art. 21 (versie 1 juli 2026)](https://lokaleregelgeving.overheid.nl/CVDR760406), 2026-11-08. Norm alleenstaande € 1.419,46 min 19% van de gehuwdennorm € 2.027,79 (€ 385,28) |
+| Bijstand | nu | € 1.034,18 | € 1.034,18 | € 0,00 ✓ | [Leiden, Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026, art. 3.1 lid 1 a (met toelichting "Niet aanhouden van een woonruimte") en lid 2 d; Participatiewet art. 21 (versie 1 juli 2026)](https://lokaleregelgeving.overheid.nl/CVDR760406), 2026-11-08. Geen woonruimte aanhouden (bijvoorbeeld dakloos) geldt als geen woonkosten. Norm alleenstaande € 1.419,46 min 19% van de gehuwdennorm € 2.027,79 (€ 385,28) |
 
 <details><summary>Invulblad voor de controle</summary>
 
@@ -477,7 +477,7 @@ Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, 
 
 Lotte, 33, alleenstaand, huurt voor € 620. Ze werkt sinds oktober 2026 16 uur per week (€ 15,00 per uur) en kreeg op 31 december 2026 de vrijlating van 25%. In februari 2027 breidt ze uit naar 24 uur. Overgangsrecht art. 78ff lid 2 Pw.
 
-> De bijstandsnormen, belastingtarieven en toeslagbedragen voor 2027 zijn nog niet gepubliceerd. Tot dan bewaakt alleen de snapshot dit geval; de engine rekent het overgangsrecht met de bedragen van 31 december 2026 (zie regimes.test.ts).
+> De bijstandsnormen, belastingtarieven en toeslagbedragen voor 2027 zijn nog niet gepubliceerd. Het kopgetal € 0,00 hierboven is daarom geen echte uitkomst. In het scherm is Lotte nog niet in te vullen: de vraag over het overgangsrecht verschijnt pas als de bedragen voor 2027 bekend zijn. Tot dan bewaakt alleen de snapshot dit geval; de engine rekent het overgangsrecht met de bedragen van 31 december 2026 (zie regimes.test.ts).
 
 **Invoer** (rekendatum 2027-02-01)
 

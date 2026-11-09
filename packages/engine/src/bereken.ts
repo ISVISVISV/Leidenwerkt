@@ -405,7 +405,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         const maand = maandbedragToeslag(r.toeslagPerMaand);
         kotPerMaand = maand;
         stap(`Kinderopvangtoeslag per maand. ${AFGEROND}`, maand);
-        aanname("Er is aangenomen dat het aantal opvanguren past bij het aantal gewerkte uren.");
+        aanname("De opvanguren zijn zoals u ze invulde, ook als u de urenschuif verplaatst.");
         if (opvangKinderen.some((k) => k.opvang!.uurprijsGeschat)) {
           aanname("U wist de prijs per uur van de opvang niet. De app rekent met de hoogste prijs per uur waarover u toeslag krijgt. Is de opvang duurder, dan betaalt u het verschil zelf.");
         }
@@ -415,7 +415,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     posten.push(
       maakPost(regels, datum, "opvangkosten", "Kosten kinderopvang", "kosten", ({ stap }) => {
         const kosten = opvangKinderen.reduce((s, k) => s.plus(D(k.opvang!.urenPerMaand).times(k.opvang!.uurprijs)), NUL);
-        stap("Uren × uurprijs, alle kinderen samen", kosten);
+        stap("Uren × prijs per uur, alle kinderen samen", kosten);
         return kostenPerMaand ? kostenPerMaand.neg() : kosten.neg();
       }),
     );
