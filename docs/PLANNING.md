@@ -10,7 +10,7 @@ Wat er nog op de lijst staat. Afgeronde punten staan in de geschiedenis van de p
 
 ## Rekenhulp
 
-- [ ] Leiden: kwijtschelding van gemeentelijke belastingen; een signaal bij 120% van de bijstandsnorm (collectieve zorgverzekering).
+- [ ] Leiden: de kwijtschelding van gemeentelijke belastingen als bedrag (nu alleen een melding); daarvoor zijn de tarieven en de rekenregels voor de betalingscapaciteit nodig.
 
 ## Toetsing
 

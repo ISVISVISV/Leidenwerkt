@@ -231,3 +231,33 @@ describe("na de QA", () => {
     expect(instelling?.tekst).toBe(gewoon?.tekst);
   });
 });
+
+describe("ander inkomen (art. 32 Pw)", () => {
+  it("gaat helemaal van de bijstand af, nu en met werk, en verandert het verschil niet zolang er bijstand is", () => {
+    const w = { brutoMaandloon: 600, urenPerWeek: 10 };
+    const zonder = bereken(basis({ nieuwWerk: w, vrijlatingFase: "start" }));
+    const met = bereken(basis({ nieuwWerk: w, vrijlatingFase: "start", anderInkomenPerMaand: 250 }));
+    expect(Number(bijstand(met))).toBeCloseTo(Number(bijstand(zonder)) - 250, 2);
+    expect(Number(bijstand(met, "werk"))).toBeCloseTo(Number(bijstand(zonder, "werk")) - 250, 2);
+    expect(met.huidig.posten.find((p) => p.id === "ander_inkomen")!.perMaand).toBe("250.00");
+    expect(met.verschilPerMaand).toBe(zonder.verschilPerMaand);
+  });
+});
+
+describe("Leiden: collectieve zorgverzekering en kwijtschelding", () => {
+  const tekst = (r: Resultaat, woord: string) => r.signalen.find((s) => s.tekst.startsWith(woord));
+  it("zorgverzekering: onder 120% van de norm kan de gemeente nog meebetalen, daarboven niet", () => {
+    const laag = bereken(basis({ nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
+    const hoog = bereken(basis({ nieuwWerk: { brutoMaandloon: 2600, urenPerWeek: 36 }, vrijlatingFase: "start" }));
+    expect(tekst(laag, "Zorgverzekering")!.tekst).toContain("kan dat waarschijnlijk nog");
+    expect(tekst(hoog, "Zorgverzekering")!.tekst).toContain("niet meer mee");
+    // 120% van € 1.419,46
+    expect(tekst(hoog, "Zorgverzekering")!.tekst).toMatch(/€\s1\.703/);
+  });
+  it("kwijtschelding: alleen een melding als de bijstand door het werk stopt", () => {
+    const laag = bereken(basis({ nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
+    const hoog = bereken(basis({ nieuwWerk: { brutoMaandloon: 2600, urenPerWeek: 36 }, vrijlatingFase: "start" }));
+    expect(tekst(laag, "Gemeentelijke belastingen")).toBeUndefined();
+    expect(tekst(hoog, "Gemeentelijke belastingen")!.bron!.tekst).toContain("Afvalstoffenheffing");
+  });
+});
