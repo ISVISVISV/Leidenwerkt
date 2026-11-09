@@ -133,6 +133,8 @@ Nieuw is ook een bufferbudget van ten hoogste € 1.000 per kalenderjaar (art. 3
 
 Ongewijzigd ten opzichte van de vorige stand; alle waarden 2026 `geverifieerd` ([Belastingdienst, tarieven en heffingskortingen 2026](https://www.belastingdienst.nl/wps/wcm/connect/nl/voorlopige-aanslag/content/voorlopige-aanslag-tarieven-en-heffingskortingen)). Het netto loon wordt benaderd met een jaarberekening; zie ADR 0004. Waarden 2027: na aanneming van het Belastingplan (december 2026).
 
+**Geboortedatum en opvanguren.** De app vraagt de geboortedatum van de gebruiker, de partner en de kinderen (dag, maand, jaar) en rekent daarmee de leeftijd op de rekendatum uit; de engine rekent met die leeftijd in hele jaren. Bij de kinderopvang kan iemand hoogstens 230 uur per kind per maand invullen (parameter `kot.max_uren_per_maand`), net als in de Proefberekening van Dienst Toeslagen.
+
 **Wie al werkt, hoe lang al.** De app vraagt wie al werkt of dat korter is dan 6 maanden of 6 maanden of langer. Bij 6 maanden of langer is de eerste vrijlating (art. 31 lid 2 onder n, ten hoogste zes maanden) voorbij: de app rekent dan nu én straks met de periode daarna, ook bij ander of extra werk, en toont geen keuze voor de periode. Wie al werkt en opvang heeft, krijgt de vraag of het kind nu al naar de opvang gaat; zo ja, dan tellen de opvangkosten, de kinderopvangtoeslag en de vergoeding ook bij "Nu" (veld `opvangNu`).
 
 **Overgangsrecht 2027 in het scherm.** De vraag "Mocht u in december 2026 al een deel van uw loon houden?" verschijnt pas als de normen voor 2027 bekend zijn. Tot die tijd is proefpersoon Lotte alleen via de engine te toetsen, niet via het scherm.
