@@ -55,6 +55,9 @@ export interface Formulier {
   partnerWerkt: boolean;
   partnerBruto: string;
   kinderen: KindVeld[];
+  /** Ander inkomen van het huishouden, zoals alimentatie of een andere uitkering. */
+  heeftAnderInkomen: boolean;
+  anderInkomen: string;
   kostendelers: string;
   /** Huisgenoten van 18 tot 27 jaar die geen kind van de gebruiker zijn. */
   jongeHuisgenoten: string;
@@ -99,6 +102,8 @@ export const leegFormulier: Formulier = {
   partnerWerkt: false,
   partnerBruto: "",
   kinderen: [],
+  heeftAnderInkomen: false,
+  anderInkomen: "",
   kostendelers: "0",
   jongeHuisgenoten: "0",
   huisgenotenInkomen: "",
@@ -203,6 +208,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
       }
     });
     moet("kostendelers", f.kostendelers, 0, 10, "Vul een aantal van 0 tot 10 in.");
+    if (f.heeftAnderInkomen) moet("anderInkomen", f.anderInkomen, 1, 10000, "Vul een bedrag per maand in, bijvoorbeeld 250.");
     moet("jongeHuisgenoten", f.jongeHuisgenoten, 0, 10, "Vul een aantal van 0 tot 10 in.");
   }
   if (stap === 2 && vraagInkomenAnderen(f)) {
@@ -289,6 +295,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     huidigeVrijlating: f.werktNu ? opties.fase : "geen",
     overgang2027: f.werktNu && f.overgang ? f.overgang : undefined,
     medischUrenbeperkt: f.medisch || undefined,
+    anderInkomenPerMaand: f.heeftAnderInkomen ? getal(f.anderInkomen) : undefined,
     opvangNu: f.werktNu && heeftOpvang(f) && f.opvangNu === "ja" ? true : undefined,
   };
 }
@@ -338,4 +345,75 @@ function loonWerk(per: LoonPer, bedrag: number, uren: number, andereUren?: numbe
 /** Laat alleen tekens door die in een getal horen; letters en andere tekens verdwijnen meteen. */
 export function alleenCijfers(tekst: string, soort: "geheel" | "getal"): string {
   return soort === "geheel" ? tekst.replace(/[^0-9]/g, "") : tekst.replace(/[^0-9.,]/g, "");
+}
+
+/** Een geboortedatum als tekst, bijvoorbeeld "14-3-1990". */
+const datumTekst = (g: Geboortedatum) => `${Number(g.dag)}-${Number(g.maand)}-${g.jaar}`;
+const euroTekst = (t: string) => `€ ${t}`;
+
+const LOON_PER: Record<LoonPer, string> = { maand: "bruto per maand", netto: "netto per maand", vierweken: "bruto per 4 weken", uur: "bruto per uur" };
+const OPVANG: Record<Opvangsoort, string> = { dagopvang: "kinderdagverblijf", bso: "buitenschoolse opvang", gastouder: "gastouder" };
+
+/**
+ * Wat de gebruiker heeft ingevuld, als korte regels per onderdeel. Voor de afdruk,
+ * zodat invoer en uitkomst op één pagina staan. `uren` is de stand van de urenschuif.
+ */
+export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [string, string][] }[] {
+  const paar = f.leefvorm === "paar";
+  const huishouden: [string, string][] = [
+    ["Huishouden", f.leefvorm === "alleenstaande" ? "alleen" : f.leefvorm === "alleenstaande_ouder" ? "alleen met kinderen" : f.kinderen.length > 0 ? "met partner en kinderen" : "met partner"],
+    ["Geboren", datumTekst(f.geboren)],
+  ];
+  if (paar) {
+    huishouden.push(["Partner geboren", datumTekst(f.partnerGeboren)]);
+    huishouden.push(["Partner werkt", f.partnerWerkt ? `ja, ${euroTekst(f.partnerBruto)} bruto per maand` : "nee"]);
+  }
+  f.kinderen.forEach((k, i) => {
+    const opvang = k.opvang ? `; ${OPVANG[k.soort]}, ${k.uren} uur per maand${k.uurprijs ? ` × ${euroTekst(k.uurprijs)}` : ", prijs onbekend"}` : "";
+    huishouden.push([`Kind ${i + 1}`, `geboren ${datumTekst(k.geboren)}${opvang}`]);
+  });
+  huishouden.push(["Huisgenoten", `${f.kostendelers || "0"} van 27 jaar of ouder, ${f.jongeHuisgenoten || "0"} van 18 tot 27 jaar`]);
+  huishouden.push(["Ander inkomen", f.heeftAnderInkomen ? `${euroTekst(f.anderInkomen)} netto per maand` : "nee"]);
+
+  const woning: [string, string][] = [];
+  if (f.woont === "huur") {
+    woning.push(["Woning", f.zelfstandig ? "huurwoning" : "huur, met gedeelde voordeur, keuken, wc of douche"]);
+    woning.push(["Kale huur", `${euroTekst(f.kaleHuur)} per maand`]);
+    if (vraagInkomenAnderen(f)) woning.push(["Inkomen anderen in huis", `${euroTekst(f.huisgenotenInkomen)} bruto per jaar`]);
+  } else {
+    woning.push([
+      "Woning",
+      f.woont === "koop"
+        ? "koopwoning"
+        : f.woont === "inwonend"
+          ? `bij iemand in huis, betaalt niets voor de woonruimte; ${f.woonlasten ? "betaalt wel" : "betaalt geen"} gas, licht of water`
+          : f.woont === "dakloos"
+            ? "geen vaste woonplek"
+            : "instelling of woonvorm met begeleiding",
+    ]);
+  }
+
+  const loon = (per: LoonPer, bedrag: string, allIn: AllIn) =>
+    `${euroTekst(bedrag)} ${LOON_PER[per]}${per === "uur" && allIn !== "nee" ? (allIn === "ja" ? ", all-in" : ", all-in onbekend") : ""}`;
+  const werk: [string, string][] = [];
+  if (f.werktNu) {
+    werk.push(["Werkt nu", `${f.nuUren} uur per week, ${loon(f.nuPer, f.nuLoon, f.nuAllIn)}; ${f.werktAl === "lang" ? "6 maanden of langer" : "korter dan 6 maanden"}`]);
+    if (heeftOpvang(f)) werk.push(["Opvang nu al", f.opvangNu === "ja" ? "ja" : "nee"]);
+  } else werk.push(["Werkt nu", "nee"]);
+  if (f.werktNu && f.verandering === "meer") werk.push(["Straks", `${uren} uur per week bij het huidige werk`]);
+  else if (f.werktNu && f.verandering === "erbij") werk.push(["Werk erbij", `${uren} uur per week; ${loon(f.per, f.loon, f.allIn)} bij ${f.uren} uur`]);
+  else werk.push([f.werktNu ? "Ander werk" : "Nieuw werk", `${uren} uur per week; ${loon(f.per, f.loon, f.allIn)} bij ${f.uren} uur`]);
+  if (f.medisch) werk.push(["Medische urenbeperking", "ja"]);
+  const kosten = [
+    f.reiskosten && `reiskosten ${euroTekst(f.reiskosten)}`,
+    f.vergoeding && `reiskostenvergoeding ${euroTekst(f.vergoeding)}`,
+    f.overigeKosten && `andere kosten ${euroTekst(f.overigeKosten)}`,
+  ].filter(Boolean);
+  werk.push(["Kosten per maand", kosten.length > 0 ? kosten.join(", ") : "geen ingevuld"]);
+
+  return [
+    { kop: "Huishouden", regels: huishouden },
+    { kop: "Woning", regels: woning },
+    { kop: "Werk", regels: werk },
+  ];
 }

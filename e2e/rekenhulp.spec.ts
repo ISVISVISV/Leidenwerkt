@@ -251,6 +251,34 @@ test("uurloon: vraag of het vakantiegeld al in het uurloon zit", async ({ page }
   await page.getByLabel("Ja, het is een all-in uurloon").check();
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
   await page.getByText("Bekijk de").click();
-  await expect(page.locator("section[aria-labelledby='aannames'] .aannames")).toContainText("all-in");
+  await expect(page.locator("section[aria-labelledby='aannames'] details .aannames")).toContainText("all-in");
   await geenToegankelijkheidsfouten(page);
+});
+
+test("ander inkomen telt mee, de afdruk toont de invoer, en opnieuw beginnen wist alles", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await geboren(page, "Uw geboortedatum", 40);
+  await page.getByRole("group", { name: "Heeft u ander inkomen dan bijstand en loon?" }).getByLabel("Ja").check();
+  await page.getByLabel("Ander inkomen per maand, netto").fill("250");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel("In een koopwoning").check();
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("textbox", { name: /Hoeveel uur per week werkt u/ }).fill("32");
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("2.600");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  const tabel = page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ });
+  await expect(tabel.getByRole("row", { name: /Ander inkomen/ })).toContainText("€ 250");
+  await expect(page.locator(".signalen")).toContainText("Gemeentelijke belastingen");
+  await expect(page.locator(".signalen")).toContainText("Zorgverzekering");
+  await geenToegankelijkheidsfouten(page);
+  // Afdruk: de invoer staat erbij, de bediening niet.
+  await page.emulateMedia({ media: "print" });
+  await expect(page.locator(".gegevens")).toContainText("Ander inkomen€ 250 netto per maand");
+  await expect(page.locator("#urenschuif")).toBeHidden();
+  await page.emulateMedia({ media: "screen" });
+  await page.getByRole("button", { name: "Opnieuw beginnen" }).click();
+  await page.getByRole("button", { name: "Ja, alles wissen" }).click();
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await expect(page.getByRole("group", { name: "Uw geboortedatum" }).getByLabel("Jaar")).toHaveValue("");
 });

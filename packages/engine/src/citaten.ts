@@ -25,6 +25,13 @@ export const CITATEN = {
     tekst:
       "2. In deze wet en de daarop berustende bepalingen wordt: a. als gehuwd of als echtgenoot mede aangemerkt de ongehuwde die met een ander een gezamenlijke huishouding voert, tenzij het betreft een aanverwant in de eerste graad of een bloedverwant in de eerste graad of indien er sprake is van een zorgbehoefte van of verleend door een bijstandsgerechtigde die de aanleiding vormt om samen te wonen, ongeacht of er sprake is van bloedverwantschap, gedurende de periode dat die zorg wordt verleend; […] 3. Van een gezamenlijke huishouding is sprake indien twee personen hun hoofdverblijf in dezelfde woning hebben en zij blijk geven zorg te dragen voor elkaar door middel van het leveren van een bijdrage in de kosten van de huishouding dan wel anderszins.",
   },
+  pw32: {
+    titel: "Participatiewet, art. 32 lid 1",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
+    versie: "geldend vanaf 1 juli 2026",
+    tekst:
+      "Onder inkomen wordt verstaan de op grond van artikel 31 in aanmerking genomen middelen voorzover deze: a. betreffen inkomsten uit of in verband met arbeid, inkomsten uit vermogen, een premie als bedoeld in artikel 31, tweede lid, onderdeel j, een kostenvergoeding als bedoeld in artikel 31, tweede lid, onderdeel k, inkomsten uit verhuur, onderverhuur of het hebben van een of meer kostgangers, socialezekerheidsuitkeringen, uitkeringen tot levensonderhoud op grond van Boek 1 van het Burgerlijk Wetboek, voorlopige teruggave of teruggave van inkomstenbelasting, loonbelasting, premies volksverzekeringen en inkomensafhankelijke bijdragen als bedoeld in artikel 43 van de Zorgverzekeringswet, dan wel naar hun aard met deze inkomsten en uitkeringen overeenkomen; en b. betrekking hebben op een periode waarover beroep op bijstand wordt gedaan.",
+  },
   pw34a: {
     titel: "Participatiewet, art. 34a lid 1 en 2",
     url: "https://wetten.overheid.nl/BWBR0015703/2027-01-01#Hoofdstuk3_Paragraaf3.4_Artikel34a",

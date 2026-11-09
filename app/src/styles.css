@@ -667,24 +667,231 @@ details.uitleg summary {
   }
 }
 
+.alleen-print {
+  display: none;
+}
+
+/* Afdruk: invoer en uitkomst compact op één of twee A4'tjes. */
+@page {
+  size: A4;
+  margin: 12mm 14mm;
+}
+
 @media print {
   :root {
-    font-size: 11pt;
+    font-size: 9pt;
     color-scheme: light;
     --papier: #fff;
+    --vlak: #fff;
+    --veld: #fff;
     --inkt: #000;
-    --inkt-zacht: #333;
+    --inkt-zacht: #3a3a3a;
+    --lijn: #bbb;
   }
+
+  body {
+    background: #fff;
+  }
+
+  .pagina {
+    max-width: none;
+    padding: 0;
+  }
+
+  .alleen-print {
+    display: block;
+  }
+
+  .niet-print,
   .knoppen,
+  .voortgang,
+  .info-knop,
   .bediening input,
-  .voortgang {
+  .bediening label,
+  .bediening fieldset,
+  .urengrens {
+    display: none !important;
+  }
+
+  .kopregel {
+    padding: 0 0 0.4rem;
+    margin-bottom: 0.6rem;
+    border-top: 0;
+    border-bottom: 1.5pt solid #000;
+  }
+
+  .merk {
+    font-size: 1.5rem;
+  }
+
+  main > h1 {
     display: none;
   }
-  details.uitleg {
-    display: block;
+
+  .afdruk-datum {
+    margin: 0 0 0.6rem;
+    color: var(--inkt-zacht);
   }
-  details.uitleg > *:not(summary) {
+
+  .antwoord {
+    padding: 0.2rem 0 0.2rem 0.8rem;
+    border-left-width: 4pt;
+    margin-bottom: 0.7rem;
+    break-inside: avoid;
+  }
+
+  .antwoord-zin {
+    font-size: 1.7rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .antwoord-sub,
+  .antwoord-noot {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1.05rem;
+    margin: 0.9rem 0 0.3rem;
+    padding-bottom: 0.15rem;
+    border-bottom: 0.75pt solid #000;
+    break-after: avoid;
+  }
+
+  .gegevens-kolommen {
+    display: grid;
+    grid-template-columns: 1.2fr 0.9fr 1.2fr;
+    gap: 0 1.2rem;
+  }
+
+  .gegevens h3 {
+    font-size: 0.9rem;
+    margin: 0.2rem 0 0.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--inkt-zacht);
+  }
+
+  .gegevens dl {
+    margin: 0;
+  }
+
+  .gegevens dl > div {
+    padding: 0.12rem 0;
+    border-bottom: 0.5pt dotted var(--lijn);
+    break-inside: avoid;
+  }
+
+  .gegevens dt {
+    display: inline;
+    font-weight: 700;
+  }
+
+  .gegevens dt::after {
+    content: ": ";
+  }
+
+  .gegevens dd {
+    display: inline;
+    margin: 0;
+  }
+
+  .bediening {
+    background: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toelichting {
+    margin: 0.5rem 0 0;
+    padding: 0.3rem 0.6rem;
+    border: 0.75pt solid var(--lijn);
+    break-inside: avoid;
+  }
+
+  .toelichting p {
+    margin: 0 0 0.2rem;
+  }
+
+  table.vergelijking {
+    margin: 0.4rem 0 0;
+    break-inside: avoid;
+  }
+
+  .vergelijking caption {
+    font-size: 1.05rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 0.75pt solid #000;
+  }
+
+  .vergelijking th,
+  .vergelijking td {
+    padding: 0.14rem 0.3rem;
+    font-size: 1rem;
+  }
+
+  .vergelijking .groepkop th {
+    padding-top: 0.35rem;
+  }
+
+  .signalen {
+    columns: 2;
+    column-gap: 1.2rem;
+    margin: 0;
+  }
+
+  .signalen li,
+  .signalen li.waarschuwing {
+    background: none;
+    padding: 0 0 0 0.5rem;
+    margin: 0 0 0.45rem;
+    border-left-width: 2pt;
+    break-inside: avoid;
+    font-size: 0.93rem;
+    line-height: 1.35;
+  }
+
+  .bron-knop {
+    color: var(--inkt-zacht) !important;
+    text-decoration: none !important;
+    min-height: 0;
+    font-size: 0.9em;
+    cursor: default;
+  }
+
+  .signaal-bron {
     display: block;
+    font-size: 0.9em;
+  }
+
+  p,
+  li {
+    max-width: none;
+  }
+
+  ul.aannames {
+    columns: 2;
+    column-gap: 1.2rem;
+    margin: 0;
+    padding-left: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.3;
+    color: var(--inkt-zacht);
+  }
+
+  ul.aannames li {
+    margin-bottom: 0.15rem;
+    break-inside: avoid;
+  }
+
+  .voet {
+    margin-top: 0.8rem;
+    padding-top: 0.3rem;
+    font-size: 0.8rem;
+  }
+
+  .voet p {
+    margin: 0 0 0.2rem;
   }
 }
 

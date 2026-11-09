@@ -75,6 +75,11 @@ export interface Invoer {
    * huurtoeslag niet berekend als er huisgenoten zijn.
    */
   huisgenotenInkomenJaar?: number;
+  /**
+   * Ander netto inkomen van het huishouden per maand, zoals alimentatie of een andere
+   * uitkering. Telt volledig mee voor de bijstand (art. 32 Pw), in beide situaties.
+   */
+  anderInkomenPerMaand?: number;
   /** Wie al werkt: de kinderen gaan nu ook al naar de opvang (zelfde uren). Dan telt de opvang ook bij "Nu". */
   opvangNu?: boolean;
   /**

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { getal, naarInvoer, schuifStart, vasteFase, vandaag, type Formulier } from "./formulier.ts";
+import { getal, ingevuld, naarInvoer, schuifStart, vasteFase, vandaag, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */
 function bruikbareDatum(f: Formulier): { datum: string; teruggevallen: boolean } {
@@ -77,7 +77,30 @@ export function Uitkomst({ f }: { f: Formulier }) {
 
   return (
     <section className="uitkomst">
+      <p className="alleen-print afdruk-datum">
+        Berekening van {leesbareDatum(vandaag())}, met de regels die gelden op {leesbareDatum(r.datum)}.
+      </p>
+
       <Antwoord r={r} urenTekst={urenTekst(uren)} periode={meerPeriodes ? gekozen.naam : undefined} eersteJaar={eersteJaar.bedrag} />
+
+      <section className="alleen-print gegevens" aria-label="Wat u heeft ingevuld">
+        <h2>Wat u heeft ingevuld</h2>
+        <div className="gegevens-kolommen">
+          {ingevuld(f, uren).map((blok) => (
+            <div key={blok.kop}>
+              <h3>{blok.kop}</h3>
+              <dl>
+                {blok.regels.map(([naam, waarde]) => (
+                  <div key={naam}>
+                    <dt>{naam}</dt>
+                    <dd>{waarde}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <div className="bediening">
         <label htmlFor="urenschuif">
@@ -188,17 +211,24 @@ export function Uitkomst({ f }: { f: Formulier }) {
         {(() => {
           const lijst = [...new Set([...r.aannames, ...r.werk.posten.flatMap((p) => p.aannames), ...r.huidig.posten.flatMap((p) => p.aannames)])];
           return (
-            <details className="uitleg">
-              <summary>Bekijk de {lijst.length} aannames</summary>
-              <ul className="aannames">
+            <>
+              <details className="uitleg niet-print">
+                <summary>Bekijk de {lijst.length} aannames</summary>
+                <ul className="aannames">
+                  {lijst.map((a) => (
+                    <li key={a}>{a}</li>
+                  ))}
+                </ul>
+              </details>
+              <ul className="aannames alleen-print">
                 {lijst.map((a) => (
                   <li key={a}>{a}</li>
                 ))}
               </ul>
-            </details>
+            </>
           );
         })()}
-        <p className="klein">Berekend met de regels die gelden op {leesbareDatum(r.datum)}.</p>
+        <p className="klein niet-print">Berekend met de regels die gelden op {leesbareDatum(r.datum)}.</p>
       </section>
     </section>
   );
@@ -232,7 +262,7 @@ function Antwoord({ r, urenTekst, periode, eersteJaar }: { r: Resultaat; urenTek
   );
 }
 
-const VOLGORDE = ["loon", "loon_partner", "bijstand", "reisvergoeding", "iack", "zorgtoeslag", "huurtoeslag", "kgb", "kinderbijslag", "kot", "bb_opvang", "opvangkosten", "werkkosten"];
+const VOLGORDE = ["loon", "loon_partner", "ander_inkomen", "bijstand", "reisvergoeding", "iack", "zorgtoeslag", "huurtoeslag", "kgb", "kinderbijslag", "kot", "bb_opvang", "opvangkosten", "werkkosten"];
 const opVolgorde = (a: string, b: string) => VOLGORDE.indexOf(a) - VOLGORDE.indexOf(b);
 
 function waarde(p: Post | undefined): string {
@@ -334,7 +364,7 @@ function Vergelijking({ r }: { r: Resultaat }) {
 function Uitleg({ r }: { r: Resultaat }) {
   const ids = [...new Set([...r.huidig.posten, ...r.werk.posten].map((p) => p.id))].sort(opVolgorde);
   return (
-    <section aria-labelledby="uitleg">
+    <section aria-labelledby="uitleg" className="niet-print">
       <h2 id="uitleg">Hoe is dit berekend?</h2>
       {ids.map((id) => {
         const a = r.huidig.posten.find((p) => p.id === id);

@@ -8,6 +8,7 @@ const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
 
 export function App() {
   const [f, setF] = useState<Formulier>(leegFormulier);
+  const [wissen, setWissen] = useState(false);
   const [stap, setStap] = useState(0);
   const [fouten, setFouten] = useState<Fouten>({});
   const kop = useRef<HTMLHeadingElement>(null);
@@ -90,6 +91,30 @@ export function App() {
               <button type="button" className="tweedeknop" onClick={() => window.print()}>
                 Afdrukken
               </button>
+            )}
+            {!wissen ? (
+              <button type="button" className="tweedeknop" onClick={() => setWissen(true)}>
+                Opnieuw beginnen
+              </button>
+            ) : (
+              <div className="wissen" role="group" aria-label="Opnieuw beginnen">
+                <p>Alles wat u heeft ingevuld wordt gewist. Weet u het zeker?</p>
+                <button
+                  type="button"
+                  className="hoofdknop"
+                  onClick={() => {
+                    setF(leegFormulier);
+                    setFouten({});
+                    setWissen(false);
+                    setStap(0);
+                  }}
+                >
+                  Ja, alles wissen
+                </button>
+                <button type="button" className="tweedeknop" onClick={() => setWissen(false)}>
+                  Nee, ga terug
+                </button>
+              </div>
             )}
           </div>
         )}
@@ -503,6 +528,39 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         onChange={(v) => zet("jongeHuisgenoten", v)}
         fout={fouten.jongeHuisgenoten}
       />
+      <Keuze
+        naam="heeftAnderInkomen"
+        legend={f.leefvorm === "paar" ? "Heeft u of uw partner ander inkomen dan bijstand en loon?" : "Heeft u ander inkomen dan bijstand en loon?"}
+        hint={
+          <>
+            <p>
+              Bijvoorbeeld alimentatie, een uitkering van het UWV of een pensioen. Dit inkomen gaat helemaal van uw bijstand af. Toeslagen,
+              kinderbijslag en kindgebonden budget tellen niet mee.
+            </p>
+            <p className="bron-blok">
+              Bron: <Bron citaat={CITATEN.pw32} />
+            </p>
+          </>
+        }
+        waarde={f.heeftAnderInkomen ? "ja" : "nee"}
+        onChange={(v) => zet("heeftAnderInkomen", v === "ja")}
+        opties={[
+          ["nee", "Nee"],
+          ["ja", "Ja"],
+        ]}
+      />
+      {f.heeftAnderInkomen && (
+        <Veld
+          id="anderInkomen"
+          voorbeeld="bijv. 250"
+          label="Ander inkomen per maand, netto"
+          hint="Het bedrag dat u elke maand op uw rekening krijgt. Heeft u meer soorten inkomen? Tel ze bij elkaar op."
+          waarde={f.anderInkomen}
+          onChange={(v) => zet("anderInkomen", v)}
+          fout={fouten.anderInkomen}
+          voorvoegsel="€"
+        />
+      )}
     </section>
   );
 }

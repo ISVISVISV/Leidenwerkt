@@ -36,6 +36,7 @@ const STATUS_VOLGORDE: PostStatus[] = ["ontbrekend", "onbevestigd", "geverifieer
 export const INVLOED: Record<string, { invloed: Invloed; richting?: Richting }> = {
   loon: { invloed: "ja", richting: "stijgt" },
   loon_partner: { invloed: "nee" },
+  ander_inkomen: { invloed: "nee" },
   bijstand: { invloed: "ja", richting: "daalt" },
   zorgtoeslag: { invloed: "ja", richting: "daalt" },
   huurtoeslag: { invloed: "ja", richting: "daalt" },
@@ -250,6 +251,17 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     );
   }
 
+  // Ander inkomen (alimentatie, andere uitkering): in beide situaties gelijk.
+  const ander = D(invoer.anderInkomenPerMaand ?? 0);
+  if (ander.gt(0)) {
+    posten.push(
+      maakPost(regels, datum, "ander_inkomen", "Ander inkomen", "inkomen", ({ stap }) => {
+        stap("Uw andere inkomen per maand, zoals u het invulde (netto)", ander);
+        return ander;
+      }),
+    );
+  }
+
   // 2. Bijstand
   const heeftJongKind = invoer.kinderen.some((k) => k.leeftijd < 12);
   posten.push(
@@ -260,7 +272,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       const korting = woonkorting(l, invoer);
       const norm = basisnorm.norm.minus(korting.bedrag);
       const uitleg = basisnorm.uitleg;
-      const inkomen = eigen.plus(partner);
+      const inkomen = eigen.plus(partner).plus(ander);
       if (!korting.bedrag.isZero()) {
         stap(uitleg, basisnorm.norm);
         stap(korting.tekst, korting.bedrag.neg());
@@ -272,6 +284,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         stap(korting.bedrag.isZero() ? uitleg : "Uw norm", norm);
         if (!eigen.isZero()) stap("Uw netto loon", eigen);
         if (!partner.isZero()) stap("Netto loon van uw partner", partner);
+        if (!ander.isZero()) stap("Uw andere inkomen. Dit gaat helemaal van de bijstand af", ander);
       }
       const v1 = vrijlating(l, {
         fase,
@@ -305,7 +318,10 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
   // Toetsingsinkomen voor toeslagen (jaar, bruto, huishouden).
   const toetsingsinkomen = (l: Lezer, stap: Bouw["stap"], aanname: Bouw["aanname"]): Bedrag => {
     const bijstandJaar = nodig(kern.bijstandMaand, "de bijstand").times(12);
-    const brutoBijstand = brutoUitNetto(l, bijstandJaar);
+    const brutoBijstand = brutoUitNetto(l, bijstandJaar.plus(ander.times(12)));
+    if (ander.gt(0)) {
+      aanname("Uw andere inkomen is voor de toeslagen omgerekend naar bruto, alsof het een uitkering is. Kinderalimentatie telt bij Dienst Toeslagen niet mee; dan krijgt u iets meer toeslag dan hier staat.");
+    }
     const loon = brutoJaarloon(werk).minus(pensioenJaar(werk)).plus(brutoJaarloon(partnerWerk).minus(pensioenJaar(partnerWerk)));
     const ti = loon.plus(brutoBijstand);
     stap("Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar)", ti);
@@ -430,17 +446,13 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
           const vg = vgVan(werk);
           // Bijstandsnorm volgens art. 1 onder d: zonder kostendelersnorm, met een verlaging op grond van art. 27,
           // en voor een alleenstaande ouder 90% van de gezinsnorm.
-          const zonderKostendelers: Invoer = { ...invoer, kostendelers: 0 };
-          const basis =
-            invoer.leefvorm === "alleenstaande_ouder"
-              ? l.bedrag("pw.norm.gehuwden").times(l.breuk("leiden.bb.rekennorm_alleenstaande_ouder"))
-              : bijstandsnorm(l, zonderKostendelers).norm;
-          const norm = basis.minus(woonkorting(l, zonderKostendelers).bedrag).times(D(1).minus(vt));
+          const norm = normBijzondereBijstand(l, invoer).times(D(1).minus(vt));
           stap("Bijstandsnorm voor de bijzondere bijstand, zonder vakantietoeslag", norm);
           const inkomen = (kern.nettoMaand ?? NUL)
             .div(vg.plus(1))
             .plus((kern.nettoPartnerMaand ?? NUL).div(vgVan(partnerWerk).plus(1)))
-            .plus(nodig(kern.bijstandMaand, "de bijstand").times(D(1).minus(vt)));
+            .plus(nodig(kern.bijstandMaand, "de bijstand").times(D(1).minus(vt)))
+            .plus(ander);
           stap(`Netto inkomen van ${paar ? "uw huishouden" : "u"} per maand (loon en bijstand), zonder vakantiegeld`, inkomen);
           const g0 = norm.times(l.breuk("leiden.bb.draagkracht.vrij_tot"));
           const g1 = norm.times(l.breuk("leiden.bb.draagkracht.grens1"));
@@ -629,6 +641,22 @@ function terugbetaalrisico(huidig: Situatie, werk: Situatie): TerugbetaalRisico[
   return uit;
 }
 
+/** Posten die samen het netto inkomen van het huishouden vormen. */
+const INKOMEN = ["loon", "loon_partner", "ander_inkomen", "bijstand"];
+
+/**
+ * Bijstandsnorm voor de Leidse bijzondere bijstand (Beleidsregels 2022, art. 1 onder d): zonder
+ * kostendelersnorm, met een verlaging op grond van art. 27, en voor een alleenstaande ouder 90% van de gezinsnorm.
+ */
+function normBijzondereBijstand(l: Lezer, invoer: Invoer): Bedrag {
+  const zonderKostendelers: Invoer = { ...invoer, kostendelers: 0 };
+  const basis =
+    invoer.leefvorm === "alleenstaande_ouder"
+      ? l.bedrag("pw.norm.gehuwden").times(l.breuk("leiden.bb.rekennorm_alleenstaande_ouder"))
+      : bijstandsnorm(l, zonderKostendelers).norm;
+  return basis.minus(woonkorting(l, zonderKostendelers).bedrag);
+}
+
 /** Letterlijke brontekst bij een parameter, voor een melding. */
 function bronVan(l: Lezer, id: string): Citaat | undefined {
   const b = l.brontekst(id);
@@ -673,7 +701,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     const grens = l.breuk("leiden.sleutelpas.inkomensgrens");
     // Het sociaal minimum: de gewone bijstandsnorm, ook bij verblijf in een instelling (de Sleutelpas kent geen andere normen).
     const norm = bijstandsnorm(l, invoer.wonen.soort === "instelling" ? { ...invoer, wonen: { soort: "anders" } } : invoer).norm;
-    const inkomen = ["loon", "loon_partner", "bijstand"].reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
+    const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
     const kinderen = invoer.kinderen.filter((k) => k.leeftijd < 18);
     let kindtegoed = NUL;
     for (const k of kinderen) {
@@ -697,6 +725,32 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       });
     }
   });
+
+  // Leiden: collectieve zorgverzekering voor minima (tot 120% van de norm voor de bijzondere bijstand).
+  probeer(() => {
+    const grens = normBijzondereBijstand(l, invoer).times(l.breuk("leiden.czm.inkomensgrens"));
+    const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
+    uit.push({
+      soort: "info",
+      bron: bronVan(l, "leiden.czm.inkomensgrens"),
+      tekst: inkomen.gt(grens)
+        ? `Zorgverzekering: heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer ${euro(grens, true)} netto per maand). Dat is niet meegerekend.`
+        : `Zorgverzekering: de gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer ${euro(grens, true)} netto per maand).`,
+    });
+  });
+
+  // Leiden: kwijtschelding van gemeentelijke belastingen vervalt (deels) boven de bijstandsnorm.
+  if (bijstandNu && bijstandNu.gt(0) && bijstandWerk && bijstandWerk.isZero()) {
+    probeer(() => {
+      l.breuk("leiden.kwijtschelding.kosten_van_bestaan");
+      uit.push({
+        soort: "waarschuwing",
+        bron: bronVan(l, "leiden.kwijtschelding.kosten_van_bestaan"),
+        tekst:
+          "Gemeentelijke belastingen: met bijstand hoeft u de afvalstoffenheffing en de rioolheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de belastingdienst van de gemeente.",
+      });
+    });
+  }
 
   if (bijstandNu && bijstandNu.gt(0)) {
     probeer(() => {
