@@ -264,7 +264,7 @@ describe("netto maandloon als invoer", () => {
     const viaNetto = bereken(basis({ nieuwWerk: { nettoMaandloon: Number(nettoStrook.toFixed(2)) } }));
     const verschil = D(post(viaNetto, "werk", "loon")!.perMaand!).minus(post(viaBruto, "werk", "loon")!.perMaand!).abs();
     expect(verschil.lte("0.05")).toBe(true);
-    expect(viaNetto.werk.posten.find((p) => p.id === "loon")!.aannames.some((a) => a.includes("netto maandloon"))).toBe(true);
+    expect(viaNetto.werk.posten.find((p) => p.id === "loon")!.aannames.some((a) => a.includes("netto loon in"))).toBe(true);
   });
 
   it("urenfactor schaalt het loon mee", () => {

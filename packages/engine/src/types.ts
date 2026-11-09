@@ -75,6 +75,8 @@ export interface Invoer {
    * huurtoeslag niet berekend als er huisgenoten zijn.
    */
   huisgenotenInkomenJaar?: number;
+  /** Wie al werkt: de kinderen gaan nu ook al naar de opvang (zelfde uren). Dan telt de opvang ook bij "Nu". */
+  opvangNu?: boolean;
   /**
    * Aantal huisgenoten van 18 tot 27 jaar die geen kind van de gebruiker zijn.
    * Zij tellen niet mee voor de kostendelersnorm, wel voor de huurtoeslag.

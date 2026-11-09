@@ -797,3 +797,41 @@ details.uitleg summary {
   color: var(--inkt-zacht);
 }
 
+
+/* De i-knop staat naast de vraag, niet in de legend: zo blijft de naam van de vraag schoon voor schermlezers. */
+.keuze > legend.met-info {
+  float: left;
+  max-width: calc(100% - 2.5rem);
+}
+
+.keuze > legend.met-info + .info-knop {
+  margin-top: -0.1rem;
+}
+
+.keuze > legend.met-info ~ :not(.info-knop) {
+  clear: both;
+}
+
+/* Klikvlak minstens 24 pixels hoog (WCAG 2.5.8) */
+.bron-knop {
+  min-height: 24px;
+}
+
+.keuze input[type="radio"] {
+  min-width: 24px;
+  min-height: 24px;
+}
+
+/* Op een smal scherm (of bij 400% zoom) past de opbouwtabel binnen de breedte (WCAG 1.4.10). */
+@media (max-width: 380px) {
+  .vergelijking th,
+  .vergelijking td {
+    padding: 0.45rem 0.2rem;
+    font-size: 0.85rem;
+  }
+
+  .vergelijking th[scope="row"] {
+    word-break: break-word;
+    hyphens: auto;
+  }
+}

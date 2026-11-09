@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { alleenCijfers, controleer, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagInkomenAnderen, type Fouten, type Formulier } from "./formulier.ts";
+import { alleenCijfers, controleer, heeftOpvang, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagInkomenAnderen, type Fouten, type Formulier } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -53,6 +53,21 @@ export function App() {
             <h1 ref={kop} tabIndex={-1}>
               {STAPPEN[stap - 1]}
             </h1>
+            {stap < STAPPEN.length && Object.keys(fouten).length > 0 && (
+              <div className="melding waarschuwing" role="alert">
+                <p>
+                  {Object.keys(fouten).length === 1 ? "Eén vraag is nog niet goed ingevuld:" : `${Object.keys(fouten).length} vragen zijn nog niet goed ingevuld:`}
+                </p>
+                <ul>
+                  {Object.entries(fouten).map(([id, melding]) => (
+                    <li key={id}>
+                      {vraagVan(id) ? `${vraagVan(id)}: ` : ""}
+                      {melding}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </>
         )}
 
@@ -123,6 +138,15 @@ const maxPrijsTekst = (soort: Opvangsoort) => {
   const p = maxUurprijs(new Lezer(standaardRegels, vandaag()), soort);
   return p > 0 ? p.toFixed(2).replace(".", ",") : "";
 };
+
+/** De tekst van de vraag bij een veld of keuze, voor de foutensamenvatting. */
+function vraagVan(id: string): string {
+  if (typeof document === "undefined") return "";
+  const label = document.querySelector(`label[for="${id}"]`)?.textContent;
+  if (label) return label.trim().replace(/[?:]$/, "");
+  const legend = document.querySelector(`input[name="${id}"]`)?.closest("fieldset")?.querySelector("legend")?.textContent;
+  return legend ? legend.trim().replace(/[?:]$/, "") : "";
+}
 
 /** Bijstand bij verblijf in een instelling (art. 23 Pw) voor vandaag, als tekst. */
 const instellingsnorm = () => {
@@ -242,10 +266,8 @@ function Keuze<T extends string>(props: {
       className={`keuze${props.fout ? " fout" : ""}`}
       aria-describedby={[props.hint && uitleg ? hintId : "", props.fout ? foutId : ""].filter(Boolean).join(" ") || undefined}
     >
-      <legend>
-        {props.legend}
-        {props.hint && <InfoKnop open={uitleg} onToggle={() => setUitleg(!uitleg)} controls={hintId} onderwerp={props.legend} />}
-      </legend>
+      <legend className={props.hint ? "met-info" : undefined}>{props.legend}</legend>
+      {props.hint && <InfoKnop open={uitleg} onToggle={() => setUitleg(!uitleg)} controls={hintId} onderwerp={props.legend} />}
       {props.hint && (
         <div className="hint" id={hintId} hidden={!uitleg}>
           {props.hint}
@@ -388,7 +410,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                     label="Prijs per uur"
                     hint={
                       maxPrijsTekst(k.soort)
-                        ? `Vraag dit na bij de opvang. Weet u het niet? Laat het vak dan leeg. Dan rekent de app met € ${maxPrijsTekst(k.soort)} per uur: het hoogste uurtarief waarover u toeslag krijgt.`
+                        ? `Vraag het aan de opvang. Weet u het niet? Laat het vak leeg. De app rekent dan met € ${maxPrijsTekst(k.soort)} per uur. Dat is de hoogste prijs per uur waarover u toeslag krijgt.`
                         : "Vraag dit na bij de opvang. Weet u het niet? Laat het vak dan leeg."
                     }
                     waarde={k.uurprijs}
@@ -599,8 +621,8 @@ function LoonVelden({
           per === "uur"
             ? "Staat in de vacature of het contract. 'Bruto' is het bedrag vóór belasting."
             : per === "netto"
-              ? "Het bedrag dat u elke maand op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook. De app telt het vakantiegeld er zelf bij, net als de vakantietoeslag bij de bijstand."
-              : "Vul het loon in zoals het in uw contract of op uw loonstrook staat, zonder vakantiegeld. De app telt het vakantiegeld er zelf bij, net als de vakantietoeslag bij de bijstand. 'Bruto' is het bedrag vóór belasting."
+              ? "Het bedrag dat u elke maand op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook. De app telt het vakantiegeld zelf mee."
+              : "Neem het loon uit uw contract of van uw loonstrook, zonder vakantiegeld. De app telt het vakantiegeld zelf mee. 'Bruto' is het bedrag vóór belasting."
         }
         waarde={loon}
         onChange={zetLoon}
@@ -653,6 +675,32 @@ function StapWerk({ f, zet, fouten }: StapProps) {
             zetAllIn={(v) => zet("nuAllIn", v)}
             fouten={fouten}
           />
+          <Keuze
+            naam="werktAl"
+            legend="Hoe lang werkt u al naast de bijstand?"
+            hint="In de eerste 6 maanden mag u een deel van uw loon extra houden. Daarna niet meer. Zo weet de app welke regel voor u geldt."
+            waarde={f.werktAl}
+            onChange={(v) => zet("werktAl", v)}
+            fout={fouten.werktAl}
+            opties={[
+              ["kort", "Korter dan 6 maanden"],
+              ["lang", "6 maanden of langer"],
+            ]}
+          />
+          {heeftOpvang(f) && (
+            <Keuze
+              naam="opvangNu"
+              legend="Gaat uw kind nu al naar de kinderopvang?"
+              hint="Dan rekent de app de kosten en de toeslag voor de opvang ook mee bij hoe het nu is."
+              waarde={f.opvangNu}
+              onChange={(v) => zet("opvangNu", v)}
+              fout={fouten.opvangNu}
+              opties={[
+                ["ja", "Ja, met dezelfde uren"],
+                ["nee", "Nee, dat begint pas met het nieuwe werk"],
+              ]}
+            />
+          )}
         </fieldset>
       )}
 

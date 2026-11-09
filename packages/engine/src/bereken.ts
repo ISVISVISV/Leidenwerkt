@@ -204,7 +204,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       kern.nettoMaand = r.nettoJaar.div(12);
       if (werk?.nettoMaandloon !== undefined) {
         stap("Netto maandloon dat u invulde (zonder vakantiegeld)", D(werk.nettoMaandloon).times(werk.urenFactor ?? 1));
-        aanname("U vulde een netto maandloon in. Dat is teruggerekend naar bruto met de belastingregels van deze datum; het werkelijke bruto loon kan iets afwijken.");
+        aanname("U vulde netto loon in. De app rekent dat terug naar bruto. Uw echte bruto loon kan iets anders zijn.");
       }
       if (werk?.brutoVierwekenloon !== undefined) stap("Bruto loon per 4 weken", D(werk.brutoVierwekenloon).times(werk.urenFactor ?? 1));
       stap("Bruto loon per maand (gemiddeld, zonder vakantiegeld)", brutoMaandloon(werk));
@@ -297,7 +297,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       }
       kern.bijstandMaand = bijstand;
       aanname("Bijstand is netto en inclusief vakantietoeslag per maand gerekend; de gemeente betaalt de vakantietoeslag één keer per jaar uit.");
-      aanname("Er is aangenomen dat u aan de voorwaarden voor bijstand voldoet, en dat uw vermogen (spaargeld en bezit) onder de grenzen voor bijstand en toeslagen blijft.");
+      aanname("De app neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaargeld en bezit onder de grens voor bijstand en toeslagen blijven.");
       return bijstand;
     }),
   );
@@ -381,7 +381,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
           stap(`Kind van ${k.leeftijd} jaar: ${euro(kwartaal)} per kwartaal, per maand`, kwartaal.div(3));
           totaal = totaal.plus(kwartaal.div(3));
         }
-        stap("Kinderbijslag hangt niet af van uw inkomen en telt niet mee voor de bijstand. De SVB betaalt per kwartaal; hier staat een derde daarvan per maand.");
+        stap("Kinderbijslag telt niet mee voor uw bijstand en hangt niet af van uw inkomen. De SVB betaalt elk kwartaal. Hier ziet u een derde daarvan per maand.");
         stap("Kinderbijslag per maand, alle kinderen samen", totaal);
         return totaal;
       }),
@@ -391,7 +391,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
   // 6. Kinderopvangtoeslag en opvangkosten (alleen als alle ouders werken)
   const opvangKinderen = invoer.kinderen.filter((k) => k.opvang && k.opvang.urenPerMaand > 0);
   const iedereenWerkt = !brutoJaarloon(werk).isZero() && (!paar || !brutoJaarloon(partnerWerk).isZero());
-  if (naam === "werk" && opvangKinderen.length > 0 && iedereenWerkt) {
+  if ((naam === "werk" || invoer.opvangNu) && opvangKinderen.length > 0 && iedereenWerkt) {
     let kostenPerMaand: Bedrag | undefined;
     let kotPerMaand: Bedrag | undefined;
     posten.push(
@@ -407,7 +407,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         stap(`Kinderopvangtoeslag per maand. ${AFGEROND}`, maand);
         aanname("Er is aangenomen dat het aantal opvanguren past bij het aantal gewerkte uren.");
         if (opvangKinderen.some((k) => k.opvang!.uurprijsGeschat)) {
-          aanname("U wist de prijs per uur van de opvang niet. Er is gerekend met het hoogste uurtarief waarover u toeslag krijgt. Is de opvang duurder, dan betaalt u het verschil zelf.");
+          aanname("U wist de prijs per uur van de opvang niet. De app rekent met de hoogste prijs per uur waarover u toeslag krijgt. Is de opvang duurder, dan betaalt u het verschil zelf.");
         }
         return maand;
       }),
@@ -654,7 +654,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       uit.push({
         soort: "info",
         bron: bronVan(l, "leiden.garantieknop.termijn"),
-        tekst: `Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk binnen ${termijn} maanden nadat uw bijstand is gestopt? Dan kunt u in Leiden een eenvoudigere aanvraag doen. De gemeente gebruikt dan de gegevens die zij al van u heeft, als uw woonadres, gezin, inkomen en vermogen niet zijn veranderd.`,
+        tekst: `Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk binnen ${termijn} maanden na het einde van uw bijstand? Dan is opnieuw aanvragen in Leiden makkelijker. Is er niets veranderd aan uw adres, gezin, inkomen en spaargeld? Dan gebruikt de gemeente de gegevens die ze al heeft.`,
       });
     });
   }
@@ -664,14 +664,15 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     uit.push({
       soort: "waarschuwing",
       bron: CITATEN.awirTerugvordering,
-      tekst: `Uw toeslagen worden samen ${euro(totaal, true)} per maand lager (${lijst}). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Doet u dat niet, dan krijgt u elke maand ${euro(totaal, true)} te veel. Na een jaar werk moet u dan ongeveer ${euro(totaal.times(12), true)} terugbetalen. Dat hoort u pas bij de definitieve berekening, na afloop van het jaar.`,
+      tekst: `Uw toeslagen gaan samen ${euro(totaal, true)} per maand omlaag (${lijst}). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand ${euro(totaal, true)} te veel, en moet u na een jaar ongeveer ${euro(totaal.times(12), true)} terugbetalen.`,
     });
   }
 
   // Leiden: Sleutelpas en Kindtegoed (tot 130% van het sociaal minimum; Kindtegoed tot 140%).
   probeer(() => {
     const grens = l.breuk("leiden.sleutelpas.inkomensgrens");
-    const norm = bijstandsnorm(l, invoer).norm;
+    // Het sociaal minimum: de gewone bijstandsnorm, ook bij verblijf in een instelling (de Sleutelpas kent geen andere normen).
+    const norm = bijstandsnorm(l, invoer.wonen.soort === "instelling" ? { ...invoer, wonen: { soort: "anders" } } : invoer).norm;
     const inkomen = ["loon", "loon_partner", "bijstand"].reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
     const kinderen = invoer.kinderen.filter((k) => k.leeftijd < 18);
     let kindtegoed = NUL;
@@ -708,7 +709,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       uit.push({
         soort: "info",
         bron: bronVan(l, "leiden.iit.referteperiode"),
-        tekst: `Individuele inkomenstoeslag: heeft u al ${jaren} jaar of langer een inkomen op bijstandsniveau, dan kunt u in Leiden één keer per 12 maanden ${euro(bedrag, true)} krijgen. Verdient u door het werk meer dan de bijstandsnorm, dan voldoet u niet meer aan die voorwaarde. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
+        tekst: `Individuele inkomenstoeslag: heeft u al ${jaren} jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden ${euro(bedrag, true)} krijgen. Verdient u door dit werk meer dan de bijstandsnorm, dan krijgt u dit niet meer. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
       });
     });
   }
@@ -724,8 +725,8 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       bron: CITATEN.bbKinderopvang,
       tekst:
         vergoeding && vergoeding.gt(0)
-          ? `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. De gemeente Leiden vergoedt dat deel met bijzondere bijstand als u de opvang anders niet kunt betalen en daardoor niet kunt werken. Hoeveel u krijgt, hangt af van uw inkomen: hier is ${euro(vergoeding, true)} per maand meegerekend${rest.gt("0.5") ? ` en betaalt u zelf ${euro(rest, true)}` : ""}. Dit geldt ook als u door het werk geen bijstand meer krijgt. U krijgt de vergoeding niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.`
-          : `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. Met dit inkomen vergoedt de gemeente Leiden daarvan waarschijnlijk niets: volgens de regels van de gemeente kunt u dit zelf betalen. Twijfelt u? Vraag het na bij de gemeente.`,
+          ? `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. De gemeente Leiden kan dit deel vergoeden. Dat heet bijzondere bijstand. Voorwaarde: u heeft de opvang nodig om te kunnen werken. Hoeveel u krijgt, hangt af van uw inkomen. Hier is ${euro(vergoeding, true)} per maand meegerekend${rest.gt("0.5") ? `; u betaalt zelf ${euro(rest, true)}` : ""}. Dit geldt ook als u door het werk geen bijstand meer krijgt. U krijgt de vergoeding niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.`
+          : `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. Met dit inkomen betaalt de gemeente Leiden hier waarschijnlijk niets van. Volgens de regels kunt u dit zelf betalen. Twijfelt u? Vraag het aan de gemeente.`,
     });
   }
   if (invoer.wonen.soort === "instelling") {
@@ -733,7 +734,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       soort: "info",
       bron: CITATEN.pw23inrichting,
       tekst:
-        "Deze berekening geldt zolang u in de instelling of woonvorm woont. Gaat u daarna zelfstandig wonen, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm, betaalt u zelf huur en boodschappen, en krijgt u misschien huurtoeslag. Reken dan opnieuw, met uw nieuwe woning.",
+        "Dit geldt zolang u in de instelling of woonvorm woont. Woont u later zelfstandig, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm. U betaalt dan zelf huur en boodschappen, en misschien krijgt u huurtoeslag. Reken dan opnieuw.",
     });
   }
   if (invoer.nieuwWerk.brutoVierwekenloon !== undefined) {

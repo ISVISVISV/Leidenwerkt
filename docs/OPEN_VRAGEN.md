@@ -26,6 +26,7 @@ Stand: 8 november 2026. Per vraag staat wat ontbreekt en waar het te vinden is.
 
 ## Opgelost
 
+- **Sleutelpas bij verblijf in een instelling**: de grens is 130% van het sociaal minimum, dat is de gewone bijstandsnorm; de lagere instellingsnorm verlaagt de grens niet (praktijk Leiden; de beleidsregels kennen geen aparte normen).
 - **Huurtoeslag met huisgenoten van elke leeftijd en kinderen met inkomen**: iedereen op het adres telt mee (Awir art. 1 en 7); kinderen jonger dan 23 pas boven € 6.218 (brochure Berekening huurtoeslag 2026, stap 5).
 - **Woonvorm met begeleiding (art. 23 Pw)**: norm bij verblijf in een inrichting ingebouwd, met de verhoging van lid 2. Volgens de praktijk in Leiden betalen bewoners niets voor het verblijf dat invloed heeft op de bijstand; dat is een aanname in de app. Instelling met zorg en woonvorm met begeleiding zijn één keuze (zelfde norm).
 - **Geen of lage woonkosten (Leiden)**: lagere norm volgens de Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026 (CVDR760406, art. 3.1): 10% van de gehuwdennorm zonder woonkosten, 9% zonder woonlasten, 19% samen; bij woonkosten onder 10% het verschil. Alleen bij de norm van art. 21, niet bij de kostendelersnorm. Wonen in een instelling (art. 23) rekent de app niet.
