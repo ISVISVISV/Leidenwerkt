@@ -208,3 +208,26 @@ describe("vakantiegeld (art. 15 Wml, uit de regeldata)", () => {
     expect(loon({ brutoUurloon: 15, urenPerWeek: 20, vakantiegeld: 0 })).toBeLessThan(loon({ brutoUurloon: 15, urenPerWeek: 20 }));
   });
 });
+
+describe("na de QA", () => {
+  it("wie al werkt en nu al opvang heeft: opvang en toeslag ook bij 'Nu'", () => {
+    const i = basis({
+      leefvorm: "alleenstaande_ouder",
+      kinderen: [{ leeftijd: 6, opvang: { soort: "bso", urenPerMaand: 40, uurprijs: 9 } }],
+      huidigWerk: { brutoUurloon: 14.5, urenPerWeek: 12 },
+      nieuwWerk: { brutoUurloon: 14.5, urenPerWeek: 28 },
+      huidigeVrijlating: "later",
+      vrijlatingFase: "later",
+    });
+    expect(bereken(i).huidig.posten.find((p) => p.id === "kot")).toBeUndefined();
+    const r = bereken({ ...i, opvangNu: true });
+    expect(r.huidig.posten.find((p) => p.id === "kot")).toBeDefined();
+    expect(r.huidig.posten.find((p) => p.id === "opvangkosten")).toBeDefined();
+  });
+  it("Sleutelpas: de grens gaat uit van het sociaal minimum, ook in een woonvorm met begeleiding", () => {
+    const w = { brutoMaandloon: 900, urenPerWeek: 16 };
+    const gewoon = bereken(basis({ nieuwWerk: w, vrijlatingFase: "start" })).signalen.find((s) => s.tekst.includes("Sleutelpas"));
+    const instelling = bereken(basis({ wonen: { soort: "instelling" }, nieuwWerk: w, vrijlatingFase: "start" })).signalen.find((s) => s.tekst.includes("Sleutelpas"));
+    expect(instelling?.tekst).toBe(gewoon?.tekst);
+  });
+});

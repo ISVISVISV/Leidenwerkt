@@ -8,6 +8,8 @@ Verzonnen mensen in verzonnen situaties. Per persoon staan de invoer, de uitkoms
 | --- | --- | --- | --- |
 | [Ayşe](#ayse) | 2026-09-01 | € 378,83 | 2 van 2 |
 | [Bram](#bram) | 2026-09-01 | € 780,40 | 2 van 2 |
+| [Daan in een woonvorm met begeleiding](#daan-woonvorm-met-begeleiding) | 2026-09-01 | € 1.195,38 | 1 van 1 |
+| [Daan zonder vaste woonplek](#daan-zonder-vaste-woonplek) | 2026-09-01 | € 657,64 | 1 van 1 |
 | [Daan](#daan) | 2026-09-01 | € 289,00 | 3 van 3 |
 | [Fatima en Youssef](#fatima-en-youssef) | 2026-09-01 | € 477,28 | 8 van 8 |
 | [Henk](#henk) | 2026-09-01 | € 275,83 | 2 van 2 |
@@ -109,6 +111,76 @@ Bram, 44, alleenstaand, huurt voor € 680 kaal. Hij overweegt een voltijdbaan v
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/bram.yaml`.
 
 **Netto loon**: zoek het bruto maandloon (€ 2.496,00) op in de witte maandtabel loonheffing 2026 van de Belastingdienst, met loonheffingskorting. De rekenhulp verdeelt het vakantiegeld over 12 maanden; tel daarom 8% vakantiegeld op of vergelijk met een loonstrook.
+
+</details>
+
+<a id="daan-woonvorm-met-begeleiding"></a>
+## Daan in een woonvorm met begeleiding (`daan-woonvorm-met-begeleiding.yaml`)
+
+Daan, 41, alleenstaand, woont in een woonvorm met begeleiding (instellingsnorm) en overweegt 24 uur als magazijnmedewerker voor € 15,50 bruto per uur.
+
+**Invoer** (rekendatum 2026-09-01)
+
+- Leefvorm: alleenstaand, leeftijd 41
+- Geen huurtoeslag (geen huurwoning op eigen naam)
+- Werk straks: bruto € 15,50 per uur, 24 uur per week
+- Vrijlatingsperiode: eerste periode
+
+**Uitkomst:** nu € 625,44, met werk € 1.820,82 per maand; verschil € 1.195,38.
+
+| Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
+| --- | --- | ---: | ---: | ---: | --- |
+| Bijstand | nu | € 496,44 | € 496,44 | € 0,00 ✓ | [Participatiewet art. 23 lid 1 a en lid 2 a (versie 1 juli 2026)](https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel23), 2026-11-08. Norm bij verblijf in een inrichting € 449,44 plus de verhoging van € 47,00 |
+
+<details><summary>Invulblad voor de controle</summary>
+
+**Proefberekening Dienst Toeslagen** (belastingdienst.nl/toeslagen, "Proefberekening maken"), jaar 2026:
+
+- Toeslagpartner: nee; uw leeftijd: 41
+- Kinderen: geen
+- Medebewoners (geen partner): geen
+- Huurtoeslag: niet aanvragen
+- Vermogen: onder de grens
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 5.957,00; met werk: € 20.892,00 (doe twee proefberekeningen)
+
+Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/daan-woonvorm-met-begeleiding.yaml`.
+
+**Netto loon**: zoek het bruto maandloon (€ 1.612,00) op in de witte maandtabel loonheffing 2026 van de Belastingdienst, met loonheffingskorting. De rekenhulp verdeelt het vakantiegeld over 12 maanden; tel daarom 8% vakantiegeld op of vergelijk met een loonstrook.
+
+</details>
+
+<a id="daan-zonder-vaste-woonplek"></a>
+## Daan zonder vaste woonplek (`daan-zonder-vaste-woonplek.yaml`)
+
+Daan, 41, alleenstaand, heeft geen vaste woonplek en overweegt 24 uur als magazijnmedewerker voor € 15,50 bruto per uur.
+
+**Invoer** (rekendatum 2026-09-01)
+
+- Leefvorm: alleenstaand, leeftijd 41
+- Geen huurtoeslag (geen huurwoning op eigen naam)
+- Werk straks: bruto € 15,50 per uur, 24 uur per week
+- Vrijlatingsperiode: eerste periode
+
+**Uitkomst:** nu € 1.163,18, met werk € 1.820,82 per maand; verschil € 657,64.
+
+| Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
+| --- | --- | ---: | ---: | ---: | --- |
+| Bijstand | nu | € 1.034,18 | € 1.034,18 | € 0,00 ✓ | [Leiden, Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026, art. 3.1 lid 2 d; Participatiewet art. 21 (versie 1 juli 2026)](https://lokaleregelgeving.overheid.nl/CVDR760406), 2026-11-08. Norm alleenstaande € 1.419,46 min 19% van de gehuwdennorm € 2.027,79 (€ 385,28) |
+
+<details><summary>Invulblad voor de controle</summary>
+
+**Proefberekening Dienst Toeslagen** (belastingdienst.nl/toeslagen, "Proefberekening maken"), jaar 2026:
+
+- Toeslagpartner: nee; uw leeftijd: 41
+- Kinderen: geen
+- Medebewoners (geen partner): geen
+- Huurtoeslag: niet aanvragen
+- Vermogen: onder de grens
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 14.467,00; met werk: € 20.892,00 (doe twee proefberekeningen)
+
+Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/daan-zonder-vaste-woonplek.yaml`.
+
+**Netto loon**: zoek het bruto maandloon (€ 1.612,00) op in de witte maandtabel loonheffing 2026 van de Belastingdienst, met loonheffingskorting. De rekenhulp verdeelt het vakantiegeld over 12 maanden; tel daarom 8% vakantiegeld op of vergelijk met een loonstrook.
 
 </details>
 

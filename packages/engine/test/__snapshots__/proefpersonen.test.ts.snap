@@ -58,6 +58,36 @@ exports[`proefpersonen > daan.yaml: Daan 1`] = `
 }
 `;
 
+exports[`proefpersonen > daan-woonvorm-met-begeleiding.yaml: Daan in een woonvorm met begeleiding 1`] = `
+{
+  "met_werk": {
+    "bijstand": "0.00",
+    "loon": "1691.82",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "496.44",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "1195.38",
+}
+`;
+
+exports[`proefpersonen > daan-zonder-vaste-woonplek.yaml: Daan zonder vaste woonplek 1`] = `
+{
+  "met_werk": {
+    "bijstand": "0.00",
+    "loon": "1691.82",
+    "zorgtoeslag": "129.00",
+  },
+  "nu": {
+    "bijstand": "1034.18",
+    "zorgtoeslag": "129.00",
+  },
+  "verschil": "657.64",
+}
+`;
+
 exports[`proefpersonen > fatima-en-youssef.yaml: Fatima en Youssef 1`] = `
 {
   "met_werk": {

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { naarInvoer, schuifStart, vandaag, type Formulier } from "./formulier.ts";
+import { getal, naarInvoer, schuifStart, vasteFase, vandaag, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */
 function bruikbareDatum(f: Formulier): { datum: string; teruggevallen: boolean } {
@@ -41,6 +41,8 @@ export function Uitkomst({ f }: { f: Formulier }) {
   const extra = start.wat === "extra";
   const [uren, setUren] = useState(() => start.uren);
   const maxUren = Math.max(extra ? 32 : 40, start.uren);
+  // Bij "meer uren" kan de schuif niet onder het huidige aantal uren.
+  const minUren = f.werktNu && f.verandering === "meer" ? Math.min(start.uren, Math.round(getal(f.nuUren) ?? 0) + 1) : 1;
   const urenTekst = (u: number) => `${u} uur ${extra ? "extra werk " : ""}per week`;
   const [gekozenFase, setFase] = useState<"start" | "later" | "geen">("start");
   const { datum, teruggevallen } = useMemo(() => bruikbareDatum(f), [f]);
@@ -56,18 +58,22 @@ export function Uitkomst({ f }: { f: Formulier }) {
   const bijstandMetWerk = r.werk.posten.find((p) => p.id === "bijstand");
   const heeftBijstand = !!bijstandMetWerk && bijstandMetWerk.perMaand !== null && bijstandMetWerk.perMaand !== "0.00";
   const vrijlatingTelt = heeftBijstand && periodes.some((p) => p.fase !== "geen");
-  const meerPeriodes = vrijlatingTelt && periodes.length > 1;
+  // De keuze voor de periode hangt af van de invoer, niet van de gekozen periode (anders verdwijnt ze na een klik).
+  const rStart = useMemo(() => bereken(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
+  const bijstandStart = rStart.werk.posten.find((p) => p.id === "bijstand");
+  const meerPeriodes =
+    !vasteFase(f) && periodes.length > 1 && !!bijstandStart && bijstandStart.perMaand !== null && bijstandStart.perMaand !== "0.00";
   const eersteJaar = useMemo(() => verschilEersteJaar(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
   // Vanaf hoeveel uur per week is er blijvend geen bijstand meer nodig? Zonder vrijlating, want die is tijdelijk.
   const grensUren = useMemo(() => {
     const nu = bereken(naarInvoer(f, { uren: 1, fase: "geen", datum })).huidig.posten.find((p) => p.id === "bijstand");
     if (!nu || nu.perMaand === null || nu.perMaand === "0.00") return undefined;
-    for (let u = 1; u <= maxUren; u++) {
+    for (let u = minUren; u <= maxUren; u++) {
       const b = bereken(naarInvoer(f, { uren: u, fase: "geen", datum })).werk.posten.find((p) => p.id === "bijstand");
       if (b && b.perMaand === "0.00") return u;
     }
     return null;
-  }, [f, datum, maxUren]);
+  }, [f, datum, minUren, maxUren]);
 
   return (
     <section className="uitkomst">
@@ -80,8 +86,9 @@ export function Uitkomst({ f }: { f: Formulier }) {
         <input
           id="urenschuif"
           type="range"
-          min={1}
+          min={minUren}
           max={maxUren}
+          aria-valuetext={urenTekst(uren)}
           step={1}
           value={uren}
           aria-describedby={grensUren !== undefined ? "urengrens" : undefined}
@@ -91,8 +98,8 @@ export function Uitkomst({ f }: { f: Formulier }) {
           <p className="urengrens" id="urengrens">
             {grensUren === null
               ? `Ook bij ${urenTekst(maxUren)} vult de bijstand uw loon nog aan.`
-              : grensUren === 1
-                ? `Met dit loon heeft u vanaf ${urenTekst(1)} geen bijstand meer nodig.`
+              : grensUren === minUren
+                ? `Met dit loon heeft u vanaf ${urenTekst(minUren)} geen bijstand meer nodig.`
                 : `Vanaf ${urenTekst(grensUren)} heeft u met dit uurloon geen bijstand meer nodig.${uren < grensUren ? ` Bij ${uren} uur vult de bijstand uw loon nog aan.` : ""}`}
           </p>
         )}

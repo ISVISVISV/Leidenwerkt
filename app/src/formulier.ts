@@ -42,6 +42,10 @@ export interface Formulier {
   /** Vanaf 2027: welke vrijlating de gebruiker op 31 december 2026 al had. */
   overgang: "" | "n" | "r";
   werktNu: boolean;
+  /** Wie al werkt: hoe lang al naast de bijstand? "lang" = 6 maanden of langer. */
+  werktAl: "" | "kort" | "lang";
+  /** Wie al werkt en opvang heeft: gaan de kinderen nu al naar de opvang? */
+  opvangNu: "" | "ja" | "nee";
   /** Wie al werkt: wat verandert er? Meer uren, ander werk of werk erbij. */
   verandering: "" | "meer" | "ander" | "erbij";
   /** Bij "meer": het nieuwe totaal aantal uren bij het huidige werk. */
@@ -77,6 +81,8 @@ export const leegFormulier: Formulier = {
   kaleHuur: "",
   overgang: "",
   werktNu: false,
+  werktAl: "",
+  opvangNu: "",
   verandering: "",
   meerUren: "",
   medisch: false,
@@ -157,6 +163,8 @@ export function controleer(f: Formulier, stap: number): Fouten {
       moet("nuLoon", f.nuLoon, ...loonGrens(f.nuPer));
       moet("nuUren", f.nuUren, 1, 60, "Vul het aantal uren per week in.");
       if (!f.verandering) fouten.verandering = "Kies wat er verandert.";
+      if (!f.werktAl) fouten.werktAl = "Kies hoe lang u al werkt.";
+      if (heeftOpvang(f) && !f.opvangNu) fouten.opvangNu = "Kies of uw kind nu al naar de opvang gaat.";
     }
     if (f.werktNu && f.verandering === "meer") {
       const nu = getal(f.nuUren) ?? 0;
@@ -170,7 +178,18 @@ export function controleer(f: Formulier, stap: number): Fouten {
   return fouten;
 }
 
+/** Er is minstens één kind met opvang ingevuld. */
+export function heeftOpvang(f: Formulier): boolean {
+  return f.kinderen.some((k) => k.opvang);
+}
+
+/** Wie al 6 maanden of langer werkt, heeft de eerste vrijlating gehad: de app rekent dan met de periode daarna. */
+export function vasteFase(f: Formulier): "later" | undefined {
+  return f.werktNu && f.werktAl === "lang" ? "later" : undefined;
+}
+
 export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["vrijlatingFase"]; datum: string }): Invoer {
+  opties = { ...opties, fase: opties.fase === "geen" ? "geen" : (vasteFase(f) ?? opties.fase) };
   const l = new Lezer(standaardRegels, opties.datum);
   const kinderen: Kind[] = f.kinderen.map((k) => {
     const prijs = getal(k.uurprijs);
@@ -215,6 +234,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     huidigeVrijlating: f.werktNu ? opties.fase : "geen",
     overgang2027: f.werktNu && f.overgang ? f.overgang : undefined,
     medischUrenbeperkt: f.medisch || undefined,
+    opvangNu: f.werktNu && heeftOpvang(f) && f.opvangNu === "ja" ? true : undefined,
   };
 }
 

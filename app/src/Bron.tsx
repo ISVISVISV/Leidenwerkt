@@ -51,10 +51,10 @@ export function Bron({ citaat, label }: { citaat: Citaat; label?: string }) {
         }
       }}
     >
-      <button type="button" className="bron-knop" aria-expanded={vast} aria-describedby={id} onClick={() => setVast(!vast)}>
+      <button type="button" className="bron-knop" aria-expanded={vast} aria-controls={id} onClick={() => setVast(!vast)}>
         {label ?? citaat.titel}
       </button>
-      <span className="bron-tekst" role="tooltip" id={id}>
+      <span className="bron-tekst" id={id}>
         <strong>{citaat.titel}</strong> <span className="bron-versie">({citaat.versie})</span>
         <span className="bron-citaat">“{citaat.tekst}”</span>
         <a className="bron-link" href={citaat.url} target="_blank" rel="noreferrer noopener">

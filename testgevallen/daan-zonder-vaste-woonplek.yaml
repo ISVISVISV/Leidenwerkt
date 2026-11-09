@@ -1,0 +1,27 @@
+# Verzonnen persoon en situatie. Zie testgevallen/README.md.
+naam: Daan zonder vaste woonplek
+beschrijving: Daan, 41, alleenstaand, heeft geen vaste woonplek en overweegt 24 uur als magazijnmedewerker voor € 15,50 bruto per uur.
+rekendatum: '2026-09-01'
+invoer:
+  leefvorm: alleenstaande
+  leeftijd: 41
+  kinderen: []
+  kostendelers: 0
+  wonen:
+    soort: geen_woonkosten
+    dakloos: true
+    betaaltWoonlasten: false
+  nieuwWerk:
+    brutoUurloon: 15.5
+    urenPerWeek: 24
+  vrijlatingFase: start
+verwacht:
+- onderdeel: bijstand
+  situatie: nu
+  waarde: 1034.18
+  bron:
+    titel: Leiden, Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026, art. 3.1 lid 2 d; Participatiewet art. 21 (versie 1 juli 2026)
+    url: https://lokaleregelgeving.overheid.nl/CVDR760406
+    datum: '2026-11-08'
+  tolerantie: 0.01
+  toelichting: Norm alleenstaande € 1.419,46 min 19% van de gehuwdennorm € 2.027,79 (€ 385,28)

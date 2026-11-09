@@ -1,0 +1,25 @@
+# Verzonnen persoon en situatie. Zie testgevallen/README.md.
+naam: Daan in een woonvorm met begeleiding
+beschrijving: Daan, 41, alleenstaand, woont in een woonvorm met begeleiding (instellingsnorm) en overweegt 24 uur als magazijnmedewerker voor € 15,50 bruto per uur.
+rekendatum: '2026-09-01'
+invoer:
+  leefvorm: alleenstaande
+  leeftijd: 41
+  kinderen: []
+  kostendelers: 0
+  wonen:
+    soort: instelling
+  nieuwWerk:
+    brutoUurloon: 15.5
+    urenPerWeek: 24
+  vrijlatingFase: start
+verwacht:
+- onderdeel: bijstand
+  situatie: nu
+  waarde: 496.44
+  bron:
+    titel: Participatiewet art. 23 lid 1 a en lid 2 a (versie 1 juli 2026)
+    url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel23
+    datum: '2026-11-08'
+  tolerantie: 0.01
+  toelichting: Norm bij verblijf in een inrichting € 449,44 plus de verhoging van € 47,00
