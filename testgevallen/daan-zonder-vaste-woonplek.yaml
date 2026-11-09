@@ -20,8 +20,8 @@ verwacht:
   situatie: nu
   waarde: 1034.18
   bron:
-    titel: Leiden, Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026, art. 3.1 lid 2 d; Participatiewet art. 21 (versie 1 juli 2026)
+    titel: Leiden, Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026, art. 3.1 lid 1 a (met toelichting "Niet aanhouden van een woonruimte") en lid 2 d; Participatiewet art. 21 (versie 1 juli 2026)
     url: https://lokaleregelgeving.overheid.nl/CVDR760406
     datum: '2026-11-08'
   tolerantie: 0.01
-  toelichting: Norm alleenstaande € 1.419,46 min 19% van de gehuwdennorm € 2.027,79 (€ 385,28)
+  toelichting: Geen woonruimte aanhouden (bijvoorbeeld dakloos) geldt als geen woonkosten. Norm alleenstaande € 1.419,46 min 19% van de gehuwdennorm € 2.027,79 (€ 385,28)

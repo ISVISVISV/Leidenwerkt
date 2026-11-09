@@ -678,7 +678,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
           <Keuze
             naam="werktAl"
             legend="Hoe lang werkt u al naast de bijstand?"
-            hint="In de eerste 6 maanden mag u een deel van uw loon extra houden. Daarna niet meer. Zo weet de app welke regel voor u geldt."
+            hint="In de eerste 6 maanden mag u een deel van uw loon extra houden. Daarna meestal niet meer. Zo weet de app welke regel voor u geldt."
             waarde={f.werktAl}
             onChange={(v) => zet("werktAl", v)}
             fout={fouten.werktAl}
