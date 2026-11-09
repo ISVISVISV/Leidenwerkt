@@ -118,6 +118,8 @@ test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, hui
   await zelf.getByLabel("Jaar").fill("1984");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.locator(".foutmelding").getByText("Vul een datum in die bestaat", { exact: false })).toBeVisible();
+  // Na een fout gaat de focus naar het eerste foute vak; wacht daarop voordat de test verder typt.
+  await expect(zelf.getByLabel("Dag")).toBeFocused();
   await zelf.getByLabel("Maand").fill("3");
   await expect(page.getByLabel(/Hoeveel andere mensen van 27/)).toHaveAttribute("placeholder", "bijv. 0");
   await page.getByLabel(/Hoeveel andere mensen van 27/).fill("1");
@@ -171,6 +173,7 @@ test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", asyn
   await page.getByLabel("Uren opvang per maand").fill("238,33");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.locator(".foutmelding").getByText("hoogstens 230 uur per kind per maand", { exact: false })).toBeVisible();
+  await expect(page.getByLabel("Uren opvang per maand")).toBeFocused();
   await page.getByLabel("Uren opvang per maand").fill("70");
   await page.getByLabel("Prijs per uur").fill("12,50");
   await page.getByRole("button", { name: "Volgende stap" }).click();
