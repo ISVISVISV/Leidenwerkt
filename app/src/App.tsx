@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { alleenCijfers, controleer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagInkomenAnderen, type Fouten, type Formulier, type Geboortedatum } from "./formulier.ts";
+import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagInkomenAnderen, type Fouten, type Formulier, type Geboortedatum } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -196,8 +196,6 @@ const maxPrijsTekst = (soort: Opvangsoort) => {
 /** De tekst van de vraag bij een veld of keuze, voor de foutensamenvatting. */
 function vraagVan(id: string): string {
   if (typeof document === "undefined") return "";
-  const datum = document.querySelector(`fieldset[data-veld="${id}"] > legend`)?.textContent;
-  if (datum) return datum.trim();
   const label = document.querySelector(`label[for="${id}"]`)?.textContent;
   if (label) return label.trim().replace(/[?:]$/, "");
   const legend = document.querySelector(`input[name="${id}"]`)?.closest("fieldset")?.querySelector("legend")?.textContent;
@@ -306,8 +304,8 @@ function Veld(props: {
 }
 
 /**
- * Geboortedatum in drie vakken: dag, maand en jaar. Drie vakken zijn voor
- * iedereen te bedienen, ook met toetsenbord en schermlezer, en werken op elke telefoon.
+ * Geboortedatum in één vak: dag-maand-jaar. Wie alleen cijfers typt, krijgt de
+ * streepjes vanzelf.
  */
 function Datum(props: {
   id: string;
@@ -319,37 +317,34 @@ function Datum(props: {
   eigen?: boolean;
 }) {
   const foutId = `${props.id}-fout`;
-  const deel = (naam: "dag" | "maand" | "jaar", label: string, lengte: number, auto: string) => (
-    <div className="datumdeel">
-      <label htmlFor={naam === "dag" ? props.id : `${props.id}-${naam}`}>{label}</label>
-      <input
-        id={naam === "dag" ? props.id : `${props.id}-${naam}`}
-        type="text"
-        inputMode="numeric"
-        maxLength={lengte}
-        autoComplete={props.eigen ? auto : "off"}
-        className={naam === "jaar" ? "jaar" : "kort"}
-        value={props.waarde[naam]}
-        aria-invalid={props.fout ? true : undefined}
-        aria-describedby={props.fout ? foutId : undefined}
-        onChange={(e) => props.onChange({ ...props.waarde, [naam]: alleenCijfers(e.target.value, "geheel").slice(0, lengte) })}
-      />
-    </div>
-  );
   return (
-    <fieldset className={`veld datum${props.fout ? " fout" : ""}`} data-veld={props.id}>
-      <legend>{props.legend}</legend>
+    <div className={`veld${props.fout ? " fout" : ""}`}>
+      <div className="label-rij">
+        <label htmlFor={props.id}>{props.legend}</label>
+      </div>
       {props.fout && (
         <p className="foutmelding" id={foutId}>
           {props.fout}
         </p>
       )}
-      <div className="datumdelen">
-        {deel("dag", "Dag", 2, "bday-day")}
-        {deel("maand", "Maand", 2, "bday-month")}
-        {deel("jaar", "Jaar", 4, "bday-year")}
+      <div className="invoer">
+        <span className="vak">
+          <input
+            id={props.id}
+            type="text"
+            inputMode="numeric"
+            maxLength={10}
+            placeholder="bijv. 14-03-1990"
+            autoComplete={props.eigen ? "bday" : "off"}
+            className="datum"
+            value={props.waarde}
+            aria-invalid={props.fout ? true : undefined}
+            aria-describedby={props.fout ? foutId : undefined}
+            onChange={(e) => props.onChange(datumInvoer(e.target.value, props.waarde))}
+          />
+        </span>
       </div>
-    </fieldset>
+    </div>
   );
 }
 

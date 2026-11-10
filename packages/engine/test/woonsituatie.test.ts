@@ -260,6 +260,18 @@ describe("Leiden: collectieve zorgverzekering en kwijtschelding", () => {
     // 120% van € 1.419,46
     expect(tekst(hoog, "Zorgverzekering")!.tekst).toMatch(/€\s1\.703/);
   });
+  it("de kleur van een melding volgt het recht: groen zolang het blijft, oranje als het vervalt, en acties staan bovenaan", () => {
+    const laag = bereken(basis({ nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
+    const hoog = bereken(basis({ nieuwWerk: { brutoMaandloon: 2600, urenPerWeek: 36 }, vrijlatingFase: "start" }));
+    for (const kop of ["Individuele inkomenstoeslag", "Gratis OV-pas", "Zorgverzekering", "Sleutelpas"]) {
+      expect(tekst(laag, kop)!.soort, kop).toBe("info");
+      expect(tekst(hoog, kop)!.soort, kop).toBe("waarschuwing");
+    }
+    expect(tekst(laag, "Individuele inkomenstoeslag")!.tekst).toContain("blijven krijgen");
+    expect(tekst(hoog, "Individuele inkomenstoeslag")!.tekst).toContain("waarschijnlijk niet meer");
+    const rang = (s: { actie?: boolean; soort: string }) => (s.actie ? 0 : s.soort === "waarschuwing" ? 1 : 2);
+    for (const r of [laag, hoog]) expect(r.signalen.map(rang)).toEqual([...r.signalen.map(rang)].sort());
+  });
   it("kwijtschelding: alleen een melding als de bijstand door het werk stopt", () => {
     const laag = bereken(basis({ nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
     const hoog = bereken(basis({ nieuwWerk: { brutoMaandloon: 2600, urenPerWeek: 36 }, vrijlatingFase: "start" }));

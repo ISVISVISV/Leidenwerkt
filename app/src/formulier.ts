@@ -13,19 +13,47 @@ export type LoonPer = "maand" | "netto" | "vierweken" | "uur";
 export type AllIn = "nee" | "ja" | "onbekend";
 export type Woonsituatie = "huur" | "koop" | "inwonend" | "dakloos" | "instelling";
 
-/** Geboortedatum zoals ingevuld: dag, maand en jaar als tekst. */
-export interface Geboortedatum {
-  dag: string;
-  maand: string;
-  jaar: string;
-}
+/** Geboortedatum zoals ingevuld, als tekst: dag-maand-jaar, bijvoorbeeld "14-03-1990". */
+export type Geboortedatum = string;
 
-export const legeDatum = (): Geboortedatum => ({ dag: "", maand: "", jaar: "" });
+export const legeDatum = (): Geboortedatum => "";
+
+/**
+ * Maakt van wat iemand typt een datum met streepjes. Wie alleen cijfers typt
+ * (op een telefoon heeft het cijfertoetsenbord vaak geen streepje), krijgt de
+ * streepjes vanzelf: 14031990 wordt 14-03-1990. Punten, schuine strepen en
+ * spaties worden streepjes.
+ */
+export function datumInvoer(nieuw: string, oud: string): string {
+  const iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(nieuw.trim());
+  if (iso) return `${iso[3]}-${iso[2]}-${iso[1]}`;
+  const schoon = nieuw
+    .replace(/[\s./]+/g, "-")
+    .replace(/[^0-9-]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-/, "");
+  // Bij wissen niets terugzetten, anders is een streepje niet weg te halen.
+  if (nieuw.length < oud.length) return schoon.slice(0, 10);
+  const eindigtOpStreep = schoon.endsWith("-");
+  const delen = schoon.split("-").filter((d, i, alle) => d !== "" || i < alle.length - 1).slice(0, 3);
+  for (let i = 0; i < 2; i++) {
+    if (delen[i] !== undefined && delen[i]!.length > 2) {
+      delen[i + 1] = delen[i]!.slice(2) + (delen[i + 1] ?? "");
+      delen[i] = delen[i]!.slice(0, 2);
+    }
+  }
+  if (delen[2] !== undefined) delen[2] = delen[2].slice(0, 4);
+  let uit = delen.join("-");
+  const laatste = delen[delen.length - 1] ?? "";
+  if (delen.length < 3 && (laatste.length === 2 || (eindigtOpStreep && laatste.length > 0))) uit += "-";
+  return uit;
+}
 
 /** De datum als JJJJ-MM-DD, of undefined als hij niet (volledig) is ingevuld of niet bestaat. */
 export function isoDatum(g: Geboortedatum): string | undefined {
-  if (!/^\d{1,2}$/.test(g.dag) || !/^\d{1,2}$/.test(g.maand) || !/^\d{4}$/.test(g.jaar)) return undefined;
-  const [d, m, j] = [Number(g.dag), Number(g.maand), Number(g.jaar)];
+  const delen = /^(\d{1,2})-(\d{1,2})-(\d{4})$/.exec(g.trim());
+  if (!delen) return undefined;
+  const [d, m, j] = [Number(delen[1]), Number(delen[2]), Number(delen[3])];
   const datum = new Date(j, m - 1, d);
   if (datum.getFullYear() !== j || datum.getMonth() !== m - 1 || datum.getDate() !== d) return undefined;
   const p = (n: number) => String(n).padStart(2, "0");
@@ -178,8 +206,8 @@ export function controleer(f: Formulier, stap: number): Fouten {
   };
   if (stap === 1) {
     const geboren = (veld: string, g: Geboortedatum, min: number, maxi: number, melding: string) => {
-      if (!g.dag && !g.maand && !g.jaar) fouten[veld] = "Vul dit in.";
-      else if (!isoDatum(g)) fouten[veld] = "Vul een datum in die bestaat, met dag, maand en jaar. Bijvoorbeeld 14 3 1990.";
+      if (!g.trim()) fouten[veld] = "Vul dit in.";
+      else if (!isoDatum(g)) fouten[veld] = "Vul een datum in die bestaat, met dag, maand en jaar. Bijvoorbeeld 14-03-1990.";
       else if (isoDatum(g)! > vandaag()) fouten[veld] = "Deze datum ligt in de toekomst. Vul de geboortedatum in.";
       else {
         const leeftijd = leeftijdOp(g, vandaag())!;
@@ -348,7 +376,7 @@ export function alleenCijfers(tekst: string, soort: "geheel" | "getal"): string 
 }
 
 /** Een geboortedatum als tekst, bijvoorbeeld "14-3-1990". */
-const datumTekst = (g: Geboortedatum) => `${Number(g.dag)}-${Number(g.maand)}-${g.jaar}`;
+const datumTekst = (g: Geboortedatum) => g.trim();
 const euroTekst = (t: string) => `€ ${t}`;
 
 const LOON_PER: Record<LoonPer, string> = { maand: "bruto per maand", netto: "netto per maand", vierweken: "bruto per 4 weken", uur: "bruto per uur" };

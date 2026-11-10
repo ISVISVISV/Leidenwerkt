@@ -8,10 +8,7 @@ async function geenToegankelijkheidsfouten(page: Page) {
 
 /** Vult een geboortedatum in waarmee iemand vandaag de gevraagde leeftijd heeft (1 januari van dat jaar). */
 async function geboren(page: Page, vraag: string, leeftijd: number) {
-  const groep = page.getByRole("group", { name: vraag });
-  await groep.getByLabel("Dag").fill("1");
-  await groep.getByLabel("Maand").fill("1");
-  await groep.getByLabel("Jaar").fill(String(new Date().getFullYear() - leeftijd));
+  await page.getByLabel(vraag, { exact: true }).fill(`01-01-${new Date().getFullYear() - leeftijd}`);
 }
 
 test("alleenstaande doorloopt de stappen en krijgt een antwoord", async ({ page }) => {
@@ -111,16 +108,15 @@ test("huurder van 25: huurtoeslag berekend, geen vrijlating onder 27, toeslagris
 test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, huisgenoten tellen mee voor huurtoeslag", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
-  const zelf = page.getByRole("group", { name: "Uw geboortedatum" });
-  await zelf.getByLabel("Dag").pressSequentially("1a4b");
-  await expect(zelf.getByLabel("Dag")).toHaveValue("14");
-  await zelf.getByLabel("Maand").fill("13");
-  await zelf.getByLabel("Jaar").fill("1984");
+  const zelf = page.getByLabel("Uw geboortedatum");
+  await expect(zelf).toHaveAttribute("placeholder", "bijv. 14-03-1990");
+  await zelf.pressSequentially("1a4b13x1984");
+  await expect(zelf).toHaveValue("14-13-1984");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.locator(".foutmelding").getByText("Vul een datum in die bestaat", { exact: false })).toBeVisible();
   // Na een fout gaat de focus naar het eerste foute vak; wacht daarop voordat de test verder typt.
-  await expect(zelf.getByLabel("Dag")).toBeFocused();
-  await zelf.getByLabel("Maand").fill("3");
+  await expect(zelf).toBeFocused();
+  await zelf.fill("14-3-1984");
   await expect(page.getByLabel(/Hoeveel andere mensen van 27/)).toHaveAttribute("placeholder", "bijv. 0");
   await page.getByLabel(/Hoeveel andere mensen van 27/).fill("1");
   await page.getByRole("button", { name: "Volgende stap" }).click();
@@ -280,7 +276,7 @@ test("ander inkomen telt mee, de afdruk toont de invoer, en opnieuw beginnen wis
   await page.getByRole("button", { name: "Opnieuw beginnen" }).click();
   await page.getByRole("button", { name: "Ja, alles wissen" }).click();
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
-  await expect(page.getByRole("group", { name: "Uw geboortedatum" }).getByLabel("Jaar")).toHaveValue("");
+  await expect(page.getByLabel("Uw geboortedatum")).toHaveValue("");
 });
 
 test("de terugknop van de browser gaat een stap terug en bewaart wat is ingevuld", async ({ page }) => {
@@ -297,13 +293,15 @@ test("de terugknop van de browser gaat een stap terug en bewaart wat is ingevuld
   await expect(page.getByLabel("In een koopwoning")).toBeChecked();
   await page.goBack();
   await expect(page.getByRole("heading", { name: "Uw huishouden" })).toBeVisible();
-  await expect(page.getByRole("group", { name: "Uw geboortedatum" }).getByLabel("Jaar")).toHaveValue(String(new Date().getFullYear() - 40));
+  await expect(page.getByLabel("Uw geboortedatum")).toHaveValue(`01-01-${new Date().getFullYear() - 40}`);
 
   // Vooruit kan alleen als de stap goed is ingevuld.
-  await page.getByRole("group", { name: "Uw geboortedatum" }).getByLabel("Jaar").fill("");
+  await page.getByLabel("Uw geboortedatum").fill("");
   await page.goForward();
   await expect(page.getByRole("heading", { name: "Uw huishouden" })).toBeVisible();
-  await page.getByRole("group", { name: "Uw geboortedatum" }).getByLabel("Jaar").fill(String(new Date().getFullYear() - 40));
+  // Wie alleen cijfers typt, krijgt de streepjes vanzelf.
+  await page.getByLabel("Uw geboortedatum").pressSequentially(`0101${new Date().getFullYear() - 40}`);
+  await expect(page.getByLabel("Uw geboortedatum")).toHaveValue(`01-01-${new Date().getFullYear() - 40}`);
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.getByRole("heading", { name: "Uw woning" })).toBeVisible();
   await page.getByRole("button", { name: "Vorige stap" }).click();
