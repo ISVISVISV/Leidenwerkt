@@ -174,6 +174,8 @@ export interface Signaal {
   soort: "waarschuwing" | "info";
   /** Korte kop waaraan de melding te herkennen is. */
   kop: string;
+  /** De gebruiker moet zelf iets doen (doorgeven, aanvragen). */
+  actie?: boolean;
   tekst: string;
   /** Letterlijke brontekst bij de melding. */
   bron?: Citaat;

@@ -693,6 +693,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     uit.push({
       soort: "waarschuwing",
       kop: "Geef uw nieuwe inkomen door",
+      actie: true,
       bron: CITATEN.awirTerugvordering,
       tekst: `Uw toeslagen gaan samen ${euro(totaal, true)} per maand omlaag (${lijst}). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand ${euro(totaal, true)} te veel, en moet u na een jaar ongeveer ${euro(totaal.times(12), true)} terugbetalen.`,
     });
@@ -718,7 +719,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
           tekst += ` Het Kindtegoed van ${euro(kindtegoed, true)} per jaar houdt u waarschijnlijk wel, tot ongeveer ${euro(norm.times(grens2), true)} netto per maand.`;
         }
       }
-      uit.push({ soort: "info", kop: kinderen.length > 0 ? "Sleutelpas en Kindtegoed" : "Sleutelpas", tekst, bron: bronVan(l, "leiden.sleutelpas.inkomensgrens") });
+      uit.push({ soort: "waarschuwing", kop: kinderen.length > 0 ? "Sleutelpas en Kindtegoed" : "Sleutelpas", tekst, bron: bronVan(l, "leiden.sleutelpas.inkomensgrens") });
     } else {
       uit.push({
         soort: "info",
@@ -734,7 +735,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     const grens = normBijzondereBijstand(l, invoer).times(l.breuk("leiden.czm.inkomensgrens"));
     const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
     uit.push({
-      soort: "info",
+      soort: inkomen.gt(grens) ? "waarschuwing" : "info",
       kop: "Zorgverzekering en zwemmen",
       bron: bronVan(l, "leiden.czm.inkomensgrens"),
       tekst: inkomen.gt(grens)
@@ -749,7 +750,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       l.breuk("leiden.ovpas.inkomensgrens");
       const stopt = !!bijstandWerk && bijstandWerk.isZero();
       uit.push({
-        soort: "info",
+        soort: stopt ? "waarschuwing" : "info",
         kop: "Gratis OV-pas",
         bron: bronVan(l, "leiden.ovpas.inkomensgrens"),
         tekst: stopt
@@ -781,11 +782,15 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       const jaren = l.aantal("leiden.iit.referteperiode").toString();
       const minLeeftijd = l.aantal("leiden.iit.minimumleeftijd");
       if (minLeeftijd.gt(invoer.leeftijd)) return;
+      // Het recht hangt af van het inkomen: zolang er bijstand is, blijft het inkomen op de norm.
+      const stopt = !!bijstandWerk && bijstandWerk.isZero();
       uit.push({
-        soort: "info",
+        soort: stopt ? "waarschuwing" : "info",
         kop: "Individuele inkomenstoeslag",
         bron: bronVan(l, "leiden.iit.referteperiode"),
-        tekst: `Heeft u al ${jaren} jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden ${euro(bedrag, true)} krijgen. Verdient u door dit werk meer dan de bijstandsnorm, dan krijgt u dit niet meer. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
+        tekst: stopt
+          ? `Heeft u al ${jaren} jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden ${euro(bedrag, true)} krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.`
+          : `Heeft u al ${jaren} jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden ${euro(bedrag, true)} krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
       });
     });
   }
@@ -799,6 +804,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     uit.push({
       soort: "waarschuwing",
       kop: vergoeding && vergoeding.gt(0) ? "Vraag de vergoeding voor de opvang aan" : "Eigen bijdrage kinderopvang",
+      actie: vergoeding && vergoeding.gt(0) ? true : undefined,
       bron: CITATEN.bbKinderopvang,
       tekst:
         vergoeding && vergoeding.gt(0)
@@ -824,8 +830,9 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
         "U krijgt 13 keer per jaar loon. Eén keer per jaar krijgt u twee keer loon in dezelfde maand. In die maand krijgt u waarschijnlijk minder of geen bijstand, omdat de gemeente per maand kijkt wat u verdiende.",
     });
   }
-  // Meldingen waar iemand iets mee moet of die geld kosten, staan bovenaan.
-  return [...uit.filter((s) => s.soort === "waarschuwing"), ...uit.filter((s) => s.soort !== "waarschuwing")];
+  // Bovenaan wat iemand moet doen, dan wat er verandert of vervalt, dan wat blijft.
+  const rang = (s: Signaal) => (s.actie ? 0 : s.soort === "waarschuwing" ? 1 : 2);
+  return uit.map((s, i) => ({ s, i })).sort((a, b) => rang(a.s) - rang(b.s) || a.i - b.i).map((x) => x.s);
 }
 
 function valideer(invoer: Invoer) {
