@@ -40,6 +40,8 @@ Zie [docs/ARCHITECTUUR.md](docs/ARCHITECTUUR.md), [docs/ONDERHOUD.md](docs/ONDER
 
 Versie 0.1: de rekenhulp werkt en is getest met verzonnen huishoudens waarvan de uitkomsten zijn vergeleken met officiële rekenhulpen ([docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md)). De uitkomsten zijn nog niet nagelopen door een klantmanager of sociaal raadsman. De bedragen voor 2027 komen erin zodra ze gepubliceerd zijn.
 
+Wil je nagaan of de rekenhulp te vertrouwen is? Begin bij [docs/CONTROLE.md](docs/CONTROLE.md): een steekproef in de app, één voorbeeld met de hand nagerekend, en wat wel en niet is gecontroleerd.
+
 Wat wel en niet berekend wordt staat in [docs/REKENREGELS.md](docs/REKENREGELS.md); wat nog op de lijst staat in [docs/PLANNING.md](docs/PLANNING.md).
 
 ## Makers
