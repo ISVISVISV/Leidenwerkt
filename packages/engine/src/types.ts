@@ -156,8 +156,10 @@ export interface Post {
   stappen: Stap[];
   parameters: GebruikteParameter[];
   aannames: string[];
-  /** Reden waarom de post niet berekend is. */
+  /** Reden waarom de post niet berekend is, in gewone taal. */
   reden?: string;
+  /** Welke parameter ontbrak, voor onderhoud; niet voor de gebruiker. */
+  ontbrekendeParameter?: string;
   invloed: Invloed;
   /** Wat er met de post gebeurt als het inkomen uit werk stijgt (alleen bij invloed "ja"). */
   richting?: Richting;

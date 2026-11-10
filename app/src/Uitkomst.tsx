@@ -49,7 +49,10 @@ export function Uitkomst({ f }: { f: Formulier }) {
 
   const uitleg = useMemo(() => vrijlatingUitleg(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
   const periodes = uitleg.periodes;
-  const fase = periodes.some((p) => p.fase === gekozenFase) ? gekozenFase : periodes[0].fase;
+  // Wie al 6 maanden of langer werkt, zit in de periode na de eerste vrijlating: de uitleg volgt de berekening.
+  const vast = vasteFase(f);
+  const wens = vast ?? gekozenFase;
+  const fase = periodes.some((p) => p.fase === wens) ? wens : vast ? periodes[periodes.length - 1].fase : periodes[0].fase;
   const onbekend = useMemo(() => (teruggevallen ? onbekendeOnderdelen(vandaag()) : []), [teruggevallen]);
   const r = useMemo(() => bereken(naarInvoer(f, { uren, fase, datum })), [f, uren, fase, datum]);
   const zonder = useMemo(() => bereken(naarInvoer(f, { uren, fase: "geen", datum })), [f, uren, datum]);
@@ -70,6 +73,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
   // De keuze voor de periode hangt af van de invoer, niet van de gekozen periode (anders verdwijnt ze na een klik).
   const rStart = useMemo(() => bereken(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
   const bijstandStart = rStart.werk.posten.find((p) => p.id === "bijstand");
+  const voordeelStart = D(rStart.werk.besteedbaarPerMaand).minus(zonder.werk.besteedbaarPerMaand);
   const meerPeriodes =
     !vasteFase(f) && periodes.length > 1 && !!bijstandStart && bijstandStart.perMaand !== null && bijstandStart.perMaand !== "0.00";
   const eersteJaar = useMemo(() => verschilEersteJaar(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
@@ -83,6 +87,9 @@ export function Uitkomst({ f }: { f: Formulier }) {
     }
     return null;
   }, [f, datum, minUren, maxUren]);
+
+  // De urengrens is zonder vrijlating berekend; dat staat erbij als er in een periode wel vrijlating is.
+  const metVrijlating = periodes.some((p) => p.fase !== "geen") && voordeelStart.gt("0.5");
 
   return (
     <section className="uitkomst">
@@ -138,8 +145,8 @@ export function Uitkomst({ f }: { f: Formulier }) {
             {grensUren === null
               ? `Ook bij ${urenTekst(maxUren)} vult de bijstand uw loon nog aan.`
               : grensUren === minUren
-                ? `Met dit loon heeft u vanaf ${urenTekst(minUren)} geen bijstand meer nodig.`
-                : `Vanaf ${urenTekst(grensUren)} heeft u met dit uurloon geen bijstand meer nodig.${uren < grensUren ? ` Bij ${uren} uur vult de bijstand uw loon nog aan.` : ""}`}
+                ? `${metVrijlating ? "Als de vrijlating voorbij is, heeft u met dit loon" : "Met dit loon heeft u"} vanaf ${urenTekst(minUren)} geen bijstand meer nodig.`
+                : `${metVrijlating ? "Als de vrijlating voorbij is, heeft u vanaf" : "Vanaf"} ${urenTekst(grensUren)} ${metVrijlating ? "" : "heeft u "}met dit uurloon geen bijstand meer nodig.${uren < grensUren ? ` Bij ${uren} uur vult de bijstand uw loon nog aan.` : ""}`}
           </p>
         )}
         {meerPeriodes && (
@@ -158,10 +165,10 @@ export function Uitkomst({ f }: { f: Formulier }) {
       {heeftBijstand && (
         <div className="toelichting">
           <p>
-            <strong>{meerPeriodes ? `${gekozen.naam} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.` : `${gekozen.naam}.`}</strong> {gekozen.regel}
+            <strong>{meerPeriodes || vast ? `${gekozen.naam} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.` : `${gekozen.naam}.`}</strong> {gekozen.regel}
           </p>
           {f.werktNu && meerPeriodes && fase !== periodes[0].fase && (
-            <p>De vrijlating loopt ook af voor het werk dat u nu al doet. Daarom is het bedrag bij “Nu” in deze periode anders dan in de eerste maanden.</p>
+            <p>De vrijlating loopt ook af voor het werk dat u nu al doet. Daarom is het bedrag bij "Nu" in deze periode anders dan in de eerste maanden.</p>
           )}
           {vrijlatingTelt && (
             <p>
@@ -381,7 +388,7 @@ function Vergelijking({ r }: { r: Resultaat }) {
   const eraf = zichtbaar.filter((id) => labels.get(id)!.soort === "kosten");
   return (
     <table className="vergelijking">
-      <caption>Zo is het bedrag opgebouwd (per maand)</caption>
+      <caption>Zo is het bedrag opgebouwd</caption>
       <thead>
         <tr>
           <th scope="col">Per maand</th>

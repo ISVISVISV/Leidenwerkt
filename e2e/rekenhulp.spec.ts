@@ -146,13 +146,13 @@ test("zonder vaste woonplek, met medische urenbeperking: lagere norm, vrijlating
   await page.getByRole("textbox", { name: /Hoeveel uur per week werkt u/ }).fill("16");
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
   await expect(page.locator(".antwoord")).toContainText("Over de eerste 12 maanden samen");
-  await expect(page.locator("#urengrens")).toContainText("uur per week heeft u met dit uurloon geen bijstand meer nodig");
+  await expect(page.locator("#urengrens")).toContainText("uur per week met dit uurloon geen bijstand meer nodig");
   await page.getByLabel("Vanaf maand 7").check();
   await expect(page.locator(".toelichting")).toContainText("Met een medische urenbeperking mag u 15%");
   const bron = page.locator(".toelichting .bron").filter({ hasText: "onder y" });
   await bron.getByRole("button").click();
   await expect(bron.locator(".bron-tekst")).toContainText("medisch urenbeperkt");
-  await page.getByText("Bijstand", { exact: true }).first().click();
+  await bron.getByRole("button").click();
   await geenToegankelijkheidsfouten(page);
 });
 

@@ -247,10 +247,16 @@ export function controleer(f: Formulier, stap: number): Fouten {
   }
   if (stap === 3) {
     const loonGrens = (per: LoonPer): [number, number, string] =>
-      per === "uur" ? [1, 100, "Vul een bruto uurloon in, bijvoorbeeld 15,00."] : [50, 15000, "Vul een bruto bedrag in, bijvoorbeeld 1.800."];
+      per === "uur"
+        ? [1, 100, "Vul uw bruto loon per uur in, bijvoorbeeld 15,00."]
+        : per === "netto"
+          ? [50, 15000, "Vul uw netto loon per maand in, bijvoorbeeld 1.500."]
+          : per === "vierweken"
+            ? [50, 15000, "Vul uw bruto loon per 4 weken in, bijvoorbeeld 1.700."]
+            : [50, 15000, "Vul uw bruto loon per maand in, bijvoorbeeld 1.800."];
     if (f.werktNu) {
       moet("nuLoon", f.nuLoon, ...loonGrens(f.nuPer));
-      moet("nuUren", f.nuUren, 1, 60, "Vul het aantal uren per week in.");
+      moet("nuUren", f.nuUren, 1, 60, "Vul het aantal uren per week in, van 1 tot en met 60.");
       if (!f.verandering) fouten.verandering = "Kies wat er verandert.";
       if (!f.werktAl) fouten.werktAl = "Kies hoe lang u al werkt.";
       if (heeftOpvang(f) && !f.opvangNu) fouten.opvangNu = "Kies of uw kind nu al naar de opvang gaat.";
@@ -260,9 +266,9 @@ export function controleer(f: Formulier, stap: number): Fouten {
       moet("meerUren", f.meerUren, nu + 1, 60, `Vul in hoeveel uur u straks in totaal werkt: meer dan ${nu} en hoogstens 60.`);
     } else if (!f.werktNu || f.verandering) {
       moet("loon", f.loon, ...loonGrens(f.per));
-      moet("uren", f.uren, 1, 60, "Vul het aantal uren per week in.");
+      moet("uren", f.uren, 1, 60, "Vul het aantal uren per week in, van 1 tot en met 60.");
     }
-    for (const v of ["reiskosten", "vergoeding", "overigeKosten"] as const) moet(v, f[v], 0, 2000, "Vul een bedrag in.", false);
+    for (const v of ["reiskosten", "vergoeding", "overigeKosten"] as const) moet(v, f[v], 0, 2000, "Vul een bedrag per maand in, of laat het vak leeg.", false);
   }
   return fouten;
 }
@@ -400,7 +406,7 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
     const opvang = k.opvang ? `; ${OPVANG[k.soort]}, ${k.uren} uur per maand${k.uurprijs ? ` × ${euroTekst(k.uurprijs)}` : ", prijs onbekend"}` : "";
     huishouden.push([`Kind ${i + 1}`, `geboren ${datumTekst(k.geboren)}${opvang}`]);
   });
-  huishouden.push(["Huisgenoten", `${f.kostendelers || "0"} van 27 jaar of ouder, ${f.jongeHuisgenoten || "0"} van 18 tot 27 jaar`]);
+  huishouden.push(["Huisgenoten", `${f.kostendelers || "0"} van 27 jaar of ouder, ${f.jongeHuisgenoten || "0"} van 18 tot en met 26 jaar`]);
   huishouden.push(["Ander inkomen", f.heeftAnderInkomen ? `${euroTekst(f.anderInkomen)} netto per maand` : "nee"]);
 
   const woning: [string, string][] = [];

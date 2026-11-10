@@ -82,7 +82,8 @@ describe("bijstand", () => {
     const r = bereken(basis({ datum: "2027-01-15" }));
     const b = post(r, "huidig", "bijstand");
     expect(b?.perMaand).toBeNull();
-    expect(b?.reden).toContain("pw.norm.alleenstaande");
+    expect(b?.ontbrekendeParameter).toBe("pw.norm.alleenstaande");
+    expect(b?.reden).toBe("De bedragen hiervoor zijn voor deze datum nog niet bekend.");
     expect(r.nietMeegenomen.map((n) => n.id)).toContain("bijstand");
   });
 
