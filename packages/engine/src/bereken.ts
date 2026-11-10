@@ -324,6 +324,10 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     }
     const loon = brutoJaarloon(werk).minus(pensioenJaar(werk)).plus(brutoJaarloon(partnerWerk).minus(pensioenJaar(partnerWerk)));
     const ti = loon.plus(brutoBijstand);
+    if (loon.gt(0) && brutoBijstand.gt(0)) {
+      stap("Bruto loon per jaar, met vakantiegeld", loon);
+      stap(ander.gt(0) ? "Bijstand en ander inkomen per jaar, teruggerekend naar bruto" : "Bijstand per jaar, teruggerekend naar bruto", brutoBijstand);
+    }
     stap("Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar)", ti);
     aanname("Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag; Dienst Toeslagen gebruikt het werkelijke bruto bedrag.");
     aanname("Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het jaarinkomen ertussenin.");

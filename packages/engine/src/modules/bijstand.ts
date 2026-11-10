@@ -36,7 +36,7 @@ export function bijstandsnorm(l: Lezer, invoer: Invoer): NormUitkomst {
   const normPersoon = factor.times(gehuwden);
   return {
     norm: paar ? normPersoon.times(2) : normPersoon,
-    uitleg: `Kostendelersnorm met ${a.toString()} kostendelers: ${factor.times(100).toDecimalPlaces(2).toString()}% van de gehuwdennorm${paar ? " per partner" : ""}`,
+    uitleg: `Kostendelersnorm: ${a.toString()} mensen in huis delen de kosten. Dat is ${factor.times(100).toDecimalPlaces(2).toString().replace(".", ",")}% van de gehuwdennorm${paar ? " per partner" : ""}`,
   };
 }
 
