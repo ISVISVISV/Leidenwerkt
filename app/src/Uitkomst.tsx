@@ -59,9 +59,12 @@ export function Uitkomst({ f }: { f: Formulier }) {
   const heeftBijstand = !!bijstandMetWerk && bijstandMetWerk.perMaand !== null && bijstandMetWerk.perMaand !== "0.00";
   // De zin over de vrijlating staat er alleen als de vrijlating in de gekozen periode iets oplevert.
   const vrijlatingTelt = heeftBijstand && voordeel.gt("0.5");
-  // Na de laatste periode: loopt de bijstand dan nog door?
-  const laatsteFase = periodes[periodes.length - 1].fase;
-  const rLaatste = useMemo(() => bereken(naarInvoer(f, { uren, fase: laatsteFase, datum })), [f, uren, laatsteFase, datum]);
+  // Loopt de bijstand in de periode hierna nog door?
+  const volgendeFase = periodes[periodes.findIndex((p) => p.fase === fase) + 1]?.fase;
+  const rVolgende = useMemo(
+    () => (volgendeFase ? bereken(naarInvoer(f, { uren, fase: volgendeFase, datum })) : undefined),
+    [f, uren, volgendeFase, datum],
+  );
   // De keuze voor de periode hangt af van de invoer, niet van de gekozen periode (anders verdwijnt ze na een klik).
   const rStart = useMemo(() => bereken(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
   const bijstandStart = rStart.werk.posten.find((p) => p.id === "bijstand");
@@ -90,7 +93,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
         urenTekst={urenTekst(uren)}
         periode={meerPeriodes ? gekozen.naam : undefined}
         eersteJaar={eersteJaar.bedrag}
-        stoptLater={meerPeriodes && fase !== laatsteFase && bijstandVan(rLaatste) === "0.00"}
+        stoptLater={meerPeriodes && !!rVolgende && bijstandVan(rVolgende) === "0.00"}
       />
 
       <section className="alleen-print gegevens" aria-label="Wat u heeft ingevuld">

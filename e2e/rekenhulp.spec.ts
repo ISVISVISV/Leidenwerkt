@@ -356,7 +356,15 @@ test("de uitkomst zegt of de bijstand blijft of stopt, en noemt de eigen kosten 
   await expect(uitleg).not.toContainText("Vraag uw klantmanager of de vrijlating voor u geldt");
   await expect(uitleg).toContainText("Kosten die u zelf voor het werk maakt, gaan daar nog af.");
 
-  // Met een hoog loon stopt de bijstand.
+  // Net boven de norm: alleen door de vrijlating is er de eerste maanden nog bijstand.
+  await page.getByRole("button", { name: "Gegevens aanpassen" }).click();
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.500");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  await expect(antwoord).toContainText("door de vrijlating. Daarna stopt uw bijstand.");
+  await page.getByRole("group", { name: "Welke periode wilt u zien?" }).getByRole("radio").last().check();
+  await expect(antwoord).toContainText("Uw bijstand stopt.");
+
+  // Met een hoog loon stopt de bijstand meteen.
   await page.getByRole("button", { name: "Gegevens aanpassen" }).click();
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("2.800");
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
