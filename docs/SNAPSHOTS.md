@@ -40,3 +40,7 @@ Bij Sanne blijft het inkomen onder 110% van de rekennorm, dus de hele eigen bijd
 ## Woonvorm met begeleiding (art. 23 Pw)
 
 Geen wijziging in de snapshots 2026; geen van de vastgelegde huishoudens woont in een instelling.
+
+## Snapshots van de uitleg (10 november 2026)
+
+Nieuw: naast de bedragen staan nu ook de rekenstappen, meldingen en aannames vast, voor de bestaande huishoudens en negen extra (`extraVoorUitleg` in `huishoudens.ts`). De snapshots van de bedragen zijn niet gewijzigd. Een gewijzigde tekst in de uitleg hoeft hier niet verklaard te worden; een gewijzigd tussenbedrag wel.

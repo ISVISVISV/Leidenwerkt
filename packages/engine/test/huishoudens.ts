@@ -61,3 +61,61 @@ export const samenvatting = (r: import("../src/index.ts").Resultaat) => ({
   verschil: r.verschilPerMaand,
   nietMeegenomen: r.nietMeegenomen.map((n) => n.id),
 });
+
+/**
+ * Extra huishoudens voor de snapshots van de uitleg (rekenstappen, meldingen,
+ * aannames): situaties die de lijst hierboven niet raakt.
+ */
+export const extraVoorUitleg: Record<string, Invoer> = {
+  "paar met kostendeler en jonge huisgenoot, huur": basis({
+    leefvorm: "paar",
+    leeftijd: 45,
+    partner: { leeftijd: 44 },
+    kostendelers: 1,
+    jongeHuisgenoten: 1,
+    huisgenotenInkomenJaar: 18000,
+    nieuwWerk: { brutoMaandloon: 1300, urenPerWeek: 20 },
+  }),
+  "woonvorm met begeleiding": basis({ wonen: { soort: "instelling" }, nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 } }),
+  "geen vaste woonplek, medische urenbeperking, na maand 6": basis({
+    wonen: { soort: "geen_woonkosten", dakloos: true, betaaltWoonlasten: false },
+    medischUrenbeperkt: true,
+    nieuwWerk: { brutoMaandloon: 700, urenPerWeek: 12 },
+    vrijlatingFase: "later",
+  }),
+  "kamer, ander inkomen, kosten met vergoeding": basis({
+    wonen: { soort: "huur", zelfstandig: false },
+    anderInkomenPerMaand: 100,
+    nieuwWerk: { brutoUurloon: 15, urenPerWeek: 19, reiskostenPerMaand: 40, reiskostenvergoedingPerMaand: 40, overigeKostenPerMaand: 10 },
+    vrijlatingFase: "later",
+  }),
+  "alleenstaande ouder werkt al met opvang, neemt er werk bij": basis({
+    leefvorm: "alleenstaande_ouder",
+    kinderen: [{ leeftijd: 3, opvang: { soort: "dagopvang", urenPerMaand: 100, uurprijs: 12, uurprijsGeschat: true } }, { leeftijd: 9, opvang: { soort: "bso", urenPerMaand: 40, uurprijs: 9 } }],
+    huidigWerk: { brutoMaandloon: 600, urenPerWeek: 10 },
+    huidigeVrijlating: "later",
+    opvangNu: true,
+    nieuwWerk: { brutoMaandloon: 1200, urenPerWeek: 16, bijbaan: { brutoMaandloon: 600, urenPerWeek: 10 } },
+    vrijlatingFase: "later",
+  }),
+  "paar met opvang, partner werkt niet": basis({
+    leefvorm: "paar",
+    partner: { leeftijd: 38 },
+    kinderen: [{ leeftijd: 2, opvang: { soort: "dagopvang", urenPerMaand: 80, uurprijs: 10 } }],
+    nieuwWerk: { brutoMaandloon: 1500, urenPerWeek: 24 },
+  }),
+  "hoog loon per 4 weken, bijstand stopt": basis({ nieuwWerk: { brutoVierwekenloon: 2600, urenPerWeek: 36 } }),
+  "all-in uurloon, 24 jaar": basis({ leeftijd: 24, nieuwWerk: { brutoUurloon: 16.5, urenPerWeek: 20, vakantiegeld: 0 } }),
+  "2027, bijverdienregeling": basis({ datum: "2027-02-01", nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 } }),
+};
+
+/** Alles wat de gebruiker als uitleg te zien krijgt: rekenstappen, meldingen en aannames. */
+export const uitleg = (r: import("../src/index.ts").Resultaat) => ({
+  stappen: Object.fromEntries(
+    (["huidig", "werk"] as const).map((kant) => [kant, Object.fromEntries(r[kant].posten.map((p) => [p.id, p.stappen.map((s) => (s.bedrag === undefined ? s.tekst : `${s.tekst}: ${s.bedrag}`))]))]),
+  ),
+  meldingen: r.signalen.map((s) => `[${s.soort}${s.actie ? ", actie" : ""}] ${s.kop}: ${s.tekst}`),
+  aannames: r.aannames,
+  betrouwbaarheid: r.betrouwbaarheid,
+  nietMeegenomen: r.nietMeegenomen,
+});
