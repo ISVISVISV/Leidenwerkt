@@ -234,11 +234,35 @@ describe("na de QA", () => {
     expect(r.huidig.posten.find((p) => p.id === "kot")).toBeDefined();
     expect(r.huidig.posten.find((p) => p.id === "opvangkosten")).toBeDefined();
   });
-  it("Sleutelpas: de grens gaat uit van het sociaal minimum, ook in een woonvorm met begeleiding", () => {
+  it("Sleutelpas en Volwassenenfonds: vaste norm per huishouden, zonder kostendelersnorm (tabellen gemeente.leiden.nl)", () => {
     const w = { brutoMaandloon: 900, urenPerWeek: 16 };
-    const gewoon = bereken(basis({ nieuwWerk: w, vrijlatingFase: "start" })).signalen.find((s) => s.tekst.includes("Sleutelpas"));
-    const instelling = bereken(basis({ wonen: { soort: "instelling" }, nieuwWerk: w, vrijlatingFase: "start" })).signalen.find((s) => s.tekst.includes("Sleutelpas"));
-    expect(instelling?.tekst).toBe(gewoon?.tekst);
+    const grens = (r: Resultaat, kop: string) => r.signalen.find((s) => s.kop.startsWith(kop))?.tekst.match(/ongeveer €\s?([\d.]+)/)?.[1];
+    const alleen = bereken(basis({ nieuwWerk: w, vrijlatingFase: "start" }));
+    const metKostendelers = bereken(basis({ kostendelers: 2, nieuwWerk: w, vrijlatingFase: "start" }));
+    // 130% en 120% van € 1.419,46: € 1.845 en € 1.703. Met kostendelers precies dezelfde grens.
+    expect(grens(alleen, "Sleutelpas")).toBe("1.845");
+    expect(grens(metKostendelers, "Sleutelpas")).toBe("1.845");
+    expect(grens(metKostendelers, "Sport en cultuur")).toBe("1.703");
+    // Paar: 120% van € 2.027,79 = € 2.433 (de gemeente noemt € 2.311,68 zonder vakantiegeld: × 0,95).
+    const paar = bereken(basis({ leefvorm: "paar", partner: { leeftijd: 35 }, kostendelers: 1, nieuwWerk: w, vrijlatingFase: "start" }));
+    expect(grens(paar, "Sport en cultuur")).toBe("2.433");
+  });
+  it("de tabellen van de gemeente volgen uit de normen: 120% en 140% van het sociaal minimum zonder vakantiegeld", () => {
+    const zonderVt = (bedrag: string, pct: number) => Math.round(Number(bedrag) * 0.95 * pct * 100) / 100;
+    // Volwassenenfonds (normen 1 juli 2026): alleenstaand € 1.618,18, getrouwd € 2.311,68, alleenstaand in instelling € 512,36.
+    expect(zonderVt("1419.46", 1.2)).toBe(1618.18);
+    expect(zonderVt("2027.79", 1.2)).toBe(2311.68);
+    expect(zonderVt("449.44", 1.2)).toBe(512.36);
+    // Jeugdfonds, 140% (normen 1 januari 2026): eenoudergezin € 1.864,00, tweeoudergezin € 2.662,83.
+    expect(zonderVt("1401.50", 1.4)).toBe(1864);
+    expect(zonderVt("2002.13", 1.4)).toBe(2662.83);
+  });
+  it("in een instelling: alleenstaand de norm van art. 23 lid 1 zonder verhoging; voor een paar noemt de gemeente geen bedrag", () => {
+    const w = { brutoMaandloon: 300, urenPerWeek: 8 };
+    const alleen = bereken(basis({ wonen: { soort: "instelling" }, nieuwWerk: w, vrijlatingFase: "start" }));
+    expect(alleen.signalen.find((s) => s.kop === "Sleutelpas")?.tekst).toMatch(/€\s?584/); // 130% × € 449,44
+    const paar = bereken(basis({ leefvorm: "paar", partner: { leeftijd: 35 }, wonen: { soort: "instelling" }, nieuwWerk: w, vrijlatingFase: "start" }));
+    expect(paar.signalen.some((s) => s.kop === "Sleutelpas" || s.kop === "Sport en cultuur")).toBe(false);
   });
 });
 

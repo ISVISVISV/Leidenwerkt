@@ -666,6 +666,20 @@ function normBijzondereBijstand(l: Lezer, invoer: Invoer): Bedrag {
   return basis.minus(woonkorting(l, zonderKostendelers).bedrag);
 }
 
+/**
+ * Het sociaal minimum voor de Sleutelpas, het Kindtegoed en het Volwassenenfonds: een vaste norm per soort
+ * huishouden, zonder kostendelersnorm en zonder verlaging voor lage woonkosten. Zo staat het in de tabellen
+ * van de gemeente (gemeente.leiden.nl, "Hulp bij kosten sport en cultuur"): alleenstaand of eenoudergezin de
+ * norm van art. 21 a Pw, getrouwd of samenwonend die van art. 21 b, alleenstaand in een instelling die van
+ * art. 23 lid 1 a zonder de verhoging van lid 2 (€ 512,36 = 120% van € 449,44 zonder vakantietoeslag).
+ * Voor een paar in een instelling noemt de gemeente geen bedrag; dan geen grens en geen melding.
+ */
+function sociaalMinimum(l: Lezer, invoer: Invoer): Bedrag | undefined {
+  const paar = invoer.leefvorm === "paar";
+  if (invoer.wonen.soort === "instelling") return paar ? undefined : l.bedrag("pw.norm.inrichting.alleenstaande");
+  return l.bedrag(paar ? "pw.norm.gehuwden" : "pw.norm.alleenstaande");
+}
+
 /** Letterlijke brontekst bij een parameter, voor een melding. */
 function bronVan(l: Lezer, id: string): Citaat | undefined {
   const b = l.brontekst(id);
@@ -711,8 +725,8 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   // Leiden: Sleutelpas en Kindtegoed (tot 130% van het sociaal minimum; Kindtegoed tot 140%).
   probeer(() => {
     const grens = l.breuk("leiden.sleutelpas.inkomensgrens");
-    // Het sociaal minimum: de gewone bijstandsnorm, ook bij verblijf in een instelling (de Sleutelpas kent geen andere normen).
-    const norm = bijstandsnorm(l, invoer.wonen.soort === "instelling" ? { ...invoer, wonen: { soort: "anders" } } : invoer).norm;
+    const norm = sociaalMinimum(l, invoer);
+    if (!norm) return;
     const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
     const kinderen = invoer.kinderen.filter((k) => k.leeftijd < 18);
     let kindtegoed = NUL;
@@ -771,12 +785,8 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
 
   // Leiden: Volwassenenfonds Sport & Cultuur (tot 120% van het sociaal minimum).
   probeer(() => {
-    // Bij verblijf in een instelling rekent de gemeente met de norm van art. 23 lid 1, zonder de verhoging van lid 2
-    // (gemeente.leiden.nl: "Alleenstaand, in instelling € 512,36" = 120% van € 449,44 zonder vakantietoeslag).
-    const norm =
-      invoer.wonen.soort === "instelling"
-        ? l.bedrag(invoer.leefvorm === "paar" ? "pw.norm.inrichting.gehuwden" : "pw.norm.inrichting.alleenstaande")
-        : bijstandsnorm(l, invoer).norm;
+    const norm = sociaalMinimum(l, invoer);
+    if (!norm) return;
     const grens = norm.times(l.breuk("leiden.volwassenenfonds.inkomensgrens"));
     const maximum = euro(l.bedrag("leiden.volwassenenfonds.maximum"), true);
     const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);

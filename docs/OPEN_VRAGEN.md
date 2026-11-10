@@ -26,7 +26,7 @@ Stand: 8 november 2026. Per vraag staat wat ontbreekt en waar het te vinden is.
 
 ## Opgelost
 
-- **Sleutelpas bij verblijf in een instelling**: de grens is 130% van het sociaal minimum, dat is de gewone bijstandsnorm; de lagere instellingsnorm verlaagt de grens niet (praktijk Leiden; de beleidsregels kennen geen aparte normen).
+- **Sleutelpas bij verblijf in een instelling**: de beleidsregels zeggen niet wat het WSM is. De gemeente noemt op dezelfde pagina als de Sleutelpas voor "alleenstaand, in instelling" een sociaal minimum op basis van de norm van art. 23 lid 1 (Volwassenenfonds: € 512,36 bij 120%). De app gebruikt die norm ook voor de Sleutelpas. Voor een paar in een instelling noemt de gemeente geen bedrag; de app geeft dan geen melding.
 - **Huurtoeslag met huisgenoten van elke leeftijd en kinderen met inkomen**: iedereen op het adres telt mee (Awir art. 1 en 7); kinderen jonger dan 23 pas boven € 6.218 (brochure Berekening huurtoeslag 2026, stap 5).
 - **Woonvorm met begeleiding (art. 23 Pw)**: norm bij verblijf in een inrichting ingebouwd, met de verhoging van lid 2. Volgens de praktijk in Leiden betalen bewoners niets voor het verblijf dat invloed heeft op de bijstand; dat is een aanname in de app. Instelling met zorg en woonvorm met begeleiding zijn één keuze (zelfde norm).
 - **Geen of lage woonkosten (Leiden)**: lagere norm volgens de Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026 (CVDR760406, art. 3.1): 10% van de gehuwdennorm zonder woonkosten, 9% zonder woonlasten, 19% samen; bij woonkosten onder 10% het verschil. Alleen bij de norm van art. 21, niet bij de kostendelersnorm. Wonen in een instelling (art. 23) rekent de app niet.
@@ -35,7 +35,7 @@ Stand: 8 november 2026. Per vraag staat wat ontbreekt en waar het te vinden is.
 
 - **Huurtoeslag met huisgenoten van 27+**: ingebouwd en getoetst aan een proefberekening (Wim, € 282).
 - **Proefberekeningen Dienst Toeslagen**: drie ingevuld (Fatima en Youssef, Bram, Sanne 24 uur); alle negen bedragen kwamen tot op de euro overeen met de app.
-- **Sleutelpas**: 'WSM' is voor mensen met bijstand de bijstandsnorm die voor het huishouden geldt.
+- **Sleutelpas, Kindtegoed en Volwassenenfonds**: de grens is een vaste norm per soort huishouden, zonder kostendelersnorm. Zo staan de bedragen in de tabellen op gemeente.leiden.nl (Hulp bij kosten sport en cultuur); een test controleert dat de normen die bedragen opleveren.
 - **Art. 34a, toets vooraf**: volgens de memorie van toelichting geldt de bijverdienregeling niet als het inkomen boven de bijstandsnorm ligt; ingebouwd.
 - **Toetsing**: via officiële rekenvoorbeelden, proefberekeningen van Dienst Toeslagen en loonheffingstabellen, zonder documenten van echte personen.
 

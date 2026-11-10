@@ -11,7 +11,7 @@ parameters:
       titel: Beleidsregels Kindtegoed en armoederegelingen Sleutelpas gemeente Leiden 2026 (CVDR747564)
       url: https://lokaleregelgeving.overheid.nl/CVDR747564
       geraadpleegd_op: 2026-11-08
-    notitie: De app rekent de grens uit als 130% van de bijstandsnorm die voor het huishouden geldt; dat is in Leiden het wettelijk sociaal minimum (WSM) voor mensen met bijstand.
+    notitie: "De regeling zegt niet wat onder het WSM valt en noemt de kostendelersnorm niet. De app volgt de tabellen van de gemeente op gemeente.leiden.nl (Hulp bij kosten sport en cultuur), die een vast bedrag per soort huishouden geven, zonder kostendelersnorm: de norm voor een alleenstaande (ook eenoudergezin) of voor gehuwden. Controle: het 140%-bedrag voor een eenoudergezin daar (€ 1.864,00 zonder vakantiegeld) is 140% × 95% × € 1.401,50."
     citaat: &csleutelpas
       kop: "Leiden, beleidsregels Kindtegoed en Sleutelpas 2026"
       tekst: "De Sleutelpas is gratis beschikbaar voor inwoners met een inkomen tot 130% van het wettelijk sociaal minimum."
@@ -214,7 +214,7 @@ parameters:
       kop: "Gemeente Leiden, Hulp bij kosten sport en cultuur (sport voor volwassenen)"
       tekst: "Volwassenen met een laag inkomen kunnen hulp krijgen van het Volwassenenfonds Sport & Cultuur bij het betalen van de kosten voor sport. […] Een sportactiviteit of culturele activiteit van maximaal € 250,00 per jaar. Hebt u minder dan € 250,00 nodig? Dan kunt u ook sportspullen aanvragen. […] Voor volwassenen met een inkomen tot 120% van het sociaal minimum. […] U maakt een afspraak met een tussenpersoon (intermediair) om een aanvraag te doen."
       versie: "geraadpleegd op 10 november 2026"
-    notitie: De app rekent de grens uit als 120% van de bijstandsnorm die voor het huishouden geldt, met vakantietoeslag, en vergelijkt die met het netto inkomen met vakantiegeld. De gemeente noemt de bedragen zonder vakantiegeld. Bij verblijf in een instelling is de grondslag de norm van art. 23 lid 1 Pw, zonder de verhoging van lid 2; dat volgt uit het bedrag dat de gemeente noemt (€ 512,36 = 120% van € 449,44 zonder vakantietoeslag).
+    notitie: "De app volgt de tabel van de gemeente: een vast bedrag per soort huishouden, zonder kostendelersnorm. Alleenstaand: 120% van de norm voor een alleenstaande (€ 1.618,18 = 120% × 95% × € 1.419,46); getrouwd of samenwonend: 120% van de norm voor gehuwden (€ 2.311,68); alleenstaand in een instelling: 120% van de norm van art. 23 lid 1 Pw zonder de verhoging van lid 2 (€ 512,36 = 120% × 95% × € 449,44). Voor een paar in een instelling noemt de gemeente geen bedrag; de app geeft dan geen melding. De app vergelijkt de grens met vakantietoeslag met het netto inkomen met vakantiegeld; de gemeente noemt beide zonder vakantiegeld."
   - id: leiden.volwassenenfonds.maximum
     omschrijving: Volwassenenfonds Sport & Cultuur — hoogste bijdrage per jaar
     eenheid: euro_per_jaar
