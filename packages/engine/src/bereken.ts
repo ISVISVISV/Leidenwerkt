@@ -716,16 +716,22 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
     const kinderen = invoer.kinderen.filter((k) => k.leeftijd < 18);
     let kindtegoed = NUL;
+    // Opbouw per leeftijdsgroep, zodat het totaal na te rekenen is: "2 × € 350 en 1 × € 200".
+    const opbouw = new Map<string, number>();
     for (const k of kinderen) {
-      kindtegoed = kindtegoed.plus(l.bedrag(k.leeftijd <= 3 ? "leiden.kindtegoed.0_3" : k.leeftijd <= 11 ? "leiden.kindtegoed.4_11" : "leiden.kindtegoed.12_17"));
+      const b = l.bedrag(k.leeftijd <= 3 ? "leiden.kindtegoed.0_3" : k.leeftijd <= 11 ? "leiden.kindtegoed.4_11" : "leiden.kindtegoed.12_17");
+      kindtegoed = kindtegoed.plus(b);
+      opbouw.set(euro(b, true), (opbouw.get(euro(b, true)) ?? 0) + 1);
     }
-    const kt = kinderen.length > 0 ? ` Voor uw ${kinderen.length === 1 ? "kind" : "kinderen"} krijgt u dan ook Kindtegoed: ${euro(kindtegoed, true)} per jaar voor schoolspullen, sport en cultuur.` : "";
+    const delen = [...opbouw].map(([b, n]) => `${n} × ${b}`);
+    const opbouwTekst = kinderen.length > 1 ? ` (${delen.slice(0, -1).join(", ")}${delen.length > 1 ? " en " : ""}${delen[delen.length - 1]})` : "";
+    const kt = kinderen.length > 0 ? ` Voor uw ${kinderen.length === 1 ? "kind" : "kinderen"} krijgt u dan ook Kindtegoed: ${euro(kindtegoed, true)} per jaar${opbouwTekst} voor schoolspullen, sport en cultuur. Het bedrag hangt af van de leeftijd van het kind.` : "";
     if (inkomen.gt(norm.times(grens))) {
-      let tekst = `Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens: ongeveer ${euro(norm.times(grens), true)} netto per maand).`;
+      let tekst = `Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens voor uw huishouden: ongeveer ${euro(norm.times(grens), true)} netto per maand).`;
       if (kinderen.length > 0) {
         const grens2 = l.breuk("leiden.kindtegoed.inkomensgrens");
         if (!inkomen.gt(norm.times(grens2))) {
-          tekst += ` Het Kindtegoed van ${euro(kindtegoed, true)} per jaar houdt u waarschijnlijk wel, tot ongeveer ${euro(norm.times(grens2), true)} netto per maand.`;
+          tekst += ` Het Kindtegoed van ${euro(kindtegoed, true)} per jaar${opbouwTekst} houdt u waarschijnlijk wel, tot ongeveer ${euro(norm.times(grens2), true)} netto per maand.`;
         }
       }
       uit.push({ soort: "waarschuwing", kop: kinderen.length > 0 ? "Sleutelpas en Kindtegoed" : "Sleutelpas", tekst, bron: bronVan(l, "leiden.sleutelpas.inkomensgrens") });
@@ -733,7 +739,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       uit.push({
         soort: "info",
         kop: kinderen.length > 0 ? "Sleutelpas en Kindtegoed" : "Sleutelpas",
-        tekst: `U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.${kt}`,
+        tekst: `U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden (grens voor uw huishouden: ongeveer ${euro(norm.times(grens), true)} netto per maand).${kt}`,
         bron: bronVan(l, "leiden.sleutelpas.inkomensgrens"),
       });
     }

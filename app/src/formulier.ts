@@ -312,6 +312,14 @@ export function controleer(f: Formulier, stap: number): Fouten {
   return fouten;
 }
 
+/** Het loon zoals de gebruiker het invulde, voor het werk waarmee de uitkomst rekent. Bij "meer uren" het huidige loon. */
+export function ingevuldLoon(f: Formulier): { bedrag: string; per: LoonPer; allIn: AllIn } | undefined {
+  const nu = f.werktNu && f.verandering === "meer";
+  const bedrag = nu ? f.nuLoon : f.loon;
+  if (!getal(bedrag)) return undefined;
+  return nu ? { bedrag, per: f.nuPer, allIn: f.nuAllIn } : { bedrag, per: f.per, allIn: f.allIn };
+}
+
 /** Er is minstens één kind met opvang ingevuld. */
 export function heeftOpvang(f: Formulier): boolean {
   return f.kinderen.some((k) => k.opvang);
@@ -422,9 +430,9 @@ export function alleenCijfers(tekst: string, soort: "geheel" | "getal"): string 
 
 /** Een geboortedatum als tekst, bijvoorbeeld "14-3-1990". */
 const datumTekst = (g: Geboortedatum) => g.trim();
-const euroTekst = (t: string) => `€ ${t}`;
+export const euroTekst = (t: string) => `€ ${t}`;
 
-const LOON_PER: Record<LoonPer, string> = { maand: "bruto per maand", netto: "netto per maand", vierweken: "bruto per 4 weken", uur: "bruto per uur" };
+export const LOON_PER: Record<LoonPer, string> = { maand: "bruto per maand", netto: "netto per maand", vierweken: "bruto per 4 weken", uur: "bruto per uur" };
 const OPVANG: Record<Opvangsoort, string> = { dagopvang: "kinderdagverblijf", bso: "buitenschoolse opvang", gastouder: "gastouder" };
 
 /**

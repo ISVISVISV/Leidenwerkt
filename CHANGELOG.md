@@ -16,6 +16,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - De vraag naar andere bewoners staat bij de woning. De aantallen verschijnen alleen als er andere bewoners zijn; het aantal van 18 tot en met 26 jaar alleen bij een zelfstandige huurwoning, omdat het alleen voor de huurtoeslag telt.
 - Zorgverzekering en zwemabonnement zijn twee losse meldingen.
 - Duidelijkere teksten bij ander inkomen en bij de kosten voor wie meer gaat werken.
+- De uitkomst legt bedragen uit die anders lijken dan verwacht: het ingevulde loon tegenover het netto loon met vakantiegeld, de geschatte prijs van de kinderopvang, waarom er bij een kamer geen huurtoeslag staat, waarom het jaarbedrag geen 12 keer het maandbedrag is, wat de vrijlating oplevert en wat een medische urenbeperking doet.
+- De meldingen over de Sleutelpas noemen de grens voor het huishouden en de opbouw van het Kindtegoed. De zin over het stoppen van de bijstand noemt het bedrag en gebruikt geen vakterm meer.
 - Geen antwoorden meer vooraf gekozen bij de woonsituatie, de soort opvang, het vakantiegeld in een uurloon en de aantallen bewoners. Wie niets kiest, krijgt een foutmelding in plaats van een stilzwijgende aanname.
 
 ### Hersteld
