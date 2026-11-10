@@ -175,6 +175,7 @@ describe("bronvermelding", () => {
     for (const invoer of [...Object.values(huishoudens), ...extra]) {
       for (const s of bereken(invoer).signalen) {
         expect(s.bron, s.tekst).toBeDefined();
+        expect(s.kop.length, s.tekst).toBeGreaterThan(3);
         expect(s.bron!.tekst.length).toBeGreaterThan(20);
       }
     }
@@ -245,13 +246,13 @@ describe("ander inkomen (art. 32 Pw)", () => {
 });
 
 describe("Leiden: collectieve zorgverzekering en kwijtschelding", () => {
-  const tekst = (r: Resultaat, woord: string) => r.signalen.find((s) => s.tekst.startsWith(woord));
+  const tekst = (r: Resultaat, woord: string) => r.signalen.find((s) => s.kop.startsWith(woord));
   it("zorgverzekering: onder 120% van de norm kan de gemeente nog meebetalen, daarboven niet", () => {
     const laag = bereken(basis({ nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
     const hoog = bereken(basis({ nieuwWerk: { brutoMaandloon: 2600, urenPerWeek: 36 }, vrijlatingFase: "start" }));
     expect(tekst(laag, "Zorgverzekering")!.tekst).toContain("kan dat waarschijnlijk nog");
     expect(tekst(laag, "Zorgverzekering")!.tekst).toContain("zwembad De Vliet of De Zijl");
-    expect(tekst(laag, "Gratis OV-pas")!.tekst).toContain("zolang u bijstand krijgt");
+    expect(tekst(laag, "Gratis OV-pas")!.tekst).toContain("Zolang u bijstand krijgt");
     expect(tekst(hoog, "Gratis OV-pas")!.tekst).toContain("krijgt u die pas niet meer");
     const dakloos = bereken(basis({ wonen: { soort: "geen_woonkosten", dakloos: true, betaaltWoonlasten: false }, nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
     expect(tekst(dakloos, "Gratis OV-pas")).toBeUndefined();

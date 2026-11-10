@@ -191,10 +191,10 @@ export function Uitkomst({ f }: { f: Formulier }) {
           <ul className="signalen">
             {r.signalen.map((s, i) => (
               <li key={i} className={`${s.soort} bron-blok`}>
+                <strong className="signaal-kop">{s.kop}</strong>
                 {s.tekst}
                 {s.bron && (
                   <span className="signaal-bron">
-                    {" "}
                     Bron: <Bron citaat={s.bron} />
                   </span>
                 )}

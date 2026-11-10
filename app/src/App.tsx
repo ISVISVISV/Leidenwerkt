@@ -122,7 +122,7 @@ export function App() {
               </button>
             )}
             {!wissen ? (
-              <button type="button" className="tweedeknop" onClick={() => setWissen(true)}>
+              <button type="button" className="stilleknop" onClick={() => setWissen(true)}>
                 Opnieuw beginnen
               </button>
             ) : (

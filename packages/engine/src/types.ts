@@ -172,6 +172,8 @@ export interface Situatie {
 
 export interface Signaal {
   soort: "waarschuwing" | "info";
+  /** Korte kop waaraan de melding te herkennen is. */
+  kop: string;
   tekst: string;
   /** Letterlijke brontekst bij de melding. */
   bron?: Citaat;
