@@ -6,7 +6,7 @@ Deze pagina is voor wie wil nagaan of de rekenhulp te vertrouwen is, zonder eers
 
 **Wel:** voor een inwoner van Leiden met bijstand rekent de app uit wat er per maand overblijft als hij of zij gaat werken of meer gaat werken. Ze rekent met de bijstandsnorm, de kostendelersnorm, de Leidse verlaging bij lage woonkosten, de inkomstenvrijlating, loonheffing en heffingskortingen, zorgtoeslag, huurtoeslag, kindgebonden budget, kinderbijslag en kinderopvangtoeslag.
 
-**Niet:** de app beslist niets en vervangt geen klantmanager. Ze rekent geen vermogen, schulden, beslag, eigen bijdragen of bijzondere bijstand in bedragen uit. Leidse regelingen zoals de Sleutelpas en de individuele inkomenstoeslag staan er als melding, niet als bedrag. Wat er precies wel en niet in zit, staat in [REKENREGELS.md](REKENREGELS.md).
+**Niet:** de app beslist niets en vervangt de contactpersoon bij de gemeente niet. Ze rekent geen vermogen, schulden, beslag, eigen bijdragen of bijzondere bijstand in bedragen uit. Leidse regelingen zoals de Sleutelpas en de individuele inkomenstoeslag staan er als melding, niet als bedrag. Wat er precies wel en niet in zit, staat in [REKENREGELS.md](REKENREGELS.md).
 
 **Privacy:** alles draait in de browser. Er is geen server, er zijn geen cookies en er gaat geen verzoek naar buiten. Dat is te controleren in het netwerktabblad van de browser; een browsertest bewaakt het.
 
