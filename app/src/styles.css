@@ -523,6 +523,16 @@ input[type="range"] {
   margin: 0;
 }
 
+.tabel-noten {
+  margin: -0.75rem 0 1.5rem;
+  padding-left: 1.2rem;
+  font-size: 0.95rem;
+}
+
+.tabel-noten li + li {
+  margin-top: 0.3rem;
+}
+
 table.vergelijking {
   width: 100%;
   border-collapse: collapse;

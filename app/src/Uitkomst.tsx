@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
-import { bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
+import { Lezer, bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { getal, ingevuld, naarInvoer, schuifStart, vasteFase, vandaag, type Formulier } from "./formulier.ts";
+import { LOON_PER, getal, ingevuld, ingevuldLoon, maxUurprijs, naarInvoer, schuifStart, vasteFase, vandaag, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */
 function bruikbareDatum(f: Formulier): { datum: string; teruggevallen: boolean } {
@@ -103,6 +103,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
         periode={meerPeriodes ? gekozen.naam : undefined}
         eersteJaar={eersteJaar.bedrag}
         toonJaar={periodes.findIndex((p) => p.fase === fase) < 2}
+        jaarOngelijk={meerPeriodes}
         stoptVanaf={meerPeriodes && rVolgende && bijstandVan(rVolgende) === "0.00" ? stopmoment(volgendeNaam) : undefined}
       />
 
@@ -172,8 +173,14 @@ export function Uitkomst({ f }: { f: Formulier }) {
           )}
           {vrijlatingTelt && (
             <p>
-              Dit levert u in deze periode {euro(voordeel, true)} per maand extra op. Vraag uw contactpersoon bij de gemeente of de vrijlating voor u geldt. De
-              gemeente beslist dat.
+              Zonder de vrijlating zou u in deze periode {euro(voordeel, true)} per maand minder overhouden. De vrijlating is het deel van uw loon dat u
+              naast de bijstand mag houden. Vraag uw contactpersoon bij de gemeente of de vrijlating voor u geldt. De gemeente beslist dat.
+            </p>
+          )}
+          {f.medisch && meerPeriodes && (
+            <p>
+              Door uw medische urenbeperking houdt u ook na de eerste maanden een deel van uw loon naast de bijstand. Kies hierboven de latere maanden
+              om dat te zien.
             </p>
           )}
           <p className="klein bron-blok">
@@ -208,6 +215,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
       )}
 
       <Vergelijking r={r} />
+      <TabelNoten f={f} r={r} />
 
       {r.signalen.length > 0 && (
         <section aria-labelledby="let-op">
@@ -271,7 +279,7 @@ function bijstandZin(r: Resultaat, stoptVanaf?: string): string | undefined {
   const nu = r.huidig.posten.find((p) => p.id === "bijstand")?.perMaand;
   const met = bijstandVan(r);
   if (!nu || nu === "0.00" || met === null) return undefined;
-  if (met === "0.00") return "Uw bijstand stopt. Met dit werk is uw inkomen even hoog als de bijstandsnorm of hoger.";
+  if (met === "0.00") return `Uw bijstand van ${euro(nu, true)} per maand stopt. Met dit werk heeft u genoeg inkomen om geen bijstand meer nodig te hebben.`;
   if (Number(met) < 1) return "U houdt bijna geen bijstand meer: minder dan € 1 per maand.";
   if (stoptVanaf) return `In deze periode houdt u nog ${euro(met, true)} bijstand per maand, door de vrijlating. ${stoptVanaf} stopt uw bijstand.`;
   return `U houdt bijstand: ${euro(met, true)} per maand, als aanvulling op uw loon.`;
@@ -290,6 +298,7 @@ function Antwoord({
   periode,
   eersteJaar,
   toonJaar,
+  jaarOngelijk,
   stoptVanaf,
 }: {
   r: Resultaat;
@@ -298,6 +307,8 @@ function Antwoord({
   eersteJaar: string;
   /** Het totaal over de eerste 12 maanden hoort niet bij een periode die daarna pas begint. */
   toonJaar: boolean;
+  /** Verschilt het bedrag per maand tussen de periodes? Dan is het jaarbedrag geen 12 × het maandbedrag. */
+  jaarOngelijk?: boolean;
   /** Stopt de bijstand in de volgende periode? Dan het moment, bijvoorbeeld "Vanaf maand 7". */
   stoptVanaf?: string;
 }) {
@@ -305,7 +316,9 @@ function Antwoord({
   const jaarzin =
     Math.abs(j) < 120
       ? "Ook over de eerste 12 maanden samen houdt u ongeveer evenveel over als nu."
-      : `Over de eerste 12 maanden samen houdt u ongeveer ${euro(eersteJaar.replace("-", ""), true)} ${j > 0 ? "meer" : "minder"} over dan nu.`;
+      : `Over de eerste 12 maanden samen houdt u ongeveer ${euro(eersteJaar.replace("-", ""), true)} ${j > 0 ? "meer" : "minder"} over dan nu.${
+          jaarOngelijk && Math.abs(j - 12 * Number(r.verschilPerMaand)) >= 12 ? " Dat is niet 12 keer het bedrag per maand, omdat het bedrag in de eerste maanden anders is dan daarna." : ""
+        }`;
   const v = Number(r.verschilPerMaand);
   const bedrag = euro(r.verschilPerMaand.replace("-", ""), true);
   const zin =
@@ -501,3 +514,43 @@ function Uitleg({ r }: { r: Resultaat }) {
   );
 }
 
+/** Een ingevuld bedrag netjes als euro: "€ 1.250" of "€ 14,50". */
+const bedragTekst = (tekst: string) => {
+  const n = getal(tekst) ?? 0;
+  return Number.isInteger(n) ? euro(String(n), true) : euro(n.toFixed(2));
+};
+
+/** Korte uitleg onder de tabel bij bedragen die anders zijn dan wat de gebruiker invulde of verwacht. */
+function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
+  const noten: string[] = [];
+  const loon = ingevuldLoon(f);
+  const nettoLoon = r.werk.posten.find((p) => p.id === "loon")?.perMaand;
+  if (loon && nettoLoon && f.verandering !== "erbij") {
+    const vakantiegeld = loon.per === "uur" && loon.allIn === "ja" ? "" : ", met het vakantiegeld erbij, verdeeld over 12 maanden";
+    const omgerekend = loon.per === "maand" || loon.per === "netto" ? "" : ", omgerekend naar een maand";
+    noten.push(
+      `U vulde ${bedragTekst(loon.bedrag)} ${LOON_PER[loon.per]} in. In de tabel staat het netto loon per maand${loon.per === "netto" ? "" : ", na belasting en premies"}${omgerekend}${vakantiegeld}.`,
+    );
+  }
+  const l = new Lezer(standaardRegels, r.datum);
+  const geschat = f.kinderen.filter((k) => k.opvang && !getal(k.uurprijs) && k.soort);
+  if (geschat.length > 0) {
+    const prijs = maxUurprijs(l, geschat[0].soort || "dagopvang");
+    if (prijs > 0) {
+      noten.push(
+        `U wist de prijs per uur van de kinderopvang niet. De rekenhulp rekent met ${euro(prijs.toFixed(2))} per uur: de hoogste prijs waarover u kinderopvangtoeslag krijgt. Is de opvang duurder, dan betaalt u meer zelf.`,
+      );
+    }
+  }
+  if (f.woont === "huur" && !f.zelfstandig) {
+    noten.push("Huurtoeslag staat er niet in: voor een kamer of een woning waar u de keuken, wc of douche deelt, krijgt u meestal geen huurtoeslag.");
+  }
+  if (noten.length === 0) return null;
+  return (
+    <ul className="tabel-noten">
+      {noten.map((n) => (
+        <li key={n}>{n}</li>
+      ))}
+    </ul>
+  );
+}

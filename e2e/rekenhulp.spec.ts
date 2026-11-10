@@ -365,6 +365,9 @@ test("de uitkomst zegt of de bijstand blijft of stopt, en noemt de eigen kosten 
 
   const antwoord = page.locator(".antwoord");
   await expect(antwoord).toContainText("U houdt bijstand:");
+  // Onder de tabel staat waarom het loon anders is dan wat is ingevuld.
+  await expect(page.locator(".tabel-noten")).toContainText("U vulde € 1.200 bruto per maand in.");
+  await expect(page.locator(".tabel-noten")).toContainText("met het vakantiegeld erbij");
   const uitleg = page.locator(".toelichting");
   await expect(uitleg).toContainText("Vraag uw contactpersoon bij de gemeente of de vrijlating voor u geldt");
 
@@ -381,11 +384,11 @@ test("de uitkomst zegt of de bijstand blijft of stopt, en noemt de eigen kosten 
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
   await expect(antwoord).toContainText("door de vrijlating. Vanaf maand 7 stopt uw bijstand.");
   await page.getByRole("group", { name: "Voor welke maanden wilt u de uitkomst zien?" }).getByRole("radio").last().check();
-  await expect(antwoord).toContainText("Uw bijstand stopt.");
+  await expect(antwoord).toContainText(/Uw bijstand van €\s?[\d.]+ per maand stopt\./);
 
   // Met een hoog loon stopt de bijstand meteen.
   await page.getByRole("button", { name: "Gegevens aanpassen" }).click();
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("2.800");
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
-  await expect(antwoord).toContainText("Uw bijstand stopt.");
+  await expect(antwoord).toContainText(/Uw bijstand van €\s?[\d.]+ per maand stopt\./);
 });
