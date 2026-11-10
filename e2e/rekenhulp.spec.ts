@@ -124,7 +124,7 @@ test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, hui
   await expect(page.getByLabel("Kale huur per maand")).toHaveValue("720,50");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.locator(".foutmelding").getByText("Vul dit in.").first()).toBeVisible();
-  await page.getByLabel("Bruto jaarinkomen van de anderen in huis, samen").fill("26.000");
+  await page.getByLabel("Voor de huurtoeslag: bruto jaarinkomen van de mensen die bij u wonen, samen").fill("26.000");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.200");
   await page.getByRole("textbox", { name: /Hoeveel uur per week werkt u/ }).fill("20");
@@ -330,4 +330,35 @@ test("op een kamer: geen vraag naar de huur en geen huurtoeslag; in een eigen hu
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
   await expect(tabel).toContainText("Huurtoeslag");
+});
+
+test("de uitkomst zegt of de bijstand blijft of stopt, en noemt de eigen kosten als die het verschil maken", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await geboren(page, "Uw geboortedatum", 46);
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel("In een koopwoning").check();
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.200");
+  await page.getByRole("textbox", { name: /Hoeveel uur per week werkt u/ }).fill("19");
+  await page.getByLabel(/Andere kosten door het werk/).fill("10");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+
+  const antwoord = page.locator(".antwoord");
+  await expect(antwoord).toContainText("U houdt bijstand:");
+  const uitleg = page.locator(".toelichting");
+  await expect(uitleg).toContainText("Vraag uw klantmanager of de vrijlating voor u geldt");
+
+  // Na de vrijlating: evenveel inkomsten, dus de eigen kosten maken het verschil.
+  await page.getByRole("group", { name: "Welke periode wilt u zien?" }).getByRole("radio").last().check();
+  await expect(antwoord).toContainText("minder over");
+  await expect(antwoord).toContainText("Dat komt door de kosten voor het werk die u zelf betaalt: € 10 per maand.");
+  await expect(uitleg).not.toContainText("Vraag uw klantmanager of de vrijlating voor u geldt");
+  await expect(uitleg).toContainText("Kosten die u zelf voor het werk maakt, gaan daar nog af.");
+
+  // Met een hoog loon stopt de bijstand.
+  await page.getByRole("button", { name: "Gegevens aanpassen" }).click();
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("2.800");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  await expect(antwoord).toContainText("Uw bijstand stopt.");
 });

@@ -29,7 +29,7 @@ export interface VrijlatingUitleg {
 const pct = (b: Bedrag) => b.times(100).toString().replace(".", ",") + "%";
 
 const DAARNA =
-  "Verdient u minder dan de bijstandsnorm, dan houdt u samen evenveel over als zonder werk: de bijstand vult uw loon aan tot de norm. Verdient u meer dan de norm, dan stopt de bijstand en houdt u uw hele netto loon. Daarin zit ook de arbeidskorting: korting op de belasting omdat u werkt.";
+  "Verdient u minder dan de bijstandsnorm, dan komt er samen evenveel binnen als zonder werk: de bijstand vult uw loon aan tot de norm. Kosten die u zelf voor het werk maakt, gaan daar nog af. Verdient u de norm of meer, dan stopt de bijstand en houdt u uw hele netto loon. Daarin zit ook de arbeidskorting: korting op de belasting omdat u werkt.";
 
 export function vrijlatingUitleg(invoer: Invoer, regels: RegelSet = standaardRegels): VrijlatingUitleg {
   const u = zonderCitaten(invoer, regels);
