@@ -16,10 +16,12 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - De vraag naar andere bewoners staat bij de woning. De aantallen verschijnen alleen als er andere bewoners zijn; het aantal van 18 tot en met 26 jaar alleen bij een zelfstandige huurwoning, omdat het alleen voor de huurtoeslag telt.
 - Zorgverzekering en zwemabonnement zijn twee losse meldingen.
 - Duidelijkere teksten bij ander inkomen en bij de kosten voor wie meer gaat werken.
+- Geen antwoorden meer vooraf gekozen bij de woonsituatie, de soort opvang, het vakantiegeld in een uurloon en de aantallen bewoners. Wie niets kiest, krijgt een foutmelding in plaats van een stilzwijgende aanname.
 
 ### Hersteld
 
 - Bij een kamer of gedeelde woning vraagt de rekenhulp nu de huur. Daardoor past ze ook daar de Leidse verlaging van de bijstand bij lage woonkosten toe. Eerder rekende ze bij een kamerhuur onder de grens met een te hoge bijstand.
+- De grens van het Volwassenenfonds Sport & Cultuur bij verblijf in een instelling volgt nu de instellingsnorm, zoals de gemeente die noemt. Eerder gold daar de gewone norm, waardoor de grens veel te hoog was.
 
 ## 0.2.0 – 10 november 2026
 
