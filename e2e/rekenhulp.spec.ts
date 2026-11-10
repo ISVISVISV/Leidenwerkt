@@ -176,14 +176,10 @@ test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", asyn
   await page.getByText("Dit kind gaat naar de kinderopvang").click();
   // Er is geen soort opvang vooraf gekozen.
   await expect(page.getByLabel("Kinderdagverblijf")).not.toBeChecked();
-  await page.getByLabel("Uren opvang per maand").fill("238,33");
+  await page.getByLabel("Hoeveel uur per week gaat dit kind naar de opvang?").fill("16");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.locator(".foutmelding").getByText("Kies de soort opvang.")).toBeVisible();
   await page.getByLabel("Kinderdagverblijf").check();
-  await page.getByRole("button", { name: "Volgende stap" }).click();
-  await expect(page.locator(".foutmelding").getByText("hoogstens 230 uur per kind per maand", { exact: false })).toBeVisible();
-  await expect(page.getByLabel("Uren opvang per maand")).toBeFocused();
-  await page.getByLabel("Uren opvang per maand").fill("70");
   await page.getByLabel("Prijs per uur").fill("12,50");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByLabel("In een koopwoning").check();
@@ -193,6 +189,9 @@ test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", asyn
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
   await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).getByRole("row", { name: /Vergoeding eigen bijdrage kinderopvang/ })).toBeVisible();
   await expect(page.locator(".signalen")).toContainText("vraag haar aan bij de gemeente");
+  // Bovenaan staat wat de gebruiker nu kan doen, met een link naar de melding.
+  await expect(page.getByRole("heading", { name: "Wat u nu kunt doen" })).toBeVisible();
+  await expect(page.locator(".te-doen a").first()).toHaveAttribute("href", /#signaal-\d+/);
   await geenToegankelijkheidsfouten(page);
 });
 

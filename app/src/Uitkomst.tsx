@@ -107,6 +107,21 @@ export function Uitkomst({ f }: { f: Formulier }) {
         stoptVanaf={meerPeriodes && rVolgende && bijstandVan(rVolgende) === "0.00" ? stopmoment(volgendeNaam) : undefined}
       />
 
+      {r.signalen.some((s) => s.actie) && (
+        <section className="te-doen" aria-labelledby="te-doen">
+          <h2 id="te-doen">Wat u nu kunt doen</h2>
+          <ul>
+            {r.signalen.map((s, i) =>
+              s.actie ? (
+                <li key={i}>
+                  <a href={`#signaal-${i}`}>{s.kop}</a>
+                </li>
+              ) : null,
+            )}
+          </ul>
+        </section>
+      )}
+
       <section className="alleen-print gegevens" aria-label="Wat u heeft ingevuld">
         <h2>Wat u heeft ingevuld</h2>
         <div className="gegevens-kolommen">
@@ -222,7 +237,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
           <h2 id="let-op">Goed om te weten</h2>
           <ul className="signalen">
             {r.signalen.map((s, i) => (
-              <li key={i} className={`${s.soort} bron-blok`}>
+              <li key={i} id={`signaal-${i}`} className={`${s.soort} bron-blok`}>
                 <strong className="signaal-kop">{s.kop}</strong>
                 {s.tekst}
                 {s.bron && (
@@ -233,6 +248,9 @@ export function Uitkomst({ f }: { f: Formulier }) {
               </li>
             ))}
           </ul>
+          <p className="klein">
+            Heeft u geen contactpersoon bij de gemeente, of weet u niet wie dat is? Bel de gemeente Leiden op 14 071 en kies 1.
+          </p>
         </section>
       )}
 
