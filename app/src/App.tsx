@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagInkomenAnderen, type Fouten, type Formulier, type Geboortedatum } from "./formulier.ts";
+import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagBewoners, vraagInkomenAnderen, vraagJongeHuisgenoten, type Fouten, type Formulier, type Geboortedatum } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -399,8 +399,8 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
   return (
     <section>
       <Keuze
-        naam="leefvorm"
-        legend="Met wie woont u?"
+        naam="partner"
+        legend="Woont u samen met een partner?"
         hint={
           <>
             <p>Een partner is uw man of vrouw, of iemand met wie u samenwoont en de kosten van het huishouden deelt.</p>
@@ -414,18 +414,30 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
             </p>
           </>
         }
-        waarde={f.leefvorm === "paar" && f.kinderen.length > 0 ? "paar_kinderen" : f.leefvorm}
+        waarde={f.leefvorm === "paar" ? "ja" : "nee"}
+        onChange={(v) => zet("leefvorm", v === "ja" ? "paar" : f.kinderen.length > 0 ? "alleenstaande_ouder" : "alleenstaande")}
+        opties={[
+          ["nee", "Nee"],
+          ["ja", "Ja"],
+        ]}
+      />
+      <Keuze
+        naam="heeftKinderen"
+        legend="Wonen er kinderen van u bij u thuis?"
+        hint="Kinderen tot en met 26 jaar. Een kind van 27 jaar of ouder telt u bij stap 2 mee als andere bewoner."
+        waarde={f.leefvorm === "alleenstaande_ouder" || f.kinderen.length > 0 ? "ja" : "nee"}
         onChange={(v) => {
-          const metKinderen = v === "alleenstaande_ouder" || v === "paar_kinderen";
-          zet("leefvorm", v === "paar_kinderen" ? "paar" : v);
-          if (metKinderen && f.kinderen.length === 0) zet("kinderen", [nieuwKind()]);
-          if (!metKinderen) zet("kinderen", []);
+          if (v === "ja") {
+            if (f.kinderen.length === 0) zet("kinderen", [nieuwKind()]);
+            if (f.leefvorm === "alleenstaande") zet("leefvorm", "alleenstaande_ouder");
+          } else {
+            zet("kinderen", []);
+            if (f.leefvorm === "alleenstaande_ouder") zet("leefvorm", "alleenstaande");
+          }
         }}
         opties={[
-          ["alleenstaande", "Zonder partner en zonder kinderen"],
-          ["alleenstaande_ouder", "Zonder partner, met mijn kinderen"],
-          ["paar", "Met mijn partner"],
-          ["paar_kinderen", "Met mijn partner en kinderen"],
+          ["nee", "Nee"],
+          ["ja", "Ja"],
         ]}
       />
       <Datum id="geboren" legend="Uw geboortedatum" eigen waarde={f.geboren} onChange={(v) => zet("geboren", v)} fout={fouten.geboren} />
@@ -524,42 +536,14 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         </fieldset>
       )}
 
-      <Veld
-        id="kostendelers"
-        soort="geheel"
-        voorbeeld="bijv. 0"
-        label="Hoeveel huisgenoten van 27 jaar of ouder heeft u?"
-        hint={`${f.leefvorm === "paar" ? "Tel uzelf en uw partner niet mee." : "Tel uzelf niet mee."} Een huisgenoot is iedereen die bij u woont, ook uw eigen kind van 27 jaar of ouder. Niet iedereen telt mee. De meeste studenten tellen niet mee. Ook niet: iemand die met een contract en tegen een gewone prijs een kamer van u huurt of bij u in de kost is, en die geen familie van u is. Twijfelt u? Vraag het uw contactpersoon bij de gemeente.`}
-        waarde={f.kostendelers}
-        onChange={(v) => zet("kostendelers", v)}
-        fout={fouten.kostendelers}
-      />
-      <Veld
-        id="jongeHuisgenoten"
-        soort="geheel"
-        voorbeeld="bijv. 0"
-        label="Hoeveel huisgenoten van 18 tot en met 26 jaar heeft u?"
-        hint={
-          f.leefvorm === "paar" && f.kinderen.length > 0
-            ? "Tel uzelf, uw partner en uw kinderen niet mee; die heeft u hierboven al ingevuld."
-            : f.leefvorm === "paar"
-              ? "Tel uzelf en uw partner niet mee."
-              : f.kinderen.length > 0
-                ? "Tel uzelf en uw kinderen niet mee; die heeft u hierboven al ingevuld."
-                : "Tel uzelf niet mee."
-        }
-        waarde={f.jongeHuisgenoten}
-        onChange={(v) => zet("jongeHuisgenoten", v)}
-        fout={fouten.jongeHuisgenoten}
-      />
       <Keuze
         naam="heeftAnderInkomen"
         legend={f.leefvorm === "paar" ? "Heeft u of uw partner ander inkomen dan bijstand en loon?" : "Heeft u ander inkomen dan bijstand en loon?"}
         hint={
           <>
             <p>
-              Bijvoorbeeld alimentatie, een uitkering van het UWV of een pensioen. Dit inkomen gaat helemaal van uw bijstand af. Toeslagen,
-              kinderbijslag en kindgebonden budget tellen niet mee.
+              Bijvoorbeeld alimentatie, een uitkering van het UWV of een pensioen. De gemeente vult uw inkomen aan tot de bijstandsnorm. Met
+              ander inkomen krijgt u dus minder bijstand. Toeslagen, kinderbijslag en kindgebonden budget tellen niet mee.
             </p>
             <p className="bron-blok">
               Bron: <Bron citaat={CITATEN.pw32} />
@@ -628,43 +612,22 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           <p>Slaapt u in een daklozenopvang zonder begeleiding? Kies dan "Ik heb geen vaste woonplek".</p>
         </div>
       )}
-      {f.woont === "huur" && f.zelfstandig && (
+      {f.woont === "huur" && (
         <>
           <Veld
             id="kaleHuur"
-            voorbeeld="bijv. 650"
-            label="Kale huur per maand"
-            hint="De huur zonder servicekosten, gas, water en licht. Staat in uw huurcontract. Servicekosten tellen sinds 2026 niet mee voor de huurtoeslag."
+            voorbeeld={f.zelfstandig ? "bijv. 650" : "bijv. 450"}
+            label={f.zelfstandig ? "Kale huur per maand" : "Huur per maand"}
+            hint={
+              f.zelfstandig
+                ? "De huur zonder servicekosten, gas, water en licht. Staat in uw huurcontract. Servicekosten tellen sinds 2026 niet mee voor de huurtoeslag."
+                : "De huur zonder gas, water en licht, als u dat bedrag weet. Anders het hele bedrag. Bij een heel lage huur verlaagt de gemeente Leiden de bijstand."
+            }
             waarde={f.kaleHuur}
             onChange={(v) => zet("kaleHuur", v)}
             fout={fouten.kaleHuur}
             voorvoegsel="€"
           />
-          {vraagInkomenAnderen(f) && (
-            <Veld
-              id="huisgenotenInkomen"
-              label="Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen"
-              hint={
-                <>
-                  <p>
-                    Dit telt mee voor de huurtoeslag. Tel het inkomen mee van al uw huisgenoten en van uw kinderen. Het inkomen van uw partner
-                    telt u hier niet mee.{vrijstellingKind() ? ` Van een kind jonger dan 23 jaar telt alleen het deel boven ${vrijstellingKind()} per jaar mee.` : ""}{" "}
-                    Weet u het niet precies? Vul dan een schatting in. Heeft niemand inkomen? Vul dan
-                    0 in.
-                  </p>
-                  <p className="bron-blok">
-                    Bron: <Bron citaat={CITATEN.htMedebewoners} />
-                  </p>
-                </>
-              }
-              waarde={f.huisgenotenInkomen}
-              onChange={(v) => zet("huisgenotenInkomen", v)}
-              fout={fouten.huisgenotenInkomen}
-              voorvoegsel="€"
-              voorbeeld="bijv. 25.000"
-            />
-          )}
-
         </>
       )}
       {f.woont === "inwonend" && (
@@ -677,6 +640,73 @@ function StapWoning({ f, zet, fouten }: StapProps) {
             ["nee", "Nee"],
             ["ja", "Ja"],
           ]}
+        />
+      )}
+      {vraagBewoners(f) && (
+        <Keuze
+          naam="andereBewoners"
+          legend={
+            f.leefvorm === "paar" || f.kinderen.length > 0
+              ? `Wonen er nog andere mensen van 18 jaar of ouder bij u in huis, naast uw ${f.leefvorm === "paar" ? (f.kinderen.length > 0 ? "partner en kinderen" : "partner") : "kinderen"}?`
+              : "Wonen er nog andere mensen van 18 jaar of ouder bij u in huis?"
+          }
+          hint="Bijvoorbeeld uw ouders, een broer of zus, een vriend of een eigen kind van 27 jaar of ouder. Wonen er meer volwassenen in huis? Dan kan uw bijstand lager zijn, omdat u de kosten kunt delen."
+          waarde={f.andereBewoners ? "ja" : "nee"}
+          onChange={(v) => zet("andereBewoners", v === "ja")}
+          opties={[
+            ["nee", "Nee"],
+            ["ja", "Ja"],
+          ]}
+        />
+      )}
+      {vraagBewoners(f) && f.andereBewoners && (
+        <>
+          <Veld
+            id="kostendelers"
+            soort="geheel"
+            voorbeeld="bijv. 1"
+            label="Hoeveel van hen zijn 27 jaar of ouder?"
+            hint="Niet iedereen telt mee. De meeste studenten tellen niet mee. Ook niet: iemand die met een contract en tegen een gewone prijs een kamer van u huurt of bij u in de kost is, en die geen familie van u is. Twijfelt u? Vraag het uw contactpersoon bij de gemeente."
+            waarde={f.kostendelers}
+            onChange={(v) => zet("kostendelers", v)}
+            fout={fouten.kostendelers}
+          />
+          {vraagJongeHuisgenoten(f) && (
+            <Veld
+              id="jongeHuisgenoten"
+              soort="geheel"
+              voorbeeld="bijv. 0"
+              label="Hoeveel van hen zijn 18 tot en met 26 jaar?"
+              hint="Zij tellen niet mee voor de bijstand, wel voor de huurtoeslag."
+              waarde={f.jongeHuisgenoten}
+              onChange={(v) => zet("jongeHuisgenoten", v)}
+              fout={fouten.jongeHuisgenoten}
+            />
+          )}
+        </>
+      )}
+      {vraagInkomenAnderen(f) && (
+        <Veld
+          id="huisgenotenInkomen"
+          label="Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen"
+          hint={
+            <>
+              <p>
+                Dit telt mee voor de huurtoeslag. Tel het inkomen mee van al uw huisgenoten en van uw kinderen. Het inkomen van uw partner
+                telt u hier niet mee.{vrijstellingKind() ? ` Van een kind jonger dan 23 jaar telt alleen het deel boven ${vrijstellingKind()} per jaar mee.` : ""}{" "}
+                Weet u het niet precies? Vul dan een schatting in. Heeft niemand inkomen? Vul dan
+                0 in.
+              </p>
+              <p className="bron-blok">
+                Bron: <Bron citaat={CITATEN.htMedebewoners} />
+              </p>
+            </>
+          }
+          waarde={f.huisgenotenInkomen}
+          onChange={(v) => zet("huisgenotenInkomen", v)}
+          fout={fouten.huisgenotenInkomen}
+          voorvoegsel="€"
+          voorbeeld="bijv. 25.000"
         />
       )}
     </section>
@@ -899,10 +929,10 @@ function StapWerk({ f, zet, fouten }: StapProps) {
       <Veld
         id="reiskosten"
         voorbeeld="bijv. 40"
-        label={f.werktNu ? "Extra reiskosten per maand" : "Reiskosten per maand"}
+        label={f.werktNu ? "Hoeveel reiskosten komen erbij per maand?" : "Reiskosten per maand"}
         hint={
           f.werktNu
-            ? "Alleen wat u straks meer kwijt bent dan nu. Bijvoorbeeld bus, trein of benzine."
+            ? "Reist u straks vaker of verder dan nu? Vul in wat u daardoor meer betaalt. Bijvoorbeeld voor bus, trein of benzine. Verandert er niets? Laat het vak leeg."
             : "Bijvoorbeeld bus, trein of benzine. Laat leeg als u fietst of loopt."
         }
         waarde={f.reiskosten}
@@ -913,7 +943,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
       <Veld
         id="vergoeding"
         voorbeeld="bijv. 40"
-        label={f.werktNu ? "Extra reiskostenvergoeding van de werkgever per maand" : "Reiskostenvergoeding van de werkgever per maand"}
+        label={f.werktNu ? "Hoeveel reiskostenvergoeding van de werkgever komt erbij per maand?" : "Reiskostenvergoeding van de werkgever per maand"}
         waarde={f.vergoeding}
         onChange={(v) => zet("vergoeding", v)}
         fout={fouten.vergoeding}
@@ -922,7 +952,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
       <Veld
         id="overigeKosten"
         voorbeeld="bijv. 10"
-        label={f.werktNu ? "Andere extra kosten door het werk per maand" : "Andere kosten door het werk per maand"}
+        label={f.werktNu ? "Hoeveel andere kosten door het werk komen erbij per maand?" : "Andere kosten door het werk per maand"}
         hint="Bijvoorbeeld werkkleding. Kosten voor kinderopvang vult u bij stap 1 in."
         waarde={f.overigeKosten}
         onChange={(v) => zet("overigeKosten", v)}

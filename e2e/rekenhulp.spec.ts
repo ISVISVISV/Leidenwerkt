@@ -117,11 +117,15 @@ test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, hui
   // Na een fout gaat de focus naar het eerste foute vak; wacht daarop voordat de test verder typt.
   await expect(zelf).toBeFocused();
   await zelf.fill("14-3-1984");
-  await expect(page.getByLabel(/Hoeveel huisgenoten van 27/)).toHaveAttribute("placeholder", "bijv. 0");
-  await page.getByLabel(/Hoeveel huisgenoten van 27/).fill("1");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByLabel("Kale huur per maand").pressSequentially("7x20,5o0");
   await expect(page.getByLabel("Kale huur per maand")).toHaveValue("720,50");
+  // De aantallen verschijnen pas als er andere bewoners zijn.
+  await expect(page.getByLabel("Hoeveel van hen zijn 27 jaar of ouder?")).toHaveCount(0);
+  await page.getByRole("group", { name: "Wonen er nog andere mensen van 18 jaar of ouder bij u in huis?" }).getByLabel("Ja").check();
+  await expect(page.getByLabel("Hoeveel van hen zijn 27 jaar of ouder?")).toHaveAttribute("placeholder", "bijv. 1");
+  await page.getByLabel("Hoeveel van hen zijn 27 jaar of ouder?").fill("1");
+  await expect(page.getByLabel("Hoeveel van hen zijn 18 tot en met 26 jaar?")).toBeVisible();
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.locator(".foutmelding").getByText("Vul dit in.").first()).toBeVisible();
   await page.getByLabel("Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen").fill("26.000");
@@ -159,7 +163,8 @@ test("zonder vaste woonplek, met medische urenbeperking: lagere norm, vrijlating
 test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
-  await page.getByLabel("Met mijn partner en kinderen").check();
+  await page.getByRole("group", { name: "Woont u samen met een partner?" }).getByLabel("Ja").check();
+  await page.getByRole("group", { name: "Wonen er kinderen van u bij u thuis?" }).getByLabel("Ja").check();
   await geboren(page, "Uw geboortedatum", 33);
   await geboren(page, "Geboortedatum van uw partner", 35);
   await page.getByRole("group", { name: "Heeft uw partner betaald werk?" }).getByLabel("Ja").check();
@@ -308,13 +313,17 @@ test("de terugknop van de browser gaat een stap terug en bewaart wat is ingevuld
   await expect(page.getByRole("heading", { name: "Uw huishouden" })).toBeVisible();
 });
 
-test("op een kamer: geen vraag naar de huur en geen huurtoeslag; in een eigen huurwoning wel", async ({ page }) => {
+test("op een kamer: wel de huur, geen huurtoeslag en geen vraag naar jonge huisgenoten; in een eigen huurwoning wel", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await geboren(page, "Uw geboortedatum", 40);
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByLabel(/Op een kamer, of in een woning waar ik de keuken, wc of douche deel/).check();
   await expect(page.getByLabel("Kale huur per maand")).toHaveCount(0);
+  await page.getByLabel("Huur per maand", { exact: true }).fill("450");
+  await page.getByRole("group", { name: "Wonen er nog andere mensen van 18 jaar of ouder bij u in huis?" }).getByLabel("Ja").check();
+  await expect(page.getByLabel("Hoeveel van hen zijn 18 tot en met 26 jaar?")).toHaveCount(0);
+  await page.getByRole("group", { name: "Wonen er nog andere mensen van 18 jaar of ouder bij u in huis?" }).getByLabel("Nee").check();
   await geenToegankelijkheidsfouten(page);
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.000");

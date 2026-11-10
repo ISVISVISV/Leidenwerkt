@@ -743,13 +743,40 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   probeer(() => {
     const grens = normBijzondereBijstand(l, invoer).times(l.breuk("leiden.czm.inkomensgrens"));
     const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
+    const boven = inkomen.gt(grens);
+    const grensTekst = `(grens: ongeveer ${euro(grens, true)} netto per maand)`;
     uit.push({
-      soort: inkomen.gt(grens) ? "waarschuwing" : "info",
-      kop: "Zorgverzekering en zwemmen",
+      soort: boven ? "waarschuwing" : "info",
+      kop: "Zorgverzekering",
       bron: bronVan(l, "leiden.czm.inkomensgrens"),
-      tekst: inkomen.gt(grens)
-        ? `Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer ${euro(grens, true)} netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.`
-        : `De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer ${euro(grens, true)} netto per maand).`,
+      tekst: boven
+        ? `Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie ${grensTekst}. Dat is niet meegerekend.`
+        : `De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering. Met dit inkomen kan dat waarschijnlijk nog ${grensTekst}.`,
+    });
+    uit.push({
+      soort: boven ? "waarschuwing" : "info",
+      kop: "Zwemabonnement",
+      bron: bronVan(l, "leiden.czm.inkomensgrens"),
+      tekst: boven
+        ? `Krijgt u van de gemeente Leiden een vergoeding voor een zwemabonnement? Met dit inkomen stopt die waarschijnlijk ${grensTekst}. Dat is niet meegerekend.`
+        : `De gemeente Leiden kan een seizoenabonnement voor zwembad De Vliet of De Zijl vergoeden. Met dit inkomen kan dat waarschijnlijk nog ${grensTekst}.`,
+    });
+  });
+
+  // Leiden: Volwassenenfonds Sport & Cultuur (tot 120% van het sociaal minimum).
+  probeer(() => {
+    const norm = bijstandsnorm(l, invoer.wonen.soort === "instelling" ? { ...invoer, wonen: { soort: "anders" } } : invoer).norm;
+    const grens = norm.times(l.breuk("leiden.volwassenenfonds.inkomensgrens"));
+    const maximum = euro(l.bedrag("leiden.volwassenenfonds.maximum"), true);
+    const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
+    const boven = inkomen.gt(grens);
+    uit.push({
+      soort: boven ? "waarschuwing" : "info",
+      kop: "Sport en cultuur",
+      bron: bronVan(l, "leiden.volwassenenfonds.inkomensgrens"),
+      tekst: boven
+        ? `Met dit inkomen kunt u waarschijnlijk geen hulp meer krijgen van het Volwassenenfonds Sport & Cultuur (grens: ongeveer ${euro(grens, true)} netto per maand).`
+        : `Het Volwassenenfonds Sport & Cultuur kan een sport of culturele activiteit voor u betalen, tot ${maximum} per jaar. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer ${euro(grens, true)} netto per maand). Aanvragen gaat via een tussenpersoon; vraag het uw contactpersoon bij de gemeente.`,
     });
   });
 
