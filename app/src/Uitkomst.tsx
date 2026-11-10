@@ -60,7 +60,9 @@ export function Uitkomst({ f }: { f: Formulier }) {
   // De zin over de vrijlating staat er alleen als de vrijlating in de gekozen periode iets oplevert.
   const vrijlatingTelt = heeftBijstand && voordeel.gt("0.5");
   // Loopt de bijstand in de periode hierna nog door?
-  const volgendeFase = periodes[periodes.findIndex((p) => p.fase === fase) + 1]?.fase;
+  const volgende = periodes[periodes.findIndex((p) => p.fase === fase) + 1];
+  const volgendeFase = volgende?.fase;
+  const volgendeNaam = volgende?.naam;
   const rVolgende = useMemo(
     () => (volgendeFase ? bereken(naarInvoer(f, { uren, fase: volgendeFase, datum })) : undefined),
     [f, uren, volgendeFase, datum],
@@ -93,7 +95,8 @@ export function Uitkomst({ f }: { f: Formulier }) {
         urenTekst={urenTekst(uren)}
         periode={meerPeriodes ? gekozen.naam : undefined}
         eersteJaar={eersteJaar.bedrag}
-        stoptLater={meerPeriodes && !!rVolgende && bijstandVan(rVolgende) === "0.00"}
+        toonJaar={periodes.findIndex((p) => p.fase === fase) < 2}
+        stoptVanaf={meerPeriodes && rVolgende && bijstandVan(rVolgende) === "0.00" ? stopmoment(volgendeNaam) : undefined}
       />
 
       <section className="alleen-print gegevens" aria-label="Wat u heeft ingevuld">
@@ -157,6 +160,9 @@ export function Uitkomst({ f }: { f: Formulier }) {
           <p>
             <strong>{meerPeriodes ? `${gekozen.naam} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.` : `${gekozen.naam}.`}</strong> {gekozen.regel}
           </p>
+          {f.werktNu && meerPeriodes && fase !== periodes[0].fase && (
+            <p>De vrijlating loopt ook af voor het werk dat u nu al doet. Daarom is het bedrag bij “Nu” in deze periode anders dan in de eerste maanden.</p>
+          )}
           {vrijlatingTelt && (
             <p>
               Dit levert u in deze periode {euro(voordeel, true)} per maand extra op. Vraag uw klantmanager of de vrijlating voor u geldt. De
@@ -245,15 +251,22 @@ export function Uitkomst({ f }: { f: Formulier }) {
   );
 }
 
+/** "Maand 7 t/m 36" of "Vanaf maand 7" wordt "Vanaf maand 7"; zonder maandnummer "Daarna". */
+const stopmoment = (naam?: string) => {
+  const maand = /maand (\d+)/i.exec(naam ?? "")?.[1];
+  return maand ? `Vanaf maand ${maand}` : "Daarna";
+};
+
 const bijstandVan = (r: Resultaat) => r.werk.posten.find((p) => p.id === "bijstand")?.perMaand ?? null;
 
 /** Eén zin over de bijstand: blijft die, of stopt die? Alleen voor wie nu bijstand krijgt. */
-function bijstandZin(r: Resultaat, stoptLater: boolean): string | undefined {
+function bijstandZin(r: Resultaat, stoptVanaf?: string): string | undefined {
   const nu = r.huidig.posten.find((p) => p.id === "bijstand")?.perMaand;
   const met = bijstandVan(r);
   if (!nu || nu === "0.00" || met === null) return undefined;
   if (met === "0.00") return "Uw bijstand stopt. Met dit werk is uw inkomen even hoog als de bijstandsnorm of hoger.";
-  if (stoptLater) return `In deze periode houdt u nog ${euro(met, true)} bijstand per maand, door de vrijlating. Daarna stopt uw bijstand.`;
+  if (Number(met) < 1) return "U houdt bijna geen bijstand meer: minder dan € 1 per maand.";
+  if (stoptVanaf) return `In deze periode houdt u nog ${euro(met, true)} bijstand per maand, door de vrijlating. ${stoptVanaf} stopt uw bijstand.`;
   return `U houdt bijstand: ${euro(met, true)} per maand, als aanvulling op uw loon.`;
 }
 
@@ -269,19 +282,23 @@ function Antwoord({
   urenTekst,
   periode,
   eersteJaar,
-  stoptLater,
+  toonJaar,
+  stoptVanaf,
 }: {
   r: Resultaat;
   urenTekst: string;
   periode?: string;
   eersteJaar: string;
-  stoptLater: boolean;
+  /** Het totaal over de eerste 12 maanden hoort niet bij een periode die daarna pas begint. */
+  toonJaar: boolean;
+  /** Stopt de bijstand in de volgende periode? Dan het moment, bijvoorbeeld "Vanaf maand 7". */
+  stoptVanaf?: string;
 }) {
   const j = Number(eersteJaar);
   const jaarzin =
     Math.abs(j) < 120
       ? "Ook over de eerste 12 maanden samen houdt u ongeveer evenveel over als nu."
-      : `In de eerste 12 maanden is dat samen ongeveer ${euro(eersteJaar.replace("-", ""), true)} ${j > 0 ? "meer" : "minder"}.`;
+      : `Over de eerste 12 maanden samen houdt u ongeveer ${euro(eersteJaar.replace("-", ""), true)} ${j > 0 ? "meer" : "minder"} over dan nu.`;
   const v = Number(r.verschilPerMaand);
   const bedrag = euro(r.verschilPerMaand.replace("-", ""), true);
   const zin =
@@ -293,7 +310,7 @@ function Antwoord({
   // Houdt iemand minder over en komt dat door kosten die hij zelf betaalt? Dan staat dat erbij.
   const kosten = eigenWerkkosten(r);
   const doorKosten = v <= -10 && kosten >= 1 && v + kosten > -10;
-  const overBijstand = bijstandZin(r, stoptLater);
+  const overBijstand = bijstandZin(r, stoptVanaf);
   return (
     <div className={`antwoord ${Math.abs(v) < 10 ? "gelijk" : v > 0 ? "meer" : "minder"}`} aria-live="polite">
       <p className="antwoord-zin">{zin}</p>
@@ -301,7 +318,7 @@ function Antwoord({
         <p className="antwoord-sub">Dat komt door de kosten voor het werk die u zelf betaalt: {euro(kosten.toFixed(2), true)} per maand.</p>
       )}
       <p className="antwoord-sub">
-        Bij {urenTekst}{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}. {jaarzin}
+        Bij {urenTekst}{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}.{toonJaar ? ` ${jaarzin}` : ""}
       </p>
       {overBijstand && <p className="antwoord-sub antwoord-bijstand">{overBijstand}</p>}
       {r.betrouwbaarheid.niveau !== "goed" && <p className="antwoord-noot">{r.betrouwbaarheid.tekst}</p>}
@@ -449,7 +466,7 @@ function Uitleg({ r }: { r: Resultaat }) {
                 <ul className="bronnen">
                   {params.map((g) => (
                     <li key={g.id} className="bron-blok">
-                      {g.omschrijving}: <strong>{g.waarde}</strong>
+                      {g.omschrijving}: <strong>{/^\d+\.\d+%?$/.test(g.waarde) ? g.waarde.replace(".", ",") : g.waarde}</strong>
                       {g.status === "onbevestigd" && <span className="label-onzeker"> nog niet officieel bevestigd</span>}
                       {g.bron && (
                         <>

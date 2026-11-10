@@ -145,7 +145,7 @@ test("zonder vaste woonplek, met medische urenbeperking: lagere norm, vrijlating
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.000");
   await page.getByRole("textbox", { name: /Hoeveel uur per week werkt u/ }).fill("16");
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
-  await expect(page.locator(".antwoord")).toContainText("In de eerste 12 maanden");
+  await expect(page.locator(".antwoord")).toContainText("Over de eerste 12 maanden samen");
   await expect(page.locator("#urengrens")).toContainText("uur per week heeft u met dit uurloon geen bijstand meer nodig");
   await page.getByLabel("Vanaf maand 7").check();
   await expect(page.locator(".toelichting")).toContainText("Met een medische urenbeperking mag u 15%");
@@ -360,7 +360,7 @@ test("de uitkomst zegt of de bijstand blijft of stopt, en noemt de eigen kosten 
   await page.getByRole("button", { name: "Gegevens aanpassen" }).click();
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.500");
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
-  await expect(antwoord).toContainText("door de vrijlating. Daarna stopt uw bijstand.");
+  await expect(antwoord).toContainText("door de vrijlating. Vanaf maand 7 stopt uw bijstand.");
   await page.getByRole("group", { name: "Welke periode wilt u zien?" }).getByRole("radio").last().check();
   await expect(antwoord).toContainText("Uw bijstand stopt.");
 
