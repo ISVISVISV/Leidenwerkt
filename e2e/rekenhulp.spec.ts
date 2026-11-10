@@ -282,3 +282,30 @@ test("ander inkomen telt mee, de afdruk toont de invoer, en opnieuw beginnen wis
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await expect(page.getByRole("group", { name: "Uw geboortedatum" }).getByLabel("Jaar")).toHaveValue("");
 });
+
+test("de terugknop van de browser gaat een stap terug en bewaart wat is ingevuld", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await geboren(page, "Uw geboortedatum", 40);
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel("In een koopwoning").check();
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await expect(page.getByRole("heading", { name: "Uw werk" })).toBeVisible();
+
+  await page.goBack();
+  await expect(page.getByRole("heading", { name: "Uw woning" })).toBeVisible();
+  await expect(page.getByLabel("In een koopwoning")).toBeChecked();
+  await page.goBack();
+  await expect(page.getByRole("heading", { name: "Uw huishouden" })).toBeVisible();
+  await expect(page.getByRole("group", { name: "Uw geboortedatum" }).getByLabel("Jaar")).toHaveValue(String(new Date().getFullYear() - 40));
+
+  // Vooruit kan alleen als de stap goed is ingevuld.
+  await page.getByRole("group", { name: "Uw geboortedatum" }).getByLabel("Jaar").fill("");
+  await page.goForward();
+  await expect(page.getByRole("heading", { name: "Uw huishouden" })).toBeVisible();
+  await page.getByRole("group", { name: "Uw geboortedatum" }).getByLabel("Jaar").fill(String(new Date().getFullYear() - 40));
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await expect(page.getByRole("heading", { name: "Uw woning" })).toBeVisible();
+  await page.getByRole("button", { name: "Vorige stap" }).click();
+  await expect(page.getByRole("heading", { name: "Uw huishouden" })).toBeVisible();
+});
