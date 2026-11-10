@@ -112,7 +112,7 @@ function pw34a(l: Lezer, v: VrijlatingVraag): VrijlatingUitkomst {
     if (l.datum < einde) {
       if (v.fase === "later") {
         return geen("Na de oude vrijlating van 6 maanden: geen vrijlating meer", [
-          "De wet zegt niet of u na de oude vrijlating nog de nieuwe bijverdienregeling krijgt. Hier is aangenomen van niet. Vraag het uw klantmanager.",
+          "De wet zegt niet of u na de oude vrijlating nog de nieuwe bijverdienregeling krijgt. Hier is aangenomen van niet. Vraag het uw contactpersoon bij de gemeente.",
         ]);
       }
       // Het oude onderdeel n, zoals het luidde op de dag voor de wijziging.

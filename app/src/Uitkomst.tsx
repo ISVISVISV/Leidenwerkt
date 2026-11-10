@@ -94,7 +94,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
   return (
     <section className="uitkomst">
       <p className="alleen-print afdruk-datum">
-        Berekening van {leesbareDatum(vandaag())}, met de regels die gelden op {leesbareDatum(r.datum)}.
+        Berekening van {leesbareDatum(vandaag())}, met de regels die gelden op {leesbareDatum(r.datum)}. Leidenwerkt versie {__VERSIE__}.
       </p>
 
       <Antwoord
@@ -151,7 +151,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
         )}
         {meerPeriodes && (
           <fieldset className="keuze compact">
-            <legend>Welke periode wilt u zien?</legend>
+            <legend>Voor welke maanden wilt u de uitkomst zien?</legend>
             {periodes.map((p) => (
               <label className="optie" key={p.fase}>
                 <input type="radio" name="fase" checked={fase === p.fase} onChange={() => setFase(p.fase)} />
@@ -172,7 +172,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
           )}
           {vrijlatingTelt && (
             <p>
-              Dit levert u in deze periode {euro(voordeel, true)} per maand extra op. Vraag uw klantmanager of de vrijlating voor u geldt. De
+              Dit levert u in deze periode {euro(voordeel, true)} per maand extra op. Vraag uw contactpersoon bij de gemeente of de vrijlating voor u geldt. De
               gemeente beslist dat.
             </p>
           )}
@@ -201,7 +201,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
           {regimeOp(vandaag()).id !== regimeOp(datum).id && (
             <p>
               Sinds {leesbareDatum(regimeOp(vandaag()).vanaf)} gelden ook andere regels voor het deel van uw loon dat u naast de bijstand mag
-              houden. Hieronder ziet u nog de oude regels. Vraag uw klantmanager wat er voor u verandert.
+              houden. Hieronder ziet u nog de oude regels. Vraag uw contactpersoon bij de gemeente wat er voor u verandert.
             </p>
           )}
         </div>
@@ -252,7 +252,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
             </>
           );
         })()}
-        <p className="klein niet-print">Berekend met de regels die gelden op {leesbareDatum(r.datum)}.</p>
+        <p className="klein niet-print">Berekend met de regels die gelden op {leesbareDatum(r.datum)}. Leidenwerkt versie {__VERSIE__}.</p>
       </section>
     </section>
   );
@@ -426,7 +426,7 @@ function Vergelijking({ r }: { r: Resultaat }) {
       )}
       <tfoot>
         <tr>
-          <th scope="row">U houdt over{eraf.length > 0 ? " (binnen min eraf)" : ""}</th>
+          <th scope="row">U houdt over</th>
           <td>{euro(r.huidig.besteedbaarPerMaand, true)}</td>
           <td>{euro(r.werk.besteedbaarPerMaand, true)}</td>
         </tr>
