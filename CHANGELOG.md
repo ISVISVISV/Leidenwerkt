@@ -9,6 +9,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 ### Toegevoegd
 
 - Melding over het Volwassenenfonds Sport & Cultuur (Leiden).
+- Woonsituatie "bij iemand anders in huis, en ik betaal kostgeld of huur". Alleen het deel voor de woonruimte telt; bij een laag bedrag verlaagt de gemeente Leiden de bijstand.
 
 ### Gewijzigd
 
@@ -18,6 +19,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Duidelijkere teksten bij ander inkomen en bij de kosten voor wie meer gaat werken.
 - De uitkomst legt bedragen uit die anders lijken dan verwacht: het ingevulde loon tegenover het netto loon met vakantiegeld, de geschatte prijs van de kinderopvang, waarom er bij een kamer geen huurtoeslag staat, waarom het jaarbedrag geen 12 keer het maandbedrag is, wat de vrijlating oplevert en wat een medische urenbeperking doet.
 - De meldingen over de Sleutelpas noemen de grens voor het huishouden en de opbouw van het Kindtegoed. De zin over het stoppen van de bijstand noemt het bedrag en gebruikt geen vakterm meer.
+- Duidelijkere uitleg bij de woonsituatie: waar iemand die bij familie woont of geen vaste woonplek heeft moet kiezen, hoe u kunt nagaan of u in een instelling met een lagere bijstand woont, en vanaf welk bedrag een lage huur de bijstand verlaagt.
 - Geen antwoorden meer vooraf gekozen bij de woonsituatie, de soort opvang, het vakantiegeld in een uurloon en de aantallen bewoners. Wie niets kiest, krijgt een foutmelding in plaats van een stilzwijgende aanname.
 
 ### Hersteld

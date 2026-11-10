@@ -12,7 +12,8 @@ export function maxUurprijs(l: Lezer, soort: Opvangsoort): number {
 export type LoonPer = "maand" | "netto" | "vierweken" | "uur";
 /** Leeg: nog niet gekozen. */
 export type AllIn = "" | "nee" | "ja" | "onbekend";
-export type Woonsituatie = "huur" | "koop" | "inwonend" | "dakloos" | "instelling";
+/** "kostgeld": bij iemand anders in huis, en betaalt een bedrag voor de woonruimte (kostgeld of huur). */
+export type Woonsituatie = "huur" | "koop" | "inwonend" | "kostgeld" | "dakloos" | "instelling";
 
 /** Geboortedatum zoals ingevuld, als tekst: dag-maand-jaar, bijvoorbeeld "14-03-1990". */
 export type Geboortedatum = string;
@@ -269,15 +270,17 @@ export function controleer(f: Formulier, stap: number): Fouten {
     moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
   }
   if (stap === 2 && !f.woont) fouten.woont = "Kies waar u woont.";
-  if (stap === 2 && f.woont === "huur") {
+  if (stap === 2 && (f.woont === "huur" || f.woont === "kostgeld")) {
     moet(
       "kaleHuur",
       f.kaleHuur,
       1,
       3000,
-      f.zelfstandig
-        ? "Vul de kale huur per maand in. Die staat in uw huurcontract of op het overzicht van de verhuurder."
-        : "Vul de huur per maand in, bijvoorbeeld 450.",
+      f.woont === "kostgeld"
+        ? "Vul in wat u per maand voor uw woonruimte betaalt, bijvoorbeeld 150."
+        : f.zelfstandig
+          ? "Vul de kale huur per maand in. Die staat in uw huurcontract of op het overzicht van de verhuurder."
+          : "Vul de huur per maand in, bijvoorbeeld 450.",
     );
   }
   if (stap === 3) {
@@ -357,8 +360,8 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     jongeHuisgenoten: aantalJongeHuisgenoten(f),
     huisgenotenInkomenJaar: vraagInkomenAnderen(f) ? getal(f.huisgenotenInkomen) : undefined,
     wonen:
-      f.woont === "huur"
-        ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), zelfstandig: f.zelfstandig }
+      f.woont === "huur" || f.woont === "kostgeld"
+        ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), zelfstandig: f.woont === "huur" && f.zelfstandig }
         : f.woont === "inwonend" || f.woont === "dakloos"
           ? { soort: "geen_woonkosten", dakloos: f.woont === "dakloos", betaaltWoonlasten: f.woont === "inwonend" && f.woonlasten }
           : f.woont === "instelling"
@@ -456,7 +459,10 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
   huishouden.push(["Ander inkomen", f.heeftAnderInkomen ? `${euroTekst(f.anderInkomen)} netto per maand` : "nee"]);
 
   const woning: [string, string][] = [];
-  if (f.woont === "huur") {
+  if (f.woont === "kostgeld") {
+    woning.push(["Woning", "bij iemand anders in huis, betaalt kostgeld of huur"]);
+    woning.push(["Voor de woonruimte", `${euroTekst(f.kaleHuur)} per maand`]);
+  } else if (f.woont === "huur") {
     woning.push(["Woning", f.zelfstandig ? "huurwoning met eigen voordeur, keuken, wc en douche" : "kamer, of woning met gedeelde keuken, wc of douche"]);
     woning.push([f.zelfstandig ? "Kale huur" : "Huur", `${euroTekst(f.kaleHuur)} per maand`]);
     if (vraagInkomenAnderen(f)) woning.push(["Inkomen huisgenoten", `${euroTekst(f.huisgenotenInkomen)} bruto per jaar`]);

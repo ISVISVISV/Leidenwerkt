@@ -201,7 +201,7 @@ test("woonvorm met begeleiding: instellingsnorm, geen huurtoeslag, uitleg over l
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await geboren(page, "Uw geboortedatum", 30);
   await page.getByRole("button", { name: "Volgende stap" }).click();
-  await page.getByLabel(/In een instelling met zorg of begeleiding/).check();
+  await page.getByLabel(/In een instelling of woonvorm waar ik zorg of begeleiding krijg/).check();
   await expect(page.getByText("€ 496,44 per maand", { exact: false })).toBeVisible();
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("600");
@@ -391,4 +391,24 @@ test("de uitkomst zegt of de bijstand blijft of stopt, en noemt de eigen kosten 
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("2.800");
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
   await expect(antwoord).toContainText(/Uw bijstand van €\s?[\d.]+ per maand stopt\./);
+});
+
+test("bij iemand in huis met kostgeld: alleen het deel voor de woonruimte telt, en een laag bedrag verlaagt de bijstand", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await geboren(page, "Uw geboortedatum", 30);
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel("Bij iemand anders in huis, en ik betaal kostgeld of huur").check();
+  await page.getByLabel("Hoeveel betaalt u per maand voor uw woonruimte?").fill("150");
+  await page.getByRole("group", { name: "Wonen er nog andere mensen van 18 jaar of ouder bij u in huis?" }).getByLabel("Nee").check();
+  await geenToegankelijkheidsfouten(page);
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("600");
+  await page.getByRole("textbox", { name: /Hoeveel uur per week (werkt u|gaat u werken)/ }).fill("8");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  const tabel = page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ });
+  // Norm € 1.419,46 min (€ 202,78 − € 150) = € 1.366,68.
+  await expect(tabel.getByRole("row", { name: /Bijstand/ })).toContainText("1.367");
+  await expect(tabel).not.toContainText("Huurtoeslag");
+  await expect(page.locator(".tabel-noten")).toContainText("bij iemand anders in huis woont");
 });

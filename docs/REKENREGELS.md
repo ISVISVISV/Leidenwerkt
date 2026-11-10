@@ -74,7 +74,7 @@ Grondslag: art. 27 Pw en de [Beleidsregels Vermogen en Algemene Bijstandsnorm bi
 | Zelf geen woonlasten (gas, elektriciteit, water) | 9% |
 | Geen woonkosten en geen woonlasten | 19% |
 
-De app vraagt de huur bij een zelfstandige huurwoning en bij een kamer of gedeelde woning, en past de tweede regel in beide gevallen toe.
+De app vraagt de huur bij een zelfstandige huurwoning en bij een kamer of gedeelde woning, en past de tweede regel in beide gevallen toe. Wie bij iemand anders in huis woont en kostgeld of huur betaalt, vult alleen het deel voor de woonruimte in. De beleidsregels kennen het begrip kostgeld niet; ze rekenen met woonkosten: "huur, hypotheek of andere aantoonbare kosten die rechtstreeks samenhangen met het feitelijk beschikken over onderdak" (art. 1.1). De app past dan ook de tweede regel toe, zonder huurtoeslag.
 
 De app vraagt bij 'Uw woning' waar iemand woont. Bij "geen vaste woonplek" en "bij iemand in, zonder te betalen" volgt de vraag of iemand zelf gas, licht of water betaalt.
 

@@ -214,6 +214,25 @@ const instellingsnorm = () => {
   }
 };
 
+/** Gewone bijstandsnorm voor een alleenstaande voor vandaag, als tekst. */
+const gewoneNorm = () => {
+  try {
+    return euro(new Lezer(standaardRegels, vandaag()).bedrag("pw.norm.alleenstaande"), true);
+  } catch {
+    return "";
+  }
+};
+
+/** Woonkosten waaronder Leiden de bijstand verlaagt (10% van de gehuwdennorm), als tekst. */
+const lageHuurGrens = () => {
+  try {
+    const l = new Lezer(standaardRegels, vandaag());
+    return euro(l.bedrag("pw.norm.gehuwden").times(l.breuk("leiden.woonkosten.korting_geen_woonkosten")), true);
+  } catch {
+    return "";
+  }
+};
+
 /** Vrijstelling voor het inkomen van een kind jonger dan 23 (huurtoeslag), als tekst. */
 const vrijstellingKind = () => {
   try {
@@ -581,10 +600,20 @@ function StapWoning({ f, zet, fouten }: StapProps) {
         naam="woont"
         legend="Waar woont u?"
         hint={
-          <p className="bron-blok">
-            Bij een huurwoning maakt het uit of u de keuken, wc of douche deelt met mensen die niet bij uw huishouden horen. Huurtoeslag is er
-            meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche. Bron: <Bron citaat={CITATEN.htZelfstandig} />
-          </p>
+          <>
+            <p>
+              Huurt u, dan maakt het uit of u de keuken, wc of douche deelt met mensen die niet bij uw huishouden horen. Huurtoeslag is er
+              meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche.
+            </p>
+            <p>Woont u bij uw ouders, familie of vrienden? Kies dan een van de twee antwoorden die met "Bij iemand anders in huis" beginnen.</p>
+            <p>
+              Slaapt u in een daklozenopvang zonder begeleiding, of nu eens hier en dan weer daar? Kies dan "Ik heb geen vaste woonplek". Dat
+              geldt ook als u geen adres heeft.
+            </p>
+            <p className="bron-blok">
+              Bron: <Bron citaat={CITATEN.htZelfstandig} />
+            </p>
+          </>
         }
         waarde={f.woont === "huur" && !f.zelfstandig ? "kamer" : f.woont}
         fout={fouten.woont}
@@ -596,34 +625,41 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           ["huur", "In een huurwoning met een eigen voordeur, keuken, wc en douche"],
           ["kamer", "Op een kamer, of in een woning waar ik de keuken, wc of douche deel"],
           ["koop", "In een koopwoning"],
+          ["kostgeld", "Bij iemand anders in huis, en ik betaal kostgeld of huur"],
           ["inwonend", "Bij iemand anders in huis, en ik betaal niets voor mijn woonruimte"],
           ["dakloos", "Ik heb geen vaste woonplek"],
-          ["instelling", "In een instelling met zorg of begeleiding, waar ik een lagere bijstand krijg"],
+          ["instelling", "In een instelling of woonvorm waar ik zorg of begeleiding krijg"],
         ]}
       />
       {f.woont === "instelling" && (
         <div className="melding" role="status">
           <p>
-            Woont u in een instelling voor verpleging of verzorging? Of in een instelling waar u slaapt en waar meer dan de helft van de dag
-            hulp of begeleiding aanwezig is? Dan krijgt u een lagere bijstand{instellingsnorm() ? `: ${instellingsnorm()}` : ""}. Krijgt u
-            een ander bedrag aan bijstand? Kies dan een andere woonsituatie.
+            Dit antwoord past als u in een instelling voor verpleging of verzorging woont, of in een woonvorm waar u slaapt en waar meer dan
+            de helft van de dag hulp of begeleiding aanwezig is. U krijgt dan een lagere bijstand{instellingsnorm() ? `: ${instellingsnorm()}` : ""}.
+            Zo kunt u het nagaan: dat bedrag staat op uw uitkeringsspecificatie.
+          </p>
+          <p>
+            Krijgt u veel meer bijstand{gewoneNorm() ? `, bijvoorbeeld ${gewoneNorm()} als u geen partner heeft` : ""}? Dan rekent de gemeente u
+            niet als bewoner van een instelling. Kies dan "Op een kamer" als u huur betaalt, of een van de antwoorden die met "Bij iemand anders
+            in huis" beginnen. Twijfelt u? Vraag het uw begeleider of uw contactpersoon bij de gemeente.
           </p>
           <p className="bron-blok">
             Bron: <Bron citaat={CITATEN.pw23inrichting} />
           </p>
-          <p>Slaapt u in een daklozenopvang zonder begeleiding? Kies dan "Ik heb geen vaste woonplek".</p>
         </div>
       )}
-      {f.woont === "huur" && (
+      {(f.woont === "huur" || f.woont === "kostgeld") && (
         <>
           <Veld
             id="kaleHuur"
-            voorbeeld={f.zelfstandig ? "bijv. 650" : "bijv. 450"}
-            label={f.zelfstandig ? "Kale huur per maand" : "Huur per maand"}
+            voorbeeld={f.woont === "kostgeld" ? "bijv. 150" : f.zelfstandig ? "bijv. 650" : "bijv. 450"}
+            label={f.woont === "kostgeld" ? "Hoeveel betaalt u per maand voor uw woonruimte?" : f.zelfstandig ? "Kale huur per maand" : "Huur per maand"}
             hint={
-              f.zelfstandig
-                ? "De huur zonder servicekosten, gas, water en licht. Staat in uw huurcontract. Servicekosten tellen sinds 2026 niet mee voor de huurtoeslag."
-                : "De huur zonder gas, water en licht, als u dat bedrag weet. Anders het hele bedrag. Bij een heel lage huur verlaagt de gemeente Leiden de bijstand."
+              f.woont === "kostgeld"
+                ? `Betaalt u kostgeld, ook voor eten of de was? Vul dan alleen het deel in dat voor uw kamer of woonruimte is. Weet u dat niet? Vul dan het hele bedrag in en vraag het uw contactpersoon bij de gemeente.${lageHuurGrens() ? ` Betaalt u minder dan ${lageHuurGrens()} per maand voor uw woonruimte, dan verlaagt de gemeente Leiden de bijstand met het verschil.` : ""}`
+                : f.zelfstandig
+                  ? "De huur zonder servicekosten, gas, water en licht. Staat in uw huurcontract. Servicekosten tellen sinds 2026 niet mee voor de huurtoeslag."
+                  : `De huur zonder gas, water en licht, als u dat bedrag weet. Anders het hele bedrag.${lageHuurGrens() ? ` Is uw huur lager dan ${lageHuurGrens()} per maand, dan verlaagt de gemeente Leiden de bijstand met het verschil.` : ""}`
             }
             waarde={f.kaleHuur}
             onChange={(v) => zet("kaleHuur", v)}
@@ -636,6 +672,7 @@ function StapWoning({ f, zet, fouten }: StapProps) {
         <Keuze
           naam="woonlasten"
           legend="Betaalt u zelf voor gas, licht of water?"
+          hint="Betaalt degene bij wie u woont de rekening voor gas, licht en water? Kies dan Nee. Betaalt u er zelf voor, ook als u daarvoor geld aan iemand in huis geeft? Kies dan Ja. Zonder eigen kosten voor gas, licht en water verlaagt de gemeente de bijstand iets meer."
           waarde={f.woonlasten ? "ja" : "nee"}
           onChange={(v) => zet("woonlasten", v === "ja")}
           opties={[
