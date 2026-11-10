@@ -1938,12 +1938,12 @@ exports[`snapshots van de uitleg > woonvorm met begeleiding 1`] = `
   "meldingen": [
     "[waarschuwing] Zorgverzekering: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 596 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Zwemabonnement: Krijgt u van de gemeente Leiden een vergoeding voor een zwemabonnement? Met dit inkomen stopt die waarschijnlijk (grens: ongeveer € 596 netto per maand). Dat is niet meegerekend.",
+    "[waarschuwing] Sport en cultuur: Met dit inkomen kunt u waarschijnlijk geen hulp meer krijgen van het Volwassenenfonds Sport & Cultuur (grens: ongeveer € 539 netto per maand).",
     "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
     "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
     "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
     "[info] Opnieuw bijstand aanvragen: Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk en vraagt u binnen 12 maanden na het einde van uw bijstand opnieuw bijstand aan? Dan is aanvragen in Leiden makkelijker: de gemeente kan de gegevens gebruiken die ze al van u heeft.",
     "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
-    "[info] Sport en cultuur: Het Volwassenenfonds Sport & Cultuur kan een sport of culturele activiteit voor u betalen, tot € 250 per jaar. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand). Aanvragen gaat via een tussenpersoon; vraag het uw contactpersoon bij de gemeente.",
     "[info] Als u later zelfstandig woont: De lagere norm geldt zolang u in de instelling woont. Woont u later zelfstandig, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm, en misschien huurtoeslag. Reken dan opnieuw.",
   ],
   "nietMeegenomen": [],

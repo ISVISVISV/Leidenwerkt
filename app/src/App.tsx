@@ -502,6 +502,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                     legend="Soort opvang"
                     waarde={k.soort}
                     onChange={(v) => zetKind(i, { soort: v })}
+                    fout={fouten[`soort${i}`]}
                     opties={[
                       ["dagopvang", "Kinderdagverblijf"],
                       ["bso", "Buitenschoolse opvang"],
@@ -511,10 +512,10 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                   <Veld id={`kind${i}uren`} label="Uren opvang per maand" voorbeeld="bijv. 60" hint={maxOpvanguren() ? `Hoogstens ${maxOpvanguren()} uur per kind. Over meer uren krijgt u geen kinderopvangtoeslag.` : undefined} waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
                   <Veld
                     id={`kind${i}prijs`}
-                    voorbeeld={`bijv. ${maxPrijsTekst(k.soort) || "11,00"}`}
+                    voorbeeld={`bijv. ${(k.soort && maxPrijsTekst(k.soort)) || "11,00"}`}
                     label="Prijs per uur"
                     hint={
-                      maxPrijsTekst(k.soort)
+                      k.soort && maxPrijsTekst(k.soort)
                         ? `Vraag het aan de opvang. Weet u het niet? Laat het vak leeg. De rekenhulp rekent dan met € ${maxPrijsTekst(k.soort)} per uur. Dat is de hoogste prijs per uur waarover u toeslag krijgt.`
                         : "Vraag dit na bij de opvang. Weet u het niet? Laat het vak dan leeg."
                     }
@@ -586,6 +587,7 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           </p>
         }
         waarde={f.woont === "huur" && !f.zelfstandig ? "kamer" : f.woont}
+        fout={fouten.woont}
         onChange={(v) => {
           zet("woont", v === "kamer" ? "huur" : v);
           if (v === "huur" || v === "kamer") zet("zelfstandig", v === "huur");
@@ -788,6 +790,7 @@ function LoonVelden({
           hint="Meestal krijgt u het vakantiegeld apart, één keer per jaar. Bij uitzendwerk of in de horeca zit het soms al in het uurloon. Dat heet een all-in uurloon. Het staat in uw contract of op uw loonstrook."
           waarde={allIn}
           onChange={zetAllIn}
+          fout={fouten[`${prefix}allIn`]}
           opties={[
             ["nee", "Nee, ik krijg het apart"],
             ["ja", "Ja, het is een all-in uurloon"],

@@ -36,6 +36,7 @@ test("alleenstaande doorloopt de stappen en krijgt een antwoord", async ({ page 
   // Stap 3
   await page.getByLabel("Bruto loon per uur", { exact: true }).check();
   await page.getByRole("textbox", { name: "Bruto loon per uur" }).fill("15,00");
+  await page.getByLabel("Nee, ik krijg het apart").check();
   await page.getByRole("textbox", { name: /Hoeveel uur per week (werkt u|gaat u werken)/ }).fill("32");
   await geenToegankelijkheidsfouten(page);
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
@@ -66,9 +67,9 @@ test.describe("donkere modus", () => {
     await geenToegankelijkheidsfouten(page);
     await geboren(page, "Uw geboortedatum", 40);
     await page.getByRole("button", { name: "Volgende stap" }).click();
-    // Huurt u, dan is de kale huur verplicht.
+    // Er is geen woonsituatie vooraf gekozen.
     await page.getByRole("button", { name: "Volgende stap" }).click();
-    await expect(page.locator(".foutmelding").getByText("Vul dit in.").first()).toBeVisible();
+    await expect(page.locator(".foutmelding").getByText("Kies waar u woont.")).toBeVisible();
     await page.getByLabel("In een koopwoning").check();
     await page.getByRole("button", { name: "Volgende stap" }).click();
     await page.getByLabel("Netto loon per maand (wat op mijn rekening komt)").check();
@@ -90,6 +91,7 @@ test("huurder van 25: huurtoeslag berekend, geen vrijlating onder 27, toeslagris
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await geboren(page, "Uw geboortedatum", 25);
   await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel(/In een huurwoning met een eigen voordeur/).check();
   await page.getByLabel("Kale huur per maand").fill("650");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("2.600");
@@ -118,6 +120,7 @@ test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, hui
   await expect(zelf).toBeFocused();
   await zelf.fill("14-3-1984");
   await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByLabel(/In een huurwoning met een eigen voordeur/).check();
   await page.getByLabel("Kale huur per maand").pressSequentially("7x20,5o0");
   await expect(page.getByLabel("Kale huur per maand")).toHaveValue("720,50");
   // De aantallen verschijnen pas als er andere bewoners zijn.
@@ -125,7 +128,7 @@ test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, hui
   await page.getByRole("group", { name: "Wonen er nog andere mensen van 18 jaar of ouder bij u in huis?" }).getByLabel("Ja").check();
   await expect(page.getByLabel("Hoeveel van hen zijn 27 jaar of ouder?")).toHaveAttribute("placeholder", "bijv. 1");
   await page.getByLabel("Hoeveel van hen zijn 27 jaar of ouder?").fill("1");
-  await expect(page.getByLabel("Hoeveel van hen zijn 18 tot en met 26 jaar?")).toBeVisible();
+  await page.getByLabel("Hoeveel van hen zijn 18 tot en met 26 jaar?").fill("0");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.locator(".foutmelding").getByText("Vul dit in.").first()).toBeVisible();
   await page.getByLabel("Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen").fill("26.000");
@@ -171,7 +174,12 @@ test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", asyn
   await page.getByRole("textbox", { name: "Bruto maandloon van uw partner" }).fill("700");
   await geboren(page, "Geboortedatum kind 1", 2);
   await page.getByText("Dit kind gaat naar de kinderopvang").click();
+  // Er is geen soort opvang vooraf gekozen.
+  await expect(page.getByLabel("Kinderdagverblijf")).not.toBeChecked();
   await page.getByLabel("Uren opvang per maand").fill("238,33");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await expect(page.locator(".foutmelding").getByText("Kies de soort opvang.")).toBeVisible();
+  await page.getByLabel("Kinderdagverblijf").check();
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.locator(".foutmelding").getByText("hoogstens 230 uur per kind per maand", { exact: false })).toBeVisible();
   await expect(page.getByLabel("Uren opvang per maand")).toBeFocused();
@@ -218,6 +226,8 @@ test("wie al werkt, kiest wat er verandert en vult niets dubbel in", async ({ pa
   await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
   await expect(page.locator(".foutmelding").getByText("Kies wat er verandert.")).toBeVisible();
   await expect(page.locator(".foutmelding").getByText("Kies hoe lang u al werkt.")).toBeVisible();
+  await expect(page.locator(".foutmelding").getByText("Kies een antwoord.", { exact: false })).toBeVisible();
+  await page.getByLabel("Nee, ik krijg het apart").check();
   await page.getByLabel("6 maanden of langer").check();
   await page.getByLabel("Ik ga meer uren werken bij mijn huidige werk").check();
   await expect(page.getByRole("textbox", { name: "Bruto loon per uur" })).toHaveCount(1);

@@ -214,7 +214,7 @@ parameters:
       kop: "Gemeente Leiden, Hulp bij kosten sport en cultuur (sport voor volwassenen)"
       tekst: "Volwassenen met een laag inkomen kunnen hulp krijgen van het Volwassenenfonds Sport & Cultuur bij het betalen van de kosten voor sport. […] Een sportactiviteit of culturele activiteit van maximaal € 250,00 per jaar. Hebt u minder dan € 250,00 nodig? Dan kunt u ook sportspullen aanvragen. […] Voor volwassenen met een inkomen tot 120% van het sociaal minimum. […] U maakt een afspraak met een tussenpersoon (intermediair) om een aanvraag te doen."
       versie: "geraadpleegd op 10 november 2026"
-    notitie: De app rekent de grens uit als 120% van de bijstandsnorm die voor het huishouden geldt, met vakantietoeslag, en vergelijkt die met het netto inkomen met vakantiegeld. De gemeente noemt de bedragen zonder vakantiegeld.
+    notitie: De app rekent de grens uit als 120% van de bijstandsnorm die voor het huishouden geldt, met vakantietoeslag, en vergelijkt die met het netto inkomen met vakantiegeld. De gemeente noemt de bedragen zonder vakantiegeld. Bij verblijf in een instelling is de grondslag de norm van art. 23 lid 1 Pw, zonder de verhoging van lid 2; dat volgt uit het bedrag dat de gemeente noemt (€ 512,36 = 120% van € 449,44 zonder vakantietoeslag).
   - id: leiden.volwassenenfonds.maximum
     omschrijving: Volwassenenfonds Sport & Cultuur — hoogste bijdrage per jaar
     eenheid: euro_per_jaar

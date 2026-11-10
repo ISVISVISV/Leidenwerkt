@@ -765,7 +765,12 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
 
   // Leiden: Volwassenenfonds Sport & Cultuur (tot 120% van het sociaal minimum).
   probeer(() => {
-    const norm = bijstandsnorm(l, invoer.wonen.soort === "instelling" ? { ...invoer, wonen: { soort: "anders" } } : invoer).norm;
+    // Bij verblijf in een instelling rekent de gemeente met de norm van art. 23 lid 1, zonder de verhoging van lid 2
+    // (gemeente.leiden.nl: "Alleenstaand, in instelling € 512,36" = 120% van € 449,44 zonder vakantietoeslag).
+    const norm =
+      invoer.wonen.soort === "instelling"
+        ? l.bedrag(invoer.leefvorm === "paar" ? "pw.norm.inrichting.gehuwden" : "pw.norm.inrichting.alleenstaande")
+        : bijstandsnorm(l, invoer).norm;
     const grens = norm.times(l.breuk("leiden.volwassenenfonds.inkomensgrens"));
     const maximum = euro(l.bedrag("leiden.volwassenenfonds.maximum"), true);
     const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);

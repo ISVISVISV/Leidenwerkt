@@ -305,4 +305,9 @@ describe("Leiden: meldingen over zorgverzekering, zwemmen en sport", () => {
     const hoog = melding(bereken(basis({ nieuwWerk: { brutoMaandloon: 3000 } })), "Sport en cultuur");
     expect(hoog?.soort).toBe("waarschuwing");
   });
+  it("Volwassenenfonds bij een instelling: de grens volgt de instellingsnorm, zoals de gemeente die noemt", () => {
+    // € 449,44 × 120% = € 539,33 met vakantietoeslag; de gemeente noemt € 512,36 zonder vakantiegeld (× 0,95).
+    const r = bereken(basis({ wonen: { soort: "instelling" }, nieuwWerk: { brutoMaandloon: 200 } }));
+    expect(melding(r, "Sport en cultuur")?.tekst).toMatch(/539/);
+  });
 });
