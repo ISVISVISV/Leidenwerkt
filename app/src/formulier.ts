@@ -242,7 +242,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
   if (stap === 2 && vraagInkomenAnderen(f)) {
     moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
   }
-  if (stap === 2 && f.woont === "huur") {
+  if (stap === 2 && f.woont === "huur" && f.zelfstandig) {
     moet("kaleHuur", f.kaleHuur, 1, 3000, "Vul de kale huur per maand in. Die staat in uw huurcontract of op het overzicht van de verhuurder.");
   }
   if (stap === 3) {
@@ -305,7 +305,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     huisgenotenInkomenJaar: vraagInkomenAnderen(f) ? getal(f.huisgenotenInkomen) : undefined,
     wonen:
       f.woont === "huur"
-        ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), zelfstandig: f.zelfstandig }
+        ? { soort: "huur", kaleHuurPerMaand: f.zelfstandig ? getal(f.kaleHuur) : undefined, zelfstandig: f.zelfstandig }
         : f.woont === "inwonend" || f.woont === "dakloos"
           ? { soort: "geen_woonkosten", dakloos: f.woont === "dakloos", betaaltWoonlasten: f.woont === "inwonend" && f.woonlasten }
           : f.woont === "instelling"
@@ -405,8 +405,8 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
 
   const woning: [string, string][] = [];
   if (f.woont === "huur") {
-    woning.push(["Woning", f.zelfstandig ? "huurwoning" : "huur, met gedeelde voordeur, keuken, wc of douche"]);
-    woning.push(["Kale huur", `${euroTekst(f.kaleHuur)} per maand`]);
+    woning.push(["Woning", f.zelfstandig ? "huurwoning met eigen voordeur, keuken, wc en douche" : "kamer, of woning met gedeelde keuken, wc of douche"]);
+    if (f.zelfstandig) woning.push(["Kale huur", `${euroTekst(f.kaleHuur)} per maand`]);
     if (vraagInkomenAnderen(f)) woning.push(["Inkomen anderen in huis", `${euroTekst(f.huisgenotenInkomen)} bruto per jaar`]);
   } else {
     woning.push([

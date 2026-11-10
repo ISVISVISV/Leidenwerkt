@@ -595,10 +595,20 @@ function StapWoning({ f, zet, fouten }: StapProps) {
       <Keuze
         naam="woont"
         legend="Waar woont u?"
-        waarde={f.woont}
-        onChange={(v) => zet("woont", v)}
+        hint={
+          <p className="bron-blok">
+            Bij een huurwoning maakt het uit of u de keuken, wc of douche deelt met mensen die niet bij uw huishouden horen. Huurtoeslag is er
+            meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche. Bron: <Bron citaat={CITATEN.htZelfstandig} />
+          </p>
+        }
+        waarde={f.woont === "huur" && !f.zelfstandig ? "kamer" : f.woont}
+        onChange={(v) => {
+          zet("woont", v === "kamer" ? "huur" : v);
+          if (v === "huur" || v === "kamer") zet("zelfstandig", v === "huur");
+        }}
         opties={[
-          ["huur", "In een huurwoning of op een kamer"],
+          ["huur", "In een huurwoning met een eigen voordeur, keuken, wc en douche"],
+          ["kamer", "Op een kamer, of in een woning waar ik de keuken, wc of douche deel"],
           ["koop", "In een koopwoning"],
           ["inwonend", "Bij iemand anders in huis, en ik betaal niets voor mijn woonruimte"],
           ["dakloos", "Ik heb geen vaste woonplek"],
@@ -615,7 +625,7 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           <p>Slaapt u in een daklozenopvang zonder begeleiding? Kies dan "Ik heb geen vaste woonplek".</p>
         </div>
       )}
-      {f.woont === "huur" && (
+      {f.woont === "huur" && f.zelfstandig && (
         <>
           <Veld
             id="kaleHuur"
@@ -627,23 +637,6 @@ function StapWoning({ f, zet, fouten }: StapProps) {
             fout={fouten.kaleHuur}
             voorvoegsel="€"
           />
-          <Keuze
-            naam="zelfstandig"
-            legend="Deelt u de voordeur, keuken, wc of douche met mensen die niet bij uw huishouden horen?"
-            hint={
-              <p className="bron-blok">
-                Huurtoeslag is er meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche. Bron:{" "}
-                <Bron citaat={CITATEN.htZelfstandig} />
-              </p>
-            }
-            waarde={f.zelfstandig ? "nee" : "ja"}
-            onChange={(v) => zet("zelfstandig", v === "nee")}
-            opties={[
-              ["nee", "Nee"],
-              ["ja", "Ja, bijvoorbeeld omdat ik op een kamer woon"],
-            ]}
-          />
-
           {vraagInkomenAnderen(f) && (
             <Veld
               id="huisgenotenInkomen"
