@@ -164,7 +164,7 @@ test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", asyn
   await page.goto("/");
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await page.getByRole("group", { name: "Woont u samen met een partner?" }).getByLabel("Ja").check();
-  await page.getByRole("group", { name: "Wonen er kinderen van u bij u thuis?" }).getByLabel("Ja").check();
+  await page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" }).getByLabel("Ja").check();
   await geboren(page, "Uw geboortedatum", 33);
   await geboren(page, "Geboortedatum van uw partner", 35);
   await page.getByRole("group", { name: "Heeft uw partner betaald werk?" }).getByLabel("Ja").check();
