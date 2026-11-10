@@ -234,3 +234,1710 @@ exports[`snapshots 2026 > werkt al, breidt uit 1`] = `
   },
 }
 `;
+
+exports[`snapshots van de uitleg > 2027, bijverdienregeling 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "beperkt",
+    "richting": "onbekend",
+    "tekst": "Niet meegerekend: bijstand, zorgtoeslag, huurtoeslag en netto loon. Daardoor kan het echte verschil hoger of lager zijn dan hierboven staat.",
+  },
+  "meldingen": [],
+  "nietMeegenomen": [
+    {
+      "id": "bijstand",
+      "invloed": "ja",
+      "label": "Bijstand",
+      "reden": "Kan niet worden berekend omdat het netto loon ontbreekt",
+      "richting": "daalt",
+    },
+    {
+      "id": "zorgtoeslag",
+      "invloed": "ja",
+      "label": "Zorgtoeslag",
+      "reden": "Kan niet worden berekend omdat de bijstand ontbreekt",
+      "richting": "daalt",
+    },
+    {
+      "id": "huurtoeslag",
+      "invloed": "ja",
+      "label": "Huurtoeslag",
+      "reden": "Kan niet worden berekend omdat de bijstand ontbreekt",
+      "richting": "daalt",
+    },
+    {
+      "id": "loon",
+      "invloed": "ja",
+      "label": "Netto loon",
+      "reden": "De bedragen hiervoor zijn voor deze datum nog niet bekend.",
+      "richting": "stijgt",
+    },
+  ],
+  "stappen": {
+    "huidig": {
+      "bijstand": [],
+      "huurtoeslag": [],
+      "zorgtoeslag": [],
+    },
+    "werk": {
+      "bijstand": [],
+      "huurtoeslag": [],
+      "loon": [],
+      "zorgtoeslag": [],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > all-in uurloon, 24 jaar 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
+    "[info] Gratis OV-pas: Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 1395.60",
+        "Mag u houden: onder de 27 jaar geldt deze vrijlating niet: 0.00",
+        "Bijstand: € 1.419,46 − € 1.395,60 = € 23,86",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 17160.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 286.30",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17446.30",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1430.00",
+        "Vakantiegeld per maand (gemiddeld, 0% van het bruto loon): 0.00",
+        "Loonbelasting en premies per maand: 511.23",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 217.24",
+        "U betaalt per maand aan belasting en premies: 34.40",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1395.60",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 17160.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 286.30",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17446.30",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > alleenstaande 24 uur, eerste helft 2026 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing] Zorgverzekering en zwemmen: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.682 netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.",
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Gratis OV-pas: Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1401.50",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21327.63",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21327.63",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1401.50",
+        "Uw netto loon: 1638.32",
+        "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 285,00 per maand: 285.00",
+        "Bijstand: € 1.401,50 − (€ 1.638,32 − € 285,00) = € 48,18",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 20217.60",
+        "Bijstand per jaar, teruggerekend naar bruto: 578.14",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20795.74",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1560.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 124.80",
+        "Loonbelasting en premies per maand: 602.32",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 296.25",
+        "U betaalt per maand aan belasting en premies: 46.48",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1638.32",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 20217.60",
+        "Bijstand per jaar, teruggerekend naar bruto: 578.14",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20795.74",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > alleenstaande 24 uur, maand 1-6 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing] Zorgverzekering en zwemmen: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.703 netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.",
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Gratis OV-pas: Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 1638.32",
+        "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 289.00",
+        "Bijstand: € 1.419,46 − (€ 1.638,32 − € 289,00) = € 70,14",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 20217.60",
+        "Bijstand per jaar, teruggerekend naar bruto: 841.66",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1560.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 124.80",
+        "Loonbelasting en premies per maand: 602.32",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 296.25",
+        "U betaalt per maand aan belasting en premies: 46.48",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1638.32",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 20217.60",
+        "Bijstand per jaar, teruggerekend naar bruto: 841.66",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > alleenstaande 24 uur, na maand 6 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
+    "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
+    "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
+    "[info] Opnieuw bijstand aanvragen: Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk en vraagt u binnen 12 maanden na het einde van uw bijstand opnieuw bijstand aan? Dan is aanvragen in Leiden makkelijker: de gemeente kan de gegevens gebruiken die ze al van u heeft.",
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 1638.32",
+        "Mag u houden: vanaf maand 7 geen vrijlating meer: 0.00",
+        "Bijstand: € 1.419,46 − € 1.638,32 is minder dan nul, dus geen bijstand",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20217.60",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1560.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 124.80",
+        "Loonbelasting en premies per maand: 602.32",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 296.25",
+        "U betaalt per maand aan belasting en premies: 46.48",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1638.32",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20217.60",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > alleenstaande 25 jaar, 20 uur 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
+    "[info] Gratis OV-pas: Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 1326.25",
+        "Mag u houden: onder de 27 jaar geldt deze vrijlating niet: 0.00",
+        "Bijstand: € 1.419,46 − € 1.326,25 = € 93,21",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 16286.40",
+        "Bijstand per jaar, teruggerekend naar bruto: 1118.49",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17404.89",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1256.67",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 100.53",
+        "Loonbelasting en premies per maand: 485.20",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 194.67",
+        "U betaalt per maand aan belasting en premies: 30.95",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1326.25",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 16286.40",
+        "Bijstand per jaar, teruggerekend naar bruto: 1118.49",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17404.89",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > alleenstaande 36 uur 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 231 per maand omlaag (zorgtoeslag € 30, huurtoeslag € 201). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 231 te veel, en moet u na een jaar ongeveer € 2.772 terugbetalen.",
+    "[waarschuwing] Sleutelpas: Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens: ongeveer € 1.845 netto per maand).",
+    "[waarschuwing] Zorgverzekering en zwemmen: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.703 netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.",
+    "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
+    "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
+    "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
+    "[info] Opnieuw bijstand aanvragen: Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk en vraagt u binnen 12 maanden na het einde van uw bijstand opnieuw bijstand aan? Dan is aanvragen in Leiden makkelijker: de gemeente kan de gegevens gebruiken die ze al van u heeft.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 2429.86",
+        "Mag u houden: geen vrijlating toegepast: 0.00",
+        "Bijstand: € 1.419,46 − € 2.429,86 is minder dan nul, dus geen bijstand",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32348.16",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Min de correctie omdat het inkomen boven het minimum-inkomensijkpunt ligt: 200.77",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 193.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 2496.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 199.68",
+        "Loonbelasting en premies per maand: 963.71",
+        "Korting daarop: algemene heffingskorting per maand: 245.66",
+        "Korting daarop: arbeidskorting per maand: 452.23",
+        "U betaalt per maand aan belasting en premies: 265.82",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 2429.86",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32348.16",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 99.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neemt er werk bij 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing, actie] Vraag de vergoeding voor de opvang aan: Na de kinderopvangtoeslag betaalt u nog € 137 per maand voor de opvang. De gemeente Leiden kan dit deel vergoeden. Dat heet bijzondere bijstand. Voorwaarde: u heeft de opvang nodig om te kunnen werken. Hoeveel u krijgt, hangt af van uw inkomen. Hier is € 137 per maand meegerekend. Dit geldt ook als u door het werk geen bijstand meer krijgt. U krijgt de vergoeding niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.",
+    "[waarschuwing] Sleutelpas en Kindtegoed: Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens: ongeveer € 1.845 netto per maand). Het Kindtegoed van € 500 per jaar houdt u waarschijnlijk wel, tot ongeveer € 1.987 netto per maand.",
+    "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
+    "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
+    "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 577 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
+    "[info] Opnieuw bijstand aanvragen: Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk en vraagt u binnen 12 maanden na het einde van uw bijstand opnieuw bijstand aan? Dan is aanvragen in Leiden makkelijker: de gemeente kan de gegevens gebruiken die ze al van u heeft.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 2.190 netto per maand).",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bb_opvang": [
+        "Eigen bijdrage: kosten van de opvang min kinderopvangtoeslag: 137.00",
+        "Bijstandsnorm voor de bijzondere bijstand, zonder vakantietoeslag: 1733.76",
+        "Netto inkomen van u per maand (loon en bijstand), zonder vakantiegeld: 1409.84",
+        "Uw inkomen is niet hoger dan € 1.907,14 (110% van de norm). U hoeft zelf niets bij te dragen: 0.00",
+        "Vergoeding: eigen bijdrage min wat u zelf moet bijdragen: 137.00",
+      ],
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 648.00",
+        "Mag u houden: vrijlating alleenstaande ouder: 12,5% van het netto loon, maximaal € 180,17 per maand: 81.00",
+        "Bijstand: € 1.419,46 − (€ 648,00 − € 81,00) = € 852,46",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 7776.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 11073.18",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 396.00",
+      ],
+      "iack": [
+        "Combinatiekorting volgens de tabel, per maand: 14.67",
+        "Deel dat u terugkrijgt per maand (niet meer dan de belasting die u betaalt): 0.00",
+      ],
+      "kgb": [
+        "Bruto loon per jaar, met vakantiegeld: 7776.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 11073.18",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
+        "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 714.00",
+        "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
+      ],
+      "kinderbijslag": [
+        "Kind van 3 jaar: € 298,40 per kwartaal, per maand: 99.47",
+        "Kind van 9 jaar: € 362,35 per kwartaal, per maand: 120.78",
+        "Kinderbijslag telt niet mee voor uw bijstand en hangt niet af van uw inkomen. De SVB betaalt elk kwartaal. Hier ziet u een derde daarvan per maand.",
+        "Kinderbijslag per maand, alle kinderen samen: 220.25",
+      ],
+      "kot": [
+        "Bruto loon per jaar, met vakantiegeld: 7776.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 11073.18",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
+        "Eerste kind (3 jaar, 100 uur): 96% vergoed: 1078.08",
+        "Volgend kind (9 jaar, 40 uur): 96% vergoed: 345.60",
+        "Kinderopvangtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 1423.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 600.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 48.00",
+        "Loonbelasting en premies per maand: 231.66",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 53.94",
+        "U betaalt per maand aan belasting en premies: 0.00",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 648.00",
+      ],
+      "opvangkosten": [
+        "Uren × prijs per uur, alle kinderen samen: 1560.00",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 7776.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 11073.18",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bb_opvang": [
+        "Eigen bijdrage: kosten van de opvang min kinderopvangtoeslag: 137.00",
+        "Bijstandsnorm voor de bijzondere bijstand, zonder vakantietoeslag: 1733.76",
+        "Netto inkomen van u per maand (loon en bijstand), zonder vakantiegeld: 1745.59",
+        "Uw inkomen is niet hoger dan € 1.907,14 (110% van de norm). U hoeft zelf niets bij te dragen: 0.00",
+        "Vergoeding: eigen bijdrage min wat u zelf moet bijdragen: 137.00",
+      ],
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 1885.23",
+        "Mag u houden: vrijlating alleenstaande ouder: 12,5% van het netto loon, maximaal € 180,17 per maand: 180.17",
+        "Bijstand: € 1.419,46 − (€ 1.885,23 − € 180,17) is minder dan nul, dus geen bijstand",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 396.00",
+      ],
+      "iack": [
+        "Combinatiekorting volgens de tabel, per maand: 163.06",
+        "Deel dat u terugkrijgt per maand (niet meer dan de belasting die u betaalt): 58.77",
+      ],
+      "kgb": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
+        "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 714.00",
+        "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
+      ],
+      "kinderbijslag": [
+        "Kind van 3 jaar: € 298,40 per kwartaal, per maand: 99.47",
+        "Kind van 9 jaar: € 362,35 per kwartaal, per maand: 120.78",
+        "Kinderbijslag telt niet mee voor uw bijstand en hangt niet af van uw inkomen. De SVB betaalt elk kwartaal. Hier ziet u een derde daarvan per maand.",
+        "Kinderbijslag per maand, alle kinderen samen: 220.25",
+      ],
+      "kot": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
+        "Eerste kind (3 jaar, 100 uur): 96% vergoed: 1078.08",
+        "Volgend kind (9 jaar, 40 uur): 96% vergoed: 345.60",
+        "Kinderopvangtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 1423.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1800.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 144.00",
+        "Loonbelasting en premies per maand: 694.98",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 376.63",
+        "U betaalt per maand aan belasting en premies: 58.77",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1885.23",
+        "Waarvan het extra werk, bruto per maand (zonder vakantiegeld): 600.00",
+      ],
+      "opvangkosten": [
+        "Uren × prijs per uur, alle kinderen samen: 1560.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > alleenstaande ouder, kind 4 met opvang 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing, actie] Vraag de vergoeding voor de opvang aan: Na de kinderopvangtoeslag betaalt u nog € 36 per maand voor de opvang. De gemeente Leiden kan dit deel vergoeden. Dat heet bijzondere bijstand. Voorwaarde: u heeft de opvang nodig om te kunnen werken. Hoeveel u krijgt, hangt af van uw inkomen. Hier is € 36 per maand meegerekend. Dit geldt ook als u door het werk geen bijstand meer krijgt. U krijgt de vergoeding niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.",
+    "[info] Sleutelpas en Kindtegoed: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden. Voor uw kind krijgt u dan ook Kindtegoed: € 350 per jaar voor schoolspullen, sport en cultuur.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 2.190 netto per maand).",
+    "[info] Gratis OV-pas: Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 577 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 690.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 124.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 422.00",
+      ],
+      "kgb": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 499.00",
+        "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
+      ],
+      "kinderbijslag": [
+        "Kind van 4 jaar: € 298,40 per kwartaal, per maand: 99.47",
+        "Kinderbijslag telt niet mee voor uw bijstand en hangt niet af van uw inkomen. De SVB betaalt elk kwartaal. Hier ziet u een derde daarvan per maand.",
+        "Kinderbijslag per maand, alle kinderen samen: 99.47",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bb_opvang": [
+        "Eigen bijdrage: kosten van de opvang min kinderopvangtoeslag: 36.00",
+        "Bijstandsnorm voor de bijzondere bijstand, zonder vakantietoeslag: 1733.76",
+        "Netto inkomen van u per maand (loon en bijstand), zonder vakantiegeld: 1583.60",
+        "Uw inkomen is niet hoger dan € 1.907,14 (110% van de norm). U hoeft zelf niets bij te dragen: 0.00",
+        "Vergoeding: eigen bijdrage min wat u zelf moet bijdragen: 36.00",
+      ],
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 1638.32",
+        "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 289.00",
+        "Bijstand: € 1.419,46 − (€ 1.638,32 − € 289,00) = € 70,14",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 20217.60",
+        "Bijstand per jaar, teruggerekend naar bruto: 841.66",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 690.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 124.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 422.00",
+      ],
+      "iack": [
+        "Combinatiekorting volgens de tabel, per maand: 133.38",
+        "Deel dat u terugkrijgt per maand (niet meer dan de belasting die u betaalt): 46.48",
+      ],
+      "kgb": [
+        "Bruto loon per jaar, met vakantiegeld: 20217.60",
+        "Bijstand per jaar, teruggerekend naar bruto: 841.66",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 499.00",
+        "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
+      ],
+      "kinderbijslag": [
+        "Kind van 4 jaar: € 298,40 per kwartaal, per maand: 99.47",
+        "Kinderbijslag telt niet mee voor uw bijstand en hangt niet af van uw inkomen. De SVB betaalt elk kwartaal. Hier ziet u een derde daarvan per maand.",
+        "Kinderbijslag per maand, alle kinderen samen: 99.47",
+      ],
+      "kot": [
+        "Bruto loon per jaar, met vakantiegeld: 20217.60",
+        "Bijstand per jaar, teruggerekend naar bruto: 841.66",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Eerste kind (4 jaar, 80 uur): 96% vergoed: 844.80",
+        "Kinderopvangtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 844.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1560.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 124.80",
+        "Loonbelasting en premies per maand: 602.32",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 296.25",
+        "U betaalt per maand aan belasting en premies: 46.48",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1638.32",
+      ],
+      "opvangkosten": [
+        "Uren × prijs per uur, alle kinderen samen: 880.00",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 20217.60",
+        "Bijstand per jaar, teruggerekend naar bruto: 841.66",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > alleenstaande ouder, maand 7-36 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[info] Sleutelpas en Kindtegoed: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden. Voor uw kind krijgt u dan ook Kindtegoed: € 350 per jaar voor schoolspullen, sport en cultuur.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 2.190 netto per maand).",
+    "[info] Gratis OV-pas: Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 577 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 396.00",
+      ],
+      "kgb": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 499.00",
+        "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
+      ],
+      "kinderbijslag": [
+        "Kind van 7 jaar: € 362,35 per kwartaal, per maand: 120.78",
+        "Kinderbijslag telt niet mee voor uw bijstand en hangt niet af van uw inkomen. De SVB betaalt elk kwartaal. Hier ziet u een derde daarvan per maand.",
+        "Kinderbijslag per maand, alle kinderen samen: 120.78",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 1473.71",
+        "Mag u houden: vrijlating alleenstaande ouder: 12,5% van het netto loon, maximaal € 180,17 per maand: 180.17",
+        "Bijstand: € 1.419,46 − (€ 1.473,71 − € 180,17) = € 125,92",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 18144.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 1510.99",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19654.99",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 396.00",
+      ],
+      "iack": [
+        "Combinatiekorting volgens de tabel, per maand: 113.59",
+        "Deel dat u terugkrijgt per maand (niet meer dan de belasting die u betaalt): 38.29",
+      ],
+      "kgb": [
+        "Bruto loon per jaar, met vakantiegeld: 18144.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 1510.99",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19654.99",
+        "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 499.00",
+        "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
+      ],
+      "kinderbijslag": [
+        "Kind van 7 jaar: € 362,35 per kwartaal, per maand: 120.78",
+        "Kinderbijslag telt niet mee voor uw bijstand en hangt niet af van uw inkomen. De SVB betaalt elk kwartaal. Hier ziet u een derde daarvan per maand.",
+        "Kinderbijslag per maand, alle kinderen samen: 120.78",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1400.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 112.00",
+        "Loonbelasting en premies per maand: 540.54",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 242.67",
+        "U betaalt per maand aan belasting en premies: 38.29",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1473.71",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 18144.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 1510.99",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19654.99",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > geen vaste woonplek, medische urenbeperking, na maand 6 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.241 netto per maand).",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "U betaalt geen woonkosten en geen kosten voor gas, licht en water. De gemeente verlaagt de norm met 19% van de gehuwdennorm: -385.28",
+        "Uw norm. Zonder inkomen krijgt u de hele norm: 1034.18",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 14467.17",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "U betaalt geen woonkosten en geen kosten voor gas, licht en water. De gemeente verlaagt de norm met 19% van de gehuwdennorm: -385.28",
+        "Uw norm: 1034.18",
+        "Uw netto loon: 756.00",
+        "Mag u houden: vrijlating bij een medische urenbeperking: 15% van het netto loon, maximaal € 182,73 per maand: 113.40",
+        "Bijstand: € 1.034,18 − (€ 756,00 − € 113,40) = € 391,58",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 700.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 56.00",
+        "Loonbelasting en premies per maand: 270.27",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 62.93",
+        "U betaalt per maand aan belasting en premies: 0.00",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 756.00",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 9072.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 4698.96",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 13770.96",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > hoog loon per 4 weken, bijstand stopt 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 372 per maand omlaag (zorgtoeslag € 78, huurtoeslag € 294). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 372 te veel, en moet u na een jaar ongeveer € 4.464 terugbetalen.",
+    "[waarschuwing] Sleutelpas: Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens: ongeveer € 1.845 netto per maand).",
+    "[waarschuwing] Zorgverzekering en zwemmen: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.703 netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.",
+    "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
+    "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
+    "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
+    "[info] Opnieuw bijstand aanvragen: Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk en vraagt u binnen 12 maanden na het einde van uw bijstand opnieuw bijstand aan? Dan is aanvragen in Leiden makkelijker: de gemeente kan de gegevens gebruiken die ze al van u heeft.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 2636.97",
+        "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 289.00",
+        "Bijstand: € 1.419,46 − (€ 2.636,97 − € 289,00) is minder dan nul, dus geen bijstand",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 36504.00",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Min de correctie omdat het inkomen boven het minimum-inkomensijkpunt ligt: 294.28",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 100.00",
+      ],
+      "loon": [
+        "Bruto loon per 4 weken: 2600.00",
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 2816.67",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 225.33",
+        "Loonbelasting en premies per maand: 1087.52",
+        "Korting daarop: algemene heffingskorting per maand: 223.50",
+        "Korting daarop: arbeidskorting per maand: 458.99",
+        "U betaalt per maand aan belasting en premies: 405.03",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 2636.97",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 36504.00",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 51.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > kamer, ander inkomen, kosten met vergoeding 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+    "Als u de voordeur, keuken, wc of douche deelt, bijvoorbeeld op een kamer, krijgt u meestal geen huurtoeslag. Daarom is die niet meegerekend. Voor sommige kamers kan het wel; dat ziet u met de proefberekening van Dienst Toeslagen.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
+    "[info] Gratis OV-pas: Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "ander_inkomen": [
+        "Uw andere inkomen per maand, zoals u het invulde (netto): 100.00",
+      ],
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw andere inkomen. Dit gaat helemaal van de bijstand af: 100.00",
+        "Bijstand: € 1.419,46 − € 100,00 = € 1.319,46",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "ander_inkomen": [
+        "Uw andere inkomen per maand, zoals u het invulde (netto): 100.00",
+      ],
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 1303.96",
+        "Uw andere inkomen. Dit gaat helemaal van de bijstand af: 100.00",
+        "Mag u houden: vanaf maand 7 geen vrijlating meer: 0.00",
+        "Bijstand: € 1.419,46 − € 1.403,96 = € 15,50",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1235.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 98.80",
+        "Loonbelasting en premies per maand: 476.83",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 187.41",
+        "U betaalt per maand aan belasting en premies: 29.84",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1303.96",
+      ],
+      "reisvergoeding": [],
+      "werkkosten": [
+        "Reiskosten plus overige kosten per maand: 50.00",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 16005.60",
+        "Bijstand en ander inkomen per jaar, teruggerekend naar bruto: 1385.97",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17391.57",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > kostendeler, geen huur 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing] Sleutelpas: Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens: ongeveer € 1.318 netto per maand).",
+    "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
+    "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
+    "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
+    "[info] Opnieuw bijstand aanvragen: Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk en vraagt u binnen 12 maanden na het einde van uw bijstand opnieuw bijstand aan? Dan is aanvragen in Leiden makkelijker: de gemeente kan de gegevens gebruiken die ze al van u heeft.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Kostendelersnorm: u deelt de kosten met 1 huisgenoot van 27 jaar of ouder. Dat is 50% van de norm voor partners. Zonder inkomen krijgt u de hele norm: 1013.90",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 14088.31",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Kostendelersnorm: u deelt de kosten met 1 huisgenoot van 27 jaar of ouder. Dat is 50% van de norm voor partners: 1013.90",
+        "Uw netto loon: 1638.32",
+        "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 289.00",
+        "Bijstand: € 1.013,90 − (€ 1.638,32 − € 289,00) is minder dan nul, dus geen bijstand",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1560.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 124.80",
+        "Loonbelasting en premies per maand: 602.32",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 296.25",
+        "U betaalt per maand aan belasting en premies: 46.48",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1638.32",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20217.60",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > netto maandloon 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing] Zorgverzekering en zwemmen: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.703 netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.",
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Gratis OV-pas: Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 1188.00",
+        "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 289.00",
+        "Bijstand: € 1.419,46 − (€ 1.188,00 − € 289,00) = € 520,46",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 14544.75",
+        "Bijstand per jaar, teruggerekend naar bruto: 6245.57",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20790.32",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "loon": [
+        "Netto maandloon dat u invulde (zonder vakantiegeld): 1100.00",
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1122.28",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 89.78",
+        "Loonbelasting en premies per maand: 433.31",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 149.66",
+        "U betaalt per maand aan belasting en premies: 24.07",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1188.00",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 14544.75",
+        "Bijstand per jaar, teruggerekend naar bruto: 6245.57",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20790.32",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > paar met kostendeler en jonge huisgenoot, huur 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 2.433 netto per maand).",
+    "[info] Gratis OV-pas: Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 635 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Kostendelersnorm: u en uw partner delen de kosten met 1 huisgenoot van 27 jaar of ouder. Dat is 43,33% van de norm voor partners, per partner. Zonder inkomen krijgt u de hele norm: 1757.42",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 27975.12",
+        "Plus het jaarinkomen van de anderen in huis (dit telt mee voor de huurtoeslag): 18000.00",
+        "Rekeninkomen: het inkomen van iedereen in huis samen: 45975.12",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Min de correctie omdat het inkomen boven het minimum-inkomensijkpunt ligt: 265.38",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 130.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 27975.12",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 246.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Kostendelersnorm: u en uw partner delen de kosten met 1 huisgenoot van 27 jaar of ouder. Dat is 43,33% van de norm voor partners, per partner: 1757.42",
+        "Uw netto loon: 1370.83",
+        "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 289.00",
+        "Bijstand: € 1.757,42 − (€ 1.370,83 − € 289,00) = € 675,58",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 16848.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 8107.01",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 24955.01",
+        "Plus het jaarinkomen van de anderen in huis (dit telt mee voor de huurtoeslag): 18000.00",
+        "Rekeninkomen: het inkomen van iedereen in huis samen: 42955.01",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Min de correctie omdat het inkomen boven het minimum-inkomensijkpunt ligt: 210.01",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 186.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1300.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 104.00",
+        "Loonbelasting en premies per maand: 501.93",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 209.18",
+        "U betaalt per maand aan belasting en premies: 33.17",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1370.83",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 16848.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 8107.01",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 24955.01",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 246.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > paar met opvang, partner werkt niet 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing] Kinderopvang is niet meegerekend: U vulde in dat uw partner niet werkt. Kinderopvangtoeslag krijgt u alleen als u en uw partner allebei werken, of een opleiding, een inburgeringscursus of een traject naar werk volgen. Daarom zijn de toeslag en de kosten van de opvang niet meegerekend. Volgt uw partner een opleiding of een traject? Kijk dan bij de proefberekening van Dienst Toeslagen.",
+    "[info] Sleutelpas en Kindtegoed: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden. Voor uw kind krijgt u dan ook Kindtegoed: € 150 per jaar voor schoolspullen, sport en cultuur.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 2.433 netto per maand).",
+    "[info] Gratis OV-pas: Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 635 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor gehuwden of samenwonenden. Zonder inkomen krijgt u de hele norm: 2027.79",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 33388.60",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Min de correctie omdat het inkomen boven het minimum-inkomensijkpunt ligt: 34.62",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 361.00",
+      ],
+      "kgb": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 33388.60",
+        "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 215.00",
+        "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
+      ],
+      "kinderbijslag": [
+        "Kind van 2 jaar: € 298,40 per kwartaal, per maand: 99.47",
+        "Kinderbijslag telt niet mee voor uw bijstand en hangt niet af van uw inkomen. De SVB betaalt elk kwartaal. Hier ziet u een derde daarvan per maand.",
+        "Kinderbijslag per maand, alle kinderen samen: 99.47",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 33388.60",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 205.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor gehuwden of samenwonenden: 2027.79",
+        "Uw netto loon: 1576.59",
+        "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 289.00",
+        "Bijstand: € 2.027,79 − (€ 1.576,59 − € 289,00) = € 740,20",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 19440.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 8976.43",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 28416.43",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 396.00",
+      ],
+      "kgb": [
+        "Bruto loon per jaar, met vakantiegeld: 19440.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 8976.43",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 28416.43",
+        "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 215.00",
+        "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
+      ],
+      "kinderbijslag": [
+        "Kind van 2 jaar: € 298,40 per kwartaal, per maand: 99.47",
+        "Kinderbijslag telt niet mee voor uw bijstand en hangt niet af van uw inkomen. De SVB betaalt elk kwartaal. Hier ziet u een derde daarvan per maand.",
+        "Kinderbijslag per maand, alle kinderen samen: 99.47",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1500.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 120.00",
+        "Loonbelasting en premies per maand: 579.15",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 276.16",
+        "U betaalt per maand aan belasting en premies: 43.41",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1576.59",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 19440.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 8976.43",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 28416.43",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 246.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > paar met twee kinderen, partner werkt 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 46 per maand omlaag (zorgtoeslag € 30, huurtoeslag € 16). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 46 te veel, en moet u na een jaar ongeveer € 552 terugbetalen.",
+    "[waarschuwing] Sleutelpas en Kindtegoed: Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens: ongeveer € 2.636 netto per maand). Het Kindtegoed van € 900 per jaar houdt u waarschijnlijk wel, tot ongeveer € 2.839 netto per maand.",
+    "[waarschuwing] Zorgverzekering en zwemmen: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 2.433 netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.",
+    "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
+    "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
+    "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 635 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
+    "[info] Opnieuw bijstand aanvragen: Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk en vraagt u binnen 12 maanden na het einde van uw bijstand opnieuw bijstand aan? Dan is aanvragen in Leiden makkelijker: de gemeente kan de gegevens gebruiken die ze al van u heeft.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor gehuwden of samenwonenden: 2027.79",
+        "Netto loon van uw partner: 965.00",
+        "Bijstand: € 2.027,79 − € 965,00 = € 1.062,79",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 11664.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 15001.48",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 26665.48",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 780.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 172.86",
+        "Deel C: het deel boven de aftoppingsgrens, 40% vergoed: 6.34",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 476.00",
+      ],
+      "kgb": [
+        "Bruto loon per jaar, met vakantiegeld: 11664.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 15001.48",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 26665.48",
+        "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 490.00",
+        "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
+      ],
+      "kinderbijslag": [
+        "Kind van 13 jaar: € 426,29 per kwartaal, per maand: 142.10",
+        "Kind van 8 jaar: € 362,35 per kwartaal, per maand: 120.78",
+        "Kinderbijslag telt niet mee voor uw bijstand en hangt niet af van uw inkomen. De SVB betaalt elk kwartaal. Hier ziet u een derde daarvan per maand.",
+        "Kinderbijslag per maand, alle kinderen samen: 262.88",
+      ],
+      "loon_partner": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 900.00",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 965.00",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 11664.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 15001.48",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 26665.48",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 246.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor gehuwden of samenwonenden: 2027.79",
+        "Uw netto loon: 1679.47",
+        "Netto loon van uw partner: 965.00",
+        "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 289.00",
+        "Bijstand: € 2.027,79 − (€ 2.644,48 − € 289,00) is minder dan nul, dus geen bijstand",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32400.00",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 780.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 200.71",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 172.86",
+        "Deel C: het deel boven de aftoppingsgrens, 40% vergoed: 6.34",
+        "Min de correctie omdat het inkomen boven het minimum-inkomensijkpunt ligt: 16.50",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 460.00",
+      ],
+      "kgb": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32400.00",
+        "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 490.00",
+        "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
+      ],
+      "kinderbijslag": [
+        "Kind van 13 jaar: € 426,29 per kwartaal, per maand: 142.10",
+        "Kind van 8 jaar: € 362,35 per kwartaal, per maand: 120.78",
+        "Kinderbijslag telt niet mee voor uw bijstand en hangt niet af van uw inkomen. De SVB betaalt elk kwartaal. Hier ziet u een derde daarvan per maand.",
+        "Kinderbijslag per maand, alle kinderen samen: 262.88",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1600.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 128.00",
+        "Loonbelasting en premies per maand: 617.76",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 309.65",
+        "U betaalt per maand aan belasting en premies: 48.53",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1679.47",
+      ],
+      "loon_partner": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 900.00",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 965.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32400.00",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 216.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > uitzendkracht vierwekenloon 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing] Zorgverzekering en zwemmen: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.703 netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.",
+    "[waarschuwing] Loon per 4 weken: U krijgt 13 keer per jaar loon. Eén keer per jaar krijgt u twee keer loon in dezelfde maand. In die maand krijgt u waarschijnlijk minder of geen bijstand, omdat de gemeente per maand kijkt wat u verdiende.",
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Gratis OV-pas: Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+    "[info] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 1538.01",
+        "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 289.00",
+        "Bijstand: € 1.419,46 − (€ 1.538,01 − € 289,00) = € 170,45",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 18954.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 2045.36",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20999.36",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "loon": [
+        "Bruto loon per 4 weken: 1350.00",
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1462.50",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 117.00",
+        "Loonbelasting en premies per maand: 564.67",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 263.60",
+        "U betaalt per maand aan belasting en premies: 41.49",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1538.01",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 18954.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 2045.36",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20999.36",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > werkt al, breidt uit 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
+    "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
+    "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
+    "[info] Opnieuw bijstand aanvragen: Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk en vraagt u binnen 12 maanden na het einde van uw bijstand opnieuw bijstand aan? Dan is aanvragen in Leiden makkelijker: de gemeente kan de gegevens gebruiken die ze al van u heeft.",
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Zorgverzekering en zwemmen: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 648.00",
+        "Mag u houden: geen vrijlating toegepast: 0.00",
+        "Bijstand: € 1.419,46 − € 648,00 = € 771,46",
+      ],
+      "huurtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 7776.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 9560.34",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17336.34",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 600.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 48.00",
+        "Loonbelasting en premies per maand: 231.66",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 53.94",
+        "U betaalt per maand aan belasting en premies: 0.00",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 648.00",
+      ],
+      "zorgtoeslag": [
+        "Bruto loon per jaar, met vakantiegeld: 7776.00",
+        "Bijstand per jaar, teruggerekend naar bruto: 9560.34",
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17336.34",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm voor een alleenstaande (ouder): 1419.46",
+        "Uw netto loon: 1576.59",
+        "Mag u houden: geen vrijlating toegepast: 0.00",
+        "Bijstand: € 1.419,46 − € 1.576,59 is minder dan nul, dus geen bijstand",
+      ],
+      "huurtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19440.00",
+        "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
+        "Basishuur: dit deel betaalt u altijd zelf: 202.52",
+        "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
+        "Deel B: het deel tot de aftoppingsgrens, 65% vergoed: 98.67",
+        "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1500.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 120.00",
+        "Loonbelasting en premies per maand: 579.15",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 276.16",
+        "U betaalt per maand aan belasting en premies: 43.41",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 1576.59",
+      ],
+      "werkkosten": [
+        "Reiskosten plus overige kosten per maand: 40.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19440.00",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;
+
+exports[`snapshots van de uitleg > woonvorm met begeleiding 1`] = `
+{
+  "aannames": [
+    "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
+    "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
+    "Er is aangenomen dat u voor uw verblijf in de instelling of woonvorm niets betaalt, ook niet als u gaat werken.",
+  ],
+  "betrouwbaarheid": {
+    "niveau": "goed",
+    "richting": "geen",
+    "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
+  },
+  "meldingen": [
+    "[waarschuwing] Zorgverzekering en zwemmen: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 596 netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.",
+    "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
+    "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
+    "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
+    "[info] Opnieuw bijstand aanvragen: Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk en vraagt u binnen 12 maanden na het einde van uw bijstand opnieuw bijstand aan? Dan is aanvragen in Leiden makkelijker: de gemeente kan de gegevens gebruiken die ze al van u heeft.",
+    "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
+    "[info] Als u later zelfstandig woont: Dit geldt zolang u in de instelling of woonvorm woont. Woont u later zelfstandig, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm. U betaalt dan zelf huur en boodschappen, en misschien krijgt u huurtoeslag. Reken dan opnieuw.",
+  ],
+  "nietMeegenomen": [],
+  "stappen": {
+    "huidig": {
+      "bijstand": [
+        "Norm bij verblijf in een instelling. Zonder inkomen krijgt u de hele norm: 496.44",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 5957.28",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+    "werk": {
+      "bijstand": [
+        "Norm bij verblijf in een instelling: 496.44",
+        "Uw netto loon: 965.00",
+        "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 241.25",
+        "Bijstand: € 496,44 − (€ 965,00 − € 241,25) is minder dan nul, dus geen bijstand",
+      ],
+      "loon": [
+        "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 900.00",
+        "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 72.00",
+        "Loonbelasting en premies per maand: 347.49",
+        "Korting daarop: algemene heffingskorting per maand: 259.58",
+        "Korting daarop: arbeidskorting per maand: 80.91",
+        "U betaalt per maand aan belasting en premies: 7.00",
+        "Netto per maand (gemiddeld, inclusief vakantiegeld): 965.00",
+      ],
+      "zorgtoeslag": [
+        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 11664.00",
+        "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
+      ],
+    },
+  },
+}
+`;

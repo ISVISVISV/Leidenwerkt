@@ -598,7 +598,11 @@ export function betrouwbaarheid(nietMeegenomen: Resultaat["nietMeegenomen"], zek
   }
   const dalers = relevant.filter((n) => n.richting === "daalt");
   const stijgers = relevant.filter((n) => n.richting === "stijgt");
-  const namen = (l: typeof relevant) => l.map((n) => n.label.toLowerCase()).join(" en ");
+  // "a, b en c"
+  const namen = (l: typeof relevant) => {
+    const n = l.map((x) => x.label.toLowerCase());
+    return n.length > 1 ? `${n.slice(0, -1).join(", ")} en ${n[n.length - 1]}` : (n[0] ?? "");
+  };
   if (dalers.length > 0 && stijgers.length === 0) {
     return {
       niveau: "beperkt",
@@ -824,6 +828,16 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       bron: CITATEN.pw23inrichting,
       tekst:
         "Dit geldt zolang u in de instelling of woonvorm woont. Woont u later zelfstandig, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm. U betaalt dan zelf huur en boodschappen, en misschien krijgt u huurtoeslag. Reken dan opnieuw.",
+    });
+  }
+  // Partner werkt niet: dan rekent de app de opvang niet mee. Dat moet de gebruiker weten.
+  if (invoer.leefvorm === "paar" && invoer.kinderen.some((k) => k.opvang && k.opvang.urenPerMaand > 0) && !werk.posten.some((p) => p.id === "kot")) {
+    uit.push({
+      soort: "waarschuwing",
+      kop: "Kinderopvang is niet meegerekend",
+      bron: CITATEN.kotBeidenWerken,
+      tekst:
+        "U vulde in dat uw partner niet werkt. Kinderopvangtoeslag krijgt u alleen als u en uw partner allebei werken, of een opleiding, een inburgeringscursus of een traject naar werk volgen. Daarom zijn de toeslag en de kosten van de opvang niet meegerekend. Volgt uw partner een opleiding of een traject? Kijk dan bij de proefberekening van Dienst Toeslagen.",
     });
   }
   // Alleen als er bijstand overblijft: zonder bijstand valt er niets te verrekenen.

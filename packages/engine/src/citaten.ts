@@ -73,6 +73,12 @@ export const CITATEN = {
     tekst:
       "Een zelfstandige woonruimte heeft in ieder geval een eigen toegangsdeur die op slot kan, keuken en wc. En sinds 1 maart 2024 moet de woning ook een eigen wasgelegenheid met douche of bad hebben.",
   },
+  kotBeidenWerken: {
+    titel: "Dienst Toeslagen, Kan ik kinderopvangtoeslag krijgen?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/kinderopvangtoeslag/content/kan-ik-kinderopvangtoeslag-krijgen",
+    versie: "geraadpleegd op 10 november 2026",
+    tekst: "U en uw partner werken of volgen een opleiding, een inburgeringscursus of een traject naar werk",
+  },
   bbKinderopvang: {
     titel: "Leiden, beleidsregels bijzondere bijstand 2022, toelichting bij art. 7 onder f",
     url: "https://lokaleregelgeving.overheid.nl/CVDR677687",
