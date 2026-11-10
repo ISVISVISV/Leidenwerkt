@@ -173,15 +173,16 @@ function Start({ onStart }: { onStart: () => void }) {
       </p>
       <p>U heeft nodig:</p>
       <ul>
-        <li>het bruto loon (per maand, per 4 weken of per uur) en het aantal uren van het werk dat u overweegt;</li>
+        <li>het loon van het werk dat u overweegt (bruto of netto, per maand, per 4 weken of per uur) en het aantal uren per week;</li>
         <li>uw huur per maand, als u huurt;</li>
-        <li>de geboortedatums van uw kinderen, als u kinderen heeft.</li>
+        <li>de geboortedatums van uw kinderen, als u kinderen heeft;</li>
+        <li>als uw kinderen naar de opvang gaan: het aantal uren per week en de prijs per uur, als u die weet.</li>
       </ul>
       <button type="button" className="hoofdknop" onClick={onStart}>
         Begin met rekenen
       </button>
       <p className="klein">
-        Deze rekenhulp is voor inwoners van Leiden van 21 jaar tot de AOW-leeftijd met algemene bijstand.
+        Deze rekenhulp is voor inwoners van Leiden van 21 jaar tot de AOW-leeftijd met algemene bijstand, ook als u geen vast adres heeft.
       </p>
     </section>
   );
@@ -422,12 +423,11 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         legend="Woont u samen met een partner?"
         hint={
           <>
-            <p>Een partner is uw man of vrouw, of iemand met wie u samenwoont en de kosten van het huishouden deelt.</p>
             <p>
-              Dat hoeft geen liefdesrelatie te zijn. Woont u samen en zorgt u voor elkaar, bijvoorbeeld door samen de boodschappen of de
-              rekeningen te betalen? Dan ziet de gemeente u meestal als partners. Uw ouder of kind is nooit uw partner. Woont iemand bij u
-              omdat u voor hem of haar zorgt, of andersom? Dan ook niet. De gemeente beslist.
+              Een partner is uw man of vrouw, of iemand met wie u samenwoont en voor elkaar zorgt. Bijvoorbeeld doordat u samen de boodschappen
+              of de rekeningen betaalt. Dat hoeft geen liefdesrelatie te zijn.
             </p>
+            <p>Niet uw partner: uw ouder, uw kind, de partner van uw ouder, of iemand die bij u woont omdat een van u zorg nodig heeft.</p>
             <p className="bron-blok">
               Bron: <Bron citaat={CITATEN.pw3} />
             </p>
@@ -443,7 +443,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
       <Keuze
         naam="heeftKinderen"
         legend="Heeft u kinderen die bij u wonen?"
-        hint="Kinderen tot en met 26 jaar. Een kind van 27 jaar of ouder telt u bij stap 2 mee als andere bewoner."
+        hint="Alleen kinderen jonger dan 27 jaar. Woont er een kind van 27 jaar of ouder bij u? Dat vult u bij de volgende stap in, bij de andere bewoners."
         waarde={f.leefvorm === "alleenstaande_ouder" || f.kinderen.length > 0 ? "ja" : "nee"}
         onChange={(v) => {
           if (v === "ja") {
@@ -528,7 +528,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                       ["gastouder", "Gastouder"],
                     ]}
                   />
-                  <Veld id={`kind${i}uren`} label="Uren opvang per maand" voorbeeld="bijv. 60" hint={maxOpvanguren() ? `Hoogstens ${maxOpvanguren()} uur per kind. Over meer uren krijgt u geen kinderopvangtoeslag.` : undefined} waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
+                  <Veld id={`kind${i}uren`} label="Hoeveel uur per week gaat dit kind naar de opvang?" voorbeeld="bijv. 16" hint={`De rekenhulp rekent dit om naar uren per maand.${maxOpvanguren() ? ` U krijgt kinderopvangtoeslag over hoogstens ${maxOpvanguren()} uur per maand, ongeveer ${Math.floor((maxOpvanguren()! * 12) / 52)} uur per week. Over meer uren betaalt u alles zelf.` : ""}`} waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
                   <Veld
                     id={`kind${i}prijs`}
                     voorbeeld={`bijv. ${(k.soort && maxPrijsTekst(k.soort)) || "11,00"}`}
@@ -689,7 +689,7 @@ function StapWoning({ f, zet, fouten }: StapProps) {
               ? `Wonen er nog andere mensen van 18 jaar of ouder bij u in huis, naast uw ${f.leefvorm === "paar" ? (f.kinderen.length > 0 ? "partner en kinderen" : "partner") : "kinderen"}?`
               : "Wonen er nog andere mensen van 18 jaar of ouder bij u in huis?"
           }
-          hint="Bijvoorbeeld uw ouders, een broer of zus, een vriend of een eigen kind van 27 jaar of ouder. Wonen er meer volwassenen in huis? Dan kan uw bijstand lager zijn, omdat u de kosten kunt delen."
+          hint="Bijvoorbeeld uw ouders, een broer of zus, een vriend, een huisgenoot, iemand die een kamer van u huurt, of een eigen kind van 27 jaar of ouder. Wonen er meer volwassenen in huis? Dan kan uw bijstand lager zijn, omdat u de kosten kunt delen."
           waarde={f.andereBewoners ? "ja" : "nee"}
           onChange={(v) => zet("andereBewoners", v === "ja")}
           opties={[
@@ -777,7 +777,7 @@ function LoonVelden({
 }) {
   const loonId = prefix === "nu" ? "nuLoon" : "loon";
   const urenId = prefix === "nu" ? "nuUren" : "uren";
-  const voor = per === "uur" ? "" : " voor deze uren";
+  const voor = per === "uur" ? "" : prefix === "nu" ? " voor de uren die u nu werkt" : " voor deze uren";
   return (
     <>
       <Veld
@@ -899,6 +899,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
       <Keuze
         naam="medisch"
         legend="Heeft de gemeente vastgesteld dat u door uw gezondheid minder uren kunt werken?"
+        hint="Dit gaat over uzelf. De gemeente stelt dit vast na een medisch advies, en u heeft daar dan een brief over gekregen. Weet u het niet? Kies dan het eerste antwoord. Vraag het uw contactpersoon bij de gemeente."
         waarde={f.medisch ? "ja" : "nee"}
         onChange={(v) => zet("medisch", v === "ja")}
         opties={[

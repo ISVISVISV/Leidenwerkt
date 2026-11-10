@@ -240,23 +240,14 @@ export function controleer(f: Formulier, stap: number): Fouten {
     };
     geboren("geboren", f.geboren, 21, 66, "Deze rekenhulp werkt voor mensen van 21 tot 67 jaar.");
     if (f.leefvorm === "paar") geboren("partnerGeboren", f.partnerGeboren, 21, 66, "Uw partner moet 21 tot 67 jaar zijn.");
-    const maxOpvang = maxOpvanguren();
     if (f.leefvorm === "paar" && f.partnerWerkt) moet("partnerBruto", f.partnerBruto, 1, 20000, "Vul een bruto maandloon in.");
     if (f.leefvorm === "alleenstaande_ouder" && f.kinderen.length === 0) fouten.kinderen = "Voeg minstens één kind toe.";
     f.kinderen.forEach((k, i) => {
-      geboren(`kind${i}`, k.geboren, 0, 26, "Dit kind is 27 jaar of ouder. Haal het hier weg en tel het hieronder mee als huisgenoot.");
+      geboren(`kind${i}`, k.geboren, 0, 26, "Dit kind is 27 jaar of ouder. Haal het hier weg en vul het bij de volgende stap in, bij de andere bewoners.");
       if (k.opvang) {
         if (!k.soort) fouten[`soort${i}`] = "Kies de soort opvang.";
-        // Zonder bekende grens: hoogstens het aantal uren in een maand.
-        moet(
-          `kind${i}uren`,
-          k.uren,
-          1,
-          maxOpvang ?? 744,
-          maxOpvang
-            ? `Vul 1 tot ${maxOpvang} uur per maand in. U krijgt kinderopvangtoeslag over hoogstens ${maxOpvang} uur per kind per maand. Heeft u meer uren? Vul dan ${maxOpvang} in.`
-            : "Vul het aantal uren per maand in.",
-        );
+        // Uren per week; boven het maximum van de toeslag rekent de rekenkern de kosten wel, de toeslag niet.
+        moet(`kind${i}uren`, k.uren, 1, 60, "Vul het aantal uur per week in, van 1 tot en met 60.");
         moet(`kind${i}prijs`, k.uurprijs, 1, 30, "Vul een prijs per uur in, bijvoorbeeld 11,50. Weet u het niet? Laat het vak dan leeg.", false);
       }
     });
@@ -323,6 +314,9 @@ export function ingevuldLoon(f: Formulier): { bedrag: string; per: LoonPer; allI
   return nu ? { bedrag, per: f.nuPer, allIn: f.nuAllIn } : { bedrag, per: f.per, allIn: f.allIn };
 }
 
+/** Uren opvang per week omgerekend naar een maand: 52 weken verdeeld over 12 maanden, op twee decimalen. */
+export const urenPerMaand = (perWeek: number) => Math.round(((perWeek * 52) / 12) * 100) / 100;
+
 /** Er is minstens één kind met opvang ingevuld. */
 export function heeftOpvang(f: Formulier): boolean {
   return f.kinderen.some((k) => k.opvang);
@@ -342,7 +336,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     return {
       leeftijd: leeftijdOp(k.geboren, opties.datum) ?? 0,
       opvang: k.opvang
-        ? { soort: k.soort || "dagopvang", urenPerMaand: getal(k.uren) ?? 0, uurprijs: geschat ? maxUurprijs(l, k.soort || "dagopvang") : prijs, uurprijsGeschat: geschat || undefined }
+        ? { soort: k.soort || "dagopvang", urenPerMaand: urenPerMaand(getal(k.uren) ?? 0), uurprijs: geschat ? maxUurprijs(l, k.soort || "dagopvang") : prijs, uurprijsGeschat: geschat || undefined }
         : undefined,
     };
   });
@@ -453,7 +447,7 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
     huishouden.push(["Partner werkt", f.partnerWerkt ? `ja, ${euroTekst(f.partnerBruto)} bruto per maand` : "nee"]);
   }
   f.kinderen.forEach((k, i) => {
-    const opvang = k.opvang ? `; ${k.soort ? OPVANG[k.soort] : "soort onbekend"}, ${k.uren} uur per maand${k.uurprijs ? ` × ${euroTekst(k.uurprijs)}` : ", prijs onbekend"}` : "";
+    const opvang = k.opvang ? `; ${k.soort ? OPVANG[k.soort] : "soort onbekend"}, ${k.uren} uur per week${k.uurprijs ? ` × ${euroTekst(k.uurprijs)}` : ", prijs onbekend"}` : "";
     huishouden.push([`Kind ${i + 1}`, `geboren ${datumTekst(k.geboren)}${opvang}`]);
   });
   huishouden.push(["Ander inkomen", f.heeftAnderInkomen ? `${euroTekst(f.anderInkomen)} netto per maand` : "nee"]);
