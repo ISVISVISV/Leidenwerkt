@@ -544,6 +544,8 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
   }
   if (f.woont === "huur" && !f.zelfstandig) {
     noten.push("Huurtoeslag staat er niet in: voor een kamer of een woning waar u de keuken, wc of douche deelt, krijgt u meestal geen huurtoeslag.");
+  } else if (f.woont === "kostgeld") {
+    noten.push("Huurtoeslag staat er niet in: wie bij iemand anders in huis woont, krijgt meestal geen huurtoeslag.");
   }
   if (noten.length === 0) return null;
   return (
