@@ -57,7 +57,11 @@ export function Uitkomst({ f }: { f: Formulier }) {
   const gekozen = periodes.find((p) => p.fase === fase) ?? periodes[0];
   const bijstandMetWerk = r.werk.posten.find((p) => p.id === "bijstand");
   const heeftBijstand = !!bijstandMetWerk && bijstandMetWerk.perMaand !== null && bijstandMetWerk.perMaand !== "0.00";
-  const vrijlatingTelt = heeftBijstand && periodes.some((p) => p.fase !== "geen");
+  // De zin over de vrijlating staat er alleen als de vrijlating in de gekozen periode iets oplevert.
+  const vrijlatingTelt = heeftBijstand && voordeel.gt("0.5");
+  // Na de laatste periode: loopt de bijstand dan nog door?
+  const laatsteFase = periodes[periodes.length - 1].fase;
+  const rLaatste = useMemo(() => bereken(naarInvoer(f, { uren, fase: laatsteFase, datum })), [f, uren, laatsteFase, datum]);
   // De keuze voor de periode hangt af van de invoer, niet van de gekozen periode (anders verdwijnt ze na een klik).
   const rStart = useMemo(() => bereken(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
   const bijstandStart = rStart.werk.posten.find((p) => p.id === "bijstand");
@@ -81,7 +85,13 @@ export function Uitkomst({ f }: { f: Formulier }) {
         Berekening van {leesbareDatum(vandaag())}, met de regels die gelden op {leesbareDatum(r.datum)}.
       </p>
 
-      <Antwoord r={r} urenTekst={urenTekst(uren)} periode={meerPeriodes ? gekozen.naam : undefined} eersteJaar={eersteJaar.bedrag} />
+      <Antwoord
+        r={r}
+        urenTekst={urenTekst(uren)}
+        periode={meerPeriodes ? gekozen.naam : undefined}
+        eersteJaar={eersteJaar.bedrag}
+        stoptLater={meerPeriodes && fase !== laatsteFase && bijstandVan(rLaatste) === "0.00"}
+      />
 
       <section className="alleen-print gegevens" aria-label="Wat u heeft ingevuld">
         <h2>Wat u heeft ingevuld</h2>
@@ -146,10 +156,8 @@ export function Uitkomst({ f }: { f: Formulier }) {
           </p>
           {vrijlatingTelt && (
             <p>
-              {voordeel.gt("0.5")
-                ? `Dit levert u in deze periode ${euro(voordeel, true)} per maand extra op.`
-                : "In deze periode levert de vrijlating u niets extra op."}{" "}
-              Vraag uw klantmanager of de vrijlating voor u geldt. De gemeente beslist dat.
+              Dit levert u in deze periode {euro(voordeel, true)} per maand extra op. Vraag uw klantmanager of de vrijlating voor u geldt. De
+              gemeente beslist dat.
             </p>
           )}
           <p className="klein bron-blok">
@@ -234,7 +242,38 @@ export function Uitkomst({ f }: { f: Formulier }) {
   );
 }
 
-function Antwoord({ r, urenTekst, periode, eersteJaar }: { r: Resultaat; urenTekst: string; periode?: string; eersteJaar: string }) {
+const bijstandVan = (r: Resultaat) => r.werk.posten.find((p) => p.id === "bijstand")?.perMaand ?? null;
+
+/** Eén zin over de bijstand: blijft die, of stopt die? Alleen voor wie nu bijstand krijgt. */
+function bijstandZin(r: Resultaat, stoptLater: boolean): string | undefined {
+  const nu = r.huidig.posten.find((p) => p.id === "bijstand")?.perMaand;
+  const met = bijstandVan(r);
+  if (!nu || nu === "0.00" || met === null) return undefined;
+  if (met === "0.00") return "Uw bijstand stopt. Met dit werk is uw inkomen even hoog als de bijstandsnorm of hoger.";
+  if (stoptLater) return `In deze periode houdt u nog ${euro(met, true)} bijstand per maand, door de vrijlating. Daarna stopt uw bijstand.`;
+  return `U houdt bijstand: ${euro(met, true)} per maand, als aanvulling op uw loon.`;
+}
+
+/** Kosten voor het werk die iemand zelf betaalt: de kosten min de vergoeding van de werkgever, per maand. */
+function eigenWerkkosten(r: Resultaat): number {
+  const post = (posten: Post[], id: string) => Math.abs(Number(posten.find((p) => p.id === id)?.perMaand ?? 0));
+  const netto = (posten: Post[]) => post(posten, "werkkosten") - post(posten, "reisvergoeding");
+  return netto(r.werk.posten) - netto(r.huidig.posten);
+}
+
+function Antwoord({
+  r,
+  urenTekst,
+  periode,
+  eersteJaar,
+  stoptLater,
+}: {
+  r: Resultaat;
+  urenTekst: string;
+  periode?: string;
+  eersteJaar: string;
+  stoptLater: boolean;
+}) {
   const j = Number(eersteJaar);
   const jaarzin =
     Math.abs(j) < 120
@@ -248,12 +287,20 @@ function Antwoord({ r, urenTekst, periode, eersteJaar }: { r: Resultaat; urenTek
       : v > 0
         ? `Met dit werk houdt u per maand ongeveer ${bedrag} meer over.`
         : `Met dit werk houdt u per maand ongeveer ${bedrag} minder over.`;
+  // Houdt iemand minder over en komt dat door kosten die hij zelf betaalt? Dan staat dat erbij.
+  const kosten = eigenWerkkosten(r);
+  const doorKosten = v <= -10 && kosten >= 1 && v + kosten > -10;
+  const overBijstand = bijstandZin(r, stoptLater);
   return (
     <div className={`antwoord ${Math.abs(v) < 10 ? "gelijk" : v > 0 ? "meer" : "minder"}`} aria-live="polite">
       <p className="antwoord-zin">{zin}</p>
+      {doorKosten && (
+        <p className="antwoord-sub">Dat komt door de kosten voor het werk die u zelf betaalt: {euro(kosten.toFixed(2), true)} per maand.</p>
+      )}
       <p className="antwoord-sub">
         Bij {urenTekst}{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}. {jaarzin}
       </p>
+      {overBijstand && <p className="antwoord-sub antwoord-bijstand">{overBijstand}</p>}
       {r.betrouwbaarheid.niveau !== "goed" && <p className="antwoord-noot">{r.betrouwbaarheid.tekst}</p>}
       {r.zekerheid === "onbevestigd" && r.betrouwbaarheid.niveau === "beperkt" && (
         <p className="antwoord-noot">Een deel van de bedragen is nog niet officieel bevestigd. Ze zijn hieronder gemarkeerd met een sterretje.</p>

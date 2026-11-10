@@ -529,7 +529,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         soort="geheel"
         voorbeeld="bijv. 0"
         label="Hoeveel andere mensen van 27 jaar of ouder wonen bij u in huis?"
-        hint={`${f.leefvorm === "paar" ? "Tel uzelf en uw partner niet mee." : "Tel uzelf niet mee."} Een kind van 27 jaar of ouder telt wel mee, net als een huisgenoot.`}
+        hint={`${f.leefvorm === "paar" ? "Tel uzelf en uw partner niet mee." : "Tel uzelf niet mee."} Een kind van 27 jaar of ouder telt wel mee, net als een huisgenoot. Niet iedereen telt mee. De meeste studenten tellen niet mee. Ook niet: iemand die met een contract en tegen een gewone prijs een kamer van u huurt of bij u in de kost is, en die geen familie van u is. Twijfelt u? Vraag het uw klantmanager.`}
         waarde={f.kostendelers}
         onChange={(v) => zet("kostendelers", v)}
         fout={fouten.kostendelers}
@@ -640,7 +640,7 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           {vraagInkomenAnderen(f) && (
             <Veld
               id="huisgenotenInkomen"
-              label="Bruto jaarinkomen van de anderen in huis, samen"
+              label="Voor de huurtoeslag: bruto jaarinkomen van de mensen die bij u wonen, samen"
               hint={
                 <>
                   <p>
