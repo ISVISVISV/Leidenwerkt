@@ -423,7 +423,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
       />
       <Keuze
         naam="heeftKinderen"
-        legend="Wonen er kinderen van u bij u thuis?"
+        legend="Heeft u kinderen die bij u wonen?"
         hint="Kinderen tot en met 26 jaar. Een kind van 27 jaar of ouder telt u bij stap 2 mee als andere bewoner."
         waarde={f.leefvorm === "alleenstaande_ouder" || f.kinderen.length > 0 ? "ja" : "nee"}
         onChange={(v) => {
