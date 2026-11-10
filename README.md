@@ -46,13 +46,15 @@ Wijzigingen gaan via pull requests; zie [CONTRIBUTING.md](CONTRIBUTING.md).
 | [PROEFPERSONEN.md](docs/PROEFPERSONEN.md) | Inhoudelijke lezers | Verzonnen huishoudens met de vergelijking met officiële waarden (gegenereerd) |
 | [ARCHITECTUUR.md](docs/ARCHITECTUUR.md) | Ontwikkelaars | Opbouw van regeldata, rekenkern en app |
 | [ONDERHOUD.md](docs/ONDERHOUD.md) | Beheerders | Bedragen bijwerken, bewaking van wetten, werkwijze |
+| [BESLUITEN.md](docs/BESLUITEN.md) | Ontwikkelaars | De keuzes die de rekenhulp vormen, met de reden |
 | [SNAPSHOTS.md](docs/SNAPSHOTS.md) | Ontwikkelaars | Waarom een vastgelegde uitkomst is gewijzigd |
 | [RISICOS.md](docs/RISICOS.md) | Beheerders | Risico's en de maatregel per risico |
 | [PLANNING.md](docs/PLANNING.md) | Iedereen | Wat nog op de lijst staat |
+| [CHANGELOG.md](CHANGELOG.md) | Iedereen | Wat er per versie is veranderd |
 
 ## Status
 
-Versie 0.1: de rekenhulp werkt en is getest met verzonnen huishoudens waarvan de uitkomsten zijn vergeleken met officiële rekenhulpen ([docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md)). De uitkomsten zijn nog niet nagelopen door een klantmanager of sociaal raadsman. De bedragen voor 2027 komen erin zodra ze gepubliceerd zijn.
+Versie 0.2.0: de rekenhulp werkt en is getest met verzonnen huishoudens waarvan de uitkomsten zijn vergeleken met officiële rekenhulpen ([docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md)). De uitkomsten zijn nog niet nagelopen door een klantmanager of sociaal raadsman. De bedragen voor 2027 komen erin zodra ze gepubliceerd zijn.
 
 Wil je nagaan of de rekenhulp te vertrouwen is? Begin bij [docs/CONTROLE.md](docs/CONTROLE.md): een steekproef in de app, één voorbeeld met de hand nagerekend, en wat wel en niet is gecontroleerd.
 

@@ -157,7 +157,7 @@ export function App() {
           Dit is een inschatting om u inzicht te geven. Wat u echt krijgt, bepalen de gemeente Leiden en Dienst Toeslagen.
           Leidenwerkt is geen product van de gemeente. De broncode is open (EUPL-1.2).
         </p>
-        <p>Leidenwerkt is gemaakt door Ian Vriend, met hulp van AI.</p>
+        <p>Leidenwerkt is gemaakt door Ian Vriend, met hulp van AI. Versie {__VERSIE__}.</p>
       </footer>
     </div>
   );
@@ -529,7 +529,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         soort="geheel"
         voorbeeld="bijv. 0"
         label="Hoeveel huisgenoten van 27 jaar of ouder heeft u?"
-        hint={`${f.leefvorm === "paar" ? "Tel uzelf en uw partner niet mee." : "Tel uzelf niet mee."} Een huisgenoot is iedereen die bij u woont, ook uw eigen kind van 27 jaar of ouder. Niet iedereen telt mee. De meeste studenten tellen niet mee. Ook niet: iemand die met een contract en tegen een gewone prijs een kamer van u huurt of bij u in de kost is, en die geen familie van u is. Twijfelt u? Vraag het uw klantmanager.`}
+        hint={`${f.leefvorm === "paar" ? "Tel uzelf en uw partner niet mee." : "Tel uzelf niet mee."} Een huisgenoot is iedereen die bij u woont, ook uw eigen kind van 27 jaar of ouder. Niet iedereen telt mee. De meeste studenten tellen niet mee. Ook niet: iemand die met een contract en tegen een gewone prijs een kamer van u huurt of bij u in de kost is, en die geen familie van u is. Twijfelt u? Vraag het uw contactpersoon bij de gemeente.`}
         waarde={f.kostendelers}
         onChange={(v) => zet("kostendelers", v)}
         fout={fouten.kostendelers}
@@ -713,7 +713,7 @@ function LoonVelden({
     <>
       <Veld
         id={urenId}
-        label={prefix === "nu" ? "Hoeveel uur per week werkt u nu?" : "Hoeveel uur per week werkt u?"}
+        label={prefix === "nu" ? "Hoeveel uur per week werkt u nu?" : "Hoeveel uur per week gaat u werken?"}
         voorbeeld="bijv. 24"
         hint="Hiermee rekent de rekenhulp uit wat u per uur verdient. Zo ziet u bij de uitkomst wat meer of minder uren oplevert."
         waarde={uren}
@@ -723,7 +723,7 @@ function LoonVelden({
       />
       <Keuze
         naam={`${prefix}per`}
-        legend="Welk loon weet u?"
+        legend="Welk bedrag van uw loon weet u?"
         waarde={per}
         onChange={zetPer}
         opties={[
