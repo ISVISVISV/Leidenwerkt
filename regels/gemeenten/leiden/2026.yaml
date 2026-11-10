@@ -178,14 +178,14 @@ parameters:
       tekst: "bijstandsnorm: de bijstandsnorm als bedoeld in de artikelen 20 tot en met 24 van de wet, inclusief de verlaging van de norm op grond van artikel 27 of 28 van de wet. Voor de toepassing van deze beleidsregels wordt de bijstandsnorm van een alleenstaande ouder gesteld op 90% van de bijstandsnorm voor een gezin."
       versie: "geldend vanaf 1 april 2022"
   - id: leiden.czm.inkomensgrens
-    omschrijving: Collectieve zorgverzekering voor minima — inkomen tot dit deel van de bijstandsnorm (art. 11 lid 1 Beleidsregels bijzondere bijstand 2022)
+    omschrijving: Collectieve zorgverzekering voor minima en bijdrage zwemabonnement — inkomen tot dit deel van de bijstandsnorm (art. 11 lid 1 en art. 12 lid 1 Beleidsregels bijzondere bijstand 2022)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "1.20" }
     status: geverifieerd
     bron: *bijzondere_bijstand
     citaat:
-      kop: "Leiden, beleidsregels bijzondere bijstand 2022, art. 11 lid 1"
-      tekst: "Aan inwoners met een inkomen tot 120 procent van de voor hen van toepassing zijnde bijstandsnorm kan door het college periodieke bijzondere bijstand worden verstrekt voor (een deel van) de premie voor een collectieve aanvullende zorgverzekering, waarvoor het college een overeenkomst gesloten heeft met een zorgverzekeraar."
+      kop: "Leiden, beleidsregels bijzondere bijstand 2022, art. 11 lid 1 en art. 12 lid 1"
+      tekst: "Aan inwoners met een inkomen tot 120 procent van de voor hen van toepassing zijnde bijstandsnorm kan door het college periodieke bijzondere bijstand worden verstrekt voor (een deel van) de premie voor een collectieve aanvullende zorgverzekering, waarvoor het college een overeenkomst gesloten heeft met een zorgverzekeraar. […] Aan inwoners met een inkomen tot 120 procent van de voor hen van toepassing zijnde bijstandsnorm kunnen de kosten van een seizoenabonnement voor zwembad De Vliet of recreatiezwembad De Zijl te Leiden worden vergoed."
       versie: "geldend vanaf 1 april 2022"
   - id: leiden.kwijtschelding.kosten_van_bestaan
     omschrijving: Kwijtschelding gemeentelijke belastingen — kosten van bestaan als deel van de bijstandsnorm (art. 2 lid 1 Verordening kwijtschelding gemeentelijke belastingen Leiden 2025)
@@ -201,3 +201,17 @@ parameters:
       tekst: "Kwijtschelding wordt verleend voor de volgende belastingaanslagen: a. Eigenarenbelasting (woningen) van de onroerende-zaakbelastingen; b. Afvalstoffenheffing; c. Riool- en waterzorgheffing van woningen; […] Bij de kwijtschelding wordt in afwijking van artikel 16, eerste en tweede lid van de Uitvoeringsregeling Invorderingswet 1990 het percentage voor de berekening van de kosten van bestaan gesteld op 100%."
       versie: "geldend vanaf 1 januari 2025"
     notitie: De app rekent de kwijtschelding niet uit; ze meldt alleen dat die kan vervallen als het inkomen boven de bijstandsnorm komt.
+  - id: leiden.ovpas.inkomensgrens
+    omschrijving: Gratis OV-pas — inkomen ten hoogste dit deel van het sociaal minimum
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "1.00" }
+    status: geverifieerd
+    bron:
+      titel: Gemeente Leiden, Gratis openbaar vervoer
+      url: https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/gratis-openbaar-vervoer/
+      geraadpleegd_op: 2026-11-10
+    citaat:
+      kop: "Gemeente Leiden, Gratis openbaar vervoer (voorwaarden)"
+      tekst: "Woont u in Leiden en krijgt u een bijstandsuitkering? Of is uw inkomen niet hoger dan 100% van het sociaal minimum? Dan kunt u een gratis pas voor het openbaar vervoer (OV-pas) aanvragen. […] U woont in Leiden. Uw inkomen is maximaal 100% van het sociaal minimum. U bent geen student. U bent 18 jaar of ouder. U bent niet dak- of thuisloos. […] Met de OV-pas kunt u op werkdagen tussen 09:00 en 16:00 uur en na 18:30 uur gratis reizen. In het weekend en op feestdagen kunt u de OV-pas de hele dag gebruiken."
+      versie: "geraadpleegd op 10 november 2026"
+    notitie: Het aantal passen is beperkt. De pas geldt niet in de spits; voor woon-werkverkeer is hij dus vaak niet bruikbaar.

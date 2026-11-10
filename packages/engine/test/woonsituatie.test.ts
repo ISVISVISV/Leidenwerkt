@@ -250,6 +250,11 @@ describe("Leiden: collectieve zorgverzekering en kwijtschelding", () => {
     const laag = bereken(basis({ nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
     const hoog = bereken(basis({ nieuwWerk: { brutoMaandloon: 2600, urenPerWeek: 36 }, vrijlatingFase: "start" }));
     expect(tekst(laag, "Zorgverzekering")!.tekst).toContain("kan dat waarschijnlijk nog");
+    expect(tekst(laag, "Zorgverzekering")!.tekst).toContain("zwembad De Vliet of De Zijl");
+    expect(tekst(laag, "Gratis OV-pas")!.tekst).toContain("zolang u bijstand krijgt");
+    expect(tekst(hoog, "Gratis OV-pas")!.tekst).toContain("krijgt u die pas niet meer");
+    const dakloos = bereken(basis({ wonen: { soort: "geen_woonkosten", dakloos: true, betaaltWoonlasten: false }, nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
+    expect(tekst(dakloos, "Gratis OV-pas")).toBeUndefined();
     expect(tekst(hoog, "Zorgverzekering")!.tekst).toContain("niet meer mee");
     // 120% van € 1.419,46
     expect(tekst(hoog, "Zorgverzekering")!.tekst).toMatch(/€\s1\.703/);

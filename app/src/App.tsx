@@ -17,12 +17,41 @@ export function App() {
     if (stap > 0) kop.current?.focus();
   }, [stap]);
 
+  // De terugknop van de browser gaat een stap terug in de rekenhulp, in plaats van de pagina te verlaten.
+  const stand = useRef({ f, stap });
+  stand.current = { f, stap };
+  useEffect(() => {
+    history.replaceState({ stap: 0 }, "");
+    const bijTerug = (e: PopStateEvent) => {
+      const doel = typeof e.state?.stap === "number" ? (e.state.stap as number) : 0;
+      const nu = stand.current;
+      // Vooruit kan alleen als de stappen ervoor goed zijn ingevuld.
+      for (let s = Math.max(nu.stap, 1); s < doel; s++) {
+        if (Object.keys(controleer(nu.f, s)).length > 0) {
+          history.replaceState({ stap: nu.stap }, "");
+          return;
+        }
+      }
+      setFouten({});
+      setWissen(false);
+      setStap(doel);
+    };
+    window.addEventListener("popstate", bijTerug);
+    return () => window.removeEventListener("popstate", bijTerug);
+  }, []);
+
+  const naarStap = (doel: number) => {
+    if (doel > stap) history.pushState({ stap: doel }, "");
+    else if (doel < stap) history.go(doel - stap);
+    setStap(doel);
+  };
+
   const zet = <K extends keyof Formulier>(k: K, v: Formulier[K]) => setF((oud) => ({ ...oud, [k]: v }));
 
   const verder = () => {
     const nieuw = controleer(f, stap);
     setFouten(nieuw);
-    if (Object.keys(nieuw).length === 0) setStap(stap + 1);
+    if (Object.keys(nieuw).length === 0) naarStap(stap + 1);
     else requestAnimationFrame(() => document.querySelector<HTMLElement>("[aria-invalid='true']")?.focus());
   };
 
@@ -34,7 +63,7 @@ export function App() {
       </header>
 
       <main>
-        {stap === 0 && <Start onStart={() => setStap(1)} />}
+        {stap === 0 && <Start onStart={() => naarStap(1)} />}
 
         {stap > 0 && (
           <>
@@ -84,7 +113,7 @@ export function App() {
                 {stap === 3 ? "Bereken wat ik overhoud" : "Volgende stap"}
               </button>
             )}
-            <button type="button" className="tweedeknop" onClick={() => { setFouten({}); setStap(stap === 4 ? 3 : stap - 1); }}>
+            <button type="button" className="tweedeknop" onClick={() => { setFouten({}); naarStap(stap - 1); }}>
               {stap === 4 ? "Gegevens aanpassen" : "Vorige stap"}
             </button>
             {stap === 4 && (
@@ -106,7 +135,7 @@ export function App() {
                     setF(leegFormulier);
                     setFouten({});
                     setWissen(false);
-                    setStap(0);
+                    naarStap(0);
                   }}
                 >
                   Ja, alles wissen

@@ -734,10 +734,25 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       soort: "info",
       bron: bronVan(l, "leiden.czm.inkomensgrens"),
       tekst: inkomen.gt(grens)
-        ? `Zorgverzekering: heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer ${euro(grens, true)} netto per maand). Dat is niet meegerekend.`
-        : `Zorgverzekering: de gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer ${euro(grens, true)} netto per maand).`,
+        ? `Zorgverzekering en zwemmen: heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer ${euro(grens, true)} netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.`
+        : `Zorgverzekering en zwemmen: de gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer ${euro(grens, true)} netto per maand).`,
     });
   });
+
+  // Leiden: gratis OV-pas (tot 100% van het sociaal minimum; niet voor dak- en thuislozen).
+  if (bijstandNu && bijstandNu.gt(0) && !(invoer.wonen.soort === "geen_woonkosten" && invoer.wonen.dakloos)) {
+    probeer(() => {
+      l.breuk("leiden.ovpas.inkomensgrens");
+      const stopt = !!bijstandWerk && bijstandWerk.isZero();
+      uit.push({
+        soort: "info",
+        bron: bronVan(l, "leiden.ovpas.inkomensgrens"),
+        tekst: stopt
+          ? "Gratis OV-pas: met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits."
+          : "Gratis OV-pas: zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+      });
+    });
+  }
 
   // Leiden: kwijtschelding van gemeentelijke belastingen vervalt (deels) boven de bijstandsnorm.
   if (bijstandNu && bijstandNu.gt(0) && bijstandWerk && bijstandWerk.isZero()) {
