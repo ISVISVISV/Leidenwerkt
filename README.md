@@ -2,6 +2,8 @@
 
 Gratis, open rekenhulp voor inwoners van Leiden met bijstand. De vraag die de app beantwoordt: **hoeveel houd ik per maand meer of minder over als ik (meer) ga werken?**
 
+**Probeer het: [isvisvisv.github.io/Leidenwerkt](https://isvisvisv.github.io/Leidenwerkt/)**
+
 - Alles draait in de browser. Er is geen server; invoer verlaat het apparaat niet.
 - Elke regel en elk bedrag heeft een officiële bron en een status (`geverifieerd`, `onbevestigd`, `ontbrekend`). Ontbreekt een gegeven, dan rekent de app dat onderdeel niet uit in plaats van te gokken.
 - De uitkomst is een inschatting, geen advies of beslissing.
@@ -36,7 +38,9 @@ Zie [docs/ARCHITECTUUR.md](docs/ARCHITECTUUR.md), [docs/ONDERHOUD.md](docs/ONDER
 
 ## Status
 
-Werkende eerste versie (MVP in opbouw). Wat al wel en niet berekend wordt staat in [docs/REKENREGELS.md](docs/REKENREGELS.md).
+Versie 0.1: de rekenhulp werkt en is getest met verzonnen huishoudens waarvan de uitkomsten zijn vergeleken met officiële rekenhulpen ([docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md)). De uitkomsten zijn nog niet nagelopen door een klantmanager of sociaal raadsman. De bedragen voor 2027 komen erin zodra ze gepubliceerd zijn.
+
+Wat wel en niet berekend wordt staat in [docs/REKENREGELS.md](docs/REKENREGELS.md); wat nog op de lijst staat in [docs/PLANNING.md](docs/PLANNING.md).
 
 ## Makers
 
