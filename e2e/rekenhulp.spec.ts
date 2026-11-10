@@ -117,14 +117,14 @@ test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, hui
   // Na een fout gaat de focus naar het eerste foute vak; wacht daarop voordat de test verder typt.
   await expect(zelf).toBeFocused();
   await zelf.fill("14-3-1984");
-  await expect(page.getByLabel(/Hoeveel andere mensen van 27/)).toHaveAttribute("placeholder", "bijv. 0");
-  await page.getByLabel(/Hoeveel andere mensen van 27/).fill("1");
+  await expect(page.getByLabel(/Hoeveel huisgenoten van 27/)).toHaveAttribute("placeholder", "bijv. 0");
+  await page.getByLabel(/Hoeveel huisgenoten van 27/).fill("1");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByLabel("Kale huur per maand").pressSequentially("7x20,5o0");
   await expect(page.getByLabel("Kale huur per maand")).toHaveValue("720,50");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.locator(".foutmelding").getByText("Vul dit in.").first()).toBeVisible();
-  await page.getByLabel("Voor de huurtoeslag: bruto jaarinkomen van de mensen die bij u wonen, samen").fill("26.000");
+  await page.getByLabel("Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen").fill("26.000");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.200");
   await page.getByRole("textbox", { name: /Hoeveel uur per week werkt u/ }).fill("20");
@@ -188,7 +188,7 @@ test("woonvorm met begeleiding: instellingsnorm, geen huurtoeslag, uitleg over l
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await geboren(page, "Uw geboortedatum", 30);
   await page.getByRole("button", { name: "Volgende stap" }).click();
-  await page.getByLabel(/In een instelling of woonvorm met begeleiding/).check();
+  await page.getByLabel(/In een instelling met zorg of begeleiding/).check();
   await expect(page.getByText("€ 496,44 per maand", { exact: false })).toBeVisible();
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("600");

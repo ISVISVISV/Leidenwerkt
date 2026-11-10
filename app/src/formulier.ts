@@ -395,7 +395,7 @@ const OPVANG: Record<Opvangsoort, string> = { dagopvang: "kinderdagverblijf", bs
 export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [string, string][] }[] {
   const paar = f.leefvorm === "paar";
   const huishouden: [string, string][] = [
-    ["Huishouden", f.leefvorm === "alleenstaande" ? "alleen" : f.leefvorm === "alleenstaande_ouder" ? "alleen met kinderen" : f.kinderen.length > 0 ? "met partner en kinderen" : "met partner"],
+    ["Huishouden", f.leefvorm === "alleenstaande" ? "zonder partner en zonder kinderen" : f.leefvorm === "alleenstaande_ouder" ? "zonder partner, met kinderen" : f.kinderen.length > 0 ? "met partner en kinderen" : "met partner"],
     ["Geboren", datumTekst(f.geboren)],
   ];
   if (paar) {
@@ -413,7 +413,7 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
   if (f.woont === "huur") {
     woning.push(["Woning", f.zelfstandig ? "huurwoning met eigen voordeur, keuken, wc en douche" : "kamer, of woning met gedeelde keuken, wc of douche"]);
     if (f.zelfstandig) woning.push(["Kale huur", `${euroTekst(f.kaleHuur)} per maand`]);
-    if (vraagInkomenAnderen(f)) woning.push(["Inkomen anderen in huis", `${euroTekst(f.huisgenotenInkomen)} bruto per jaar`]);
+    if (vraagInkomenAnderen(f)) woning.push(["Inkomen huisgenoten", `${euroTekst(f.huisgenotenInkomen)} bruto per jaar`]);
   } else {
     woning.push([
       "Woning",
@@ -423,7 +423,7 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
           ? `bij iemand in huis, betaalt niets voor de woonruimte; ${f.woonlasten ? "betaalt wel" : "betaalt geen"} gas, licht of water`
           : f.woont === "dakloos"
             ? "geen vaste woonplek"
-            : "instelling of woonvorm met begeleiding",
+            : "instelling met zorg of begeleiding",
     ]);
   }
 

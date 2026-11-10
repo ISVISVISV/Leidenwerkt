@@ -118,7 +118,7 @@ describe("netto loon", () => {
     const r = bereken(basis({ nieuwWerk: { brutoMaandloon: 2000, pensioenpremiePerMaand: 40 } }));
     expect(bedrag(r, "werk", "loon")).toBe("2052.89");
     // Het jaarinkomen voor de toeslagen is het loon min de premie (er is geen bijstand meer).
-    expect(stap(r, "werk", "zorgtoeslag", "Geschat bruto jaarinkomen")).toBe("25440.00");
+    expect(stap(r, "werk", "zorgtoeslag", "Geschat bruto inkomen per jaar")).toBe("25440.00");
   });
 
   it("loon in de derde schijf van de arbeidskorting en de tweede belastingschijf", () => {
@@ -144,8 +144,8 @@ describe("netto loon", () => {
 
 describe("geschat jaarinkomen voor de toeslagen", () => {
   it("ander inkomen komt in plaats van bijstand: het jaarinkomen blijft gelijk", () => {
-    const zonder = stap(bereken(basis()), "huidig", "zorgtoeslag", "Geschat bruto jaarinkomen");
-    const met = stap(bereken(basis({ anderInkomenPerMaand: 100 })), "huidig", "zorgtoeslag", "Geschat bruto jaarinkomen");
+    const zonder = stap(bereken(basis()), "huidig", "zorgtoeslag", "Geschat bruto inkomen per jaar");
+    const met = stap(bereken(basis({ anderInkomenPerMaand: 100 })), "huidig", "zorgtoeslag", "Geschat bruto inkomen per jaar");
     expect(zonder).toBe("21663.07");
     expect(met).toBe(zonder);
   });
@@ -306,5 +306,48 @@ describe("kinderopvangtoeslagtabel 2026: opbouw van de tabel", () => {
         "volgend": "60.301",
       }
     `);
+  });
+});
+
+describe("overige grenzen", () => {
+  it("een kind van 18 telt niet mee voor kindgebonden budget en kinderbijslag, een jonger kind ernaast wel", () => {
+    const een = bereken(ouder(10));
+    const twee = bereken(ouder(10, { kinderen: [{ leeftijd: 18 }, { leeftijd: 10 }] }));
+    expect(bedrag(twee, "huidig", "kgb")).toBe(bedrag(een, "huidig", "kgb"));
+    expect(bedrag(twee, "huidig", "kinderbijslag")).toBe(bedrag(een, "huidig", "kinderbijslag"));
+  });
+
+  it("zonder loon geen kinderopvangtoeslag en geen opvangkosten", () => {
+    const r = bereken(ouder(3, { kinderen: [{ leeftijd: 3, opvang }], nieuwWerk: { brutoMaandloon: 0 } }));
+    expect(post(r, "werk", "kot")).toBeUndefined();
+    expect(post(r, "werk", "opvangkosten")).toBeUndefined();
+    expect(post(r, "werk", "werkkosten")).toBeUndefined();
+    expect(r.verschilPerMaand).toBe("0.00");
+  });
+
+  it("opvang met 0 uur telt niet als opvang", () => {
+    const r = bereken(ouder(3, { kinderen: [{ leeftijd: 3, opvang: { ...opvang, urenPerMaand: 0 } }] }));
+    expect(post(r, "werk", "kot")).toBeUndefined();
+  });
+
+  it("vergoeding eigen bijdrage: ander inkomen en het loon van de partner tellen mee in het inkomen", () => {
+    const inkomen = (over: Partial<Invoer>) =>
+      Number(stap(bereken(basis({ leefvorm: "paar", partner: { leeftijd: 40, werk: { brutoMaandloon: 900 } }, kinderen: [{ leeftijd: 3, opvang }], nieuwWerk: { brutoMaandloon: 2600 }, vrijlatingFase: "geen", ...over })), "werk", "bb_opvang", "Netto inkomen"));
+    const start = inkomen({});
+    // Er is geen bijstand meer, dus € 200 ander inkomen telt volledig mee.
+    expect(inkomen({ anderInkomenPerMaand: 200 }) - start).toBeCloseTo(200, 1);
+    // Partner van € 900 naar € 2.500 bruto: netto van € 965,00 naar € 2.432,45; zonder vakantiegeld (÷ 1,08) is dat € 1.358,75 meer.
+    expect(inkomen({ partner: { leeftijd: 40, werk: { brutoMaandloon: 2500 } } }) - start).toBeCloseTo(1358.75, 1);
+  });
+
+  it("eerste twaalf maanden bij een alleenstaande ouder: zes maanden eerste vrijlating, zes maanden de vrijlating daarna", () => {
+    const i = ouder(5, { nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 } });
+    const start = Number(bereken({ ...i, vrijlatingFase: "start" }).verschilPerMaand);
+    const later = Number(bereken({ ...i, vrijlatingFase: "later" }).verschilPerMaand);
+    expect(later).toBeGreaterThan(0);
+    expect(later).toBeLessThan(start);
+    const jaar = verschilEersteJaar(i);
+    expect(jaar.startMaanden).toBe(6);
+    expect(Number(jaar.bedrag)).toBeCloseTo(6 * start + 6 * later, 1);
   });
 });
