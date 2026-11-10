@@ -32,9 +32,23 @@ Voor `test:e2e` is Chromium nodig (`npx playwright install chromium`) of een bes
 | `testgevallen/` | Proefpersonen: verzonnen huishoudens met officiële vergelijkingswaarden |
 | `scripts/` | Regeldata bouwen en controleren, documentatie genereren, overzicht bij pull requests, bewaking van wetten |
 | `e2e/` | Browsertests |
-| `docs/` | Rekenregels, architectuur, onderhoud, risico's, open vragen, besluiten |
+| `docs/` | Documentatie, zie hieronder |
 
-Zie [docs/ARCHITECTUUR.md](docs/ARCHITECTUUR.md), [docs/ONDERHOUD.md](docs/ONDERHOUD.md) en [docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md). Wijzigingen gaan via pull requests; zie [CONTRIBUTING.md](CONTRIBUTING.md).
+Wijzigingen gaan via pull requests; zie [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Documentatie
+
+| Document | Voor wie | Inhoud |
+| --- | --- | --- |
+| [CONTROLE.md](docs/CONTROLE.md) | Wie de rekenhulp wil beoordelen | Steekproef, een met de hand nagerekend voorbeeld, wat wel en niet is gecontroleerd |
+| [REKENREGELS.md](docs/REKENREGELS.md) | Inhoudelijke lezers | Elke rekenregel met grondslag, bron en status |
+| [OPEN_VRAGEN.md](docs/OPEN_VRAGEN.md) | Inhoudelijke lezers | Wat nog niet zeker is en waar het antwoord te vinden is |
+| [PROEFPERSONEN.md](docs/PROEFPERSONEN.md) | Inhoudelijke lezers | Verzonnen huishoudens met de vergelijking met officiële waarden (gegenereerd) |
+| [ARCHITECTUUR.md](docs/ARCHITECTUUR.md) | Ontwikkelaars | Opbouw van regeldata, rekenkern en app |
+| [ONDERHOUD.md](docs/ONDERHOUD.md) | Beheerders | Bedragen bijwerken, bewaking van wetten, werkwijze |
+| [SNAPSHOTS.md](docs/SNAPSHOTS.md) | Ontwikkelaars | Waarom een vastgelegde uitkomst is gewijzigd |
+| [RISICOS.md](docs/RISICOS.md) | Beheerders | Risico's en de maatregel per risico |
+| [PLANNING.md](docs/PLANNING.md) | Iedereen | Wat nog op de lijst staat |
 
 ## Status
 
