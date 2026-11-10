@@ -84,9 +84,10 @@ function maakPost(
     if (e instanceof OntbrekendeParameter || e instanceof Afhankelijk) {
       const reden =
         e instanceof OntbrekendeParameter
-          ? `Gegevens ontbreken (${e.parameterId})${e.toelichting ? `: ${e.toelichting}` : ""}`
+          ? "De bedragen hiervoor zijn voor deze datum nog niet bekend."
           : e.message;
-      return { id, label, soort, perMaand: null, status: "ontbrekend", stappen, parameters: l.gebruikt, aannames, reden, ...meta };
+      const ontbrekendeParameter = e instanceof OntbrekendeParameter ? e.parameterId : undefined;
+      return { id, label, soort, perMaand: null, status: "ontbrekend", stappen, parameters: l.gebruikt, aannames, reden, ontbrekendeParameter, ...meta };
     }
     throw e;
   }
@@ -602,14 +603,14 @@ export function betrouwbaarheid(nietMeegenomen: Resultaat["nietMeegenomen"], zek
     return {
       niveau: "beperkt",
       richting: "te_gunstig",
-      tekst: `Niet meegerekend: ${namen(dalers)}. Die wordt lager als u gaat werken. Het echte verschil is daarom waarschijnlijk kleiner dan hierboven staat.`,
+      tekst: `Niet meegerekend: ${namen(dalers)}. ${dalers.length > 1 ? "Die worden" : "Die wordt"} lager als u gaat werken. Het echte verschil is daarom waarschijnlijk kleiner dan hierboven staat.`,
     };
   }
   if (stijgers.length > 0 && dalers.length === 0) {
     return {
       niveau: "beperkt",
       richting: "te_ongunstig",
-      tekst: `Niet meegerekend: ${namen(stijgers)}. Die komt erbij of wordt hoger als u gaat werken. Het echte verschil is daarom waarschijnlijk groter dan hierboven staat.`,
+      tekst: `Niet meegerekend: ${namen(stijgers)}. ${stijgers.length > 1 ? "Die komen erbij of worden" : "Die komt erbij of wordt"} hoger als u gaat werken. Het echte verschil is daarom waarschijnlijk groter dan hierboven staat.`,
     };
   }
   return {
@@ -687,7 +688,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
         soort: "info",
         kop: "Opnieuw bijstand aanvragen",
         bron: bronVan(l, "leiden.garantieknop.termijn"),
-        tekst: `Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk binnen ${termijn} maanden na het einde van uw bijstand? Dan is opnieuw aanvragen in Leiden makkelijker. Is er niets veranderd aan uw adres, gezin, inkomen en spaargeld? Dan gebruikt de gemeente de gegevens die ze al heeft.`,
+        tekst: `Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk en vraagt u binnen ${termijn} maanden na het einde van uw bijstand opnieuw bijstand aan? Dan is aanvragen in Leiden makkelijker: de gemeente kan de gegevens gebruiken die ze al van u heeft.`,
       });
     });
   }
@@ -773,7 +774,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
         kop: "Gemeentelijke belastingen",
         bron: bronVan(l, "leiden.kwijtschelding.kosten_van_bestaan"),
         tekst:
-          "Met bijstand hoeft u de afvalstoffenheffing en de rioolheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de belastingdienst van de gemeente.",
+          "Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
       });
     });
   }
@@ -825,7 +826,8 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
         "Dit geldt zolang u in de instelling of woonvorm woont. Woont u later zelfstandig, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm. U betaalt dan zelf huur en boodschappen, en misschien krijgt u huurtoeslag. Reken dan opnieuw.",
     });
   }
-  if (invoer.nieuwWerk.brutoVierwekenloon !== undefined) {
+  // Alleen als er bijstand overblijft: zonder bijstand valt er niets te verrekenen.
+  if (invoer.nieuwWerk.brutoVierwekenloon !== undefined && bijstandWerk && bijstandWerk.gt(0)) {
     uit.push({
       soort: "waarschuwing",
       kop: "Loon per 4 weken",

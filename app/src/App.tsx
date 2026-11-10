@@ -538,7 +538,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         id="jongeHuisgenoten"
         soort="geheel"
         voorbeeld="bijv. 0"
-        label="Hoeveel andere mensen van 18 tot 27 jaar wonen bij u in huis?"
+        label="Hoeveel andere mensen van 18 tot en met 26 jaar wonen bij u in huis?"
         hint={
           f.leefvorm === "paar" && f.kinderen.length > 0
             ? "Tel uzelf, uw partner en uw kinderen niet mee; die heeft u hierboven al ingevuld."
@@ -810,7 +810,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
             <Keuze
               naam="opvangNu"
               legend="Gaat uw kind nu al naar de kinderopvang?"
-              hint="Dan rekent de app de kosten en de toeslag voor de opvang ook mee bij hoe het nu is."
+              hint="Dan rekent de app de kosten en de toeslag voor de opvang ook mee in de situatie zoals die nu is."
               waarde={f.opvangNu}
               onChange={(v) => zet("opvangNu", v)}
               fout={fouten.opvangNu}
