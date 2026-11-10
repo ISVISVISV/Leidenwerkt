@@ -681,6 +681,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       const termijn = l.aantal("leiden.garantieknop.termijn").toString();
       uit.push({
         soort: "info",
+        kop: "Opnieuw bijstand aanvragen",
         bron: bronVan(l, "leiden.garantieknop.termijn"),
         tekst: `Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk binnen ${termijn} maanden na het einde van uw bijstand? Dan is opnieuw aanvragen in Leiden makkelijker. Is er niets veranderd aan uw adres, gezin, inkomen en spaargeld? Dan gebruikt de gemeente de gegevens die ze al heeft.`,
       });
@@ -691,6 +692,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     const lijst = risico.map((r) => `${r.label.toLowerCase()} ${euro(r.minderPerMaand, true)}`).join(", ");
     uit.push({
       soort: "waarschuwing",
+      kop: "Geef uw nieuwe inkomen door",
       bron: CITATEN.awirTerugvordering,
       tekst: `Uw toeslagen gaan samen ${euro(totaal, true)} per maand omlaag (${lijst}). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand ${euro(totaal, true)} te veel, en moet u na een jaar ongeveer ${euro(totaal.times(12), true)} terugbetalen.`,
     });
@@ -716,10 +718,11 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
           tekst += ` Het Kindtegoed van ${euro(kindtegoed, true)} per jaar houdt u waarschijnlijk wel, tot ongeveer ${euro(norm.times(grens2), true)} netto per maand.`;
         }
       }
-      uit.push({ soort: "info", tekst, bron: bronVan(l, "leiden.sleutelpas.inkomensgrens") });
+      uit.push({ soort: "info", kop: kinderen.length > 0 ? "Sleutelpas en Kindtegoed" : "Sleutelpas", tekst, bron: bronVan(l, "leiden.sleutelpas.inkomensgrens") });
     } else {
       uit.push({
         soort: "info",
+        kop: kinderen.length > 0 ? "Sleutelpas en Kindtegoed" : "Sleutelpas",
         tekst: `U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.${kt}`,
         bron: bronVan(l, "leiden.sleutelpas.inkomensgrens"),
       });
@@ -732,10 +735,11 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
     uit.push({
       soort: "info",
+      kop: "Zorgverzekering en zwemmen",
       bron: bronVan(l, "leiden.czm.inkomensgrens"),
       tekst: inkomen.gt(grens)
-        ? `Zorgverzekering en zwemmen: heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer ${euro(grens, true)} netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.`
-        : `Zorgverzekering en zwemmen: de gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer ${euro(grens, true)} netto per maand).`,
+        ? `Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer ${euro(grens, true)} netto per maand). Ook de vergoeding van een zwemabonnement stopt dan. Dat is niet meegerekend.`
+        : `De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering, en aan een abonnement voor zwembad De Vliet of De Zijl. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer ${euro(grens, true)} netto per maand).`,
     });
   });
 
@@ -746,10 +750,11 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       const stopt = !!bijstandWerk && bijstandWerk.isZero();
       uit.push({
         soort: "info",
+        kop: "Gratis OV-pas",
         bron: bronVan(l, "leiden.ovpas.inkomensgrens"),
         tekst: stopt
-          ? "Gratis OV-pas: met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits."
-          : "Gratis OV-pas: zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+          ? "Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits."
+          : "Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
       });
     });
   }
@@ -760,9 +765,10 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       l.breuk("leiden.kwijtschelding.kosten_van_bestaan");
       uit.push({
         soort: "waarschuwing",
+        kop: "Gemeentelijke belastingen",
         bron: bronVan(l, "leiden.kwijtschelding.kosten_van_bestaan"),
         tekst:
-          "Gemeentelijke belastingen: met bijstand hoeft u de afvalstoffenheffing en de rioolheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de belastingdienst van de gemeente.",
+          "Met bijstand hoeft u de afvalstoffenheffing en de rioolheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de belastingdienst van de gemeente.",
       });
     });
   }
@@ -777,8 +783,9 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       if (minLeeftijd.gt(invoer.leeftijd)) return;
       uit.push({
         soort: "info",
+        kop: "Individuele inkomenstoeslag",
         bron: bronVan(l, "leiden.iit.referteperiode"),
-        tekst: `Individuele inkomenstoeslag: heeft u al ${jaren} jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden ${euro(bedrag, true)} krijgen. Verdient u door dit werk meer dan de bijstandsnorm, dan krijgt u dit niet meer. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
+        tekst: `Heeft u al ${jaren} jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden ${euro(bedrag, true)} krijgen. Verdient u door dit werk meer dan de bijstandsnorm, dan krijgt u dit niet meer. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
       });
     });
   }
@@ -791,6 +798,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     const rest = vergoeding ? eigen.minus(vergoeding) : eigen;
     uit.push({
       soort: "waarschuwing",
+      kop: vergoeding && vergoeding.gt(0) ? "Vraag de vergoeding voor de opvang aan" : "Eigen bijdrage kinderopvang",
       bron: CITATEN.bbKinderopvang,
       tekst:
         vergoeding && vergoeding.gt(0)
@@ -801,6 +809,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   if (invoer.wonen.soort === "instelling") {
     uit.push({
       soort: "info",
+      kop: "Als u later zelfstandig woont",
       bron: CITATEN.pw23inrichting,
       tekst:
         "Dit geldt zolang u in de instelling of woonvorm woont. Woont u later zelfstandig, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm. U betaalt dan zelf huur en boodschappen, en misschien krijgt u huurtoeslag. Reken dan opnieuw.",
@@ -809,12 +818,14 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   if (invoer.nieuwWerk.brutoVierwekenloon !== undefined) {
     uit.push({
       soort: "waarschuwing",
+      kop: "Loon per 4 weken",
       bron: CITATEN.pw45,
       tekst:
         "U krijgt 13 keer per jaar loon. Eén keer per jaar krijgt u twee keer loon in dezelfde maand. In die maand krijgt u waarschijnlijk minder of geen bijstand, omdat de gemeente per maand kijkt wat u verdiende.",
     });
   }
-  return uit;
+  // Meldingen waar iemand iets mee moet of die geld kosten, staan bovenaan.
+  return [...uit.filter((s) => s.soort === "waarschuwing"), ...uit.filter((s) => s.soort !== "waarschuwing")];
 }
 
 function valideer(invoer: Invoer) {

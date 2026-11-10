@@ -399,6 +399,16 @@ button {
   padding: 0.65rem 1.2rem;
 }
 
+/* Een knop die alles wist, valt minder op dan de knoppen om verder of terug te gaan. */
+.stilleknop {
+  background: none;
+  border: 0;
+  padding: 0.65rem 0.4rem;
+  color: var(--inkt-zacht);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
 .linkknop {
   background: none;
   border: 0;
@@ -489,7 +499,7 @@ input[type="range"] {
 
 .toelichting {
   font-size: 0.95rem;
-  border-left: 4px solid var(--leiden);
+  border-left: 4px solid var(--inkt-zacht);
   padding: 0.1rem 0 0.1rem 0.9rem;
 }
 
@@ -994,8 +1004,19 @@ details.uitleg summary {
   font-size: 0.9rem;
 }
 
+.signaal-kop {
+  display: block;
+}
+
 .signaal-bron {
+  display: block;
+  margin-top: 0.25rem;
   font-size: 0.85rem;
+  color: var(--inkt-zacht);
+}
+
+/* De bron is naslag: rustiger dan de melding zelf. */
+.signaal-bron .bron-knop {
   color: var(--inkt-zacht);
 }
 
