@@ -473,7 +473,7 @@ function Uitleg({ r }: { r: Resultaat }) {
                 <ul className="bronnen">
                   {params.map((g) => (
                     <li key={g.id} className="bron-blok">
-                      {g.omschrijving}: <strong>{/^\d+\.\d+%?$/.test(g.waarde) ? g.waarde.replace(".", ",") : g.waarde}</strong>
+                      {g.omschrijving}: <strong>{g.waardeTekst}</strong>
                       {g.status === "onbevestigd" && <span className="label-onzeker"> nog niet officieel bevestigd</span>}
                       {g.bron && (
                         <>

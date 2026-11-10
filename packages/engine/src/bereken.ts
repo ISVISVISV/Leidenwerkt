@@ -206,7 +206,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       kern.nettoMaand = r.nettoJaar.div(12);
       if (werk?.nettoMaandloon !== undefined) {
         stap("Netto maandloon dat u invulde (zonder vakantiegeld)", D(werk.nettoMaandloon).times(werk.urenFactor ?? 1));
-        aanname("U vulde netto loon in. De app rekent dat terug naar bruto. Uw echte bruto loon kan iets anders zijn.");
+        aanname("U vulde netto loon in. De rekenhulp rekent dat terug naar bruto. Uw echte bruto loon kan iets anders zijn.");
       }
       if (werk?.brutoVierwekenloon !== undefined) stap("Bruto loon per 4 weken", D(werk.brutoVierwekenloon).times(werk.urenFactor ?? 1));
       stap("Bruto loon per maand (gemiddeld, zonder vakantiegeld)", brutoMaandloon(werk));
@@ -311,7 +311,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       }
       kern.bijstandMaand = bijstand;
       aanname("Bijstand is netto en inclusief vakantietoeslag per maand gerekend; de gemeente betaalt de vakantietoeslag één keer per jaar uit.");
-      aanname("De app neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaargeld en bezit onder de grens voor bijstand en toeslagen blijven.");
+      aanname("De rekenhulp neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaargeld en bezit onder de grens voor bijstand en toeslagen blijven.");
       return bijstand;
     }),
   );
@@ -329,9 +329,9 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       stap("Bruto loon per jaar, met vakantiegeld", loon);
       stap(ander.gt(0) ? "Bijstand en ander inkomen per jaar, teruggerekend naar bruto" : "Bijstand per jaar, teruggerekend naar bruto", brutoBijstand);
     }
-    stap("Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar)", ti);
+    stap("Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)", ti);
     aanname("Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag; Dienst Toeslagen gebruikt het werkelijke bruto bedrag.");
-    aanname("Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het jaarinkomen ertussenin.");
+    aanname("Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.");
     return ti;
   };
 
@@ -360,9 +360,9 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         let rekeninkomen = toetsingsinkomen(l, stap, aanname);
         if (invoer.huisgenotenInkomenJaar !== undefined) {
           const anderen = D(invoer.huisgenotenInkomenJaar);
-          stap("Plus het jaarinkomen van de anderen in huis (dit telt mee voor de huurtoeslag)", anderen);
+          stap("Plus het inkomen per jaar van uw huisgenoten (dit telt mee voor de huurtoeslag)", anderen);
           rekeninkomen = rekeninkomen.plus(anderen);
-          stap("Rekeninkomen: het inkomen van iedereen in huis samen", rekeninkomen);
+          stap("Inkomen per jaar van iedereen in huis samen", rekeninkomen);
         }
         const personen = 1 + (paar ? 1 : 0) + invoer.kinderen.length + huisgenoten;
         const h = huurtoeslag(l, D(wonen.kaleHuurPerMaand ?? 0), rekeninkomen, personen);
@@ -428,7 +428,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         stap(`Kinderopvangtoeslag per maand. ${AFGEROND}`, maand);
         aanname("De opvanguren zijn zoals u ze invulde, ook als u de urenschuif verplaatst.");
         if (opvangKinderen.some((k) => k.opvang!.uurprijsGeschat)) {
-          aanname("U wist de prijs per uur van de opvang niet. De app rekent met de hoogste prijs per uur waarover u toeslag krijgt. Is de opvang duurder, dan betaalt u het verschil zelf.");
+          aanname("U wist de prijs per uur van de kinderopvang niet. De rekenhulp rekent met de hoogste prijs per uur waarover u toeslag krijgt. Is de opvang duurder, dan betaalt u het verschil zelf.");
         }
         return maand;
       }),
@@ -511,9 +511,9 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
   }
   if (werk && werktHier && ((werk.reiskostenPerMaand ?? 0) > 0 || (werk.overigeKostenPerMaand ?? 0) > 0)) {
     posten.push(
-      maakPost(regels, datum, "werkkosten", "Reis- en werkkosten", "kosten", ({ stap }) => {
+      maakPost(regels, datum, "werkkosten", "Reiskosten en andere werkkosten", "kosten", ({ stap }) => {
         const k = D(werk.reiskostenPerMaand ?? 0).plus(D(werk.overigeKostenPerMaand ?? 0));
-        stap("Reiskosten plus overige kosten per maand", k);
+        stap("Reiskosten plus andere werkkosten per maand", k);
         return k.neg();
       }),
     );
@@ -574,7 +574,7 @@ export function bereken(gegeven: Invoer, regels: RegelSet = standaardRegels): Re
       "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
       ...(invoer.wonen.soort === "instelling"
         ? [
-            "Er is aangenomen dat u voor uw verblijf in de instelling of woonvorm niets betaalt, ook niet als u gaat werken.",
+            "Er is aangenomen dat u voor uw verblijf in de instelling niets betaalt, ook niet als u gaat werken.",
           ]
         : []),
       ...(invoer.wonen.soort === "huur" && invoer.wonen.zelfstandig === false
@@ -827,7 +827,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       kop: "Als u later zelfstandig woont",
       bron: CITATEN.pw23inrichting,
       tekst:
-        "Dit geldt zolang u in de instelling of woonvorm woont. Woont u later zelfstandig, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm. U betaalt dan zelf huur en boodschappen, en misschien krijgt u huurtoeslag. Reken dan opnieuw.",
+        "De lagere norm geldt zolang u in de instelling woont. Woont u later zelfstandig, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm, en misschien huurtoeslag. Reken dan opnieuw.",
     });
   }
   // Partner werkt niet: dan rekent de app de opvang niet mee. Dat moet de gebruiker weten.

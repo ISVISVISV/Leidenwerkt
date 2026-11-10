@@ -157,7 +157,7 @@ function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg,
         {
           fase: "later",
           naam: `Maand ${dn + 1} t/m ${dn + dr}`,
-          regel: `Als alleenstaande ouder met een kind onder de 12 mag u ${pct(pr)} houden, maximaal ${euro(mr)} per maand.`,
+          regel: `Als alleenstaande ouder met een kind jonger dan 12 jaar mag u ${pct(pr)} houden, maximaal ${euro(mr)} per maand.`,
         },
         { fase: "geen", naam: `Vanaf maand ${dn + dr + 1}`, regel: `Geen vrijlating meer. ${DAARNA}` },
       );

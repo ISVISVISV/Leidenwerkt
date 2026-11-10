@@ -317,7 +317,7 @@ exports[`snapshots van de uitleg > all-in uurloon, 24 jaar 1`] = `
         "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -325,7 +325,7 @@ exports[`snapshots van de uitleg > all-in uurloon, 24 jaar 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -339,7 +339,7 @@ exports[`snapshots van de uitleg > all-in uurloon, 24 jaar 1`] = `
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 17160.00",
         "Bijstand per jaar, teruggerekend naar bruto: 286.30",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17446.30",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17446.30",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -358,7 +358,7 @@ exports[`snapshots van de uitleg > all-in uurloon, 24 jaar 1`] = `
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 17160.00",
         "Bijstand per jaar, teruggerekend naar bruto: 286.30",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17446.30",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17446.30",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -390,7 +390,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, eerste helft 2026 1`] =
         "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1401.50",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21327.63",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21327.63",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -398,7 +398,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, eerste helft 2026 1`] =
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21327.63",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21327.63",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -412,7 +412,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, eerste helft 2026 1`] =
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 20217.60",
         "Bijstand per jaar, teruggerekend naar bruto: 578.14",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20795.74",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20795.74",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -431,7 +431,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, eerste helft 2026 1`] =
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 20217.60",
         "Bijstand per jaar, teruggerekend naar bruto: 578.14",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20795.74",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20795.74",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -463,7 +463,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, maand 1-6 1`] = `
         "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -471,7 +471,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, maand 1-6 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -485,7 +485,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, maand 1-6 1`] = `
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 20217.60",
         "Bijstand per jaar, teruggerekend naar bruto: 841.66",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -504,7 +504,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, maand 1-6 1`] = `
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 20217.60",
         "Bijstand per jaar, teruggerekend naar bruto: 841.66",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -538,7 +538,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, na maand 6 1`] = `
         "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -546,7 +546,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, na maand 6 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -558,7 +558,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, na maand 6 1`] = `
         "Bijstand: € 1.419,46 − € 1.638,32 is minder dan nul, dus geen bijstand",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20217.60",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20217.60",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -575,7 +575,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, na maand 6 1`] = `
         "Netto per maand (gemiddeld, inclusief vakantiegeld): 1638.32",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20217.60",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20217.60",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -607,7 +607,7 @@ exports[`snapshots van de uitleg > alleenstaande 25 jaar, 20 uur 1`] = `
         "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -615,7 +615,7 @@ exports[`snapshots van de uitleg > alleenstaande 25 jaar, 20 uur 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -629,7 +629,7 @@ exports[`snapshots van de uitleg > alleenstaande 25 jaar, 20 uur 1`] = `
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 16286.40",
         "Bijstand per jaar, teruggerekend naar bruto: 1118.49",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17404.89",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17404.89",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -648,7 +648,7 @@ exports[`snapshots van de uitleg > alleenstaande 25 jaar, 20 uur 1`] = `
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 16286.40",
         "Bijstand per jaar, teruggerekend naar bruto: 1118.49",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17404.89",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17404.89",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -683,7 +683,7 @@ exports[`snapshots van de uitleg > alleenstaande 36 uur 1`] = `
         "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -691,7 +691,7 @@ exports[`snapshots van de uitleg > alleenstaande 36 uur 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -703,7 +703,7 @@ exports[`snapshots van de uitleg > alleenstaande 36 uur 1`] = `
         "Bijstand: € 1.419,46 − € 2.429,86 is minder dan nul, dus geen bijstand",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32348.16",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32348.16",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -721,7 +721,7 @@ exports[`snapshots van de uitleg > alleenstaande 36 uur 1`] = `
         "Netto per maand (gemiddeld, inclusief vakantiegeld): 2429.86",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32348.16",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32348.16",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 99.00",
       ],
     },
@@ -768,7 +768,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neem
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 7776.00",
         "Bijstand per jaar, teruggerekend naar bruto: 11073.18",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -782,7 +782,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neem
       "kgb": [
         "Bruto loon per jaar, met vakantiegeld: 7776.00",
         "Bijstand per jaar, teruggerekend naar bruto: 11073.18",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
         "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 714.00",
         "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
       ],
@@ -795,7 +795,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neem
       "kot": [
         "Bruto loon per jaar, met vakantiegeld: 7776.00",
         "Bijstand per jaar, teruggerekend naar bruto: 11073.18",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
         "Eerste kind (3 jaar, 100 uur): 96% vergoed: 1078.08",
         "Volgend kind (9 jaar, 40 uur): 96% vergoed: 345.60",
         "Kinderopvangtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 1423.00",
@@ -815,7 +815,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neem
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 7776.00",
         "Bijstand per jaar, teruggerekend naar bruto: 11073.18",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 18849.18",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -834,7 +834,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neem
         "Bijstand: € 1.419,46 − (€ 1.885,23 − € 180,17) is minder dan nul, dus geen bijstand",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -846,7 +846,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neem
         "Deel dat u terugkrijgt per maand (niet meer dan de belasting die u betaalt): 58.77",
       ],
       "kgb": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
         "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 714.00",
         "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
       ],
@@ -857,7 +857,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neem
         "Kinderbijslag per maand, alle kinderen samen: 220.25",
       ],
       "kot": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
         "Eerste kind (3 jaar, 100 uur): 96% vergoed: 1078.08",
         "Volgend kind (9 jaar, 40 uur): 96% vergoed: 345.60",
         "Kinderopvangtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 1423.00",
@@ -876,7 +876,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neem
         "Uren × prijs per uur, alle kinderen samen: 1560.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23328.00",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -909,7 +909,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, kind 4 met opvang 1`] = 
         "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 690.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -917,7 +917,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, kind 4 met opvang 1`] = 
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 422.00",
       ],
       "kgb": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 499.00",
         "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
       ],
@@ -927,7 +927,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, kind 4 met opvang 1`] = 
         "Kinderbijslag per maand, alle kinderen samen: 99.47",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -948,7 +948,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, kind 4 met opvang 1`] = 
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 20217.60",
         "Bijstand per jaar, teruggerekend naar bruto: 841.66",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 690.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -962,7 +962,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, kind 4 met opvang 1`] = 
       "kgb": [
         "Bruto loon per jaar, met vakantiegeld: 20217.60",
         "Bijstand per jaar, teruggerekend naar bruto: 841.66",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
         "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 499.00",
         "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
       ],
@@ -974,7 +974,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, kind 4 met opvang 1`] = 
       "kot": [
         "Bruto loon per jaar, met vakantiegeld: 20217.60",
         "Bijstand per jaar, teruggerekend naar bruto: 841.66",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
         "Eerste kind (4 jaar, 80 uur): 96% vergoed: 844.80",
         "Kinderopvangtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 844.00",
       ],
@@ -993,7 +993,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, kind 4 met opvang 1`] = 
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 20217.60",
         "Bijstand per jaar, teruggerekend naar bruto: 841.66",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21059.26",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1025,7 +1025,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, maand 7-36 1`] = `
         "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -1033,7 +1033,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, maand 7-36 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 396.00",
       ],
       "kgb": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 499.00",
         "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
       ],
@@ -1043,7 +1043,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, maand 7-36 1`] = `
         "Kinderbijslag per maand, alle kinderen samen: 120.78",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1057,7 +1057,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, maand 7-36 1`] = `
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 18144.00",
         "Bijstand per jaar, teruggerekend naar bruto: 1510.99",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19654.99",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19654.99",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -1071,7 +1071,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, maand 7-36 1`] = `
       "kgb": [
         "Bruto loon per jaar, met vakantiegeld: 18144.00",
         "Bijstand per jaar, teruggerekend naar bruto: 1510.99",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19654.99",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19654.99",
         "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 499.00",
         "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
       ],
@@ -1092,7 +1092,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, maand 7-36 1`] = `
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 18144.00",
         "Bijstand per jaar, teruggerekend naar bruto: 1510.99",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19654.99",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19654.99",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1121,18 +1121,18 @@ exports[`snapshots van de uitleg > geen vaste woonplek, medische urenbeperking, 
     "huidig": {
       "bijstand": [
         "Norm voor een alleenstaande (ouder): 1419.46",
-        "U betaalt geen woonkosten en geen kosten voor gas, licht en water. De gemeente verlaagt de norm met 19% van de gehuwdennorm: -385.28",
+        "U betaalt geen woonkosten en geen kosten voor gas, licht en water. De gemeente verlaagt de norm met 19% van de norm voor partners: -385.28",
         "Uw norm. Zonder inkomen krijgt u de hele norm: 1034.18",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 14467.17",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 14467.17",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
     "werk": {
       "bijstand": [
         "Norm voor een alleenstaande (ouder): 1419.46",
-        "U betaalt geen woonkosten en geen kosten voor gas, licht en water. De gemeente verlaagt de norm met 19% van de gehuwdennorm: -385.28",
+        "U betaalt geen woonkosten en geen kosten voor gas, licht en water. De gemeente verlaagt de norm met 19% van de norm voor partners: -385.28",
         "Uw norm: 1034.18",
         "Uw netto loon: 756.00",
         "Mag u houden: vrijlating bij een medische urenbeperking: 15% van het netto loon, maximaal € 182,73 per maand: 113.40",
@@ -1150,7 +1150,7 @@ exports[`snapshots van de uitleg > geen vaste woonplek, medische urenbeperking, 
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 9072.00",
         "Bijstand per jaar, teruggerekend naar bruto: 4698.96",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 13770.96",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 13770.96",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1185,7 +1185,7 @@ exports[`snapshots van de uitleg > hoog loon per 4 weken, bijstand stopt 1`] = `
         "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -1193,7 +1193,7 @@ exports[`snapshots van de uitleg > hoog loon per 4 weken, bijstand stopt 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1205,7 +1205,7 @@ exports[`snapshots van de uitleg > hoog loon per 4 weken, bijstand stopt 1`] = `
         "Bijstand: € 1.419,46 − (€ 2.636,97 − € 289,00) is minder dan nul, dus geen bijstand",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 36504.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 36504.00",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -1224,7 +1224,7 @@ exports[`snapshots van de uitleg > hoog loon per 4 weken, bijstand stopt 1`] = `
         "Netto per maand (gemiddeld, inclusief vakantiegeld): 2636.97",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 36504.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 36504.00",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 51.00",
       ],
     },
@@ -1262,7 +1262,7 @@ exports[`snapshots van de uitleg > kamer, ander inkomen, kosten met vergoeding 1
         "Bijstand: € 1.419,46 − € 100,00 = € 1.319,46",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1288,12 +1288,12 @@ exports[`snapshots van de uitleg > kamer, ander inkomen, kosten met vergoeding 1
       ],
       "reisvergoeding": [],
       "werkkosten": [
-        "Reiskosten plus overige kosten per maand: 50.00",
+        "Reiskosten plus andere werkkosten per maand: 50.00",
       ],
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 16005.60",
         "Bijstand en ander inkomen per jaar, teruggerekend naar bruto: 1385.97",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17391.57",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17391.57",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1327,7 +1327,7 @@ exports[`snapshots van de uitleg > kostendeler, geen huur 1`] = `
         "Kostendelersnorm: u deelt de kosten met 1 huisgenoot van 27 jaar of ouder. Dat is 50% van de norm voor partners. Zonder inkomen krijgt u de hele norm: 1013.90",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 14088.31",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 14088.31",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1348,7 +1348,7 @@ exports[`snapshots van de uitleg > kostendeler, geen huur 1`] = `
         "Netto per maand (gemiddeld, inclusief vakantiegeld): 1638.32",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20217.60",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20217.60",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1380,7 +1380,7 @@ exports[`snapshots van de uitleg > netto maandloon 1`] = `
         "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -1388,7 +1388,7 @@ exports[`snapshots van de uitleg > netto maandloon 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1402,7 +1402,7 @@ exports[`snapshots van de uitleg > netto maandloon 1`] = `
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 14544.75",
         "Bijstand per jaar, teruggerekend naar bruto: 6245.57",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20790.32",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20790.32",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -1422,7 +1422,7 @@ exports[`snapshots van de uitleg > netto maandloon 1`] = `
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 14544.75",
         "Bijstand per jaar, teruggerekend naar bruto: 6245.57",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20790.32",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20790.32",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1454,9 +1454,9 @@ exports[`snapshots van de uitleg > paar met kostendeler en jonge huisgenoot, huu
         "Kostendelersnorm: u en uw partner delen de kosten met 1 huisgenoot van 27 jaar of ouder. Dat is 43,33% van de norm voor partners, per partner. Zonder inkomen krijgt u de hele norm: 1757.42",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 27975.12",
-        "Plus het jaarinkomen van de anderen in huis (dit telt mee voor de huurtoeslag): 18000.00",
-        "Rekeninkomen: het inkomen van iedereen in huis samen: 45975.12",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 27975.12",
+        "Plus het inkomen per jaar van uw huisgenoten (dit telt mee voor de huurtoeslag): 18000.00",
+        "Inkomen per jaar van iedereen in huis samen: 45975.12",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -1465,7 +1465,7 @@ exports[`snapshots van de uitleg > paar met kostendeler en jonge huisgenoot, huu
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 130.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 27975.12",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 27975.12",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 246.00",
       ],
     },
@@ -1479,9 +1479,9 @@ exports[`snapshots van de uitleg > paar met kostendeler en jonge huisgenoot, huu
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 16848.00",
         "Bijstand per jaar, teruggerekend naar bruto: 8107.01",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 24955.01",
-        "Plus het jaarinkomen van de anderen in huis (dit telt mee voor de huurtoeslag): 18000.00",
-        "Rekeninkomen: het inkomen van iedereen in huis samen: 42955.01",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 24955.01",
+        "Plus het inkomen per jaar van uw huisgenoten (dit telt mee voor de huurtoeslag): 18000.00",
+        "Inkomen per jaar van iedereen in huis samen: 42955.01",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -1501,7 +1501,7 @@ exports[`snapshots van de uitleg > paar met kostendeler en jonge huisgenoot, huu
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 16848.00",
         "Bijstand per jaar, teruggerekend naar bruto: 8107.01",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 24955.01",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 24955.01",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 246.00",
       ],
     },
@@ -1534,7 +1534,7 @@ exports[`snapshots van de uitleg > paar met opvang, partner werkt niet 1`] = `
         "Norm voor gehuwden of samenwonenden. Zonder inkomen krijgt u de hele norm: 2027.79",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 33388.60",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 33388.60",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -1543,7 +1543,7 @@ exports[`snapshots van de uitleg > paar met opvang, partner werkt niet 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 361.00",
       ],
       "kgb": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 33388.60",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 33388.60",
         "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 215.00",
         "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
       ],
@@ -1553,7 +1553,7 @@ exports[`snapshots van de uitleg > paar met opvang, partner werkt niet 1`] = `
         "Kinderbijslag per maand, alle kinderen samen: 99.47",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 33388.60",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 33388.60",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 205.00",
       ],
     },
@@ -1567,7 +1567,7 @@ exports[`snapshots van de uitleg > paar met opvang, partner werkt niet 1`] = `
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 19440.00",
         "Bijstand per jaar, teruggerekend naar bruto: 8976.43",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 28416.43",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 28416.43",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -1577,7 +1577,7 @@ exports[`snapshots van de uitleg > paar met opvang, partner werkt niet 1`] = `
       "kgb": [
         "Bruto loon per jaar, met vakantiegeld: 19440.00",
         "Bijstand per jaar, teruggerekend naar bruto: 8976.43",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 28416.43",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 28416.43",
         "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 215.00",
         "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
       ],
@@ -1598,7 +1598,7 @@ exports[`snapshots van de uitleg > paar met opvang, partner werkt niet 1`] = `
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 19440.00",
         "Bijstand per jaar, teruggerekend naar bruto: 8976.43",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 28416.43",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 28416.43",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 246.00",
       ],
     },
@@ -1637,7 +1637,7 @@ exports[`snapshots van de uitleg > paar met twee kinderen, partner werkt 1`] = `
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 11664.00",
         "Bijstand per jaar, teruggerekend naar bruto: 15001.48",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 26665.48",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 26665.48",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 780.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -1648,7 +1648,7 @@ exports[`snapshots van de uitleg > paar met twee kinderen, partner werkt 1`] = `
       "kgb": [
         "Bruto loon per jaar, met vakantiegeld: 11664.00",
         "Bijstand per jaar, teruggerekend naar bruto: 15001.48",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 26665.48",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 26665.48",
         "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 490.00",
         "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
       ],
@@ -1665,7 +1665,7 @@ exports[`snapshots van de uitleg > paar met twee kinderen, partner werkt 1`] = `
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 11664.00",
         "Bijstand per jaar, teruggerekend naar bruto: 15001.48",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 26665.48",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 26665.48",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 246.00",
       ],
     },
@@ -1678,7 +1678,7 @@ exports[`snapshots van de uitleg > paar met twee kinderen, partner werkt 1`] = `
         "Bijstand: € 2.027,79 − (€ 2.644,48 − € 289,00) is minder dan nul, dus geen bijstand",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32400.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32400.00",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 780.00",
         "Basishuur: dit deel betaalt u altijd zelf: 200.71",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 297.49",
@@ -1688,7 +1688,7 @@ exports[`snapshots van de uitleg > paar met twee kinderen, partner werkt 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 460.00",
       ],
       "kgb": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32400.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32400.00",
         "Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 490.00",
         "Het kindgebonden budget telt niet mee als inkomen voor de bijstand.",
       ],
@@ -1712,7 +1712,7 @@ exports[`snapshots van de uitleg > paar met twee kinderen, partner werkt 1`] = `
         "Netto per maand (gemiddeld, inclusief vakantiegeld): 965.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32400.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 32400.00",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 216.00",
       ],
     },
@@ -1745,7 +1745,7 @@ exports[`snapshots van de uitleg > uitzendkracht vierwekenloon 1`] = `
         "Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u de hele norm: 1419.46",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -1753,7 +1753,7 @@ exports[`snapshots van de uitleg > uitzendkracht vierwekenloon 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 21663.07",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1767,7 +1767,7 @@ exports[`snapshots van de uitleg > uitzendkracht vierwekenloon 1`] = `
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 18954.00",
         "Bijstand per jaar, teruggerekend naar bruto: 2045.36",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20999.36",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20999.36",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -1787,7 +1787,7 @@ exports[`snapshots van de uitleg > uitzendkracht vierwekenloon 1`] = `
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 18954.00",
         "Bijstand per jaar, teruggerekend naar bruto: 2045.36",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20999.36",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 20999.36",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1826,7 +1826,7 @@ exports[`snapshots van de uitleg > werkt al, breidt uit 1`] = `
       "huurtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 7776.00",
         "Bijstand per jaar, teruggerekend naar bruto: 9560.34",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17336.34",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17336.34",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -1845,7 +1845,7 @@ exports[`snapshots van de uitleg > werkt al, breidt uit 1`] = `
       "zorgtoeslag": [
         "Bruto loon per jaar, met vakantiegeld: 7776.00",
         "Bijstand per jaar, teruggerekend naar bruto: 9560.34",
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17336.34",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 17336.34",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1857,7 +1857,7 @@ exports[`snapshots van de uitleg > werkt al, breidt uit 1`] = `
         "Bijstand: € 1.419,46 − € 1.576,59 is minder dan nul, dus geen bijstand",
       ],
       "huurtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19440.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19440.00",
         "Rekenhuur: de kale huur, tot de maximale huurgrens: 650.00",
         "Basishuur: dit deel betaalt u altijd zelf: 202.52",
         "Deel A: het deel boven de basishuur tot de kwaliteitskortingsgrens, 100% vergoed: 295.68",
@@ -1874,10 +1874,10 @@ exports[`snapshots van de uitleg > werkt al, breidt uit 1`] = `
         "Netto per maand (gemiddeld, inclusief vakantiegeld): 1576.59",
       ],
       "werkkosten": [
-        "Reiskosten plus overige kosten per maand: 40.00",
+        "Reiskosten plus andere werkkosten per maand: 40.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19440.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 19440.00",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1890,7 +1890,7 @@ exports[`snapshots van de uitleg > woonvorm met begeleiding 1`] = `
   "aannames": [
     "De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.",
     "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
-    "Er is aangenomen dat u voor uw verblijf in de instelling of woonvorm niets betaalt, ook niet als u gaat werken.",
+    "Er is aangenomen dat u voor uw verblijf in de instelling niets betaalt, ook niet als u gaat werken.",
   ],
   "betrouwbaarheid": {
     "niveau": "goed",
@@ -1904,7 +1904,7 @@ exports[`snapshots van de uitleg > woonvorm met begeleiding 1`] = `
     "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
     "[info] Opnieuw bijstand aanvragen: Met dit werk heeft u waarschijnlijk geen bijstand meer nodig. Stopt uw werk en vraagt u binnen 12 maanden na het einde van uw bijstand opnieuw bijstand aan? Dan is aanvragen in Leiden makkelijker: de gemeente kan de gegevens gebruiken die ze al van u heeft.",
     "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden.",
-    "[info] Als u later zelfstandig woont: Dit geldt zolang u in de instelling of woonvorm woont. Woont u later zelfstandig, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm. U betaalt dan zelf huur en boodschappen, en misschien krijgt u huurtoeslag. Reken dan opnieuw.",
+    "[info] Als u later zelfstandig woont: De lagere norm geldt zolang u in de instelling woont. Woont u later zelfstandig, bijvoorbeeld in een eigen huurwoning? Dan krijgt u de gewone bijstandsnorm, en misschien huurtoeslag. Reken dan opnieuw.",
   ],
   "nietMeegenomen": [],
   "stappen": {
@@ -1913,7 +1913,7 @@ exports[`snapshots van de uitleg > woonvorm met begeleiding 1`] = `
         "Norm bij verblijf in een instelling. Zonder inkomen krijgt u de hele norm: 496.44",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 5957.28",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 5957.28",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },
@@ -1934,7 +1934,7 @@ exports[`snapshots van de uitleg > woonvorm met begeleiding 1`] = `
         "Netto per maand (gemiddeld, inclusief vakantiegeld): 965.00",
       ],
       "zorgtoeslag": [
-        "Geschat bruto jaarinkomen van het huishouden (Dienst Toeslagen kijkt naar het hele jaar): 11664.00",
+        "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 11664.00",
         "Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 129.00",
       ],
     },

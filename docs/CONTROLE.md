@@ -87,8 +87,12 @@ Wat de tests bewijzen:
 | --- | --- |
 | `packages/engine/test/officieel.test.ts` | De rekenvoorbeelden uit de brochures van Dienst Toeslagen komen er exact uit |
 | `testgevallen/*.yaml` en [PROEFPERSONEN.md](PROEFPERSONEN.md) | Verzonnen huishoudens, per bedrag vergeleken met een officiële waarde waar die er is, waaronder ingevulde proefberekeningen van Dienst Toeslagen |
+| `packages/engine/test/grenzen.test.ts` | Grenzen en onderdelen met de hand nagerekend: leeftijdsgrenzen, kostendelersnorm bij een paar, belastingschijven, vergoeding kinderopvang, opbouw van de kinderopvangtabel |
+| `packages/engine/test/snapshot.test.ts` | Vastgelegde uitkomsten en uitleg (rekenstappen, meldingen, aannames); elke wijziging valt op |
 | `packages/engine/test/eigenschappen.test.ts` | Bij willekeurige invoer gedraagt de uitkomst zich zoals de wet voorschrijft: geen sprongen, dalend waar het moet |
 | `e2e/rekenhulp.spec.ts` | De app doet wat de rekenkern uitrekent, voldoet aan WCAG 2.2 AA en doet geen verzoeken naar buiten |
+
+**Deugen de tests zelf?** Op 10 november 2026 is een mutatietest gedaan: 1.020 keer is één ding veranderd in de rekenkern of in een bedrag van 2026 (een vergelijking, een plus of min, een grens, een bedrag) en is gekeken of een test faalde. In 871 gevallen faalde een test. Van de 149 overige veranderde in 94 gevallen niets aan de uitkomst (gelijkwaardige code, of een schijfgrens die een euro opschuift), in 43 gevallen alleen een tekst of rekenstap buiten de vastgelegde huishoudens, en in 12 gevallen een bedrag: 8 daarvan in de bedragen van de eerste helft van 2026, die de rekenhulp niet meer gebruikt, en 4 in randgevallen van de rekenkern. De eerste meting, vóór de extra tests, ving 441 van de 1.010.
 
 Wat de tests **niet** bewijzen: dat een regel goed is begrepen als er geen officiële vergelijkingswaarde voor bestaat. Daarvoor is de bronvermelding per parameter bedoeld, en de lijst met open vragen.
 

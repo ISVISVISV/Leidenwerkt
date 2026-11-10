@@ -64,12 +64,17 @@ export function woonkorting(l: Lezer, invoer: Invoer): Woonkorting {
   if (invoer.gemeente !== "leiden" || invoer.kostendelers > 0) return geen;
   const w = invoer.wonen;
   if (w.soort === "anders" || w.soort === "instelling") return geen;
+  if (w.soort === "huur") {
+    const huur = D(w.kaleHuurPerMaand ?? 0);
+    // Eerst kijken of de verlaging geldt; alleen dan staan de regels bij de gebruikte regels.
+    const drempel = l.zonderNoteren(() => l.bedrag("pw.norm.gehuwden").times(l.breuk("leiden.woonkosten.korting_geen_woonkosten")));
+    if (huur.isZero() || huur.gte(drempel)) return geen;
+  }
   const gehuwden = l.bedrag("pw.norm.gehuwden");
   const pk = l.breuk("leiden.woonkosten.korting_geen_woonkosten");
   const grens = gehuwden.times(pk);
   if (w.soort === "huur") {
     const huur = D(w.kaleHuurPerMaand ?? 0);
-    if (huur.isZero() || huur.gte(grens)) return geen;
     return {
       bedrag: grens.minus(huur),
       tekst: `Uw woonkosten zijn lager dan ${euro(grens)}. De gemeente verlaagt de norm met het verschil`,
@@ -81,7 +86,7 @@ export function woonkorting(l: Lezer, invoer: Invoer): Woonkorting {
   const wat = w.betaaltWoonlasten ? "geen woonkosten" : "geen woonkosten en geen kosten voor gas, licht en water";
   return {
     bedrag: gehuwden.times(pct),
-    tekst: `U betaalt ${wat}. De gemeente verlaagt de norm met ${pct.times(100).toString().replace(".", ",")}% van de gehuwdennorm`,
+    tekst: `U betaalt ${wat}. De gemeente verlaagt de norm met ${pct.times(100).toString().replace(".", ",")}% van de norm voor partners`,
     aanname: w.dakloos
       ? "Zonder vaste woonplek gaat de gemeente Leiden ervan uit dat u geen woonkosten heeft. Betaalt u toch voor onderdak? Laat dat zien aan uw klantmanager; dan kan de verlaging lager zijn."
       : "Betaalt iemand anders langer dan 6 maanden uw woonkosten, dan verlaagt de gemeente Leiden de norm. Korter dan 6 maanden telt het als gift. Vraag uw klantmanager wat voor u geldt.",

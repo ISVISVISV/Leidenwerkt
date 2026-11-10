@@ -2,7 +2,7 @@
  * Toegang tot regeldata op datum. Elke opgevraagde parameter wordt
  * vastgelegd, zodat het uitlegspoor precies laat zien wat is gebruikt.
  */
-import { D, type Bedrag } from "./geld.ts";
+import { D, euro, type Bedrag } from "./geld.ts";
 import data from "./generated/regels.json" with { type: "json" };
 
 export type Status = "geverifieerd" | "onbevestigd" | "ontbrekend";
@@ -48,10 +48,23 @@ export interface RuweParameter {
   geldig_tot: string | null;
 }
 
+const PER: Record<string, string> = { euro_per_maand: " per maand", euro_per_jaar: " per jaar", euro_per_kwartaal: " per kwartaal", euro_per_uur: " per uur" };
+const EENHEID: Record<string, string> = { jaren: " jaar", maanden: " maanden", uren_per_maand: " uur per maand" };
+
+/** "1419.46" met eenheid euro_per_maand wordt "€ 1.419,46 per maand"; "25%" blijft "25%" met een komma. */
+function leesbaar(waarde: string, eenheid: string): string {
+  if (waarde === "tabel") return "zie de tabel in de bron";
+  if (eenheid in PER) return `${euro(D(waarde), D(waarde).isInteger())}${PER[eenheid]}`;
+  if (waarde.endsWith("%")) return waarde.replace(".", ",");
+  return `${waarde.replace(".", ",")}${EENHEID[eenheid] ?? ""}`;
+}
+
 export interface GebruikteParameter {
   id: string;
   omschrijving: string;
   waarde: string;
+  /** De waarde zoals een lezer die verwacht: met €, % of eenheid. */
+  waardeTekst: string;
   status: Status;
   bron?: Bron;
   citaat?: BronCitaat;
@@ -163,6 +176,7 @@ export class Lezer {
         id: p.id,
         omschrijving: p.omschrijving,
         waarde,
+        waardeTekst: leesbaar(waarde, p.eenheid),
         status: p.status,
         bron: p.bron,
         citaat: p.citaat,
@@ -176,6 +190,16 @@ export class Lezer {
   brontekst(id: string): { citaat: BronCitaat; bron: Bron; geldigVan: string } | undefined {
     const p = this.regels.zoek(id, this.datum);
     return p?.citaat && p.bron ? { citaat: p.citaat, bron: p.bron, geldigVan: p.geldig_van } : undefined;
+  }
+
+  /** Leest parameters voor een controle, zonder ze als gebruikte regel te noteren. */
+  zonderNoteren<T>(fn: () => T): T {
+    const aantal = this.gebruikt.length;
+    try {
+      return fn();
+    } finally {
+      this.gebruikt.length = aantal;
+    }
   }
 
   bestaat(id: string): boolean {

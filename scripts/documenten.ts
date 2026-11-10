@@ -51,7 +51,7 @@ function invoerZinnen(u: Uitkomst): string[] {
 
 function toetsingsinkomen(u: Uitkomst, s: "huidig" | "werk"): string | undefined {
   for (const p of u.resultaat[s].posten) {
-    const st = p.stappen.find((x) => x.tekst.startsWith("Geschat bruto jaarinkomen"));
+    const st = p.stappen.find((x) => x.tekst.startsWith("Geschat bruto inkomen per jaar"));
     if (st?.bedrag) return eur(Math.round(Number(st.bedrag)));
   }
   return undefined;

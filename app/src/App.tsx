@@ -208,7 +208,7 @@ const instellingsnorm = () => {
   try {
     const a = l.bedrag("pw.norm.inrichting.alleenstaande").plus(l.bedrag("pw.norm.inrichting.verhoging_alleenstaande"));
     const g = l.bedrag("pw.norm.inrichting.gehuwden").plus(l.bedrag("pw.norm.inrichting.verhoging_gehuwden"));
-    return `${euro(a)} per maand voor een alleenstaande, ${euro(g)} voor een stel`;
+    return `${euro(a)} per maand als u geen partner heeft, ${euro(g)} voor u en uw partner samen`;
   } catch {
     return "";
   }
@@ -422,8 +422,8 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           if (!metKinderen) zet("kinderen", []);
         }}
         opties={[
-          ["alleenstaande", "Alleen"],
-          ["alleenstaande_ouder", "Alleen met mijn kinderen"],
+          ["alleenstaande", "Zonder partner en zonder kinderen"],
+          ["alleenstaande_ouder", "Zonder partner, met mijn kinderen"],
           ["paar", "Met mijn partner"],
           ["paar_kinderen", "Met mijn partner en kinderen"],
         ]}
@@ -503,7 +503,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                     label="Prijs per uur"
                     hint={
                       maxPrijsTekst(k.soort)
-                        ? `Vraag het aan de opvang. Weet u het niet? Laat het vak leeg. De app rekent dan met € ${maxPrijsTekst(k.soort)} per uur. Dat is de hoogste prijs per uur waarover u toeslag krijgt.`
+                        ? `Vraag het aan de opvang. Weet u het niet? Laat het vak leeg. De rekenhulp rekent dan met € ${maxPrijsTekst(k.soort)} per uur. Dat is de hoogste prijs per uur waarover u toeslag krijgt.`
                         : "Vraag dit na bij de opvang. Weet u het niet? Laat het vak dan leeg."
                     }
                     waarde={k.uurprijs}
@@ -528,8 +528,8 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         id="kostendelers"
         soort="geheel"
         voorbeeld="bijv. 0"
-        label="Hoeveel andere mensen van 27 jaar of ouder wonen bij u in huis?"
-        hint={`${f.leefvorm === "paar" ? "Tel uzelf en uw partner niet mee." : "Tel uzelf niet mee."} Een kind van 27 jaar of ouder telt wel mee, net als een huisgenoot. Niet iedereen telt mee. De meeste studenten tellen niet mee. Ook niet: iemand die met een contract en tegen een gewone prijs een kamer van u huurt of bij u in de kost is, en die geen familie van u is. Twijfelt u? Vraag het uw klantmanager.`}
+        label="Hoeveel huisgenoten van 27 jaar of ouder heeft u?"
+        hint={`${f.leefvorm === "paar" ? "Tel uzelf en uw partner niet mee." : "Tel uzelf niet mee."} Een huisgenoot is iedereen die bij u woont, ook uw eigen kind van 27 jaar of ouder. Niet iedereen telt mee. De meeste studenten tellen niet mee. Ook niet: iemand die met een contract en tegen een gewone prijs een kamer van u huurt of bij u in de kost is, en die geen familie van u is. Twijfelt u? Vraag het uw klantmanager.`}
         waarde={f.kostendelers}
         onChange={(v) => zet("kostendelers", v)}
         fout={fouten.kostendelers}
@@ -538,7 +538,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         id="jongeHuisgenoten"
         soort="geheel"
         voorbeeld="bijv. 0"
-        label="Hoeveel andere mensen van 18 tot en met 26 jaar wonen bij u in huis?"
+        label="Hoeveel huisgenoten van 18 tot en met 26 jaar heeft u?"
         hint={
           f.leefvorm === "paar" && f.kinderen.length > 0
             ? "Tel uzelf, uw partner en uw kinderen niet mee; die heeft u hierboven al ingevuld."
@@ -612,15 +612,18 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           ["koop", "In een koopwoning"],
           ["inwonend", "Bij iemand anders in huis, en ik betaal niets voor mijn woonruimte"],
           ["dakloos", "Ik heb geen vaste woonplek"],
-          ["instelling", "In een instelling of woonvorm met begeleiding, waar ik een lagere bijstand krijg"],
+          ["instelling", "In een instelling met zorg of begeleiding, waar ik een lagere bijstand krijg"],
         ]}
       />
       {f.woont === "instelling" && (
         <div className="melding" role="status">
           <p>
-            In een instelling of woonvorm waar dag en nacht zorg of begeleiding is, krijgt u een lagere bijstand
-            {instellingsnorm() ? `: ${instellingsnorm()}` : ""}. Dat komt doordat u daar geen huur en boodschappen hoeft te
-            betalen. Krijgt u een ander bedrag aan bijstand? Kies dan een andere keuze.
+            Woont u in een instelling voor verpleging of verzorging? Of in een instelling waar u slaapt en waar meer dan de helft van de dag
+            hulp of begeleiding aanwezig is? Dan krijgt u een lagere bijstand{instellingsnorm() ? `: ${instellingsnorm()}` : ""}. Krijgt u
+            een ander bedrag aan bijstand? Kies dan een andere woonsituatie.
+          </p>
+          <p className="bron-blok">
+            Bron: <Bron citaat={CITATEN.pw23inrichting} />
           </p>
           <p>Slaapt u in een daklozenopvang zonder begeleiding? Kies dan "Ik heb geen vaste woonplek".</p>
         </div>
@@ -640,13 +643,13 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           {vraagInkomenAnderen(f) && (
             <Veld
               id="huisgenotenInkomen"
-              label="Voor de huurtoeslag: bruto jaarinkomen van de mensen die bij u wonen, samen"
+              label="Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen"
               hint={
                 <>
                   <p>
-                    Dit telt mee voor de huurtoeslag. Tel het inkomen mee van iedereen die bij u woont, behalve uw partner: huisgenoten en
-                    kinderen.{vrijstellingKind() ? ` Van een kind jonger dan 23 jaar telt alleen het deel boven ${vrijstellingKind()} per jaar mee.` : ""}{" "}
-                    Weet u het niet precies? Vul dan een schatting in; hoe beter de schatting, hoe beter de uitkomst. Heeft niemand inkomen? Vul dan
+                    Dit telt mee voor de huurtoeslag. Tel het inkomen mee van al uw huisgenoten en van uw kinderen. Het inkomen van uw partner
+                    telt u hier niet mee.{vrijstellingKind() ? ` Van een kind jonger dan 23 jaar telt alleen het deel boven ${vrijstellingKind()} per jaar mee.` : ""}{" "}
+                    Weet u het niet precies? Vul dan een schatting in. Heeft niemand inkomen? Vul dan
                     0 in.
                   </p>
                   <p className="bron-blok">
@@ -712,7 +715,7 @@ function LoonVelden({
         id={urenId}
         label={prefix === "nu" ? "Hoeveel uur per week werkt u nu?" : "Hoeveel uur per week werkt u?"}
         voorbeeld="bijv. 24"
-        hint="Hiermee rekent de app uit wat u per uur verdient. Zo ziet u bij de uitkomst wat meer of minder uren oplevert."
+        hint="Hiermee rekent de rekenhulp uit wat u per uur verdient. Zo ziet u bij de uitkomst wat meer of minder uren oplevert."
         waarde={uren}
         onChange={zetUren}
         fout={fouten[urenId]}
@@ -740,8 +743,8 @@ function LoonVelden({
           per === "uur"
             ? "Staat in de vacature of het contract. 'Bruto' is het bedrag vóór belasting."
             : per === "netto"
-              ? "Het bedrag dat u elke maand op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook. De app telt het vakantiegeld zelf mee."
-              : "Neem het loon uit uw contract of van uw loonstrook, zonder vakantiegeld. De app telt het vakantiegeld zelf mee. 'Bruto' is het bedrag vóór belasting."
+              ? "Het bedrag dat u elke maand op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook. De rekenhulp telt het vakantiegeld zelf mee."
+              : "Neem het loon uit uw contract of van uw loonstrook, zonder vakantiegeld. De rekenhulp telt het vakantiegeld zelf mee. 'Bruto' is het bedrag vóór belasting."
         }
         waarde={loon}
         onChange={zetLoon}
@@ -797,7 +800,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
           <Keuze
             naam="werktAl"
             legend="Hoe lang werkt u al naast de bijstand?"
-            hint="In de eerste 6 maanden mag u een deel van uw loon extra houden. Daarna meestal niet meer. Zo weet de app welke regel voor u geldt."
+            hint="In de eerste 6 maanden mag u een deel van uw loon extra houden. Daarna meestal niet meer. Zo weet de rekenhulp welke regel voor u geldt."
             waarde={f.werktAl}
             onChange={(v) => zet("werktAl", v)}
             fout={fouten.werktAl}
@@ -810,7 +813,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
             <Keuze
               naam="opvangNu"
               legend="Gaat uw kind nu al naar de kinderopvang?"
-              hint="Dan rekent de app de kosten en de toeslag voor de opvang ook mee in de situatie zoals die nu is."
+              hint="Dan rekent de rekenhulp de kosten en de toeslag voor de kinderopvang ook mee in de situatie zoals die nu is."
               waarde={f.opvangNu}
               onChange={(v) => zet("opvangNu", v)}
               fout={fouten.opvangNu}
