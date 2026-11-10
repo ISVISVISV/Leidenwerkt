@@ -31,6 +31,15 @@ describe("Leiden: lagere norm bij geen of lage woonkosten (CVDR760406 art. 3.1)"
     const r = bereken(basis({ wonen: { soort: "huur", kaleHuurPerMaand: 150 } }));
     expect(bijstand(r)).toBe("1366.68"); // 1419,46 − (202,779 − 150)
   });
+  it("ook op een kamer met een huur onder de grens: het verschil, zonder huurtoeslag", () => {
+    const r = bereken(basis({ wonen: { soort: "huur", kaleHuurPerMaand: 150, zelfstandig: false } }));
+    expect(bijstand(r)).toBe("1366.68"); // 1419,46 − (202,779 − 150)
+    expect(r.huidig.posten.some((p) => p.id === "huurtoeslag")).toBe(false);
+  });
+  it("op een kamer met een huur boven de grens: de gewone norm", () => {
+    const r = bereken(basis({ wonen: { soort: "huur", kaleHuurPerMaand: 450, zelfstandig: false } }));
+    expect(bijstand(r)).toBe("1419.46");
+  });
   it("niet bij de kostendelersnorm (alleen art. 21)", () => {
     const met = bereken(basis({ kostendelers: 1, wonen: { soort: "geen_woonkosten", betaaltWoonlasten: false } }));
     const zonder = bereken(basis({ kostendelers: 1 }));
@@ -251,7 +260,7 @@ describe("Leiden: collectieve zorgverzekering en kwijtschelding", () => {
     const laag = bereken(basis({ nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
     const hoog = bereken(basis({ nieuwWerk: { brutoMaandloon: 2600, urenPerWeek: 36 }, vrijlatingFase: "start" }));
     expect(tekst(laag, "Zorgverzekering")!.tekst).toContain("kan dat waarschijnlijk nog");
-    expect(tekst(laag, "Zorgverzekering")!.tekst).toContain("zwembad De Vliet of De Zijl");
+    expect(tekst(laag, "Zwemabonnement")!.tekst).toContain("zwembad De Vliet of De Zijl");
     expect(tekst(laag, "Gratis OV-pas")!.tekst).toContain("Zolang u bijstand krijgt");
     expect(tekst(hoog, "Gratis OV-pas")!.tekst).toContain("krijgt u die pas niet meer");
     const dakloos = bereken(basis({ wonen: { soort: "geen_woonkosten", dakloos: true, betaaltWoonlasten: false }, nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
@@ -277,5 +286,23 @@ describe("Leiden: collectieve zorgverzekering en kwijtschelding", () => {
     const hoog = bereken(basis({ nieuwWerk: { brutoMaandloon: 2600, urenPerWeek: 36 }, vrijlatingFase: "start" }));
     expect(tekst(laag, "Gemeentelijke belastingen")).toBeUndefined();
     expect(tekst(hoog, "Gemeentelijke belastingen")!.bron!.tekst).toContain("Afvalstoffenheffing");
+  });
+});
+
+describe("Leiden: meldingen over zorgverzekering, zwemmen en sport", () => {
+  const melding = (r: Resultaat, kop: string) => r.signalen.find((s) => s.kop === kop);
+  it("zorgverzekering en zwemabonnement zijn twee losse meldingen", () => {
+    const r = bereken(basis({ nieuwWerk: { brutoMaandloon: 900 }, vrijlatingFase: "geen" }));
+    expect(melding(r, "Zorgverzekering")?.tekst).not.toContain("zwem");
+    expect(melding(r, "Zwemabonnement")?.tekst).toContain("De Vliet");
+  });
+  it("Volwassenenfonds: tot 120% van de norm een tip, daarboven een waarschuwing", () => {
+    // Norm alleenstaande € 1.419,46; 120% = € 1.703,35.
+    const laag = melding(bereken(basis({ nieuwWerk: { brutoMaandloon: 900 } })), "Sport en cultuur");
+    expect(laag?.soort).toBe("info");
+    expect(laag?.tekst).toMatch(/250 per jaar/);
+    expect(laag?.tekst).toMatch(/1\.703/);
+    const hoog = melding(bereken(basis({ nieuwWerk: { brutoMaandloon: 3000 } })), "Sport en cultuur");
+    expect(hoog?.soort).toBe("waarschuwing");
   });
 });

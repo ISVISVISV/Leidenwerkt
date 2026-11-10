@@ -86,6 +86,8 @@ export interface Formulier {
   /** Ander inkomen van het huishouden, zoals alimentatie of een andere uitkering. */
   heeftAnderInkomen: boolean;
   anderInkomen: string;
+  /** Wonen er nog andere mensen in huis, naast partner en kinderen? */
+  andereBewoners: boolean;
   kostendelers: string;
   /** Huisgenoten van 18 tot 27 jaar die geen kind van de gebruiker zijn. */
   jongeHuisgenoten: string;
@@ -132,6 +134,7 @@ export const leegFormulier: Formulier = {
   kinderen: [],
   heeftAnderInkomen: false,
   anderInkomen: "",
+  andereBewoners: false,
   kostendelers: "0",
   jongeHuisgenoten: "0",
   huisgenotenInkomen: "",
@@ -180,8 +183,26 @@ export function vandaag(): string {
 }
 
 /** Het inkomen van de anderen in huis is nodig voor de huurtoeslag: huisgenoten, of kinderen van 18 of ouder. */
+/** De vraag naar andere bewoners heeft geen zin zonder vaste woonplek of in een instelling. */
+export function vraagBewoners(f: Formulier): boolean {
+  return f.woont !== "dakloos" && f.woont !== "instelling";
+}
+
+/** Huisgenoten van 18 tot en met 26 jaar tellen alleen mee voor de huurtoeslag. */
+export function vraagJongeHuisgenoten(f: Formulier): boolean {
+  return vraagBewoners(f) && f.andereBewoners && f.woont === "huur" && f.zelfstandig;
+}
+
+export function aantalKostendelers(f: Formulier): number {
+  return vraagBewoners(f) && f.andereBewoners ? (getal(f.kostendelers) ?? 0) : 0;
+}
+
+export function aantalJongeHuisgenoten(f: Formulier): number {
+  return vraagJongeHuisgenoten(f) ? (getal(f.jongeHuisgenoten) ?? 0) : 0;
+}
+
 export function vraagInkomenAnderen(f: Formulier): boolean {
-  const huisgenoten = (getal(f.kostendelers) ?? 0) + (getal(f.jongeHuisgenoten) ?? 0);
+  const huisgenoten = aantalKostendelers(f) + aantalJongeHuisgenoten(f);
   return f.woont === "huur" && f.zelfstandig && (huisgenoten > 0 || f.kinderen.some((k) => (leeftijdOp(k.geboren, vandaag()) ?? 0) >= 18));
 }
 
@@ -235,15 +256,25 @@ export function controleer(f: Formulier, stap: number): Fouten {
         moet(`kind${i}prijs`, k.uurprijs, 1, 30, "Vul een prijs per uur in, bijvoorbeeld 11,50. Weet u het niet? Laat het vak dan leeg.", false);
       }
     });
-    moet("kostendelers", f.kostendelers, 0, 10, "Vul een aantal van 0 tot 10 in.");
     if (f.heeftAnderInkomen) moet("anderInkomen", f.anderInkomen, 1, 10000, "Vul een bedrag per maand in, bijvoorbeeld 250.");
-    moet("jongeHuisgenoten", f.jongeHuisgenoten, 0, 10, "Vul een aantal van 0 tot 10 in.");
+  }
+  if (stap === 2 && vraagBewoners(f) && f.andereBewoners) {
+    moet("kostendelers", f.kostendelers, 0, 10, "Vul een aantal van 0 tot 10 in.");
+    if (vraagJongeHuisgenoten(f)) moet("jongeHuisgenoten", f.jongeHuisgenoten, 0, 10, "Vul een aantal van 0 tot 10 in.");
   }
   if (stap === 2 && vraagInkomenAnderen(f)) {
     moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
   }
-  if (stap === 2 && f.woont === "huur" && f.zelfstandig) {
-    moet("kaleHuur", f.kaleHuur, 1, 3000, "Vul de kale huur per maand in. Die staat in uw huurcontract of op het overzicht van de verhuurder.");
+  if (stap === 2 && f.woont === "huur") {
+    moet(
+      "kaleHuur",
+      f.kaleHuur,
+      1,
+      3000,
+      f.zelfstandig
+        ? "Vul de kale huur per maand in. Die staat in uw huurcontract of op het overzicht van de verhuurder."
+        : "Vul de huur per maand in, bijvoorbeeld 450.",
+    );
   }
   if (stap === 3) {
     const loonGrens = (per: LoonPer): [number, number, string] =>
@@ -306,12 +337,12 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
       ? { leeftijd: leeftijdOp(f.partnerGeboren, opties.datum) ?? 0, werk: f.partnerWerkt ? { brutoMaandloon: getal(f.partnerBruto) ?? 0 } : undefined }
       : undefined,
     kinderen,
-    kostendelers: getal(f.kostendelers) ?? 0,
-    jongeHuisgenoten: getal(f.jongeHuisgenoten) ?? 0,
+    kostendelers: aantalKostendelers(f),
+    jongeHuisgenoten: aantalJongeHuisgenoten(f),
     huisgenotenInkomenJaar: vraagInkomenAnderen(f) ? getal(f.huisgenotenInkomen) : undefined,
     wonen:
       f.woont === "huur"
-        ? { soort: "huur", kaleHuurPerMaand: f.zelfstandig ? getal(f.kaleHuur) : undefined, zelfstandig: f.zelfstandig }
+        ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), zelfstandig: f.zelfstandig }
         : f.woont === "inwonend" || f.woont === "dakloos"
           ? { soort: "geen_woonkosten", dakloos: f.woont === "dakloos", betaaltWoonlasten: f.woont === "inwonend" && f.woonlasten }
           : f.woont === "instelling"
@@ -406,13 +437,12 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
     const opvang = k.opvang ? `; ${OPVANG[k.soort]}, ${k.uren} uur per maand${k.uurprijs ? ` × ${euroTekst(k.uurprijs)}` : ", prijs onbekend"}` : "";
     huishouden.push([`Kind ${i + 1}`, `geboren ${datumTekst(k.geboren)}${opvang}`]);
   });
-  huishouden.push(["Huisgenoten", `${f.kostendelers || "0"} van 27 jaar of ouder, ${f.jongeHuisgenoten || "0"} van 18 tot en met 26 jaar`]);
   huishouden.push(["Ander inkomen", f.heeftAnderInkomen ? `${euroTekst(f.anderInkomen)} netto per maand` : "nee"]);
 
   const woning: [string, string][] = [];
   if (f.woont === "huur") {
     woning.push(["Woning", f.zelfstandig ? "huurwoning met eigen voordeur, keuken, wc en douche" : "kamer, of woning met gedeelde keuken, wc of douche"]);
-    if (f.zelfstandig) woning.push(["Kale huur", `${euroTekst(f.kaleHuur)} per maand`]);
+    woning.push([f.zelfstandig ? "Kale huur" : "Huur", `${euroTekst(f.kaleHuur)} per maand`]);
     if (vraagInkomenAnderen(f)) woning.push(["Inkomen huisgenoten", `${euroTekst(f.huisgenotenInkomen)} bruto per jaar`]);
   } else {
     woning.push([
@@ -424,6 +454,14 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
           : f.woont === "dakloos"
             ? "geen vaste woonplek"
             : "instelling met zorg of begeleiding",
+    ]);
+  }
+  if (vraagBewoners(f)) {
+    woning.push([
+      "Andere bewoners",
+      !f.andereBewoners
+        ? "nee"
+        : `${aantalKostendelers(f)} van 27 jaar of ouder${vraagJongeHuisgenoten(f) ? `, ${aantalJongeHuisgenoten(f)} van 18 tot en met 26 jaar` : ""}`,
     ]);
   }
 

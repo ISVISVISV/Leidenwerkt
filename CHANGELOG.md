@@ -4,6 +4,23 @@ Wat er per versie is veranderd. De opzet volgt [Keep a Changelog](https://keepac
 
 Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op de afdruk.
 
+## Nog niet uitgebracht
+
+### Toegevoegd
+
+- Melding over het Volwassenenfonds Sport & Cultuur (Leiden).
+
+### Gewijzigd
+
+- De vragen over het huishouden zijn eenvoudiger: twee ja/nee-vragen over partner en kinderen in plaats van één keuzelijst.
+- De vraag naar andere bewoners staat bij de woning. De aantallen verschijnen alleen als er andere bewoners zijn; het aantal van 18 tot en met 26 jaar alleen bij een zelfstandige huurwoning, omdat het alleen voor de huurtoeslag telt.
+- Zorgverzekering en zwemabonnement zijn twee losse meldingen.
+- Duidelijkere teksten bij ander inkomen en bij de kosten voor wie meer gaat werken.
+
+### Hersteld
+
+- Bij een kamer of gedeelde woning vraagt de rekenhulp nu de huur. Daardoor past ze ook daar de Leidse verlaging van de bijstand bij lage woonkosten toe. Eerder rekende ze bij een kamerhuur onder de grens met een te hoge bijstand.
+
 ## 0.2.0 – 10 november 2026
 
 ### Toegevoegd
