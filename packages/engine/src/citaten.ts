@@ -18,6 +18,13 @@ export interface Citaat {
 }
 
 export const CITATEN = {
+  pw17: {
+    titel: "Participatiewet, art. 17 lid 1",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk2_Paragraaf2.3_Artikel17",
+    versie: "geldend vanaf 1 juli 2026",
+    tekst:
+      "De belanghebbende doet aan het college op verzoek of onverwijld uit eigen beweging mededeling van alle feiten en omstandigheden waarvan hem redelijkerwijs duidelijk moet zijn dat zij van invloed kunnen zijn op zijn arbeidsinschakeling of het recht op bijstand.",
+  },
   pw3: {
     titel: "Participatiewet, art. 3 lid 2 en 3",
     url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk1_Paragraaf1.1_Artikel3",

@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Lezer, bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
+import { useEffect, useMemo, useState } from "react";
+import { Lezer, woonkorting, bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
 import { LOON_PER, getal, ingevuld, ingevuldLoon, maxUurprijs, naarInvoer, schuifStart, vasteFase, vandaag, type Formulier } from "./formulier.ts";
 
@@ -51,6 +51,12 @@ export function Uitkomst({ f }: { f: Formulier }) {
   const periodes = uitleg.periodes;
   // Wie al 6 maanden of langer werkt, zit in de periode na de eerste vrijlating: de uitleg volgt de berekening.
   const vast = vasteFase(f);
+  // Op papier staan alle meldingen uitgeklapt.
+  useEffect(() => {
+    const open = () => document.querySelectorAll("details.signaal").forEach((d) => ((d as HTMLDetailsElement).open = true));
+    window.addEventListener("beforeprint", open);
+    return () => window.removeEventListener("beforeprint", open);
+  }, []);
   const wens = vast ?? gekozenFase;
   const fase = periodes.some((p) => p.fase === wens) ? wens : vast ? periodes[periodes.length - 1].fase : periodes[0].fase;
   const onbekend = useMemo(() => (teruggevallen ? onbekendeOnderdelen(vandaag()) : []), [teruggevallen]);
@@ -111,18 +117,27 @@ export function Uitkomst({ f }: { f: Formulier }) {
       />
 
       {r.signalen.some((s) => s.actie) && (
-        <section className="te-doen" aria-labelledby="te-doen">
-          <h2 id="te-doen">Wat u nu kunt doen</h2>
+        <nav className="te-doen" aria-labelledby="te-doen">
+          <h2 id="te-doen">Wat u nu kunt doen:</h2>
           <ul>
             {r.signalen.map((s, i) =>
               s.actie ? (
                 <li key={i}>
-                  <a href={`#signaal-${i}`}>{s.kop}</a>
+                  <a
+                    href={`#signaal-${i}`}
+                    onClick={(e) => {
+                      // Geen #-adres: de app gebruikt de geschiedenis voor de stappen.
+                      e.preventDefault();
+                      openSignaal(i);
+                    }}
+                  >
+                    {s.kop}
+                  </a>
                 </li>
               ) : null,
             )}
           </ul>
-        </section>
+        </nav>
       )}
 
       <section className="alleen-print gegevens" aria-label="Wat u heeft ingevuld">
@@ -238,16 +253,19 @@ export function Uitkomst({ f }: { f: Formulier }) {
       {r.signalen.length > 0 && (
         <section aria-labelledby="let-op">
           <h2 id="let-op">Goed om te weten</h2>
+          <InkomenVoorGrenzen r={r} />
           <ul className="signalen">
             {r.signalen.map((s, i) => (
-              <li key={i} id={`signaal-${i}`} className={`${s.soort} bron-blok`}>
-                <strong className="signaal-kop">{s.kop}</strong>
-                {s.tekst}
-                {s.bron && (
-                  <span className="signaal-bron">
-                    Bron: <Bron citaat={s.bron} />
-                  </span>
-                )}
+              <li key={i} className={`${s.soort} bron-blok`}>
+                <details id={`signaal-${i}`} className="signaal">
+                  <summary className="signaal-kop">{s.kop}</summary>
+                  <p>{s.tekst}</p>
+                  {s.bron && (
+                    <span className="signaal-bron">
+                      Bron: <Bron citaat={s.bron} />
+                    </span>
+                  )}
+                </details>
               </li>
             ))}
           </ul>
@@ -535,6 +553,29 @@ function Uitleg({ r }: { r: Resultaat }) {
   );
 }
 
+/** Klapt een melding onder "Goed om te weten" open, voor de links onder "Wat u nu kunt doen". */
+function openSignaal(i: number) {
+  const el = document.getElementById(`signaal-${i}`);
+  if (!(el instanceof HTMLDetailsElement)) return;
+  el.open = true;
+  el.scrollIntoView({ block: "start" });
+  el.querySelector("summary")?.focus();
+}
+
+/** De meldingen met een inkomensgrens vergelijken die grens met dit bedrag: netto loon, bijstand en ander inkomen, zonder toeslagen. */
+function InkomenVoorGrenzen({ r }: { r: Resultaat }) {
+  if (!r.signalen.some((s) => s.tekst.includes("(grens"))) return null;
+  const inkomen = r.werk.posten
+    .filter((p) => ["loon", "loon_partner", "ander_inkomen", "bijstand"].includes(p.id) && p.perMaand)
+    .reduce((s, p) => s + Number(p.perMaand), 0);
+  return (
+    <p className="klein">
+      Klik op een kop voor meer uitleg. Bij een grens vergelijkt de rekenhulp die met uw netto inkomen met dit werk, zonder toeslagen en
+      kinderbijslag: ongeveer {euro(inkomen.toFixed(2), true)} per maand.
+    </p>
+  );
+}
+
 /** Een ingevuld bedrag netjes als euro: "€ 1.250" of "€ 14,50". */
 const bedragTekst = (tekst: string) => {
   const n = getal(tekst) ?? 0;
@@ -562,6 +603,38 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
         `U wist de prijs per uur van de kinderopvang niet. De rekenhulp rekent met ${euro(prijs.toFixed(2))} per uur: de hoogste prijs waarover u kinderopvangtoeslag krijgt. Is de opvang duurder, dan betaalt u meer zelf.`,
       );
     }
+  }
+  if (f.leefvorm === "paar" && f.partnerWerkt && getal(f.partnerBruto) && r.werk.posten.some((p) => p.id === "loon_partner")) {
+    noten.push(
+      `Uw partner: u vulde ${bedragTekst(f.partnerBruto)} bruto per maand in. In de tabel staat het netto loon per maand, na belasting en premies, met het vakantiegeld erbij, verdeeld over 12 maanden.`,
+    );
+  }
+  const korting = woonkorting(l, naarInvoer(f, { fase: "start", datum: r.datum }));
+  if (korting.bedrag.gt(0)) {
+    noten.push(`${korting.tekst}. Daardoor is uw bijstand ${euro(korting.bedrag)} per maand lager dan de gewone norm.`);
+  }
+  if (f.woont === "kostgeld") {
+    const grens = euro(l.bedrag("pw.norm.gehuwden").times(l.breuk("leiden.woonkosten.korting_geen_woonkosten")), true);
+    noten.push(
+      `Uw kostgeld staat niet in de tabel: de tabel laat zien wat er binnenkomt. Voor de bijstand telt alleen het deel voor uw woonruimte, en alleen als dat lager is dan ${grens} per maand en u niet met andere volwassenen van 27 jaar of ouder woont.`,
+    );
+  }
+  const gelijk = ["zorgtoeslag", "huurtoeslag", "kgb"].filter((id) => {
+    const nu = r.huidig.posten.find((p) => p.id === id)?.perMaand;
+    const met = r.werk.posten.find((p) => p.id === id)?.perMaand;
+    return nu && met && nu === met && nu !== "0.00";
+  });
+  if (gelijk.length > 0 && r.werk.posten.some((p) => p.id === "loon")) {
+    const namen = gelijk.map((id) => r.werk.posten.find((p) => p.id === id)!.label.toLowerCase());
+    const lijst = namen.length > 1 ? `${namen.slice(0, -1).join(", ")} en ${namen[namen.length - 1]}` : namen[0];
+    noten.push(
+      `${lijst.charAt(0).toUpperCase() + lijst.slice(1)} ${gelijk.length > 1 ? "blijven" : "blijft"} gelijk: uw geschatte jaarinkomen blijft ook met dit werk onder de grens waarboven ${gelijk.length > 1 ? "ze lager worden" : "die lager wordt"}.`,
+    );
+  }
+  if (r.werk.posten.some((p) => p.id === "iack" && p.perMaand && p.perMaand !== "0.00")) {
+    noten.push(
+      "De combinatiekorting zit niet in uw loon. U krijgt haar van de Belastingdienst, via de aangifte of een voorlopige aanslag. In de tabel staat het bedrag per maand.",
+    );
   }
   if (f.woont === "huur" && !f.zelfstandig) {
     noten.push("Huurtoeslag staat er niet in: voor een kamer of een woning waar u de keuken, wc of douche deelt, krijgt u meestal geen huurtoeslag.");

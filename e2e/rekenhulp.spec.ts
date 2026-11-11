@@ -191,7 +191,19 @@ test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", asyn
   await expect(page.locator(".signalen")).toContainText("vraag haar aan bij de gemeente");
   // Bovenaan staat wat de gebruiker nu kan doen, met een link naar de melding.
   await expect(page.getByRole("heading", { name: "Wat u nu kunt doen" })).toBeVisible();
-  await expect(page.locator(".te-doen a").first()).toHaveAttribute("href", /#signaal-\d+/);
+  // Een link onder "Wat u nu kunt doen" klapt de melding open en blijft op de uitkomst.
+  const link = page.locator(".te-doen a").first();
+  const kop = await link.innerText();
+  await link.click();
+  await expect(page.getByRole("heading", { name: "Wat u nu kunt doen:" })).toBeVisible();
+  const melding = page.locator("details.signaal", { has: page.locator("summary", { hasText: kop }) });
+  await expect(melding).toHaveAttribute("open", "");
+  await expect(melding.locator("summary")).toBeFocused();
+  // De meldingen staan ingeklapt; een klik op de kop klapt ze open.
+  const id = await page.locator("details.signaal:not([open])").first().getAttribute("id");
+  const dicht = page.locator(`#${id}`);
+  await dicht.locator("summary").click();
+  await expect(dicht.locator("p")).toBeVisible();
   await geenToegankelijkheidsfouten(page);
 });
 
