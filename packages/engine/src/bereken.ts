@@ -786,9 +786,9 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       let tekst = `Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens voor uw huishouden: ongeveer ${euro(norm.times(grens), true)} netto per maand).`;
       if (kinderen.length > 0) {
         const grens2 = l.breuk("leiden.kindtegoed.inkomensgrens");
-        if (!inkomen.gt(norm.times(grens2))) {
-          tekst += ` Het Kindtegoed van ${euro(kindtegoed, true)} per jaar${opbouwTekst} houdt u waarschijnlijk wel, tot ongeveer ${euro(norm.times(grens2), true)} netto per maand.`;
-        }
+        tekst += !inkomen.gt(norm.times(grens2))
+          ? ` Het Kindtegoed van ${euro(kindtegoed, true)} per jaar${opbouwTekst} houdt u waarschijnlijk wel, tot ongeveer ${euro(norm.times(grens2), true)} netto per maand.`
+          : ` Ook het Kindtegoed van ${euro(kindtegoed, true)} per jaar krijgt u dan waarschijnlijk niet meer (grens: ongeveer ${euro(norm.times(grens2), true)} netto per maand).`;
       }
       uit.push({ soort: "waarschuwing", kop: kinderen.length > 0 ? "Sleutelpas en Kindtegoed" : "Sleutelpas", tekst, bron: bronVan(l, "leiden.sleutelpas.inkomensgrens") });
     } else {

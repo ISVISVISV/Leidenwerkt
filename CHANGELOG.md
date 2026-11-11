@@ -15,6 +15,9 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Gewijzigd
 
+- Bij meer periodes zegt de kop over welke periode hij gaat.
+- De vraag over gas, licht en water komt pas na de vraag over andere bewoners, en alleen als er geen volwassenen van 27 jaar of ouder in huis wonen; anders doet hij niet ter zake.
+- Teksten: "andere volwassenen van 27 jaar of ouder in huis" in plaats van "huisgenoten", met de vermelding dat jongere huisgenoten niet meetellen; reiskosten bij ander werk; wie al langer werkt; de uitleg bij de opvanguren; "Netto loon, beide banen".
 - Onder de kop staat een kort lijstje met het bedrag per periode en over de eerste 12 maanden samen, in plaats van een lange alinea.
 - Duidelijkere teksten: wat u zonder vrijlating zou overhouden, de verlaging zonder woonkosten (zonder "norm voor partners"), de uitleg voor wie jonger is dan 27, de rekennorm van 90% voor een alleenstaande ouder bij de bijzondere bijstand, waarom het bruto inkomen met werk lager kan zijn, het inkomen van kinderen van 18 jaar of ouder bij de huurtoeslag, en de prijs van de opvang op het startscherm.
 - De urengrens zegt "zonder vrijlating", en legt uit waarom er nog bijstand is als u boven de grens werkt.
@@ -30,6 +33,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Hersteld
 
+- Boven 140% van het sociaal minimum zei de melding niet dat ook het Kindtegoed vervalt.
+- De tekst over een geschatte opvangprijs ging alleen over het eerste kind zonder prijs; nu noemt hij elke soort opvang waarvan de prijs onbekend is.
 - Bij partners werd de bijstand voor de toeslagen teruggerekend alsof één persoon alles kreeg. Daardoor was het geschatte jaarinkomen te hoog en de zorgtoeslag en huurtoeslag te laag. Nu krijgt ieder de helft, zoals in art. 45 lid 4 Participatiewet.
 - De combinatiekorting werd begrensd op de belasting over het loon alleen. Nu telt de belasting over loon en bijstand samen; bij een laag loon is de korting daardoor hoger.
 - Wie al langer dan 6 maanden naast de bijstand werkt en meer uren gaat werken, zag een te hoog bedrag over de eerste 12 maanden: de rekenhulp rekende alsof de vrijlating opnieuw begon. Nu geldt de situatie zonder vrijlating alle 12 maanden.

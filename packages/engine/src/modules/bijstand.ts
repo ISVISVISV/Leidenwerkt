@@ -36,7 +36,7 @@ export function bijstandsnorm(l: Lezer, invoer: Invoer): NormUitkomst {
   const normPersoon = factor.times(gehuwden);
   return {
     norm: paar ? normPersoon.times(2) : normPersoon,
-    uitleg: `Kostendelersnorm: ${paar ? "u en uw partner delen" : "u deelt"} de kosten met ${invoer.kostendelers} ${invoer.kostendelers === 1 ? "huisgenoot" : "huisgenoten"} van 27 jaar of ouder. Dat is ${factor.times(100).toDecimalPlaces(2).toString().replace(".", ",")}% van de norm voor partners${paar ? ", per partner" : ""}`,
+    uitleg: `Kostendelersnorm: ${paar ? "u en uw partner delen" : "u deelt"} de kosten met ${invoer.kostendelers} ${invoer.kostendelers === 1 ? "andere volwassene" : "andere volwassenen"} van 27 jaar of ouder in huis${(invoer.jongeHuisgenoten ?? 0) > 0 ? " (huisgenoten jonger dan 27 tellen niet mee)" : ""}. Dat is ${factor.times(100).toDecimalPlaces(2).toString().replace(".", ",")}% van de norm voor partners${paar ? ", per partner" : ""}`,
   };
 }
 

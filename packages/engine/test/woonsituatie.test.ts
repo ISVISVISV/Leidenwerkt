@@ -335,3 +335,12 @@ describe("Leiden: meldingen over zorgverzekering, zwemmen en sport", () => {
     expect(melding(r, "Sport en cultuur")?.tekst).toMatch(/539/);
   });
 });
+
+describe("Kindtegoed boven 140% van het sociaal minimum", () => {
+  it("de melding zegt dat ook het Kindtegoed vervalt", () => {
+    const r = bereken(basis({ leefvorm: "alleenstaande_ouder", kinderen: [{ leeftijd: 9 }], nieuwWerk: { brutoMaandloon: 3200, urenPerWeek: 36 } }));
+    const tekst = r.signalen.find((s) => s.kop === "Sleutelpas en Kindtegoed")?.tekst ?? "";
+    expect(tekst).toContain("niet meer in aanmerking voor de gratis Sleutelpas");
+    expect(tekst).toContain("Ook het Kindtegoed");
+  });
+});

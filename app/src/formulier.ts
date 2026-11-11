@@ -202,6 +202,14 @@ export function vraagBewoners(f: Formulier): boolean {
   return f.woont !== "" && f.woont !== "dakloos" && f.woont !== "instelling";
 }
 
+/**
+ * Gas, licht en water telt alleen voor de verlaging bij geen woonkosten, en die geldt niet bij de
+ * kostendelersnorm. Daarom pas na de vraag over andere bewoners, en alleen zonder volwassenen van 27+.
+ */
+export function vraagWoonlasten(f: Formulier): boolean {
+  return f.woont === "inwonend" && !!f.beantwoord.andereBewoners && (!f.andereBewoners || (getal(f.kostendelers) ?? 0) === 0);
+}
+
 /** Huisgenoten van 18 tot en met 26 jaar tellen alleen mee voor de huurtoeslag. */
 export function vraagJongeHuisgenoten(f: Formulier): boolean {
   return vraagBewoners(f) && f.andereBewoners && f.woont === "huur" && f.zelfstandig;
@@ -277,7 +285,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (!f.huisgenotenOnbekend) moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
   }
   if (stap === 2 && !f.woont) fouten.woont = "Kies waar u woont.";
-  if (stap === 2 && f.woont === "inwonend" && !f.beantwoord.woonlasten) fouten.woonlasten = "Kies Ja of Nee.";
+  if (stap === 2 && vraagWoonlasten(f) && !f.beantwoord.woonlasten) fouten.woonlasten = "Kies Ja of Nee.";
   if (stap === 2 && vraagBewoners(f) && !f.beantwoord.andereBewoners) fouten.andereBewoners = "Kies Ja of Nee.";
   if (stap === 2 && (f.woont === "huur" || f.woont === "kostgeld")) {
     moet(
@@ -455,7 +463,7 @@ const datumTekst = (g: Geboortedatum) => g.trim();
 export const euroTekst = (t: string) => `€ ${t}`;
 
 export const LOON_PER: Record<LoonPer, string> = { maand: "bruto per maand", netto: "netto per maand", vierweken: "bruto per 4 weken", netto4: "netto per 4 weken", uur: "bruto per uur" };
-const OPVANG: Record<Opvangsoort, string> = { dagopvang: "kinderdagverblijf", bso: "buitenschoolse opvang", gastouder: "gastouder" };
+export const OPVANG: Record<Opvangsoort, string> = { dagopvang: "kinderdagverblijf", bso: "buitenschoolse opvang", gastouder: "gastouder" };
 
 /**
  * Wat de gebruiker heeft ingevuld, als korte regels per onderdeel. Voor de afdruk,

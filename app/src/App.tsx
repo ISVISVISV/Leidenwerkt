@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagBewoners, vraagInkomenAnderen, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag, type Geboortedatum } from "./formulier.ts";
+import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagBewoners, vraagInkomenAnderen, vraagWoonlasten, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag, type Geboortedatum } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -543,7 +543,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                       ["gastouder", "Gastouder"],
                     ]}
                   />
-                  <Veld id={`kind${i}uren`} label="Hoeveel uur per week gaat dit kind naar de opvang?" voorbeeld="bijv. 16" hint={`De rekenhulp rekent dit om naar uren per maand.${maxOpvanguren() ? ` U krijgt kinderopvangtoeslag over hoogstens ${maxOpvanguren()} uur per maand, ongeveer ${Math.floor((maxOpvanguren()! * 12) / 52)} uur per week. Over meer uren betaalt u alles zelf.` : ""}`} waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
+                  <Veld id={`kind${i}uren`} label="Hoeveel uur per week gaat dit kind naar de opvang?" voorbeeld="bijv. 16" hint={`Reken: dagen per week × uren per dag. De rekenhulp rekent dit om naar uren per maand.${maxOpvanguren() ? ` U krijgt kinderopvangtoeslag over hoogstens ${maxOpvanguren()} uur per maand, ongeveer ${Math.floor((maxOpvanguren()! * 12) / 52)} uur per week. Over meer uren betaalt u alles zelf.` : ""}`} waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
                   <Veld
                     id={`kind${i}prijs`}
                     voorbeeld="bijv. 10,50"
@@ -689,20 +689,6 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           />
         </>
       )}
-      {f.woont === "inwonend" && (
-        <Keuze
-          naam="woonlasten"
-          legend="Betaalt u zelf voor gas, licht of water?"
-          hint="Betaalt degene bij wie u woont de rekening voor gas, licht en water? Kies dan Nee. Betaalt u er zelf voor, ook als u daarvoor geld aan iemand in huis geeft? Kies dan Ja. Zonder eigen kosten voor gas, licht en water verlaagt de gemeente de bijstand iets meer."
-          waarde={f.beantwoord.woonlasten ? f.woonlasten ? "ja" : "nee" : ""}
-          onChange={metAntwoord("woonlasten", (v) => zet("woonlasten", v === "ja"))}
-        fout={fouten.woonlasten}
-          opties={[
-            ["nee", "Nee"],
-            ["ja", "Ja"],
-          ]}
-        />
-      )}
       {vraagBewoners(f) && (
         <Keuze
           naam="andereBewoners"
@@ -746,6 +732,20 @@ function StapWoning({ f, zet, fouten }: StapProps) {
             />
           )}
         </>
+      )}
+      {vraagWoonlasten(f) && (
+        <Keuze
+          naam="woonlasten"
+          legend="Betaalt u zelf voor gas, licht of water?"
+          hint="Betaalt degene bij wie u woont de rekening voor gas, licht en water? Kies dan Nee. Betaalt u er zelf voor, ook als u daarvoor geld aan iemand in huis geeft? Kies dan Ja. Zonder eigen kosten voor gas, licht en water verlaagt de gemeente de bijstand iets meer."
+          waarde={f.beantwoord.woonlasten ? f.woonlasten ? "ja" : "nee" : ""}
+          onChange={metAntwoord("woonlasten", (v) => zet("woonlasten", v === "ja"))}
+        fout={fouten.woonlasten}
+          opties={[
+            ["nee", "Nee"],
+            ["ja", "Ja"],
+          ]}
+        />
       )}
       {vraagInkomenAnderen(f) && !f.huisgenotenOnbekend && (
         <Veld
@@ -1018,7 +1018,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
       <Veld
         id="reiskosten"
         voorbeeld="bijv. 40"
-        label={f.werktNu ? "Hoeveel reiskosten komen erbij per maand?" : "Reiskosten per maand"}
+        label={!f.werktNu ? "Reiskosten per maand" : f.verandering === "ander" ? "Hoeveel meer reiskosten heeft het nieuwe werk per maand dan uw huidige werk?" : "Hoeveel reiskosten komen erbij per maand?"}
         hint={
           f.werktNu
             ? "Reist u straks vaker of verder dan nu? Vul in wat u daardoor meer betaalt. Bijvoorbeeld voor bus, trein of benzine. Verandert er niets? Laat het vak leeg."
