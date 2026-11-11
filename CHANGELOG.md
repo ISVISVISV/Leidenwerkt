@@ -4,7 +4,7 @@ Wat er per versie is veranderd. De opzet volgt [Keep a Changelog](https://keepac
 
 Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op de afdruk.
 
-## Nog niet uitgebracht
+## 0.3.0 – 11 november 2026
 
 ### Toegevoegd
 
@@ -30,8 +30,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 - Twee regels steunden op "de praktijk in Leiden" zonder bron. De vergoeding van de eigen bijdrage kinderopvang steunt nu op de tekst van de beleidsregels bijzondere bijstand (art. 7 lid 1 onder f). Bij een instelling zegt de rekenhulp dat de aanname dat de bewoner niets betaalt meestal klopt, maar afhangt van de instelling.
 - De grens van de Sleutelpas, het Kindtegoed en het Volwassenenfonds is nu een vaste norm per soort huishouden, zonder kostendelersnorm, zoals in de tabellen van de gemeente. Eerder rekende de rekenhulp met de kostendelersnorm, waardoor de grens voor wie met anderen woont te laag was.
-- Bij een kamer of gedeelde woning vraagt de rekenhulp nu de huur. Daardoor past ze ook daar de Leidse verlaging van de bijstand bij lage woonkosten toe. Eerder rekende ze bij een kamerhuur onder de grens met een te hoge bijstand.
 - Bij verblijf in een instelling volgen deze grenzen de norm voor een instelling, zoals de gemeente die noemt. Eerder gold daar de gewone norm, waardoor de grens veel te hoog was.
+- Bij een kamer of gedeelde woning vraagt de rekenhulp nu de huur. Daardoor past ze ook daar de Leidse verlaging van de bijstand bij lage woonkosten toe. Eerder rekende ze bij een kamerhuur onder de grens met een te hoge bijstand.
 
 ## 0.2.0 – 10 november 2026
 
