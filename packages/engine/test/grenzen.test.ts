@@ -39,6 +39,11 @@ describe("leeftijdsgrenzen", () => {
     expect(bereken(basis({ leeftijd: 27 })).verschilPerMaand).toBe("241.25");
     expect(bereken(basis({ leeftijd: 26 })).verschilPerMaand).toBe("0.00");
   });
+  it("medische urenbeperking in de eerste maanden: vanaf 27 jaar onderdeel n (25%), daaronder onderdeel y (15%) (art. 31 lid 2 onder n en y, lid 5 Pw)", () => {
+    // Onderdeel y geldt "tenzij onderdeel n van toepassing is". Netto loon € 965,00.
+    expect(bereken(basis({ leeftijd: 27, medischUrenbeperkt: true })).verschilPerMaand).toBe("241.25"); // 25%
+    expect(bereken(basis({ leeftijd: 26, medischUrenbeperkt: true })).verschilPerMaand).toBe("144.75"); // 15%, onder het maximum
+  });
 
   it("alleenstaande ouder: de extra vrijlating na maand 6 geldt met een kind van 11, niet met een kind van 12 (art. 31 lid 2 onder r Pw)", () => {
     const met = bereken(ouder(11, { vrijlatingFase: "later" }));
