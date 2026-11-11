@@ -4,6 +4,12 @@ Wat er per versie is veranderd. De opzet volgt [Keep a Changelog](https://keepac
 
 Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op de afdruk.
 
+## Nog niet uitgebracht
+
+### Hersteld
+
+- Wie al langer dan 6 maanden naast de bijstand werkt en meer uren gaat werken, zag een te hoog bedrag over de eerste 12 maanden: de rekenhulp rekende alsof de vrijlating opnieuw begon. Nu geldt de situatie zonder vrijlating alle 12 maanden.
+
 ## 0.3.0 – 11 november 2026
 
 ### Toegevoegd

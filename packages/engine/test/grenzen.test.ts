@@ -168,6 +168,8 @@ describe("kosten van het werk", () => {
 describe("eerste twaalf maanden", () => {
   it("zes maanden met vrijlating en zes maanden zonder", () => {
     expect(verschilEersteJaar(basis())).toEqual({ bedrag: "1447.50", startMaanden: 6 }); // 6 × 241,25 + 6 × 0
+    // Wie al langer dan 6 maanden naast de bijstand werkt, heeft geen vrijlating meer: 12 × 0.
+    expect(verschilEersteJaar(basis(), undefined, { vasteFase: "later" })).toEqual({ bedrag: "0.00", startMaanden: 0 });
   });
 });
 

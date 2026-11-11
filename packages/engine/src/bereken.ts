@@ -936,8 +936,14 @@ export class InvoerFout extends Error {
 /**
  * Verschil in de eerste 12 maanden na de start van het werk: de maanden van de
  * eerste vrijlatingsperiode ("start") plus de maanden daarna ("later").
+ * Met een vaste fase (bijvoorbeeld "later" voor wie al langer dan de vrijlatingsperiode
+ * naast de bijstand werkt) geldt die fase alle 12 maanden.
  */
-export function verschilEersteJaar(invoer: Invoer, regels: RegelSet = standaardRegels): { bedrag: string; startMaanden: number } {
+export function verschilEersteJaar(
+  invoer: Invoer,
+  regels: RegelSet = standaardRegels,
+  opties: { vasteFase?: Fase } = {},
+): { bedrag: string; startMaanden: number } {
   const l = new Lezer(regels, invoer.datum);
   let duur = 6;
   try {
@@ -948,6 +954,7 @@ export function verschilEersteJaar(invoer: Invoer, regels: RegelSet = standaardR
   const start = Math.min(12, duur);
   const metFase = (fase: Fase) =>
     D(bereken({ ...invoer, vrijlatingFase: fase, huidigeVrijlating: invoer.huidigWerk ? fase : invoer.huidigeVrijlating }, regels).verschilPerMaand);
+  if (opties.vasteFase) return { bedrag: centen(metFase(opties.vasteFase).times(12)), startMaanden: 0 };
   const totaal = metFase("start").times(start).plus(start < 12 ? metFase("later").times(12 - start) : NUL);
   return { bedrag: centen(totaal), startMaanden: start };
 }

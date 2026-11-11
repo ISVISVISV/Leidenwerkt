@@ -76,7 +76,10 @@ export function Uitkomst({ f }: { f: Formulier }) {
   const voordeelStart = D(rStart.werk.besteedbaarPerMaand).minus(zonder.werk.besteedbaarPerMaand);
   const meerPeriodes =
     !vasteFase(f) && periodes.length > 1 && !!bijstandStart && bijstandStart.perMaand !== null && bijstandStart.perMaand !== "0.00";
-  const eersteJaar = useMemo(() => verschilEersteJaar(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
+  const eersteJaar = useMemo(
+    () => verschilEersteJaar(naarInvoer(f, { uren, fase: "start", datum }), undefined, { vasteFase: vasteFase(f) }),
+    [f, uren, datum],
+  );
   // Vanaf hoeveel uur per week is er blijvend geen bijstand meer nodig? Zonder vrijlating, want die is tijdelijk.
   const grensUren = useMemo(() => {
     const nu = bereken(naarInvoer(f, { uren: 1, fase: "geen", datum })).huidig.posten.find((p) => p.id === "bijstand");
