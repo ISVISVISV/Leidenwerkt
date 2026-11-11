@@ -34,5 +34,6 @@ De rekentests controleren of de berekening klopt met de regels. Ze zien niet wat
 | --- | --- |
 | 1 (november 2026) | Fatma (alleenstaande moeder, huurt, kind 6); Jeroen (24, woont bij moeder); Anna (kamer, meer uren); Mohamed (getrouwd, drie kinderen, koopwoning); Pieter (geen vaste woonplek, medische urenbeperking); Lisa (woonvorm met begeleiding) |
 | 2 (november 2026) | Samira (kostgeld bij ouders); Kees (58, kamer, meer uren); Dewi (alleenstaande moeder, twee kinderen naar de opvang); Tom en Ilse (stel, partner met bijbaan); Ahmed (huisgenoten, netto per 4 weken); Marloes (23, studio, medische urenbeperking) |
+| 3 (november 2026) | Noor (21, baby naar gastouder); Henk en Joke (stel, 64 en 60); Sanne (gescheiden, alimentatie, kind 10); Bilal (horeca, all-in uurloon, kamer); Kees en Samira opnieuw |
 
-Nog niet gebruikt, als idee: iemand van 21 met een kind; een stel waarvan één partner AOW-leeftijd nadert; iemand met alimentatie; iemand met een all-in uurloon in de horeca; iemand met een UWV-uitkering naast bijstand; iemand die in 2027 rekent; een ouder met een kind van 17 en een van 19.
+Nog niet gebruikt, als idee: iemand met een UWV-uitkering naast bijstand; iemand die in 2027 rekent; een ouder met een kind van 17 en een van 19; een stel waarvan allebei gaan werken; iemand zonder vaste woonplek die in de opvang slaapt.
