@@ -11,6 +11,8 @@ export function maxUurprijs(l: Lezer, soort: Opvangsoort): number {
 
 export type LoonPer = "maand" | "netto" | "vierweken" | "netto4" | "uur";
 /** Leeg: nog niet gekozen. */
+export type LoonPerKeuze = LoonPer | "";
+/** Leeg: nog niet gekozen. */
 export type AllIn = "" | "nee" | "ja" | "onbekend";
 /** "kostgeld": bij iemand anders in huis, en betaalt een bedrag voor de woonruimte (kostgeld of huur). */
 export type Woonsituatie = "huur" | "koop" | "inwonend" | "kostgeld" | "dakloos" | "instelling";
@@ -121,10 +123,10 @@ export interface Formulier {
   /** Bij "meer": het nieuwe totaal aantal uren bij het huidige werk. */
   meerUren: string;
   medisch: boolean;
-  nuPer: LoonPer;
+  nuPer: LoonPerKeuze;
   nuLoon: string;
   nuUren: string;
-  per: LoonPer;
+  per: LoonPerKeuze;
   /** Bij een uurloon: zit het vakantiegeld er al in (all-in)? */
   allIn: AllIn;
   nuAllIn: AllIn;
@@ -161,10 +163,10 @@ export const leegFormulier: Formulier = {
   verandering: "",
   meerUren: "",
   medisch: false,
-  nuPer: "maand",
+  nuPer: "",
   nuLoon: "",
   nuUren: "",
-  per: "maand",
+  per: "",
   allIn: "",
   nuAllIn: "",
   loon: "",
@@ -292,7 +294,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
   }
   if (stap === 3) {
     if (!f.beantwoord.werktNu) fouten.werktNu = "Kies Ja of Nee.";
-    const loonGrens = (per: LoonPer): [number, number, string] =>
+    const loonGrens = (per: LoonPerKeuze): [number, number, string] =>
       per === "uur"
         ? [1, 100, "Vul uw bruto loon per uur in, bijvoorbeeld 15,00."]
         : per === "netto"
@@ -302,8 +304,10 @@ export function controleer(f: Formulier, stap: number): Fouten {
             : per === "netto4"
               ? [50, 15000, "Vul uw netto loon per 4 weken in, bijvoorbeeld 1.400."]
             : [50, 15000, "Vul uw bruto loon per maand in, bijvoorbeeld 1.800."];
+    if (f.werktNu && !f.nuPer) fouten.nuper = "Kies welk bedrag u weet.";
+    if ((!f.werktNu || f.verandering === "ander" || f.verandering === "erbij") && !f.per) fouten.straksper = "Kies welk bedrag u weet.";
     if (f.werktNu) {
-      moet("nuLoon", f.nuLoon, ...loonGrens(f.nuPer));
+      if (f.nuPer) moet("nuLoon", f.nuLoon, ...loonGrens(f.nuPer));
       moet("nuUren", f.nuUren, 1, 60, "Vul het aantal uren per week in, van 1 tot en met 60.");
       if (!f.verandering) fouten.verandering = "Kies wat er verandert.";
       if (!f.werktAl) fouten.werktAl = "Kies hoe lang u al werkt.";
@@ -313,7 +317,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
       const nu = getal(f.nuUren) ?? 0;
       moet("meerUren", f.meerUren, nu + 1, 60, `Vul in hoeveel uur u straks in totaal werkt: meer dan ${nu} en hoogstens 60.`);
     } else if (!f.werktNu || f.verandering) {
-      moet("loon", f.loon, ...loonGrens(f.per));
+      if (f.per) moet("loon", f.loon, ...loonGrens(f.per));
       moet("uren", f.uren, 1, 60, "Vul het aantal uren per week in, van 1 tot en met 60.");
     }
     if (f.werktNu && f.nuPer === "uur" && !f.nuAllIn) fouten.nuallIn = "Kies een antwoord. Weet u het niet? Kies dan 'Ik weet het niet'.";
@@ -330,7 +334,8 @@ export function ingevuldLoon(f: Formulier): { bedrag: string; per: LoonPer; allI
   const nu = f.werktNu && f.verandering === "meer";
   const bedrag = nu ? f.nuLoon : f.loon;
   if (!getal(bedrag)) return undefined;
-  return nu ? { bedrag, per: f.nuPer, allIn: f.nuAllIn } : { bedrag, per: f.per, allIn: f.allIn };
+  const per = (nu ? f.nuPer : f.per) || "maand";
+  return { bedrag, per, allIn: nu ? f.nuAllIn : f.allIn };
 }
 
 /** Uren opvang per week omgerekend naar een maand: 52 weken verdeeld over 12 maanden, op twee decimalen. */
@@ -424,7 +429,7 @@ export function schuifStart(f: Formulier): { uren: number; wat: "totaal" | "extr
  * vierwekenloon schaalt het loon mee als de gebruiker met de urenschuif
  * een ander aantal uren kiest.
  */
-function loonWerk(per: LoonPer, bedrag: number, uren: number, andereUren?: number, allIn: AllIn = "nee") {
+function loonWerk(per: LoonPerKeuze, bedrag: number, uren: number, andereUren?: number, allIn: AllIn = "nee") {
   const nieuweUren = andereUren ?? uren;
   if (per === "uur") {
     return {
@@ -501,8 +506,8 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
     ]);
   }
 
-  const loon = (per: LoonPer, bedrag: string, allIn: AllIn) =>
-    `${euroTekst(bedrag)} ${LOON_PER[per]}${per === "uur" && allIn !== "nee" ? (allIn === "ja" ? ", all-in" : ", all-in onbekend") : ""}`;
+  const loon = (per: LoonPerKeuze, bedrag: string, allIn: AllIn) =>
+    `${euroTekst(bedrag)} ${LOON_PER[per || "maand"]}${per === "uur" && allIn !== "nee" ? (allIn === "ja" ? ", all-in" : ", all-in onbekend") : ""}`;
   const werk: [string, string][] = [];
   if (f.werktNu) {
     werk.push(["Werkt nu", `${f.nuUren} uur per week, ${loon(f.nuPer, f.nuLoon, f.nuAllIn)}; ${f.werktAl === "lang" ? "6 maanden of langer" : "korter dan 6 maanden"}`]);

@@ -114,6 +114,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
         toonJaar={periodes.findIndex((p) => p.fase === fase) < 2}
         jaarOngelijk={meerPeriodes}
         stoptVanaf={meerPeriodes && rVolgende && bijstandVan(rVolgende) === "0.00" ? stopmoment(volgendeNaam) : undefined}
+        daarna={meerPeriodes && rVolgende && volgendeNaam ? { naam: volgendeNaam, verschil: rVolgende.verschilPerMaand } : undefined}
       />
 
       {r.signalen.some((s) => s.actie) && (
@@ -178,9 +179,13 @@ export function Uitkomst({ f }: { f: Formulier }) {
           <p className="urengrens" id="urengrens">
             {grensUren === null
               ? `Ook bij ${urenTekst(maxUren)} vult de bijstand uw loon nog aan.`
-              : grensUren === minUren
-                ? `${metVrijlating ? "Als de vrijlating voorbij is, heeft u met dit loon" : "Met dit loon heeft u"} vanaf ${urenTekst(minUren)} geen bijstand meer nodig.`
-                : `${metVrijlating ? "Als de vrijlating voorbij is, heeft u vanaf" : "Vanaf"} ${urenTekst(grensUren)} ${metVrijlating ? "" : "heeft u "}met dit uurloon geen bijstand meer nodig.${uren < grensUren ? ` Bij ${uren} uur vult de bijstand uw loon nog aan.` : ""}`}
+              : `${metVrijlating ? "Zonder vrijlating heeft u" : "U heeft"} ${grensUren === minUren ? `met dit loon vanaf ${urenTekst(minUren)}` : `vanaf ${urenTekst(grensUren)} met dit uurloon`} geen bijstand meer nodig.${
+                  uren < grensUren
+                    ? ` Bij ${uren} uur vult de bijstand uw loon nog aan.`
+                    : heeftBijstand
+                      ? " Nu krijgt u nog bijstand, omdat u in deze periode een deel van uw loon mag houden."
+                      : ""
+                }`}
           </p>
         )}
         {meerPeriodes && (
@@ -247,7 +252,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
         </div>
       )}
 
-      <Vergelijking r={r} />
+      <Vergelijking r={r} allIn={(ingevuldLoon(f)?.allIn ?? "") === "ja"} />
       <TabelNoten f={f} r={r} />
 
       {r.signalen.length > 0 && (
@@ -259,7 +264,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
               <li key={i} className={`${s.soort} bron-blok`}>
                 <details id={`signaal-${i}`} className="signaal">
                   <summary className="signaal-kop">{s.kop}</summary>
-                  <p>{s.tekst}</p>
+                  <p>{metLinks(s.tekst)}</p>
                   {s.bron && (
                     <span className="signaal-bron">
                       Bron: <Bron citaat={s.bron} />
@@ -339,6 +344,7 @@ function Antwoord({
   toonJaar,
   jaarOngelijk,
   stoptVanaf,
+  daarna,
 }: {
   r: Resultaat;
   urenTekst: string;
@@ -348,6 +354,8 @@ function Antwoord({
   toonJaar: boolean;
   /** Verschilt het bedrag per maand tussen de periodes? Dan is het jaarbedrag geen 12 × het maandbedrag. */
   jaarOngelijk?: boolean;
+  /** De periode hierna en het verschil per maand in die periode, zodat het gunstigste bedrag niet alleen staat. */
+  daarna?: { naam: string; verschil: string };
   /** Stopt de bijstand in de volgende periode? Dan het moment, bijvoorbeeld "Vanaf maand 7". */
   stoptVanaf?: string;
 }) {
@@ -377,7 +385,9 @@ function Antwoord({
         <p className="antwoord-sub">Dat komt door de kosten voor het werk die u zelf betaalt: {euro(kosten.toFixed(2), true)} per maand.</p>
       )}
       <p className="antwoord-sub">
-        Bij {urenTekst}{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}.{toonJaar ? ` ${jaarzin}` : ""}
+        Bij {urenTekst}{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}.
+        {daarna ? ` ${daarnaZin(daarna)}` : ""}
+        {toonJaar ? ` ${jaarzin}` : ""}
       </p>
       {overBijstand && <p className="antwoord-sub antwoord-bijstand">{overBijstand}</p>}
       {r.betrouwbaarheid.niveau !== "goed" && <p className="antwoord-noot">{r.betrouwbaarheid.tekst}</p>}
@@ -397,7 +407,7 @@ function waarde(p: Post | undefined): string {
   return euro(p.perMaand, true);
 }
 
-function Vergelijking({ r }: { r: Resultaat }) {
+function Vergelijking({ r, allIn }: { r: Resultaat; allIn?: boolean }) {
   const ids: string[] = [];
   const labels = new Map<string, Post>();
   for (const p of [...r.huidig.posten, ...r.werk.posten]) {
@@ -425,6 +435,7 @@ function Vergelijking({ r }: { r: Resultaat }) {
       <tr key={id} className={p.perMaand === null ? "leeg" : undefined}>
         <th scope="row">
           {p.label}
+          {(id === "loon" || id === "loon_partner") && !allIn ? " (met vakantiegeld)" : ""}
           {onzeker && (
             <span className="ster" title="Nog niet officieel bevestigd">
               *<span className="sr">nog niet officieel bevestigd</span>
@@ -553,6 +564,27 @@ function Uitleg({ r }: { r: Resultaat }) {
   );
 }
 
+/** Maakt adressen van officiële sites in een melding klikbaar, bijvoorbeeld "leiden.nl/inkomenstoeslag". */
+function metLinks(tekst: string) {
+  const delen = tekst.split(/((?:https?:\/\/)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.nl\/[A-Za-z0-9\-/_]+)/g);
+  return delen.map((d, i) =>
+    i % 2 === 1 ? (
+      <a key={i} href={d.startsWith("http") ? d : `https://${d}`} rel="noopener">
+        {d}
+      </a>
+    ) : (
+      d
+    ),
+  );
+}
+
+/** "Maand 7 t/m 36: ongeveer € 150 meer per maand dan nu." */
+function daarnaZin({ naam, verschil }: { naam: string; verschil: string }) {
+  const v = Number(verschil);
+  if (Math.abs(v) < 10) return `${naam}: ongeveer evenveel als nu.`;
+  return `${naam}: ongeveer ${euro(verschil.replace("-", ""), true)} ${v > 0 ? "meer" : "minder"} per maand dan nu.`;
+}
+
 /** Klapt een melding onder "Goed om te weten" open, voor de links onder "Wat u nu kunt doen". */
 function openSignaal(i: number) {
   const el = document.getElementById(`signaal-${i}`);
@@ -564,13 +596,14 @@ function openSignaal(i: number) {
 
 /** De meldingen met een inkomensgrens vergelijken die grens met dit bedrag: netto loon, bijstand en ander inkomen, zonder toeslagen. */
 function InkomenVoorGrenzen({ r }: { r: Resultaat }) {
-  if (!r.signalen.some((s) => s.tekst.includes("(grens"))) return null;
+  const kleuren = "Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.";
+  if (!r.signalen.some((s) => s.tekst.includes("(grens"))) return <p className="klein">{kleuren}</p>;
   const inkomen = r.werk.posten
     .filter((p) => ["loon", "loon_partner", "ander_inkomen", "bijstand"].includes(p.id) && p.perMaand)
     .reduce((s, p) => s + Number(p.perMaand), 0);
   return (
     <p className="klein">
-      Klik op een kop voor meer uitleg. Bij een grens vergelijkt de rekenhulp die met uw netto inkomen met dit werk, zonder toeslagen en
+      {kleuren} Bij een grens vergelijkt de rekenhulp die met uw netto inkomen met dit werk, zonder toeslagen en
       kinderbijslag: ongeveer {euro(inkomen.toFixed(2), true)} per maand.
     </p>
   );
@@ -614,9 +647,12 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
     noten.push(`${korting.tekst}. Daardoor is uw bijstand ${euro(korting.bedrag)} per maand lager dan de gewone norm.`);
   }
   if (f.woont === "kostgeld") {
-    const grens = euro(l.bedrag("pw.norm.gehuwden").times(l.breuk("leiden.woonkosten.korting_geen_woonkosten")), true);
     noten.push(
-      `Uw kostgeld staat niet in de tabel: de tabel laat zien wat er binnenkomt. Voor de bijstand telt alleen het deel voor uw woonruimte, en alleen als dat lager is dan ${grens} per maand en u niet met andere volwassenen van 27 jaar of ouder woont.`,
+      f.andereBewoners && (getal(f.kostendelers) ?? 0) > 0
+        ? "Uw kostgeld verandert uw bijstand niet: u woont met volwassenen van 27 jaar of ouder, en dan geldt de kostendelersnorm."
+        : korting.bedrag.gt(0)
+          ? "Uw kostgeld zelf staat niet in de tabel; het deel voor uw woonruimte telt wel mee voor de bijstand, zie hierboven."
+          : "Uw kostgeld verandert uw bijstand niet: het deel voor uw woonruimte is niet lager dan de grens.",
     );
   }
   const gelijk = ["zorgtoeslag", "huurtoeslag", "kgb"].filter((id) => {
@@ -641,6 +677,7 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
   } else if (f.woont === "kostgeld") {
     noten.push("Huurtoeslag staat er niet in: wie bij iemand anders in huis woont, krijgt meestal geen huurtoeslag.");
   }
+  noten.push("Vaste lasten zoals huur, kostgeld en zorgpremie staan niet in de tabel. Die betaalt u met en zonder werk.");
   if (noten.length === 0) return null;
   return (
     <ul className="tabel-noten">

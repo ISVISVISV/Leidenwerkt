@@ -15,6 +15,12 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Gewijzigd
 
+- Onder de kop staat ook het bedrag van de periode daarna, zodat het gunstigste bedrag niet alleen staat.
+- De urengrens zegt "zonder vrijlating", en legt uit waarom er nog bijstand is als u boven de grens werkt.
+- Wie al werkt, krijgt "Geef de verandering in uw werk door aan de gemeente" in plaats van "Meld uw werk".
+- Bij het loon is niet meer vooraf gekozen welk bedrag u weet. In de tabel staat "Netto loon (met vakantiegeld)".
+- Onder de tabel: vaste lasten zoals huur en zorgpremie staan er niet in. De zin over kostgeld is per situatie geschreven.
+- Kleinere teksten: uitleg voor stellen wie "u" is, uitleg bij werk van de partner, flat of appartement bij de huurwoning, eenvoudiger uitleg bij de kale huur, dat partner- en kinderalimentatie allebei meetellen (met bron), wat de kleuren bij de meldingen betekenen, klikbare adressen in meldingen, en overal hetzelfde bedrag voor de grens van lage woonkosten.
 - Geen enkele ja/nee-vraag heeft nog een antwoord vooraf; wie niets kiest, krijgt een foutmelding. Alleen "Nee, of ik weet het niet" bij de medische urenbeperking staat vooraf aan.
 - Kleinere tekstverbeteringen: uitleg bij "Wat verandert er aan uw werk?", bij de huidige uren en bij een lage huur; geen voorbeeldprijs die op de echte prijs lijkt; geen knop om het enige kind te verwijderen.
 - "Goed om te weten" toont alleen de koppen; een klik klapt de uitleg open. "Wat u nu kunt doen" is een korte rij links die de melding openklapt.

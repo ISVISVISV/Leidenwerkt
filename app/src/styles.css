@@ -1109,3 +1109,8 @@ details.uitleg summary {
 input[type="text"].datum {
   width: 11.5rem;
 }
+
+.uitleg-paar {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+}

@@ -53,6 +53,13 @@ export const CITATEN = {
     tekst:
       "inrichting: 1°. een instelling die zich blijkens haar doelstelling en feitelijke werkzaamheden richt op het bieden van verpleging of verzorging aan aldaar verblijvende hulpbehoevenden; 2°. een instelling die zich blijkens haar doelstelling en feitelijke werkzaamheden richt op het bieden van slaapgelegenheid, waarbij de mogelijkheid van hulpverlening of begeleiding gedurende meer dan de helft van ieder etmaal aanwezig is;",
   },
+  alimentatie: {
+    titel: "Rijksoverheid, Welke inkomsten worden van mijn bijstand afgetrokken?",
+    url: "https://www.rijksoverheid.nl/onderwerpen/bijstand/vraag-en-antwoord/welke-inkomsten-bijstand-afgetrokken",
+    versie: "geraadpleegd op 11 november 2026",
+    tekst:
+      "Heeft u bijstand en krijgt u partneralimentatie en/of kinderalimentatie? Dan geldt deze alimentatie als inkomen. De gemeente houdt hiermee dan rekening bij het vaststellen van uw bijstandsuitkering.",
+  },
   pw45lid4: {
     titel: "Participatiewet, art. 45 lid 4",
     url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
