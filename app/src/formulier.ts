@@ -9,7 +9,7 @@ export function maxUurprijs(l: Lezer, soort: Opvangsoort): number {
   }
 }
 
-export type LoonPer = "maand" | "netto" | "vierweken" | "uur";
+export type LoonPer = "maand" | "netto" | "vierweken" | "netto4" | "uur";
 /** Leeg: nog niet gekozen. */
 export type AllIn = "" | "nee" | "ja" | "onbekend";
 /** "kostgeld": bij iemand anders in huis, en betaalt een bedrag voor de woonruimte (kostgeld of huur). */
@@ -79,6 +79,9 @@ export interface KindVeld {
   uurprijs: string;
 }
 
+/** Ja/nee-vragen zonder vooraf gekozen antwoord. */
+export type JaNeeVraag = "partner" | "heeftKinderen" | "partnerWerkt" | "heeftAnderInkomen" | "woonlasten" | "andereBewoners" | "werktNu";
+
 export interface Formulier {
   leefvorm: Leefvorm;
   geboren: Geboortedatum;
@@ -95,6 +98,10 @@ export interface Formulier {
   /** Huisgenoten van 18 tot 27 jaar die geen kind van de gebruiker zijn. */
   jongeHuisgenoten: string;
   huisgenotenInkomen: string;
+  /** De gebruiker weet het inkomen van de huisgenoten niet; dan geen huurtoeslag uitrekenen. */
+  huisgenotenOnbekend: boolean;
+  /** Welke ja/nee-vragen de gebruiker heeft beantwoord. */
+  beantwoord: Partial<Record<JaNeeVraag, true>>;
   /** Woonsituatie. "instelling": instelling of woonvorm met begeleiding (norm art. 23 Pw). */
   woont: Woonsituatie | "";
   /** Eigen voordeur, keuken, wc en douche of bad (alleen bij huur). */
@@ -141,6 +148,8 @@ export const leegFormulier: Formulier = {
   kostendelers: "",
   jongeHuisgenoten: "",
   huisgenotenInkomen: "",
+  huisgenotenOnbekend: false,
+  beantwoord: {},
   woont: "",
   zelfstandig: true,
   woonlasten: false,
@@ -229,6 +238,11 @@ export function controleer(f: Formulier, stap: number): Fouten {
     } else if (Number.isNaN(n) || n < min || n > maxi) fouten[veld] = melding;
   };
   if (stap === 1) {
+    const kies = "Kies Ja of Nee.";
+    if (!f.beantwoord.partner) fouten.partner = kies;
+    if (!f.beantwoord.heeftKinderen) fouten.heeftKinderen = kies;
+    if (f.leefvorm === "paar" && !f.beantwoord.partnerWerkt) fouten.partnerWerkt = kies;
+    if (!f.beantwoord.heeftAnderInkomen) fouten.heeftAnderInkomen = kies;
     const geboren = (veld: string, g: Geboortedatum, min: number, maxi: number, melding: string) => {
       if (!g.trim()) fouten[veld] = "Vul dit in.";
       else if (!isoDatum(g)) fouten[veld] = "Vul een datum in die bestaat, met dag, maand en jaar. Bijvoorbeeld 14-03-1990.";
@@ -258,9 +272,11 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (vraagJongeHuisgenoten(f)) moet("jongeHuisgenoten", f.jongeHuisgenoten, 0, 10, "Vul een aantal van 0 tot 10 in.");
   }
   if (stap === 2 && vraagInkomenAnderen(f)) {
-    moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
+    if (!f.huisgenotenOnbekend) moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
   }
   if (stap === 2 && !f.woont) fouten.woont = "Kies waar u woont.";
+  if (stap === 2 && f.woont === "inwonend" && !f.beantwoord.woonlasten) fouten.woonlasten = "Kies Ja of Nee.";
+  if (stap === 2 && vraagBewoners(f) && !f.beantwoord.andereBewoners) fouten.andereBewoners = "Kies Ja of Nee.";
   if (stap === 2 && (f.woont === "huur" || f.woont === "kostgeld")) {
     moet(
       "kaleHuur",
@@ -275,6 +291,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
     );
   }
   if (stap === 3) {
+    if (!f.beantwoord.werktNu) fouten.werktNu = "Kies Ja of Nee.";
     const loonGrens = (per: LoonPer): [number, number, string] =>
       per === "uur"
         ? [1, 100, "Vul uw bruto loon per uur in, bijvoorbeeld 15,00."]
@@ -282,6 +299,8 @@ export function controleer(f: Formulier, stap: number): Fouten {
           ? [50, 15000, "Vul uw netto loon per maand in, bijvoorbeeld 1.500."]
           : per === "vierweken"
             ? [50, 15000, "Vul uw bruto loon per 4 weken in, bijvoorbeeld 1.700."]
+            : per === "netto4"
+              ? [50, 15000, "Vul uw netto loon per 4 weken in, bijvoorbeeld 1.400."]
             : [50, 15000, "Vul uw bruto loon per maand in, bijvoorbeeld 1.800."];
     if (f.werktNu) {
       moet("nuLoon", f.nuLoon, ...loonGrens(f.nuPer));
@@ -352,7 +371,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     kinderen,
     kostendelers: aantalKostendelers(f),
     jongeHuisgenoten: aantalJongeHuisgenoten(f),
-    huisgenotenInkomenJaar: vraagInkomenAnderen(f) ? getal(f.huisgenotenInkomen) : undefined,
+    huisgenotenInkomenJaar: vraagInkomenAnderen(f) && !f.huisgenotenOnbekend ? getal(f.huisgenotenInkomen) : undefined,
     wonen:
       f.woont === "huur" || f.woont === "kostgeld"
         ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), zelfstandig: f.woont === "huur" && f.zelfstandig }
@@ -417,6 +436,7 @@ function loonWerk(per: LoonPer, bedrag: number, uren: number, andereUren?: numbe
   const urenFactor = uren > 0 ? nieuweUren / uren : 1;
   if (per === "vierweken") return { brutoVierwekenloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
   if (per === "netto") return { nettoMaandloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
+  if (per === "netto4") return { nettoVierwekenloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
   return { brutoMaandloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
 }
 
@@ -429,7 +449,7 @@ export function alleenCijfers(tekst: string, soort: "geheel" | "getal"): string 
 const datumTekst = (g: Geboortedatum) => g.trim();
 export const euroTekst = (t: string) => `€ ${t}`;
 
-export const LOON_PER: Record<LoonPer, string> = { maand: "bruto per maand", netto: "netto per maand", vierweken: "bruto per 4 weken", uur: "bruto per uur" };
+export const LOON_PER: Record<LoonPer, string> = { maand: "bruto per maand", netto: "netto per maand", vierweken: "bruto per 4 weken", netto4: "netto per 4 weken", uur: "bruto per uur" };
 const OPVANG: Record<Opvangsoort, string> = { dagopvang: "kinderdagverblijf", bso: "buitenschoolse opvang", gastouder: "gastouder" };
 
 /**
@@ -459,7 +479,7 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
   } else if (f.woont === "huur") {
     woning.push(["Woning", f.zelfstandig ? "huurwoning met eigen voordeur, keuken, wc en douche" : "kamer, of woning met gedeelde keuken, wc of douche"]);
     woning.push([f.zelfstandig ? "Kale huur" : "Huur", `${euroTekst(f.kaleHuur)} per maand`]);
-    if (vraagInkomenAnderen(f)) woning.push(["Inkomen huisgenoten", `${euroTekst(f.huisgenotenInkomen)} bruto per jaar`]);
+    if (vraagInkomenAnderen(f)) woning.push(["Inkomen huisgenoten", f.huisgenotenOnbekend ? "onbekend" : `${euroTekst(f.huisgenotenInkomen)} bruto per jaar`]);
   } else {
     woning.push([
       "Woning",

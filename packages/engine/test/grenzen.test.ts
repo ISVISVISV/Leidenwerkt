@@ -142,6 +142,12 @@ describe("netto loon", () => {
     expect(bedrag(laag, "werk", "iack")).toBe("7.00");
   });
 
+  it("netto per 4 weken is 13/12 van dat bedrag per maand", () => {
+    const vier = bereken(basis({ nieuwWerk: { nettoVierwekenloon: 1200, urenPerWeek: 24 } }));
+    const maand = bereken(basis({ nieuwWerk: { nettoMaandloon: 1300, urenPerWeek: 24 } }));
+    expect(vier.werk.besteedbaarPerMaand).toBe(maand.werk.besteedbaarPerMaand);
+    expect(vier.signalen.some((s) => s.kop === "Loon per 4 weken")).toBe(maand.werk.posten.find((p) => p.id === "bijstand")?.perMaand !== "0.00");
+  });
   it("uurloon zonder uren per week levert geen loon op", () => {
     expect(bereken(basis({ nieuwWerk: { brutoUurloon: 15 } })).verschilPerMaand).toBe("0.00");
   });

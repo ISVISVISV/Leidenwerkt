@@ -37,6 +37,8 @@ export interface Werk {
    * De engine rekent dit terug naar een bruto maandloon.
    */
   nettoMaandloon?: number;
+  /** Netto loon per 4 weken, zonder vakantiegeld; de engine rekent het om naar een maand (× 13 / 12). */
+  nettoVierwekenloon?: number;
   urenPerWeek?: number;
   /** Factor waarmee het loon wordt vermenigvuldigd, bijvoorbeeld bij een ander aantal uren (urenschuif). */
   urenFactor?: number;
