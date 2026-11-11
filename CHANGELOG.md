@@ -8,6 +8,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Toegevoegd
 
+- Werkwijze voor een gebruikerstest met personages (`docs/GEBRUIKERSTEST.md`).
 - Netto loon per 4 weken als keuze bij het loon.
 - Bij het inkomen van huisgenoten: "Ik weet het niet". De rekenhulp rekent de huurtoeslag dan niet uit en zegt waarom.
 - Vaste stap "Meld uw werk bij de gemeente" voor iedereen met bijstand, met de tekst van art. 17 Participatiewet.

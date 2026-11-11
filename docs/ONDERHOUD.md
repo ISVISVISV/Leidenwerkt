@@ -49,3 +49,7 @@ Elke vondst wordt een issue met het label `bewaking`. Er komt nooit twee keer ee
 Ligt de datum van vandaag na de laatste geldige regeldata (of ontbreekt een bedrag voor vandaag), dan rekent de app met de meest recente datum waarvoor alles bekend is en toont een duidelijke waarschuwing: met welke datum is gerekend en voor welke onderdelen de bedragen van vandaag nog ontbreken.
 
 Bedragen gelden altijd per datum. Een oud bestand blijft staan; zo kan de app ook voor een eerdere periode rekenen.
+
+## 5. Gebruikerstest
+
+De rekentests zien niet wat een gebruiker niet begrijpt. Doe daarom bij elke nieuwe versie met wijzigingen in vragen, teksten of de uitkomst een gebruikerstest met personages, en na het bijwerken van de bedragen voor een nieuw jaar. De werkwijze en de opdracht staan in [GEBRUIKERSTEST.md](GEBRUIKERSTEST.md).

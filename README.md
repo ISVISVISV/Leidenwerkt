@@ -46,6 +46,7 @@ Wijzigingen gaan via pull requests; zie [CONTRIBUTING.md](CONTRIBUTING.md).
 | [PROEFPERSONEN.md](docs/PROEFPERSONEN.md) | Inhoudelijke lezers | Verzonnen huishoudens met de vergelijking met officiële waarden (gegenereerd) |
 | [ARCHITECTUUR.md](docs/ARCHITECTUUR.md) | Ontwikkelaars | Opbouw van regeldata, rekenkern en app |
 | [ONDERHOUD.md](docs/ONDERHOUD.md) | Beheerders | Bedragen bijwerken, bewaking van wetten, werkwijze |
+| [GEBRUIKERSTEST.md](docs/GEBRUIKERSTEST.md) | Beheerders | Testen met verzonnen gebruikers: wanneer, hoe, en de opdracht |
 | [BESLUITEN.md](docs/BESLUITEN.md) | Ontwikkelaars | De keuzes die de rekenhulp vormen, met de reden |
 | [SNAPSHOTS.md](docs/SNAPSHOTS.md) | Ontwikkelaars | Waarom een vastgelegde uitkomst is gewijzigd |
 | [RISICOS.md](docs/RISICOS.md) | Beheerders | Risico's en de maatregel per risico |
