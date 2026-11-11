@@ -6,7 +6,7 @@ Verzonnen mensen in verzonnen situaties. Per persoon staan de invoer, de uitkoms
 
 | Persoon | Rekendatum | Kopgetal (verschil per maand) | Officiële waarden binnen tolerantie |
 | --- | --- | --- | --- |
-| [Ayşe](#ayse) | 2026-09-01 | € 378,83 | 2 van 2 |
+| [Ayşe](#ayse) | 2026-09-01 | € 345,12 | 2 van 2 |
 | [Bram](#bram) | 2026-09-01 | € 780,40 | 2 van 2 |
 | [Daan in een woonvorm met begeleiding](#daan-woonvorm-met-begeleiding) | 2026-09-01 | € 1.195,38 | 1 van 1 |
 | [Daan zonder vaste woonplek](#daan-zonder-vaste-woonplek) | 2026-09-01 | € 657,64 | 1 van 1 |
@@ -24,9 +24,9 @@ Verzonnen mensen in verzonnen situaties. Per persoon staan de invoer, de uitkoms
 | [Rachid](#rachid-net-onder-norm) | 2026-09-01 | € 0,00 | 2 van 2 |
 | [Rob](#rob) | 2026-09-01 | € 117,94 | 2 van 2 |
 | [Sanne](#sanne-24-uur) | 2026-09-01 | € 400,13 | 10 van 10 |
-| [Sanne](#sanne-maand-1-6) | 2026-09-01 | € 313,11 | 7 van 7 |
-| [Sanne](#sanne-maand-7-36) | 2026-09-01 | € 172,73 | 7 van 7 |
-| [Sanne](#sanne-vanaf-maand-37) | 2026-09-01 | € 24,11 | 7 van 7 |
+| [Sanne](#sanne-maand-1-6) | 2026-09-01 | € 368,36 | 7 van 7 |
+| [Sanne](#sanne-maand-7-36) | 2026-09-01 | € 227,98 | 7 van 7 |
+| [Sanne](#sanne-vanaf-maand-37) | 2026-09-01 | € 79,36 | 7 van 7 |
 | [Wim](#wim) | 2026-09-01 | € 238,91 | 2 van 2 |
 
 <a id="ayse"></a>
@@ -43,7 +43,7 @@ Ayşe, 38, alleenstaande moeder van Mila (6), huurt voor € 700. Ze werkt al ee
 - Werk straks: bruto € 14,50 per uur, 28 uur per week
 - Vrijlatingsperiode: periode daarna
 
-**Uitkomst:** nu € 2.698,03, met werk € 3.076,86 per maand; verschil € 378,83.
+**Uitkomst:** nu € 2.731,74, met werk € 3.076,86 per maand; verschil € 345,12.
 
 | Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -264,7 +264,7 @@ Fatima (38) en Youssef (40) zijn getrouwd en hebben twee kinderen: Sami (13) en 
 - Medebewoners (geen partner): geen
 - Huur: kale huur € 760,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 25.521,00; met werk: € 30.879,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 24.609,00; met werk: € 30.879,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/fatima-en-youssef.yaml`.
 
@@ -773,7 +773,7 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690. Ze begint met 
 - Werk straks: bruto € 16,20 per uur, 16 uur per week
 - Vrijlatingsperiode: eerste periode
 
-**Uitkomst:** nu € 2.568,93, met werk € 2.882,04 per maand; verschil € 313,11.
+**Uitkomst:** nu € 2.568,93, met werk € 2.937,29 per maand; verschil € 368,36.
 
 | Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -820,7 +820,7 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690. Ze begint met 
 - Werk straks: bruto € 16,20 per uur, 16 uur per week
 - Vrijlatingsperiode: periode daarna
 
-**Uitkomst:** nu € 2.568,93, met werk € 2.741,66 per maand; verschil € 172,73.
+**Uitkomst:** nu € 2.568,93, met werk € 2.796,91 per maand; verschil € 227,98.
 
 | Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -867,7 +867,7 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690. Ze begint met 
 - Werk straks: bruto € 16,20 per uur, 16 uur per week
 - Vrijlatingsperiode: geen vrijlating
 
-**Uitkomst:** nu € 2.568,93, met werk € 2.593,04 per maand; verschil € 24,11.
+**Uitkomst:** nu € 2.568,93, met werk € 2.648,29 per maand; verschil € 79,36.
 
 | Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
 | --- | --- | ---: | ---: | ---: | --- |

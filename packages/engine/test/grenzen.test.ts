@@ -54,7 +54,7 @@ describe("leeftijdsgrenzen", () => {
   });
 
   it("combinatiekorting alleen met een kind jonger dan 12", () => {
-    expect(bedrag(bereken(ouder(11)), "werk", "iack")).toBe("7.00");
+    expect(bedrag(bereken(ouder(11)), "werk", "iack")).toBe("51.76");
     expect(post(bereken(ouder(12)), "werk", "iack")).toBeUndefined();
   });
 
@@ -136,10 +136,12 @@ describe("netto loon", () => {
   it("combinatiekorting: 11,45% van het arbeidsinkomen boven € 6.239, hoogstens € 3.032 en niet meer dan de belasting", () => {
     // Bruto 2.600: arbeidsinkomen 33.696; 11,45% × 27.457 = 3.143,83, dus het maximum 3.032; per maand 252,67.
     expect(bedrag(bereken(ouder(5, { nieuwWerk: { brutoMaandloon: 2600 } })), "werk", "iack")).toBe("252.67");
-    // Bruto 900: 11,45% × (11.664 − 6.239) = 621,16 per jaar, maar er is maar € 83,97 belasting: per maand 7,00.
+    // Bruto 900: 11,45% × (11.664 − 6.239) = 621,16 per jaar, per maand 51,76. Over het loon alleen is er maar € 83,97
+    // belasting, maar de korting gaat af van de belasting over loon en bijstand samen, en die is hoger.
     const laag = bereken(ouder(5));
     expect(stap(laag, "werk", "iack", "Combinatiekorting volgens de tabel")).toBe("51.76");
-    expect(bedrag(laag, "werk", "iack")).toBe("7.00");
+    expect(Number(stap(laag, "werk", "iack", "Belasting over loon en bijstand samen"))).toBeGreaterThan(51.76);
+    expect(bedrag(laag, "werk", "iack")).toBe("51.76");
   });
 
   it("netto per 4 weken is 13/12 van dat bedrag per maand", () => {

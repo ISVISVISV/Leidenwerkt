@@ -44,3 +44,10 @@ Geen wijziging in de snapshots 2026; geen van de vastgelegde huishoudens woont i
 ## Snapshots van de uitleg (10 november 2026)
 
 Nieuw: naast de bedragen staan nu ook de rekenstappen, meldingen en aannames vast, voor de bestaande huishoudens en negen extra (`extraVoorUitleg` in `huishoudens.ts`). De snapshots van de bedragen zijn niet gewijzigd. Een gewijzigde tekst in de uitleg hoeft hier niet verklaard te worden; een gewijzigd tussenbedrag wel.
+
+## 11 november 2026: bijstand van partners per helft, combinatiekorting over het hele inkomen
+
+| Wijziging | Effect op de snapshots | Bron |
+| --- | --- | --- |
+| Bij partners is de bijstand per helft teruggerekend naar bruto, ieder met een eigen heffingskorting | Lager geschat jaarinkomen bij paren met bijstand, dus meer zorgtoeslag en huurtoeslag. Bijvoorbeeld "paar met opvang, partner werkt niet": jaarinkomen zonder werk € 33.388,60 → € 28.176,62, huurtoeslag € 361 → € 396. Bij "paar met twee kinderen, partner werkt" een verschil van één cent door afronding | Participatiewet, art. 45 lid 4 |
+| De combinatiekorting gaat af van de belasting over loon en bijstand samen, niet alleen over het loon | Bij alleenstaande ouders met een laag loon is de korting hoger: "alleenstaande ouder, kind 4 met opvang" en de proefpersonen Ayşe en Sanne. Bij Ayşe nu € 0 → € 33,71 per maand | Belastingdienst, tarieven en heffingskortingen 2026 (heffingskortingen gaan af van de belasting over het inkomen in box 1) |
