@@ -18,15 +18,35 @@ De rekentests controleren of de berekening klopt met de regels. Ze zien niet wat
 
 ## Opdracht voor de tester
 
+Vervang [personen] door de zes gekozen personen, elk met leeftijd, huishouden, woning en het werk dat ze overwegen.
+
 > Je bent testgebruiker van "Leidenwerkt", een gratis rekenhulp voor inwoners van Leiden met bijstand: https://isvisvisv.github.io/Leidenwerkt/
 >
-> Je beoordeelt niet of de bedragen kloppen. Je noteert wat een gewoon mens verwarrend, dubbel, tegenstrijdig of onduidelijk vindt. Gebruik alleen de rekenhulp zelf, zoals een bezoeker, en alleen verzonnen gegevens. Open bij elke vraag het i-knopje en lees de uitleg. Gebruik een venster zo smal als een telefoon (ongeveer 390 pixels) als dat kan.
+> **Doel.** Vind plekken waar een gewone gebruiker vastloopt, iets verkeerd begrijpt, of twee dingen ziet die elkaar tegenspreken. Je hoeft bedragen niet zelf na te rekenen, maar meld het wel als een bedrag niet te geloven is of als twee bedragen of teksten elkaar tegenspreken.
 >
-> Vul de rekenhulp volledig in voor elk van de zes personen [lijst], met hun eigen kennis en woorden.
+> **Werkwijze.** Gebruik alleen de rekenhulp zelf, zoals een bezoeker: geen broncode, geen documentatie, alleen verzonnen gegevens. Gebruik een venster zo smal als een telefoon (ongeveer 390 pixels) als dat kan. Vul alles met de hand in, niet met een script. Open bij elke vraag het i-knopje. Klik op de uitkomst op de koppen onder "Goed om te weten" en op de links onder "Wat u nu kunt doen".
 >
-> Noteer per scherm: een vraag die je niet begrijpt of anders leest dan bedoeld (citeer de vraag en zeg wat jij dacht); een vraag die je al eerder beantwoordde of die niet bij je situatie past; een antwoord waarin je je niet herkent; een uitleg die niet helpt; iets wat je verwachtte en niet zag. Op de uitkomst ook: twee teksten of getallen die elkaar lijken tegen te spreken, een bedrag dat je niet terugvindt of niet gelooft, en of "Wat u nu kunt doen" je echt vertelt wat je moet doen. En alles wat op een smal scherm niet goed werkt.
+> **Personen.** Vul de rekenhulp voor elk volledig in, met hun eigen kennis en woorden: [personen]
 >
-> Lever één tabel per persoon met de kolommen: Scherm | Vraag of tekst (citaat) | Wat ging mis | Ernst (blokkeert / verwarrend / klein) | Voorstel (één zin). Sluit af met de vijf ergste punten. Verzin geen problemen: staat er niets mis, schrijf dan "geen opmerkingen". Zeg aan het eind welke schermen of uitleg je niet hebt geopend.
+> **Wat je meldt.** Een vraag of tekst die je niet begrijpt of anders leest dan bedoeld (citeer hem en zeg wat jij dacht). Een situatie waarvoor geen passend antwoord bestaat. Iets wat je zoekt en niet vindt. Twee teksten of bedragen die elkaar tegenspreken, of een bedrag dat je niet gelooft (zeg waarom). Een uitleg die je vraag niet beantwoordt. Iets wat op een smal scherm niet werkt. Een knop of link die niets doet of naar de verkeerde plek gaat.
+>
+> **Wat je niet meldt.** Dit zijn bewuste keuzes; meld ze niet en stel ze niet voor:
+> - dat huur, vaste lasten, vermogen, schulden, bijzondere bijstand of de waarde van een koopwoning niet worden meegerekend (buiten de rekenhulp);
+> - dat de kinderopvang bij "Uw huishouden" staat in plaats van bij het werk;
+> - dat "Goed om te weten" ingeklapt is of dat "Wat u nu kunt doen" een korte rij links is (de uitkomstpagina mag niet langer worden);
+> - dat de urenschuif geen + en − knoppen heeft, of bij meer uren niet onder het huidige aantal uren kan;
+> - dat er geen schatting is voor het deel van het kostgeld voor de woonruimte, of geen "weet ik niet" bij het eigen loon (geen officiële regel voor);
+> - dat de vraag naar huisgenoten de grens van 27 jaar gebruikt (die staat in de wet);
+> - dat van de partner alleen het bruto loon wordt gevraagd;
+> - woorden als "vrijlating", "kostendelersnorm" of "combinatiekorting" op zich; meld ze alleen als de uitleg ontbreekt of niet helpt;
+> - wensen voor nieuwe functies, extra vragen of extra uitleg op de uitkomst, tenzij je zonder die toevoeging echt vastloopt;
+> - opmaak, kleur of lettertype, tenzij het daardoor onleesbaar of onbruikbaar is.
+>
+> **Voorstellen.** Hoogstens één zin, en alleen om iets bestaands korter, duidelijker of juister te maken. Weet je geen goed voorstel, schrijf dan "–". Een nieuwe vraag, een nieuw blok of meer tekst op de uitkomst mag je alleen voorstellen bij ernst "blokkeert".
+>
+> **Rapport.** Eén tabel per persoon: Scherm | Vraag of tekst (citaat) | Wat ging mis | Ernst | Voorstel. Ernst is "blokkeert" (je kunt niet verder, of de uitkomst klopt voor deze persoon niet), "verwarrend" (je kunt verder maar twijfelt of begrijpt het verkeerd) of "klein" (storend, maar je begrijpt het). Niets mis? Schrijf "geen opmerkingen"; verzin geen problemen. Sluit af met de vijf ergste punten, de controlevragen bij de herhaalde personen, en eerlijk welke schermen, i-knopjes of uitklapblokken je niet hebt geopend en wat je niet met de hand hebt gedaan.
+
+Werk de lijst "Wat je niet meldt" bij als er een nieuwe bewuste keuze bij komt; de redenen staan in [BESLUITEN.md](BESLUITEN.md) of in de pull request.
 
 ## Gebruikte personen
 
@@ -35,5 +55,6 @@ De rekentests controleren of de berekening klopt met de regels. Ze zien niet wat
 | 1 (november 2026) | Fatma (alleenstaande moeder, huurt, kind 6); Jeroen (24, woont bij moeder); Anna (kamer, meer uren); Mohamed (getrouwd, drie kinderen, koopwoning); Pieter (geen vaste woonplek, medische urenbeperking); Lisa (woonvorm met begeleiding) |
 | 2 (november 2026) | Samira (kostgeld bij ouders); Kees (58, kamer, meer uren); Dewi (alleenstaande moeder, twee kinderen naar de opvang); Tom en Ilse (stel, partner met bijbaan); Ahmed (huisgenoten, netto per 4 weken); Marloes (23, studio, medische urenbeperking) |
 | 3 (november 2026) | Noor (21, baby naar gastouder); Henk en Joke (stel, 64 en 60); Sanne (gescheiden, alimentatie, kind 10); Bilal (horeca, all-in uurloon, kamer); Kees en Samira opnieuw |
+| 4 (november 2026) | Fleur (UWV-uitkering naast bijstand); Ricardo (alleenstaande vader, kinderen 17 en 19); Mila en Daan (stel, partner werkt al, kind naar kinderdagverblijf); Joost (nachtopvang, netto loon); Henk en Joke en Noor opnieuw |
 
-Nog niet gebruikt, als idee: iemand met een UWV-uitkering naast bijstand; iemand die in 2027 rekent; een ouder met een kind van 17 en een van 19; een stel waarvan allebei gaan werken; iemand zonder vaste woonplek die in de opvang slaapt.
+Nog niet gebruikt, als idee: iemand die in 2027 rekent; iemand van 26 die bij de ouders woont; een alleenstaande ouder met drie kinderen in verschillende soorten opvang; iemand met ander werk in plaats van het huidige; iemand met een medische urenbeperking en een kamer.
