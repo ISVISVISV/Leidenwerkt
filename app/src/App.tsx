@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagBewoners, vraagInkomenAnderen, vraagJongeHuisgenoten, type Fouten, type Formulier, type Geboortedatum } from "./formulier.ts";
+import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagBewoners, vraagInkomenAnderen, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag, type Geboortedatum } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -413,7 +413,17 @@ function Keuze<T extends string>(props: {
   );
 }
 
+/** Een ja/nee-vraag heeft geen antwoord vooraf; pas na een keuze telt de waarde als beantwoord. */
+const antwoordHulp =
+  (f: Formulier, zet: StapProps["zet"]) =>
+  (vraag: JaNeeVraag, fn: (v: string) => void) =>
+  (v: string) => {
+    zet("beantwoord", { ...f.beantwoord, [vraag]: true });
+    fn(v);
+  };
+
 function StapHuishouden({ f, zet, fouten }: StapProps) {
+  const metAntwoord = antwoordHulp(f, zet);
   const zetKind = (i: number, wijziging: Partial<Formulier["kinderen"][number]>) =>
     zet("kinderen", f.kinderen.map((k, j) => (i === j ? { ...k, ...wijziging } : k)));
   return (
@@ -433,8 +443,9 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
             </p>
           </>
         }
-        waarde={f.leefvorm === "paar" ? "ja" : "nee"}
-        onChange={(v) => zet("leefvorm", v === "ja" ? "paar" : f.kinderen.length > 0 ? "alleenstaande_ouder" : "alleenstaande")}
+        waarde={f.beantwoord.partner ? f.leefvorm === "paar" ? "ja" : "nee" : ""}
+        onChange={metAntwoord("partner", (v) => zet("leefvorm", v === "ja" ? "paar" : f.kinderen.length > 0 ? "alleenstaande_ouder" : "alleenstaande"))}
+        fout={fouten.partner}
         opties={[
           ["nee", "Nee"],
           ["ja", "Ja"],
@@ -444,8 +455,8 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         naam="heeftKinderen"
         legend="Heeft u kinderen die bij u wonen?"
         hint="Alleen kinderen jonger dan 27 jaar. Woont er een kind van 27 jaar of ouder bij u? Dat vult u bij de volgende stap in, bij de andere bewoners."
-        waarde={f.leefvorm === "alleenstaande_ouder" || f.kinderen.length > 0 ? "ja" : "nee"}
-        onChange={(v) => {
+        waarde={f.beantwoord.heeftKinderen ? f.leefvorm === "alleenstaande_ouder" || f.kinderen.length > 0 ? "ja" : "nee" : ""}
+        onChange={metAntwoord("heeftKinderen", (v) => {
           if (v === "ja") {
             if (f.kinderen.length === 0) zet("kinderen", [nieuwKind()]);
             if (f.leefvorm === "alleenstaande") zet("leefvorm", "alleenstaande_ouder");
@@ -453,7 +464,8 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
             zet("kinderen", []);
             if (f.leefvorm === "alleenstaande_ouder") zet("leefvorm", "alleenstaande");
           }
-        }}
+        })}
+        fout={fouten.heeftKinderen}
         opties={[
           ["nee", "Nee"],
           ["ja", "Ja"],
@@ -473,8 +485,9 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           <Keuze
             naam="partnerWerkt"
             legend="Heeft uw partner betaald werk?"
-            waarde={f.partnerWerkt ? "ja" : "nee"}
-            onChange={(v) => zet("partnerWerkt", v === "ja")}
+            waarde={f.beantwoord.partnerWerkt ? f.partnerWerkt ? "ja" : "nee" : ""}
+            onChange={metAntwoord("partnerWerkt", (v) => zet("partnerWerkt", v === "ja"))}
+        fout={fouten.partnerWerkt}
             opties={[
               ["nee", "Nee"],
               ["ja", "Ja"],
@@ -531,7 +544,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                   <Veld id={`kind${i}uren`} label="Hoeveel uur per week gaat dit kind naar de opvang?" voorbeeld="bijv. 16" hint={`De rekenhulp rekent dit om naar uren per maand.${maxOpvanguren() ? ` U krijgt kinderopvangtoeslag over hoogstens ${maxOpvanguren()} uur per maand, ongeveer ${Math.floor((maxOpvanguren()! * 12) / 52)} uur per week. Over meer uren betaalt u alles zelf.` : ""}`} waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
                   <Veld
                     id={`kind${i}prijs`}
-                    voorbeeld={`bijv. ${(k.soort && maxPrijsTekst(k.soort)) || "11,00"}`}
+                    voorbeeld="bijv. 10,50"
                     label="Prijs per uur"
                     hint={
                       k.soort && maxPrijsTekst(k.soort)
@@ -545,9 +558,11 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                   />
                 </div>
               )}
-              <button type="button" className="linkknop" onClick={() => zet("kinderen", f.kinderen.filter((_, j) => j !== i))}>
-                Kind {i + 1} verwijderen
-              </button>
+              {f.kinderen.length > 1 && (
+                <button type="button" className="linkknop" onClick={() => zet("kinderen", f.kinderen.filter((_, j) => j !== i))}>
+                  Kind {i + 1} verwijderen
+                </button>
+              )}
             </div>
           ))}
           <button type="button" className="tweedeknop" onClick={() => zet("kinderen", [...f.kinderen, nieuwKind()])}>
@@ -570,8 +585,9 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
             </p>
           </>
         }
-        waarde={f.heeftAnderInkomen ? "ja" : "nee"}
-        onChange={(v) => zet("heeftAnderInkomen", v === "ja")}
+        waarde={f.beantwoord.heeftAnderInkomen ? f.heeftAnderInkomen ? "ja" : "nee" : ""}
+        onChange={metAntwoord("heeftAnderInkomen", (v) => zet("heeftAnderInkomen", v === "ja"))}
+        fout={fouten.heeftAnderInkomen}
         opties={[
           ["nee", "Nee"],
           ["ja", "Ja"],
@@ -594,6 +610,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
 }
 
 function StapWoning({ f, zet, fouten }: StapProps) {
+  const metAntwoord = antwoordHulp(f, zet);
   return (
     <section>
       <Keuze
@@ -656,10 +673,10 @@ function StapWoning({ f, zet, fouten }: StapProps) {
             label={f.woont === "kostgeld" ? "Hoeveel betaalt u per maand voor uw woonruimte?" : f.zelfstandig ? "Kale huur per maand" : "Huur per maand"}
             hint={
               f.woont === "kostgeld"
-                ? `Betaalt u kostgeld, ook voor eten of de was? Vul dan alleen het deel in dat voor uw kamer of woonruimte is. Weet u dat niet? Vul dan het hele bedrag in en vraag het uw contactpersoon bij de gemeente.${lageHuurGrens() ? ` Betaalt u minder dan ${lageHuurGrens()} per maand voor uw woonruimte, dan verlaagt de gemeente Leiden de bijstand met het verschil.` : ""}`
+                ? `Betaalt u kostgeld, ook voor eten of de was? Vul dan alleen het deel in dat voor uw kamer of woonruimte is. Weet u dat niet? Vul dan het hele bedrag in en vraag het uw contactpersoon bij de gemeente.${lageHuurGrens() ? ` Betaalt u minder dan ${lageHuurGrens()} per maand voor uw woonruimte? Dan krijgt u minder bijstand: het verschil tussen ${lageHuurGrens()} en wat u betaalt.` : ""}`
                 : f.zelfstandig
                   ? "De huur zonder servicekosten, gas, water en licht. Staat in uw huurcontract. Servicekosten tellen sinds 2026 niet mee voor de huurtoeslag."
-                  : `De huur zonder gas, water en licht, als u dat bedrag weet. Anders het hele bedrag.${lageHuurGrens() ? ` Is uw huur lager dan ${lageHuurGrens()} per maand, dan verlaagt de gemeente Leiden de bijstand met het verschil.` : ""}`
+                  : `De huur zonder gas, water en licht, als u dat bedrag weet. Anders het hele bedrag.${lageHuurGrens() ? ` Is uw huur lager dan ${lageHuurGrens()} per maand? Dan krijgt u minder bijstand: het verschil tussen ${lageHuurGrens()} en uw huur.` : ""}`
             }
             waarde={f.kaleHuur}
             onChange={(v) => zet("kaleHuur", v)}
@@ -673,8 +690,9 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           naam="woonlasten"
           legend="Betaalt u zelf voor gas, licht of water?"
           hint="Betaalt degene bij wie u woont de rekening voor gas, licht en water? Kies dan Nee. Betaalt u er zelf voor, ook als u daarvoor geld aan iemand in huis geeft? Kies dan Ja. Zonder eigen kosten voor gas, licht en water verlaagt de gemeente de bijstand iets meer."
-          waarde={f.woonlasten ? "ja" : "nee"}
-          onChange={(v) => zet("woonlasten", v === "ja")}
+          waarde={f.beantwoord.woonlasten ? f.woonlasten ? "ja" : "nee" : ""}
+          onChange={metAntwoord("woonlasten", (v) => zet("woonlasten", v === "ja"))}
+        fout={fouten.woonlasten}
           opties={[
             ["nee", "Nee"],
             ["ja", "Ja"],
@@ -690,8 +708,9 @@ function StapWoning({ f, zet, fouten }: StapProps) {
               : "Wonen er nog andere mensen van 18 jaar of ouder bij u in huis?"
           }
           hint="Bijvoorbeeld uw ouders, een broer of zus, een vriend, een huisgenoot, iemand die een kamer van u huurt, of een eigen kind van 27 jaar of ouder. Wonen er meer volwassenen in huis? Dan kan uw bijstand lager zijn, omdat u de kosten kunt delen."
-          waarde={f.andereBewoners ? "ja" : "nee"}
-          onChange={(v) => zet("andereBewoners", v === "ja")}
+          waarde={f.beantwoord.andereBewoners ? f.andereBewoners ? "ja" : "nee" : ""}
+          onChange={metAntwoord("andereBewoners", (v) => zet("andereBewoners", v === "ja"))}
+        fout={fouten.andereBewoners}
           opties={[
             ["nee", "Nee"],
             ["ja", "Ja"],
@@ -724,7 +743,7 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           )}
         </>
       )}
-      {vraagInkomenAnderen(f) && (
+      {vraagInkomenAnderen(f) && !f.huisgenotenOnbekend && (
         <Veld
           id="huisgenotenInkomen"
           label="Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen"
@@ -733,8 +752,8 @@ function StapWoning({ f, zet, fouten }: StapProps) {
               <p>
                 Dit telt mee voor de huurtoeslag. Tel het inkomen mee van al uw huisgenoten en van uw kinderen. Het inkomen van uw partner
                 telt u hier niet mee.{vrijstellingKind() ? ` Van een kind jonger dan 23 jaar telt alleen het deel boven ${vrijstellingKind()} per jaar mee.` : ""}{" "}
-                Weet u het niet precies? Vul dan een schatting in. Heeft niemand inkomen? Vul dan
-                0 in.
+                Weet u het niet precies? Vul dan een schatting in. Heeft niemand inkomen? Vul dan 0 in. Weet u het helemaal niet? Vink dan
+                hieronder "Ik weet het niet" aan; de rekenhulp rekent de huurtoeslag dan niet uit.
               </p>
               <p className="bron-blok">
                 Bron: <Bron citaat={CITATEN.htMedebewoners} />
@@ -747,6 +766,12 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           voorvoegsel="€"
           voorbeeld="bijv. 25.000"
         />
+      )}
+      {vraagInkomenAnderen(f) && (
+        <label className="vinkje">
+          <input type="checkbox" checked={f.huisgenotenOnbekend} onChange={(e) => zet("huisgenotenOnbekend", e.target.checked)} />
+          <span>Ik weet het inkomen van mijn huisgenoten niet</span>
+        </label>
       )}
     </section>
   );
@@ -784,7 +809,11 @@ function LoonVelden({
         id={urenId}
         label={prefix === "nu" ? "Hoeveel uur per week werkt u nu?" : "Hoeveel uur per week gaat u werken?"}
         voorbeeld="bijv. 24"
-        hint="Hiermee rekent de rekenhulp uit wat u per uur verdient. Zo ziet u bij de uitkomst wat meer of minder uren oplevert."
+        hint={
+          prefix === "nu"
+            ? "Gemiddeld per week. Werkt u wisselende uren? Neem het gemiddelde van de laatste maanden."
+            : "Gemiddeld per week. Met de uren rekent de rekenhulp uit wat u per uur verdient. Zo ziet u bij de uitkomst wat meer of minder uren oplevert."
+        }
         waarde={uren}
         onChange={zetUren}
         fout={fouten[urenId]}
@@ -799,20 +828,29 @@ function LoonVelden({
           ["maand", "Bruto loon per maand"],
           ["netto", "Netto loon per maand (wat op mijn rekening komt)"],
           ["vierweken", "Bruto loon per 4 weken"],
+          ["netto4", "Netto loon per 4 weken (wat op mijn rekening komt)"],
           ["uur", "Bruto loon per uur"],
         ]}
       />
       <Veld
         id={loonId}
-        voorbeeld={per === "uur" ? "bijv. 15,00" : per === "vierweken" ? "bijv. 1.650" : per === "netto" ? "bijv. 1.300" : "bijv. 1.800"}
+        voorbeeld={per === "uur" ? "bijv. 15,00" : per === "vierweken" ? "bijv. 1.650" : per === "netto" ? "bijv. 1.300" : per === "netto4" ? "bijv. 1.200" : "bijv. 1.800"}
         label={
-          (per === "uur" ? "Bruto loon per uur" : per === "vierweken" ? "Bruto loon per 4 weken" : per === "netto" ? "Netto loon per maand" : "Bruto loon per maand") + voor
+          (per === "uur"
+            ? "Bedrag per uur"
+            : per === "vierweken"
+              ? "Bruto loon per 4 weken"
+              : per === "netto"
+                ? "Netto loon per maand"
+                : per === "netto4"
+                  ? "Netto loon per 4 weken"
+                  : "Bruto loon per maand") + voor
         }
         hint={
           per === "uur"
-            ? "Staat in de vacature of het contract. 'Bruto' is het bedrag vóór belasting."
-            : per === "netto"
-              ? "Het bedrag dat u elke maand op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook. De rekenhulp telt het vakantiegeld zelf mee."
+            ? "Het bruto loon per uur. Staat in de vacature of het contract. 'Bruto' is het bedrag vóór belasting."
+            : per === "netto" || per === "netto4"
+              ? `Het bedrag dat u ${per === "netto" ? "elke maand" : "elke 4 weken"} op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook. De rekenhulp telt het vakantiegeld zelf mee.`
               : "Neem het loon uit uw contract of van uw loonstrook, zonder vakantiegeld. De rekenhulp telt het vakantiegeld zelf mee. 'Bruto' is het bedrag vóór belasting."
         }
         waarde={loon}
@@ -840,13 +878,15 @@ function LoonVelden({
 }
 
 function StapWerk({ f, zet, fouten }: StapProps) {
+  const metAntwoord = antwoordHulp(f, zet);
   return (
     <section>
       <Keuze
         naam="werktNu"
         legend="Heeft u nu al betaald werk naast uw bijstand?"
-        waarde={f.werktNu ? "ja" : "nee"}
-        onChange={(v) => zet("werktNu", v === "ja")}
+        waarde={f.beantwoord.werktNu ? f.werktNu ? "ja" : "nee" : ""}
+        onChange={metAntwoord("werktNu", (v) => zet("werktNu", v === "ja"))}
+        fout={fouten.werktNu}
         opties={[
           ["nee", "Nee"],
           ["ja", "Ja"],
@@ -926,6 +966,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
         <Keuze
           naam="verandering"
           legend="Wat verandert er aan uw werk?"
+          hint="Meer uren: u blijft bij dezelfde werkgever en werkt meer uren. Ander werk: u stopt met uw huidige werk en begint ergens anders. Werk erbij: u houdt uw huidige werk en neemt er een tweede baan bij."
           waarde={f.verandering}
           onChange={(v) => zet("verandering", v)}
           fout={fouten.verandering}
@@ -994,7 +1035,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
         id="overigeKosten"
         voorbeeld="bijv. 10"
         label={f.werktNu ? "Hoeveel andere kosten door het werk komen erbij per maand?" : "Andere kosten door het werk per maand"}
-        hint="Bijvoorbeeld werkkleding. Kosten voor kinderopvang vult u bij stap 1 in."
+        hint={heeftOpvang(f) ? "Bijvoorbeeld werkkleding. De kinderopvang vulde u al in bij uw huishouden." : "Bijvoorbeeld werkkleding."}
         waarde={f.overigeKosten}
         onChange={(v) => zet("overigeKosten", v)}
         fout={fouten.overigeKosten}

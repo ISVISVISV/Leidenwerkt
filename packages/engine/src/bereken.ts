@@ -150,6 +150,9 @@ function metBruto(w: Werk | undefined, regels: RegelSet, datum: string): Werk | 
     const { bijbaan, ...hoofd } = w;
     return { ...metBruto(hoofd, regels, datum)!, bijbaan: metBruto(bijbaan, regels, datum) };
   }
+  if (w && w.nettoVierwekenloon !== undefined && w.nettoMaandloon === undefined) {
+    return metBruto({ ...w, nettoMaandloon: Number(D(w.nettoVierwekenloon).times(13).div(12).toFixed(2)) }, regels, datum);
+  }
   if (!w || w.nettoMaandloon === undefined || w.brutoMaandloon !== undefined) return w;
   try {
     const l = new Lezer(regels, datum);
@@ -204,6 +207,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       const r = nettoLoon(l, bruto, pensioenJaar(werk));
       kern.loon = r;
       kern.nettoMaand = r.nettoJaar.div(12);
+      if (werk?.nettoVierwekenloon !== undefined) stap("Netto loon per 4 weken dat u invulde, × 13 / 12", D(werk.nettoVierwekenloon).times(werk.urenFactor ?? 1));
       if (werk?.nettoMaandloon !== undefined) {
         stap("Netto maandloon dat u invulde (zonder vakantiegeld)", D(werk.nettoMaandloon).times(werk.urenFactor ?? 1));
         aanname("U vulde netto loon in. De rekenhulp rekent dat terug naar bruto. Uw echte bruto loon kan iets anders zijn.");
@@ -354,7 +358,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         const huisgenoten = invoer.kostendelers + (invoer.jongeHuisgenoten ?? 0);
         if (huisgenoten > 0 && invoer.huisgenotenInkomenJaar === undefined) {
           throw new Afhankelijk(
-            "Het inkomen van uw huisgenoten telt mee voor de huurtoeslag. Vul bij 'Uw woning' in wat zij samen per jaar verdienen.",
+            "Het inkomen van uw huisgenoten telt mee voor de huurtoeslag, en dat is niet ingevuld. Daarom rekent de rekenhulp de huurtoeslag niet uit. Weet u het inkomen? Vul het dan in bij 'Uw woning'.",
           );
         }
         let rekeninkomen = toetsingsinkomen(l, stap, aanname);
@@ -900,7 +904,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     });
   }
   // Alleen als er bijstand overblijft: zonder bijstand valt er niets te verrekenen.
-  if (invoer.nieuwWerk.brutoVierwekenloon !== undefined && bijstandWerk && bijstandWerk.gt(0)) {
+  if ((invoer.nieuwWerk.brutoVierwekenloon !== undefined || invoer.nieuwWerk.nettoVierwekenloon !== undefined) && bijstandWerk && bijstandWerk.gt(0)) {
     uit.push({
       soort: "waarschuwing",
       kop: "Loon per 4 weken",
@@ -930,7 +934,7 @@ function valideer(invoer: Invoer) {
   }
   for (const w of [invoer.nieuwWerk, invoer.nieuwWerk.bijbaan, invoer.huidigWerk, invoer.huidigWerk?.bijbaan, invoer.partner?.werk]) {
     if (!w) continue;
-    for (const v of [w.brutoMaandloon, w.brutoVierwekenloon, w.nettoMaandloon, w.brutoUurloon, w.urenPerWeek, w.reiskostenPerMaand, w.overigeKostenPerMaand]) {
+    for (const v of [w.brutoMaandloon, w.brutoVierwekenloon, w.nettoMaandloon, w.nettoVierwekenloon, w.brutoUurloon, w.urenPerWeek, w.reiskostenPerMaand, w.overigeKostenPerMaand]) {
       if (v !== undefined && (!Number.isFinite(v) || v < 0)) fouten.push("bedragen en uren mogen niet negatief zijn");
     }
     if (w.urenPerWeek !== undefined && w.urenPerWeek > 60) fouten.push("meer dan 60 uur per week wordt niet ondersteund");

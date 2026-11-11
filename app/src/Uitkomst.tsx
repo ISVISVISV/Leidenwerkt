@@ -591,7 +591,7 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
     const vakantiegeld = loon.per === "uur" && loon.allIn === "ja" ? "" : ", met het vakantiegeld erbij, verdeeld over 12 maanden";
     const omgerekend = loon.per === "maand" || loon.per === "netto" ? "" : ", omgerekend naar een maand";
     noten.push(
-      `U vulde ${bedragTekst(loon.bedrag)} ${LOON_PER[loon.per]} in. In de tabel staat het netto loon per maand${loon.per === "netto" ? "" : ", na belasting en premies"}${omgerekend}${vakantiegeld}.`,
+      `U vulde ${bedragTekst(loon.bedrag)} ${LOON_PER[loon.per]} in. In de tabel staat het netto loon per maand${loon.per === "netto" || loon.per === "netto4" ? "" : ", na belasting en premies"}${omgerekend}${vakantiegeld}.`,
     );
   }
   const l = new Lezer(standaardRegels, r.datum);
