@@ -12,15 +12,27 @@ parameters:
       url: https://www.svb.nl/nl/kinderbijslag/bedragen-betaaldagen/bedragen-kinderbijslag
       geraadpleegd_op: 2026-11-08
     notitie: Kinderbijslag hangt niet af van het inkomen en telt niet mee voor de bijstand (art. 31 lid 2 b Pw).
+    citaat:
+      kop: "SVB, Bedragen kinderbijslag"
+      tekst: "Bedrag per kind per kwartaal Leeftijd kind eerste en tweede kwartaal 2026 derde en vierde kwartaal 2026 0 tot en met 5 jaar € 295,07 € 298,40 6 tot en met 11 jaar € 358,30 € 362,35 12 tot en met 17 jaar € 421,53 € 426,29"
+      versie: "geraadpleegd op 11 november 2026"
   - id: akw.kwartaal.6_11
     omschrijving: Kinderbijslag per kind per kwartaal, 6 tot en met 11 jaar
     eenheid: euro_per_kwartaal
     waarde: { soort: bedrag, bedrag: "358.30" }
     status: geverifieerd
     bron: *svb
+    citaat:
+      kop: "SVB, Bedragen kinderbijslag"
+      tekst: "Bedrag per kind per kwartaal Leeftijd kind eerste en tweede kwartaal 2026 derde en vierde kwartaal 2026 0 tot en met 5 jaar € 295,07 € 298,40 6 tot en met 11 jaar € 358,30 € 362,35 12 tot en met 17 jaar € 421,53 € 426,29"
+      versie: "geraadpleegd op 11 november 2026"
   - id: akw.kwartaal.12_17
     omschrijving: Kinderbijslag per kind per kwartaal, 12 tot en met 17 jaar
     eenheid: euro_per_kwartaal
     waarde: { soort: bedrag, bedrag: "421.53" }
     status: geverifieerd
     bron: *svb
+    citaat:
+      kop: "SVB, Bedragen kinderbijslag"
+      tekst: "Bedrag per kind per kwartaal Leeftijd kind eerste en tweede kwartaal 2026 derde en vierde kwartaal 2026 0 tot en met 5 jaar € 295,07 € 298,40 6 tot en met 11 jaar € 358,30 € 362,35 12 tot en met 17 jaar € 421,53 € 426,29"
+      versie: "geraadpleegd op 11 november 2026"

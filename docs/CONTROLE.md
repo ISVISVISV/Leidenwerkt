@@ -86,6 +86,7 @@ Wat de tests bewijzen:
 | Test | Wat het aantoont |
 | --- | --- |
 | `packages/engine/test/officieel.test.ts` | De rekenvoorbeelden uit de brochures van Dienst Toeslagen komen er exact uit |
+| `packages/engine/test/bronnen.test.ts` | Elke geverifieerde parameter heeft een letterlijk citaat uit de bron, en de waarde staat in dat citaat |
 | `testgevallen/*.yaml` en [PROEFPERSONEN.md](PROEFPERSONEN.md) | Verzonnen huishoudens, per bedrag vergeleken met een officiële waarde waar die er is, waaronder ingevulde proefberekeningen van Dienst Toeslagen |
 | `packages/engine/test/grenzen.test.ts` | Grenzen en onderdelen met de hand nagerekend: leeftijdsgrenzen, kostendelersnorm bij een paar, belastingschijven, vergoeding kinderopvang, opbouw van de kinderopvangtabel |
 | `packages/engine/test/snapshot.test.ts` | Vastgelegde uitkomsten en uitleg (rekenstappen, meldingen, aannames); elke wijziging valt op |

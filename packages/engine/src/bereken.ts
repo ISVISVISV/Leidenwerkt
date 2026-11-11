@@ -574,7 +574,7 @@ export function bereken(gegeven: Invoer, regels: RegelSet = standaardRegels): Re
       "'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.",
       ...(invoer.wonen.soort === "instelling"
         ? [
-            "Er is aangenomen dat u voor uw verblijf in de instelling niets betaalt, ook niet als u gaat werken.",
+            "Er is aangenomen dat u voor uw verblijf in de instelling niets betaalt, ook niet als u gaat werken. Dat klopt meestal, maar het hangt af van de instelling. Betaalt u wel een eigen bijdrage? Vraag dan uw begeleider of uw contactpersoon bij de gemeente wat dat voor uw bijstand betekent.",
           ]
         : []),
       ...(invoer.wonen.soort === "huur" && invoer.wonen.zelfstandig === false
