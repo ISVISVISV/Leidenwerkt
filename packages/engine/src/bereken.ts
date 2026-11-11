@@ -699,6 +699,17 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     }
   };
 
+  if (bijstandNu && bijstandNu.gt(0)) {
+    uit.push({
+      soort: "waarschuwing",
+      kop: "Meld uw werk bij de gemeente",
+      actie: true,
+      bron: CITATEN.pw17,
+      tekst:
+        "Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
+    });
+  }
+
   if (bijstandNu && bijstandNu.gt(0) && bijstandWerk && bijstandWerk.isZero()) {
     probeer(() => {
       const termijn = l.aantal("leiden.garantieknop.termijn").toString();
@@ -718,7 +729,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       kop: "Geef uw nieuwe inkomen door",
       actie: true,
       bron: CITATEN.awirTerugvordering,
-      tekst: `Uw toeslagen gaan samen ${euro(totaal, true)} per maand omlaag (${lijst}). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand ${euro(totaal, true)} te veel, en moet u na een jaar ongeveer ${euro(totaal.times(12), true)} terugbetalen.`,
+      tekst: `Uw toeslagen gaan samen ${euro(totaal, true)} per maand omlaag (${lijst}). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand ${euro(totaal, true)} te veel, en moet u na een jaar ongeveer ${euro(totaal.times(12), true)} terugbetalen.`,
     });
   }
 

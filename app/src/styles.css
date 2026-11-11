@@ -524,19 +524,25 @@ input[type="range"] {
 }
 
 .te-doen {
-  margin: 1.25rem 0;
-  padding: 0.75rem 1rem;
-  border-left: 4px solid currentColor;
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
 }
 
 .te-doen h2 {
-  margin-top: 0;
-  font-size: 1.1rem;
+  margin: 0;
+  font-size: 1rem;
 }
 
 .te-doen ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
   margin: 0;
-  padding-left: 1.2rem;
+  padding: 0;
+  list-style: none;
 }
 
 .tabel-noten {
@@ -647,6 +653,15 @@ table.vergelijking {
 .signalen li.waarschuwing {
   border-left-color: var(--let-op);
   background: var(--let-op-zacht);
+}
+
+.signalen summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.signalen details p {
+  margin: 0.4rem 0 0;
 }
 
 details.uitleg {
@@ -1031,7 +1046,7 @@ details.uitleg summary {
 }
 
 .signaal-kop {
-  display: block;
+  display: list-item;
 }
 
 .signaal-bron {

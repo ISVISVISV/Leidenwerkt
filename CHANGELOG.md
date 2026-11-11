@@ -6,9 +6,20 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ## Nog niet uitgebracht
 
+### Toegevoegd
+
+- Vaste stap "Meld uw werk bij de gemeente" voor iedereen met bijstand, met de tekst van art. 17 Participatiewet.
+
+### Gewijzigd
+
+- "Goed om te weten" toont alleen de koppen; een klik klapt de uitleg open. "Wat u nu kunt doen" is een korte rij links die de melding openklapt.
+- Onder de tabel staat nu ook: de verlaging bij lage woonkosten, waar het kostgeld is, het loon van de partner met vakantiegeld, waarom toeslagen gelijk blijven en hoe u de combinatiekorting krijgt. Bij de meldingen staat met welk inkomen de grenzen zijn vergeleken.
+- De melding over toeslagen zegt dat de daling al in de bedragen zit.
+
 ### Hersteld
 
 - Wie al langer dan 6 maanden naast de bijstand werkt en meer uren gaat werken, zag een te hoog bedrag over de eerste 12 maanden: de rekenhulp rekende alsof de vrijlating opnieuw begon. Nu geldt de situatie zonder vrijlating alle 12 maanden.
+- Een klik op een link onder "Wat u nu kunt doen" bracht u terug naar het begin van de rekenhulp.
 
 ## 0.3.0 – 11 november 2026
 

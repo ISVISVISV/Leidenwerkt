@@ -305,6 +305,7 @@ exports[`snapshots van de uitleg > all-in uurloon, 24 jaar 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden (grens voor uw huishouden: ongeveer € 1.845 netto per maand).",
     "[info] Zorgverzekering: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
     "[info] Zwemabonnement: De gemeente Leiden kan een seizoenabonnement voor zwembad De Vliet of De Zijl vergoeden. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
@@ -380,6 +381,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, eerste helft 2026 1`] =
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[waarschuwing] Zorgverzekering: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.682 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Zwemabonnement: Krijgt u van de gemeente Leiden een vergoeding voor een zwemabonnement? Met dit inkomen stopt die waarschijnlijk (grens: ongeveer € 1.682 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Sport en cultuur: Met dit inkomen kunt u waarschijnlijk geen hulp meer krijgen van het Volwassenenfonds Sport & Cultuur (grens: ongeveer € 1.682 netto per maand).",
@@ -455,6 +457,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, maand 1-6 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[waarschuwing] Zorgverzekering: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.703 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Zwemabonnement: Krijgt u van de gemeente Leiden een vergoeding voor een zwemabonnement? Met dit inkomen stopt die waarschijnlijk (grens: ongeveer € 1.703 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Sport en cultuur: Met dit inkomen kunt u waarschijnlijk geen hulp meer krijgen van het Volwassenenfonds Sport & Cultuur (grens: ongeveer € 1.703 netto per maand).",
@@ -530,6 +533,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, na maand 6 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
     "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
     "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
@@ -603,6 +607,7 @@ exports[`snapshots van de uitleg > alleenstaande 25 jaar, 20 uur 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden (grens voor uw huishouden: ongeveer € 1.845 netto per maand).",
     "[info] Zorgverzekering: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
     "[info] Zwemabonnement: De gemeente Leiden kan een seizoenabonnement voor zwembad De Vliet of De Zijl vergoeden. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
@@ -678,7 +683,8 @@ exports[`snapshots van de uitleg > alleenstaande 36 uur 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
-    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 231 per maand omlaag (zorgtoeslag € 30, huurtoeslag € 201). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 231 te veel, en moet u na een jaar ongeveer € 2.772 terugbetalen.",
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
+    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 231 per maand omlaag (zorgtoeslag € 30, huurtoeslag € 201). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 231 te veel, en moet u na een jaar ongeveer € 2.772 terugbetalen.",
     "[waarschuwing] Sleutelpas: Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens voor uw huishouden: ongeveer € 1.845 netto per maand).",
     "[waarschuwing] Zorgverzekering: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.703 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Zwemabonnement: Krijgt u van de gemeente Leiden een vergoeding voor een zwemabonnement? Met dit inkomen stopt die waarschijnlijk (grens: ongeveer € 1.703 netto per maand). Dat is niet meegerekend.",
@@ -753,6 +759,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neem
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[waarschuwing, actie] Vraag de vergoeding voor de opvang aan: Na de kinderopvangtoeslag betaalt u nog € 137 per maand voor de opvang. De gemeente Leiden kan dit deel vergoeden. Dat heet bijzondere bijstand. Voorwaarde: u heeft de opvang nodig om te kunnen werken. Hoeveel u krijgt, hangt af van uw inkomen. Hier is € 137 per maand meegerekend. Dit geldt ook als u door het werk geen bijstand meer krijgt. U krijgt de vergoeding niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.",
     "[waarschuwing] Sleutelpas en Kindtegoed: Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens voor uw huishouden: ongeveer € 1.845 netto per maand). Het Kindtegoed van € 500 per jaar (1 × € 150 en 1 × € 350) houdt u waarschijnlijk wel, tot ongeveer € 1.987 netto per maand.",
     "[waarschuwing] Sport en cultuur: Met dit inkomen kunt u waarschijnlijk geen hulp meer krijgen van het Volwassenenfonds Sport & Cultuur (grens: ongeveer € 1.703 netto per maand).",
@@ -910,6 +917,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, kind 4 met opvang 1`] = 
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[waarschuwing, actie] Vraag de vergoeding voor de opvang aan: Na de kinderopvangtoeslag betaalt u nog € 36 per maand voor de opvang. De gemeente Leiden kan dit deel vergoeden. Dat heet bijzondere bijstand. Voorwaarde: u heeft de opvang nodig om te kunnen werken. Hoeveel u krijgt, hangt af van uw inkomen. Hier is € 36 per maand meegerekend. Dit geldt ook als u door het werk geen bijstand meer krijgt. U krijgt de vergoeding niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.",
     "[waarschuwing] Sport en cultuur: Met dit inkomen kunt u waarschijnlijk geen hulp meer krijgen van het Volwassenenfonds Sport & Cultuur (grens: ongeveer € 1.703 netto per maand).",
     "[info] Sleutelpas en Kindtegoed: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden (grens voor uw huishouden: ongeveer € 1.845 netto per maand). Voor uw kind krijgt u dan ook Kindtegoed: € 350 per jaar voor schoolspullen, sport en cultuur. Het bedrag hangt af van de leeftijd van het kind.",
@@ -1029,6 +1037,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, maand 7-36 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[info] Sleutelpas en Kindtegoed: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden (grens voor uw huishouden: ongeveer € 1.845 netto per maand). Voor uw kind krijgt u dan ook Kindtegoed: € 350 per jaar voor schoolspullen, sport en cultuur. Het bedrag hangt af van de leeftijd van het kind.",
     "[info] Zorgverzekering: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 2.190 netto per maand).",
     "[info] Zwemabonnement: De gemeente Leiden kan een seizoenabonnement voor zwembad De Vliet of De Zijl vergoeden. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 2.190 netto per maand).",
@@ -1130,6 +1139,7 @@ exports[`snapshots van de uitleg > geen vaste woonplek, medische urenbeperking, 
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden (grens voor uw huishouden: ongeveer € 1.845 netto per maand).",
     "[info] Zorgverzekering: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.241 netto per maand).",
     "[info] Zwemabonnement: De gemeente Leiden kan een seizoenabonnement voor zwembad De Vliet of De Zijl vergoeden. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.241 netto per maand).",
@@ -1190,7 +1200,8 @@ exports[`snapshots van de uitleg > hoog loon per 4 weken, bijstand stopt 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
-    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 372 per maand omlaag (zorgtoeslag € 78, huurtoeslag € 294). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 372 te veel, en moet u na een jaar ongeveer € 4.464 terugbetalen.",
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
+    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 372 per maand omlaag (zorgtoeslag € 78, huurtoeslag € 294). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 372 te veel, en moet u na een jaar ongeveer € 4.464 terugbetalen.",
     "[waarschuwing] Sleutelpas: Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens voor uw huishouden: ongeveer € 1.845 netto per maand).",
     "[waarschuwing] Zorgverzekering: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.703 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Zwemabonnement: Krijgt u van de gemeente Leiden een vergoeding voor een zwemabonnement? Met dit inkomen stopt die waarschijnlijk (grens: ongeveer € 1.703 netto per maand). Dat is niet meegerekend.",
@@ -1267,6 +1278,7 @@ exports[`snapshots van de uitleg > kamer, ander inkomen, kosten met vergoeding 1
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden (grens voor uw huishouden: ongeveer € 1.845 netto per maand).",
     "[info] Zorgverzekering: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
     "[info] Zwemabonnement: De gemeente Leiden kan een seizoenabonnement voor zwembad De Vliet of De Zijl vergoeden. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 1.703 netto per maand).",
@@ -1337,6 +1349,7 @@ exports[`snapshots van de uitleg > kostendeler, geen huur 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
     "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
     "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
@@ -1394,6 +1407,7 @@ exports[`snapshots van de uitleg > netto maandloon 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[waarschuwing] Zorgverzekering: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.703 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Zwemabonnement: Krijgt u van de gemeente Leiden een vergoeding voor een zwemabonnement? Met dit inkomen stopt die waarschijnlijk (grens: ongeveer € 1.703 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Sport en cultuur: Met dit inkomen kunt u waarschijnlijk geen hulp meer krijgen van het Volwassenenfonds Sport & Cultuur (grens: ongeveer € 1.703 netto per maand).",
@@ -1470,6 +1484,7 @@ exports[`snapshots van de uitleg > paar met kostendeler en jonge huisgenoot, huu
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[info] Sleutelpas: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden (grens voor uw huishouden: ongeveer € 2.636 netto per maand).",
     "[info] Zorgverzekering: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 2.433 netto per maand).",
     "[info] Zwemabonnement: De gemeente Leiden kan een seizoenabonnement voor zwembad De Vliet of De Zijl vergoeden. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 2.433 netto per maand).",
@@ -1551,6 +1566,7 @@ exports[`snapshots van de uitleg > paar met opvang, partner werkt niet 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[waarschuwing] Kinderopvang is niet meegerekend: U vulde in dat uw partner niet werkt. Kinderopvangtoeslag krijgt u alleen als u en uw partner allebei werken, of een opleiding, een inburgeringscursus of een traject naar werk volgen. Daarom zijn de toeslag en de kosten van de opvang niet meegerekend. Volgt uw partner een opleiding of een traject? Kijk dan bij de proefberekening van Dienst Toeslagen.",
     "[info] Sleutelpas en Kindtegoed: U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden (grens voor uw huishouden: ongeveer € 2.636 netto per maand). Voor uw kind krijgt u dan ook Kindtegoed: € 150 per jaar voor schoolspullen, sport en cultuur. Het bedrag hangt af van de leeftijd van het kind.",
     "[info] Zorgverzekering: De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer € 2.433 netto per maand).",
@@ -1650,7 +1666,8 @@ exports[`snapshots van de uitleg > paar met twee kinderen, partner werkt 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
-    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 46 per maand omlaag (zorgtoeslag € 30, huurtoeslag € 16). Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 46 te veel, en moet u na een jaar ongeveer € 552 terugbetalen.",
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
+    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 46 per maand omlaag (zorgtoeslag € 30, huurtoeslag € 16). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 46 te veel, en moet u na een jaar ongeveer € 552 terugbetalen.",
     "[waarschuwing] Sleutelpas en Kindtegoed: Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens voor uw huishouden: ongeveer € 2.636 netto per maand). Het Kindtegoed van € 900 per jaar (1 × € 550 en 1 × € 350) houdt u waarschijnlijk wel, tot ongeveer € 2.839 netto per maand.",
     "[waarschuwing] Zorgverzekering: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 2.433 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Zwemabonnement: Krijgt u van de gemeente Leiden een vergoeding voor een zwemabonnement? Met dit inkomen stopt die waarschijnlijk (grens: ongeveer € 2.433 netto per maand). Dat is niet meegerekend.",
@@ -1766,6 +1783,7 @@ exports[`snapshots van de uitleg > uitzendkracht vierwekenloon 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[waarschuwing] Zorgverzekering: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 1.703 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Zwemabonnement: Krijgt u van de gemeente Leiden een vergoeding voor een zwemabonnement? Met dit inkomen stopt die waarschijnlijk (grens: ongeveer € 1.703 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Sport en cultuur: Met dit inkomen kunt u waarschijnlijk geen hulp meer krijgen van het Volwassenenfonds Sport & Cultuur (grens: ongeveer € 1.703 netto per maand).",
@@ -1843,6 +1861,7 @@ exports[`snapshots van de uitleg > werkt al, breidt uit 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[waarschuwing] Gratis OV-pas: Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits.",
     "[waarschuwing] Gemeentelijke belastingen: Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
     "[waarschuwing] Individuele inkomenstoeslag: Heeft u al 5 jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden € 462 krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.",
@@ -1936,6 +1955,7 @@ exports[`snapshots van de uitleg > woonvorm met begeleiding 1`] = `
     "tekst": "Alle onderdelen zijn berekend met officiële bedragen.",
   },
   "meldingen": [
+    "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken, of verandert uw werk of loon? Geef dat zo snel mogelijk door aan de gemeente. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
     "[waarschuwing] Sleutelpas: Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens voor uw huishouden: ongeveer € 584 netto per maand).",
     "[waarschuwing] Zorgverzekering: Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie (grens: ongeveer € 596 netto per maand). Dat is niet meegerekend.",
     "[waarschuwing] Zwemabonnement: Krijgt u van de gemeente Leiden een vergoeding voor een zwemabonnement? Met dit inkomen stopt die waarschijnlijk (grens: ongeveer € 596 netto per maand). Dat is niet meegerekend.",
