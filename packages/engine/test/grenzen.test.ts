@@ -217,7 +217,7 @@ describe("kinderopvang", () => {
       return 0.2 * deel(1.1 * norm, 1.3 * norm) + 0.5 * deel(1.3 * norm, 1.5 * norm) + deel(1.5 * norm, Infinity);
     };
     const delen = (r: Resultaat) => ({
-      norm: Number(stap(r, "werk", "bb_opvang", "Bijstandsnorm voor de bijzondere bijstand")),
+      norm: Number(stap(r, "werk", "bb_opvang", "Rekennorm voor een alleenstaande ouder") ?? stap(r, "werk", "bb_opvang", "Bijstandsnorm voor de bijzondere bijstand")),
       inkomen: Number(stap(r, "werk", "bb_opvang", "Netto inkomen")),
       eigen: Number(stap(r, "werk", "bb_opvang", "Eigen bijdrage")),
       vergoeding: Number(bedrag(r, "werk", "bb_opvang")),

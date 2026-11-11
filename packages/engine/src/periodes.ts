@@ -134,7 +134,7 @@ function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg,
           {
             fase: "geen",
             naam: "Zonder vrijlating",
-            regel: `Omdat u jonger bent dan ${minLeeftijd.toString()} jaar, mag u in 2026 niets van uw loon extra houden naast de bijstand. Vanaf 1 januari 2027 geldt de nieuwe bijverdienregeling ook voor jongeren. ${DAARNA}`,
+            regel: `U bent jonger dan ${minLeeftijd.toString()} jaar. Daarom gaat in 2026 uw hele netto loon van de bijstand af. Vanaf 1 januari 2027 geldt de nieuwe bijverdienregeling ook voor jongeren. ${DAARNA}`,
           },
         ],
         medisch,

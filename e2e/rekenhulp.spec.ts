@@ -134,7 +134,7 @@ test("huurder van 25: huurtoeslag berekend, geen vrijlating onder 27, toeslagris
   await expect(page.locator(".antwoord")).not.toContainText("Niet meegerekend");
   await expect(page.locator(".signalen")).toContainText("moet u na een jaar ongeveer");
   await page.getByLabel(/Uren per week:/).fill("8");
-  await expect(page.locator(".toelichting")).toContainText("jonger bent dan 27 jaar");
+  await expect(page.locator(".toelichting")).toContainText("jonger dan 27 jaar");
   await geenToegankelijkheidsfouten(page);
 });
 
@@ -162,7 +162,7 @@ test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, hui
   await page.getByLabel("Hoeveel van hen zijn 18 tot en met 26 jaar?").fill("0");
   await verder(page);
   await expect(page.locator(".foutmelding").getByText("Vul dit in.").first()).toBeVisible();
-  await page.getByLabel("Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen").fill("26.000");
+  await page.getByLabel("Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten en uw kinderen van 18 jaar of ouder, samen").fill("26.000");
   await verder(page);
   await kiesLoon(page, "Bruto loon per maand");
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.200");
@@ -185,7 +185,7 @@ test("zonder vaste woonplek, met medische urenbeperking: lagere norm, vrijlating
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.000");
   await page.getByRole("textbox", { name: /Hoeveel uur per week (werkt u|gaat u werken)/ }).fill("16");
   await verder(page, "Bereken wat ik overhoud");
-  await expect(page.locator(".antwoord")).toContainText("Over de eerste 12 maanden samen");
+  await expect(page.locator(".antwoord")).toContainText("De eerste 12 maanden samen");
   await expect(page.locator("#urengrens")).toContainText("uur per week met dit uurloon geen bijstand meer nodig");
   await page.getByLabel("Vanaf maand 7").check();
   await expect(page.locator(".toelichting")).toContainText("Met een medische urenbeperking mag u 15%");

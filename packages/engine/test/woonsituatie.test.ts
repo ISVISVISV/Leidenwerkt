@@ -121,7 +121,7 @@ describe("Leiden: vergoeding eigen bijdrage kinderopvang (CVDR677687 art. 1, 6 e
   });
   it("rekennorm alleenstaande ouder: 90% van de gezinsnorm, zonder vakantietoeslag", () => {
     const r = bereken(ouder(1200));
-    const stap = p(r, "bb_opvang")!.stappen.find((s) => s.tekst.startsWith("Bijstandsnorm voor de bijzondere bijstand"))!;
+    const stap = p(r, "bb_opvang")!.stappen.find((s) => s.tekst.startsWith("Rekennorm voor een alleenstaande ouder"))!;
     expect(stap.bedrag).toBe("1733.76"); // 2.027,79 × 0,9 × 0,95
   });
   it("bij een hoog inkomen draagt u zelf meer bij, tot er niets meer vergoed wordt", () => {

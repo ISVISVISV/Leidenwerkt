@@ -176,7 +176,7 @@ function Start({ onStart }: { onStart: () => void }) {
         <li>het loon van het werk dat u overweegt (bruto of netto, per maand, per 4 weken of per uur) en het aantal uren per week;</li>
         <li>uw huur per maand, als u huurt;</li>
         <li>de geboortedatums van uw kinderen, als u kinderen heeft;</li>
-        <li>als uw kinderen naar de opvang gaan: het aantal uren per week en de prijs per uur, als u die weet.</li>
+        <li>als uw kinderen naar de opvang gaan: het aantal uren per week, en de prijs per uur als u die weet.</li>
       </ul>
       <button type="button" className="hoofdknop" onClick={onStart}>
         Begin met rekenen
@@ -750,7 +750,7 @@ function StapWoning({ f, zet, fouten }: StapProps) {
       {vraagInkomenAnderen(f) && !f.huisgenotenOnbekend && (
         <Veld
           id="huisgenotenInkomen"
-          label="Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen"
+          label="Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten en uw kinderen van 18 jaar of ouder, samen"
           hint={
             <>
               <p>

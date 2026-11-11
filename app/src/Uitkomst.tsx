@@ -82,6 +82,13 @@ export function Uitkomst({ f }: { f: Formulier }) {
   const voordeelStart = D(rStart.werk.besteedbaarPerMaand).minus(zonder.werk.besteedbaarPerMaand);
   const meerPeriodes =
     !vasteFase(f) && periodes.length > 1 && !!bijstandStart && bijstandStart.perMaand !== null && bijstandStart.perMaand !== "0.00";
+  const perioden = useMemo(
+    () =>
+      meerPeriodes
+        ? periodes.map((p) => ({ naam: p.naam, verschil: bereken(naarInvoer(f, { uren, fase: p.fase, datum })).verschilPerMaand }))
+        : undefined,
+    [meerPeriodes, periodes, f, uren, datum],
+  );
   const eersteJaar = useMemo(
     () => verschilEersteJaar(naarInvoer(f, { uren, fase: "start", datum }), undefined, { vasteFase: vasteFase(f) }),
     [f, uren, datum],
@@ -109,12 +116,9 @@ export function Uitkomst({ f }: { f: Formulier }) {
       <Antwoord
         r={r}
         urenTekst={urenTekst(uren)}
-        periode={meerPeriodes ? gekozen.naam : undefined}
         eersteJaar={eersteJaar.bedrag}
-        toonJaar={periodes.findIndex((p) => p.fase === fase) < 2}
-        jaarOngelijk={meerPeriodes}
+        perioden={perioden}
         stoptVanaf={meerPeriodes && rVolgende && bijstandVan(rVolgende) === "0.00" ? stopmoment(volgendeNaam) : undefined}
-        daarna={meerPeriodes && rVolgende && volgendeNaam ? { naam: volgendeNaam, verschil: rVolgende.verschilPerMaand } : undefined}
       />
 
       {r.signalen.some((s) => s.actie) && (
@@ -211,8 +215,8 @@ export function Uitkomst({ f }: { f: Formulier }) {
           )}
           {vrijlatingTelt && (
             <p>
-              Zonder de vrijlating zou u in deze periode {euro(voordeel, true)} per maand minder overhouden. De vrijlating is het deel van uw loon dat u
-              naast de bijstand mag houden. Vraag uw contactpersoon bij de gemeente of de vrijlating voor u geldt. De gemeente beslist dat.
+              {zonderVrijlatingZin(zonder.verschilPerMaand)}
+              De vrijlating is het deel van uw loon dat u naast de bijstand mag houden. Vraag uw contactpersoon bij de gemeente of de vrijlating voor u geldt. De gemeente beslist dat.
             </p>
           )}
           {f.medisch && meerPeriodes && (
@@ -339,33 +343,18 @@ function eigenWerkkosten(r: Resultaat): number {
 function Antwoord({
   r,
   urenTekst,
-  periode,
   eersteJaar,
-  toonJaar,
-  jaarOngelijk,
+  perioden,
   stoptVanaf,
-  daarna,
 }: {
   r: Resultaat;
   urenTekst: string;
-  periode?: string;
   eersteJaar: string;
-  /** Het totaal over de eerste 12 maanden hoort niet bij een periode die daarna pas begint. */
-  toonJaar: boolean;
-  /** Verschilt het bedrag per maand tussen de periodes? Dan is het jaarbedrag geen 12 × het maandbedrag. */
-  jaarOngelijk?: boolean;
-  /** De periode hierna en het verschil per maand in die periode, zodat het gunstigste bedrag niet alleen staat. */
-  daarna?: { naam: string; verschil: string };
+  /** Het verschil per maand in elke periode, als dat per periode verschilt. */
+  perioden?: { naam: string; verschil: string }[];
   /** Stopt de bijstand in de volgende periode? Dan het moment, bijvoorbeeld "Vanaf maand 7". */
   stoptVanaf?: string;
 }) {
-  const j = Number(eersteJaar);
-  const jaarzin =
-    Math.abs(j) < 120
-      ? "Ook over de eerste 12 maanden samen houdt u ongeveer evenveel over als nu."
-      : `Over de eerste 12 maanden samen houdt u ongeveer ${euro(eersteJaar.replace("-", ""), true)} ${j > 0 ? "meer" : "minder"} over dan nu.${
-          jaarOngelijk && Math.abs(j - 12 * Number(r.verschilPerMaand)) >= 12 ? " Dat is niet 12 keer het bedrag per maand, omdat het bedrag in de eerste maanden anders is dan daarna." : ""
-        }`;
   const v = Number(r.verschilPerMaand);
   const bedrag = euro(r.verschilPerMaand.replace("-", ""), true);
   const zin =
@@ -384,11 +373,19 @@ function Antwoord({
       {doorKosten && (
         <p className="antwoord-sub">Dat komt door de kosten voor het werk die u zelf betaalt: {euro(kosten.toFixed(2), true)} per maand.</p>
       )}
-      <p className="antwoord-sub">
-        Bij {urenTekst}{periode ? `, ${periode.charAt(0).toLowerCase() + periode.slice(1)} na de start` : ""}.
-        {daarna ? ` ${daarnaZin(daarna)}` : ""}
-        {toonJaar ? ` ${jaarzin}` : ""}
-      </p>
+      {perioden ? (
+        <>
+          <p className="antwoord-sub">Bij {urenTekst}:</p>
+          <ul className="antwoord-lijst">
+            {perioden.map((p) => (
+              <li key={p.naam}>{verschilRegel(p.naam, p.verschil, " per maand")}</li>
+            ))}
+            <li>{verschilRegel("De eerste 12 maanden samen", eersteJaar, "")}</li>
+          </ul>
+        </>
+      ) : (
+        <p className="antwoord-sub">Bij {urenTekst}.</p>
+      )}
       {overBijstand && <p className="antwoord-sub antwoord-bijstand">{overBijstand}</p>}
       {r.betrouwbaarheid.niveau !== "goed" && <p className="antwoord-noot">{r.betrouwbaarheid.tekst}</p>}
       {r.zekerheid === "onbevestigd" && r.betrouwbaarheid.niveau === "beperkt" && (
@@ -578,11 +575,19 @@ function metLinks(tekst: string) {
   );
 }
 
-/** "Maand 7 t/m 36: ongeveer € 150 meer per maand dan nu." */
-function daarnaZin({ naam, verschil }: { naam: string; verschil: string }) {
+/** "Zonder vrijlating zou u in deze periode € 46 per maand meer overhouden dan nu." */
+function zonderVrijlatingZin(verschil: string) {
   const v = Number(verschil);
-  if (Math.abs(v) < 10) return `${naam}: ongeveer evenveel als nu.`;
-  return `${naam}: ongeveer ${euro(verschil.replace("-", ""), true)} ${v > 0 ? "meer" : "minder"} per maand dan nu.`;
+  if (Math.abs(v) < 10) return "Zonder vrijlating zou u in deze periode ongeveer evenveel overhouden als nu.";
+  return `Zonder vrijlating zou u in deze periode ${euro(verschil.replace("-", ""), true)} per maand ${v > 0 ? "meer" : "minder"} overhouden dan nu.`;
+}
+
+/** "Maand 7 t/m 36: € 150 meer per maand dan nu" of "…: ongeveer evenveel als nu". */
+function verschilRegel(naam: string, verschil: string, per: string) {
+  const v = Number(verschil);
+  const drempel = per ? 10 : 120;
+  if (Math.abs(v) < drempel) return `${naam}: ongeveer evenveel als nu`;
+  return `${naam}: ${euro(verschil.replace("-", ""), true)} ${v > 0 ? "meer" : "minder"}${per} dan nu`;
 }
 
 /** Klapt een melding onder "Goed om te weten" open, voor de links onder "Wat u nu kunt doen". */
@@ -603,8 +608,8 @@ function InkomenVoorGrenzen({ r }: { r: Resultaat }) {
     .reduce((s, p) => s + Number(p.perMaand), 0);
   return (
     <p className="klein">
-      {kleuren} Bij een grens vergelijkt de rekenhulp die met uw netto inkomen met dit werk, zonder toeslagen en
-      kinderbijslag: ongeveer {euro(inkomen.toFixed(2), true)} per maand.
+      {kleuren} De grenzen hieronder gaan over uw netto inkomen met dit werk, zonder toeslagen en kinderbijslag: ongeveer{" "}
+      {euro(inkomen.toFixed(2), true)} per maand.
     </p>
   );
 }
@@ -644,7 +649,7 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
   }
   const korting = woonkorting(l, naarInvoer(f, { fase: "start", datum: r.datum }));
   if (korting.bedrag.gt(0)) {
-    noten.push(`${korting.tekst}. Daardoor is uw bijstand ${euro(korting.bedrag)} per maand lager dan de gewone norm.`);
+    noten.push(`${korting.reden}. Daardoor is uw bijstand ${euro(korting.bedrag, true)} per maand lager dan de gewone norm.`);
   }
   if (f.woont === "kostgeld") {
     noten.push(

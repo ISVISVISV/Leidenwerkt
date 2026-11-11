@@ -15,7 +15,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Gewijzigd
 
-- Onder de kop staat ook het bedrag van de periode daarna, zodat het gunstigste bedrag niet alleen staat.
+- Onder de kop staat een kort lijstje met het bedrag per periode en over de eerste 12 maanden samen, in plaats van een lange alinea.
+- Duidelijkere teksten: wat u zonder vrijlating zou overhouden, de verlaging zonder woonkosten (zonder "norm voor partners"), de uitleg voor wie jonger is dan 27, de rekennorm van 90% voor een alleenstaande ouder bij de bijzondere bijstand, waarom het bruto inkomen met werk lager kan zijn, het inkomen van kinderen van 18 jaar of ouder bij de huurtoeslag, en de prijs van de opvang op het startscherm.
 - De urengrens zegt "zonder vrijlating", en legt uit waarom er nog bijstand is als u boven de grens werkt.
 - Wie al werkt, krijgt "Geef de verandering in uw werk door aan de gemeente" in plaats van "Meld uw werk".
 - Bij het loon is niet meer vooraf gekozen welk bedrag u weet. In de tabel staat "Netto loon (met vakantiegeld)".
