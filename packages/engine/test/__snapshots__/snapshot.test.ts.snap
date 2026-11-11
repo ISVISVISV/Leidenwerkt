@@ -775,7 +775,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neem
     "huidig": {
       "bb_opvang": [
         "Eigen bijdrage: kosten van de opvang min kinderopvangtoeslag: 137.00",
-        "Bijstandsnorm voor de bijzondere bijstand, zonder vakantietoeslag: 1733.76",
+        "Rekennorm voor een alleenstaande ouder in Leiden: 90% van de norm voor een gezin, zonder vakantietoeslag: 1733.76",
         "Netto inkomen van u per maand (loon en bijstand), zonder vakantiegeld: 1409.84",
         "Uw inkomen is niet hoger dan € 1.907,14 (110% van de norm). U hoeft zelf niets bij te dragen: 0.00",
         "Vergoeding: eigen bijdrage min wat u zelf moet bijdragen: 137.00",
@@ -844,7 +844,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder werkt al met opvang, neem
     "werk": {
       "bb_opvang": [
         "Eigen bijdrage: kosten van de opvang min kinderopvangtoeslag: 137.00",
-        "Bijstandsnorm voor de bijzondere bijstand, zonder vakantietoeslag: 1733.76",
+        "Rekennorm voor een alleenstaande ouder in Leiden: 90% van de norm voor een gezin, zonder vakantietoeslag: 1733.76",
         "Netto inkomen van u per maand (loon en bijstand), zonder vakantiegeld: 1745.59",
         "Uw inkomen is niet hoger dan € 1.907,14 (110% van de norm). U hoeft zelf niets bij te dragen: 0.00",
         "Vergoeding: eigen bijdrage min wat u zelf moet bijdragen: 137.00",
@@ -959,7 +959,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, kind 4 met opvang 1`] = 
     "werk": {
       "bb_opvang": [
         "Eigen bijdrage: kosten van de opvang min kinderopvangtoeslag: 36.00",
-        "Bijstandsnorm voor de bijzondere bijstand, zonder vakantietoeslag: 1733.76",
+        "Rekennorm voor een alleenstaande ouder in Leiden: 90% van de norm voor een gezin, zonder vakantietoeslag: 1733.76",
         "Netto inkomen van u per maand (loon en bijstand), zonder vakantiegeld: 1583.60",
         "Uw inkomen is niet hoger dan € 1.907,14 (110% van de norm). U hoeft zelf niets bij te dragen: 0.00",
         "Vergoeding: eigen bijdrage min wat u zelf moet bijdragen: 36.00",

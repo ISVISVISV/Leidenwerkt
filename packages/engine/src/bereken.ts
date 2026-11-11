@@ -340,6 +340,9 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     const loon = brutoJaarloon(werk).minus(pensioenJaar(werk)).plus(brutoJaarloon(partnerWerk).minus(pensioenJaar(partnerWerk)));
     const ti = loon.plus(brutoBijstand);
     if (loon.gt(0) && brutoBijstand.gt(0)) {
+      aanname(
+        "Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.",
+      );
       stap("Bruto loon per jaar, met vakantiegeld", loon);
       stap(ander.gt(0) ? "Bijstand en ander inkomen per jaar, teruggerekend naar bruto" : "Bijstand per jaar, teruggerekend naar bruto", brutoBijstand);
     }
@@ -466,7 +469,12 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
           // Bijstandsnorm volgens art. 1 onder d: zonder kostendelersnorm, met een verlaging op grond van art. 27,
           // en voor een alleenstaande ouder 90% van de gezinsnorm.
           const norm = normBijzondereBijstand(l, invoer).times(D(1).minus(vt));
-          stap("Bijstandsnorm voor de bijzondere bijstand, zonder vakantietoeslag", norm);
+          stap(
+            invoer.leefvorm === "alleenstaande_ouder"
+              ? "Rekennorm voor een alleenstaande ouder in Leiden: 90% van de norm voor een gezin, zonder vakantietoeslag"
+              : "Bijstandsnorm voor de bijzondere bijstand (zonder kostendelersnorm), zonder vakantietoeslag",
+            norm,
+          );
           const inkomen = (kern.nettoMaand ?? NUL)
             .div(vg.plus(1))
             .plus((kern.nettoPartnerMaand ?? NUL).div(vgVan(partnerWerk).plus(1)))

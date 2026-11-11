@@ -47,7 +47,10 @@ export function aanvulling(norm: Bedrag, inkomen: Bedrag, vrijgelaten: Bedrag): 
 
 export interface Woonkorting {
   bedrag: Bedrag;
+  /** Rekenstap, met de grondslag. */
   tekst: string;
+  /** De reden in gewone woorden, voor de uitleg onder de tabel. */
+  reden: string;
   aanname: string;
 }
 
@@ -60,7 +63,7 @@ export interface Woonkorting {
  * - geen woonlasten (gas, elektriciteit, water): 9%; beide: 19%.
  */
 export function woonkorting(l: Lezer, invoer: Invoer): Woonkorting {
-  const geen: Woonkorting = { bedrag: NUL, tekst: "", aanname: "" };
+  const geen: Woonkorting = { bedrag: NUL, tekst: "", reden: "", aanname: "" };
   if (invoer.gemeente !== "leiden" || invoer.kostendelers > 0) return geen;
   const w = invoer.wonen;
   if (w.soort === "anders" || w.soort === "instelling") return geen;
@@ -78,6 +81,7 @@ export function woonkorting(l: Lezer, invoer: Invoer): Woonkorting {
     return {
       bedrag: grens.minus(huur),
       tekst: `Uw woonkosten zijn lager dan ${euro(grens)}. De gemeente verlaagt de norm met het verschil`,
+      reden: `Uw woonkosten zijn lager dan ${euro(grens)}`,
       aanname: "Bij heel lage woonkosten verlaagt de gemeente Leiden de bijstandsnorm. Vraag uw contactpersoon bij de gemeente welk bedrag voor u geldt.",
     };
   }
@@ -87,6 +91,7 @@ export function woonkorting(l: Lezer, invoer: Invoer): Woonkorting {
   return {
     bedrag: gehuwden.times(pct),
     tekst: `U betaalt ${wat}. De gemeente verlaagt de norm met ${pct.times(100).toString().replace(".", ",")}% van de norm voor partners`,
+    reden: w.dakloos ? `We gaan ervan uit dat u ${wat} heeft` : `U betaalt ${wat}`,
     aanname: w.dakloos
       ? "Zonder vaste woonplek gaat de gemeente Leiden ervan uit dat u geen woonkosten heeft. Betaalt u toch voor onderdak? Laat dat zien aan uw contactpersoon bij de gemeente; dan kan de verlaging lager zijn."
       : "Betaalt iemand anders langer dan 6 maanden uw woonkosten, dan verlaagt de gemeente Leiden de norm. Korter dan 6 maanden telt het als gift. Vraag uw contactpersoon bij de gemeente wat voor u geldt.",
