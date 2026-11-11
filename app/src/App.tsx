@@ -228,7 +228,7 @@ const gewoneNorm = () => {
 const lageHuurGrens = () => {
   try {
     const l = new Lezer(standaardRegels, vandaag());
-    return euro(l.bedrag("pw.norm.gehuwden").times(l.breuk("leiden.woonkosten.korting_geen_woonkosten")), true);
+    return euro(l.bedrag("pw.norm.gehuwden").times(l.breuk("leiden.woonkosten.korting_geen_woonkosten")));
   } catch {
     return "";
   }
@@ -471,6 +471,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           ["ja", "Ja"],
         ]}
       />
+      {f.leefvorm === "paar" && <p className="uitleg-paar">Vul de rekenhulp in voor degene van u tweeën die gaat werken. Bij "partner" vult u de ander in.</p>}
       <Datum id="geboren" legend="Uw geboortedatum" eigen waarde={f.geboren} onChange={(v) => zet("geboren", v)} fout={fouten.geboren} />
 
       {f.leefvorm === "paar" && (
@@ -485,6 +486,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           <Keuze
             naam="partnerWerkt"
             legend="Heeft uw partner betaald werk?"
+            hint="Ook een bijbaan of werk voor een paar uur per week telt. Gaat uw partner pas werken? Kies dan Nee; de rekenhulp rekent met het werk van één van u."
             waarde={f.beantwoord.partnerWerkt ? f.partnerWerkt ? "ja" : "nee" : ""}
             onChange={metAntwoord("partnerWerkt", (v) => zet("partnerWerkt", v === "ja"))}
         fout={fouten.partnerWerkt}
@@ -578,10 +580,11 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           <>
             <p>
               Bijvoorbeeld alimentatie, een uitkering van het UWV of een pensioen. De gemeente vult uw inkomen aan tot de bijstandsnorm. Met
-              ander inkomen krijgt u dus minder bijstand. Toeslagen, kinderbijslag en kindgebonden budget tellen niet mee.
+              ander inkomen krijgt u dus minder bijstand. Partneralimentatie en kinderalimentatie tellen allebei mee. Toeslagen,
+              kinderbijslag en kindgebonden budget tellen niet mee.
             </p>
             <p className="bron-blok">
-              Bron: <Bron citaat={CITATEN.pw32} />
+              Bron: <Bron citaat={CITATEN.pw32} />, <Bron citaat={CITATEN.alimentatie} />
             </p>
           </>
         }
@@ -620,7 +623,8 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           <>
             <p>
               Huurt u, dan maakt het uit of u de keuken, wc of douche deelt met mensen die niet bij uw huishouden horen. Huurtoeslag is er
-              meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche.
+              meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche. Een flat of appartement telt ook, als u die
+              niet met anderen deelt.
             </p>
             <p>Woont u bij uw ouders, familie of vrienden? Kies dan een van de twee antwoorden die met "Bij iemand anders in huis" beginnen.</p>
             <p>
@@ -675,7 +679,7 @@ function StapWoning({ f, zet, fouten }: StapProps) {
               f.woont === "kostgeld"
                 ? `Betaalt u kostgeld, ook voor eten of de was? Vul dan alleen het deel in dat voor uw kamer of woonruimte is. Weet u dat niet? Vul dan het hele bedrag in en vraag het uw contactpersoon bij de gemeente.${lageHuurGrens() ? ` Betaalt u minder dan ${lageHuurGrens()} per maand voor uw woonruimte? Dan krijgt u minder bijstand: het verschil tussen ${lageHuurGrens()} en wat u betaalt.` : ""}`
                 : f.zelfstandig
-                  ? "De huur zonder servicekosten, gas, water en licht. Staat in uw huurcontract. Servicekosten tellen sinds 2026 niet mee voor de huurtoeslag."
+                  ? "Het huurbedrag uit uw huurcontract, zonder servicekosten en zonder gas, water en licht."
                   : `De huur zonder gas, water en licht, als u dat bedrag weet. Anders het hele bedrag.${lageHuurGrens() ? ` Is uw huur lager dan ${lageHuurGrens()} per maand? Dan krijgt u minder bijstand: het verschil tussen ${lageHuurGrens()} en uw huur.` : ""}`
             }
             waarde={f.kaleHuur}
@@ -824,6 +828,7 @@ function LoonVelden({
         legend="Welk bedrag van uw loon weet u?"
         waarde={per}
         onChange={zetPer}
+        fout={fouten[`${prefix}per`]}
         opties={[
           ["maand", "Bruto loon per maand"],
           ["netto", "Netto loon per maand (wat op mijn rekening komt)"],
@@ -832,32 +837,34 @@ function LoonVelden({
           ["uur", "Bruto loon per uur"],
         ]}
       />
-      <Veld
-        id={loonId}
-        voorbeeld={per === "uur" ? "bijv. 15,00" : per === "vierweken" ? "bijv. 1.650" : per === "netto" ? "bijv. 1.300" : per === "netto4" ? "bijv. 1.200" : "bijv. 1.800"}
-        label={
-          (per === "uur"
-            ? "Bedrag per uur"
-            : per === "vierweken"
-              ? "Bruto loon per 4 weken"
-              : per === "netto"
-                ? "Netto loon per maand"
-                : per === "netto4"
-                  ? "Netto loon per 4 weken"
-                  : "Bruto loon per maand") + voor
-        }
-        hint={
-          per === "uur"
-            ? "Het bruto loon per uur. Staat in de vacature of het contract. 'Bruto' is het bedrag vóór belasting."
-            : per === "netto" || per === "netto4"
-              ? `Het bedrag dat u ${per === "netto" ? "elke maand" : "elke 4 weken"} op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook. De rekenhulp telt het vakantiegeld zelf mee.`
-              : "Neem het loon uit uw contract of van uw loonstrook, zonder vakantiegeld. De rekenhulp telt het vakantiegeld zelf mee. 'Bruto' is het bedrag vóór belasting."
-        }
-        waarde={loon}
-        onChange={zetLoon}
-        fout={fouten[loonId]}
-        voorvoegsel="€"
-      />
+      {per && (
+        <Veld
+          id={loonId}
+          voorbeeld={per === "uur" ? "bijv. 15,00" : per === "vierweken" ? "bijv. 1.650" : per === "netto" ? "bijv. 1.300" : per === "netto4" ? "bijv. 1.200" : "bijv. 1.800"}
+          label={
+            (per === "uur"
+              ? "Bedrag per uur"
+              : per === "vierweken"
+                ? "Bruto loon per 4 weken"
+                : per === "netto"
+                  ? "Netto loon per maand"
+                  : per === "netto4"
+                    ? "Netto loon per 4 weken"
+                    : "Bruto loon per maand") + voor
+          }
+          hint={
+            per === "uur"
+              ? "Het bruto loon per uur. Staat in de vacature of het contract. 'Bruto' is het bedrag vóór belasting."
+              : per === "netto" || per === "netto4"
+                ? `Het bedrag dat u ${per === "netto" ? "elke maand" : "elke 4 weken"} op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook. De rekenhulp telt het vakantiegeld zelf mee.`
+                : "Neem het loon uit uw contract of van uw loonstrook, zonder vakantiegeld. De rekenhulp telt het vakantiegeld zelf mee. 'Bruto' is het bedrag vóór belasting."
+          }
+          waarde={loon}
+          onChange={zetLoon}
+          fout={fouten[loonId]}
+          voorvoegsel="€"
+        />
+      )}
       {per === "uur" && (
         <Keuze
           naam={`${prefix}allIn`}
