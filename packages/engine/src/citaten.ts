@@ -80,11 +80,11 @@ export const CITATEN = {
     tekst: "U en uw partner werken of volgen een opleiding, een inburgeringscursus of een traject naar werk",
   },
   bbKinderopvang: {
-    titel: "Leiden, beleidsregels bijzondere bijstand 2022, toelichting bij art. 7 onder f",
+    titel: "Leiden, beleidsregels bijzondere bijstand 2022, art. 7 lid 1 onder f en de toelichting",
     url: "https://lokaleregelgeving.overheid.nl/CVDR677687",
     versie: "geldend vanaf 1 april 2022",
     tekst:
-      "Voor de eigen bijdrage in de kosten van kinderopvang kan bijzondere bijstand worden verleend in die gevallen waarin de kosten van kinderopvang een belemmering vormen voor werk, scholing of voor deelname aan een participatietraject. Onder eigen bijdrage verstaan we hier de werkelijk gemaakte kosten voor formele kinderopvang minus de ontvangen tegemoetkomingen voor de kosten van kinderopvang (kinderopvangtoeslag).",
+      "Art. 7 lid 1: Voor bijzondere bijstandsverlening komen in ieder geval de volgende kosten in aanmerking, indien zij noodzakelijk zijn op grond van bijzondere omstandigheden en er geen sprake is van een voorliggende voorziening: […] f. de eigen bijdrage in de kosten van formele kinderopvang, wanneer deze kosten noodzakelijk zijn voor werk, scholing of deelname aan een participatietraject. Toelichting: Voor de eigen bijdrage in de kosten van kinderopvang kan bijzondere bijstand worden verleend in die gevallen waarin de kosten van kinderopvang een belemmering vormen voor werk, scholing of voor deelname aan een participatietraject. Onder eigen bijdrage verstaan we hier de werkelijk gemaakte kosten voor formele kinderopvang minus de ontvangen tegemoetkomingen voor de kosten van kinderopvang (kinderopvangtoeslag).",
   },
 } satisfies Record<string, Citaat>;
 

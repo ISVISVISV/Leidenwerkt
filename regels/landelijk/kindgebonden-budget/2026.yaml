@@ -11,39 +11,68 @@ parameters:
       titel: Dienst Toeslagen — Berekening kindgebonden budget 2026 (TG 081-1Z61FD, januari 2026)
       url: https://download.belastingdienst.nl/toeslagen/docs/berekening_kindgebonden_budget_tg0811z61fd.pdf
       geraadpleegd_op: 2026-11-08
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kindgebonden budget 2026, stap 1, 2 en 4"
+      tekst: "Maximaal jaar bedrag kindgebonden budget Aantal kinderen Alleenstaande ouder Ouder met toeslagpartner 1 kind € 5.996 € 2.580 2 kinderen € 8.576 € 5.160 Verhoging vanaf 3e kind € 2.580 € 2.580 […] Verhoog dan het maximale toeslagbedrag met: • € 724 voor elk kind van 12 t/m 15 jaar • € 964 voor elk kind van 16 en 17 jaar […] Bij een toetsingsinkomen tot en met € 29.736 ontvangt uw klant de maximale toeslag. Is het toetsingsinkomen meer dan € 29.736? Dan moet u de vermindering van het maximale toeslagbedrag berekenen: 7,6% x (het toetsingsinkomen - € 29.736) = vermindering. Heeft uw klant een toeslagpartner? Bij een toetsingsinkomen tot en met € 39.141 ontvangt uw klant de maximale toeslag."
+      versie: "geraadpleegd op 11 november 2026"
   - id: kgb.verhoging_12
     omschrijving: Verhoging per kind van 12 tot en met 15 jaar
     eenheid: euro_per_jaar
     waarde: { soort: bedrag, bedrag: "724" }
     status: geverifieerd
     bron: *dt_kgb
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kindgebonden budget 2026, stap 1, 2 en 4"
+      tekst: "Maximaal jaar bedrag kindgebonden budget Aantal kinderen Alleenstaande ouder Ouder met toeslagpartner 1 kind € 5.996 € 2.580 2 kinderen € 8.576 € 5.160 Verhoging vanaf 3e kind € 2.580 € 2.580 […] Verhoog dan het maximale toeslagbedrag met: • € 724 voor elk kind van 12 t/m 15 jaar • € 964 voor elk kind van 16 en 17 jaar […] Bij een toetsingsinkomen tot en met € 29.736 ontvangt uw klant de maximale toeslag. Is het toetsingsinkomen meer dan € 29.736? Dan moet u de vermindering van het maximale toeslagbedrag berekenen: 7,6% x (het toetsingsinkomen - € 29.736) = vermindering. Heeft uw klant een toeslagpartner? Bij een toetsingsinkomen tot en met € 39.141 ontvangt uw klant de maximale toeslag."
+      versie: "geraadpleegd op 11 november 2026"
   - id: kgb.verhoging_16
     omschrijving: Verhoging per kind van 16 of 17 jaar
     eenheid: euro_per_jaar
     waarde: { soort: bedrag, bedrag: "964" }
     status: geverifieerd
     bron: *dt_kgb
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kindgebonden budget 2026, stap 1, 2 en 4"
+      tekst: "Maximaal jaar bedrag kindgebonden budget Aantal kinderen Alleenstaande ouder Ouder met toeslagpartner 1 kind € 5.996 € 2.580 2 kinderen € 8.576 € 5.160 Verhoging vanaf 3e kind € 2.580 € 2.580 […] Verhoog dan het maximale toeslagbedrag met: • € 724 voor elk kind van 12 t/m 15 jaar • € 964 voor elk kind van 16 en 17 jaar […] Bij een toetsingsinkomen tot en met € 29.736 ontvangt uw klant de maximale toeslag. Is het toetsingsinkomen meer dan € 29.736? Dan moet u de vermindering van het maximale toeslagbedrag berekenen: 7,6% x (het toetsingsinkomen - € 29.736) = vermindering. Heeft uw klant een toeslagpartner? Bij een toetsingsinkomen tot en met € 39.141 ontvangt uw klant de maximale toeslag."
+      versie: "geraadpleegd op 11 november 2026"
   - id: kgb.alleenstaande_ouderkop
     omschrijving: Extra bedrag voor een ouder zonder toeslagpartner (€ 5.996 − € 2.580 bij één kind)
     eenheid: euro_per_jaar
     waarde: { soort: bedrag, bedrag: "3416" }
     status: geverifieerd
     bron: *dt_kgb
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kindgebonden budget 2026, stap 1, 2 en 4"
+      tekst: "Maximaal jaar bedrag kindgebonden budget Aantal kinderen Alleenstaande ouder Ouder met toeslagpartner 1 kind € 5.996 € 2.580 2 kinderen € 8.576 € 5.160 Verhoging vanaf 3e kind € 2.580 € 2.580 […] Verhoog dan het maximale toeslagbedrag met: • € 724 voor elk kind van 12 t/m 15 jaar • € 964 voor elk kind van 16 en 17 jaar […] Bij een toetsingsinkomen tot en met € 29.736 ontvangt uw klant de maximale toeslag. Is het toetsingsinkomen meer dan € 29.736? Dan moet u de vermindering van het maximale toeslagbedrag berekenen: 7,6% x (het toetsingsinkomen - € 29.736) = vermindering. Heeft uw klant een toeslagpartner? Bij een toetsingsinkomen tot en met € 39.141 ontvangt uw klant de maximale toeslag."
+      versie: "geraadpleegd op 11 november 2026"
+    notitie: "Afgeleid uit de tabel: € 3.416 = € 5.996 (1 kind, alleenstaande ouder) − € 2.580 (1 kind, ouder met toeslagpartner)."
   - id: kgb.drempel.alleenstaand
     omschrijving: Toetsingsinkomen tot waar het maximale bedrag geldt, zonder toeslagpartner
     eenheid: euro_per_jaar
     waarde: { soort: bedrag, bedrag: "29736" }
     status: geverifieerd
     bron: *dt_kgb
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kindgebonden budget 2026, stap 1, 2 en 4"
+      tekst: "Maximaal jaar bedrag kindgebonden budget Aantal kinderen Alleenstaande ouder Ouder met toeslagpartner 1 kind € 5.996 € 2.580 2 kinderen € 8.576 € 5.160 Verhoging vanaf 3e kind € 2.580 € 2.580 […] Verhoog dan het maximale toeslagbedrag met: • € 724 voor elk kind van 12 t/m 15 jaar • € 964 voor elk kind van 16 en 17 jaar […] Bij een toetsingsinkomen tot en met € 29.736 ontvangt uw klant de maximale toeslag. Is het toetsingsinkomen meer dan € 29.736? Dan moet u de vermindering van het maximale toeslagbedrag berekenen: 7,6% x (het toetsingsinkomen - € 29.736) = vermindering. Heeft uw klant een toeslagpartner? Bij een toetsingsinkomen tot en met € 39.141 ontvangt uw klant de maximale toeslag."
+      versie: "geraadpleegd op 11 november 2026"
   - id: kgb.drempel.partners
     omschrijving: Toetsingsinkomen tot waar het maximale bedrag geldt, met toeslagpartner
     eenheid: euro_per_jaar
     waarde: { soort: bedrag, bedrag: "39141" }
     status: geverifieerd
     bron: *dt_kgb
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kindgebonden budget 2026, stap 1, 2 en 4"
+      tekst: "Maximaal jaar bedrag kindgebonden budget Aantal kinderen Alleenstaande ouder Ouder met toeslagpartner 1 kind € 5.996 € 2.580 2 kinderen € 8.576 € 5.160 Verhoging vanaf 3e kind € 2.580 € 2.580 […] Verhoog dan het maximale toeslagbedrag met: • € 724 voor elk kind van 12 t/m 15 jaar • € 964 voor elk kind van 16 en 17 jaar […] Bij een toetsingsinkomen tot en met € 29.736 ontvangt uw klant de maximale toeslag. Is het toetsingsinkomen meer dan € 29.736? Dan moet u de vermindering van het maximale toeslagbedrag berekenen: 7,6% x (het toetsingsinkomen - € 29.736) = vermindering. Heeft uw klant een toeslagpartner? Bij een toetsingsinkomen tot en met € 39.141 ontvangt uw klant de maximale toeslag."
+      versie: "geraadpleegd op 11 november 2026"
   - id: kgb.afbouwpercentage
     omschrijving: Afbouw als percentage van het toetsingsinkomen boven de drempel
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.076" }
     status: geverifieerd
     bron: *dt_kgb
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kindgebonden budget 2026, stap 1, 2 en 4"
+      tekst: "Maximaal jaar bedrag kindgebonden budget Aantal kinderen Alleenstaande ouder Ouder met toeslagpartner 1 kind € 5.996 € 2.580 2 kinderen € 8.576 € 5.160 Verhoging vanaf 3e kind € 2.580 € 2.580 […] Verhoog dan het maximale toeslagbedrag met: • € 724 voor elk kind van 12 t/m 15 jaar • € 964 voor elk kind van 16 en 17 jaar […] Bij een toetsingsinkomen tot en met € 29.736 ontvangt uw klant de maximale toeslag. Is het toetsingsinkomen meer dan € 29.736? Dan moet u de vermindering van het maximale toeslagbedrag berekenen: 7,6% x (het toetsingsinkomen - € 29.736) = vermindering. Heeft uw klant een toeslagpartner? Bij een toetsingsinkomen tot en met € 39.141 ontvangt uw klant de maximale toeslag."
+      versie: "geraadpleegd op 11 november 2026"

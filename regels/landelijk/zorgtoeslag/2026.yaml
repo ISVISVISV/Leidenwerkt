@@ -11,27 +11,47 @@ parameters:
       titel: Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026)
       url: https://download.belastingdienst.nl/toeslagen/docs/berekening_zorgtoeslag_tg0821z62fd.pdf
       geraadpleegd_op: 2026-11-08
+    citaat:
+      kop: "Dienst Toeslagen, Berekening zorgtoeslag 2026, stap 1 en 3"
+      tekst: "De standaardpremie is voor 2026 vastgesteld op € 2.119. Bij een aanvrager met een toeslagpartner wordt tweemaal de standaardpremie genomen (€ 4.238). […] Het drempelinkomen is voor 2026 vastgesteld op € 29.736. Voor een aanvrager zonder toeslagpartner: Normpremie = 1,912% x drempelinkomen + 13,73% (toetsingsinkomen - drempelinkomen) Voor een aanvrager met toeslagpartner: Normpremie = 4,289% x drempelinkomen + 13,73% (gezamenlijk toetsingsinkomen - drempelinkomen)"
+      versie: "geraadpleegd op 11 november 2026"
   - id: zt.drempelinkomen
     omschrijving: Drempelinkomen zorgtoeslag
     eenheid: euro_per_jaar
     waarde: { soort: bedrag, bedrag: "29736" }
     status: geverifieerd
     bron: *dt_zt
+    citaat:
+      kop: "Dienst Toeslagen, Berekening zorgtoeslag 2026, stap 1 en 3"
+      tekst: "De standaardpremie is voor 2026 vastgesteld op € 2.119. Bij een aanvrager met een toeslagpartner wordt tweemaal de standaardpremie genomen (€ 4.238). […] Het drempelinkomen is voor 2026 vastgesteld op € 29.736. Voor een aanvrager zonder toeslagpartner: Normpremie = 1,912% x drempelinkomen + 13,73% (toetsingsinkomen - drempelinkomen) Voor een aanvrager met toeslagpartner: Normpremie = 4,289% x drempelinkomen + 13,73% (gezamenlijk toetsingsinkomen - drempelinkomen)"
+      versie: "geraadpleegd op 11 november 2026"
   - id: zt.normpercentage.zonder_partner
     omschrijving: Normpercentage van het drempelinkomen, zonder toeslagpartner
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.01912" }
     status: geverifieerd
     bron: *dt_zt
+    citaat:
+      kop: "Dienst Toeslagen, Berekening zorgtoeslag 2026, stap 1 en 3"
+      tekst: "De standaardpremie is voor 2026 vastgesteld op € 2.119. Bij een aanvrager met een toeslagpartner wordt tweemaal de standaardpremie genomen (€ 4.238). […] Het drempelinkomen is voor 2026 vastgesteld op € 29.736. Voor een aanvrager zonder toeslagpartner: Normpremie = 1,912% x drempelinkomen + 13,73% (toetsingsinkomen - drempelinkomen) Voor een aanvrager met toeslagpartner: Normpremie = 4,289% x drempelinkomen + 13,73% (gezamenlijk toetsingsinkomen - drempelinkomen)"
+      versie: "geraadpleegd op 11 november 2026"
   - id: zt.normpercentage.met_partner
     omschrijving: Normpercentage van het drempelinkomen, met toeslagpartner
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.04289" }
     status: geverifieerd
     bron: *dt_zt
+    citaat:
+      kop: "Dienst Toeslagen, Berekening zorgtoeslag 2026, stap 1 en 3"
+      tekst: "De standaardpremie is voor 2026 vastgesteld op € 2.119. Bij een aanvrager met een toeslagpartner wordt tweemaal de standaardpremie genomen (€ 4.238). […] Het drempelinkomen is voor 2026 vastgesteld op € 29.736. Voor een aanvrager zonder toeslagpartner: Normpremie = 1,912% x drempelinkomen + 13,73% (toetsingsinkomen - drempelinkomen) Voor een aanvrager met toeslagpartner: Normpremie = 4,289% x drempelinkomen + 13,73% (gezamenlijk toetsingsinkomen - drempelinkomen)"
+      versie: "geraadpleegd op 11 november 2026"
   - id: zt.afbouwpercentage
     omschrijving: Percentage van het toetsingsinkomen boven het drempelinkomen
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.1373" }
     status: geverifieerd
     bron: *dt_zt
+    citaat:
+      kop: "Dienst Toeslagen, Berekening zorgtoeslag 2026, stap 1 en 3"
+      tekst: "De standaardpremie is voor 2026 vastgesteld op € 2.119. Bij een aanvrager met een toeslagpartner wordt tweemaal de standaardpremie genomen (€ 4.238). […] Het drempelinkomen is voor 2026 vastgesteld op € 29.736. Voor een aanvrager zonder toeslagpartner: Normpremie = 1,912% x drempelinkomen + 13,73% (toetsingsinkomen - drempelinkomen) Voor een aanvrager met toeslagpartner: Normpremie = 4,289% x drempelinkomen + 13,73% (gezamenlijk toetsingsinkomen - drempelinkomen)"
+      versie: "geraadpleegd op 11 november 2026"

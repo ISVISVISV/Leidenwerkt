@@ -11,12 +11,22 @@ parameters:
       titel: Dienst Toeslagen — Berekening huurtoeslag 2026 (TG 083-1Z62FD, juni 2026)
       url: https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf
       geraadpleegd_op: 2026-11-08
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.basishuur.meerpersoons
     omschrijving: Basishuur meerpersoonshuishouden
     eenheid: euro_per_maand
     waarde: { soort: bedrag, bedrag: "200.71" }
     status: geverifieerd
     bron: *dt_ht
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.kwaliteitskortingsgrens
     omschrijving: Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag)
     eenheid: euro_per_maand
@@ -26,24 +36,44 @@ parameters:
       titel: Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783)
       url: https://zoek.officielebekendmakingen.nl/stcrt-2025-39783.html
       geraadpleegd_op: 2026-11-08
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.aftoppingsgrens.laag
     omschrijving: Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht)
     eenheid: euro_per_maand
     waarde: { soort: bedrag, bedrag: "713.02" }
     status: geverifieerd
     bron: *stcrt_ht
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.aftoppingsgrens.hoog
     omschrijving: Aftoppingsgrens drie- of meerpersoonshuishoudens (art. 20 lid 2 b Wht)
     eenheid: euro_per_maand
     waarde: { soort: bedrag, bedrag: "764.14" }
     status: geverifieerd
     bron: *stcrt_ht
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.maximale_huurgrens
     omschrijving: Maximale huurgrens (rekengrens, 21 jaar en ouder; art. 13 lid 1 a Wht)
     eenheid: euro_per_maand
     waarde: { soort: bedrag, bedrag: "932.93" }
     status: geverifieerd
     bron: *stcrt_ht
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.subsidie.tot_kkg
     omschrijving: Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht)
     eenheid: breuk
@@ -53,6 +83,11 @@ parameters:
       titel: Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026)
       url: https://wetten.overheid.nl/BWBR0008659/2026-01-01
       geraadpleegd_op: 2026-11-08
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.subsidie.tot_aftopping
     omschrijving: Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag)
     eenheid: breuk
@@ -62,36 +97,66 @@ parameters:
       titel: Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026)
       url: https://wetten.overheid.nl/BWBR0008763/2026-01-01/0
       geraadpleegd_op: 2026-11-08
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.subsidie.boven_aftopping
     omschrijving: Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.40" }
     status: geverifieerd
     bron: *bht
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.afbouw.eenpersoons
     omschrijving: Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons (art. 21 lid 2 Wht)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.27" }
     status: geverifieerd
     bron: *wht
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.afbouw.meerpersoons
     omschrijving: Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, meerpersoons (art. 21 lid 2 Wht)
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.22" }
     status: geverifieerd
     bron: *wht
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.minimum_inkomensijkpunt.eenpersoons
     omschrijving: Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026)
     eenheid: euro_per_jaar
     waarde: { soort: bedrag, bedrag: "23425" }
     status: geverifieerd
     bron: *stcrt_ht
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.minimum_inkomensijkpunt.meerpersoons
     omschrijving: Minimum-inkomensijkpunt meerpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026)
     eenheid: euro_per_jaar
     waarde: { soort: bedrag, bedrag: "31500" }
     status: geverifieerd
     bron: *stcrt_ht
+    citaat:
+      kop: "Dienst Toeslagen, Berekening huurtoeslag 2026"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_huurtoeslag_tg0831z62fd.pdf"
+      tekst: "Er zijn 2 basishuren: • voor huishoudens van 1 persoon. Deze basishuur is € 202,52. • voor huishoudens van 2 of meer personen. Deze basishuur is € 200,71. […] De kwaliteitskortingsgrens is voor iedereen € 498,20. Voor het deel van de rekenhuur dat boven de basishuur en onder de kwaliteitskortingsgrens ligt, krijgt uw klant 100% vergoeding. […] Er zijn 2 aftoppingsgrenzen: • voor huishoudens van 1 of 2 personen. Deze grens is € 713,02. • voor huishoudens van 3 of meer personen. Deze grens is € 764,14. Voor het deel van de rekenhuur dat boven de kwaliteitskortingsgrens en onder de aftoppingsgrens ligt, krijgt uw klant 65% vergoeding. Voor het deel van de rekenhuur dat boven de aftoppingsgrens ligt tot aan de huurgrens van € 932,93 ,krijgt uw klant 40% vergoeding. […] Er zijn 2 inkomensijkpunten: • voor huishoudens van 1 persoon. Dit ijkpunt is € 23.425. • voor huishoudens van 2 of meer personen. Dit ijkpunt is € 31.500. […] Er zijn 2 afbouwpercentages: • voor huishoudens van 1 persoon: 27% • voor huishoudens van 2 of meer personen: 22%"
+      versie: "geraadpleegd op 11 november 2026"
   - id: ht.vrijstelling_kind_onder_23
     omschrijving: Van inwonende kinderen die aan het begin van het jaar jonger zijn dan 23 telt alleen het inkomen boven dit bedrag per persoon per jaar mee (stap 5)
     eenheid: euro_per_jaar

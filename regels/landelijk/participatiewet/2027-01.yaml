@@ -22,24 +22,40 @@ parameters:
       url: https://wetten.overheid.nl/BWBR0015703/2027-01-01
       geraadpleegd_op: 2026-11-08
     notitie: De wettekst noemt voor deze groep geen maximumbedrag en geen inkomensgrens.
+    citaat:
+      kop: "Participatiewet, art. 34a lid 1 en 2 (versie 1 januari 2027)"
+      tekst: "1 Inkomsten uit arbeid worden niet met de algemene bijstand verrekend ten aanzien van degene die: a. de pensioengerechtigde leeftijd nog niet heeft bereikt: gedurende een aaneengesloten periode van maximaal twaalf maanden voor 15 procent van deze inkomsten per maand, indien dit naar het oordeel van het college bijdraagt aan de arbeidsinschakeling van deze persoon; b. medisch urenbeperkt is: voor 15 procent van deze inkomsten per maand; […] 2 Nadat de periode, bedoeld in het eerste lid, onderdeel a, is verstreken kan het college de periode waarin de inkomsten uit arbeid niet worden verrekend verlengen met een door het college te bepalen periode, indien het college een uitbreiding van de arbeidsomvang gelet op de individuele omstandigheden niet mogelijk acht."
+      versie: "geldend vanaf 1 januari 2027, geraadpleegd op 11 november 2026"
   - id: pw.bijverdien.duur
     omschrijving: Maximale duur bijverdienregeling (aaneengesloten maanden); het college kan verlengen als meer uren werken niet mogelijk is (art. 34a lid 2)
     eenheid: maanden
     waarde: { soort: aantal, aantal: "12" }
     status: geverifieerd
     bron: *pw2027
+    citaat:
+      kop: "Participatiewet, art. 34a lid 1 en 2 (versie 1 januari 2027)"
+      tekst: "1 Inkomsten uit arbeid worden niet met de algemene bijstand verrekend ten aanzien van degene die: a. de pensioengerechtigde leeftijd nog niet heeft bereikt: gedurende een aaneengesloten periode van maximaal twaalf maanden voor 15 procent van deze inkomsten per maand, indien dit naar het oordeel van het college bijdraagt aan de arbeidsinschakeling van deze persoon; b. medisch urenbeperkt is: voor 15 procent van deze inkomsten per maand; […] 2 Nadat de periode, bedoeld in het eerste lid, onderdeel a, is verstreken kan het college de periode waarin de inkomsten uit arbeid niet worden verrekend verlengen met een door het college te bepalen periode, indien het college een uitbreiding van de arbeidsomvang gelet op de individuele omstandigheden niet mogelijk acht."
+      versie: "geldend vanaf 1 januari 2027, geraadpleegd op 11 november 2026"
   - id: pw.bijverdien.medisch_percentage
     omschrijving: Bijverdienregeling bij een medische urenbeperking (art. 34a lid 1 onder b Pw), zonder maximale duur
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.15" }
     status: geverifieerd
     bron: *pw2027
+    citaat:
+      kop: "Participatiewet, art. 34a lid 1 en 2 (versie 1 januari 2027)"
+      tekst: "1 Inkomsten uit arbeid worden niet met de algemene bijstand verrekend ten aanzien van degene die: a. de pensioengerechtigde leeftijd nog niet heeft bereikt: gedurende een aaneengesloten periode van maximaal twaalf maanden voor 15 procent van deze inkomsten per maand, indien dit naar het oordeel van het college bijdraagt aan de arbeidsinschakeling van deze persoon; b. medisch urenbeperkt is: voor 15 procent van deze inkomsten per maand; […] 2 Nadat de periode, bedoeld in het eerste lid, onderdeel a, is verstreken kan het college de periode waarin de inkomsten uit arbeid niet worden verrekend verlengen met een door het college te bepalen periode, indien het college een uitbreiding van de arbeidsomvang gelet op de individuele omstandigheden niet mogelijk acht."
+      versie: "geldend vanaf 1 januari 2027, geraadpleegd op 11 november 2026"
   - id: pw.overgang_n.duur
     omschrijving: Overgangsrecht vrijlating onder n (art. 78ff lid 2 Pw) — het oude onderdeel n blijft ten hoogste zoveel maanden na 1 januari 2027 gelden
     eenheid: maanden
     waarde: { soort: aantal, aantal: "12" }
     status: geverifieerd
     bron: *pw2027
+    citaat:
+      kop: "Participatiewet, art. 78ff lid 2 (overgangsrecht, versie 1 januari 2027)"
+      tekst: "Artikel 31, tweede lid, onderdeel n, zoals dat luidde op de dag voor inwerkingtreding van artikel I, onderdeel Q, van de Participatiewet in balans, blijft gedurende twaalf maanden na die dag van toepassing op de persoon die de pensioengerechtigde leeftijd nog niet heeft bereikt en aan wie voor de dag van de inwerkingtreding van dat onderdeel een vrijlating is toegekend op grond van dat onderdeel."
+      versie: "geldend vanaf 1 januari 2027, geraadpleegd op 11 november 2026"
   - id: pw.kostendeler.minimumleeftijd
     omschrijving: Minimumleeftijd van een huisgenoot om als kostendelende medebewoner mee te tellen (art. 19a Pw)
     eenheid: jaren

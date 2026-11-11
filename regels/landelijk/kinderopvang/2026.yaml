@@ -11,18 +11,33 @@ parameters:
       titel: Rijksoverheid — Bedragen kinderopvangtoeslag 2026
       url: https://www.rijksoverheid.nl/onderwerpen/kinderopvangtoeslag/bedragen-kinderopvangtoeslag-2026
       geraadpleegd_op: 2026-11-04
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kinderopvangtoeslag 2026, stap 1 en 2"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf"
+      tekst: "Voor kinderopvangtoeslag geldt een maximumuurtarief: • voor dagopvang bij een kindercentrum: € 11,23 per uur • voor buitenschoolse opvang (bso) bij een kindercentrum: € 9,98 per uur • voor gastouderopvang (dagopvang en bso): € 8,49 per uur […] Het maximaal aantal opvanguren per maand is 230 uren per kind."
+      versie: "geraadpleegd op 11 november 2026"
   - id: kot.max_uurprijs.bso
     omschrijving: Maximum uurprijs buitenschoolse opvang
     eenheid: euro_per_uur
     waarde: { soort: bedrag, bedrag: "9.98" }
     status: geverifieerd
     bron: *ro_kot
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kinderopvangtoeslag 2026, stap 1 en 2"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf"
+      tekst: "Voor kinderopvangtoeslag geldt een maximumuurtarief: • voor dagopvang bij een kindercentrum: € 11,23 per uur • voor buitenschoolse opvang (bso) bij een kindercentrum: € 9,98 per uur • voor gastouderopvang (dagopvang en bso): € 8,49 per uur […] Het maximaal aantal opvanguren per maand is 230 uren per kind."
+      versie: "geraadpleegd op 11 november 2026"
   - id: kot.max_uurprijs.gastouder
     omschrijving: Maximum uurprijs gastouderopvang
     eenheid: euro_per_uur
     waarde: { soort: bedrag, bedrag: "8.49" }
     status: geverifieerd
     bron: *ro_kot
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kinderopvangtoeslag 2026, stap 1 en 2"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf"
+      tekst: "Voor kinderopvangtoeslag geldt een maximumuurtarief: • voor dagopvang bij een kindercentrum: € 11,23 per uur • voor buitenschoolse opvang (bso) bij een kindercentrum: € 9,98 per uur • voor gastouderopvang (dagopvang en bso): € 8,49 per uur […] Het maximaal aantal opvanguren per maand is 230 uren per kind."
+      versie: "geraadpleegd op 11 november 2026"
   - id: kot.max_uren_per_maand
     omschrijving: Maximaal aantal opvanguren per kind per maand waarover toeslag wordt berekend
     eenheid: uren_per_maand
@@ -33,6 +48,11 @@ parameters:
       url: https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf
       geraadpleegd_op: 2026-11-08
     notitie: Per jaar geldt ten hoogste het aantal gewerkte maanden × 230 uur; werken beide ouders, dan telt de ouder die het minst werkt.
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kinderopvangtoeslag 2026, stap 1 en 2"
+      url: "https://download.belastingdienst.nl/toeslagen/docs/berekening_kinderopvangtoeslag_tg0801z61fd.pdf"
+      tekst: "Voor kinderopvangtoeslag geldt een maximumuurtarief: • voor dagopvang bij een kindercentrum: € 11,23 per uur • voor buitenschoolse opvang (bso) bij een kindercentrum: € 9,98 per uur • voor gastouderopvang (dagopvang en bso): € 8,49 per uur […] Het maximaal aantal opvanguren per maand is 230 uren per kind."
+      versie: "geraadpleegd op 11 november 2026"
   - id: kot.tabel
     omschrijving: Kinderopvangtoeslagtabel 2026 (bijlage I Besluit kinderopvangtoeslag, Stb. 2025, 233)
     eenheid: tabel
@@ -111,3 +131,7 @@ parameters:
     status: geverifieerd
     bron: *dt_kot
     notitie: Tabel letterlijk vergeleken met de brochure van Dienst Toeslagen. Het toetsingsinkomen telt in hele euro's.
+    citaat:
+      kop: "Dienst Toeslagen, Berekening kinderopvangtoeslag 2026, kinderopvangtoeslagtabel"
+      tekst: "Van Tot 1e kind 2e en volgende kind € 0 € 24.149 96,00% 96,00% € 24.150 € 25.756 96,00% 96,00% […] € 235.698 € 99.999.999 36,50% 68,20%"
+      versie: "geraadpleegd op 11 november 2026; alle 69 rijen zijn met de regeldata vergeleken"
