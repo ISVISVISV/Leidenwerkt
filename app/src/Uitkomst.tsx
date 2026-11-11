@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { Lezer, woonkorting, bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Post, type Resultaat } from "@leidenwerkt/engine";
+import { Lezer, woonkorting, bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Opvangsoort, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { LOON_PER, getal, ingevuld, ingevuldLoon, maxUurprijs, naarInvoer, schuifStart, vasteFase, vandaag, type Formulier } from "./formulier.ts";
+import { LOON_PER, OPVANG, getal, ingevuld, ingevuldLoon, maxUurprijs, naarInvoer, schuifStart, vasteFase, vandaag, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */
 function bruikbareDatum(f: Formulier): { datum: string; teruggevallen: boolean } {
@@ -118,6 +118,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
         urenTekst={urenTekst(uren)}
         eersteJaar={eersteJaar.bedrag}
         perioden={perioden}
+        periode={perioden ? gekozen.naam : undefined}
         stoptVanaf={meerPeriodes && rVolgende && bijstandVan(rVolgende) === "0.00" ? stopmoment(volgendeNaam) : undefined}
       />
 
@@ -208,7 +209,14 @@ export function Uitkomst({ f }: { f: Formulier }) {
       {heeftBijstand && (
         <div className="toelichting">
           <p>
-            <strong>{meerPeriodes || vast ? `${gekozen.naam} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.` : `${gekozen.naam}.`}</strong> {gekozen.regel}
+            <strong>
+              {vast
+                ? "U werkt al 6 maanden of langer naast de bijstand."
+                : meerPeriodes
+                  ? `${gekozen.naam} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.`
+                  : `${gekozen.naam}.`}
+            </strong>{" "}
+            {gekozen.regel}
           </p>
           {f.werktNu && meerPeriodes && fase !== periodes[0].fase && (
             <p>De vrijlating loopt ook af voor het werk dat u nu al doet. Daarom is het bedrag bij "Nu" in deze periode anders dan in de eerste maanden.</p>
@@ -219,7 +227,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
               De vrijlating is het deel van uw loon dat u naast de bijstand mag houden. Vraag uw contactpersoon bij de gemeente of de vrijlating voor u geldt. De gemeente beslist dat.
             </p>
           )}
-          {f.medisch && meerPeriodes && (
+          {f.medisch && meerPeriodes && fase === periodes[0].fase && (
             <p>
               Door uw medische urenbeperking houdt u ook na de eerste maanden een deel van uw loon naast de bijstand. Kies hierboven de latere maanden
               om dat te zien.
@@ -256,7 +264,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
         </div>
       )}
 
-      <Vergelijking r={r} allIn={(ingevuldLoon(f)?.allIn ?? "") === "ja"} />
+      <Vergelijking r={r} allIn={(ingevuldLoon(f)?.allIn ?? "") === "ja"} tweeBanen={f.werktNu && f.verandering === "erbij"} />
       <TabelNoten f={f} r={r} />
 
       {r.signalen.length > 0 && (
@@ -345,11 +353,14 @@ function Antwoord({
   urenTekst,
   eersteJaar,
   perioden,
+  periode,
   stoptVanaf,
 }: {
   r: Resultaat;
   urenTekst: string;
   eersteJaar: string;
+  /** De gekozen periode, als er meer zijn. */
+  periode?: string;
   /** Het verschil per maand in elke periode, als dat per periode verschilt. */
   perioden?: { naam: string; verschil: string }[];
   /** Stopt de bijstand in de volgende periode? Dan het moment, bijvoorbeeld "Vanaf maand 7". */
@@ -357,12 +368,14 @@ function Antwoord({
 }) {
   const v = Number(r.verschilPerMaand);
   const bedrag = euro(r.verschilPerMaand.replace("-", ""), true);
+  // Bij meer periodes zegt de kop over welke periode hij gaat; het lijstje eronder toont ze allemaal.
+  const wanneer = periode ? ` ${periodeInZin(periode)}` : "";
   const zin =
     Math.abs(v) < 10
-      ? "Met dit werk houdt u per maand ongeveer evenveel over als nu."
-      : v > 0
-        ? `Met dit werk houdt u per maand ongeveer ${bedrag} meer over.`
-        : `Met dit werk houdt u per maand ongeveer ${bedrag} minder over.`;
+      ? `Met dit werk houdt u${wanneer} per maand ongeveer evenveel over als nu.`
+      : periode
+        ? `Met dit werk houdt u${wanneer} ongeveer ${bedrag} per maand ${v > 0 ? "meer" : "minder"} over.`
+        : `Met dit werk houdt u per maand ongeveer ${bedrag} ${v > 0 ? "meer" : "minder"} over.`;
   // Houdt iemand minder over en komt dat door kosten die hij zelf betaalt? Dan staat dat erbij.
   const kosten = eigenWerkkosten(r);
   const doorKosten = v <= -10 && kosten >= 1 && v + kosten > -10;
@@ -404,7 +417,7 @@ function waarde(p: Post | undefined): string {
   return euro(p.perMaand, true);
 }
 
-function Vergelijking({ r, allIn }: { r: Resultaat; allIn?: boolean }) {
+function Vergelijking({ r, allIn, tweeBanen }: { r: Resultaat; allIn?: boolean; tweeBanen?: boolean }) {
   const ids: string[] = [];
   const labels = new Map<string, Post>();
   for (const p of [...r.huidig.posten, ...r.werk.posten]) {
@@ -432,6 +445,7 @@ function Vergelijking({ r, allIn }: { r: Resultaat; allIn?: boolean }) {
       <tr key={id} className={p.perMaand === null ? "leeg" : undefined}>
         <th scope="row">
           {p.label}
+          {id === "loon" && tweeBanen ? ", beide banen" : ""}
           {(id === "loon" || id === "loon_partner") && !allIn ? " (met vakantiegeld)" : ""}
           {onzeker && (
             <span className="ster" title="Nog niet officieel bevestigd">
@@ -575,6 +589,14 @@ function metLinks(tekst: string) {
   );
 }
 
+/** Een periodenaam midden in een zin: "Maand 1 t/m 6" wordt "in maand 1 t/m 6", "Vanaf maand 7" wordt "vanaf maand 7". */
+function periodeInZin(naam: string) {
+  const klein = naam.charAt(0).toLowerCase() + naam.slice(1);
+  if (klein.startsWith("maand")) return `in ${klein}`;
+  if (klein.startsWith("rest")) return `in de ${klein}`;
+  return klein;
+}
+
 /** "Zonder vrijlating zou u in deze periode € 46 per maand meer overhouden dan nu." */
 function zonderVrijlatingZin(verschil: string) {
   const v = Number(verschil);
@@ -608,8 +630,8 @@ function InkomenVoorGrenzen({ r }: { r: Resultaat }) {
     .reduce((s, p) => s + Number(p.perMaand), 0);
   return (
     <p className="klein">
-      {kleuren} De grenzen hieronder gaan over uw netto inkomen met dit werk, zonder toeslagen en kinderbijslag: ongeveer{" "}
-      {euro(inkomen.toFixed(2), true)} per maand.
+      {kleuren} De grenzen hieronder gaan over uw netto loon en bijstand samen, zonder toeslagen: ongeveer {euro(inkomen.toFixed(2), true)} per
+      maand.
     </p>
   );
 }
@@ -633,14 +655,13 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
     );
   }
   const l = new Lezer(standaardRegels, r.datum);
-  const geschat = f.kinderen.filter((k) => k.opvang && !getal(k.uurprijs) && k.soort);
-  if (geschat.length > 0) {
-    const prijs = maxUurprijs(l, geschat[0].soort || "dagopvang");
-    if (prijs > 0) {
-      noten.push(
-        `U wist de prijs per uur van de kinderopvang niet. De rekenhulp rekent met ${euro(prijs.toFixed(2))} per uur: de hoogste prijs waarover u kinderopvangtoeslag krijgt. Is de opvang duurder, dan betaalt u meer zelf.`,
-      );
-    }
+  const soorten = [...new Set(f.kinderen.filter((k) => k.opvang && !getal(k.uurprijs) && k.soort).map((k) => k.soort as Opvangsoort))];
+  if (soorten.length > 0) {
+    const delen = soorten.map((s) => `de ${OPVANG[s]} met ${euro(maxUurprijs(l, s).toFixed(2))}`);
+    const lijst = delen.length > 1 ? `${delen.slice(0, -1).join(", ")} en ${delen[delen.length - 1]}` : delen[0];
+    noten.push(
+      `U wist de prijs per uur van ${soorten.map((s) => `de ${OPVANG[s]}`).join(" en ")} niet. De rekenhulp rekent voor ${lijst} per uur: de hoogste prijs waarover u kinderopvangtoeslag krijgt. Is de opvang duurder, dan betaalt u meer zelf.`,
+    );
   }
   if (f.leefvorm === "paar" && f.partnerWerkt && getal(f.partnerBruto) && r.werk.posten.some((p) => p.id === "loon_partner")) {
     noten.push(

@@ -1366,7 +1366,7 @@ exports[`snapshots van de uitleg > kostendeler, geen huur 1`] = `
   "stappen": {
     "huidig": {
       "bijstand": [
-        "Kostendelersnorm: u deelt de kosten met 1 huisgenoot van 27 jaar of ouder. Dat is 50% van de norm voor partners. Zonder inkomen krijgt u de hele norm: 1013.90",
+        "Kostendelersnorm: u deelt de kosten met 1 andere volwassene van 27 jaar of ouder in huis. Dat is 50% van de norm voor partners. Zonder inkomen krijgt u de hele norm: 1013.90",
       ],
       "zorgtoeslag": [
         "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 14088.31",
@@ -1375,7 +1375,7 @@ exports[`snapshots van de uitleg > kostendeler, geen huur 1`] = `
     },
     "werk": {
       "bijstand": [
-        "Kostendelersnorm: u deelt de kosten met 1 huisgenoot van 27 jaar of ouder. Dat is 50% van de norm voor partners: 1013.90",
+        "Kostendelersnorm: u deelt de kosten met 1 andere volwassene van 27 jaar of ouder in huis. Dat is 50% van de norm voor partners: 1013.90",
         "Uw netto loon: 1638.32",
         "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 289.00",
         "Bijstand: € 1.013,90 − (€ 1.638,32 − € 289,00) is minder dan nul, dus geen bijstand",
@@ -1500,7 +1500,7 @@ exports[`snapshots van de uitleg > paar met kostendeler en jonge huisgenoot, huu
   "stappen": {
     "huidig": {
       "bijstand": [
-        "Kostendelersnorm: u en uw partner delen de kosten met 1 huisgenoot van 27 jaar of ouder. Dat is 43,33% van de norm voor partners, per partner. Zonder inkomen krijgt u de hele norm: 1757.42",
+        "Kostendelersnorm: u en uw partner delen de kosten met 1 andere volwassene van 27 jaar of ouder in huis (huisgenoten jonger dan 27 tellen niet mee). Dat is 43,33% van de norm voor partners, per partner. Zonder inkomen krijgt u de hele norm: 1757.42",
       ],
       "huurtoeslag": [
         "Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar): 23126.88",
@@ -1520,7 +1520,7 @@ exports[`snapshots van de uitleg > paar met kostendeler en jonge huisgenoot, huu
     },
     "werk": {
       "bijstand": [
-        "Kostendelersnorm: u en uw partner delen de kosten met 1 huisgenoot van 27 jaar of ouder. Dat is 43,33% van de norm voor partners, per partner: 1757.42",
+        "Kostendelersnorm: u en uw partner delen de kosten met 1 andere volwassene van 27 jaar of ouder in huis (huisgenoten jonger dan 27 tellen niet mee). Dat is 43,33% van de norm voor partners, per partner: 1757.42",
         "Uw netto loon: 1370.83",
         "Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand: 289.00",
         "Bijstand: € 1.757,42 − (€ 1.370,83 − € 289,00) = € 675,58",
