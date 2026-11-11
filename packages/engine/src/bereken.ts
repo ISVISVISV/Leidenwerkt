@@ -5,9 +5,9 @@
  * Elke post zegt of hij het verschil beïnvloedt en welke kant hij op gaat,
  * zodat de app kan melden hoe betrouwbaar het kopgetal is.
  */
-import { D, NUL, centen, euro, max, type Bedrag } from "./geld.ts";
+import { D, NUL, centen, euro, max, min, type Bedrag } from "./geld.ts";
 import { Lezer, OntbrekendeParameter, standaardRegels, type RegelSet } from "./regels.ts";
-import { nettoLoon, brutoUitNetto, brutoMaandUitNetto, stuksgewijs, type LoonUitkomst } from "./modules/belasting.ts";
+import { nettoLoon, brutoUitNetto, brutoMaandUitNetto, stuksgewijs, progressief, type LoonUitkomst } from "./modules/belasting.ts";
 import { bijstandsnorm, aanvulling, woonkorting } from "./modules/bijstand.ts";
 import { vrijlating } from "./modules/vrijlating.ts";
 import { zorgtoeslag, kindgebondenBudget, huurtoeslag, kinderopvangtoeslag, maandbedragToeslag } from "./modules/toeslagen.ts";
@@ -323,7 +323,17 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
   // Toetsingsinkomen voor toeslagen (jaar, bruto, huishouden).
   const toetsingsinkomen = (l: Lezer, stap: Bouw["stap"], aanname: Bouw["aanname"]): Bedrag => {
     const bijstandJaar = nodig(kern.bijstandMaand, "de bijstand").times(12);
-    const brutoBijstand = brutoUitNetto(l, bijstandJaar.plus(ander.times(12)));
+    // Bij een stel krijgt ieder de helft (art. 45 lid 4 Pw), dus ieder met een eigen heffingskorting.
+    // Het andere inkomen is bij één partner opgeteld.
+    const paar = invoer.leefvorm === "paar" && bijstandJaar.gt(0);
+    const brutoBijstand = paar
+      ? brutoUitNetto(l, bijstandJaar.div(2).plus(ander.times(12))).plus(brutoUitNetto(l, bijstandJaar.div(2)))
+      : brutoUitNetto(l, bijstandJaar.plus(ander.times(12)));
+    if (paar) {
+      aanname(
+        "Bij partners betaalt de gemeente ieder de helft van de bijstand (Participatiewet, art. 45 lid 4). Daarom is de bijstand per partner teruggerekend naar bruto, ieder met een eigen heffingskorting. Krijgt één van u de hele bijstand, dan is het bruto bedrag hoger en de toeslag lager.",
+      );
+    }
     if (ander.gt(0)) {
       aanname("Uw andere inkomen is voor de toeslagen omgerekend naar bruto, alsof het een uitkering is. Kinderalimentatie telt bij Dienst Toeslagen niet mee; dan krijgt u iets meer toeslag dan hier staat.");
     }
@@ -496,11 +506,21 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         if (brutoJaarloon(werk).isZero()) return null;
         const loon = nodig(kern.loon, "het netto loon");
         const iack = stuksgewijs(l.schijven("ib.iack"), loon.belastbaarJaar);
-        const benut = iack.lte(loon.restBelasting) ? iack : loon.restBelasting;
+        // De korting gaat af van de belasting over het hele inkomen: loon, bijstand en ander inkomen samen.
+        const overig = brutoUitNetto(l, (kern.bijstandMaand ?? NUL).plus(ander).times(12));
+        const totaal = loon.belastbaarJaar.plus(overig);
+        const belasting = max(
+          NUL,
+          progressief(l.schijven("ib.box1.schijven"), totaal).minus(stuksgewijs(l.schijven("ib.ahk"), totaal)).minus(loon.arbeidskorting),
+        );
+        const benut = min(iack, belasting);
         stap("Combinatiekorting volgens de tabel, per maand", iack.div(12));
+        if (overig.gt(0)) stap("Belasting over loon en bijstand samen, na heffingskortingen, per maand", belasting.div(12));
         stap("Deel dat u terugkrijgt per maand (niet meer dan de belasting die u betaalt)", benut.div(12));
         aanname("De combinatiekorting krijgt u via de aangifte of een voorlopige aanslag, niet via de werkgever.");
-        aanname("Inkomsten uit de bijstand zijn hierbij buiten beschouwing gelaten.");
+        if (overig.gt(0)) {
+          aanname("De korting gaat af van de belasting over uw loon en uw bijstand samen. Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag.");
+        }
         return benut.div(12);
       }),
     );

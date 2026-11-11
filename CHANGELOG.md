@@ -23,6 +23,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Hersteld
 
+- Bij partners werd de bijstand voor de toeslagen teruggerekend alsof één persoon alles kreeg. Daardoor was het geschatte jaarinkomen te hoog en de zorgtoeslag en huurtoeslag te laag. Nu krijgt ieder de helft, zoals in art. 45 lid 4 Participatiewet.
+- De combinatiekorting werd begrensd op de belasting over het loon alleen. Nu telt de belasting over loon en bijstand samen; bij een laag loon is de korting daardoor hoger.
 - Wie al langer dan 6 maanden naast de bijstand werkt en meer uren gaat werken, zag een te hoog bedrag over de eerste 12 maanden: de rekenhulp rekende alsof de vrijlating opnieuw begon. Nu geldt de situatie zonder vrijlating alle 12 maanden.
 - Een klik op een link onder "Wat u nu kunt doen" bracht u terug naar het begin van de rekenhulp.
 

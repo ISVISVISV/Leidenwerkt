@@ -14,13 +14,13 @@ exports[`proefpersonen > ayse.yaml: Ayşe 1`] = `
   "nu": {
     "bijstand": "706.93",
     "huurtoeslag": "428.00",
-    "iack": "0.00",
+    "iack": "33.71",
     "kgb": "499.00",
     "kinderbijslag": "120.78",
     "loon": "814.32",
     "zorgtoeslag": "129.00",
   },
-  "verschil": "378.83",
+  "verschil": "345.12",
 }
 `;
 
@@ -318,7 +318,7 @@ exports[`proefpersonen > sanne-maand-1-6.yaml: Sanne 1`] = `
     "bb_opvang": "25.40",
     "bijstand": "519.52",
     "huurtoeslag": "422.00",
-    "iack": "24.11",
+    "iack": "79.36",
     "kgb": "499.00",
     "kinderbijslag": "99.47",
     "kot": "585.00",
@@ -333,7 +333,7 @@ exports[`proefpersonen > sanne-maand-1-6.yaml: Sanne 1`] = `
     "kinderbijslag": "99.47",
     "zorgtoeslag": "129.00",
   },
-  "verschil": "313.11",
+  "verschil": "368.36",
 }
 `;
 
@@ -343,7 +343,7 @@ exports[`proefpersonen > sanne-maand-7-36.yaml: Sanne 1`] = `
     "bb_opvang": "25.40",
     "bijstand": "379.14",
     "huurtoeslag": "422.00",
-    "iack": "24.11",
+    "iack": "79.36",
     "kgb": "499.00",
     "kinderbijslag": "99.47",
     "kot": "585.00",
@@ -358,7 +358,7 @@ exports[`proefpersonen > sanne-maand-7-36.yaml: Sanne 1`] = `
     "kinderbijslag": "99.47",
     "zorgtoeslag": "129.00",
   },
-  "verschil": "172.73",
+  "verschil": "227.98",
 }
 `;
 
@@ -368,7 +368,7 @@ exports[`proefpersonen > sanne-vanaf-maand-37.yaml: Sanne 1`] = `
     "bb_opvang": "25.40",
     "bijstand": "230.52",
     "huurtoeslag": "422.00",
-    "iack": "24.11",
+    "iack": "79.36",
     "kgb": "499.00",
     "kinderbijslag": "99.47",
     "kot": "585.00",
@@ -383,7 +383,7 @@ exports[`proefpersonen > sanne-vanaf-maand-37.yaml: Sanne 1`] = `
     "kinderbijslag": "99.47",
     "zorgtoeslag": "129.00",
   },
-  "verschil": "24.11",
+  "verschil": "79.36",
 }
 `;
 

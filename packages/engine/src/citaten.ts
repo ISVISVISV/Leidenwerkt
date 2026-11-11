@@ -53,6 +53,13 @@ export const CITATEN = {
     tekst:
       "inrichting: 1°. een instelling die zich blijkens haar doelstelling en feitelijke werkzaamheden richt op het bieden van verpleging of verzorging aan aldaar verblijvende hulpbehoevenden; 2°. een instelling die zich blijkens haar doelstelling en feitelijke werkzaamheden richt op het bieden van slaapgelegenheid, waarbij de mogelijkheid van hulpverlening of begeleiding gedurende meer dan de helft van ieder etmaal aanwezig is;",
   },
+  pw45lid4: {
+    titel: "Participatiewet, art. 45 lid 4",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
+    versie: "geldend vanaf 1 juli 2026",
+    tekst:
+      "De algemene bijstand wordt uitbetaald aan ieder van de rechthebbende echtgenoten voor de helft dan wel op hun gezamenlijk verzoek aan een van hen voor het geheel.",
+  },
   pw45: {
     titel: "Participatiewet, art. 45 lid 1",
     url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
