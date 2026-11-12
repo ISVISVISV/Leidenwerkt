@@ -136,6 +136,7 @@ function eigenBrutoJaarExcl(w: Werk | undefined): Bedrag {
   const f = D(w.urenFactor ?? 1);
   if (w.brutoMaandloon !== undefined) return D(w.brutoMaandloon).times(12).times(f);
   if (w.brutoVierwekenloon !== undefined) return D(w.brutoVierwekenloon).times(13).times(f);
+  if (w.brutoWeekloon !== undefined) return D(w.brutoWeekloon).times(52).times(f);
   if (w.brutoUurloon !== undefined && w.urenPerWeek !== undefined) return D(w.brutoUurloon).times(w.urenPerWeek).times(52).times(f);
   return NUL;
 }
@@ -149,6 +150,9 @@ function metBruto(w: Werk | undefined, regels: RegelSet, datum: string): Werk | 
   if (w?.bijbaan) {
     const { bijbaan, ...hoofd } = w;
     return { ...metBruto(hoofd, regels, datum)!, bijbaan: metBruto(bijbaan, regels, datum) };
+  }
+  if (w && w.nettoWeekloon !== undefined && w.nettoMaandloon === undefined) {
+    return metBruto({ ...w, nettoMaandloon: Number(D(w.nettoWeekloon).times(52).div(12).toFixed(2)) }, regels, datum);
   }
   if (w && w.nettoVierwekenloon !== undefined && w.nettoMaandloon === undefined) {
     return metBruto({ ...w, nettoMaandloon: Number(D(w.nettoVierwekenloon).times(13).div(12).toFixed(2)) }, regels, datum);
@@ -208,11 +212,13 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       kern.loon = r;
       kern.nettoMaand = r.nettoJaar.div(12);
       if (werk?.nettoVierwekenloon !== undefined) stap("Netto loon per 4 weken dat u invulde, × 13 / 12", D(werk.nettoVierwekenloon).times(werk.urenFactor ?? 1));
+      if (werk?.nettoWeekloon !== undefined) stap("Netto loon per week dat u invulde, × 52 / 12", D(werk.nettoWeekloon).times(werk.urenFactor ?? 1));
       if (werk?.nettoMaandloon !== undefined) {
         stap("Netto maandloon dat u invulde (zonder vakantiegeld)", D(werk.nettoMaandloon).times(werk.urenFactor ?? 1));
         aanname("U vulde netto loon in. De rekenhulp rekent dat terug naar bruto. Uw echte bruto loon kan iets anders zijn.");
       }
       if (werk?.brutoVierwekenloon !== undefined) stap("Bruto loon per 4 weken", D(werk.brutoVierwekenloon).times(werk.urenFactor ?? 1));
+      if (werk?.brutoWeekloon !== undefined) stap("Bruto loon per week", D(werk.brutoWeekloon).times(werk.urenFactor ?? 1));
       stap("Bruto loon per maand (gemiddeld, zonder vakantiegeld)", brutoMaandloon(werk));
       if (werk?.vakantiegeld === undefined || D(werk.vakantiegeld).gt(0)) l.breuk("wml.vakantiebijslag");
       stap(
@@ -231,6 +237,9 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       aanname("Het vakantiegeld is over 12 maanden verdeeld; in werkelijkheid komt het meestal in mei of juni.");
       if (werk?.brutoVierwekenloon !== undefined) {
         aanname("Bij een vierwekenloon krijgt u 13 keer per jaar loon. Het loon is hier omgerekend naar een gemiddelde maand.");
+      }
+      if (werk?.brutoWeekloon !== undefined || werk?.nettoWeekloon !== undefined) {
+        aanname("Bij een weekloon krijgt u 52 keer per jaar loon. Het loon is hier omgerekend naar een gemiddelde maand.");
       }
       aanname("Netto loon is benaderd met een jaarberekening; de loonstrook kan een paar euro afwijken.");
       if (werk?.bijbaan) {
@@ -256,12 +265,30 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     );
   }
 
-  // Ander inkomen (alimentatie, andere uitkering): in beide situaties gelijk.
-  const ander = D(invoer.anderInkomenPerMaand ?? 0);
+  // Ander inkomen (uitkering, pensioen, alimentatie): in beide situaties gelijk.
+  // Partneralimentatie telt voor de bijstand na aftrek van inkomstenbelasting (art. 31 lid 3 Pw).
+  const anderNetto = D(invoer.anderInkomenPerMaand ?? 0);
+  const kinderalimentatie = D(invoer.kinderalimentatiePerMaand ?? 0);
+  const partneralimentatie = D(invoer.partneralimentatiePerMaand ?? 0);
+  const lAlimentatie = new Lezer(regels, datum);
+  const tariefSchijf1 = partneralimentatie.gt(0) ? D(lAlimentatie.zonderNoteren(() => lAlimentatie.schijven("ib.box1.schijven"))[0].percentage) : NUL;
+  const partneralimentatieNetto = partneralimentatie.times(D(1).minus(tariefSchijf1));
+  const ander = anderNetto.plus(kinderalimentatie).plus(partneralimentatieNetto);
+  // Voor de toeslagen telt kinderalimentatie niet mee.
+  const anderVoorToeslagen = anderNetto.plus(partneralimentatieNetto);
   if (ander.gt(0)) {
     posten.push(
-      maakPost(regels, datum, "ander_inkomen", "Ander inkomen", "inkomen", ({ stap }) => {
-        stap("Uw andere inkomen per maand, zoals u het invulde (netto)", ander);
+      maakPost(regels, datum, "ander_inkomen", "Ander inkomen", "inkomen", ({ l, stap, aanname }) => {
+        if (anderNetto.gt(0)) stap("Uitkering, pensioen of ander inkomen per maand, zoals u het invulde (netto)", anderNetto);
+        if (kinderalimentatie.gt(0)) stap("Kinderalimentatie per maand (daarover betaalt u geen belasting)", kinderalimentatie);
+        if (partneralimentatie.gt(0)) {
+          const tarief = D(l.schijven("ib.box1.schijven")[0].percentage);
+          stap("Partneralimentatie per maand, zoals u die ontvangt", partneralimentatie);
+          stap(`Min inkomstenbelasting (${tarief.times(100).toString().replace(".", ",")}%, het tarief van de eerste schijf)`, partneralimentatie.times(tarief).neg());
+          aanname(
+            "Over partneralimentatie betaalt u inkomstenbelasting; de bijstand telt het bedrag na belasting (Participatiewet, art. 31 lid 3). De rekenhulp rekent met het tarief van de eerste schijf, en neemt aan dat uw heffingskortingen al gebruikt worden voor uw bijstand of loon.",
+          );
+        }
         return ander;
       }),
     );
@@ -327,16 +354,17 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     // Het andere inkomen is bij één partner opgeteld.
     const paar = invoer.leefvorm === "paar" && bijstandJaar.gt(0);
     const brutoBijstand = paar
-      ? brutoUitNetto(l, bijstandJaar.div(2).plus(ander.times(12))).plus(brutoUitNetto(l, bijstandJaar.div(2)))
-      : brutoUitNetto(l, bijstandJaar.plus(ander.times(12)));
+      ? brutoUitNetto(l, bijstandJaar.div(2).plus(anderVoorToeslagen.times(12))).plus(brutoUitNetto(l, bijstandJaar.div(2)))
+      : brutoUitNetto(l, bijstandJaar.plus(anderVoorToeslagen.times(12)));
     if (paar) {
       aanname(
         "Bij partners betaalt de gemeente ieder de helft van de bijstand (Participatiewet, art. 45 lid 4). Daarom is de bijstand per partner teruggerekend naar bruto, ieder met een eigen heffingskorting. Krijgt één van u de hele bijstand, dan is het bruto bedrag hoger en de toeslag lager.",
       );
     }
-    if (ander.gt(0)) {
-      aanname("Uw andere inkomen is voor de toeslagen omgerekend naar bruto, alsof het een uitkering is. Kinderalimentatie telt bij Dienst Toeslagen niet mee; dan krijgt u iets meer toeslag dan hier staat.");
+    if (anderVoorToeslagen.gt(0)) {
+      aanname("Uw andere inkomen is voor de toeslagen omgerekend naar bruto, alsof het een uitkering is.");
     }
+    if (kinderalimentatie.gt(0)) stap("Kinderalimentatie telt niet mee voor de toeslagen");
     const loon = brutoJaarloon(werk).minus(pensioenJaar(werk)).plus(brutoJaarloon(partnerWerk).minus(pensioenJaar(partnerWerk)));
     const ti = loon.plus(brutoBijstand);
     if (loon.gt(0) && brutoBijstand.gt(0)) {
@@ -344,7 +372,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         "Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.",
       );
       stap("Bruto loon per jaar, met vakantiegeld", loon);
-      stap(ander.gt(0) ? "Bijstand en ander inkomen per jaar, teruggerekend naar bruto" : "Bijstand per jaar, teruggerekend naar bruto", brutoBijstand);
+      stap(anderVoorToeslagen.gt(0) ? "Bijstand en ander inkomen per jaar, teruggerekend naar bruto" : "Bijstand per jaar, teruggerekend naar bruto", brutoBijstand);
     }
     stap("Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)", ti);
     aanname("Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag; Dienst Toeslagen gebruikt het werkelijke bruto bedrag.");
@@ -786,8 +814,8 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   // Elke regeling met een inkomensgrens gebruikt dezelfde zinnen: boven de grens zeker niet meer, eronder "kunt u nog krijgen".
   const regelingZin = (wat: string, boven: boolean, grens: Bedrag) =>
     boven
-      ? `Met dit inkomen krijgt u ${wat} niet meer. De grens is ongeveer ${euro(grens, true)} netto per maand. Dat is niet meegerekend.`
-      : `Met dit inkomen kunt u ${wat} nog krijgen. De grens is ongeveer ${euro(grens, true)} netto per maand.`;
+      ? `Met dit inkomen krijgt u ${wat} niet meer. De grens is ongeveer ${euro(grens, true)} netto per maand, met vakantiegeld. Dat is niet meegerekend.`
+      : `Met dit inkomen kunt u ${wat} nog krijgen. De grens is ongeveer ${euro(grens, true)} netto per maand, met vakantiegeld.`;
   const inkomenWerk = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
   probeer(() => {
     const grens = l.breuk("leiden.sleutelpas.inkomensgrens");
@@ -804,21 +832,25 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     }
     const delen = [...opbouw].map(([b, n]) => `${n} × ${b}`);
     const opbouwTekst = kinderen.length > 1 ? ` (${delen.slice(0, -1).join(", ")}${delen.length > 1 ? " en " : ""}${delen[delen.length - 1]})` : "";
+    // Twee meldingen, elk met één grens: de Sleutelpas tot 130%, het Kindtegoed tot 140%.
     const g1 = norm.times(grens);
     const boven1 = inkomenWerk.gt(g1);
-    let tekst = regelingZin("de gratis Sleutelpas", boven1, g1);
-    let boven2 = false;
-    if (kinderen.length > 0) {
-      const g2 = norm.times(l.breuk("leiden.kindtegoed.inkomensgrens"));
-      boven2 = inkomenWerk.gt(g2);
-      tekst += ` ${regelingZin(`het Kindtegoed van ${euro(kindtegoed, true)} per jaar${opbouwTekst} voor schoolspullen, sport en cultuur`, boven2, g2)}`;
-    }
     uit.push({
-      soort: boven1 || boven2 ? "waarschuwing" : "info",
-      kop: kinderen.length > 0 ? "Sleutelpas en Kindtegoed" : "Sleutelpas",
-      tekst,
+      soort: boven1 ? "waarschuwing" : "info",
+      kop: "Sleutelpas",
+      tekst: regelingZin("de gratis Sleutelpas", boven1, g1),
       bron: bronVan(l, "leiden.sleutelpas.inkomensgrens"),
     });
+    if (kinderen.length > 0) {
+      const g2 = norm.times(l.breuk("leiden.kindtegoed.inkomensgrens"));
+      const boven2 = inkomenWerk.gt(g2);
+      uit.push({
+        soort: boven2 ? "waarschuwing" : "info",
+        kop: "Kindtegoed",
+        tekst: regelingZin(`het Kindtegoed van ${euro(kindtegoed, true)} per jaar${opbouwTekst} voor schoolspullen, sport en cultuur`, boven2, g2),
+        bron: bronVan(l, "leiden.kindtegoed.inkomensgrens"),
+      });
+    }
   });
 
   // Leiden: Gemeentepolis, de collectieve zorgverzekering (tot 120% van het sociaal minimum, zelfde tabel als het Volwassenenfonds).
@@ -969,6 +1001,15 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
         "U krijgt 13 keer per jaar loon. Eén keer per jaar krijgt u twee keer loon in dezelfde maand. In die maand krijgt u waarschijnlijk minder of geen bijstand, omdat de gemeente per maand kijkt wat u verdiende.",
     });
   }
+  if ((invoer.nieuwWerk.brutoWeekloon !== undefined || invoer.nieuwWerk.nettoWeekloon !== undefined) && bijstandWerk && bijstandWerk.gt(0)) {
+    uit.push({
+      soort: "waarschuwing",
+      kop: "Loon per week",
+      bron: CITATEN.pw45,
+      tekst:
+        "U krijgt elke week loon. In sommige maanden krijgt u 5 keer loon in plaats van 4. In die maanden krijgt u waarschijnlijk minder of geen bijstand, omdat de gemeente per maand kijkt wat u verdiende.",
+    });
+  }
   // Bovenaan wat iemand moet doen, dan wat er verandert of vervalt, dan wat blijft.
   const rang = (s: Signaal) => (s.actie ? 0 : s.soort === "waarschuwing" ? 1 : 2);
   return uit.map((s, i) => ({ s, i })).sort((a, b) => rang(a.s) - rang(b.s) || a.i - b.i).map((x) => x.s);
@@ -991,7 +1032,7 @@ function valideer(invoer: Invoer) {
   }
   for (const w of [invoer.nieuwWerk, invoer.nieuwWerk.bijbaan, invoer.huidigWerk, invoer.huidigWerk?.bijbaan, invoer.partner?.werk]) {
     if (!w) continue;
-    for (const v of [w.brutoMaandloon, w.brutoVierwekenloon, w.nettoMaandloon, w.nettoVierwekenloon, w.brutoUurloon, w.urenPerWeek, w.reiskostenPerMaand, w.overigeKostenPerMaand]) {
+    for (const v of [w.brutoMaandloon, w.brutoVierwekenloon, w.brutoWeekloon, w.nettoMaandloon, w.nettoVierwekenloon, w.nettoWeekloon, w.brutoUurloon, w.urenPerWeek, w.reiskostenPerMaand, w.overigeKostenPerMaand]) {
       if (v !== undefined && (!Number.isFinite(v) || v < 0)) fouten.push("bedragen en uren mogen niet negatief zijn");
     }
     if (w.urenPerWeek !== undefined && w.urenPerWeek > 60) fouten.push("meer dan 60 uur per week wordt niet ondersteund");

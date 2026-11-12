@@ -8,6 +8,14 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Gewijzigd
 
+- Startpagina: een vollediger lijst van wat u nodig heeft; voor wie de rekenhulp is, staat onderaan.
+- Uw huishouden: nieuwe volgorde (partner, geboortedatums, werk van de partner, kinderen, ander inkomen). Nieuwe uitleg bij partner, kinderen en werk van de partner. Bij een stel: "De uitkomst geldt voor u samen."
+- Ander inkomen in drie vakken: partneralimentatie (de rekenhulp trekt de belasting er zelf af, art. 31 lid 3 Pw), kinderalimentatie (telt niet mee voor de toeslagen) en ander inkomen.
+- Loon per week in plaats van per 4 weken.
+- Bij iemand anders in huis: geen ja/nee-vraag over andere bewoners, maar meteen het aantal, met de persoon bij wie u woont meegeteld.
+- Sleutelpas en Kindtegoed zijn twee aparte meldingen. Alle grenzen staan er "met vakantiegeld" bij.
+- Werkt u al korter dan 6 maanden, dan heet de eerste periode "Tot 6 maanden nadat u naast de bijstand bent gaan werken" en vervalt "De eerste 12 maanden samen".
+- Het i-knopje staat direct achter de vraag, ook als die over twee regels loopt. Geen dubbele witruimte meer onder een groep vragen.
 - Het inkomen van een kind van 18 of ouder wordt per kind gevraagd, het hele bedrag; de rekenhulp trekt zelf € 6.218 af bij een kind dat aan het begin van het jaar jonger is dan 23 (Belastingdienst). Studiefinanciering telt niet mee.
 - Weet de gebruiker het inkomen van huisgenoten of van een kind niet, dan rekent de rekenhulp de huurtoeslag toch uit, zonder dat inkomen, en zegt dat onder de tabel.
 - De meldingen over de Sleutelpas, het Kindtegoed, de Gemeentepolis, het zwemabonnement, het Volwassenenfonds en de OV-pas gebruiken dezelfde zinnen: boven de grens "krijgt u … niet meer", eronder "kunt u … nog krijgen".

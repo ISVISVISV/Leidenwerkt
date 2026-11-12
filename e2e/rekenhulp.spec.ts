@@ -320,7 +320,7 @@ test("ander inkomen telt mee, de afdruk toont de invoer, en opnieuw beginnen wis
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await geboren(page, "Uw geboortedatum", 40);
   await page.getByRole("group", { name: "Heeft u ander inkomen dan bijstand en loon?" }).getByLabel("Ja").check();
-  await page.getByLabel("Ander inkomen per maand, netto").fill("250");
+  await page.getByLabel("Ander inkomen per maand (wat op uw rekening komt)").fill("250");
   await verder(page);
   await page.getByLabel("In een koopwoning").check();
   await verder(page);
@@ -454,7 +454,9 @@ test("bij iemand in huis met kostgeld: alleen het deel voor de woonruimte telt, 
   await verder(page);
   await page.getByLabel("Bij iemand anders in huis, en ik betaal kostgeld of huur").check();
   await page.getByLabel("Hoeveel betaalt u per maand voor uw woonruimte?").fill("150");
-  await page.getByRole("group", { name: "Wonen er nog andere mensen van 18 jaar of ouder bij u in huis?" }).getByLabel("Nee").check();
+  // Bij iemand anders in huis: geen ja/nee-vraag, meteen het aantal. De persoon bij wie u woont is hier 25.
+  await expect(page.getByRole("group", { name: /Wonen er nog andere mensen/ })).toHaveCount(0);
+  await page.getByLabel(/Hoeveel mensen van 27 jaar of ouder wonen er in dat huis, naast u\?/).fill("0");
   await geenToegankelijkheidsfouten(page);
   await verder(page);
   await kiesLoon(page, "Bruto loon per maand");
@@ -468,7 +470,7 @@ test("bij iemand in huis met kostgeld: alleen het deel voor de woonruimte telt, 
   await expect(page.locator(".tabel-noten")).toContainText("bij iemand anders in huis woont");
 });
 
-test("netto loon per 4 weken, en inkomen van huisgenoten onbekend", async ({ page }) => {
+test("netto loon per week, en inkomen van huisgenoten onbekend", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await geboren(page, "Uw geboortedatum", 39);
@@ -482,11 +484,11 @@ test("netto loon per 4 weken, en inkomen van huisgenoten onbekend", async ({ pag
   await expect(page.locator("#huisgenotenInkomen")).toHaveCount(0);
   await geenToegankelijkheidsfouten(page);
   await verder(page);
-  await page.getByLabel("Netto loon per 4 weken (wat op mijn rekening komt)").check();
-  await page.getByRole("textbox", { name: /Netto loon per 4 weken/ }).fill("1200");
+  await page.getByLabel("Netto loon per week (wat op mijn rekening komt)").check();
+  await page.getByRole("textbox", { name: /Netto loon per week/ }).fill("300");
   await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("24");
   await verder(page, "Bereken wat ik overhoud");
-  await expect(page.locator(".tabel-noten")).toContainText("U vulde € 1.200 netto per 4 weken in.");
+  await expect(page.locator(".tabel-noten")).toContainText("U vulde € 300 netto per week in.");
   await expect(page.locator(".tabel-noten")).toContainText("omgerekend naar een maand");
   // Zonder hun inkomen rekent de rekenhulp toch door, en zegt dat onder de tabel.
   await expect(page.locator(".tabel-noten")).toContainText("Het inkomen van uw huisgenoten is niet meegeteld. Daardoor kan uw huurtoeslag lager zijn dan hier staat.");
@@ -663,4 +665,30 @@ test("kind van 18 of ouder: eigen inkomen voor de huurtoeslag, en alle bedragen 
     const bedragen = regels.map((r) => getal(r.match(/€\s?[\d.]+/)![0]));
     expect(bedragen[bedragen.length - 1]).toBe(bedragen[0] * 6 + bedragen[1] * 6);
   }
+});
+
+test("alimentatie: partneralimentatie na belasting, kinderalimentatie alleen met kinderen", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByRole("group", { name: "Woont u samen met een partner?" }).getByLabel("Nee").check();
+  await geboren(page, "Uw geboortedatum", 38);
+  await page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" }).getByLabel("Nee").check();
+  await page.getByRole("group", { name: "Heeft u ander inkomen dan bijstand en loon?" }).getByLabel("Ja").check();
+  await expect(page.getByLabel("Kinderalimentatie per maand")).toHaveCount(0);
+  // Niets ingevuld: een duidelijke melding.
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await expect(page.locator(".foutsamenvatting")).toContainText("Vul bij minstens één soort inkomen een bedrag in");
+  await page.getByLabel("Partneralimentatie per maand (wat u ontvangt)").fill("300");
+  await verder(page);
+  await page.getByLabel("In een koopwoning").check();
+  await verder(page);
+  await kiesLoon(page, "Bruto loon per maand");
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("800");
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("12");
+  await verder(page, "Bereken wat ik overhoud");
+  const tabel = page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ });
+  // € 300 − 35,75% belasting = € 192,75.
+  await expect(tabel.getByRole("row", { name: /Ander inkomen/ })).toContainText("€ 193");
+  // Sleutelpas en Kindtegoed zijn twee aparte meldingen; grenzen met vakantiegeld.
+  await expect(page.locator(".signalen")).toContainText("met vakantiegeld");
 });
