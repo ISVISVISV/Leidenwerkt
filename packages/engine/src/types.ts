@@ -80,7 +80,11 @@ export interface Invoer {
   gemeente: "leiden";
   leefvorm: Leefvorm;
   leeftijd: number;
-  partner?: { leeftijd: number; werk?: Werk };
+  /**
+   * werktKort: de partner werkt korter dan 6 maanden naast de bijstand. Dan geldt ook voor het loon van de
+   * partner de vrijlating (art. 31 lid 2 onder n Pw; per partner, art. 45 lid 4: ieder ontvangt de helft).
+   */
+  partner?: { leeftijd: number; werk?: Werk; werktKort?: boolean };
   kinderen: Kind[];
   /** Aantal huisgenoten van 27 jaar of ouder (niet de partner, niet de eigen kinderen onder 27). */
   kostendelers: number;

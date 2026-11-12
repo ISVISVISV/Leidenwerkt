@@ -93,6 +93,8 @@ export interface Formulier {
   partnerGeboren: Geboortedatum;
   partnerWerkt: boolean;
   partnerBruto: string;
+  /** Hoe lang de partner al naast de bijstand werkt: bepaalt of het loon van de partner een vrijlating heeft. */
+  partnerWerktAl: "" | "kort" | "lang";
   kinderen: KindVeld[];
   /** Ander inkomen van het huishouden, zoals alimentatie of een andere uitkering. */
   heeftAnderInkomen: boolean;
@@ -148,6 +150,7 @@ export const leegFormulier: Formulier = {
   partnerGeboren: legeDatum(),
   partnerWerkt: false,
   partnerBruto: "",
+  partnerWerktAl: "",
   kinderen: [],
   heeftAnderInkomen: false,
   anderInkomen: "",
@@ -295,6 +298,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
     geboren("geboren", f.geboren, 21, 66, "Deze rekenhulp werkt voor mensen van 21 tot 67 jaar.");
     if (f.leefvorm === "paar") geboren("partnerGeboren", f.partnerGeboren, 21, 66, "Uw partner moet 21 tot 67 jaar zijn.");
     if (f.leefvorm === "paar" && f.partnerWerkt) moet("partnerBruto", f.partnerBruto, 1, 20000, "Vul een bruto maandloon in.");
+    if (f.leefvorm === "paar" && f.partnerWerkt && !f.partnerWerktAl) fouten.partnerWerktAl = "Kies hoe lang uw partner al werkt.";
     if (f.leefvorm === "alleenstaande_ouder" && f.kinderen.length === 0) fouten.kinderen = "Voeg minstens één kind toe.";
     f.kinderen.forEach((k, i) => {
       geboren(`kind${i}`, k.geboren, 0, 26, "Dit kind is 27 jaar of ouder. Haal het hier weg en vul het bij de volgende stap in, bij de andere bewoners.");
@@ -430,7 +434,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     leefvorm: f.leefvorm,
     leeftijd: leeftijdOp(f.geboren, opties.datum) ?? 0,
     partner: paar
-      ? { leeftijd: leeftijdOp(f.partnerGeboren, opties.datum) ?? 0, werk: f.partnerWerkt ? { brutoMaandloon: getal(f.partnerBruto) ?? 0 } : undefined }
+      ? { leeftijd: leeftijdOp(f.partnerGeboren, opties.datum) ?? 0, werk: f.partnerWerkt ? { brutoMaandloon: getal(f.partnerBruto) ?? 0 } : undefined, werktKort: f.partnerWerkt && f.partnerWerktAl === "kort" }
       : undefined,
     kinderen,
     kostendelers: aantalKostendelers(f),
@@ -539,7 +543,7 @@ export function ingevuld(f: Formulier): { kop: string; regels: [string, string][
   ];
   if (paar) {
     huishouden.push(["Partner geboren", datumTekst(f.partnerGeboren)]);
-    huishouden.push(["Partner werkt", f.partnerWerkt ? `ja, ${euroTekst(f.partnerBruto)} bruto per maand` : "nee"]);
+    huishouden.push(["Partner werkt", f.partnerWerkt ? `ja, ${euroTekst(f.partnerBruto)} bruto per maand; ${f.partnerWerktAl === "lang" ? "6 maanden of langer" : "korter dan 6 maanden"}` : "nee"]);
   }
   f.kinderen.forEach((k, i) => {
     const opvang = k.opvang ? `; ${k.soort ? OPVANG[k.soort] : "soort onbekend"}, ${k.uren} uur per week${k.uurprijs ? ` × ${euroTekst(k.uurprijs)}` : ", prijs onbekend"}` : "";

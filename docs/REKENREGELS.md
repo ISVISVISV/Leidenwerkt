@@ -117,6 +117,8 @@ Bron: art. 31 lid 2 onder n, r, y en lid 5 Pw ([versie 1 juli 2026](https://wett
 
 **Na de 6 maanden** is er geen vrijlating meer (behalve r en y). Dat betekent niet dat werken niets oplevert: de bijstand vult het netto loon aan tot de norm, dus tot de norm houdt iemand evenveel over als zonder werk. Boven de norm stopt de bijstand en houdt iemand het hele netto loon, waarin de arbeidskorting al zit. Daarnaast tellen de toeslagen en de combinatiekorting.
 
+**Loon van de partner.** De vrijlating geldt per partner: onderdeel n geldt "voor zover hij algemene bijstand ontvangt", en gehuwden ontvangen ieder de helft van de bijstand (art. 45 lid 4). Werkt de partner korter dan 6 maanden naast de bijstand, dan rekent de app ook voor het loon van de partner 25% vrijlating, tot het maximum, in beide kolommen en alleen in de eerste periode. Aanname: de 6 maanden van de partner lopen tegelijk met de eerste periode van het nieuwe werk. Niet onder de 27 jaar (lid 5).
+
 ### Vanaf 1 januari 2027 (regime `pw34a`)
 
 Bron: art. 34a en 78ff Pw ([versie 1 januari 2027](https://wetten.overheid.nl/BWBR0015703/2027-01-01)).

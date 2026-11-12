@@ -546,6 +546,20 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
               voorvoegsel="€"
             />
           )}
+          {f.partnerWerkt && (
+            <Keuze
+              naam="partnerWerktAl"
+              legend="Hoe lang werkt uw partner al naast de bijstand?"
+              hint="Dit is nodig om uit te rekenen of uw partner een deel van het loon mag houden. Dat heet de vrijlating. Die geldt alleen in de eerste 6 maanden."
+              waarde={f.partnerWerktAl}
+              onChange={(v) => zet("partnerWerktAl", v)}
+              fout={fouten.partnerWerktAl}
+              opties={[
+                ["kort", "Korter dan 6 maanden"],
+                ["lang", "6 maanden of langer"],
+              ]}
+            />
+          )}
         </>
       )}
 
