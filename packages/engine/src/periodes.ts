@@ -30,8 +30,11 @@ export interface VrijlatingUitleg {
 
 const pct = (b: Bedrag) => b.times(100).toString().replace(".", ",") + "%";
 
+/** Een maximumbedrag: zonder centen als het een rond bedrag is, anders precies zoals in de wet. */
+const tot = (b: Bedrag) => euro(b, b.isInteger());
+
 const DAARNA =
-  "Verdient u minder dan de bijstandsnorm, dan komt er samen evenveel binnen als zonder werk: de bijstand vult uw loon aan tot de norm. Kosten die u zelf voor het werk maakt, gaan daar nog af. Verdient u de norm of meer, dan stopt de bijstand en houdt u uw hele netto loon. Daarin zit ook de arbeidskorting: korting op de belasting omdat u werkt.";
+  "Verdient u minder dan de bijstandsnorm, dan krijgt u samen evenveel loon en bijstand als zonder werk: de bijstand vult uw loon aan tot de norm. Kosten die u zelf voor het werk maakt, gaan daar nog af. Verdient u de norm of meer, dan stopt de bijstand en houdt u uw hele netto loon. Daarin zit ook de arbeidskorting: korting op de belasting omdat u werkt.";
 
 export function vrijlatingUitleg(invoer: Invoer, regels: RegelSet = standaardRegels): VrijlatingUitleg {
   const u = zonderCitaten(invoer, regels);
@@ -79,7 +82,7 @@ function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg,
             {
               fase: "start",
               naam: "Rest van uw 6 maanden",
-              regel: `Uw vrijlating van vóór 2027 loopt door tot het einde van uw 6 maanden: u mag ${pct(oud.breuk("pw.vrijlating_n.percentage"))} van uw netto loon houden, maximaal ${euro(oud.bedrag("pw.vrijlating_n.maximum"))} per maand.`,
+              regel: `Uw vrijlating van vóór 2027 loopt door tot het einde van uw 6 maanden: u mag ${pct(oud.breuk("pw.vrijlating_n.percentage"))} van uw netto loon houden, tot ${tot(oud.bedrag("pw.vrijlating_n.maximum"))} per maand.`,
             },
             { fase: "later", naam: "Daarna", regel: `Daarna geen vrijlating meer. Vraag uw contactpersoon bij de gemeente of u daarna de nieuwe bijverdienregeling krijgt. ${DAARNA}` },
           ],
@@ -129,11 +132,11 @@ function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg,
 
     // Regime tot en met 2026: art. 31 lid 2 onder n, r en y Pw.
     // Art. 31 lid 2 y geldt "tenzij onderdeel n van toepassing is"; onderdeel r geldt alleen als y niet van toepassing is.
-    const medisch = `Heeft u een medische urenbeperking? Dan krijgt u na de eerste ${l.aantal("pw.vrijlating_n.duur").toString()} maanden (of als u jonger bent dan 27 jaar meteen) een andere vrijlating: ${pct(l.breuk("pw.vrijlating_y.percentage"))} van uw netto loon, maximaal ${euro(l.bedrag("pw.vrijlating_y.maximum"))} per maand, zonder einddatum. U krijgt nooit twee vrijlatingen tegelijk.`;
+    const medisch = `Heeft u een medische urenbeperking? Dan krijgt u na de eerste ${l.aantal("pw.vrijlating_n.duur").toString()} maanden (of als u jonger bent dan 27 jaar meteen) een andere vrijlating: ${pct(l.breuk("pw.vrijlating_y.percentage"))} van uw netto loon, tot ${tot(l.bedrag("pw.vrijlating_y.maximum"))} per maand, zonder einddatum. U krijgt nooit twee vrijlatingen tegelijk.`;
     const bron = "Participatiewet art. 31 lid 2 onder n, r en y, en lid 5.";
     const minLeeftijd = l.aantal("pw.vrijlating.minimumleeftijd");
     const yRegel = () =>
-      `Met een medische urenbeperking mag u ${pct(l.breuk("pw.vrijlating_y.percentage"))} van uw netto loon houden, maximaal ${euro(l.bedrag("pw.vrijlating_y.maximum"))} per maand, zolang u bijstand krijgt.`;
+      `Met een medische urenbeperking mag u ${pct(l.breuk("pw.vrijlating_y.percentage"))} van uw netto loon houden, tot ${tot(l.bedrag("pw.vrijlating_y.maximum"))} per maand, zolang u bijstand krijgt.`;
     if (invoer.medischUrenbeperkt && minLeeftijd.gt(invoer.leeftijd)) {
       return { periodes: [{ fase: "later", naam: "Vanaf de start", regel: yRegel() }], bron };
     }
@@ -154,7 +157,7 @@ function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg,
     const mn = l.bedrag("pw.vrijlating_n.maximum");
     const dn = l.aantal("pw.vrijlating_n.duur").toNumber();
     const lijst: Periode[] = [
-      { fase: "start", naam: `Maand 1 t/m ${dn}`, regel: `U mag dan ${pct(pn)} van uw netto loon houden naast de bijstand, tot ${euro(mn, mn.isInteger())} per maand.` },
+      { fase: "start", naam: `Maand 1 t/m ${dn}`, regel: `U mag dan ${pct(pn)} van uw netto loon houden naast de bijstand, tot ${tot(mn)} per maand.` },
     ];
     if (invoer.medischUrenbeperkt) {
       lijst.push({ fase: "later", naam: `Vanaf maand ${dn + 1}`, regel: yRegel() });
@@ -166,7 +169,7 @@ function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg,
         {
           fase: "later",
           naam: `Maand ${dn + 1} t/m ${dn + dr}`,
-          regel: `Als alleenstaande ouder met een kind jonger dan 12 jaar mag u ${pct(pr)} houden, maximaal ${euro(mr)} per maand.`,
+          regel: `Als alleenstaande ouder met een kind jonger dan 12 jaar mag u ${pct(pr)} houden, tot ${tot(mr)} per maand.`,
         },
         { fase: "geen", naam: `Vanaf maand ${dn + dr + 1}`, regel: `Geen vrijlating meer. ${DAARNA}` },
       );

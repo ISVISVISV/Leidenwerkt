@@ -138,12 +138,10 @@ describe("toeslagen", () => {
     expect(r.nietMeegenomen).toEqual([]);
   });
 
-  it("huurtoeslag met huisgenoten: niet berekend, en het kopgetal is dan te gunstig", () => {
+  it("huurtoeslag met huisgenoten van wie het inkomen onbekend is: berekend zonder hun inkomen, met een aanname", () => {
     const r = bereken(basis({ kostendelers: 1, wonen: { soort: "huur", kaleHuurPerMaand: 650 }, nieuwWerk: { brutoMaandloon: 1500 } }));
-    expect(post(r, "huidig", "huurtoeslag")!.perMaand).toBeNull();
-    expect(post(r, "huidig", "huurtoeslag")!.reden).toContain("huisgenoten");
-    expect(r.betrouwbaarheid.niveau).toBe("beperkt");
-    expect(r.betrouwbaarheid.richting).toBe("te_gunstig");
+    expect(post(r, "huidig", "huurtoeslag")!.perMaand).not.toBeNull();
+    expect(post(r, "huidig", "huurtoeslag")!.aannames.join(" ")).toContain("huisgenoten is niet meegeteld");
   });
 
   it("huurtoeslag met huisgenoten: hun inkomen telt mee en het huishouden is meerpersoons", () => {

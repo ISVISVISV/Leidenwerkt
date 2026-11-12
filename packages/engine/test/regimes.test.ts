@@ -108,7 +108,7 @@ describe("overgangsrecht art. 78ff Pw", () => {
   it("de app-uitleg noemt de rest van de oude periode", () => {
     const u = vrijlatingUitleg(basis({ overgang2027: "n" }), met2027);
     expect(u.periodes[0].naam).toBe("Rest van uw 6 maanden");
-    expect(u.periodes[0].regel).toMatch(/€\s289,00/);
+    expect(u.periodes[0].regel).toMatch(/tot €\s289 per maand/);
   });
 });
 

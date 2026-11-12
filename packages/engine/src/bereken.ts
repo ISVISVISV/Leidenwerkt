@@ -369,18 +369,36 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     posten.push(
       maakPost(regels, datum, "huurtoeslag", "Huurtoeslag", "toeslag", ({ l, stap, aanname }) => {
         const huisgenoten = invoer.kostendelers + (invoer.jongeHuisgenoten ?? 0);
-        if (huisgenoten > 0 && invoer.huisgenotenInkomenJaar === undefined) {
-          throw new Afhankelijk(
-            "Het inkomen van uw huisgenoten telt mee voor de huurtoeslag, en dat is niet ingevuld. Daarom rekent de rekenhulp de huurtoeslag niet uit. Weet u het inkomen? Vul het dan in bij 'Uw woning'.",
-          );
-        }
         let rekeninkomen = toetsingsinkomen(l, stap, aanname);
-        if (invoer.huisgenotenInkomenJaar !== undefined) {
+        const eigen = rekeninkomen;
+        if (huisgenoten > 0 && invoer.huisgenotenInkomenJaar === undefined) {
+          aanname("Het inkomen van uw huisgenoten is niet meegeteld, omdat u het niet weet. Daardoor kan uw huurtoeslag lager zijn dan hier staat.");
+        }
+        if (invoer.huisgenotenInkomenJaar !== undefined && huisgenoten > 0) {
           const anderen = D(invoer.huisgenotenInkomenJaar);
           stap("Plus het inkomen per jaar van uw huisgenoten (dit telt mee voor de huurtoeslag)", anderen);
           rekeninkomen = rekeninkomen.plus(anderen);
-          stap("Inkomen per jaar van iedereen in huis samen", rekeninkomen);
         }
+        // Inkomen van kinderen van 18 of ouder: het hele inkomen, min de vrijstelling voor wie aan het begin van het jaar jonger is dan 23.
+        invoer.kinderen.forEach((k, i) => {
+          if (k.leeftijd < 18) return;
+          if (k.inkomenJaar === undefined) {
+            if (k.inkomenOnbekend) aanname("Het inkomen van uw kind is niet meegeteld, omdat u het niet weet. Daardoor kan uw huurtoeslag lager zijn dan hier staat.");
+            return;
+          }
+          const inkomen = D(k.inkomenJaar);
+          const jong = (k.leeftijdBeginJaar ?? k.leeftijd) < 23;
+          const telt = jong ? max(NUL, inkomen.minus(l.bedrag("ht.vrijstelling_kind_onder_23"))) : inkomen;
+          const wie = invoer.kinderen.filter((x) => x.leeftijd >= 18).length > 1 ? `kind ${i + 1}` : "uw kind";
+          stap(
+            jong
+              ? `Plus het inkomen van ${wie} boven ${euro(l.bedrag("ht.vrijstelling_kind_onder_23"), true)} per jaar (jonger dan 23 jaar: de rest telt niet mee)`
+              : `Plus het inkomen per jaar van ${wie}`,
+            telt,
+          );
+          rekeninkomen = rekeninkomen.plus(telt);
+        });
+        if (!rekeninkomen.eq(eigen)) stap("Inkomen per jaar van iedereen in huis samen", rekeninkomen);
         const personen = 1 + (paar ? 1 : 0) + invoer.kinderen.length + huisgenoten;
         const h = huurtoeslag(l, D(wonen.kaleHuurPerMaand ?? 0), rekeninkomen, personen);
         stap("Rekenhuur: de kale huur, tot de maximale huurgrens", h.rekenhuur);
@@ -765,11 +783,16 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   }
 
   // Leiden: Sleutelpas en Kindtegoed (tot 130% van het sociaal minimum; Kindtegoed tot 140%).
+  // Elke regeling met een inkomensgrens gebruikt dezelfde zinnen: boven de grens zeker niet meer, eronder "kunt u nog krijgen".
+  const regelingZin = (wat: string, boven: boolean, grens: Bedrag) =>
+    boven
+      ? `Met dit inkomen krijgt u ${wat} niet meer. De grens is ongeveer ${euro(grens, true)} netto per maand. Dat is niet meegerekend.`
+      : `Met dit inkomen kunt u ${wat} nog krijgen. De grens is ongeveer ${euro(grens, true)} netto per maand.`;
+  const inkomenWerk = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
   probeer(() => {
     const grens = l.breuk("leiden.sleutelpas.inkomensgrens");
     const norm = sociaalMinimum(l, invoer);
     if (!norm) return;
-    const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
     const kinderen = invoer.kinderen.filter((k) => k.leeftijd < 18);
     let kindtegoed = NUL;
     // Opbouw per leeftijdsgroep, zodat het totaal na te rekenen is: "2 × € 350 en 1 × € 200".
@@ -781,47 +804,46 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     }
     const delen = [...opbouw].map(([b, n]) => `${n} × ${b}`);
     const opbouwTekst = kinderen.length > 1 ? ` (${delen.slice(0, -1).join(", ")}${delen.length > 1 ? " en " : ""}${delen[delen.length - 1]})` : "";
-    const kt = kinderen.length > 0 ? ` Voor uw ${kinderen.length === 1 ? "kind" : "kinderen"} krijgt u dan ook Kindtegoed: ${euro(kindtegoed, true)} per jaar${opbouwTekst} voor schoolspullen, sport en cultuur. Het bedrag hangt af van de leeftijd van het kind.` : "";
-    if (inkomen.gt(norm.times(grens))) {
-      let tekst = `Met dit inkomen komt u waarschijnlijk niet meer in aanmerking voor de gratis Sleutelpas (grens voor uw huishouden: ongeveer ${euro(norm.times(grens), true)} netto per maand).`;
-      if (kinderen.length > 0) {
-        const grens2 = l.breuk("leiden.kindtegoed.inkomensgrens");
-        tekst += !inkomen.gt(norm.times(grens2))
-          ? ` Het Kindtegoed van ${euro(kindtegoed, true)} per jaar${opbouwTekst} houdt u waarschijnlijk wel, tot ongeveer ${euro(norm.times(grens2), true)} netto per maand.`
-          : ` Ook het Kindtegoed van ${euro(kindtegoed, true)} per jaar krijgt u dan waarschijnlijk niet meer (grens: ongeveer ${euro(norm.times(grens2), true)} netto per maand).`;
-      }
-      uit.push({ soort: "waarschuwing", kop: kinderen.length > 0 ? "Sleutelpas en Kindtegoed" : "Sleutelpas", tekst, bron: bronVan(l, "leiden.sleutelpas.inkomensgrens") });
-    } else {
-      uit.push({
-        soort: "info",
-        kop: kinderen.length > 0 ? "Sleutelpas en Kindtegoed" : "Sleutelpas",
-        tekst: `U komt waarschijnlijk nog in aanmerking voor de gratis Sleutelpas van de gemeente Leiden (grens voor uw huishouden: ongeveer ${euro(norm.times(grens), true)} netto per maand).${kt}`,
-        bron: bronVan(l, "leiden.sleutelpas.inkomensgrens"),
-      });
+    const g1 = norm.times(grens);
+    const boven1 = inkomenWerk.gt(g1);
+    let tekst = regelingZin("de gratis Sleutelpas", boven1, g1);
+    let boven2 = false;
+    if (kinderen.length > 0) {
+      const g2 = norm.times(l.breuk("leiden.kindtegoed.inkomensgrens"));
+      boven2 = inkomenWerk.gt(g2);
+      tekst += ` ${regelingZin(`het Kindtegoed van ${euro(kindtegoed, true)} per jaar${opbouwTekst} voor schoolspullen, sport en cultuur`, boven2, g2)}`;
     }
+    uit.push({
+      soort: boven1 || boven2 ? "waarschuwing" : "info",
+      kop: kinderen.length > 0 ? "Sleutelpas en Kindtegoed" : "Sleutelpas",
+      tekst,
+      bron: bronVan(l, "leiden.sleutelpas.inkomensgrens"),
+    });
   });
 
-  // Leiden: collectieve zorgverzekering voor minima (tot 120% van de norm voor de bijzondere bijstand).
+  // Leiden: Gemeentepolis, de collectieve zorgverzekering (tot 120% van het sociaal minimum, zelfde tabel als het Volwassenenfonds).
   probeer(() => {
-    const grens = normBijzondereBijstand(l, invoer).times(l.breuk("leiden.czm.inkomensgrens"));
-    const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
-    const boven = inkomen.gt(grens);
-    const grensTekst = `(grens: ongeveer ${euro(grens, true)} netto per maand)`;
+    const norm = sociaalMinimum(l, invoer);
+    if (!norm) return;
+    const grens = norm.times(l.breuk("leiden.gemeentepolis.inkomensgrens"));
+    const boven = inkomenWerk.gt(grens);
     uit.push({
       soort: boven ? "waarschuwing" : "info",
       kop: "Zorgverzekering",
-      bron: bronVan(l, "leiden.czm.inkomensgrens"),
-      tekst: boven
-        ? `Heeft u de collectieve zorgverzekering van de gemeente Leiden? Met dit inkomen betaalt de gemeente waarschijnlijk niet meer mee aan de premie ${grensTekst}. Dat is niet meegerekend.`
-        : `De gemeente Leiden kan meebetalen aan de premie van de collectieve zorgverzekering. Met dit inkomen kan dat waarschijnlijk nog ${grensTekst}.`,
+      bron: bronVan(l, "leiden.gemeentepolis.inkomensgrens"),
+      tekst: regelingZin("de Gemeentepolis (de collectieve zorgverzekering van de gemeente)", boven, grens),
     });
+  });
+
+  // Leiden: vergoeding zwemabonnement (tot 120% van de norm voor de bijzondere bijstand).
+  probeer(() => {
+    const grens = normBijzondereBijstand(l, invoer).times(l.breuk("leiden.czm.inkomensgrens"));
+    const boven = inkomenWerk.gt(grens);
     uit.push({
       soort: boven ? "waarschuwing" : "info",
       kop: "Zwemabonnement",
       bron: bronVan(l, "leiden.czm.inkomensgrens"),
-      tekst: boven
-        ? `Krijgt u van de gemeente Leiden een vergoeding voor een zwemabonnement? Met dit inkomen stopt die waarschijnlijk ${grensTekst}. Dat is niet meegerekend.`
-        : `De gemeente Leiden kan een seizoenabonnement voor zwembad De Vliet of De Zijl vergoeden. Met dit inkomen kan dat waarschijnlijk nog ${grensTekst}.`,
+      tekst: regelingZin("de vergoeding voor een seizoenabonnement van zwembad De Vliet of De Zijl", boven, grens),
     });
   });
 
@@ -831,15 +853,12 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     if (!norm) return;
     const grens = norm.times(l.breuk("leiden.volwassenenfonds.inkomensgrens"));
     const maximum = euro(l.bedrag("leiden.volwassenenfonds.maximum"), true);
-    const inkomen = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
-    const boven = inkomen.gt(grens);
+    const boven = inkomenWerk.gt(grens);
     uit.push({
       soort: boven ? "waarschuwing" : "info",
       kop: "Sport en cultuur",
       bron: bronVan(l, "leiden.volwassenenfonds.inkomensgrens"),
-      tekst: boven
-        ? `Met dit inkomen kunt u waarschijnlijk geen hulp meer krijgen van het Volwassenenfonds Sport & Cultuur (grens: ongeveer ${euro(grens, true)} netto per maand).`
-        : `Het Volwassenenfonds Sport & Cultuur kan een sport of culturele activiteit voor u betalen, tot ${maximum} per jaar. Met dit inkomen kan dat waarschijnlijk nog (grens: ongeveer ${euro(grens, true)} netto per maand). Aanvragen gaat via een tussenpersoon; vraag het uw contactpersoon bij de gemeente.`,
+      tekst: `${regelingZin(`hulp van het Volwassenenfonds Sport & Cultuur (tot ${maximum} per jaar)`, boven, grens)}${boven ? "" : " Aanvragen gaat via een tussenpersoon; vraag het uw contactpersoon bij de gemeente."}`,
     });
   });
 
@@ -853,8 +872,8 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
         kop: "Gratis OV-pas",
         bron: bronVan(l, "leiden.ovpas.inkomensgrens"),
         tekst: stopt
-          ? "Met bijstand kunt u in Leiden een gratis pas voor de bus krijgen. Verdient u meer dan de bijstandsnorm, dan krijgt u die pas niet meer. De pas geldt niet in de ochtendspits en de avondspits."
-          : "Zolang u bijstand krijgt, kunt u in Leiden een gratis pas voor de bus krijgen. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+          ? "Met dit inkomen krijgt u de gratis OV-pas niet meer. De grens is de bijstandsnorm. Dat is niet meegerekend."
+          : "Met dit inkomen kunt u de gratis OV-pas nog krijgen. De grens is de bijstandsnorm. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
       });
     });
   }
@@ -868,7 +887,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
         kop: "Gemeentelijke belastingen",
         bron: bronVan(l, "leiden.kwijtschelding.kosten_van_bestaan"),
         tekst:
-          "Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Verdient u meer dan de bijstandsnorm, dan moet u die misschien wel betalen, helemaal of voor een deel. Dat is niet meegerekend. Vraag het na bij de gemeente.",
+          "Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Met dit inkomen kijkt de gemeente of u ze helemaal of voor een deel moet betalen. Dat is niet meegerekend.",
       });
     });
   }
@@ -963,6 +982,7 @@ function valideer(invoer: Invoer) {
   if (invoer.partner && (invoer.partner.leeftijd < 21 || invoer.partner.leeftijd >= 67)) fouten.push("partner moet 21 jaar of ouder zijn en jonger dan de AOW-leeftijd");
   if (invoer.leefvorm === "alleenstaande_ouder" && invoer.kinderen.length === 0) fouten.push("alleenstaande ouder zonder kinderen");
   if (invoer.kostendelers < 0 || !Number.isInteger(invoer.kostendelers)) fouten.push("aantal kostendelers ongeldig");
+  if (invoer.kinderen.some((k) => k.inkomenJaar !== undefined && (!Number.isFinite(k.inkomenJaar) || k.inkomenJaar < 0))) fouten.push("inkomen van een kind ongeldig");
   if (invoer.jongeHuisgenoten !== undefined && (invoer.jongeHuisgenoten < 0 || !Number.isInteger(invoer.jongeHuisgenoten))) {
     fouten.push("aantal jonge huisgenoten ongeldig");
   }

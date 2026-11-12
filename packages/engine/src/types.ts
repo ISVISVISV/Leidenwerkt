@@ -16,6 +16,15 @@ export type Opvangsoort = "dagopvang" | "bso" | "gastouder";
 
 export interface Kind {
   leeftijd: number;
+  /** Leeftijd op 1 januari van het rekenjaar; bepaalt de vrijstelling voor de huurtoeslag (jonger dan 23). */
+  leeftijdBeginJaar?: number;
+  /**
+   * Toetsingsinkomen (ongeveer bruto) per jaar van een kind van 18 of ouder. Telt mee voor de huurtoeslag;
+   * de rekenhulp trekt de vrijstelling zelf af. Ontbreekt het, dan telt het niet mee en zegt de rekenhulp dat.
+   */
+  inkomenJaar?: number;
+  /** De gebruiker weet het inkomen van dit kind niet. */
+  inkomenOnbekend?: boolean;
   /** Kinderopvang die gebruikt wordt als de ouder(s) werken. */
   opvang?: {
     soort: Opvangsoort;
@@ -73,8 +82,8 @@ export interface Invoer {
   kostendelers: number;
   /**
    * Bruto jaarinkomen (toetsingsinkomen) van die huisgenoten samen. Telt mee
-   * voor de huurtoeslag (rekeninkomen, art. 1 Wht). Zonder dit bedrag wordt de
-   * huurtoeslag niet berekend als er huisgenoten zijn.
+   * voor de huurtoeslag (rekeninkomen, art. 1 Wht). Zonder dit bedrag rekent de
+   * huurtoeslag zonder hun inkomen, met een aanname.
    */
   huisgenotenInkomenJaar?: number;
   /**
