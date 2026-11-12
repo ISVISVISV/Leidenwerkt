@@ -10,7 +10,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 - Werkt uw partner al? Dan vraagt de rekenhulp hoe lang. Bij korter dan 6 maanden mag ook uw partner een deel van het loon houden (art. 31 lid 2 onder n en art. 45 lid 4 Pw).
 - Gemeentepolis bij verblijf in een instelling: de grens volgt de tabel van de gemeente (€ 512,36 zonder vakantiegeld).
-- Startpagina: een vollediger lijst van wat u nodig heeft; voor wie de rekenhulp is, staat onderaan.
+- Startpagina: een vollediger lijst van wat u nodig heeft (zonder het inkomen van huisgenoten; dat vraagt de rekenhulp later, met de keuze 'weet ik niet'); voor wie de rekenhulp is, staat onderaan.
 - Uw huishouden: nieuwe volgorde (partner, geboortedatums, werk van de partner, kinderen, ander inkomen). Nieuwe uitleg bij partner, kinderen en werk van de partner. Bij een stel: "De uitkomst geldt voor u samen."
 - Ander inkomen in drie vakken: partneralimentatie (de rekenhulp trekt de belasting er zelf af, art. 31 lid 3 Pw), kinderalimentatie (telt niet mee voor de toeslagen) en ander inkomen.
 - Loon per week in plaats van per 4 weken.
