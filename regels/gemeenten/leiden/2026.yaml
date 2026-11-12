@@ -69,6 +69,7 @@ parameters:
       kop: "Gemeente Leiden, Individuele inkomenstoeslag"
       tekst: "U bent 23 jaar of ouder, maar u hebt nog niet de AOW-leeftijd bereikt. […] alleenstaande: € 462,00 alleenstaande ouder: € 577,00 gehuwden: € 635,00"
       versie: "geraadpleegd op 11 november 2026"
+    notitie: "De wet noemt 21 jaar (art. 36 lid 1 Pw). De Verordening individuele inkomenstoeslag Leiden 2020 (CVDR634399, art. 1) laat de referteperiode van vijf jaar ingaan op de achttiende verjaardag; daardoor kan iemand er pas vanaf 23 jaar aan voldoen. Dat sluit aan bij leiden.nl. Inkomen is volgens art. 1 het inkomen van art. 32 Pw plus de algemene bijstand; loon dat door de vrijlating niet meetelt (art. 31 lid 2), telt dus ook hier niet mee."
   - id: leiden.iit.bedrag.alleenstaande
     omschrijving: Individuele inkomenstoeslag per keer (één keer per 12 maanden), alleenstaande
     eenheid: euro_per_jaar

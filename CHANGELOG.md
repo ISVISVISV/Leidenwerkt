@@ -8,6 +8,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Gewijzigd
 
+- Toets van de belastingberekening aan de witte en groene maandtabel loonheffing 2026 van de Belastingdienst (`packages/engine/test/loonheffingstabellen.test.ts`): verschil hoogstens € 0,18 per maand.
 - Werkt uw partner al? Dan vraagt de rekenhulp hoe lang. Bij korter dan 6 maanden mag ook uw partner een deel van het loon houden (art. 31 lid 2 onder n en art. 45 lid 4 Pw).
 - Gemeentepolis bij verblijf in een instelling: de grens volgt de tabel van de gemeente (€ 512,36 zonder vakantiegeld).
 - Startpagina: een vollediger lijst van wat u nodig heeft (zonder het inkomen van huisgenoten; dat vraagt de rekenhulp later, met de keuze 'weet ik niet'); voor wie de rekenhulp is, staat onderaan.
