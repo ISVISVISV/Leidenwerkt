@@ -275,8 +275,12 @@ describe("na de QA", () => {
     const w = { brutoMaandloon: 300, urenPerWeek: 8 };
     const alleen = bereken(basis({ wonen: { soort: "instelling" }, nieuwWerk: w, vrijlatingFase: "start" }));
     expect(alleen.signalen.find((s) => s.kop === "Sleutelpas")?.tekst).toMatch(/€\s?584/); // 130% × € 449,44
+    // Gemeentepolis (V17): de gemeentepagina noemt voor een alleenstaande in een instelling € 512,36 zonder vakantiegeld,
+    // dus € 539 met vakantiegeld (120% × € 449,44), net als het Volwassenenfonds.
+    expect(alleen.signalen.find((s) => s.kop === "Zorgverzekering")?.tekst).toMatch(/€\s?539/);
+    expect(alleen.signalen.find((s) => s.kop === "Sport en cultuur")?.tekst).toMatch(/€\s?539/);
     const paar = bereken(basis({ leefvorm: "paar", partner: { leeftijd: 35 }, wonen: { soort: "instelling" }, nieuwWerk: w, vrijlatingFase: "start" }));
-    expect(paar.signalen.some((s) => s.kop === "Sleutelpas" || s.kop === "Sport en cultuur")).toBe(false);
+    expect(paar.signalen.some((s) => ["Sleutelpas", "Sport en cultuur", "Zorgverzekering"].includes(s.kop))).toBe(false);
   });
 });
 
