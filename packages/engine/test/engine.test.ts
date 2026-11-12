@@ -250,7 +250,7 @@ describe("loonvormen en perioden", () => {
     const { vrijlatingsPeriodes } = await import("../src/index.ts");
     const p = vrijlatingsPeriodes(basis());
     expect(p.map((x) => x.naam)).toEqual(["Maand 1 t/m 6", "Vanaf maand 7"]);
-    expect(p[0].regel).toContain("€ 289,00");
+    expect(p[0].regel).toContain("tot €\u00a0289 per maand");
     const ouder = vrijlatingsPeriodes(basis({ leefvorm: "alleenstaande_ouder", kinderen: [{ leeftijd: 5 }] }));
     expect(ouder.map((x) => x.naam)).toEqual(["Maand 1 t/m 6", "Maand 7 t/m 36", "Vanaf maand 37"]);
   });

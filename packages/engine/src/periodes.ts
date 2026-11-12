@@ -145,7 +145,7 @@ function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg,
     const mn = l.bedrag("pw.vrijlating_n.maximum");
     const dn = l.aantal("pw.vrijlating_n.duur").toNumber();
     const lijst: Periode[] = [
-      { fase: "start", naam: `Maand 1 t/m ${dn}`, regel: `U mag ${pct(pn)} van uw netto loon houden naast de bijstand, maximaal ${euro(mn)} per maand.` },
+      { fase: "start", naam: `Maand 1 t/m ${dn}`, regel: `U mag dan ${pct(pn)} van uw netto loon houden naast de bijstand, tot ${euro(mn, mn.isInteger())} per maand.` },
     ];
     if (invoer.medischUrenbeperkt) {
       lijst.push({ fase: "later", naam: `Vanaf maand ${dn + 1}`, regel: yRegel() });
