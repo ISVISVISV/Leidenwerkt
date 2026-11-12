@@ -36,13 +36,20 @@ function onbekendeOnderdelen(datum: string): string[] {
 const leesbareDatum = (iso: string) =>
   new Date(`${iso}T12:00:00`).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
 
-export function Uitkomst({ f }: { f: Formulier }) {
+export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUren?: number; onUren?: (uren: number) => void }) {
   const start = schuifStart(f);
   const extra = start.wat === "extra";
-  const [uren, setUren] = useState(() => start.uren);
   const maxUren = Math.max(extra ? 32 : 40, start.uren);
   // Bij "meer uren" kan de schuif niet onder het huidige aantal uren.
   const minUren = f.werktNu && f.verandering === "meer" ? Math.min(start.uren, Math.round(getal(f.nuUren) ?? 0) + 1) : 1;
+  // Na "Gegevens aanpassen" staat de schuif weer waar hij stond, zolang uren en loon gelijk zijn gebleven.
+  const [uren, zetUrenLokaal] = useState(() =>
+    bewaardeUren !== undefined && bewaardeUren >= minUren && bewaardeUren <= maxUren ? bewaardeUren : start.uren,
+  );
+  const setUren = (u: number) => {
+    zetUrenLokaal(u);
+    onUren?.(u);
+  };
   const urenTekst = (u: number) => `${u} uur ${extra ? "extra werk " : ""}per week`;
   const [gekozenFase, setFase] = useState<"start" | "later" | "geen">("start");
   const { datum, teruggevallen } = useMemo(() => bruikbareDatum(f), [f]);
@@ -149,7 +156,7 @@ export function Uitkomst({ f }: { f: Formulier }) {
       <section className="alleen-print gegevens" aria-label="Wat u heeft ingevuld">
         <h2>Wat u heeft ingevuld</h2>
         <div className="gegevens-kolommen">
-          {ingevuld(f, uren).map((blok) => (
+          {ingevuld(f).map((blok) => (
             <div key={blok.kop}>
               <h3>{blok.kop}</h3>
               <dl>

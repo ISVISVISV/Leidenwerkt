@@ -109,7 +109,7 @@ Waar je moet kijken:
 ## 4. Hoe het gecontroleerd is, en waar dat ophoudt
 
 - **Bronnen.** Elke parameter is overgenomen uit een officiële bron (wetten.overheid.nl, lokaleregelgeving.overheid.nl, rijksoverheid.nl, belastingdienst.nl, svb.nl, leiden.nl). Parameters met de status `onbevestigd` zijn in de app zichtbaar gemarkeerd.
-- **Officiële rekenhulpen.** De toeslagen zijn vergeleken met de proefberekening van Dienst Toeslagen, met verzonnen gegevens. De bedragen kwamen tot op de euro overeen.
+- **Officiële rekenhulpen.** De toeslagen zijn vergeleken met de proefberekening van Dienst Toeslagen, met verzonnen gegevens. De bedragen kwamen tot op de euro overeen. Dertien van die proefberekeningen (november 2026: stellen, medebewoners, een kind van 20 met inkomen, kinderopvang) staan als toets in `packages/engine/test/proefberekening.test.ts`.
 - **Tweede narekening.** In november 2026 zijn 22 verzonnen casussen opnieuw nagerekend zonder vooraf de code te lezen. De bijstand kwam in alle casussen overeen; de toeslagen in de zes casussen die bij Dienst Toeslagen zijn nagelopen ook. Beperking: bij die narekening konden de wetteksten zelf niet worden geopend en is deels op niet-officiële overzichten geleund. Het is een bevestiging van de formules, geen tweede controle van elk bedrag.
 - **Nog niet gedaan.** De uitkomsten zijn niet nagelopen door een klantmanager of sociaal raadsman, en de app is niet getest met mensen uit de doelgroep.
 
