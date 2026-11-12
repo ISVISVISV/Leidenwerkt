@@ -230,9 +230,9 @@ parameters:
       geraadpleegd_op: 2026-11-12
     citaat:
       kop: "Gemeente Leiden, Collectieve aanvullende zorgverzekering"
-      tekst: "De gemeentepolis is een zorgverzekering van Zorg en Zekerheid en de gemeente. […] De Gemeentepolis is voor inwoners van Leiden met een inkomen tot 120% van het sociaal minimum."
+      tekst: "De gemeentepolis is een zorgverzekering van Zorg en Zekerheid en de gemeente. […] De Gemeentepolis is voor inwoners van Leiden met een inkomen tot 120% van het sociaal minimum. […] Alleenstaand – 21 jaar tot AOW-leeftijd € 1.618,18 Getrouwd of samenwonend – 21 tot AOW-leeftijd € 2.311,68 Alleenstaand, in instelling € 512,36 […] Inkomen van 120% van het sociaal minimum, zonder vakantiegeld."
       versie: "geraadpleegd op 12 november 2026"
-    notitie: "De pagina noemt dezelfde maximale netto-inkomens per maand als het Volwassenenfonds (alleenstaand € 1.618,18, getrouwd of samenwonend € 2.311,68). De app gebruikt daarom hetzelfde sociaal minimum als bij het Volwassenenfonds."
+    notitie: "De pagina noemt dezelfde maximale netto-inkomens per maand als het Volwassenenfonds: alleenstaand € 1.618,18, getrouwd of samenwonend € 2.311,68, alleenstaand in een instelling € 512,36 (120% × 95% van de norm van art. 23 lid 1 Pw, zonder verhoging). Voor een paar in een instelling noemt de pagina geen bedrag; de app geeft dan geen melding. De app gebruikt daarom hetzelfde sociaal minimum als bij het Volwassenenfonds."
   - id: leiden.kwijtschelding.kosten_van_bestaan
     omschrijving: Kwijtschelding gemeentelijke belastingen — kosten van bestaan als deel van de bijstandsnorm (art. 2 lid 1 Verordening kwijtschelding gemeentelijke belastingen Leiden 2025)
     eenheid: breuk
