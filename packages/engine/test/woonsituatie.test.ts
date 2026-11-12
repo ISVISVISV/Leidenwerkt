@@ -353,8 +353,8 @@ describe("Leiden: meldingen over zorgverzekering, zwemmen en sport", () => {
 describe("Kindtegoed boven 140% van het sociaal minimum", () => {
   it("de melding zegt dat ook het Kindtegoed vervalt", () => {
     const r = bereken(basis({ leefvorm: "alleenstaande_ouder", kinderen: [{ leeftijd: 9 }], nieuwWerk: { brutoMaandloon: 3200, urenPerWeek: 36 } }));
-    const tekst = r.signalen.find((s) => s.kop === "Sleutelpas en Kindtegoed")?.tekst ?? "";
-    expect(tekst).toContain("Met dit inkomen krijgt u de gratis Sleutelpas niet meer.");
-    expect(tekst).toMatch(/Met dit inkomen krijgt u het Kindtegoed van .* niet meer\./);
+    // Twee aparte meldingen, elk met een eigen grens.
+    expect(r.signalen.find((s) => s.kop === "Sleutelpas")?.tekst).toContain("Met dit inkomen krijgt u de gratis Sleutelpas niet meer.");
+    expect(r.signalen.find((s) => s.kop === "Kindtegoed")?.tekst).toMatch(/Met dit inkomen krijgt u het Kindtegoed van .* niet meer\./);
   });
 });

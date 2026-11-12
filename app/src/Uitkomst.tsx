@@ -56,10 +56,15 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
 
   const uitleg = useMemo(() => vrijlatingUitleg(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
   // Periodes met precies dezelfde uitkomst als de periode ervoor worden één periode.
-  const periodes = useMemo(
-    () => samenvoegen(uitleg.periodes, (fase) => bereken(naarInvoer(f, { uren, fase, datum }))),
-    [uitleg, f, uren, datum],
-  );
+  // Werkt iemand al korter dan 6 maanden, dan is een deel van de eerste periode al voorbij. Hoeveel, weet de
+  // rekenhulp niet; daarom geen "maand 1 t/m 6" en geen bedrag voor de eerste 12 maanden.
+  const alBezig = f.werktNu && f.werktAl === "kort";
+  const periodes = useMemo(() => {
+    const samen = samenvoegen(uitleg.periodes, (fase) => bereken(naarInvoer(f, { uren, fase, datum })));
+    return alBezig
+      ? samen.map((p, i) => (i === 0 && p.fase === "start" ? { ...p, naam: "Tot 6 maanden nadat u naast de bijstand bent gaan werken" } : p))
+      : samen;
+  }, [uitleg, f, uren, datum, alBezig]);
   // Wie al 6 maanden of langer werkt, zit in de periode na de eerste vrijlating: de uitleg volgt de berekening.
   const vast = vasteFase(f);
   // Op papier staan alle meldingen uitgeklapt.
@@ -129,7 +134,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
       <Antwoord
         r={r}
         urenTekst={urenTekst(uren)}
-        eersteJaar={eersteJaar.bedrag}
+        eersteJaar={alBezig ? undefined : eersteJaar.bedrag}
         perioden={perioden}
         periode={perioden ? gekozen.naam : undefined}
         stoptVanaf={meerPeriodes && rVolgende && bijstandVan(rVolgende) === "0.00" ? stopmoment(volgendeNaam) : undefined}
@@ -201,7 +206,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
                   uren < grensUren
                     ? ""
                     : heeftBijstand
-                      ? " Nu krijgt u nog bijstand, omdat u in deze periode een deel van uw loon mag houden."
+                      ? " Met dit werk krijgt u in deze periode nog bijstand, omdat u een deel van uw loon mag houden."
                       : ""
                 }`}
           </p>
@@ -226,7 +231,9 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
               {vast
                 ? "U werkt al 6 maanden of langer naast de bijstand."
                 : meerPeriodes
-                  ? `${gekozen.naam} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.`
+                  ? gekozen.naam.includes("nadat u")
+                    ? `${gekozen.naam}.`
+                    : `${gekozen.naam} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.`
                   : `${gekozen.naam}.`}
             </strong>{" "}
             {gekozen.regel}
@@ -292,7 +299,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
                   <p>{metLinks(s.tekst)}</p>
                   {s.tekst.includes("De grens is ongeveer") && (
                     <p>
-                      {f.leefvorm === "paar" ? "Uw inkomen samen" : "Uw inkomen"}, zonder toeslagen, is ongeveer {euro(inkomenVoorGrenzen(r).toFixed(2), true)} per maand.
+                      {f.leefvorm === "paar" ? "Uw inkomen samen" : "Uw inkomen"}, zonder toeslagen, is ongeveer {euro(inkomenVoorGrenzen(r).toFixed(2), true)} per maand, met vakantiegeld.
                     </p>
                   )}
                   {s.bron && (
@@ -376,7 +383,7 @@ function Antwoord({
 }: {
   r: Resultaat;
   urenTekst: string;
-  eersteJaar: string;
+  eersteJaar?: string;
   /** De gekozen periode, als er meer zijn. */
   periode?: string;
   /** Het verschil per maand in elke periode, als dat per periode verschilt. */
@@ -412,7 +419,7 @@ function Antwoord({
             {perioden.map((p) => (
               <li key={p.naam}>{verschilRegel(p.naam, p.verschil, " per maand")}</li>
             ))}
-            <li>{verschilRegel("De eerste 12 maanden samen", eersteJaar, "")}</li>
+            {eersteJaar !== undefined && <li>{verschilRegel("De eerste 12 maanden samen", eersteJaar, "")}</li>}
           </ul>
         </>
       ) : (
@@ -727,7 +734,7 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
     const vakantiegeld = loon.per === "uur" && loon.allIn === "ja" ? "" : ", met vakantiegeld, verdeeld over 12 maanden";
     const omgerekend = loon.per === "maand" || loon.per === "netto" ? "" : ", omgerekend naar een maand";
     noten.push(
-      `U vulde ${bedragTekst(loon.bedrag)} ${LOON_PER[loon.per]} in. In de tabel staat het netto loon${loon.per === "netto" || loon.per === "netto4" ? "" : ": na belasting en premies"}${omgerekend}${vakantiegeld}.`,
+      `U vulde ${bedragTekst(loon.bedrag)} ${LOON_PER[loon.per]} in. In de tabel staat het netto loon${loon.per === "netto" || loon.per === "nettoweek" ? "" : ": na belasting en premies"}${omgerekend}${vakantiegeld}.`,
     );
   }
   if (r.werk.posten.some((p) => p.id === "huurtoeslag" && p.perMaand)) {

@@ -272,3 +272,25 @@ describe("netto maandloon als invoer", () => {
     expect(post(half, "werk", "loon")!.perMaand).toBe(post(heel, "werk", "loon")!.perMaand);
   });
 });
+
+describe("Alimentatie en weekloon (ronde 9)", () => {
+  const p = (r: Resultaat, s: "huidig" | "werk", id: string) => r[s].posten.find((x) => x.id === id);
+  it("partneralimentatie telt voor de bijstand na belasting (art. 31 lid 3 Pw): € 300 − 35,75% = € 192,75", () => {
+    const r = bereken(basis({ partneralimentatiePerMaand: 300 }));
+    expect(p(r, "huidig", "ander_inkomen")!.perMaand).toBe("192.75");
+  });
+  it("kinderalimentatie telt mee voor de bijstand, niet voor de toeslagen", () => {
+    const zonder = bereken(basis({ leefvorm: "alleenstaande_ouder", kinderen: [{ leeftijd: 6 }], wonen: { soort: "huur", kaleHuurPerMaand: 700 } }));
+    const met = bereken(basis({ leefvorm: "alleenstaande_ouder", kinderen: [{ leeftijd: 6 }], wonen: { soort: "huur", kaleHuurPerMaand: 700 }, kinderalimentatiePerMaand: 250 }));
+    expect(p(met, "huidig", "ander_inkomen")!.perMaand).toBe("250.00");
+    // De bijstand daalt met de alimentatie, de toeslagen blijven gelijk.
+    expect(D(p(zonder, "huidig", "bijstand")!.perMaand!).minus(p(met, "huidig", "bijstand")!.perMaand!).toFixed(2)).toBe("250.00");
+    for (const id of ["zorgtoeslag", "huurtoeslag", "kgb"]) expect(p(met, "huidig", id)!.perMaand).toBe(p(zonder, "huidig", id)!.perMaand);
+  });
+  it("weekloon: 52 keer per jaar", () => {
+    const week = bereken(basis({ nieuwWerk: { brutoWeekloon: 300, urenPerWeek: 20 } }));
+    const maand = bereken(basis({ nieuwWerk: { brutoMaandloon: 1300, urenPerWeek: 20 } }));
+    expect(p(week, "werk", "loon")!.perMaand).toBe(p(maand, "werk", "loon")!.perMaand);
+    expect(week.signalen.some((s) => s.kop === "Loon per week")).toBe(true);
+  });
+});

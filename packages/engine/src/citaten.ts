@@ -74,6 +74,19 @@ export const CITATEN = {
     tekst:
       "Die vraagt u zelf aan met Mijn toeslagen. […] Dit kan al zodra u het contract met de opvang hebt getekend. […] doe dit wel uiterlijk binnen 3 maanden nadat de opvang is gestart.",
   },
+  pw31lid3: {
+    titel: "Participatiewet, art. 31 lid 3",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.4_Artikel31",
+    versie: "geldend vanaf 1 juli 2026",
+    tekst:
+      "De middelen worden in aanmerking genomen tot het bedrag dat resteert na aftrek van: a. de daarover door de belanghebbende verschuldigde loonbelasting of inkomstenbelasting; […]",
+  },
+  toetsingsinkomenKinderalimentatie: {
+    titel: "Belastingdienst, Het inkomen dat telt voor toeslagen is het 'toetsingsinkomen'",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/toeslagen/hoe_werken_toeslagen/kan_ik_toeslag_krijgen/inkomen/",
+    versie: "geraadpleegd op 12 november 2026",
+    tekst: "Inkomens die niet meetellen […] kinderbijslag […] alimentatie die u krijgt voor uw kinderen",
+  },
   pw45lid4: {
     titel: "Participatiewet, art. 45 lid 4",
     url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",

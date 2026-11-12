@@ -40,6 +40,8 @@ export interface Werk {
   brutoMaandloon?: number;
   /** Bruto loon per 4 weken (13 keer per jaar), exclusief vakantiegeld. */
   brutoVierwekenloon?: number;
+  /** Bruto loon per week (52 keer per jaar), exclusief vakantiegeld. */
+  brutoWeekloon?: number;
   brutoUurloon?: number;
   /**
    * Netto maandloon zoals op de bankrekening, zonder vakantiegeld.
@@ -48,6 +50,8 @@ export interface Werk {
   nettoMaandloon?: number;
   /** Netto loon per 4 weken, zonder vakantiegeld; de engine rekent het om naar een maand (× 13 / 12). */
   nettoVierwekenloon?: number;
+  /** Netto loon per week, zonder vakantiegeld; de engine rekent het om naar een maand (× 52 / 12). */
+  nettoWeekloon?: number;
   urenPerWeek?: number;
   /** Factor waarmee het loon wordt vermenigvuldigd, bijvoorbeeld bij een ander aantal uren (urenschuif). */
   urenFactor?: number;
@@ -91,6 +95,16 @@ export interface Invoer {
    * uitkering. Telt volledig mee voor de bijstand (art. 32 Pw), in beide situaties.
    */
   anderInkomenPerMaand?: number;
+  /**
+   * Partneralimentatie per maand, zoals ontvangen (vóór belasting). De bijstand telt het bedrag
+   * na aftrek van de inkomstenbelasting (art. 31 lid 3 Pw); voor de toeslagen telt het mee.
+   */
+  partneralimentatiePerMaand?: number;
+  /**
+   * Kinderalimentatie per maand. Telt mee voor de bijstand (art. 32 Pw), niet voor de toeslagen
+   * (Belastingdienst: alimentatie voor uw kinderen hoort niet bij het toetsingsinkomen).
+   */
+  kinderalimentatiePerMaand?: number;
   /** Wie al werkt: de kinderen gaan nu ook al naar de opvang (zelfde uren). Dan telt de opvang ook bij "Nu". */
   opvangNu?: boolean;
   /**
