@@ -294,3 +294,25 @@ describe("Alimentatie en weekloon (ronde 9)", () => {
     expect(week.signalen.some((s) => s.kop === "Loon per week")).toBe(true);
   });
 });
+
+describe("Vrijlating voor het loon van de partner (V15)", () => {
+  const bijstand = (r: Resultaat, s: "huidig" | "werk") => D(r[s].posten.find((x) => x.id === "bijstand")!.perMaand!);
+  const stel = (werktKort: boolean, fase: "start" | "later") =>
+    bereken(basis({ leefvorm: "paar", partner: { leeftijd: 39, werk: { brutoMaandloon: 450 }, werktKort }, nieuwWerk: { brutoMaandloon: 600, urenPerWeek: 10 }, vrijlatingFase: fase }));
+  it("korter dan 6 maanden: 25% van het netto loon van de partner, in beide kolommen", () => {
+    const kort = stel(true, "start");
+    const lang = stel(false, "start");
+    const extra = bijstand(kort, "huidig").minus(bijstand(lang, "huidig"));
+    expect(extra.gt(100)).toBe(true);
+    expect(extra.lte(D("289"))).toBe(true);
+    expect(kort.huidig.posten.find((x) => x.id === "bijstand")!.aannames.join(" ")).toContain("tegelijk lopen");
+  });
+  it("na de eerste periode geen vrijlating meer voor de partner, ook niet in de kolom Nu", () => {
+    expect(bijstand(stel(true, "later"), "huidig").toFixed(2)).toBe(bijstand(stel(false, "later"), "huidig").toFixed(2));
+  });
+  it("partner jonger dan 27: geen vrijlating (art. 31 lid 5 Pw)", () => {
+    const jong = (werktKort: boolean) =>
+      bereken(basis({ leefvorm: "paar", partner: { leeftijd: 24, werk: { brutoMaandloon: 450 }, werktKort }, nieuwWerk: { brutoMaandloon: 600, urenPerWeek: 10 }, vrijlatingFase: "start" }));
+    expect(bijstand(jong(true), "huidig").toFixed(2)).toBe(bijstand(jong(false), "huidig").toFixed(2));
+  });
+});

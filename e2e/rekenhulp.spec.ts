@@ -207,6 +207,7 @@ test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", asyn
   await geboren(page, "Geboortedatum van uw partner", 35);
   await page.getByRole("group", { name: "Heeft uw partner betaald werk?" }).getByLabel("Ja").check();
   await page.getByRole("textbox", { name: "Bruto maandloon van uw partner" }).fill("700");
+  await page.getByRole("group", { name: "Hoe lang werkt uw partner al naast de bijstand?" }).getByLabel("6 maanden of langer").check();
   await geboren(page, "Geboortedatum kind 1", 2);
   await page.getByText("Dit kind gaat naar de kinderopvang").click();
   // Er is geen soort opvang vooraf gekozen.
@@ -691,4 +692,24 @@ test("alimentatie: partneralimentatie na belasting, kinderalimentatie alleen met
   await expect(tabel.getByRole("row", { name: /Ander inkomen/ })).toContainText("€ 193");
   // Sleutelpas en Kindtegoed zijn twee aparte meldingen; grenzen met vakantiegeld.
   await expect(page.locator(".signalen")).toContainText("met vakantiegeld");
+});
+
+test("partner werkt korter dan 6 maanden: ook voor het loon van de partner een vrijlating", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByRole("group", { name: "Woont u samen met een partner?" }).getByLabel("Ja").check();
+  await geboren(page, "Uw geboortedatum", 41);
+  await geboren(page, "Geboortedatum van uw partner", 39);
+  await page.getByRole("group", { name: "Heeft uw partner betaald werk?" }).getByLabel("Ja").check();
+  await page.getByRole("textbox", { name: "Bruto maandloon van uw partner" }).fill("450");
+  await page.getByRole("group", { name: "Hoe lang werkt uw partner al naast de bijstand?" }).getByLabel("Korter dan 6 maanden").check();
+  await verder(page);
+  await page.getByLabel("In een koopwoning").check();
+  await verder(page);
+  await kiesLoon(page, "Bruto loon per maand");
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("900");
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("16");
+  await verder(page, "Bereken wat ik overhoud");
+  await expect(page.locator("main")).toContainText("Mag uw partner houden");
+  await geenToegankelijkheidsfouten(page);
 });

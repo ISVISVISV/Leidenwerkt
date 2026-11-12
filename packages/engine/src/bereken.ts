@@ -328,9 +328,34 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         huishoudinkomen: inkomen,
         norm,
       });
-      const vrij = v1.bedrag;
-      if (!eigen.isZero()) stap(`Mag u houden: ${v1.uitleg.charAt(0).toLowerCase()}${v1.uitleg.slice(1)}`, vrij);
-      if (!partner.isZero()) aanname("Voor het loon van uw partner is geen vrijlating meegerekend.");
+      // Vrijlating voor het loon van de partner: per partner (art. 31 lid 2 onder n en art. 45 lid 4 Pw),
+      // alleen als de partner korter dan 6 maanden werkt. Nu, en met het nieuwe werk in de eerste periode.
+      // Alleen in de regels tot en met 2026; voor de bijverdienregeling vanaf 2027 nog niet nagegaan.
+      // In beide kolommen dezelfde periode: het einde van de vrijlating van de partner komt niet door het nieuwe werk.
+      const partnerFase: Fase = invoer.vrijlatingFase === "start" ? "start" : "geen";
+      const vPartner =
+        !partner.isZero() && invoer.partner?.werktKort && regimeOp(l.datum).id === "pw31"
+          ? vrijlating(l, {
+              fase: partnerFase,
+              nettoArbeid: partner,
+              leeftijd: invoer.partner.leeftijd,
+              alleenstaandeOuderMetJongKind: false,
+            })
+          : undefined;
+      const vrij = v1.bedrag.plus(vPartner?.bedrag ?? NUL);
+      if (!eigen.isZero()) stap(`Mag u houden: ${v1.uitleg.charAt(0).toLowerCase()}${v1.uitleg.slice(1)}`, v1.bedrag);
+      if (vPartner && vPartner.bedrag.gt(0)) {
+        stap(`Mag uw partner houden: ${vPartner.uitleg.charAt(0).toLowerCase()}${vPartner.uitleg.slice(1)}`, vPartner.bedrag);
+        aanname(
+          "Uw partner werkt korter dan 6 maanden naast de bijstand. Daarom mag uw partner ook een deel van het loon houden. De rekenhulp neemt aan dat die 6 maanden tegelijk lopen met de eerste periode van uw nieuwe werk.",
+        );
+      } else if (!partner.isZero()) {
+        aanname(
+          invoer.partner?.werktKort
+            ? "Voor het loon van uw partner is in deze periode geen vrijlating meegerekend."
+            : "Uw partner werkt 6 maanden of langer naast de bijstand. Daarom is voor het loon van uw partner geen vrijlating meegerekend.",
+        );
+      }
       v1.aannames.forEach(aanname);
       const bijstand = aanvulling(norm, inkomen, vrij);
       if (!inkomen.isZero()) {
