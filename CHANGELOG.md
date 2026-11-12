@@ -4,6 +4,19 @@ Wat er per versie is veranderd. De opzet volgt [Keep a Changelog](https://keepac
 
 Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op de afdruk.
 
+## Nog niet uitgebracht
+
+### Gewijzigd
+
+- Het inkomen van een kind van 18 of ouder wordt per kind gevraagd, het hele bedrag; de rekenhulp trekt zelf € 6.218 af bij een kind dat aan het begin van het jaar jonger is dan 23 (Belastingdienst). Studiefinanciering telt niet mee.
+- Weet de gebruiker het inkomen van huisgenoten of van een kind niet, dan rekent de rekenhulp de huurtoeslag toch uit, zonder dat inkomen, en zegt dat onder de tabel.
+- De meldingen over de Sleutelpas, het Kindtegoed, de Gemeentepolis, het zwemabonnement, het Volwassenenfonds en de OV-pas gebruiken dezelfde zinnen: boven de grens "krijgt u … niet meer", eronder "kunt u … nog krijgen".
+- De grens voor de Gemeentepolis (collectieve zorgverzekering) volgt de tabel op de gemeentepagina, net als het Volwassenenfonds.
+- Totalen, "U houdt over", de kop, "Zonder vrijlating" en "De eerste 12 maanden samen" rekenen met de afgeronde bedragen uit de tabel.
+- Maximumbedragen van de vrijlating staan overal als "tot € …".
+- Bij de verlaging voor lage woonkosten staat dat die niet geldt als er iemand van 27 jaar of ouder bij u woont.
+- "Samen evenveel loon en bijstand als zonder werk" in plaats van "samen evenveel binnen".
+
 ## 0.4.0 – 12 november 2026
 
 ### Toegevoegd

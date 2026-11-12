@@ -162,9 +162,23 @@ describe("huurtoeslag: iedereen in huis telt mee, ook jonger dan 27 (Awir art. 7
     // De bijstand verandert niet: de kostendelersnorm geldt pas vanaf 27 jaar.
     expect(bijstand(met)).toBe(bijstand(zonder));
   });
-  it("zonder inkomen van de jonge huisgenoot: huurtoeslag niet berekend", () => {
+  it("zonder inkomen van de jonge huisgenoot: huurtoeslag berekend zonder dat inkomen, met een aanname", () => {
     const r = bereken(basis({ wonen: huur, jongeHuisgenoten: 1 }));
-    expect(r.huidig.posten.find((p) => p.id === "huurtoeslag")!.perMaand).toBeNull();
+    const p = r.huidig.posten.find((p) => p.id === "huurtoeslag")!;
+    expect(p.perMaand).not.toBeNull();
+    expect(p.aannames.join(" ")).toContain("niet meegeteld");
+  });
+
+  it("inkomen van een kind: het hele bedrag, min € 6.218 als het kind aan het begin van het jaar jonger is dan 23 (Belastingdienst)", () => {
+    const met = (k: { leeftijd: number; leeftijdBeginJaar?: number; inkomenJaar?: number }) =>
+      bereken(basis({ leefvorm: "alleenstaande_ouder", wonen: huur, kinderen: [k] })).huidig.posten.find((p) => p.id === "huurtoeslag")!;
+    const zonder = met({ leeftijd: 19, inkomenJaar: 0 }).perMaand;
+    // Onder de vrijstelling: geen verschil.
+    expect(met({ leeftijd: 19, inkomenJaar: 6000 }).perMaand).toBe(zonder);
+    // € 9.000 bij een kind van 20: € 2.782 telt mee, net als wanneer je € 2.782 invult bij een kind van 23 of ouder.
+    expect(met({ leeftijd: 20, inkomenJaar: 9000 }).perMaand).toBe(met({ leeftijd: 25, inkomenJaar: 2782 }).perMaand);
+    // Wordt het kind dit jaar 23, dan geldt de vrijstelling nog.
+    expect(met({ leeftijd: 23, leeftijdBeginJaar: 22, inkomenJaar: 6000 }).perMaand).toBe(zonder);
   });
 });
 
@@ -283,14 +297,14 @@ describe("Leiden: collectieve zorgverzekering en kwijtschelding", () => {
   it("zorgverzekering: onder 120% van de norm kan de gemeente nog meebetalen, daarboven niet", () => {
     const laag = bereken(basis({ nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
     const hoog = bereken(basis({ nieuwWerk: { brutoMaandloon: 2600, urenPerWeek: 36 }, vrijlatingFase: "start" }));
-    expect(tekst(laag, "Zorgverzekering")!.tekst).toContain("kan dat waarschijnlijk nog");
+    expect(tekst(laag, "Zorgverzekering")!.tekst).toContain("kunt u de Gemeentepolis");
     expect(tekst(laag, "Zwemabonnement")!.tekst).toContain("zwembad De Vliet of De Zijl");
-    expect(tekst(laag, "Gratis OV-pas")!.tekst).toContain("Zolang u bijstand krijgt");
-    expect(tekst(hoog, "Gratis OV-pas")!.tekst).toContain("krijgt u die pas niet meer");
+    expect(tekst(laag, "Gratis OV-pas")!.tekst).toContain("kunt u de gratis OV-pas nog krijgen");
+    expect(tekst(hoog, "Gratis OV-pas")!.tekst).toContain("krijgt u de gratis OV-pas niet meer");
     const dakloos = bereken(basis({ wonen: { soort: "geen_woonkosten", dakloos: true, betaaltWoonlasten: false }, nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
     expect(tekst(dakloos, "Gratis OV-pas")).toBeUndefined();
-    expect(tekst(hoog, "Zorgverzekering")!.tekst).toContain("niet meer mee");
-    // 120% van € 1.419,46
+    expect(tekst(hoog, "Zorgverzekering")!.tekst).toContain("krijgt u de Gemeentepolis");
+    // 120% van € 1.419,46 (sociaal minimum, zelfde tabel als het Volwassenenfonds)
     expect(tekst(hoog, "Zorgverzekering")!.tekst).toMatch(/€\s1\.703/);
   });
   it("de kleur van een melding volgt het recht: groen zolang het blijft, oranje als het vervalt, en acties staan bovenaan", () => {
@@ -340,7 +354,7 @@ describe("Kindtegoed boven 140% van het sociaal minimum", () => {
   it("de melding zegt dat ook het Kindtegoed vervalt", () => {
     const r = bereken(basis({ leefvorm: "alleenstaande_ouder", kinderen: [{ leeftijd: 9 }], nieuwWerk: { brutoMaandloon: 3200, urenPerWeek: 36 } }));
     const tekst = r.signalen.find((s) => s.kop === "Sleutelpas en Kindtegoed")?.tekst ?? "";
-    expect(tekst).toContain("niet meer in aanmerking voor de gratis Sleutelpas");
-    expect(tekst).toContain("Ook het Kindtegoed");
+    expect(tekst).toContain("Met dit inkomen krijgt u de gratis Sleutelpas niet meer.");
+    expect(tekst).toMatch(/Met dit inkomen krijgt u het Kindtegoed van .* niet meer\./);
   });
 });

@@ -101,6 +101,13 @@ export const CITATEN = {
     versie: "geldend vanaf 1 januari 2026",
     tekst: "Het recht op en de hoogte van de huurtoeslag is afhankelijk van de draagkracht, waaronder begrepen het vermogen, van de huurder, diens partner en de medebewoners.",
   },
+  htInkomenKind: {
+    titel: "Belastingdienst, Mijn kind woont thuis en verdient geld. Heeft dat gevolgen voor mijn huurtoeslag?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/toeslagen/huurtoeslag/uw-inkomen-is-niet-te-hoog-voor-de-huurtoeslag/ik-heb-thuiswonende-kinderen-met-inkomen",
+    versie: "geraadpleegd op 12 november 2026",
+    tekst:
+      "Het inkomen van een kind dat thuis woont, telt mee voor de huurtoeslag. […] Het gaat niet om het netto-inkomen, maar om het 'toetsingsinkomen' van uw kind. […] Studiefinanciering telt niet mee als inkomen voor huurtoeslag.",
+  },
   htZelfstandig: {
     titel: "Dienst Toeslagen, Kan ik huurtoeslag krijgen?",
     url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/huurtoeslag/content/kan-ik-huurtoeslag-krijgen",

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, schuifSleutel, vandaag, vraagBewoners, vraagInkomenAnderen, vraagWoonlasten, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag, type Geboortedatum } from "./formulier.ts";
+import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, schuifSleutel, vandaag, vraagBewoners, vraagInkomenAnderen, vraagInkomenKind, vraagWoonlasten, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag, type Geboortedatum } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -254,13 +254,6 @@ const lageHuurGrens = () => {
 };
 
 /** Vrijstelling voor het inkomen van een kind jonger dan 23 (huurtoeslag), als tekst. */
-const vrijstellingKind = () => {
-  try {
-    return euro(new Lezer(standaardRegels, vandaag()).bedrag("ht.vrijstelling_kind_onder_23"), true);
-  } catch {
-    return "";
-  }
-};
 
 /** Brengt de focus naar de vraag bij een foutmelding: het veld, of de eerste keuze van de groep. */
 function naarVraag(id: string) {
@@ -728,10 +721,10 @@ function StapWoning({ f, zet, fouten }: StapProps) {
             label={f.woont === "kostgeld" ? "Hoeveel betaalt u per maand voor uw woonruimte?" : f.zelfstandig ? "Kale huur per maand" : "Huur per maand"}
             hint={
               f.woont === "kostgeld"
-                ? `Betaalt u kostgeld, ook voor eten of de was? Vul dan alleen het deel in dat voor uw kamer of woonruimte is. Weet u dat niet? Vul dan het hele bedrag in en vraag het uw contactpersoon bij de gemeente.${lageHuurGrens() ? ` Betaalt u minder dan ${lageHuurGrens()} per maand voor uw woonruimte? Dan krijgt u minder bijstand: het verschil tussen ${lageHuurGrens()} en wat u betaalt.` : ""}`
+                ? `Betaalt u kostgeld, ook voor eten of de was? Vul dan alleen het deel in dat voor uw kamer of woonruimte is. Weet u dat niet? Vul dan het hele bedrag in en vraag het uw contactpersoon bij de gemeente.${lageHuurGrens() ? ` Betaalt u minder dan ${lageHuurGrens()} per maand voor uw woonruimte? Dan krijgt u minder bijstand: het verschil tussen ${lageHuurGrens()} en wat u betaalt. Dit geldt niet als er iemand van 27 jaar of ouder bij u woont.` : ""}`
                 : f.zelfstandig
                   ? "Het huurbedrag uit uw huurcontract, zonder servicekosten en zonder gas, water en licht."
-                  : `De huur zonder gas, water en licht, als u dat bedrag weet. Anders het hele bedrag.${lageHuurGrens() ? ` Is uw huur lager dan ${lageHuurGrens()} per maand? Dan krijgt u minder bijstand: het verschil tussen ${lageHuurGrens()} en uw huur.` : ""}`
+                  : `De huur zonder gas, water en licht, als u dat bedrag weet. Anders het hele bedrag.${lageHuurGrens() ? ` Is uw huur lager dan ${lageHuurGrens()} per maand? Dan krijgt u minder bijstand: het verschil tussen ${lageHuurGrens()} en uw huur. Dit geldt niet als er iemand van 27 jaar of ouder bij u woont.` : ""}`
             }
             waarde={f.kaleHuur}
             onChange={(v) => zet("kaleHuur", v)}
@@ -812,14 +805,13 @@ function StapWoning({ f, zet, fouten }: StapProps) {
       {vraagInkomenAnderen(f) && !f.huisgenotenOnbekend && (
         <Veld
           id="huisgenotenInkomen"
-          label="Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten en uw kinderen van 18 jaar of ouder, samen"
+          label="Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen"
           hint={
             <>
               <p>
-                Dit telt mee voor de huurtoeslag. Tel het inkomen mee van al uw huisgenoten en van uw kinderen. Het inkomen van uw partner
-                telt u hier niet mee.{vrijstellingKind() ? ` Van een kind jonger dan 23 jaar telt alleen het deel boven ${vrijstellingKind()} per jaar mee.` : ""}{" "}
-                Weet u het niet precies? Vul dan een schatting in. Heeft niemand inkomen? Vul dan 0 in. Weet u het helemaal niet? Vink dan
-                hieronder "Ik weet het niet" aan; de rekenhulp rekent de huurtoeslag dan niet uit.
+                Dit telt mee voor de huurtoeslag. Het inkomen van uw partner en uw kinderen telt u hier niet mee. Weet u het niet precies? Vul
+                dan een schatting in. Heeft niemand inkomen? Vul dan 0 in. Weet u het helemaal niet? Vink dan hieronder "Ik weet dit inkomen niet"
+                aan. De rekenhulp rekent dan zonder hun inkomen.
               </p>
               <p className="bron-blok">
                 Bron: <Bron citaat={CITATEN.htMedebewoners} />
@@ -838,6 +830,42 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           <input type="checkbox" checked={f.huisgenotenOnbekend} onChange={(e) => zet("huisgenotenOnbekend", e.target.checked)} />
           <span>Ik weet dit inkomen niet</span>
         </label>
+      )}
+      {f.kinderen.map((k, i) =>
+        vraagInkomenKind(f, k) ? (
+          <div key={i}>
+            {!k.inkomenOnbekend && (
+              <Veld
+                id={`kind${i}inkomen`}
+                label={`Voor de huurtoeslag: bruto inkomen per jaar van ${f.kinderen.filter((x) => vraagInkomenKind(f, x)).length > 1 ? `kind ${i + 1}` : "uw kind"} van ${leeftijdOp(k.geboren, vandaag())} jaar`}
+                hint={
+                  <>
+                    <p>
+                      Het bruto inkomen, zoals op de jaaropgave of de loonstrook van uw kind. Vul het hele bedrag in; de rekenhulp trekt zelf af
+                      wat niet meetelt. Studiefinanciering telt niet mee. Heeft uw kind geen inkomen? Vul dan 0 in.
+                    </p>
+                    <p className="bron-blok">
+                      Bron: <Bron citaat={CITATEN.htInkomenKind} />
+                    </p>
+                  </>
+                }
+                waarde={k.inkomen}
+                onChange={(v) => zet("kinderen", f.kinderen.map((x, j) => (j === i ? { ...x, inkomen: v } : x)))}
+                fout={fouten[`kind${i}inkomen`]}
+                voorvoegsel="€"
+                voorbeeld="bijv. 4.000"
+              />
+            )}
+            <label className="vinkje">
+              <input
+                type="checkbox"
+                checked={k.inkomenOnbekend}
+                onChange={(e) => zet("kinderen", f.kinderen.map((x, j) => (j === i ? { ...x, inkomenOnbekend: e.target.checked } : x)))}
+              />
+              <span>Ik weet dit inkomen niet</span>
+            </label>
+          </div>
+        ) : null,
       )}
     </section>
   );

@@ -79,6 +79,9 @@ export interface KindVeld {
   soort: Opvangsoort | "";
   uren: string;
   uurprijs: string;
+  /** Bruto inkomen per jaar, voor de huurtoeslag; alleen bij een kind van 18 of ouder in een huurwoning. */
+  inkomen: string;
+  inkomenOnbekend: boolean;
 }
 
 /** Ja/nee-vragen zonder vooraf gekozen antwoord. */
@@ -176,7 +179,7 @@ export const leegFormulier: Formulier = {
   overigeKosten: "",
 };
 
-export const nieuwKind = (): KindVeld => ({ geboren: legeDatum(), opvang: false, soort: "", uren: "", uurprijs: "" });
+export const nieuwKind = (): KindVeld => ({ geboren: legeDatum(), opvang: false, soort: "", uren: "", uurprijs: "", inkomen: "", inkomenOnbekend: false });
 
 /** Leest "15,50", "15.50" of "1.250,00" als getal; leeg geeft undefined. */
 export function getal(tekst: string): number | undefined {
@@ -223,9 +226,14 @@ export function aantalJongeHuisgenoten(f: Formulier): number {
   return vraagJongeHuisgenoten(f) ? (getal(f.jongeHuisgenoten) ?? 0) : 0;
 }
 
+/** Het inkomen van huisgenoten telt mee voor de huurtoeslag; alleen nodig in een zelfstandige huurwoning. */
 export function vraagInkomenAnderen(f: Formulier): boolean {
-  const huisgenoten = aantalKostendelers(f) + aantalJongeHuisgenoten(f);
-  return f.woont === "huur" && f.zelfstandig && (huisgenoten > 0 || f.kinderen.some((k) => (leeftijdOp(k.geboren, vandaag()) ?? 0) >= 18));
+  return f.woont === "huur" && f.zelfstandig && aantalKostendelers(f) + aantalJongeHuisgenoten(f) > 0;
+}
+
+/** Het inkomen van een kind van 18 of ouder telt mee voor de huurtoeslag (met een vrijstelling onder de 23). */
+export function vraagInkomenKind(f: Formulier, k: KindVeld): boolean {
+  return f.woont === "huur" && f.zelfstandig && (leeftijdOp(k.geboren, vandaag()) ?? 0) >= 18;
 }
 
 /** Hoogste aantal opvanguren per kind per maand waarover toeslag wordt berekend (uit de regeldata). */
@@ -288,6 +296,11 @@ export function controleer(f: Formulier, stap: number): Fouten {
   }
   if (stap === 2 && vraagInkomenAnderen(f)) {
     if (!f.huisgenotenOnbekend) moet("huisgenotenInkomen", f.huisgenotenInkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000. Geen inkomen? Vul 0 in.");
+  }
+  if (stap === 2) {
+    f.kinderen.forEach((k, i) => {
+      if (vraagInkomenKind(f, k) && !k.inkomenOnbekend) moet(`kind${i}inkomen`, k.inkomen, 0, 500000, "Vul een bedrag per jaar in, bijvoorbeeld 4.000. Geen inkomen? Vul 0 in.");
+    });
   }
   if (stap === 2 && !f.woont) fouten.woont = "Kies waar u woont.";
   if (stap === 2 && vraagWoonlasten(f) && !f.beantwoord.woonlasten) fouten.woonlasten = "Kies Ja of Nee.";
@@ -375,6 +388,9 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     const geschat = prijs === undefined;
     return {
       leeftijd: leeftijdOp(k.geboren, opties.datum) ?? 0,
+      leeftijdBeginJaar: leeftijdOp(k.geboren, `${opties.datum.slice(0, 4)}-01-01`) ?? undefined,
+      inkomenJaar: vraagInkomenKind(f, k) && !k.inkomenOnbekend ? getal(k.inkomen) : undefined,
+      inkomenOnbekend: vraagInkomenKind(f, k) && k.inkomenOnbekend ? true : undefined,
       opvang: k.opvang
         ? { soort: k.soort || "dagopvang", urenPerMaand: urenPerMaand(getal(k.uren) ?? 0), uurprijs: geschat ? maxUurprijs(l, k.soort || "dagopvang") : prijs, uurprijsGeschat: geschat || undefined }
         : undefined,
@@ -510,6 +526,9 @@ export function ingevuld(f: Formulier): { kop: string; regels: [string, string][
     woning.push(["Woning", f.zelfstandig ? "huurwoning met eigen voordeur, keuken, wc en douche" : "kamer, of woning met gedeelde keuken, wc of douche"]);
     woning.push([f.zelfstandig ? "Kale huur" : "Huur", `${euroTekst(f.kaleHuur)} per maand`]);
     if (vraagInkomenAnderen(f)) woning.push(["Inkomen huisgenoten", f.huisgenotenOnbekend ? "onbekend" : `${euroTekst(f.huisgenotenInkomen)} bruto per jaar`]);
+    f.kinderen.forEach((k, i) => {
+      if (vraagInkomenKind(f, k)) woning.push([`Inkomen kind ${i + 1}`, k.inkomenOnbekend ? "onbekend" : `${euroTekst(k.inkomen)} bruto per jaar`]);
+    });
   } else {
     woning.push([
       "Woning",

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Lezer, woonkorting, bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Fase, type Opvangsoort, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { LOON_PER, OPVANG, getal, ingevuld, ingevuldLoon, maxUurprijs, naarInvoer, schuifStart, vasteFase, vandaag, type Formulier } from "./formulier.ts";
+import { LOON_PER, OPVANG, getal, ingevuld, ingevuldLoon, maxUurprijs, naarInvoer, schuifStart, vasteFase, vandaag, vraagInkomenAnderen, vraagInkomenKind, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */
 function bruikbareDatum(f: Formulier): { datum: string; teruggevallen: boolean } {
@@ -100,10 +100,12 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
         : undefined,
     [meerPeriodes, periodes, f, uren, datum],
   );
-  const eersteJaar = useMemo(
-    () => verschilEersteJaar(naarInvoer(f, { uren, fase: "start", datum }), undefined, { vasteFase: vasteFase(f) }),
-    [f, uren, datum],
-  );
+  const eersteJaar = useMemo(() => {
+    const motor = verschilEersteJaar(naarInvoer(f, { uren, fase: "start", datum }), undefined, { vasteFase: vasteFase(f) });
+    // Met de bedragen per periode zoals ze in het lijstje staan, zodat "de eerste 12 maanden samen" na te rekenen is.
+    const uitLijst = perioden && eersteJaarUitPerioden(perioden);
+    return uitLijst ? { ...motor, bedrag: uitLijst } : motor;
+  }, [f, uren, datum, perioden]);
   // Vanaf hoeveel uur per week is er blijvend geen bijstand meer nodig? Zonder vrijlating, want die is tijdelijk.
   const grensUren = useMemo(() => {
     const nu = bereken(naarInvoer(f, { uren: 1, fase: "geen", datum })).huidig.posten.find((p) => p.id === "bijstand");
@@ -235,7 +237,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
           )}
           {vrijlatingTelt && (
             <p>
-              {zonderVrijlatingZin(zonder.verschilPerMaand)}
+              {zonderVrijlatingZin(verschilZoalsTabel(zonder))}
             </p>
           )}
           {f.medisch && meerPeriodes && fase === periodes[0].fase && (
@@ -288,7 +290,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
                 <details id={`signaal-${i}`} className="signaal">
                   <summary className="signaal-kop">{s.kop}</summary>
                   <p>{metLinks(s.tekst)}</p>
-                  {s.tekst.includes("(grens") && (
+                  {s.tekst.includes("De grens is ongeveer") && (
                     <p>
                       {f.leefvorm === "paar" ? "Uw inkomen samen" : "Uw inkomen"}, zonder toeslagen, is ongeveer {euro(inkomenVoorGrenzen(r).toFixed(2), true)} per maand.
                     </p>
@@ -449,10 +451,7 @@ function Vergelijking({ r, allIn, tweeBanen }: { r: Resultaat; allIn?: boolean; 
     const b = r.werk.posten.find((p) => p.id === id);
     return !(a?.perMaand === "0.00" && (!b || b.perMaand === "0.00"));
   });
-  const meegeteld = (s: Resultaat["huidig"], kosten: boolean) =>
-    s.posten
-      .filter((p) => p.perMaand !== null && (p.soort === "kosten") === kosten && !r.nietMeegenomen.some((n) => n.id === p.id))
-      .reduce((t, p) => t.plus(D(p.perMaand!)), D(0));
+  const meegeteld = (s: Resultaat["huidig"], kosten: boolean) => somZoalsTabel(r, s, kosten ? "eraf" : "binnen");
   const rij = (id: string) => {
     const p = labels.get(id)!;
     const a = r.huidig.posten.find((x) => x.id === id);
@@ -518,8 +517,8 @@ function Vergelijking({ r, allIn, tweeBanen }: { r: Resultaat; allIn?: boolean; 
       <tfoot>
         <tr>
           <th scope="row">U houdt over</th>
-          <td>{euro(r.huidig.besteedbaarPerMaand, true)}</td>
-          <td>{euro(r.werk.besteedbaarPerMaand, true)}</td>
+          <td>{euro(somZoalsTabel(r, r.huidig), true)}</td>
+          <td>{euro(somZoalsTabel(r, r.werk), true)}</td>
         </tr>
       </tfoot>
     </table>
@@ -631,10 +630,43 @@ function verschilRegel(naam: string, verschil: string, per: string) {
 
 const LIDWOORD: Record<Opvangsoort, string> = { dagopvang: "het", bso: "de", gastouder: "de" };
 
-/** Het verschil per maand zoals de tabel het toont: "U houdt over" met werk min nu, elk afgerond op hele euro's. */
+/**
+ * De eerste 12 maanden samen, uit het lijstje per periode ("Maand 1 t/m 6", "Maand 7 t/m 36", "Vanaf maand 7").
+ * Lukt het niet om elke periode te lezen, dan undefined: dan geldt het bedrag van de rekenkern.
+ */
+function eersteJaarUitPerioden(perioden: { naam: string; verschil: string }[]): string | undefined {
+  let totaal = D(0);
+  let maanden = 0;
+  for (const p of perioden) {
+    const m = p.naam.match(/^Maand (\d+) t\/m (\d+)$/) ?? p.naam.match(/^Vanaf maand (\d+)$/);
+    if (!m) return undefined;
+    const van = Number(m[1]);
+    const tot = Math.min(12, m[2] ? Number(m[2]) : 12);
+    if (tot >= van) {
+      totaal = totaal.plus(D(p.verschil).times(tot - van + 1));
+      maanden += tot - van + 1;
+    }
+  }
+  return maanden === 12 ? totaal.toFixed(2) : undefined;
+}
+
+/** Afronden op hele euro's, zoals euro(…, true): een halve euro naar boven. */
+const heel = (x: string) => D(x).toDecimalPlaces(0, 4);
+
+/**
+ * Som van de rijen zoals de tabel ze toont: elke rij eerst afgerond. Zo zijn totalen, "U houdt over" en
+ * alle verschillen op de pagina na te rekenen met de bedragen in de tabel.
+ */
+function somZoalsTabel(r: Resultaat, s: Resultaat["huidig"], wat: "binnen" | "eraf" | "alles" = "alles") {
+  return s.posten
+    .filter((p) => p.perMaand !== null && !r.nietMeegenomen.some((n) => n.id === p.id))
+    .filter((p) => wat === "alles" || (p.soort === "kosten") === (wat === "eraf"))
+    .reduce((t, p) => t.plus(heel(p.perMaand!)), D(0));
+}
+
+/** Het verschil per maand zoals de tabel het toont: "U houdt over" met werk min nu. */
 function verschilZoalsTabel(r: Resultaat): string {
-  const heel = (x: string) => D(x).toDecimalPlaces(0, 4 /* naar boven bij een halve euro, zoals euro() */);
-  return heel(r.werk.besteedbaarPerMaand).minus(heel(r.huidig.besteedbaarPerMaand)).toFixed(2);
+  return somZoalsTabel(r, r.werk).minus(somZoalsTabel(r, r.huidig)).toFixed(2);
 }
 
 /**
@@ -677,7 +709,7 @@ function openSignaal(i: number) {
 function inkomenVoorGrenzen(r: Resultaat): number {
   return r.werk.posten
     .filter((p) => ["loon", "loon_partner", "ander_inkomen", "bijstand"].includes(p.id) && p.perMaand)
-    .reduce((som, p) => som + Number(p.perMaand), 0);
+    .reduce((som, p) => som + Number(heel(p.perMaand!)), 0);
 }
 
 /** Een ingevuld bedrag netjes als euro: "€ 1.250" of "€ 14,50". */
@@ -697,6 +729,13 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
     noten.push(
       `U vulde ${bedragTekst(loon.bedrag)} ${LOON_PER[loon.per]} in. In de tabel staat het netto loon${loon.per === "netto" || loon.per === "netto4" ? "" : ": na belasting en premies"}${omgerekend}${vakantiegeld}.`,
     );
+  }
+  if (r.werk.posten.some((p) => p.id === "huurtoeslag" && p.perMaand)) {
+    const wie = [
+      vraagInkomenAnderen(f) && f.huisgenotenOnbekend ? "uw huisgenoten" : "",
+      f.kinderen.some((k) => vraagInkomenKind(f, k) && k.inkomenOnbekend) ? "uw kind" : "",
+    ].filter(Boolean);
+    if (wie.length > 0) noten.push(`Het inkomen van ${wie.join(" en ")} is niet meegeteld. Daardoor kan uw huurtoeslag lager zijn dan hier staat.`);
   }
   const l = new Lezer(standaardRegels, r.datum);
   const soorten = [...new Set(f.kinderen.filter((k) => k.opvang && !getal(k.uurprijs) && k.soort).map((k) => k.soort as Opvangsoort))];

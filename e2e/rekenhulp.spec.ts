@@ -164,7 +164,7 @@ test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, hui
   await page.getByLabel("Hoeveel van hen zijn 18 tot en met 26 jaar?").fill("0");
   await verder(page);
   await expect(page.locator(".foutmelding").getByText("Vul dit in.").first()).toBeVisible();
-  await page.getByLabel("Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten en uw kinderen van 18 jaar of ouder, samen").fill("26.000");
+  await page.getByLabel("Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen").fill("26.000");
   await verder(page);
   await kiesLoon(page, "Bruto loon per maand");
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.200");
@@ -412,7 +412,7 @@ test("de uitkomst zegt of de bijstand blijft of stopt, en noemt de eigen kosten 
   await kiesLoon(page, "Bruto loon per maand");
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("1.200");
   await page.getByRole("textbox", { name: /Hoeveel uur per week (werkt u|gaat u werken)/ }).fill("19");
-  await page.getByLabel(/Andere kosten door het werk/).fill("10");
+  await page.getByLabel(/Andere kosten door het werk/).fill("20");
   await verder(page, "Bereken wat ik overhoud");
 
   const antwoord = page.locator(".antwoord");
@@ -426,7 +426,7 @@ test("de uitkomst zegt of de bijstand blijft of stopt, en noemt de eigen kosten 
   // Na de vrijlating: evenveel inkomsten, dus de eigen kosten maken het verschil.
   await page.getByRole("group", { name: "Voor welke maanden wilt u de uitkomst zien?" }).getByRole("radio").last().check();
   await expect(antwoord).toContainText("minder over");
-  await expect(antwoord).toContainText("Dat komt door de kosten voor het werk die u zelf betaalt: € 10 per maand.");
+  await expect(antwoord).toContainText("Dat komt door de kosten voor het werk die u zelf betaalt: € 20 per maand.");
   await expect(uitleg).not.toContainText("Vraag uw contactpersoon bij de gemeente of de vrijlating voor u geldt");
   await expect(uitleg).toContainText("Kosten die u zelf voor het werk maakt, gaan daar nog af.");
 
@@ -478,7 +478,7 @@ test("netto loon per 4 weken, en inkomen van huisgenoten onbekend", async ({ pag
   await page.getByRole("group", { name: "Wonen er nog andere mensen van 18 jaar of ouder bij u in huis?" }).getByLabel("Ja").check();
   await page.getByLabel("Hoeveel van hen zijn 27 jaar of ouder?").fill("2");
   await page.getByLabel("Hoeveel van hen zijn 18 tot en met 26 jaar?").fill("0");
-  await page.getByText("Ik weet dit inkomen niet").click();
+  await page.getByLabel("Ik weet dit inkomen niet").check();
   await expect(page.locator("#huisgenotenInkomen")).toHaveCount(0);
   await geenToegankelijkheidsfouten(page);
   await verder(page);
@@ -488,8 +488,8 @@ test("netto loon per 4 weken, en inkomen van huisgenoten onbekend", async ({ pag
   await verder(page, "Bereken wat ik overhoud");
   await expect(page.locator(".tabel-noten")).toContainText("U vulde € 1.200 netto per 4 weken in.");
   await expect(page.locator(".tabel-noten")).toContainText("omgerekend naar een maand");
-  await page.getByText("Hoe is dit berekend?").first().scrollIntoViewIfNeeded();
-  await expect(page.locator("main")).toContainText("Daarom rekent de rekenhulp de huurtoeslag niet uit.");
+  // Zonder hun inkomen rekent de rekenhulp toch door, en zegt dat onder de tabel.
+  await expect(page.locator(".tabel-noten")).toContainText("Het inkomen van uw huisgenoten is niet meegeteld. Daardoor kan uw huurtoeslag lager zijn dan hier staat.");
 });
 
 test("omwegen: een oud bedrag blijft niet hangen, opgeloste fouten verdwijnen, en de urenschuif blijft staan", async ({ page }) => {
@@ -616,4 +616,51 @@ test("toetsenbord en invoer: halve uren, bron alleen op klik, focus na kind toev
   await page.keyboard.press("Escape");
   await expect(tekst).toBeHidden();
   await expect(knop).toBeFocused();
+});
+
+test("kind van 18 of ouder: eigen inkomen voor de huurtoeslag, en alle bedragen kloppen met de tabel", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" }).getByLabel("Ja").check();
+  await geboren(page, "Uw geboortedatum", 48);
+  await geboren(page, "Geboortedatum kind 1", 20);
+  await verder(page);
+  await page.getByLabel("In een huurwoning met een eigen voordeur, keuken, wc en douche").check();
+  await page.getByLabel("Kale huur per maand").fill("780");
+  const kind = page.getByRole("textbox", { name: /bruto inkomen per jaar van uw kind van 20 jaar/ });
+  await expect(kind).toBeVisible();
+  await page.getByLabel("Ik weet dit inkomen niet").check();
+  await expect(kind).toHaveCount(0);
+  await page.getByLabel("Ik weet dit inkomen niet").uncheck();
+  await kind.fill("9.000");
+  await verder(page);
+  await kiesLoon(page, "Bruto loon per uur");
+  await page.getByRole("textbox", { name: "Bedrag per uur" }).fill("15");
+  await page.getByLabel("Nee, ik krijg het apart").check();
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("24");
+  await verder(page, "Bereken wat ik overhoud");
+
+  // De rekenhulp trekt de vrijstelling zelf af: van € 9.000 telt € 2.782 mee.
+  await expect(page.locator("main")).toContainText("Plus het inkomen van uw kind boven € 6.218 per jaar");
+
+  // Alle bedragen op de pagina zijn na te rekenen met de tabel.
+  const getal = (t: string) => Number(t.replace(/[^\d-]/g, "").replace(/^-$/, "0"));
+  const tabel = page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ });
+  for (const radio of await page.getByRole("radio").all()) {
+    await radio.check();
+    const kolommen = async (naam: RegExp) => (await tabel.getByRole("row", { name: naam }).locator("td").allInnerTexts()).map(getal);
+    const [overNu, overMet] = await kolommen(/U houdt over/);
+    const [binnenNu, binnenMet] = await kolommen(/Totaal binnen/);
+    const eraf = (await tabel.getByRole("row", { name: /Totaal eraf/ }).count()) ? await kolommen(/Totaal eraf/) : [0, 0];
+    expect(overNu).toBe(binnenNu - Math.abs(eraf[0]));
+    expect(overMet).toBe(binnenMet - Math.abs(eraf[1]));
+    const kop = getal((await page.locator(".antwoord-zin").innerText()).match(/€\s?[\d.]+/)![0]);
+    expect(kop).toBe(Math.abs(overMet - overNu));
+  }
+  // De eerste 12 maanden samen = de bedragen per periode keer het aantal maanden.
+  const regels = await page.locator(".antwoord-lijst li").allInnerTexts();
+  if (regels.length > 1) {
+    const bedragen = regels.map((r) => getal(r.match(/€\s?[\d.]+/)![0]));
+    expect(bedragen[bedragen.length - 1]).toBe(bedragen[0] * 6 + bedragen[1] * 6);
+  }
 });
