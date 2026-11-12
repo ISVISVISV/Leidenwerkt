@@ -186,7 +186,7 @@ test("zonder vaste woonplek, met medische urenbeperking: lagere norm, vrijlating
   await page.getByRole("textbox", { name: /Hoeveel uur per week (werkt u|gaat u werken)/ }).fill("16");
   await verder(page, "Bereken wat ik overhoud");
   await expect(page.locator(".antwoord")).toContainText("De eerste 12 maanden samen");
-  await expect(page.locator("#urengrens")).toContainText("uur per week met dit uurloon geen bijstand meer nodig");
+  await expect(page.locator("#urengrens")).toContainText("uur per week geen bijstand meer nodig");
   await page.getByLabel("Vanaf maand 7").check();
   await expect(page.locator(".toelichting")).toContainText("Met een medische urenbeperking mag u 15%");
   const bron = page.locator(".toelichting .bron").filter({ hasText: "onder y" });
@@ -414,12 +414,12 @@ test("de uitkomst zegt of de bijstand blijft of stopt, en noemt de eigen kosten 
   await verder(page, "Bereken wat ik overhoud");
 
   const antwoord = page.locator(".antwoord");
-  await expect(antwoord).toContainText("U houdt bijstand:");
+  await expect(antwoord).toContainText("bijstand per maand naast uw loon");
   // Onder de tabel staat waarom het loon anders is dan wat is ingevuld.
   await expect(page.locator(".tabel-noten")).toContainText("U vulde € 1.200 bruto per maand in.");
-  await expect(page.locator(".tabel-noten")).toContainText("met het vakantiegeld erbij");
+  await expect(page.locator(".tabel-noten")).toContainText("met vakantiegeld");
   const uitleg = page.locator(".toelichting");
-  await expect(uitleg).toContainText("Vraag uw contactpersoon bij de gemeente of de vrijlating voor u geldt");
+  await expect(uitleg).toContainText("De gemeente beslist of die voor u geldt");
 
   // Na de vrijlating: evenveel inkomsten, dus de eigen kosten maken het verschil.
   await page.getByRole("group", { name: "Voor welke maanden wilt u de uitkomst zien?" }).getByRole("radio").last().check();

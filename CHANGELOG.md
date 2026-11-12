@@ -31,6 +31,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - "Goed om te weten" toont alleen de koppen; een klik klapt de uitleg open. "Wat u nu kunt doen" is een korte rij links die de melding openklapt.
 - Onder de tabel staat nu ook: de verlaging bij lage woonkosten, waar het kostgeld is, het loon van de partner met vakantiegeld, waarom toeslagen gelijk blijven en hoe u de combinatiekorting krijgt. Bij de meldingen staat met welk inkomen de grenzen zijn vergeleken.
 - De melding over toeslagen zegt dat de daling al in de bedragen zit.
+- Kortere teksten op de uitkomst (ongeveer 18% minder zichtbare woorden): het lijstje per periode, de bijstand, de urengrens, de uitleg van de vrijlating, de zinnen onder de tabel en het telefoonnummer. De zin met welk inkomen de grenzen zijn vergeleken, staat nu in de meldingen die een grens noemen.
 
 ### Hersteld
 
