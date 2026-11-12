@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, vandaag, vraagBewoners, vraagInkomenAnderen, vraagWoonlasten, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag, type Geboortedatum } from "./formulier.ts";
+import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, schuifSleutel, vandaag, vraagBewoners, vraagInkomenAnderen, vraagWoonlasten, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag, type Geboortedatum } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -11,7 +11,12 @@ export function App() {
   const [wissen, setWissen] = useState(false);
   const [stap, setStap] = useState(0);
   const [fouten, setFouten] = useState<Fouten>({});
+  const [schuif, setSchuif] = useState<{ sleutel: string; uren: number } | undefined>();
   const kop = useRef<HTMLHeadingElement>(null);
+  // Toon alleen meldingen die nog gelden: een opgeloste fout of een vraag die weg is, verdwijnt meteen.
+  const nuFout = stap > 0 && stap < STAPPEN.length ? controleer(f, stap) : {};
+  // De tekst blijft die van de laatste controle, zodat een schermlezer niet bij elke toetsaanslag iets nieuws voorleest.
+  const zichtbareFouten: Fouten = Object.fromEntries(Object.entries(fouten).filter(([id]) => id in nuFout));
 
   useEffect(() => {
     if (stap > 0) kop.current?.focus();
@@ -83,13 +88,13 @@ export function App() {
             <h1 ref={kop} tabIndex={-1}>
               {STAPPEN[stap - 1]}
             </h1>
-            {stap < STAPPEN.length && Object.keys(fouten).length > 0 && (
+            {stap < STAPPEN.length && Object.keys(zichtbareFouten).length > 0 && (
               <div className="melding waarschuwing" role="alert">
                 <p>
-                  {Object.keys(fouten).length === 1 ? "Eén vraag is nog niet goed ingevuld:" : `${Object.keys(fouten).length} vragen zijn nog niet goed ingevuld:`}
+                  {Object.keys(zichtbareFouten).length === 1 ? "Eén vraag is nog niet goed ingevuld:" : `${Object.keys(zichtbareFouten).length} vragen zijn nog niet goed ingevuld:`}
                 </p>
                 <ul>
-                  {Object.entries(fouten).map(([id, melding]) => (
+                  {Object.entries(zichtbareFouten).map(([id, melding]) => (
                     <li key={id}>
                       {vraagVan(id) ? `${vraagVan(id)}: ` : ""}
                       {melding}
@@ -101,10 +106,16 @@ export function App() {
           </>
         )}
 
-        {stap === 1 && <StapHuishouden f={f} zet={zet} fouten={fouten} />}
-        {stap === 2 && <StapWoning f={f} zet={zet} fouten={fouten} />}
-        {stap === 3 && <StapWerk f={f} zet={zet} fouten={fouten} />}
-        {stap === 4 && <Uitkomst f={f} />}
+        {stap === 1 && <StapHuishouden f={f} zet={zet} fouten={zichtbareFouten} />}
+        {stap === 2 && <StapWoning f={f} zet={zet} fouten={zichtbareFouten} />}
+        {stap === 3 && <StapWerk f={f} zet={zet} fouten={zichtbareFouten} />}
+        {stap === 4 && (
+          <Uitkomst
+            f={f}
+            bewaardeUren={schuif?.sleutel === schuifSleutel(f) ? schuif.uren : undefined}
+            onUren={(uren) => setSchuif({ sleutel: schuifSleutel(f), uren })}
+          />
+        )}
 
         {stap > 0 && (
           <div className="knoppen">
@@ -639,6 +650,8 @@ function StapWoning({ f, zet, fouten }: StapProps) {
         waarde={f.woont === "huur" && !f.zelfstandig ? "kamer" : f.woont}
         fout={fouten.woont}
         onChange={(v) => {
+          // Huur, kamerhuur en kostgeld zijn verschillende bedragen; bij een andere keuze begint het veld leeg.
+          if (v !== (f.woont === "huur" && !f.zelfstandig ? "kamer" : f.woont)) zet("kaleHuur", "");
           zet("woont", v === "kamer" ? "huur" : v);
           if (v === "huur" || v === "kamer") zet("zelfstandig", v === "huur");
         }}
@@ -907,7 +920,11 @@ function StapWerk({ f, zet, fouten }: StapProps) {
             per={f.nuPer}
             loon={f.nuLoon}
             uren={f.nuUren}
-            zetPer={(v) => zet("nuPer", v)}
+            zetPer={(v) => {
+              // Een bedrag hoort bij één soort loon; bij een andere keuze begint het veld leeg.
+              if (v !== f.nuPer) zet("nuLoon", "");
+              zet("nuPer", v);
+            }}
             zetLoon={(v) => zet("nuLoon", v)}
             zetUren={(v) => zet("nuUren", v)}
             allIn={f.nuAllIn}
@@ -1006,7 +1023,11 @@ function StapWerk({ f, zet, fouten }: StapProps) {
             per={f.per}
             loon={f.loon}
             uren={f.uren}
-            zetPer={(v) => zet("per", v)}
+            zetPer={(v) => {
+              // Een bedrag hoort bij één soort loon; bij een andere keuze begint het veld leeg.
+              if (v !== f.per) zet("loon", "");
+              zet("per", v);
+            }}
             zetLoon={(v) => zet("loon", v)}
             zetUren={(v) => zet("uren", v)}
             allIn={f.allIn}

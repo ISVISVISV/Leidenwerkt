@@ -57,4 +57,16 @@ Werk de lijst "Wat je niet meldt" bij als er een nieuwe bewuste keuze bij komt; 
 | 3 (november 2026) | Noor (21, baby naar gastouder); Henk en Joke (stel, 64 en 60); Sanne (gescheiden, alimentatie, kind 10); Bilal (horeca, all-in uurloon, kamer); Kees en Samira opnieuw |
 | 4 (november 2026) | Fleur (UWV-uitkering naast bijstand); Ricardo (alleenstaande vader, kinderen 17 en 19); Mila en Daan (stel, partner werkt al, kind naar kinderdagverblijf); Joost (nachtopvang, netto loon); Henk en Joke en Noor opnieuw |
 
-Nog niet gebruikt, als idee: iemand die in 2027 rekent; iemand van 26 die bij de ouders woont; een alleenstaande ouder met drie kinderen in verschillende soorten opvang; iemand met ander werk in plaats van het huidige; iemand met een medische urenbeperking en een kamer.
+| 5 (november 2026) | Thijs (26, bij ouders); Esra (drie kinderen, verschillende opvang); Pim (ander werk in plaats van het huidige); Yara (medische urenbeperking, kamer); Gerard en Ans (werk erbij); Sem (huisgenoten, voltijd) |
+| 6 (november 2026) | Twee andere soorten tests, zie hieronder: omwegen (tien scenario's); toeslagen tegen de proefberekening (Ria en Kemal, Lotte en Ruben, Wendy, Hatice, Marco, Iris) |
+
+Nog niet gebruikt, als idee: iemand die in 2027 rekent.
+
+## Andere soorten tests
+
+Naast de test met personages zijn twee andere tests nuttig gebleken (ronde 6):
+
+- **Omwegen.** De tester vult elk scenario twee keer in: één keer meteen goed, en één keer met een omweg (eerst iets anders invullen, dan wijzigen via "Gegevens aanpassen", "Vorige stap", de terugknop van de browser of "Opnieuw beginnen"). Elk verschil in de uitkomst is een fout. Zo vond ronde 6 dat de urenschuif terugsprong en dat oude bedragen bleven staan in een veld met een andere betekenis.
+- **Toeslagen tegen de proefberekening.** De tester neemt het geschatte jaarinkomen over uit "Hoe is dit berekend?" en vult het met dezelfde situatie in bij de proefberekening van Dienst Toeslagen. Zet de uitkomsten daarna als toets in `packages/engine/test/proefberekening.test.ts`. Dit toetst de formules, niet de schatting van het inkomen.
+
+Doe ook deze tests na grote wijzigingen in de vragen of in de berekening van de toeslagen. Laat de tester ook hier geen voorstellen doen, alleen beschrijven wat er gebeurt.

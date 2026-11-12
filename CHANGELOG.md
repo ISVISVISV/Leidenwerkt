@@ -12,6 +12,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Netto loon per 4 weken als keuze bij het loon.
 - Bij het inkomen van huisgenoten: "Ik weet het niet". De rekenhulp rekent de huurtoeslag dan niet uit en zegt waarom.
 - Vaste stap "Meld uw werk bij de gemeente" voor iedereen met bijstand, met de tekst van art. 17 Participatiewet.
+- Toets van de toeslagformules aan dertien proefberekeningen van Dienst Toeslagen (`packages/engine/test/proefberekening.test.ts`).
 
 ### Gewijzigd
 
@@ -33,6 +34,10 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Hersteld
 
+- De urenschuif ging terug naar de ingevulde uren na "Gegevens aanpassen". Nu blijft hij staan, zolang de uren en het loon gelijk blijven. "Wat u heeft ingevuld" toont de ingevulde uren, niet de stand van de schuif.
+- Bij een ander soort woning of een ander soort loon bleef het oude bedrag in het veld staan, met een andere betekenis. Nu begint het veld leeg.
+- Een foutmelding bleef bovenaan staan als de vraag al was opgelost of verdwenen.
+- "Wat u heeft ingevuld" toont "nee" bij andere bewoners als beide aantallen 0 zijn.
 - Boven 140% van het sociaal minimum zei de melding niet dat ook het Kindtegoed vervalt.
 - De tekst over een geschatte opvangprijs ging alleen over het eerste kind zonder prijs; nu noemt hij elke soort opvang waarvan de prijs onbekend is.
 - Bij partners werd de bijstand voor de toeslagen teruggerekend alsof één persoon alles kreeg. Daardoor was het geschatte jaarinkomen te hoog en de zorgtoeslag en huurtoeslag te laag. Nu krijgt ieder de helft, zoals in art. 45 lid 4 Participatiewet.

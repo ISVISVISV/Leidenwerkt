@@ -426,6 +426,14 @@ function nieuwLoon(f: Formulier, schuif?: number) {
 }
 
 /** Het aantal uren waarmee de urenschuif begint, en wat de schuif voorstelt. */
+/**
+ * Sleutel voor de stand van de urenschuif: de stand blijft bewaard zolang de
+ * gegevens van het werk (uren en loon) niet veranderen.
+ */
+export function schuifSleutel(f: Formulier): string {
+  return JSON.stringify([f.werktNu, f.verandering, f.uren, f.meerUren, f.per, f.loon, f.allIn, f.nuUren, f.nuPer, f.nuLoon, f.nuAllIn]);
+}
+
 export function schuifStart(f: Formulier): { uren: number; wat: "totaal" | "extra" } {
   if (f.werktNu && f.verandering === "meer") return { uren: Math.round(getal(f.meerUren) ?? 24), wat: "totaal" };
   if (f.werktNu && f.verandering === "erbij") return { uren: Math.round(getal(f.uren) ?? 8), wat: "extra" };
@@ -467,9 +475,10 @@ export const OPVANG: Record<Opvangsoort, string> = { dagopvang: "kinderdagverbli
 
 /**
  * Wat de gebruiker heeft ingevuld, als korte regels per onderdeel. Voor de afdruk,
- * zodat invoer en uitkomst op één pagina staan. `uren` is de stand van de urenschuif.
+ * zodat invoer en uitkomst op één pagina staan. Toont wat er is ingevuld,
+ * niet de stand van de urenschuif; die staat in de uitkomst zelf.
  */
-export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [string, string][] }[] {
+export function ingevuld(f: Formulier): { kop: string; regels: [string, string][] }[] {
   const paar = f.leefvorm === "paar";
   const huishouden: [string, string][] = [
     ["Huishouden", f.leefvorm === "alleenstaande" ? "zonder partner en zonder kinderen" : f.leefvorm === "alleenstaande_ouder" ? "zonder partner, met kinderen" : f.kinderen.length > 0 ? "met partner en kinderen" : "met partner"],
@@ -508,7 +517,7 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
   if (vraagBewoners(f)) {
     woning.push([
       "Andere bewoners",
-      !f.andereBewoners
+      !f.andereBewoners || aantalKostendelers(f) + aantalJongeHuisgenoten(f) === 0
         ? "nee"
         : `${aantalKostendelers(f)} van 27 jaar of ouder${vraagJongeHuisgenoten(f) ? `, ${aantalJongeHuisgenoten(f)} van 18 tot en met 26 jaar` : ""}`,
     ]);
@@ -521,9 +530,9 @@ export function ingevuld(f: Formulier, uren: number): { kop: string; regels: [st
     werk.push(["Werkt nu", `${f.nuUren} uur per week, ${loon(f.nuPer, f.nuLoon, f.nuAllIn)}; ${f.werktAl === "lang" ? "6 maanden of langer" : "korter dan 6 maanden"}`]);
     if (heeftOpvang(f)) werk.push(["Opvang nu al", f.opvangNu === "ja" ? "ja" : "nee"]);
   } else werk.push(["Werkt nu", "nee"]);
-  if (f.werktNu && f.verandering === "meer") werk.push(["Straks", `${uren} uur per week bij het huidige werk`]);
-  else if (f.werktNu && f.verandering === "erbij") werk.push(["Werk erbij", `${uren} uur per week; ${loon(f.per, f.loon, f.allIn)} bij ${f.uren} uur`]);
-  else werk.push([f.werktNu ? "Ander werk" : "Nieuw werk", `${uren} uur per week; ${loon(f.per, f.loon, f.allIn)} bij ${f.uren} uur`]);
+  if (f.werktNu && f.verandering === "meer") werk.push(["Straks", `${f.meerUren} uur per week bij het huidige werk`]);
+  else if (f.werktNu && f.verandering === "erbij") werk.push(["Werk erbij", `${f.uren} uur per week; ${loon(f.per, f.loon, f.allIn)}`]);
+  else werk.push([f.werktNu ? "Ander werk" : "Nieuw werk", `${f.uren} uur per week; ${loon(f.per, f.loon, f.allIn)}`]);
   if (f.medisch) werk.push(["Medische urenbeperking", "ja"]);
   const kosten = [
     f.reiskosten && `reiskosten ${euroTekst(f.reiskosten)}`,
