@@ -14,6 +14,8 @@ export interface Periode {
   naam: string;
   /** Wat de vrijlating in deze periode inhoudt. */
   regel: string;
+  /** Letterlijke wetteksten bij alleen deze periode; ontbreekt dit, dan gelden de citaten van de hele uitleg. */
+  citaten?: Citaat[];
 }
 
 export interface VrijlatingUitleg {
@@ -42,15 +44,22 @@ export function vrijlatingUitleg(invoer: Invoer, regels: RegelSet = standaardReg
     const b = l.brontekst(id);
     return b ? naarCitaat(b.citaat, b.bron, b.geldigVan) : undefined;
   };
-  const citaten = [
-    tekst("pw.vrijlating_n.percentage"),
-    ouderJongKind && !invoer.medischUrenbeperkt ? tekst("pw.vrijlating_r.percentage") : undefined,
-    invoer.medischUrenbeperkt ? tekst("pw.vrijlating_y.percentage") : undefined,
+  const n = tekst("pw.vrijlating_n.percentage");
+  const r = ouderJongKind && !invoer.medischUrenbeperkt ? tekst("pw.vrijlating_r.percentage") : undefined;
+  const y = invoer.medischUrenbeperkt ? tekst("pw.vrijlating_y.percentage") : undefined;
+  const jong =
     l.bestaat("pw.vrijlating.minimumleeftijd") && l.aantal("pw.vrijlating.minimumleeftijd").gt(invoer.leeftijd)
       ? tekst("pw.vrijlating.minimumleeftijd")
-      : undefined,
-  ].filter((c): c is Citaat => !!c);
-  return { ...u, citaten };
+      : undefined;
+  const citaten = [n, r, y, jong].filter((c): c is Citaat => !!c);
+  // Per periode alleen de wetsregel die in die periode geldt (onder n, r of y, of de leeftijdsgrens).
+  const alleen = (...c: (Citaat | undefined)[]) => c.filter((x): x is Citaat => !!x);
+  const periodes = u.periodes.map((p) => ({
+    ...p,
+    citaten:
+      jong && !y ? alleen(jong) : p.fase === "start" ? alleen(n) : p.fase === "later" ? alleen(y ?? r) : alleen(jong && y ? y : undefined),
+  }));
+  return { ...u, periodes, citaten };
 }
 
 function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg, "citaten"> {
@@ -133,8 +142,8 @@ function zonderCitaten(invoer: Invoer, regels: RegelSet): Omit<VrijlatingUitleg,
         periodes: [
           {
             fase: "geen",
-            naam: "Zonder vrijlating",
-            regel: `U bent jonger dan ${minLeeftijd.toString()} jaar. Daarom gaat in 2026 uw hele netto loon van de bijstand af. Vanaf 1 januari 2027 geldt de nieuwe bijverdienregeling ook voor jongeren. ${DAARNA}`,
+            naam: "In 2026",
+            regel: `U bent jonger dan ${minLeeftijd.toString()} jaar. Daarom gaat uw hele netto loon van de bijstand af. Vanaf 1 januari 2027 mogen ook jongeren een deel van hun loon houden. ${DAARNA}`,
           },
         ],
         medisch,

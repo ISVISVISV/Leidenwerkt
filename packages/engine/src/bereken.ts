@@ -893,9 +893,19 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       });
     });
   }
+  // Kinderopvangtoeslag krijgt u niet vanzelf: zelf aanvragen bij Dienst Toeslagen.
+  const kot = bedragVan(werk, "kot") ?? NUL;
+  if (kot.gt(0) && !(bedragVan(huidig, "kot") ?? NUL).gt(0)) {
+    uit.push({
+      soort: "waarschuwing",
+      kop: "Vraag kinderopvangtoeslag aan",
+      actie: true,
+      bron: CITATEN.kotAanvragen,
+      tekst: `De kinderopvangtoeslag van ${euro(kot, true)} per maand krijgt u niet vanzelf. Vraag hem aan via Mijn toeslagen, uiterlijk 3 maanden nadat de opvang is begonnen. Dat kan al zodra u het contract met de opvang heeft getekend.`,
+    });
+  }
   // Leiden: bijzondere bijstand voor de eigen bijdrage kinderopvang (Beleidsregels bijzondere bijstand 2022, CVDR677687).
   const opvang = bedragVan(werk, "opvangkosten");
-  const kot = bedragVan(werk, "kot") ?? NUL;
   const vergoeding = bedragVan(werk, "bb_opvang");
   if (invoer.gemeente === "leiden" && opvang && opvang.neg().minus(kot).gt("0.5")) {
     const eigen = opvang.neg().minus(kot);

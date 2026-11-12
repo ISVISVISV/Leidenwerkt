@@ -56,9 +56,9 @@ Werk de lijst "Wat je niet meldt" bij als er een nieuwe bewuste keuze bij komt; 
 | 2 (november 2026) | Samira (kostgeld bij ouders); Kees (58, kamer, meer uren); Dewi (alleenstaande moeder, twee kinderen naar de opvang); Tom en Ilse (stel, partner met bijbaan); Ahmed (huisgenoten, netto per 4 weken); Marloes (23, studio, medische urenbeperking) |
 | 3 (november 2026) | Noor (21, baby naar gastouder); Henk en Joke (stel, 64 en 60); Sanne (gescheiden, alimentatie, kind 10); Bilal (horeca, all-in uurloon, kamer); Kees en Samira opnieuw |
 | 4 (november 2026) | Fleur (UWV-uitkering naast bijstand); Ricardo (alleenstaande vader, kinderen 17 en 19); Mila en Daan (stel, partner werkt al, kind naar kinderdagverblijf); Joost (nachtopvang, netto loon); Henk en Joke en Noor opnieuw |
-
 | 5 (november 2026) | Thijs (26, bij ouders); Esra (drie kinderen, verschillende opvang); Pim (ander werk in plaats van het huidige); Yara (medische urenbeperking, kamer); Gerard en Ans (werk erbij); Sem (huisgenoten, voltijd) |
 | 6 (november 2026) | Twee andere soorten tests, zie hieronder: omwegen (tien scenario's); toeslagen tegen de proefberekening (Ria en Kemal, Lotte en Ruben, Wendy, Hatice, Marco, Iris) |
+| 7 (november 2026) | Na het inkorten: Dewi, Tom en Ilse, Noor (opnieuw), Yara (opnieuw, andere gegevens), Karim (36, voltijd); vreemde invoer en toetsenbord nog niet afgerond |
 
 Nog niet gebruikt, als idee: iemand die in 2027 rekent.
 

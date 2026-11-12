@@ -727,7 +727,18 @@ function StapWoning({ f, zet, fouten }: StapProps) {
             soort="geheel"
             voorbeeld="bijv. 1"
             label="Hoeveel van hen zijn 27 jaar of ouder?"
-            hint="Niet iedereen telt mee. De meeste studenten tellen niet mee. Ook niet: iemand die met een contract en tegen een gewone prijs een kamer van u huurt of bij u in de kost is, en die geen familie van u is. Twijfelt u? Vraag het uw contactpersoon bij de gemeente."
+            hint={
+              <>
+                <p>
+                  Niet iedereen telt mee. De meeste studenten tellen niet mee. Ook niet: iemand die met een contract en tegen een gewone prijs een
+                  kamer van u huurt of bij u in de kost is, en die geen familie van u is. Huurt u zelf een kamer? Dan tellen andere kamerhuurders met
+                  een eigen contract en een gewone huurprijs ook niet mee. Twijfelt u? Vraag het uw contactpersoon bij de gemeente.
+                </p>
+                <p className="bron-blok">
+                  Bron: <Bron citaat={CITATEN.kostendelerUitzonderingen} />
+                </p>
+              </>
+            }
             waarde={f.kostendelers}
             onChange={(v) => zet("kostendelers", v)}
             fout={fouten.kostendelers}

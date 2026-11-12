@@ -1024,6 +1024,18 @@ details.uitleg summary {
   display: none;
 }
 
+.bron-sluit {
+  display: inline-block;
+  margin: 0.5rem 0 0 1rem;
+  padding: 0.15rem 0.6rem;
+  font: inherit;
+  border: 1px solid var(--lijn);
+  border-radius: 4px;
+  background: var(--veld);
+  color: var(--inkt);
+  cursor: pointer;
+}
+
 .bron-versie {
   color: var(--inkt-zacht);
 }

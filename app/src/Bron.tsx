@@ -5,7 +5,7 @@ import type { Citaat } from "@leidenwerkt/engine";
  * Bronvermelding met de letterlijke tekst in een pop-up.
  * De bronnaam is zelf de knop: aanwijzen, focus (Tab) of tikken toont de
  * tekst. De pop-up blijft staan zolang de muis erop staat en sluit met Escape
- * (WCAG 1.4.13). Onderaan staat de link naar de officiële bron.
+ * (WCAG 1.4.13) of met de knop Sluiten. Onderaan staat de link naar de officiële bron.
  */
 export function Bron({ citaat, label }: { citaat: Citaat; label?: string }) {
   const id = useId();
@@ -60,6 +60,17 @@ export function Bron({ citaat, label }: { citaat: Citaat; label?: string }) {
         <a className="bron-link" href={citaat.url} target="_blank" rel="noreferrer noopener">
           Lees verder op {domein}
         </a>
+        <button
+          type="button"
+          className="bron-sluit"
+          onClick={() => {
+            setVast(false);
+            setWeg(true);
+            ref.current?.querySelector<HTMLButtonElement>(".bron-knop")?.focus();
+          }}
+        >
+          Sluiten
+        </button>
       </span>
     </span>
   );
