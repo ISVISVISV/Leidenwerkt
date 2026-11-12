@@ -200,7 +200,6 @@ function Start({ onStart }: { onStart: () => void }) {
         <li>werkt uw partner? Dan het bruto loon van uw partner</li>
         <li>krijgt u of uw partner een uitkering, alimentatie of ander inkomen? Dan het bedrag per maand</li>
         <li>uw kale huur of kostgeld per maand</li>
-        <li>wonen er volwassenen bij u, of kinderen van 18 jaar of ouder? Dan hun bruto inkomen per jaar, als u dat weet</li>
         <li>gaan uw kinderen naar de opvang? Dan het aantal uren per week, en de prijs per uur als u die weet</li>
       </ul>
       <button type="button" className="hoofdknop" onClick={onStart}>
