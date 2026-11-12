@@ -18,6 +18,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Gewijzigd
 
+- "Wat u nu kunt doen" is een lijst, elke stap op een eigen regel. De stap voor de opvang heet "Vraag bijzondere bijstand aan voor de eigen bijdrage kinderopvang".
+- Voorbeelden bij ander inkomen (andere uitkering, alimentatie, pensioen) en bij reiskosten (OV-kosten of benzine).
 - Bij meer periodes zegt de kop over welke periode hij gaat.
 - De vraag over gas, licht en water komt pas na de vraag over andere bewoners, en alleen als er geen volwassenen van 27 jaar of ouder in huis wonen; anders doet hij niet ter zake.
 - Teksten: "andere volwassenen van 27 jaar of ouder in huis" in plaats van "huisgenoten", met de vermelding dat jongere huisgenoten niet meetellen; reiskosten bij ander werk; wie al langer werkt; de uitleg bij de opvanguren; "Netto loon, beide banen".
@@ -37,6 +39,12 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Hersteld
 
+- Een half uur (bijvoorbeeld 2,5) werd zonder melding afgerond. Nu vraagt de rekenhulp om een heel aantal uren.
+- Het venster met de wettekst ging al open bij focus of aanwijzen en lag dan over de vragen. Nu opent het alleen met een klik of Enter; na sluiten staat de focus weer op de bron.
+- Na "Volgende stap" met een fout gaat de focus naar de samenvatting bovenaan; elke melding is een link naar de vraag.
+- Escape sluit de uitleg van een i-knopje. Na "Kind toevoegen" staat de focus op de geboortedatum van het nieuwe kind.
+- Het voorbeeld bij de geboortedatum van een kind is een datum die bij een kind past.
+- Een te hoog uurloon geeft een melding die de grens noemt.
 - De kop van de uitkomst kon € 1 verschillen van de tabel door afronding. De kop rekent nu met de bedragen uit de tabel.
 - "Goed om te weten" zegt bij meer periodes over welke periode de meldingen gaan.
 - Periodes met precies dezelfde uitkomst staan als één periode, bijvoorbeeld "Vanaf maand 7" als de bijstand al na maand 6 stopt.

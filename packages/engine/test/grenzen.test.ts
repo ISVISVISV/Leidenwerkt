@@ -268,10 +268,10 @@ describe("kinderopvang", () => {
 
     it("de melding vraagt om aan te vragen als er een vergoeding is, en niet als die er niet is", () => {
       const koppen = (r: Resultaat) => r.signalen.map((s) => s.kop);
-      expect(koppen(geval(1500))).toContain("Vraag de vergoeding voor de opvang aan");
+      expect(koppen(geval(1500))).toContain("Vraag bijzondere bijstand aan voor de eigen bijdrage kinderopvang");
       expect(koppen(geval(2600))).toContain("Eigen bijdrage kinderopvang");
-      expect(koppen(geval(2600))).not.toContain("Vraag de vergoeding voor de opvang aan");
-      expect(geval(1500).signalen.find((s) => s.kop.startsWith("Vraag de vergoeding"))?.actie).toBe(true);
+      expect(koppen(geval(2600))).not.toContain("Vraag bijzondere bijstand aan voor de eigen bijdrage kinderopvang");
+      expect(geval(1500).signalen.find((s) => s.kop.startsWith("Vraag bijzondere bijstand"))?.actie).toBe(true);
       expect(geval(2600).signalen.find((s) => s.kop === "Eigen bijdrage kinderopvang")?.actie).toBeUndefined();
     });
   });

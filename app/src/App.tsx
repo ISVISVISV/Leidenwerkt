@@ -57,7 +57,7 @@ export function App() {
     const nieuw = controleer(f, stap);
     setFouten(nieuw);
     if (Object.keys(nieuw).length === 0) naarStap(stap + 1);
-    else requestAnimationFrame(() => document.querySelector<HTMLElement>("[aria-invalid='true']")?.focus());
+    else requestAnimationFrame(() => document.querySelector<HTMLElement>(".foutsamenvatting")?.focus());
   };
 
   return (
@@ -89,15 +89,23 @@ export function App() {
               {STAPPEN[stap - 1]}
             </h1>
             {stap < STAPPEN.length && Object.keys(zichtbareFouten).length > 0 && (
-              <div className="melding waarschuwing" role="alert">
+              <div className="melding waarschuwing foutsamenvatting" role="alert" tabIndex={-1}>
                 <p>
                   {Object.keys(zichtbareFouten).length === 1 ? "Eén vraag is nog niet goed ingevuld:" : `${Object.keys(zichtbareFouten).length} vragen zijn nog niet goed ingevuld:`}
                 </p>
                 <ul>
                   {Object.entries(zichtbareFouten).map(([id, melding]) => (
                     <li key={id}>
-                      {vraagVan(id) ? `${vraagVan(id)}: ` : ""}
-                      {melding}
+                      <a
+                        href={`#${id}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          naarVraag(id);
+                        }}
+                      >
+                        {vraagVan(id) ? `${vraagVan(id)}: ` : ""}
+                        {melding}
+                      </a>
                     </li>
                   ))}
                 </ul>
@@ -254,6 +262,15 @@ const vrijstellingKind = () => {
   }
 };
 
+/** Brengt de focus naar de vraag bij een foutmelding: het veld, of de eerste keuze van de groep. */
+function naarVraag(id: string) {
+  const doel =
+    document.getElementById(id) ??
+    [...document.querySelectorAll<HTMLInputElement>("input[name]")].find((el) => el.name.toLowerCase() === id.toLowerCase());
+  doel?.focus();
+  doel?.scrollIntoView({ block: "center" });
+}
+
 /** De overgangsvraag heeft pas zin als de bijstandsnormen voor vandaag bekend zijn. */
 const normenBekend = () => new Lezer(standaardRegels, vandaag()).bestaat("pw.norm.alleenstaande");
 
@@ -262,7 +279,16 @@ type StapProps = { f: Formulier; zet: <K extends keyof Formulier>(k: K, v: Formu
 /** Knop "i" die uitleg toont of verbergt. De uitleg blijft staan tot de gebruiker hem weer sluit. */
 function InfoKnop({ open, onToggle, controls, onderwerp }: { open: boolean; onToggle: () => void; controls: string; onderwerp: string }) {
   return (
-    <button type="button" className="info-knop" aria-expanded={open} aria-controls={controls} onClick={onToggle}>
+    <button
+      type="button"
+      className="info-knop"
+      aria-expanded={open}
+      aria-controls={controls}
+      onClick={onToggle}
+      onKeyDown={(e) => {
+        if (e.key === "Escape" && open) onToggle();
+      }}
+    >
       <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22">
         <circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
         <circle cx="12" cy="7.6" r="1.35" fill="currentColor" />
@@ -344,6 +370,8 @@ function Datum(props: {
   waarde: Geboortedatum;
   onChange: (v: Geboortedatum) => void;
   fout?: string;
+  /** Geboortedatum van een kind: het voorbeeld past bij een kind. */
+  kind?: boolean;
   /** De datum van de gebruiker zelf: de browser mag hem dan invullen. */
   eigen?: boolean;
 }) {
@@ -365,7 +393,7 @@ function Datum(props: {
             type="text"
             inputMode="numeric"
             maxLength={10}
-            placeholder="bijv. 14-03-1990"
+            placeholder={`bijv. ${props.kind ? "14-03-2018" : "14-03-1990"}`}
             autoComplete={props.eigen ? "bday" : "off"}
             className="datum"
             value={props.waarde}
@@ -528,6 +556,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           {f.kinderen.map((k, i) => (
             <div className="kind" key={i}>
               <Datum
+                kind
                 id={`kind${i}`}
                 legend={`Geboortedatum kind ${i + 1}`}
                 waarde={k.geboren}
@@ -578,7 +607,16 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
               )}
             </div>
           ))}
-          <button type="button" className="tweedeknop" onClick={() => zet("kinderen", [...f.kinderen, nieuwKind()])}>
+          <button
+            type="button"
+            className="tweedeknop"
+            onClick={() => {
+              const nieuw = f.kinderen.length;
+              zet("kinderen", [...f.kinderen, nieuwKind()]);
+              // De focus gaat naar de geboortedatum van het nieuwe kind.
+              requestAnimationFrame(() => document.getElementById(`kind${nieuw}`)?.focus());
+            }}
+          >
             Kind toevoegen
           </button>
         </fieldset>
@@ -612,7 +650,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           id="anderInkomen"
           voorbeeld="bijv. 250"
           label="Ander inkomen per maand, netto"
-          hint="Het bedrag dat u elke maand op uw rekening krijgt. Heeft u meer soorten inkomen? Tel ze bij elkaar op."
+          hint="Bijvoorbeeld een andere uitkering (zoals WW of Wajong), alimentatie of een pensioen. Vul het bedrag in dat u elke maand op uw rekening krijgt. Heeft u meer soorten inkomen? Tel ze bij elkaar op. Kinderbijslag en toeslagen telt u niet mee; die rekent de rekenhulp zelf."
           waarde={f.anderInkomen}
           onChange={(v) => zet("anderInkomen", v)}
           fout={fouten.anderInkomen}
@@ -798,7 +836,7 @@ function StapWoning({ f, zet, fouten }: StapProps) {
       {vraagInkomenAnderen(f) && (
         <label className="vinkje">
           <input type="checkbox" checked={f.huisgenotenOnbekend} onChange={(e) => zet("huisgenotenOnbekend", e.target.checked)} />
-          <span>Ik weet het inkomen van mijn huisgenoten niet</span>
+          <span>Ik weet dit inkomen niet</span>
         </label>
       )}
     </section>
@@ -1053,8 +1091,8 @@ function StapWerk({ f, zet, fouten }: StapProps) {
         label={!f.werktNu ? "Reiskosten per maand" : f.verandering === "ander" ? "Hoeveel meer reiskosten heeft het nieuwe werk per maand dan uw huidige werk?" : "Hoeveel reiskosten komen erbij per maand?"}
         hint={
           f.werktNu
-            ? "Reist u straks vaker of verder dan nu? Vul in wat u daardoor meer betaalt. Bijvoorbeeld voor bus, trein of benzine. Verandert er niets? Laat het vak leeg."
-            : "Bijvoorbeeld bus, trein of benzine. Laat leeg als u fietst of loopt."
+            ? "Reist u straks vaker of verder dan nu? Vul in wat u daardoor meer betaalt. Bijvoorbeeld OV-kosten of benzine. Verandert er niets? Laat het vak leeg."
+            : "Bijvoorbeeld OV-kosten of benzine."
         }
         waarde={f.reiskosten}
         onChange={(v) => zet("reiskosten", v)}
