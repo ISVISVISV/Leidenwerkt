@@ -525,10 +525,6 @@ input[type="range"] {
 
 .te-doen {
   margin: 1rem 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.25rem 0.75rem;
 }
 
 .te-doen h2 {
@@ -537,12 +533,12 @@ input[type="range"] {
 }
 
 .te-doen ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 0.75rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  margin: 0.3rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.te-doen li + li {
+  margin-top: 0.2rem;
 }
 
 .tabel-noten {
@@ -1014,14 +1010,8 @@ details.uitleg summary {
   box-shadow: 0 6px 20px rgb(0 0 0 / 0.18);
 }
 
-.bron:hover .bron-tekst,
-.bron:focus-within .bron-tekst,
 .bron.open .bron-tekst {
   display: block;
-}
-
-.bron.weg:not(.open) .bron-tekst {
-  display: none;
 }
 
 .bron-sluit {

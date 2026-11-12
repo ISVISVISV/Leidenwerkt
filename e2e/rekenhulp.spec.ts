@@ -147,7 +147,9 @@ test("letters worden niet geaccepteerd, voorbeeldtekst staat in lege vakken, hui
   await expect(zelf).toHaveValue("14-13-1984");
   await verder(page);
   await expect(page.locator(".foutmelding").getByText("Vul een datum in die bestaat", { exact: false })).toBeVisible();
-  // Na een fout gaat de focus naar het eerste foute vak; wacht daarop voordat de test verder typt.
+  // Na een fout gaat de focus naar de samenvatting bovenaan; de melding is een link naar de vraag.
+  await expect(page.locator(".foutsamenvatting")).toBeFocused();
+  await page.locator(".foutsamenvatting a").first().click();
   await expect(zelf).toBeFocused();
   await zelf.fill("14-3-1984");
   await verder(page);
@@ -476,7 +478,7 @@ test("netto loon per 4 weken, en inkomen van huisgenoten onbekend", async ({ pag
   await page.getByRole("group", { name: "Wonen er nog andere mensen van 18 jaar of ouder bij u in huis?" }).getByLabel("Ja").check();
   await page.getByLabel("Hoeveel van hen zijn 27 jaar of ouder?").fill("2");
   await page.getByLabel("Hoeveel van hen zijn 18 tot en met 26 jaar?").fill("0");
-  await page.getByText("Ik weet het inkomen van mijn huisgenoten niet").click();
+  await page.getByText("Ik weet dit inkomen niet").click();
   await expect(page.locator("#huisgenotenInkomen")).toHaveCount(0);
   await geenToegankelijkheidsfouten(page);
   await verder(page);
@@ -577,4 +579,41 @@ test("alleenstaande ouder: kinderopvangtoeslag aanvragen, meldingen per periode,
   const kop = Number((await page.locator(".antwoord-zin").innerText()).match(/€\s?([\d.]+)/)![1].replace(/\./g, ""));
   expect(kop).toBe(over[1] - over[0]);
   await geenToegankelijkheidsfouten(page);
+});
+
+test("toetsenbord en invoer: halve uren, bron alleen op klik, focus na kind toevoegen", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" }).getByLabel("Ja").check();
+  await expect(page.getByLabel("Geboortedatum kind 1")).toHaveAttribute("placeholder", "bijv. 14-03-2018");
+  await page.getByRole("button", { name: "Kind toevoegen" }).click();
+  await expect(page.getByLabel("Geboortedatum kind 2")).toBeFocused();
+  await page.getByRole("button", { name: "Kind 2 verwijderen" }).click();
+  await page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" }).getByLabel("Nee").check();
+  await geboren(page, "Uw geboortedatum", 36);
+  await verder(page);
+  await page.getByLabel("In een huurwoning met een eigen voordeur, keuken, wc en douche").check();
+  await page.getByLabel("Kale huur per maand").fill("750");
+  await verder(page);
+  await kiesLoon(page, "Bruto loon per uur");
+  await page.getByRole("textbox", { name: "Bedrag per uur" }).fill("15");
+  await page.getByLabel("Nee, ik krijg het apart").check();
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("2,5");
+  await page.getByRole("button", { name: "Bereken wat ik overhoud" }).click();
+  await expect(page.locator(".foutsamenvatting")).toContainText("Vul een heel aantal uren in");
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("20");
+  await verder(page, "Bereken wat ik overhoud");
+
+  // Focus op een bron opent het venster niet; Enter wel; Escape sluit en zet de focus terug.
+  const knop = page.locator(".toelichting .bron-knop").first();
+  const tekst = page.locator(".toelichting .bron-tekst").first();
+  await knop.focus();
+  await expect(tekst).toBeHidden();
+  await page.keyboard.press("Enter");
+  await expect(tekst).toBeVisible();
+  await expect(knop).toHaveAttribute("aria-expanded", "true");
+  await tekst.getByRole("button", { name: "Sluiten" }).focus();
+  await page.keyboard.press("Escape");
+  await expect(tekst).toBeHidden();
+  await expect(knop).toBeFocused();
 });

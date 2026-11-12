@@ -912,7 +912,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     const rest = vergoeding ? eigen.minus(vergoeding) : eigen;
     uit.push({
       soort: "waarschuwing",
-      kop: vergoeding && vergoeding.gt(0) ? "Vraag de vergoeding voor de opvang aan" : "Eigen bijdrage kinderopvang",
+      kop: vergoeding && vergoeding.gt(0) ? "Vraag bijzondere bijstand aan voor de eigen bijdrage kinderopvang" : "Eigen bijdrage kinderopvang",
       actie: vergoeding && vergoeding.gt(0) ? true : undefined,
       bron: CITATEN.bbKinderopvang,
       tekst:

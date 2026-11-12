@@ -247,6 +247,11 @@ export function controleer(f: Formulier, stap: number): Fouten {
       if (verplicht) fouten[veld] = "Vul dit in.";
     } else if (Number.isNaN(n) || n < min || n > maxi) fouten[veld] = melding;
   };
+  /** De urenschuif werkt in hele uren; een half uur zou stil worden afgerond. */
+  const heleUren = (veld: string, tekst: string) => {
+    const n = getal(tekst);
+    if (!fouten[veld] && n !== undefined && !Number.isNaN(n) && !Number.isInteger(n)) fouten[veld] = "Vul een heel aantal uren in, bijvoorbeeld 20.";
+  };
   if (stap === 1) {
     const kies = "Kies Ja of Nee.";
     if (!f.beantwoord.partner) fouten.partner = kies;
@@ -255,7 +260,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (!f.beantwoord.heeftAnderInkomen) fouten.heeftAnderInkomen = kies;
     const geboren = (veld: string, g: Geboortedatum, min: number, maxi: number, melding: string) => {
       if (!g.trim()) fouten[veld] = "Vul dit in.";
-      else if (!isoDatum(g)) fouten[veld] = "Vul een datum in die bestaat, met dag, maand en jaar. Bijvoorbeeld 14-03-1990.";
+      else if (!isoDatum(g)) fouten[veld] = `Vul een datum in die bestaat, met dag, maand en jaar. Bijvoorbeeld ${veld.startsWith("kind") ? "14-03-2018" : "14-03-1990"}.`;
       else if (isoDatum(g)! > vandaag()) fouten[veld] = "Deze datum ligt in de toekomst. Vul de geboortedatum in.";
       else {
         const leeftijd = leeftijdOp(g, vandaag())!;
@@ -304,7 +309,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (!f.beantwoord.werktNu) fouten.werktNu = "Kies Ja of Nee.";
     const loonGrens = (per: LoonPerKeuze): [number, number, string] =>
       per === "uur"
-        ? [1, 100, "Vul uw bruto loon per uur in, bijvoorbeeld 15,00."]
+        ? [1, 100, "Vul een bruto loon per uur in van € 1 tot € 100, bijvoorbeeld 15,00. Weet u uw loon per maand? Kies dat dan hierboven."]
         : per === "netto"
           ? [50, 15000, "Vul uw netto loon per maand in, bijvoorbeeld 1.500."]
           : per === "vierweken"
@@ -317,6 +322,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (f.werktNu) {
       if (f.nuPer) moet("nuLoon", f.nuLoon, ...loonGrens(f.nuPer));
       moet("nuUren", f.nuUren, 1, 60, "Vul het aantal uren per week in, van 1 tot en met 60.");
+      heleUren("nuUren", f.nuUren);
       if (!f.verandering) fouten.verandering = "Kies wat er verandert.";
       if (!f.werktAl) fouten.werktAl = "Kies hoe lang u al werkt.";
       if (heeftOpvang(f) && !f.opvangNu) fouten.opvangNu = "Kies of uw kind nu al naar de opvang gaat.";
@@ -324,9 +330,11 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (f.werktNu && f.verandering === "meer") {
       const nu = getal(f.nuUren) ?? 0;
       moet("meerUren", f.meerUren, nu + 1, 60, `Vul in hoeveel uur u straks in totaal werkt: meer dan ${nu} en hoogstens 60.`);
+      heleUren("meerUren", f.meerUren);
     } else if (!f.werktNu || f.verandering) {
       if (f.per) moet("loon", f.loon, ...loonGrens(f.per));
       moet("uren", f.uren, 1, 60, "Vul het aantal uren per week in, van 1 tot en met 60.");
+      heleUren("uren", f.uren);
     }
     if (f.werktNu && f.nuPer === "uur" && !f.nuAllIn) fouten.nuallIn = "Kies een antwoord. Weet u het niet? Kies dan 'Ik weet het niet'.";
     if ((!f.werktNu || f.verandering === "ander" || f.verandering === "erbij") && f.per === "uur" && !f.allIn) {

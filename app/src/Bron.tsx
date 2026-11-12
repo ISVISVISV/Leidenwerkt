@@ -3,25 +3,26 @@ import type { Citaat } from "@leidenwerkt/engine";
 
 /**
  * Bronvermelding met de letterlijke tekst in een pop-up.
- * De bronnaam is zelf de knop: aanwijzen, focus (Tab) of tikken toont de
- * tekst. De pop-up blijft staan zolang de muis erop staat en sluit met Escape
- * (WCAG 1.4.13) of met de knop Sluiten. Onderaan staat de link naar de officiële bron.
+ * De bronnaam is een knop: klikken, tikken of Enter opent de tekst. Escape,
+ * de knop Sluiten of klikken buiten de pop-up sluit hem; de focus gaat dan
+ * terug naar de bronnaam. Onderaan staat de link naar de officiële bron.
  */
 export function Bron({ citaat, label }: { citaat: Citaat; label?: string }) {
   const id = useId();
-  const [vast, setVast] = useState(false);
-  const [weg, setWeg] = useState(false);
+  const [open, setOpen] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
+  const sluit = () => {
+    setOpen(false);
+    ref.current?.querySelector<HTMLButtonElement>(".bron-knop")?.focus();
+  };
 
   useEffect(() => {
+    if (!open) return;
     const esc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setVast(false);
-        setWeg(true);
-      }
+      if (e.key === "Escape") sluit();
     };
     const buiten = (e: PointerEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setVast(false);
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     };
     document.addEventListener("keydown", esc);
     document.addEventListener("pointerdown", buiten);
@@ -29,7 +30,7 @@ export function Bron({ citaat, label }: { citaat: Citaat; label?: string }) {
       document.removeEventListener("keydown", esc);
       document.removeEventListener("pointerdown", buiten);
     };
-  }, []);
+  }, [open]);
 
   const domein = (() => {
     try {
@@ -40,18 +41,8 @@ export function Bron({ citaat, label }: { citaat: Citaat; label?: string }) {
   })();
 
   return (
-    <span
-      className={`bron${vast ? " open" : ""}${weg ? " weg" : ""}`}
-      ref={ref}
-      onMouseLeave={() => setWeg(false)}
-      onBlur={(e) => {
-        if (!ref.current?.contains(e.relatedTarget as Node)) {
-          setWeg(false);
-          setVast(false);
-        }
-      }}
-    >
-      <button type="button" className="bron-knop" aria-expanded={vast} aria-controls={id} onClick={() => setVast(!vast)}>
+    <span className={`bron${open ? " open" : ""}`} ref={ref}>
+      <button type="button" className="bron-knop" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
         {label ?? citaat.titel}
       </button>
       <span className="bron-tekst" id={id}>
@@ -63,11 +54,7 @@ export function Bron({ citaat, label }: { citaat: Citaat; label?: string }) {
         <button
           type="button"
           className="bron-sluit"
-          onClick={() => {
-            setVast(false);
-            setWeg(true);
-            ref.current?.querySelector<HTMLButtonElement>(".bron-knop")?.focus();
-          }}
+          onClick={sluit}
         >
           Sluiten
         </button>
