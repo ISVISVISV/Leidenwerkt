@@ -124,6 +124,8 @@ export interface Invoer {
         servicekostenPerMaand?: number;
         /** Eigen toegangsdeur, keuken, wc en douche of bad. Standaard true. Zonder: geen huurtoeslag. */
         zelfstandig?: boolean;
+        /** Kostgeld of huur bij iemand anders in huis: dan ook geen huurtoeslag, maar het is geen kamer. */
+        bijIemandAnders?: boolean;
       }
     /** Koopwoning, of woonsituatie onbekend: geen huurtoeslag, de gewone norm. */
     | { soort: "anders" }

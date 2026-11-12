@@ -224,6 +224,12 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
         )}
       </div>
 
+      {f.werktNu && meerPeriodes && fase !== periodes[0].fase && (
+        <p className="klein">
+          De vrijlating loopt ook af voor het werk dat u nu al doet. Daarom is het bedrag bij "Nu" in deze periode anders dan in de eerste
+          maanden, en zegt "meer" iets over het verschil, niet over hoeveel u overhoudt.
+        </p>
+      )}
       {heeftBijstand && (
         <div className="toelichting">
           <p>
@@ -239,9 +245,6 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
             {gekozen.regel}
             {vrijlatingTelt && " Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt."}
           </p>
-          {f.werktNu && meerPeriodes && fase !== periodes[0].fase && (
-            <p>De vrijlating loopt ook af voor het werk dat u nu al doet. Daarom is het bedrag bij "Nu" in deze periode anders dan in de eerste maanden.</p>
-          )}
           {vrijlatingTelt && (
             <p>
               {zonderVrijlatingZin(verschilZoalsTabel(zonder))}
@@ -764,8 +767,8 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
   }
   if (f.woont === "kostgeld") {
     noten.push(
-      f.andereBewoners && (getal(f.kostendelers) ?? 0) > 0
-        ? "Uw kostgeld verandert uw bijstand niet: u woont met volwassenen van 27 jaar of ouder, en dan geldt de kostendelersnorm."
+      (getal(f.kostendelers) ?? 0) > 0
+        ? "Uw kostgeld verandert uw bijstand niet, omdat er iemand van 27 jaar of ouder bij u woont. Dan geldt de kostendelersnorm."
         : korting.bedrag.gt(0)
           ? "Uw kostgeld zelf staat niet in de tabel; het deel voor uw woonruimte telt wel mee voor de bijstand, zie hierboven."
           : "Uw kostgeld verandert uw bijstand niet: het deel voor uw woonruimte is niet lager dan de grens.",
@@ -800,7 +803,7 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
   }
   if (f.woont === "huur" && !f.zelfstandig) {
     noten.push("Huurtoeslag staat er niet in: voor een kamer of een woning waar u de keuken, wc of douche deelt, krijgt u meestal geen huurtoeslag.");
-  } else if (f.woont === "kostgeld") {
+  } else if (f.woont === "kostgeld" || f.woont === "inwonend") {
     noten.push("Huurtoeslag staat er niet in: wie bij iemand anders in huis woont, krijgt meestal geen huurtoeslag.");
   }
   noten.push("Vaste lasten zoals huur, kostgeld en zorgpremie staan niet in de tabel, want die betaalt u met en zonder werk.");

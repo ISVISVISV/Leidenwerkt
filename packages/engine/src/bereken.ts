@@ -274,11 +274,11 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
   const tariefSchijf1 = partneralimentatie.gt(0) ? D(lAlimentatie.zonderNoteren(() => lAlimentatie.schijven("ib.box1.schijven"))[0].percentage) : NUL;
   const partneralimentatieNetto = partneralimentatie.times(D(1).minus(tariefSchijf1));
   const ander = anderNetto.plus(kinderalimentatie).plus(partneralimentatieNetto);
-  // Voor de toeslagen telt kinderalimentatie niet mee.
-  const anderVoorToeslagen = anderNetto.plus(partneralimentatieNetto);
+  // Voor de toeslagen telt kinderalimentatie niet mee; partneralimentatie telt bruto mee (zie toetsingsinkomen).
+  const anderVoorToeslagen = anderNetto;
   if (ander.gt(0)) {
     posten.push(
-      maakPost(regels, datum, "ander_inkomen", "Ander inkomen", "inkomen", ({ l, stap, aanname }) => {
+      maakPost(regels, datum, "ander_inkomen", partneralimentatie.gt(0) ? "Ander inkomen (na belasting)" : "Ander inkomen", "inkomen", ({ l, stap, aanname }) => {
         if (anderNetto.gt(0)) stap("Uitkering, pensioen of ander inkomen per maand, zoals u het invulde (netto)", anderNetto);
         if (kinderalimentatie.gt(0)) stap("Kinderalimentatie per maand (daarover betaalt u geen belasting)", kinderalimentatie);
         if (partneralimentatie.gt(0)) {
@@ -311,7 +311,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         aanname(korting.aanname);
       }
       if (inkomen.isZero()) {
-        stap(korting.bedrag.isZero() ? `${uitleg}. Zonder inkomen krijgt u de hele norm` : "Uw norm. Zonder inkomen krijgt u de hele norm", norm);
+        stap(korting.bedrag.isZero() ? `${uitleg}. Zonder inkomen krijgt u deze norm` : "Uw norm. Zonder inkomen krijgt u deze norm", norm);
       } else {
         stap(korting.bedrag.isZero() ? uitleg : "Uw norm", norm);
         if (!eigen.isZero()) stap("Uw netto loon", eigen);
@@ -391,7 +391,10 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     }
     if (kinderalimentatie.gt(0)) stap("Kinderalimentatie telt niet mee voor de toeslagen");
     const loon = brutoJaarloon(werk).minus(pensioenJaar(werk)).plus(brutoJaarloon(partnerWerk).minus(pensioenJaar(partnerWerk)));
-    const ti = loon.plus(brutoBijstand);
+    // Partneralimentatie is belast inkomen: voor de toeslagen telt het ontvangen (bruto) bedrag.
+    const alimentatieJaar = partneralimentatie.times(12);
+    const ti = loon.plus(brutoBijstand).plus(alimentatieJaar);
+    if (alimentatieJaar.gt(0)) stap("Partneralimentatie per jaar, zoals u die ontvangt (telt bruto mee)", alimentatieJaar);
     if (loon.gt(0) && brutoBijstand.gt(0)) {
       aanname(
         "Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.",
@@ -680,7 +683,7 @@ export function bereken(gegeven: Invoer, regels: RegelSet = standaardRegels): Re
             "Er is aangenomen dat u voor uw verblijf in de instelling niets betaalt, ook niet als u gaat werken. Dat klopt meestal, maar het hangt af van de instelling. Betaalt u wel een eigen bijdrage? Vraag dan uw begeleider of uw contactpersoon bij de gemeente wat dat voor uw bijstand betekent.",
           ]
         : []),
-      ...(invoer.wonen.soort === "huur" && invoer.wonen.zelfstandig === false
+      ...(invoer.wonen.soort === "huur" && invoer.wonen.zelfstandig === false && !invoer.wonen.bijIemandAnders
         ? ["Als u de voordeur, keuken, wc of douche deelt, bijvoorbeeld op een kamer, krijgt u meestal geen huurtoeslag. Daarom is die niet meegerekend. Voor sommige kamers kan het wel; dat ziet u met de proefberekening van Dienst Toeslagen."]
         : []),
     ],
@@ -839,7 +842,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   // Elke regeling met een inkomensgrens gebruikt dezelfde zinnen: boven de grens zeker niet meer, eronder "kunt u nog krijgen".
   const regelingZin = (wat: string, boven: boolean, grens: Bedrag) =>
     boven
-      ? `Met dit inkomen krijgt u ${wat} niet meer. De grens is ongeveer ${euro(grens, true)} netto per maand, met vakantiegeld. Dat is niet meegerekend.`
+      ? `Met dit inkomen krijgt u ${wat} niet meer. De grens is ongeveer ${euro(grens, true)} netto per maand, met vakantiegeld. Dat zit niet in de bedragen hierboven.`
       : `Met dit inkomen kunt u ${wat} nog krijgen. De grens is ongeveer ${euro(grens, true)} netto per maand, met vakantiegeld.`;
   const inkomenWerk = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
   probeer(() => {
@@ -922,15 +925,21 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   // Leiden: gratis OV-pas (tot 100% van het sociaal minimum; niet voor dak- en thuislozen).
   if (bijstandNu && bijstandNu.gt(0) && !(invoer.wonen.soort === "geen_woonkosten" && invoer.wonen.dakloos)) {
     probeer(() => {
-      l.breuk("leiden.ovpas.inkomensgrens");
-      const stopt = !!bijstandWerk && bijstandWerk.isZero();
+      // De pas is er voor wie bijstand krijgt, of een inkomen heeft tot 100% van het sociaal minimum (bron: gemeente.leiden.nl).
+      const tijden = " De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.";
+      const houdtBijstand = !!bijstandWerk && bijstandWerk.gt(0);
+      const norm = sociaalMinimum(l, invoer);
+      const grens = norm ? norm.times(l.breuk("leiden.ovpas.inkomensgrens")) : undefined;
+      const boven = !houdtBijstand && (!grens || inkomenWerk.gt(grens));
       uit.push({
-        soort: stopt ? "waarschuwing" : "info",
+        soort: boven ? "waarschuwing" : "info",
         kop: "Gratis OV-pas",
         bron: bronVan(l, "leiden.ovpas.inkomensgrens"),
-        tekst: stopt
-          ? "Met dit inkomen krijgt u de gratis OV-pas niet meer. De grens is de bijstandsnorm. Dat is niet meegerekend."
-          : "Met dit inkomen kunt u de gratis OV-pas nog krijgen. De grens is de bijstandsnorm. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.",
+        tekst: houdtBijstand
+          ? `Zolang u bijstand krijgt, kunt u de gratis OV-pas houden.${tijden}`
+          : grens
+            ? `${regelingZin("de gratis OV-pas", boven, grens)}${boven ? "" : tijden}`
+            : "Zonder bijstand krijgt u de gratis OV-pas niet meer. Dat zit niet in de bedragen hierboven.",
       });
     });
   }
@@ -944,7 +953,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
         kop: "Gemeentelijke belastingen",
         bron: bronVan(l, "leiden.kwijtschelding.kosten_van_bestaan"),
         tekst:
-          "Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Met dit inkomen kijkt de gemeente of u ze helemaal of voor een deel moet betalen. Dat is niet meegerekend.",
+          "Met bijstand hoeft u de afvalstoffenheffing en de riool- en waterzorgheffing meestal niet te betalen (kwijtschelding). Met dit inkomen kijkt de gemeente of u ze helemaal of voor een deel moet betalen. Dat zit niet in de bedragen hierboven.",
       });
     });
   }
@@ -957,15 +966,18 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       const jaren = l.aantal("leiden.iit.referteperiode").toString();
       const minLeeftijd = l.aantal("leiden.iit.minimumleeftijd");
       if (minLeeftijd.gt(invoer.leeftijd)) return;
-      // Het recht hangt af van het inkomen: zolang er bijstand is, blijft het inkomen op de norm.
-      const stopt = !!bijstandWerk && bijstandWerk.isZero();
+      // Voorwaarde (gemeente.leiden.nl): 5 jaar of langer een inkomen van maximaal 100% van de geldende bijstandsnorm.
+      // Stopt de bijstand door het werk, dan is het inkomen hoger dan de norm. Houdt iemand bijstand, dan telt de
+      // rekenhulp het als een inkomen tot de norm; of de gemeente het vrijgelaten loon meetelt, is open vraag V18.
+      const boven = !!bijstandWerk && bijstandWerk.isZero();
+      const wat = `de individuele inkomenstoeslag van ${euro(bedrag, true)} (één keer per 12 maanden)`;
       uit.push({
-        soort: stopt ? "waarschuwing" : "info",
+        soort: boven ? "waarschuwing" : "info",
         kop: "Individuele inkomenstoeslag",
         bron: bronVan(l, "leiden.iit.referteperiode"),
-        tekst: stopt
-          ? `Heeft u al ${jaren} jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden ${euro(bedrag, true)} krijgen. Met dit werk verdient u meer dan de bijstandsnorm. Dan krijgt u deze toeslag waarschijnlijk niet meer. Dat is niet meegerekend.`
-          : `Heeft u al ${jaren} jaar of langer een inkomen niet hoger dan de bijstand, dan kunt u in Leiden één keer per 12 maanden ${euro(bedrag, true)} krijgen. Met dit werk houdt u bijstand. Daarom kunt u deze toeslag waarschijnlijk blijven krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
+        tekst: boven
+          ? `Met dit inkomen komt u boven de bijstandsnorm. Dan krijgt u ${wat} niet meer. Dat zit niet in de bedragen hierboven.`
+          : `Met dit werk houdt u bijstand. Heeft u al ${jaren} jaar of langer een inkomen tot de bijstandsnorm? Dan kunt u ${wat} nog krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.`,
       });
     });
   }

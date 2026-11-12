@@ -442,7 +442,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     huisgenotenInkomenJaar: vraagInkomenAnderen(f) && !f.huisgenotenOnbekend ? getal(f.huisgenotenInkomen) : undefined,
     wonen:
       f.woont === "huur" || f.woont === "kostgeld"
-        ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), zelfstandig: f.woont === "huur" && f.zelfstandig }
+        ? { soort: "huur", kaleHuurPerMaand: getal(f.kaleHuur), zelfstandig: f.woont === "huur" && f.zelfstandig, bijIemandAnders: f.woont === "kostgeld" || undefined }
         : f.woont === "inwonend" || f.woont === "dakloos"
           ? { soort: "geen_woonkosten", dakloos: f.woont === "dakloos", betaaltWoonlasten: f.woont === "inwonend" && f.woonlasten }
           : f.woont === "instelling"

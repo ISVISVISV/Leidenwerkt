@@ -316,3 +316,13 @@ describe("Vrijlating voor het loon van de partner (V15)", () => {
     expect(bijstand(jong(true), "huidig").toFixed(2)).toBe(bijstand(jong(false), "huidig").toFixed(2));
   });
 });
+
+describe("Partneralimentatie voor de toeslagen (ronde 9)", () => {
+  it("telt bruto mee: het toetsingsinkomen is minstens 12 × het ontvangen bedrag", () => {
+    const r = bereken(basis({ partneralimentatiePerMaand: 300, wonen: { soort: "huur", kaleHuurPerMaand: 790 } }));
+    const stappen = r.huidig.posten.find((p) => p.id === "zorgtoeslag")!.stappen;
+    expect(stappen.some((s) => s.tekst.startsWith("Partneralimentatie per jaar") && s.bedrag === "3600.00")).toBe(true);
+    const ti = stappen.find((s) => s.tekst.startsWith("Geschat bruto inkomen per jaar"))!;
+    expect(Number(ti.bedrag)).toBeGreaterThan(3600);
+  });
+});
