@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, maxOpvanguren, leegFormulier, maxUurprijs, nieuwKind, schuifSleutel, vandaag, vraagBewoners, vraagInkomenAnderen, vraagInkomenKind, bijIemandAnders, vraagWoonlasten, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag, type Geboortedatum } from "./formulier.ts";
+import { alleenCijfers, controleer, datumInvoer, heeftOpvang, leeftijdOp, leegFormulier, maxUurprijs, nieuwKind, schuifSleutel, vandaag, vraagBewoners, vraagInkomenAnderen, vraagInkomenKind, bijIemandAnders, vraagWoonlasten, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag, type Geboortedatum } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
 const STAPPEN = ["Uw huishouden", "Uw woning", "Uw werk", "Uitkomst"];
@@ -200,6 +200,7 @@ function Start({ onStart }: { onStart: () => void }) {
         <li>werkt uw partner? Dan het bruto loon van uw partner</li>
         <li>krijgt u of uw partner een uitkering, alimentatie of ander inkomen? Dan het bedrag per maand</li>
         <li>uw kale huur of kostgeld per maand</li>
+        <li>wonen er volwassenen bij u, of kinderen van 18 jaar of ouder? Dan hun inkomen per jaar</li>
         <li>gaan uw kinderen naar de opvang? Dan het aantal uren per week, en de prijs per uur als u die weet</li>
       </ul>
       <button type="button" className="hoofdknop" onClick={onStart}>
@@ -507,9 +508,6 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           ["ja", "Ja"],
         ]}
       />
-      {f.leefvorm === "paar" && (
-        <p className="uitleg-paar">De uitkomst geldt voor u samen. Gaat uw partner werken, en u niet? Laat uw partner de rekenhulp dan invullen.</p>
-      )}
       <Datum id="geboren" legend="Uw geboortedatum" eigen waarde={f.geboren} onChange={(v) => zet("geboren", v)} fout={fouten.geboren} />
 
       {f.leefvorm === "paar" && (
@@ -524,7 +522,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           <Keuze
             naam="partnerWerkt"
             legend="Heeft uw partner betaald werk?"
-            hint="Kies alleen Ja als uw partner nu al werkt. Een bijbaan van een paar uur per week telt ook."
+            hint="Kies alleen 'ja' als uw partner nu al werkt. Een bijbaan van een paar uur per week telt ook."
             waarde={f.beantwoord.partnerWerkt ? f.partnerWerkt ? "ja" : "nee" : ""}
             onChange={metAntwoord("partnerWerkt", (v) => zet("partnerWerkt", v === "ja"))}
         fout={fouten.partnerWerkt}
@@ -616,7 +614,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                       ["gastouder", "Gastouder"],
                     ]}
                   />
-                  <Veld id={`kind${i}uren`} label="Hoeveel uur per week gaat dit kind naar de opvang?" voorbeeld="bijv. 16" hint={`Reken het zo uit: dagen per week × uren per dag.${maxOpvanguren() ? ` Let op: u krijgt toeslag over hoogstens ${maxOpvanguren()} uur per maand. Dat is ongeveer ${Math.floor((maxOpvanguren()! * 12) / 52)} uur per week. Gaat uw kind meer uren naar de opvang? Dan betaalt u die extra uren helemaal zelf.` : ""}`} waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
+                  <Veld id={`kind${i}uren`} label="Hoeveel uur per week gaat dit kind naar de opvang?" voorbeeld="bijv. 16" waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
                   <Veld
                     id={`kind${i}prijs`}
                     voorbeeld="bijv. 10,50"

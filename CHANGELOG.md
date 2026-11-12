@@ -11,13 +11,14 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Toets van de belastingberekening aan de witte en groene maandtabel loonheffing 2026 van de Belastingdienst (`packages/engine/test/loonheffingstabellen.test.ts`): verschil hoogstens € 0,18 per maand.
 - Werkt uw partner al? Dan vraagt de rekenhulp hoe lang. Bij korter dan 6 maanden mag ook uw partner een deel van het loon houden (art. 31 lid 2 onder n en art. 45 lid 4 Pw).
 - Gemeentepolis bij verblijf in een instelling: de grens volgt de tabel van de gemeente (€ 512,36 zonder vakantiegeld).
-- Startpagina: een vollediger lijst van wat u nodig heeft (zonder het inkomen van huisgenoten; dat vraagt de rekenhulp later, met de keuze 'weet ik niet'); voor wie de rekenhulp is, staat onderaan.
-- Uw huishouden: nieuwe volgorde (partner, geboortedatums, werk van de partner, kinderen, ander inkomen). Nieuwe uitleg bij partner, kinderen en werk van de partner. Bij een stel: "De uitkomst geldt voor u samen."
+- Startpagina: een vollediger lijst van wat u nodig heeft, met het inkomen per jaar van volwassenen en kinderen van 18 jaar of ouder die bij u wonen; voor wie de rekenhulp is, staat onderaan.
+- Uw huishouden: nieuwe volgorde (partner, geboortedatums, werk van de partner, kinderen, ander inkomen). Nieuwe uitleg bij partner, kinderen en werk van de partner.
 - Ander inkomen in drie vakken: partneralimentatie (de rekenhulp trekt de belasting er zelf af, art. 31 lid 3 Pw), kinderalimentatie (telt niet mee voor de toeslagen) en ander inkomen.
 - Loon per week in plaats van per 4 weken.
 - Bij iemand anders in huis: geen ja/nee-vraag over andere bewoners, maar meteen het aantal, met de persoon bij wie u woont meegeteld.
 - Sleutelpas en Kindtegoed zijn twee aparte meldingen. Alle grenzen staan er "met vakantiegeld" bij.
 - Werkt u al korter dan 6 maanden, dan heet de eerste periode "Tot 6 maanden nadat u naast de bijstand bent gaan werken" en vervalt "De eerste 12 maanden samen".
+- Bij de uren kinderopvang staat geen rekenuitleg meer: de rekenhulp vraagt het aantal uren per week en houdt zelf rekening met het maximum van 230 uur per maand.
 - Het i-knopje staat direct achter de vraag, ook als die over twee regels loopt. Geen dubbele witruimte meer onder een groep vragen.
 - Het inkomen van een kind van 18 of ouder wordt per kind gevraagd, het hele bedrag; de rekenhulp trekt zelf € 6.218 af bij een kind dat aan het begin van het jaar jonger is dan 23 (Belastingdienst). Studiefinanciering telt niet mee.
 - Weet de gebruiker het inkomen van huisgenoten of van een kind niet, dan rekent de rekenhulp de huurtoeslag toch uit, zonder dat inkomen, en zegt dat onder de tabel.
