@@ -12,6 +12,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Netto loon per 4 weken als keuze bij het loon.
 - Bij het inkomen van huisgenoten: "Ik weet het niet". De rekenhulp rekent de huurtoeslag dan niet uit en zegt waarom.
 - Vaste stap "Meld uw werk bij de gemeente" voor iedereen met bijstand, met de tekst van art. 17 Participatiewet.
+- Stap "Vraag kinderopvangtoeslag aan", met de termijn van 3 maanden (bron: Belastingdienst).
+- Knop "Sluiten" in het venster met de wettekst.
 - Toets van de toeslagformules aan dertien proefberekeningen van Dienst Toeslagen (`packages/engine/test/proefberekening.test.ts`).
 
 ### Gewijzigd
@@ -35,6 +37,14 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Hersteld
 
+- De kop van de uitkomst kon € 1 verschillen van de tabel door afronding. De kop rekent nu met de bedragen uit de tabel.
+- "Goed om te weten" zegt bij meer periodes over welke periode de meldingen gaan.
+- Periodes met precies dezelfde uitkomst staan als één periode, bijvoorbeeld "Vanaf maand 7" als de bijstand al na maand 6 stopt.
+- De bron bij een periode noemt alleen de wetsregel van die periode.
+- "Het kinderdagverblijf" in plaats van "de kinderdagverblijf".
+- Onder de tabel staat ook waarom toeslagen dalen. In de meldingen met een grens staat "uw inkomen samen" bij een stel.
+- Voor wie jonger is dan 27: duidelijker uitleg zonder het woord "bijverdienregeling".
+- In de uitleg bij huisgenoten: andere kamerhuurders met een eigen contract tellen niet mee (bron: Rijksoverheid).
 - De urenschuif ging terug naar de ingevulde uren na "Gegevens aanpassen". Nu blijft hij staan, zolang de uren en het loon gelijk blijven. "Wat u heeft ingevuld" toont de ingevulde uren, niet de stand van de schuif.
 - Bij een ander soort woning of een ander soort loon bleef het oude bedrag in het veld staan, met een andere betekenis. Nu begint het veld leeg.
 - Een foutmelding bleef bovenaan staan als de vraag al was opgelost of verdwenen.

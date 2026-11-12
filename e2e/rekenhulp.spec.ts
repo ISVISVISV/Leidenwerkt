@@ -108,7 +108,7 @@ test.describe("donkere modus", () => {
     await geenToegankelijkheidsfouten(page);
     await verder(page, "Bereken wat ik overhoud");
     await expect(page.locator(".antwoord-zin")).toBeVisible();
-    await expect(page.getByLabel("Maand 1 t/m 6")).toBeVisible();
+    await expect(page.getByRole("radio", { name: "Maand 1 t/m 6" })).toBeVisible();
     await page.getByLabel("Vanaf maand 7").check();
   await expect(page.getByRole("group", { name: "Voor welke maanden wilt u de uitkomst zien?" })).toBeVisible();
     await expect(page.locator(".toelichting")).toContainText("Geen vrijlating meer");
@@ -192,7 +192,7 @@ test("zonder vaste woonplek, met medische urenbeperking: lagere norm, vrijlating
   const bron = page.locator(".toelichting .bron").filter({ hasText: "onder y" });
   await bron.getByRole("button").click();
   await expect(bron.locator(".bron-tekst")).toContainText("medisch urenbeperkt");
-  await bron.getByRole("button").click();
+  await bron.locator(".bron-knop").click();
   await geenToegankelijkheidsfouten(page);
 });
 
@@ -542,4 +542,39 @@ test("omwegen: een oud bedrag blijft niet hangen, opgeloste fouten verdwijnen, e
   await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("24");
   await verder(page, "Bereken wat ik overhoud");
   await expect(schuif).toHaveValue("24");
+});
+
+test("alleenstaande ouder: kinderopvangtoeslag aanvragen, meldingen per periode, periodes met dezelfde uitkomst samen", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" }).getByLabel("Ja").check();
+  await geboren(page, "Uw geboortedatum", 34);
+  await geboren(page, "Geboortedatum kind 1", 2);
+  await page.getByText("Dit kind gaat naar de kinderopvang").click();
+  await page.getByLabel("Kinderdagverblijf").check();
+  await page.getByLabel("Hoeveel uur per week gaat dit kind naar de opvang?").fill("24");
+  await verder(page);
+  await page.getByLabel("In een huurwoning met een eigen voordeur, keuken, wc en douche").check();
+  await page.getByLabel("Kale huur per maand").fill("690");
+  await verder(page);
+  await kiesLoon(page, "Bruto loon per uur");
+  await page.getByRole("textbox", { name: "Bedrag per uur" }).fill("14,75");
+  await page.getByLabel("Nee, ik krijg het apart").check();
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("24");
+  await verder(page, "Bereken wat ik overhoud");
+
+  await expect(page.locator(".te-doen")).toContainText("Vraag kinderopvangtoeslag aan");
+  await expect(page.locator(".tabel-noten")).toContainText("U wist de prijs van het kinderdagverblijf niet");
+  // De bijstand stopt na maand 6, dus maand 7 t/m 36 en vanaf maand 37 zijn één periode.
+  await expect(page.getByRole("radio", { name: "Vanaf maand 7" })).toBeVisible();
+  await expect(page.getByRole("radio")).toHaveCount(2);
+  await expect(page.getByRole("heading", { name: "Goed om te weten in maand 1 t/m 6" })).toBeVisible();
+  await page.getByRole("radio", { name: "Vanaf maand 7" }).check();
+  await expect(page.getByRole("heading", { name: "Goed om te weten vanaf maand 7" })).toBeVisible();
+  // Kop en tabel zeggen hetzelfde bedrag.
+  const tabel = page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ });
+  const over = (await tabel.getByRole("row", { name: /U houdt over/ }).innerText()).match(/€\s?([\d.]+)/g)!.map((t) => Number(t.replace(/[^\d]/g, "")));
+  const kop = Number((await page.locator(".antwoord-zin").innerText()).match(/€\s?([\d.]+)/)![1].replace(/\./g, ""));
+  expect(kop).toBe(over[1] - over[0]);
+  await geenToegankelijkheidsfouten(page);
 });

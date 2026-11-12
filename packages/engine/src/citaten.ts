@@ -60,6 +60,20 @@ export const CITATEN = {
     tekst:
       "Heeft u bijstand en krijgt u partneralimentatie en/of kinderalimentatie? Dan geldt deze alimentatie als inkomen. De gemeente houdt hiermee dan rekening bij het vaststellen van uw bijstandsuitkering.",
   },
+  kostendelerUitzonderingen: {
+    titel: "Rijksoverheid, Wat is de kostendelersnorm in de bijstand?",
+    url: "https://www.rijksoverheid.nl/documenten/vraag-en-antwoord/bijstand/wat-is-de-kostendelersnorm-in-de-bijstand",
+    versie: "geraadpleegd op 12 november 2026",
+    tekst:
+      "Niet alle huisgenoten tellen mee voor de kostendelersnorm. […] de commerciële huurder/onderhuurder/kostganger of de verhuurder/onderverhuurder/kostgever die in dezelfde woning woont; kamerhuurders met een commercieel contract (en die een commerciële huurprijs betalen); studenten die een opleiding volgen die recht kan geven op studiefinanciering of tegemoetkoming studiekosten;",
+  },
+  kotAanvragen: {
+    titel: "Belastingdienst, Hoe vraag ik kinderopvangtoeslag aan?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/kinderopvangtoeslag/content/hoe-moet-ik-kinderopvangtoeslag-aanvragen",
+    versie: "geraadpleegd op 12 november 2026",
+    tekst:
+      "Die vraagt u zelf aan met Mijn toeslagen. […] Dit kan al zodra u het contract met de opvang hebt getekend. […] doe dit wel uiterlijk binnen 3 maanden nadat de opvang is gestart.",
+  },
   pw45lid4: {
     titel: "Participatiewet, art. 45 lid 4",
     url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",

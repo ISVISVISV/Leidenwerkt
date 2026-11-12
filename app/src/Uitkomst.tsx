@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Lezer, woonkorting, bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Opvangsoort, type Post, type Resultaat } from "@leidenwerkt/engine";
+import { Lezer, woonkorting, bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Fase, type Opvangsoort, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
 import { LOON_PER, OPVANG, getal, ingevuld, ingevuldLoon, maxUurprijs, naarInvoer, schuifStart, vasteFase, vandaag, type Formulier } from "./formulier.ts";
 
@@ -55,7 +55,11 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
   const { datum, teruggevallen } = useMemo(() => bruikbareDatum(f), [f]);
 
   const uitleg = useMemo(() => vrijlatingUitleg(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
-  const periodes = uitleg.periodes;
+  // Periodes met precies dezelfde uitkomst als de periode ervoor worden één periode.
+  const periodes = useMemo(
+    () => samenvoegen(uitleg.periodes, (fase) => bereken(naarInvoer(f, { uren, fase, datum }))),
+    [uitleg, f, uren, datum],
+  );
   // Wie al 6 maanden of langer werkt, zit in de periode na de eerste vrijlating: de uitleg volgt de berekening.
   const vast = vasteFase(f);
   // Op papier staan alle meldingen uitgeklapt.
@@ -92,7 +96,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
   const perioden = useMemo(
     () =>
       meerPeriodes
-        ? periodes.map((p) => ({ naam: p.naam, verschil: bereken(naarInvoer(f, { uren, fase: p.fase, datum })).verschilPerMaand }))
+        ? periodes.map((p) => ({ naam: p.naam, verschil: verschilZoalsTabel(bereken(naarInvoer(f, { uren, fase: p.fase, datum }))) }))
         : undefined,
     [meerPeriodes, periodes, f, uren, datum],
   );
@@ -242,8 +246,8 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
           )}
           <p className="klein bron-blok">
             Bron:{" "}
-            {uitleg.citaten.length > 0
-              ? uitleg.citaten.map((c, i) => (
+            {(gekozen.citaten ?? uitleg.citaten).length > 0
+              ? (gekozen.citaten ?? uitleg.citaten).map((c, i) => (
                   <span key={c.titel}>
                     {i > 0 && ", "}
                     <Bron citaat={c} label={c.titel.replace(/^Participatiewet, /, i === 0 ? "Participatiewet, " : "")} />
@@ -276,7 +280,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
 
       {r.signalen.length > 0 && (
         <section aria-labelledby="let-op">
-          <h2 id="let-op">Goed om te weten</h2>
+          <h2 id="let-op">Goed om te weten{meerPeriodes ? ` ${periodeInZin(gekozen.naam)}` : ""}</h2>
           <p className="klein">Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.</p>
           <ul className="signalen">
             {r.signalen.map((s, i) => (
@@ -285,7 +289,9 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
                   <summary className="signaal-kop">{s.kop}</summary>
                   <p>{metLinks(s.tekst)}</p>
                   {s.tekst.includes("(grens") && (
-                    <p>De grens gaat over uw netto loon en bijstand samen, zonder toeslagen: ongeveer {euro(inkomenVoorGrenzen(r).toFixed(2), true)} per maand.</p>
+                    <p>
+                      {f.leefvorm === "paar" ? "Uw inkomen samen" : "Uw inkomen"}, zonder toeslagen, is ongeveer {euro(inkomenVoorGrenzen(r).toFixed(2), true)} per maand.
+                    </p>
                   )}
                   {s.bron && (
                     <span className="signaal-bron">
@@ -376,8 +382,9 @@ function Antwoord({
   /** Stopt de bijstand in de volgende periode? Dan het moment, bijvoorbeeld "Vanaf maand 7". */
   stoptVanaf?: string;
 }) {
-  const v = Number(r.verschilPerMaand);
-  const bedrag = euro(r.verschilPerMaand.replace("-", ""), true);
+  const verschil = verschilZoalsTabel(r);
+  const v = Number(verschil);
+  const bedrag = euro(verschil.replace("-", ""), true);
   // Bij meer periodes zegt de kop over welke periode hij gaat; het lijstje eronder toont ze allemaal.
   const wanneer = periode ? ` ${periodeInZin(periode)}` : "";
   const zin =
@@ -622,6 +629,41 @@ function verschilRegel(naam: string, verschil: string, per: string) {
   return `${naam}: ${euro(verschil.replace("-", ""), true)}${per} ${v > 0 ? "meer" : "minder"}`;
 }
 
+const LIDWOORD: Record<Opvangsoort, string> = { dagopvang: "het", bso: "de", gastouder: "de" };
+
+/** Het verschil per maand zoals de tabel het toont: "U houdt over" met werk min nu, elk afgerond op hele euro's. */
+function verschilZoalsTabel(r: Resultaat): string {
+  const heel = (x: string) => D(x).toDecimalPlaces(0, 4 /* naar boven bij een halve euro, zoals euro() */);
+  return heel(r.werk.besteedbaarPerMaand).minus(heel(r.huidig.besteedbaarPerMaand)).toFixed(2);
+}
+
+/**
+ * Voegt opeenvolgende periodes samen als de uitkomst precies gelijk is, bijvoorbeeld als de bijstand al
+ * eerder stopt. "Maand 7 t/m 36" en "Vanaf maand 37" worden dan "Vanaf maand 7".
+ */
+function samenvoegen<P extends { fase: Fase; naam: string }>(lijst: P[], reken: (fase: Fase) => Resultaat): P[] {
+  const uit: P[] = [];
+  let vorige: Resultaat | undefined;
+  for (const p of lijst) {
+    const nu = reken(p.fase);
+    const laatste = uit[uit.length - 1];
+    const begin = laatste?.naam.match(/^Maand (\d+) t\/m \d+$/);
+    const eind = p.naam.match(/^(?:Maand \d+ t\/m (\d+)|Vanaf maand \d+)$/);
+    if (laatste && vorige && begin && eind && gelijkeUitkomst(vorige, nu)) {
+      uit[uit.length - 1] = { ...laatste, naam: eind[1] ? `Maand ${begin[1]} t/m ${eind[1]}` : `Vanaf maand ${begin[1]}` };
+    } else {
+      uit.push(p);
+    }
+    vorige = nu;
+  }
+  return uit;
+}
+
+function gelijkeUitkomst(a: Resultaat, b: Resultaat): boolean {
+  const posten = (r: Resultaat) => JSON.stringify(r.werk.posten.map((p) => [p.id, p.perMaand]));
+  return a.huidig.besteedbaarPerMaand === b.huidig.besteedbaarPerMaand && a.werk.besteedbaarPerMaand === b.werk.besteedbaarPerMaand && posten(a) === posten(b);
+}
+
 /** Klapt een melding onder "Goed om te weten" open, voor de links onder "Wat u nu kunt doen". */
 function openSignaal(i: number) {
   const el = document.getElementById(`signaal-${i}`);
@@ -659,10 +701,10 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
   const l = new Lezer(standaardRegels, r.datum);
   const soorten = [...new Set(f.kinderen.filter((k) => k.opvang && !getal(k.uurprijs) && k.soort).map((k) => k.soort as Opvangsoort))];
   if (soorten.length > 0) {
-    const delen = soorten.map((s) => `de ${OPVANG[s]} met ${euro(maxUurprijs(l, s).toFixed(2))}`);
+    const delen = soorten.map((s) => `${LIDWOORD[s]} ${OPVANG[s]} met ${euro(maxUurprijs(l, s).toFixed(2))}`);
     const lijst = delen.length > 1 ? `${delen.slice(0, -1).join(", ")} en ${delen[delen.length - 1]}` : delen[0];
     noten.push(
-      `U wist de prijs van ${soorten.map((s) => `de ${OPVANG[s]}`).join(" en ")} niet. De rekenhulp rekent ${soorten.length > 1 ? `voor ${lijst}` : `met ${euro(maxUurprijs(l, soorten[0]).toFixed(2))}`} per uur: de hoogste prijs waarover u toeslag krijgt. Is de opvang duurder, dan betaalt u meer zelf.`,
+      `U wist de prijs van ${soorten.map((s) => `${LIDWOORD[s]} ${OPVANG[s]}`).join(" en ")} niet. De rekenhulp rekent ${soorten.length > 1 ? `voor ${lijst}` : `met ${euro(maxUurprijs(l, soorten[0]).toFixed(2))}`} per uur: de hoogste prijs waarover u toeslag krijgt. Is de opvang duurder, dan betaalt u meer zelf.`,
     );
   }
   if (f.leefvorm === "paar" && f.partnerWerkt && getal(f.partnerBruto) && r.werk.posten.some((p) => p.id === "loon_partner")) {
@@ -694,6 +736,16 @@ function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
     noten.push(
       `${lijst.charAt(0).toUpperCase() + lijst.slice(1)} ${gelijk.length > 1 ? "blijven" : "blijft"} gelijk, omdat uw inkomen onder de grens blijft waarboven ${gelijk.length > 1 ? "ze dalen" : "die daalt"}.`,
     );
+  }
+  const lager = ["zorgtoeslag", "huurtoeslag", "kgb"].filter((id) => {
+    const nu = Number(r.huidig.posten.find((p) => p.id === id)?.perMaand ?? 0);
+    const met = Number(r.werk.posten.find((p) => p.id === id)?.perMaand ?? 0);
+    return nu > 0 && met < nu;
+  });
+  if (lager.length > 0 && r.werk.posten.some((p) => p.id === "loon")) {
+    const namen = lager.map((id) => r.werk.posten.find((p) => p.id === id)?.label.toLowerCase() ?? (id === "kgb" ? "kindgebonden budget" : id));
+    const lijst = namen.length > 1 ? `${namen.slice(0, -1).join(", ")} en ${namen[namen.length - 1]}` : namen[0];
+    noten.push(`${lijst.charAt(0).toUpperCase() + lijst.slice(1)} ${lager.length > 1 ? "dalen" : "daalt"}, omdat uw inkomen stijgt.`);
   }
   if (r.werk.posten.some((p) => p.id === "iack" && p.perMaand && p.perMaand !== "0.00")) {
     noten.push(
