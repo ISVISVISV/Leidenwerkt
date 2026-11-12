@@ -62,6 +62,13 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Hersteld
 
+- Partneralimentatie telt voor de toeslagen bruto mee (het ontvangen bedrag), niet teruggerekend uit het bedrag na belasting. In de tabel heet de rij dan "Ander inkomen (na belasting)".
+- Gratis OV-pas: volgens de gemeente voor wie bijstand krijgt of een inkomen heeft tot 100% van het sociaal minimum. De melding zegt nu "Zolang u bijstand krijgt, kunt u de gratis OV-pas houden", en vergelijkt anders met de grens.
+- Bij kostgeld met een huisgenoot van 27 jaar of ouder noemt de uitleg nu de juiste reden. De aanname over kamers staat niet meer bij wie bij iemand anders in huis woont; de zin over huurtoeslag staat er ook bij wie niets betaalt.
+- "Dat is niet meegerekend" in de meldingen is nu "Dat zit niet in de bedragen hierboven".
+- Bij werk erbij: "Hoeveel uur per week gaat u bij het extra werk werken?". Meervoud bij de vraag of de kinderen al naar de opvang gaan.
+- Met het vinkje "Ik weet dit inkomen niet" blijft de vraag zichtbaar.
+- De uitleg dat de vrijlating voor het huidige werk afloopt, staat bij elke latere periode.
 - Een half uur (bijvoorbeeld 2,5) werd zonder melding afgerond. Nu vraagt de rekenhulp om een heel aantal uren.
 - Het venster met de wettekst ging al open bij focus of aanwijzen en lag dan over de vragen. Nu opent het alleen met een klik of Enter; na sluiten staat de focus weer op de bron.
 - Na "Volgende stap" met een fout gaat de focus naar de samenvatting bovenaan; elke melding is een link naar de vraag.

@@ -199,8 +199,8 @@ function Start({ onStart }: { onStart: () => void }) {
         <li>werkt u al? Dan ook het loon en de uren van dat werk</li>
         <li>werkt uw partner? Dan het bruto loon van uw partner</li>
         <li>krijgt u of uw partner een uitkering, alimentatie of ander inkomen? Dan het bedrag per maand</li>
-        <li>uw huur of kostgeld per maand</li>
-        <li>wonen er volwassenen bij u, of kinderen van 18 jaar of ouder? Dan hun inkomen per jaar</li>
+        <li>uw kale huur of kostgeld per maand</li>
+        <li>wonen er volwassenen bij u, of kinderen van 18 jaar of ouder? Dan hun bruto inkomen per jaar, als u dat weet</li>
         <li>gaan uw kinderen naar de opvang? Dan het aantal uren per week, en de prijs per uur als u die weet</li>
       </ul>
       <button type="button" className="hoofdknop" onClick={onStart}>
@@ -908,6 +908,9 @@ function StapWoning({ f, zet, fouten }: StapProps) {
           voorbeeld="bijv. 25.000"
         />
       )}
+      {vraagInkomenAnderen(f) && f.huisgenotenOnbekend && (
+        <p className="vraag-tekst">Voor de huurtoeslag: bruto inkomen per jaar van uw huisgenoten, samen</p>
+      )}
       {vraagInkomenAnderen(f) && (
         <label className="vinkje">
           <input type="checkbox" checked={f.huisgenotenOnbekend} onChange={(e) => zet("huisgenotenOnbekend", e.target.checked)} />
@@ -917,6 +920,13 @@ function StapWoning({ f, zet, fouten }: StapProps) {
       {f.kinderen.map((k, i) =>
         vraagInkomenKind(f, k) ? (
           <div key={i}>
+            {/* Ook met het vinkje aan blijft de vraag zichtbaar, zodat het vinkje niet los onder een andere vraag staat. */}
+            {k.inkomenOnbekend && (
+              <p className="vraag-tekst">
+                Voor de huurtoeslag: bruto inkomen per jaar van {f.kinderen.filter((x) => vraagInkomenKind(f, x)).length > 1 ? `kind ${i + 1}` : "uw kind"} van{" "}
+                {leeftijdOp(k.geboren, vandaag())} jaar
+              </p>
+            )}
             {!k.inkomenOnbekend && (
               <Veld
                 id={`kind${i}inkomen`}
@@ -965,7 +975,10 @@ function LoonVelden({
   allIn,
   zetAllIn,
   fouten,
+  extra,
 }: {
+  /** Werk erbij, naast het huidige werk: de urenvraag gaat over het extra werk. */
+  extra?: boolean;
   prefix: string;
   allIn: Formulier["allIn"];
   zetAllIn: (v: Formulier["allIn"]) => void;
@@ -984,7 +997,7 @@ function LoonVelden({
     <>
       <Veld
         id={urenId}
-        label={prefix === "nu" ? "Hoeveel uur per week werkt u nu?" : "Hoeveel uur per week gaat u werken?"}
+        label={prefix === "nu" ? "Hoeveel uur per week werkt u nu?" : extra ? "Hoeveel uur per week gaat u bij het extra werk werken?" : "Hoeveel uur per week gaat u werken?"}
         voorbeeld="bijv. 24"
         hint={
           prefix === "nu"
@@ -1106,7 +1119,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
           {heeftOpvang(f) && (
             <Keuze
               naam="opvangNu"
-              legend="Gaat uw kind nu al naar de kinderopvang?"
+              legend={f.kinderen.filter((k) => k.opvang).length > 1 ? "Gaan uw kinderen nu al naar de kinderopvang?" : "Gaat uw kind nu al naar de kinderopvang?"}
               hint="Dan rekent de rekenhulp de kosten en de toeslag voor de kinderopvang ook mee in de situatie zoals die nu is."
               waarde={f.opvangNu}
               onChange={(v) => zet("opvangNu", v)}
@@ -1179,6 +1192,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
         <>
           <h2>{!f.werktNu ? "Het werk dat u overweegt" : f.verandering === "erbij" ? "Het extra werk" : "Het nieuwe werk"}</h2>
           <LoonVelden
+            extra={f.werktNu && f.verandering === "erbij"}
             prefix="straks"
             per={f.per}
             loon={f.loon}

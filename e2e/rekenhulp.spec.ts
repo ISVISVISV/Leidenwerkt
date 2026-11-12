@@ -292,7 +292,7 @@ test("wie al werkt, kiest wat er verandert en vult niets dubbel in", async ({ pa
   await expect(page.getByRole("heading", { name: "Het extra werk" })).toBeVisible();
   await kiesLoon(page, "Bruto loon per maand");
   await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("500");
-  await page.getByRole("textbox", { name: /Hoeveel uur per week (werkt u|gaat u werken)/ }).last().fill("8");
+  await page.getByRole("textbox", { name: "Hoeveel uur per week gaat u bij het extra werk werken?" }).fill("8");
   await verder(page, "Bereken wat ik overhoud");
   await expect(page.getByText("Uren extra werk per week")).toBeVisible();
   await expect(page.locator(".antwoord")).toContainText("Bij 8 uur extra werk per week");

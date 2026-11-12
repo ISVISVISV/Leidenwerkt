@@ -303,7 +303,7 @@ describe("Leiden: collectieve zorgverzekering en kwijtschelding", () => {
     const hoog = bereken(basis({ nieuwWerk: { brutoMaandloon: 2600, urenPerWeek: 36 }, vrijlatingFase: "start" }));
     expect(tekst(laag, "Zorgverzekering")!.tekst).toContain("kunt u de Gemeentepolis");
     expect(tekst(laag, "Zwemabonnement")!.tekst).toContain("zwembad De Vliet of De Zijl");
-    expect(tekst(laag, "Gratis OV-pas")!.tekst).toContain("kunt u de gratis OV-pas nog krijgen");
+    expect(tekst(laag, "Gratis OV-pas")!.tekst).toContain("Zolang u bijstand krijgt, kunt u de gratis OV-pas houden");
     expect(tekst(hoog, "Gratis OV-pas")!.tekst).toContain("krijgt u de gratis OV-pas niet meer");
     const dakloos = bereken(basis({ wonen: { soort: "geen_woonkosten", dakloos: true, betaaltWoonlasten: false }, nieuwWerk: { brutoMaandloon: 900, urenPerWeek: 16 }, vrijlatingFase: "start" }));
     expect(tekst(dakloos, "Gratis OV-pas")).toBeUndefined();
@@ -318,8 +318,8 @@ describe("Leiden: collectieve zorgverzekering en kwijtschelding", () => {
       expect(tekst(laag, kop)!.soort, kop).toBe("info");
       expect(tekst(hoog, kop)!.soort, kop).toBe("waarschuwing");
     }
-    expect(tekst(laag, "Individuele inkomenstoeslag")!.tekst).toContain("blijven krijgen");
-    expect(tekst(hoog, "Individuele inkomenstoeslag")!.tekst).toContain("waarschijnlijk niet meer");
+    expect(tekst(laag, "Individuele inkomenstoeslag")!.tekst).toContain("nog krijgen");
+    expect(tekst(hoog, "Individuele inkomenstoeslag")!.tekst).toContain("niet meer");
     const rang = (s: { actie?: boolean; soort: string }) => (s.actie ? 0 : s.soort === "waarschuwing" ? 1 : 2);
     for (const r of [laag, hoog]) expect(r.signalen.map(rang)).toEqual([...r.signalen.map(rang)].sort());
   });
