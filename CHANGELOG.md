@@ -4,7 +4,7 @@ Wat er per versie is veranderd. De opzet volgt [Keep a Changelog](https://keepac
 
 Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op de afdruk.
 
-## Nog niet uitgebracht
+## 0.4.0 – 12 november 2026
 
 ### Toegevoegd
 

@@ -1,8 +1,8 @@
 publiccodeYmlVersion: "0.4"
 name: Leidenwerkt
 url: https://github.com/ISVISVISV/Leidenwerkt
-softwareVersion: 0.3.0
-releaseDate: "2026-11-11"
+softwareVersion: 0.4.0
+releaseDate: "2026-11-12"
 platforms:
   - web
 categories:
