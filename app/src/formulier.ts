@@ -256,15 +256,6 @@ export function vraagInkomenKind(f: Formulier, k: KindVeld): boolean {
   return f.woont === "huur" && f.zelfstandig && (leeftijdOp(k.geboren, vandaag()) ?? 0) >= 18;
 }
 
-/** Hoogste aantal opvanguren per kind per maand waarover toeslag wordt berekend (uit de regeldata). */
-export function maxOpvanguren(): number | undefined {
-  try {
-    return new Lezer(standaardRegels, vandaag()).aantal("kot.max_uren_per_maand").toNumber();
-  } catch {
-    return undefined;
-  }
-}
-
 export type Fouten = Partial<Record<string, string>>;
 
 export function controleer(f: Formulier, stap: number): Fouten {
