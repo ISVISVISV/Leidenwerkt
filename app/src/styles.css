@@ -344,9 +344,20 @@ fieldset {
   flex: none;
 }
 
-.groep {
+/* Een deel van een stap ("Kinderen", "Uw werk nu"): een streep over de hele breedte boven de kop. */
+h2.deel {
   border-top: 1px solid var(--lijn);
-  padding-top: 1rem;
+  padding-top: 1.25rem;
+  margin-top: 2rem;
+}
+
+.groep {
+  padding-top: 0;
+}
+
+/* "Kind toevoegen" staat niet tegen de vraag eronder aan. */
+.groep > .tweedeknop {
+  margin-bottom: 1.4rem;
 }
 
 /* Een fieldset houdt de marge van zijn laatste vraag binnen; zonder dit staat er dubbele witruimte onder de groep. */

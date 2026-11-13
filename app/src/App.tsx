@@ -615,6 +615,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         </div>
       )}
 
+      <h2 className="deel">Kinderen</h2>
       <Keuze
         naam="heeftKinderen"
         legend="Heeft u kinderen die bij u wonen?"
@@ -637,7 +638,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
       />
       {(f.leefvorm === "alleenstaande_ouder" || (f.leefvorm === "paar" && f.kinderen.length > 0)) && (
         <fieldset className="groep">
-          <legend>Kinderen die bij u wonen</legend>
+          <legend className="visueel-verborgen">Kinderen die bij u wonen</legend>
           {fouten.kinderen && <p className="foutmelding">{fouten.kinderen}</p>}
           {f.kinderen.map((k, i) => (
             <div className="kind" key={i}>
@@ -705,10 +706,17 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           >
             Kind toevoegen
           </button>
-          <label className="vinkje">
-            <input type="checkbox" checked={f.kinderalimentatieJa} onChange={(e) => zet("kinderalimentatieJa", e.target.checked)} />
-            <span>{f.leefvorm === "paar" ? "Ik of mijn partner krijgt kinderalimentatie" : "Ik krijg kinderalimentatie"}</span>
-          </label>
+          <Keuze
+            naam="krijgtKinderalimentatie"
+            legend={f.leefvorm === "paar" ? "Krijgt u of uw partner kinderalimentatie voor deze kinderen?" : "Krijgt u kinderalimentatie voor deze kinderen?"}
+            waarde={f.beantwoord.krijgtKinderalimentatie ? f.kinderalimentatieJa ? "ja" : "nee" : ""}
+            onChange={metAntwoord("krijgtKinderalimentatie", (v) => zet("kinderalimentatieJa", v === "ja"))}
+            fout={fouten.krijgtKinderalimentatie}
+            opties={[
+              ["nee", "Nee"],
+              ["ja", "Ja"],
+            ]}
+          />
           {f.kinderalimentatieJa && (
             <Veld
               id="kinderalimentatie"
@@ -1088,8 +1096,10 @@ function StapWerk({ f, zet, fouten }: StapProps) {
         ]}
       />
       {f.werktNu && (
+        <>
+        <h2 className="deel">Uw werk nu</h2>
         <fieldset className="groep">
-          <legend>Uw werk nu</legend>
+          <legend className="visueel-verborgen">Uw werk nu</legend>
           <LoonVelden
             prefix="nu"
             per={f.nuPer}
@@ -1133,6 +1143,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
             />
           )}
         </fieldset>
+        </>
       )}
 
       <Keuze
@@ -1192,7 +1203,7 @@ function StapWerk({ f, zet, fouten }: StapProps) {
 
       {(!f.werktNu || f.verandering === "ander" || f.verandering === "erbij") && (
         <>
-          <h2>{!f.werktNu ? "Het werk dat u overweegt" : f.verandering === "erbij" ? "Het extra werk" : "Het nieuwe werk"}</h2>
+          <h2 className="deel">{!f.werktNu ? "Het werk dat u overweegt" : f.verandering === "erbij" ? "Het extra werk" : "Het nieuwe werk"}</h2>
           <LoonVelden
             extra={f.werktNu && f.verandering === "erbij"}
             prefix="straks"

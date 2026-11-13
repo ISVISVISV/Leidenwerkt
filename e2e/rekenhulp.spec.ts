@@ -6,7 +6,7 @@ async function geenToegankelijkheidsfouten(page: Page) {
   expect(r.violations.map((v) => `${v.id}: ${v.help}`)).toEqual([]);
 }
 
-const JA_NEE = ["partner", "heeftKinderen", "partnerWerkt", "heeftAnderInkomen", "woonlasten", "andereBewoners", "werktNu"];
+const JA_NEE = ["partner", "heeftKinderen", "partnerWerkt", "heeftAnderInkomen", "krijgtKinderalimentatie", "woonlasten", "andereBewoners", "werktNu"];
 
 /**
  * Naar de volgende stap. Ja/nee-vragen hebben geen antwoord vooraf; wat een test niet zelf beantwoordt,
@@ -714,7 +714,7 @@ test("partner werkt korter dan 6 maanden: ook voor het loon van de partner een v
   await geenToegankelijkheidsfouten(page);
 });
 
-test("kinderalimentatie met een vinkje bij de kinderen, en de zin onder de tabel volgt de urenschuif", async ({ page }) => {
+test("kinderalimentatie als ja/nee-vraag bij de kinderen, en de zin onder de tabel volgt de urenschuif", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await page.getByRole("group", { name: "Woont u samen met een partner?" }).getByLabel("Nee").check();
@@ -729,8 +729,11 @@ test("kinderalimentatie met een vinkje bij de kinderen, en de zin onder de tabel
   await kinderen.getByLabel("Ja").check();
   await geboren(page, "Geboortedatum kind 1", 6);
   await expect(page.getByLabel("Kinderalimentatie per maand")).toHaveCount(0);
-  await page.getByLabel("Ik krijg kinderalimentatie").check();
-  // Aangevinkt maar leeg: een melding.
+  // Geen antwoord op de vraag naar kinderalimentatie: een melding.
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await expect(page.locator(".foutsamenvatting")).toContainText("Krijgt u kinderalimentatie voor deze kinderen: Kies Ja of Nee.");
+  await page.getByRole("group", { name: "Krijgt u kinderalimentatie voor deze kinderen?" }).getByLabel("Ja").check();
+  // Ja, maar geen bedrag: een melding.
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await expect(page.locator(".foutsamenvatting")).toContainText("Vul dit in");
   await page.getByLabel("Kinderalimentatie per maand").fill("250");
