@@ -7,3 +7,5 @@ test-results/
 playwright-report/
 app/dist-los/
 *.tsbuildinfo
+audit/rapport-willekeurig.md
+audit/willekeurig-fouten.json

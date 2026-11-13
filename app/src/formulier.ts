@@ -9,7 +9,7 @@ export function maxUurprijs(l: Lezer, soort: Opvangsoort): number {
   }
 }
 
-export type LoonPer = "maand" | "netto" | "week" | "nettoweek" | "uur";
+export type LoonPer = "maand" | "netto" | "week" | "nettoweek" | "vierweken" | "nettovierweken" | "uur";
 /** Leeg: nog niet gekozen. */
 export type LoonPerKeuze = LoonPer | "";
 /** Leeg: nog niet gekozen. */
@@ -355,6 +355,10 @@ export function controleer(f: Formulier, stap: number): Fouten {
             ? [10, 4000, "Vul uw bruto loon per week in, bijvoorbeeld 420."]
           : per === "nettoweek"
             ? [10, 4000, "Vul uw netto loon per week in, bijvoorbeeld 350."]
+          : per === "vierweken"
+            ? [50, 15000, "Vul uw bruto loon per 4 weken in, bijvoorbeeld 1.700."]
+          : per === "nettovierweken"
+            ? [50, 15000, "Vul uw netto loon per 4 weken in, bijvoorbeeld 1.400."]
           : [50, 15000, "Vul uw bruto loon per maand in, bijvoorbeeld 1.800."];
     if (f.werktNu && !f.nuPer) fouten.nuper = "Kies welk bedrag u weet.";
     if ((!f.werktNu || f.verandering === "ander" || f.verandering === "erbij") && !f.per) fouten.straksper = "Kies welk bedrag u weet.";
@@ -509,6 +513,8 @@ function loonWerk(per: LoonPerKeuze, bedrag: number, uren: number, andereUren?: 
   const urenFactor = uren > 0 ? nieuweUren / uren : 1;
   if (per === "week") return { brutoWeekloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
   if (per === "nettoweek") return { nettoWeekloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
+  if (per === "vierweken") return { brutoVierwekenloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
+  if (per === "nettovierweken") return { nettoVierwekenloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
   if (per === "netto") return { nettoMaandloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
   return { brutoMaandloon: bedrag, urenPerWeek: nieuweUren, urenFactor };
 }
@@ -527,7 +533,7 @@ export const euroTekst = (t: string) => {
   return Number.isInteger(n) ? euro(String(n), true) : euro(n.toFixed(2));
 };
 
-export const LOON_PER: Record<LoonPer, string> = { maand: "bruto per maand", netto: "netto per maand", week: "bruto per week", nettoweek: "netto per week", uur: "bruto per uur" };
+export const LOON_PER: Record<LoonPer, string> = { maand: "bruto per maand", netto: "netto per maand", week: "bruto per week", nettoweek: "netto per week", vierweken: "bruto per 4 weken", nettovierweken: "netto per 4 weken", uur: "bruto per uur" };
 export const OPVANG: Record<Opvangsoort, string> = { dagopvang: "kinderdagverblijf", bso: "buitenschoolse opvang", gastouder: "gastouder" };
 
 /**

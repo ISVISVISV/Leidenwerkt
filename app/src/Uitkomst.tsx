@@ -780,15 +780,16 @@ function TabelNoten({ f, r, uren }: { f: Formulier; r: Resultaat; uren: number }
     const ingevuldeUren = getal(f.werktNu && f.verandering === "meer" ? f.nuUren : f.uren) ?? 0;
     let geschaald = "";
     if (loon.per !== "uur" && ingevuldeUren > 0 && uren !== ingevuldeUren) {
-      const netto = loon.per === "netto" || loon.per === "nettoweek";
-      const perWeek = loon.per === "week" || loon.per === "nettoweek";
+      const netto = loon.per === "netto" || loon.per === "nettoweek" || loon.per === "nettovierweken";
+      // Van een bedrag per maand terug naar het bedrag per week of per 4 weken.
+      const naarPer = loon.per === "week" || loon.per === "nettoweek" ? 12 / 52 : loon.per === "vierweken" || loon.per === "nettovierweken" ? 12 / 13 : 1;
       const bedrag = netto
-        ? (Number(nettoLoon) / (1 + Number(new Lezer(standaardRegels, r.datum).breuk("wml.vakantiebijslag")))) * (perWeek ? 12 / 52 : 1)
+        ? (Number(nettoLoon) / (1 + Number(new Lezer(standaardRegels, r.datum).breuk("wml.vakantiebijslag")))) * naarPer
         : ((getal(loon.bedrag) ?? 0) * uren) / ingevuldeUren;
       geschaald = `, bij ${ingevuldeUren} uur per week. Bij ${uren} uur is dat ${netto ? "ongeveer " : ""}${euro(String(Math.round(bedrag)), true)} ${LOON_PER[loon.per]}`;
     }
     noten.push(
-      `U vulde ${bedragTekst(loon.bedrag)} ${LOON_PER[loon.per]} in${geschaald}. In de tabel staat het netto loon${loon.per === "netto" || loon.per === "nettoweek" ? "" : ": na belasting en premies"}${omgerekend}${vakantiegeld}.`,
+      `U vulde ${bedragTekst(loon.bedrag)} ${LOON_PER[loon.per]} in${geschaald}. In de tabel staat het netto loon${loon.per === "netto" || loon.per === "nettoweek" || loon.per === "nettovierweken" ? "" : ": na belasting en premies"}${omgerekend}${vakantiegeld}.`,
     );
   }
   if (r.werk.posten.some((p) => p.id === "huurtoeslag" && p.perMaand)) {

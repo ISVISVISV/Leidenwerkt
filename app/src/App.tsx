@@ -1040,13 +1040,15 @@ function LoonVelden({
           ["netto", "Netto loon per maand (wat op mijn rekening komt)"],
           ["week", "Bruto loon per week"],
           ["nettoweek", "Netto loon per week (wat op mijn rekening komt)"],
+          ["vierweken", "Bruto loon per 4 weken"],
+          ["nettovierweken", "Netto loon per 4 weken (wat op mijn rekening komt)"],
           ["uur", "Bruto loon per uur"],
         ]}
       />
       {per && (
         <Veld
           id={loonId}
-          voorbeeld={per === "uur" ? "bijv. 15,00" : per === "week" ? "bijv. 420" : per === "netto" ? "bijv. 1.300" : per === "nettoweek" ? "bijv. 350" : "bijv. 1.800"}
+          voorbeeld={per === "uur" ? "bijv. 15,00" : per === "week" ? "bijv. 420" : per === "netto" ? "bijv. 1.300" : per === "nettoweek" ? "bijv. 350" : per === "vierweken" ? "bijv. 1.650" : per === "nettovierweken" ? "bijv. 1.200" : "bijv. 1.800"}
           label={
             (per === "uur"
               ? "Bedrag per uur"
@@ -1056,14 +1058,18 @@ function LoonVelden({
                   ? "Netto loon per maand"
                   : per === "nettoweek"
                     ? "Netto loon per week"
-                    : "Bruto loon per maand") + voor
+                    : per === "vierweken"
+                      ? "Bruto loon per 4 weken"
+                      : per === "nettovierweken"
+                        ? "Netto loon per 4 weken"
+                        : "Bruto loon per maand") + voor
           }
           hint={
             per === "uur"
               ? "Het bruto loon per uur. Staat in de vacature of het contract. 'Bruto' is het bedrag vóór belasting."
-              : per === "netto" || per === "nettoweek"
-                ? `Het bedrag dat u ${per === "netto" ? "elke maand" : "elke week"} op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook. De rekenhulp telt het vakantiegeld zelf mee.${per === "nettoweek" ? " Krijgt u elke 4 weken loon? Deel het bedrag dan door 4." : ""}`
-                : `Neem het loon uit uw contract of van uw loonstrook, zonder vakantiegeld. De rekenhulp telt het vakantiegeld zelf mee. 'Bruto' is het bedrag vóór belasting.${per === "week" ? " Krijgt u elke 4 weken loon? Deel het bedrag dan door 4." : ""}`
+              : per === "netto" || per === "nettoweek" || per === "nettovierweken"
+                ? `Het bedrag dat u ${per === "netto" ? "elke maand" : per === "nettoweek" ? "elke week" : "elke 4 weken"} op uw rekening krijgt, zonder vakantiegeld. Staat onderaan op de loonstrook. De rekenhulp telt het vakantiegeld zelf mee.`
+                : `Neem het loon uit uw contract of van uw loonstrook, zonder vakantiegeld. De rekenhulp telt het vakantiegeld zelf mee. 'Bruto' is het bedrag vóór belasting.`
           }
           waarde={loon}
           onChange={zetLoon}
