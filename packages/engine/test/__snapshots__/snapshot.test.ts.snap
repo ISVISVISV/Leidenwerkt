@@ -689,7 +689,7 @@ exports[`snapshots van de uitleg > alleenstaande 36 uur 1`] = `
   },
   "meldingen": [
     "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken? Geef dat zo snel mogelijk door aan de gemeente, net als elke verandering in uw loon. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
-    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 231 per maand omlaag (zorgtoeslag € 30, huurtoeslag € 201). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 231 te veel, en moet u na een jaar ongeveer € 2.772 terugbetalen.",
+    "[waarschuwing, actie] Geef uw nieuwe inkomen door aan Dienst Toeslagen: Uw toeslagen gaan samen € 231 per maand omlaag (zorgtoeslag € 30, huurtoeslag € 201). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 231 te veel, en moet u na een jaar ongeveer € 2.772 terugbetalen.",
     "[waarschuwing] Sleutelpas: Met dit inkomen krijgt u de gratis Sleutelpas niet meer. De grens is ongeveer € 1.845 netto per maand, met vakantiegeld. Dat zit niet in de bedragen hierboven.",
     "[waarschuwing] Zorgverzekering: Met dit inkomen krijgt u de Gemeentepolis (de collectieve zorgverzekering van de gemeente) niet meer. De grens is ongeveer € 1.703 netto per maand, met vakantiegeld. Dat zit niet in de bedragen hierboven.",
     "[waarschuwing] Zwemabonnement: Met dit inkomen krijgt u de vergoeding voor een seizoenabonnement van zwembad De Vliet of De Zijl niet meer. De grens is ongeveer € 1.703 netto per maand, met vakantiegeld. Dat zit niet in de bedragen hierboven.",
@@ -1215,7 +1215,7 @@ exports[`snapshots van de uitleg > hoog loon per 4 weken, bijstand stopt 1`] = `
   },
   "meldingen": [
     "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken? Geef dat zo snel mogelijk door aan de gemeente, net als elke verandering in uw loon. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
-    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 372 per maand omlaag (zorgtoeslag € 78, huurtoeslag € 294). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 372 te veel, en moet u na een jaar ongeveer € 4.464 terugbetalen.",
+    "[waarschuwing, actie] Geef uw nieuwe inkomen door aan Dienst Toeslagen: Uw toeslagen gaan samen € 372 per maand omlaag (zorgtoeslag € 78, huurtoeslag € 294). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 372 te veel, en moet u na een jaar ongeveer € 4.464 terugbetalen.",
     "[waarschuwing] Sleutelpas: Met dit inkomen krijgt u de gratis Sleutelpas niet meer. De grens is ongeveer € 1.845 netto per maand, met vakantiegeld. Dat zit niet in de bedragen hierboven.",
     "[waarschuwing] Zorgverzekering: Met dit inkomen krijgt u de Gemeentepolis (de collectieve zorgverzekering van de gemeente) niet meer. De grens is ongeveer € 1.703 netto per maand, met vakantiegeld. Dat zit niet in de bedragen hierboven.",
     "[waarschuwing] Zwemabonnement: Met dit inkomen krijgt u de vergoeding voor een seizoenabonnement van zwembad De Vliet of De Zijl niet meer. De grens is ongeveer € 1.703 netto per maand, met vakantiegeld. Dat zit niet in de bedragen hierboven.",
@@ -1501,7 +1501,7 @@ exports[`snapshots van de uitleg > paar met kostendeler en jonge huisgenoot, huu
   },
   "meldingen": [
     "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken? Geef dat zo snel mogelijk door aan de gemeente, net als elke verandering in uw loon. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
-    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 33 per maand omlaag (huurtoeslag € 33). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 33 te veel, en moet u na een jaar ongeveer € 396 terugbetalen.",
+    "[waarschuwing, actie] Geef uw nieuwe inkomen door aan Dienst Toeslagen: Uw toeslagen gaan samen € 33 per maand omlaag (huurtoeslag € 33). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 33 te veel, en moet u na een jaar ongeveer € 396 terugbetalen.",
     "[info] Sleutelpas: Met dit inkomen kunt u de gratis Sleutelpas nog krijgen. De grens is ongeveer € 2.636 netto per maand, met vakantiegeld.",
     "[info] Zorgverzekering: Met dit inkomen kunt u de Gemeentepolis (de collectieve zorgverzekering van de gemeente) nog krijgen. De grens is ongeveer € 2.433 netto per maand, met vakantiegeld.",
     "[info] Zwemabonnement: Met dit inkomen kunt u de vergoeding voor een seizoenabonnement van zwembad De Vliet of De Zijl nog krijgen. De grens is ongeveer € 2.433 netto per maand, met vakantiegeld.",
@@ -1684,7 +1684,7 @@ exports[`snapshots van de uitleg > paar met twee kinderen, partner werkt 1`] = `
   },
   "meldingen": [
     "[waarschuwing, actie] Meld uw werk bij de gemeente: Gaat u werken? Geef dat zo snel mogelijk door aan de gemeente, net als elke verandering in uw loon. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.",
-    "[waarschuwing, actie] Geef uw nieuwe inkomen door: Uw toeslagen gaan samen € 46 per maand omlaag (zorgtoeslag € 30, huurtoeslag € 16). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 46 te veel, en moet u na een jaar ongeveer € 552 terugbetalen.",
+    "[waarschuwing, actie] Geef uw nieuwe inkomen door aan Dienst Toeslagen: Uw toeslagen gaan samen € 46 per maand omlaag (zorgtoeslag € 30, huurtoeslag € 16). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 46 te veel, en moet u na een jaar ongeveer € 552 terugbetalen.",
     "[waarschuwing] Sleutelpas: Met dit inkomen krijgt u de gratis Sleutelpas niet meer. De grens is ongeveer € 2.636 netto per maand, met vakantiegeld. Dat zit niet in de bedragen hierboven.",
     "[waarschuwing] Zorgverzekering: Met dit inkomen krijgt u de Gemeentepolis (de collectieve zorgverzekering van de gemeente) niet meer. De grens is ongeveer € 2.433 netto per maand, met vakantiegeld. Dat zit niet in de bedragen hierboven.",
     "[waarschuwing] Zwemabonnement: Met dit inkomen krijgt u de vergoeding voor een seizoenabonnement van zwembad De Vliet of De Zijl niet meer. De grens is ongeveer € 2.433 netto per maand, met vakantiegeld. Dat zit niet in de bedragen hierboven.",

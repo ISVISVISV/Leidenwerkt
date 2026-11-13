@@ -1,12 +1,12 @@
 # Marieke: woonvorm met begeleiding
 
-## 8 uur, Maand 1 t/m 6
+## 8 uur, Maand 1 t/⁠m 6
 
-Met dit werk houdt u in maand 1 t/m 6 ongeveer € 130 per maand meer over.
+Met dit werk houdt u in maand 1 t/⁠m 6 ongeveer € 130 per maand meer over.
 
 Bij 8 uur per week:
 
-Maand 1 t/m 6: € 130 per maand meer
+Maand 1 t/⁠m 6: € 130 per maand meer
 Vanaf maand 7: € 21 per maand meer
 De eerste 12 maanden samen: € 906 meer
 
@@ -19,10 +19,10 @@ Uren per week: 8
 Zonder vrijlating heeft u vanaf 8 uur per week geen bijstand meer nodig. Met dit werk krijgt u in deze periode nog bijstand, omdat u een deel van uw loon mag houden.
 
 Voor welke maanden wilt u de uitkomst zien?
-Maand 1 t/m 6
+Maand 1 t/⁠m 6
 Vanaf maand 7
 
-Maand 1 t/m 6 na de start van uw werk. U mag dan 25% van uw netto loon houden naast de bijstand, tot € 289 per maand. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
+Maand 1 t/⁠m 6 na de start van uw werk. U mag dan 25% van uw netto loon houden naast de bijstand, tot € 289 per maand. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
 
 Zonder vrijlating zou u € 21 per maand meer overhouden dan nu.
 
@@ -39,7 +39,7 @@ U houdt over	€ 625	€ 755
 U vulde € 13,80 bruto per uur in. In de tabel staat het netto loon: na belasting en premies, omgerekend naar een maand, met vakantiegeld, verdeeld over 12 maanden.
 Zorgtoeslag blijft gelijk, omdat uw inkomen onder de grens blijft waarboven die daalt.
 Vaste lasten zoals huur, kostgeld en zorgpremie staan niet in de tabel, want die betaalt u met en zonder werk.
-Goed om te weten in maand 1 t/m 6
+Goed om te weten in maand 1 t/⁠m 6
 
 Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.
 
@@ -127,7 +127,7 @@ Norm bij verblijf in een instelling
 € 496,44
 Uw netto loon
 € 516,67
-Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand
+Mag u houden: vrijlating maand 1 t/⁠m 6: 25% van het netto loon, maximaal € 289,00 per maand
 € 129,17
 Bijstand: € 496,44 − (€ 516,67 − € 129,17) = € 108,94
 Gebruikte regels
@@ -194,7 +194,7 @@ Met dit werk houdt u vanaf maand 7 ongeveer € 21 per maand meer over.
 
 Bij 8 uur per week:
 
-Maand 1 t/m 6: € 130 per maand meer
+Maand 1 t/⁠m 6: € 130 per maand meer
 Vanaf maand 7: € 21 per maand meer
 De eerste 12 maanden samen: € 906 meer
 
@@ -207,7 +207,7 @@ Uren per week: 8
 Zonder vrijlating heeft u vanaf 8 uur per week geen bijstand meer nodig.
 
 Voor welke maanden wilt u de uitkomst zien?
-Maand 1 t/m 6
+Maand 1 t/⁠m 6
 Vanaf maand 7
 Zo is het bedrag opgebouwd
 Per maand	Nu	Met dit werk

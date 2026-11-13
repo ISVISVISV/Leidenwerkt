@@ -1,12 +1,12 @@
 # Yara: kamer, medische urenbeperking
 
-## 12 uur, Maand 1 t/m 6
+## 12 uur, Maand 1 t/⁠m 6
 
-Met dit werk houdt u in maand 1 t/m 6 ongeveer € 211 per maand meer over.
+Met dit werk houdt u in maand 1 t/⁠m 6 ongeveer € 211 per maand meer over.
 
 Bij 12 uur per week:
 
-Maand 1 t/m 6: € 211 per maand meer
+Maand 1 t/⁠m 6: € 211 per maand meer
 Vanaf maand 7: € 127 per maand meer
 De eerste 12 maanden samen: € 2.028 meer
 
@@ -19,10 +19,10 @@ Uren per week: 12
 Zonder vrijlating heeft u vanaf 21 uur per week geen bijstand meer nodig.
 
 Voor welke maanden wilt u de uitkomst zien?
-Maand 1 t/m 6
+Maand 1 t/⁠m 6
 Vanaf maand 7
 
-Maand 1 t/m 6 na de start van uw werk. U mag dan 25% van uw netto loon houden naast de bijstand, tot € 289 per maand. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
+Maand 1 t/⁠m 6 na de start van uw werk. U mag dan 25% van uw netto loon houden naast de bijstand, tot € 289 per maand. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
 
 Zonder vrijlating zou u ongeveer evenveel overhouden als nu.
 
@@ -42,7 +42,7 @@ U vulde € 15 bruto per uur in. In de tabel staat het netto loon: na belasting
 Zorgtoeslag blijft gelijk, omdat uw inkomen onder de grens blijft waarboven die daalt.
 Huurtoeslag staat er niet in: voor een kamer of een woning waar u de keuken, wc of douche deelt, krijgt u meestal geen huurtoeslag.
 Vaste lasten zoals huur, kostgeld en zorgpremie staan niet in de tabel, want die betaalt u met en zonder werk.
-Goed om te weten in maand 1 t/m 6
+Goed om te weten in maand 1 t/⁠m 6
 
 Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.
 
@@ -125,7 +125,7 @@ Norm voor een alleenstaande (ouder)
 € 1.419,46
 Uw netto loon
 € 842,40
-Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand
+Mag u houden: vrijlating maand 1 t/⁠m 6: 25% van het netto loon, maximaal € 289,00 per maand
 € 210,60
 Bijstand: € 1.419,46 − (€ 842,40 − € 210,60) = € 787,66
 Gebruikte regels
@@ -194,7 +194,7 @@ Met dit werk houdt u vanaf maand 7 ongeveer € 127 per maand meer over.
 
 Bij 12 uur per week:
 
-Maand 1 t/m 6: € 211 per maand meer
+Maand 1 t/⁠m 6: € 211 per maand meer
 Vanaf maand 7: € 127 per maand meer
 De eerste 12 maanden samen: € 2.028 meer
 
@@ -207,7 +207,7 @@ Uren per week: 12
 Zonder vrijlating heeft u vanaf 21 uur per week geen bijstand meer nodig.
 
 Voor welke maanden wilt u de uitkomst zien?
-Maand 1 t/m 6
+Maand 1 t/⁠m 6
 Vanaf maand 7
 
 Vanaf maand 7 na de start van uw werk. Met een medische urenbeperking mag u 15% van uw netto loon houden, tot € 182,73 per maand, zolang u bijstand krijgt. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.

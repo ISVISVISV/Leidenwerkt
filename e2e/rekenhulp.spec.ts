@@ -108,7 +108,7 @@ test.describe("donkere modus", () => {
     await geenToegankelijkheidsfouten(page);
     await verder(page, "Bereken wat ik overhoud");
     await expect(page.locator(".antwoord-zin")).toBeVisible();
-    await expect(page.getByRole("radio", { name: "Maand 1 t/m 6" })).toBeVisible();
+    await expect(page.getByRole("radio", { name: /^Maand 1 t\/\u2060?m 6$/ })).toBeVisible();
     await page.getByLabel("Vanaf maand 7").check();
   await expect(page.getByRole("group", { name: "Voor welke maanden wilt u de uitkomst zien?" })).toBeVisible();
     await expect(page.locator(".toelichting")).toContainText("Geen vrijlating meer");
@@ -573,7 +573,9 @@ test("alleenstaande ouder: kinderopvangtoeslag aanvragen, meldingen per periode,
   // De bijstand stopt na maand 6, dus maand 7 t/m 36 en vanaf maand 37 zijn één periode.
   await expect(page.getByRole("radio", { name: "Vanaf maand 7" })).toBeVisible();
   await expect(page.getByRole("radio")).toHaveCount(2);
-  await expect(page.getByRole("heading", { name: "Goed om te weten in maand 1 t/m 6" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /^Goed om te weten in maand 1 t\/\u2060?m 6$/ })).toBeVisible();
+  // "t/m" blijft bij elkaar: geen regelafbreking na de schuine streep (onzichtbaar verbindingsteken).
+  expect(await page.locator(".antwoord-zin").textContent()).toContain("t/\u2060m");
   await page.getByRole("radio", { name: "Vanaf maand 7" }).check();
   await expect(page.getByRole("heading", { name: "Goed om te weten vanaf maand 7" })).toBeVisible();
   // Kop en tabel zeggen hetzelfde bedrag.

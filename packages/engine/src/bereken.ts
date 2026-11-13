@@ -856,7 +856,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     const lijst = risico.map((r) => `${r.label.toLowerCase()} ${euro(r.minderPerMaand, true)}`).join(", ");
     uit.push({
       soort: "waarschuwing",
-      kop: "Geef uw nieuwe inkomen door",
+      kop: "Geef uw nieuwe inkomen door aan Dienst Toeslagen",
       actie: true,
       bron: CITATEN.awirTerugvordering,
       tekst: `Uw toeslagen gaan samen ${euro(totaal, true)} per maand omlaag (${lijst}). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand ${euro(totaal, true)} te veel, en moet u na een jaar ongeveer ${euro(totaal.times(12), true)} terugbetalen.`,
