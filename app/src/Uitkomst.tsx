@@ -36,7 +36,18 @@ function onbekendeOnderdelen(datum: string): string[] {
 const leesbareDatum = (iso: string) =>
   new Date(`${iso}T12:00:00`).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
 
-export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUren?: number; onUren?: (uren: number) => void }) {
+export function Uitkomst({
+  f,
+  bewaardeUren,
+  onUren,
+  beginFase = "start",
+}: {
+  f: Formulier;
+  bewaardeUren?: number;
+  onUren?: (uren: number) => void;
+  /** De periode die eerst getoond wordt. Alleen anders voor de audit (scripts/audit.ts). */
+  beginFase?: "start" | "later" | "geen";
+}) {
   const start = schuifStart(f);
   const extra = start.wat === "extra";
   const maxUren = Math.max(extra ? 32 : 40, start.uren);
@@ -51,7 +62,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
     onUren?.(u);
   };
   const urenTekst = (u: number) => `${u} uur ${extra ? "extra werk " : ""}per week`;
-  const [gekozenFase, setFase] = useState<"start" | "later" | "geen">("start");
+  const [gekozenFase, setFase] = useState<"start" | "later" | "geen">(beginFase);
   const { datum, teruggevallen } = useMemo(() => bruikbareDatum(f), [f]);
 
   const uitleg = useMemo(() => vrijlatingUitleg(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);
@@ -302,7 +313,10 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
                   <p>{metLinks(s.tekst)}</p>
                   {s.tekst.includes("De grens is ongeveer") && (
                     <p>
-                      {f.leefvorm === "paar" ? "Uw inkomen samen" : "Uw inkomen"}, zonder toeslagen, is ongeveer {euro(inkomenVoorGrenzen(r).toFixed(2), true)} per maand, met vakantiegeld.
+                      {/* Met bijstand telt voor deze regelingen de norm, niet het vrijgelaten deel van het loon (zie de engine). */}
+                      {nogBijstand(r)
+                        ? `U krijgt nog bijstand.${heeftVrijlating(r) ? " Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee." : ""}`
+                        : `${f.leefvorm === "paar" ? "Uw inkomen samen" : "Uw inkomen"}, zonder toeslagen, is ongeveer ${euro(inkomenVoorGrenzen(r).toFixed(2), true)} per maand, met vakantiegeld.`}
                     </p>
                   )}
                   {s.bron && (
@@ -736,6 +750,12 @@ function openSignaal(i: number) {
   el.querySelector("summary")?.focus();
 }
 
+/** Krijgt deze persoon met het werk nog bijstand? */
+const nogBijstand = (r: Resultaat) => Number(bijstandVan(r) ?? 0) > 0;
+/** Mag deze persoon (of de partner) met het werk een deel van het loon houden? */
+const heeftVrijlating = (r: Resultaat) =>
+  (r.werk.posten.find((p) => p.id === "bijstand")?.stappen ?? []).some((st) => /^Mag (u|uw partner) houden/.test(st.tekst) && Number(st.bedrag ?? 0) > 0);
+
 /** De meldingen met een inkomensgrens vergelijken die grens met dit bedrag: netto loon, bijstand en ander inkomen, zonder toeslagen. */
 function inkomenVoorGrenzen(r: Resultaat): number {
   const bedragen = tabelBedragen(r, r.werk);
@@ -801,7 +821,7 @@ function TabelNoten({ f, r, uren }: { f: Formulier; r: Resultaat; uren: number }
       (getal(f.kostendelers) ?? 0) > 0
         ? "Uw kostgeld verandert uw bijstand niet, omdat er iemand van 27 jaar of ouder bij u woont. Dan geldt de kostendelersnorm."
         : korting.bedrag.gt(0)
-          ? "Uw kostgeld zelf staat niet in de tabel; het deel voor uw woonruimte telt wel mee voor de bijstand, zie hierboven."
+          ? "Uw kostgeld zelf staat niet in de tabel. Het deel voor uw woonruimte telt wel mee voor de bijstand. Dat staat hierboven."
           : "Uw kostgeld verandert uw bijstand niet: het deel voor uw woonruimte is niet lager dan de grens.",
     );
   }

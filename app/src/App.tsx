@@ -954,7 +954,7 @@ function StapWoning({ f, zet, fouten }: StapProps) {
                 hint={
                   <>
                     <p>
-                      Het bruto inkomen, zoals op de jaaropgave of de loonstrook van uw kind. Vul het hele bedrag in; de rekenhulp trekt zelf af
+                      Het bruto inkomen, zoals op de jaaropgave of de loonstrook van uw kind. Vul het hele bedrag in. De rekenhulp trekt zelf af
                       wat niet meetelt. Studiefinanciering telt niet mee. Heeft uw kind geen inkomen? Vul dan 0 in.
                     </p>
                     <p className="bron-blok">

@@ -1,0 +1,374 @@
+# Yara: kamer, medische urenbeperking
+
+## 12 uur, Maand 1 t/m 6
+
+Met dit werk houdt u in maand 1 t/m 6 ongeveer € 211 per maand meer over.
+
+Bij 12 uur per week:
+
+Maand 1 t/m 6: € 211 per maand meer
+Vanaf maand 7: € 127 per maand meer
+De eerste 12 maanden samen: € 2.028 meer
+
+U houdt € 788 bijstand per maand naast uw loon.
+
+Wat u nu kunt doen:
+Meld uw werk bij de gemeente
+Uren per week: 12
+
+Zonder vrijlating heeft u vanaf 21 uur per week geen bijstand meer nodig.
+
+Voor welke maanden wilt u de uitkomst zien?
+Maand 1 t/m 6
+Vanaf maand 7
+
+Maand 1 t/m 6 na de start van uw werk. U mag dan 25% van uw netto loon houden naast de bijstand, tot € 289 per maand. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
+
+Zonder vrijlating zou u ongeveer evenveel overhouden als nu.
+
+Door uw medische urenbeperking houdt u ook na de eerste maanden een deel van uw loon naast de bijstand. Kies hierboven de latere maanden om dat te zien.
+
+Bron: Participatiewet, art. 31 lid 2 onder n
+
+Zo is het bedrag opgebouwd
+Per maand	Nu	Met dit werk
+Wat er binnenkomt
+Netto loon (met vakantiegeld)	–	€ 842
+Bijstand	€ 1.419	€ 788
+Zorgtoeslag	€ 129	€ 129
+Totaal binnen	€ 1.548	€ 1.759
+U houdt over	€ 1.548	€ 1.759
+U vulde € 15 bruto per uur in. In de tabel staat het netto loon: na belasting en premies, omgerekend naar een maand, met vakantiegeld, verdeeld over 12 maanden.
+Zorgtoeslag blijft gelijk, omdat uw inkomen onder de grens blijft waarboven die daalt.
+Huurtoeslag staat er niet in: voor een kamer of een woning waar u de keuken, wc of douche deelt, krijgt u meestal geen huurtoeslag.
+Vaste lasten zoals huur, kostgeld en zorgpremie staan niet in de tabel, want die betaalt u met en zonder werk.
+Goed om te weten in maand 1 t/m 6
+
+Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.
+
+Meld uw werk bij de gemeente
+
+Gaat u werken? Geef dat zo snel mogelijk door aan de gemeente, net als elke verandering in uw loon. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.
+
+Bron: Participatiewet, art. 17 lid 1
+Sleutelpas
+
+Met dit inkomen kunt u de gratis Sleutelpas nog krijgen. De grens is ongeveer € 1.845 netto per maand, met vakantiegeld.
+
+U krijgt nog bijstand. Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee.
+
+Bron: Leiden, beleidsregels Kindtegoed en Sleutelpas 2026
+Zorgverzekering
+
+Met dit inkomen kunt u de Gemeentepolis (de collectieve zorgverzekering van de gemeente) nog krijgen. De grens is ongeveer € 1.703 netto per maand, met vakantiegeld.
+
+U krijgt nog bijstand. Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee.
+
+Bron: Gemeente Leiden, Collectieve aanvullende zorgverzekering
+Zwemabonnement
+
+Met dit inkomen kunt u de vergoeding voor een seizoenabonnement van zwembad De Vliet of De Zijl nog krijgen. De grens is ongeveer € 1.703 netto per maand, met vakantiegeld.
+
+U krijgt nog bijstand. Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee.
+
+Bron: Leiden, beleidsregels bijzondere bijstand 2022, art. 11 lid 1 en art. 12 lid 1
+Sport en cultuur
+
+Met dit inkomen kunt u hulp van het Volwassenenfonds Sport & Cultuur (tot € 250 per jaar) nog krijgen. De grens is ongeveer € 1.703 netto per maand, met vakantiegeld. Aanvragen gaat via een tussenpersoon. Vraag het uw contactpersoon bij de gemeente.
+
+U krijgt nog bijstand. Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee.
+
+Bron: Gemeente Leiden, Hulp bij kosten sport en cultuur (sport voor volwassenen)
+Gratis OV-pas
+
+Zolang u bijstand krijgt, kunt u de gratis OV-pas houden. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.
+
+Bron: Gemeente Leiden, Gratis openbaar vervoer (voorwaarden)
+Individuele inkomenstoeslag
+
+Met dit werk houdt u bijstand. Heeft u al 5 jaar of langer een inkomen tot de bijstandsnorm? Dan kunt u de individuele inkomenstoeslag van € 462 (één keer per 12 maanden) nog krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.
+
+Bron: Gemeente Leiden, Individuele inkomenstoeslag (voorwaarden en bedragen)
+
+Weet u niet wie uw contactpersoon bij de gemeente is? Bel 14 071 en kies 1.
+
+Hoe is dit berekend?
+Netto loon
+Met dit werk
+Bruto uurloon dat u invulde
+€ 15,00
+Bruto loon per maand (gemiddeld, zonder vakantiegeld)
+€ 780,00
+Vakantiegeld per maand (gemiddeld, 8% van het bruto loon)
+€ 62,40
+Loonbelasting en premies per maand
+€ 301,16
+Korting daarop: algemene heffingskorting per maand
+€ 259,58
+Korting daarop: arbeidskorting per maand
+€ 70,12
+U betaalt per maand aan belasting en premies
+€ 0,00
+Netto per maand (gemiddeld, inclusief vakantiegeld)
+€ 842,40
+Gebruikte regels
+Tarieven box 1 (marginaal tarief per schijf, inclusief premies volksverzekeringen): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
+Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
+Arbeidskorting (bedrag = basis + percentage × (arbeidsinkomen − vanaf)): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
+Vakantiegeld (vakantiebijslag) als deel van het brutoloon, ten minste (art. 15 lid 1 Wml): 8% (Wet minimumloon en minimumvakantiebijslag art. 15 (wetten.overheid.nl, versie 1 juli 2026))
+Bijstand
+Nu
+Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u deze norm
+€ 1.419,46
+Met dit werk
+Norm voor een alleenstaande (ouder)
+€ 1.419,46
+Uw netto loon
+€ 842,40
+Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand
+€ 210,60
+Bijstand: € 1.419,46 − (€ 842,40 − € 210,60) = € 787,66
+Gebruikte regels
+Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Zorgtoeslag
+Nu
+Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
+€ 21.663,07
+Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet
+€ 129,00
+Met dit werk
+Bruto loon per jaar, met vakantiegeld
+€ 10.108,80
+Bijstand per jaar, teruggerekend naar bruto
+€ 9.862,91
+Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
+€ 19.971,71
+Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet
+€ 129,00
+Gebruikte regels
+Tarieven box 1 (marginaal tarief per schijf, inclusief premies volksverzekeringen): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
+Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
+Standaardpremie zorgtoeslag per verzekerde per jaar: € 2.119 per jaar (Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026))
+Drempelinkomen zorgtoeslag: € 29.736 per jaar (Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026))
+Normpercentage van het drempelinkomen, zonder toeslagpartner: 1,912% (Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026))
+Percentage van het toetsingsinkomen boven het drempelinkomen: 13,73% (Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026))
+Waar deze berekening van uitgaat
+Bekijk de 10 aannames
+De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.
+'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.
+Als u de voordeur, keuken, wc of douche deelt, bijvoorbeeld op een kamer, krijgt u meestal geen huurtoeslag. Daarom is die niet meegerekend. Voor sommige kamers kan het wel. Dat ziet u met de proefberekening van Dienst Toeslagen.
+Het vakantiegeld is over 12 maanden verdeeld. In werkelijkheid komt het meestal in mei of juni.
+Het netto loon is berekend over een heel jaar. Op uw loonstrook kan het een paar euro anders zijn.
+De bijstand is netto per maand gerekend, met de vakantietoeslag. De gemeente betaalt de vakantietoeslag één keer per jaar uit.
+De rekenhulp neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaargeld en bezit onder de grens voor bijstand en toeslagen blijven.
+Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.
+Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
+Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.
+
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.4.0.
+
+### Wat u heeft ingevuld (afdruk)
+
+Wat u heeft ingevuld
+HUISHOUDEN
+Huishoudenzonder partner en zonder kinderen
+Geboren01-03-1981
+Ander inkomennee
+WONING
+Woningkamer, of woning met gedeelde keuken, wc of douche
+Huur€ 480 per maand
+Andere bewonersnee
+WERK
+Werkt nunee
+Nieuw werk12 uur per week, € 15 bruto per uur, vakantiegeld apart.
+Medische urenbeperkingja
+Kosten per maandgeen ingevuld
+
+## 12 uur, Vanaf maand 7
+
+Met dit werk houdt u vanaf maand 7 ongeveer € 127 per maand meer over.
+
+Bij 12 uur per week:
+
+Maand 1 t/m 6: € 211 per maand meer
+Vanaf maand 7: € 127 per maand meer
+De eerste 12 maanden samen: € 2.028 meer
+
+U houdt € 704 bijstand per maand naast uw loon.
+
+Wat u nu kunt doen:
+Meld uw werk bij de gemeente
+Uren per week: 12
+
+Zonder vrijlating heeft u vanaf 21 uur per week geen bijstand meer nodig.
+
+Voor welke maanden wilt u de uitkomst zien?
+Maand 1 t/m 6
+Vanaf maand 7
+
+Vanaf maand 7 na de start van uw werk. Met een medische urenbeperking mag u 15% van uw netto loon houden, tot € 182,73 per maand, zolang u bijstand krijgt. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
+
+Zonder vrijlating zou u ongeveer evenveel overhouden als nu.
+
+Bron: Participatiewet, art. 31 lid 2 onder y
+
+Zo is het bedrag opgebouwd
+Per maand	Nu	Met dit werk
+Wat er binnenkomt
+Netto loon (met vakantiegeld)	–	€ 842
+Bijstand	€ 1.419	€ 704
+Zorgtoeslag	€ 129	€ 129
+Totaal binnen	€ 1.548	€ 1.675
+U houdt over	€ 1.548	€ 1.675
+U vulde € 15 bruto per uur in. In de tabel staat het netto loon: na belasting en premies, omgerekend naar een maand, met vakantiegeld, verdeeld over 12 maanden.
+Zorgtoeslag blijft gelijk, omdat uw inkomen onder de grens blijft waarboven die daalt.
+Huurtoeslag staat er niet in: voor een kamer of een woning waar u de keuken, wc of douche deelt, krijgt u meestal geen huurtoeslag.
+Vaste lasten zoals huur, kostgeld en zorgpremie staan niet in de tabel, want die betaalt u met en zonder werk.
+Goed om te weten vanaf maand 7
+
+Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.
+
+Meld uw werk bij de gemeente
+
+Gaat u werken? Geef dat zo snel mogelijk door aan de gemeente, net als elke verandering in uw loon. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.
+
+Bron: Participatiewet, art. 17 lid 1
+Sleutelpas
+
+Met dit inkomen kunt u de gratis Sleutelpas nog krijgen. De grens is ongeveer € 1.845 netto per maand, met vakantiegeld.
+
+U krijgt nog bijstand. Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee.
+
+Bron: Leiden, beleidsregels Kindtegoed en Sleutelpas 2026
+Zorgverzekering
+
+Met dit inkomen kunt u de Gemeentepolis (de collectieve zorgverzekering van de gemeente) nog krijgen. De grens is ongeveer € 1.703 netto per maand, met vakantiegeld.
+
+U krijgt nog bijstand. Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee.
+
+Bron: Gemeente Leiden, Collectieve aanvullende zorgverzekering
+Zwemabonnement
+
+Met dit inkomen kunt u de vergoeding voor een seizoenabonnement van zwembad De Vliet of De Zijl nog krijgen. De grens is ongeveer € 1.703 netto per maand, met vakantiegeld.
+
+U krijgt nog bijstand. Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee.
+
+Bron: Leiden, beleidsregels bijzondere bijstand 2022, art. 11 lid 1 en art. 12 lid 1
+Sport en cultuur
+
+Met dit inkomen kunt u hulp van het Volwassenenfonds Sport & Cultuur (tot € 250 per jaar) nog krijgen. De grens is ongeveer € 1.703 netto per maand, met vakantiegeld. Aanvragen gaat via een tussenpersoon. Vraag het uw contactpersoon bij de gemeente.
+
+U krijgt nog bijstand. Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee.
+
+Bron: Gemeente Leiden, Hulp bij kosten sport en cultuur (sport voor volwassenen)
+Gratis OV-pas
+
+Zolang u bijstand krijgt, kunt u de gratis OV-pas houden. De pas geldt op werkdagen van 9.00 tot 16.00 uur en na 18.30 uur, en in het weekend de hele dag.
+
+Bron: Gemeente Leiden, Gratis openbaar vervoer (voorwaarden)
+Individuele inkomenstoeslag
+
+Met dit werk houdt u bijstand. Heeft u al 5 jaar of langer een inkomen tot de bijstandsnorm? Dan kunt u de individuele inkomenstoeslag van € 462 (één keer per 12 maanden) nog krijgen. Aanvragen kan via leiden.nl/inkomenstoeslag.
+
+Bron: Gemeente Leiden, Individuele inkomenstoeslag (voorwaarden en bedragen)
+
+Weet u niet wie uw contactpersoon bij de gemeente is? Bel 14 071 en kies 1.
+
+Hoe is dit berekend?
+Netto loon
+Met dit werk
+Bruto uurloon dat u invulde
+€ 15,00
+Bruto loon per maand (gemiddeld, zonder vakantiegeld)
+€ 780,00
+Vakantiegeld per maand (gemiddeld, 8% van het bruto loon)
+€ 62,40
+Loonbelasting en premies per maand
+€ 301,16
+Korting daarop: algemene heffingskorting per maand
+€ 259,58
+Korting daarop: arbeidskorting per maand
+€ 70,12
+U betaalt per maand aan belasting en premies
+€ 0,00
+Netto per maand (gemiddeld, inclusief vakantiegeld)
+€ 842,40
+Gebruikte regels
+Tarieven box 1 (marginaal tarief per schijf, inclusief premies volksverzekeringen): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
+Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
+Arbeidskorting (bedrag = basis + percentage × (arbeidsinkomen − vanaf)): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
+Vakantiegeld (vakantiebijslag) als deel van het brutoloon, ten minste (art. 15 lid 1 Wml): 8% (Wet minimumloon en minimumvakantiebijslag art. 15 (wetten.overheid.nl, versie 1 juli 2026))
+Bijstand
+Nu
+Norm voor een alleenstaande (ouder). Zonder inkomen krijgt u deze norm
+€ 1.419,46
+Met dit werk
+Norm voor een alleenstaande (ouder)
+€ 1.419,46
+Uw netto loon
+€ 842,40
+Mag u houden: vrijlating bij een medische urenbeperking: 15% van het netto loon, maximaal € 182,73 per maand
+€ 126,36
+Bijstand: € 1.419,46 − (€ 842,40 − € 126,36) = € 703,42
+Gebruikte regels
+Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating bij een medische urenbeperking (art. 31 lid 2 onder y Pw), zonder maximale duur: 15% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Maximaal vrij te laten bedrag bij een medische urenbeperking per maand (art. 31 lid 2 onder y Pw): € 182,73 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Zorgtoeslag
+Nu
+Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
+€ 21.663,07
+Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet
+€ 129,00
+Met dit werk
+Bruto loon per jaar, met vakantiegeld
+€ 10.108,80
+Bijstand per jaar, teruggerekend naar bruto
+€ 8.441,04
+Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
+€ 18.549,84
+Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet
+€ 129,00
+Gebruikte regels
+Tarieven box 1 (marginaal tarief per schijf, inclusief premies volksverzekeringen): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
+Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
+Standaardpremie zorgtoeslag per verzekerde per jaar: € 2.119 per jaar (Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026))
+Drempelinkomen zorgtoeslag: € 29.736 per jaar (Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026))
+Normpercentage van het drempelinkomen, zonder toeslagpartner: 1,912% (Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026))
+Percentage van het toetsingsinkomen boven het drempelinkomen: 13,73% (Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026))
+Waar deze berekening van uitgaat
+Bekijk de 10 aannames
+De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.
+'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.
+Als u de voordeur, keuken, wc of douche deelt, bijvoorbeeld op een kamer, krijgt u meestal geen huurtoeslag. Daarom is die niet meegerekend. Voor sommige kamers kan het wel. Dat ziet u met de proefberekening van Dienst Toeslagen.
+Het vakantiegeld is over 12 maanden verdeeld. In werkelijkheid komt het meestal in mei of juni.
+Het netto loon is berekend over een heel jaar. Op uw loonstrook kan het een paar euro anders zijn.
+De bijstand is netto per maand gerekend, met de vakantietoeslag. De gemeente betaalt de vakantietoeslag één keer per jaar uit.
+De rekenhulp neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaargeld en bezit onder de grens voor bijstand en toeslagen blijven.
+Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.
+Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
+Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.
+
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.4.0.
+
+### Wat u heeft ingevuld (afdruk)
+
+Wat u heeft ingevuld
+HUISHOUDEN
+Huishoudenzonder partner en zonder kinderen
+Geboren01-03-1981
+Ander inkomennee
+WONING
+Woningkamer, of woning met gedeelde keuken, wc of douche
+Huur€ 480 per maand
+Andere bewonersnee
+WERK
+Werkt nunee
+Nieuw werk12 uur per week, € 15 bruto per uur, vakantiegeld apart.
+Medische urenbeperkingja
+Kosten per maandgeen ingevuld

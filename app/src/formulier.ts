@@ -546,7 +546,8 @@ export function ingevuld(f: Formulier, schuifUren?: number): { kop: string; rege
     huishouden.push(["Partner werkt", f.partnerWerkt ? `ja, ${euroTekst(f.partnerBruto)} bruto per maand. Werkt ${f.partnerWerktAl === "lang" ? "al 6 maanden of langer" : "korter dan 6 maanden"} naast de bijstand.` : "nee"]);
   }
   f.kinderen.forEach((k, i) => {
-    const opvang = k.opvang ? `; ${k.soort ? OPVANG[k.soort] : "soort onbekend"}, ${k.uren} uur per week${k.uurprijs ? ` × ${euroTekst(k.uurprijs)}` : ", prijs onbekend"}` : "";
+    const soort = k.soort ? OPVANG[k.soort] : "soort onbekend";
+    const opvang = k.opvang ? `. ${soort.charAt(0).toUpperCase()}${soort.slice(1)}, ${k.uren} uur per week${k.uurprijs ? ` × ${euroTekst(k.uurprijs)}` : ", prijs onbekend"}.` : "";
     huishouden.push([`Kind ${i + 1}`, `geboren ${datumTekst(k.geboren)}${opvang}`]);
   });
   if (f.kinderen.length > 0 && f.kinderalimentatieJa && getal(f.kinderalimentatie)) huishouden.push(["Kinderalimentatie", `${euroTekst(f.kinderalimentatie)} per maand`]);
@@ -573,7 +574,7 @@ export function ingevuld(f: Formulier, schuifUren?: number): { kop: string; rege
       f.woont === "koop"
         ? "koopwoning"
         : f.woont === "inwonend"
-          ? `bij iemand in huis, betaalt niets voor de woonruimte; ${f.woonlasten ? "betaalt wel" : "betaalt geen"} gas, licht of water`
+          ? `bij iemand in huis, betaalt niets voor de woonruimte. ${f.woonlasten ? "Betaalt wel" : "Betaalt geen"} gas, licht of water.`
           : f.woont === "dakloos"
             ? "geen vaste woonplek"
             : "instelling met zorg of begeleiding",

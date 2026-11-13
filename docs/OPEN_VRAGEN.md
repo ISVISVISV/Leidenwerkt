@@ -9,6 +9,7 @@ Beantwoord door klantmanagers in Leiden, maar nog niet in een officieel document
 | # | Vraag | Antwoord uit de praktijk | Wat ontbreekt |
 | --- | --- | --- | --- |
 | G1 | Krijgt iemand die in 2027 het overgangsrecht van onderdeel n gebruikt daarna nog de nieuwe bijverdienregeling (art. 34a)? | De gemeente beslist (bevestigd 13 november 2026). De app neemt aan van niet en zegt dat de gebruiker het bij de gemeente moet vragen | Officiële documentatie. Wet, memorie van toelichting en de andere Kamerstukken van dossier 36582 zeggen het niet (doorzocht op 8 november 2026). Geen datum bekend |
+| R1 | Welk inkomen telt voor de Sleutelpas, het Kindtegoed, de Gemeentepolis, het zwemabonnement en Sport en cultuur? | De gemeente toetst aan de norm van de klant. Met bijstand telt de norm: alimentatie gaat al van de bijstand af, het vrijgelaten deel van het loon telt niet mee. Zonder bijstand telt het hele netto inkomen (bevestigd 13 november 2026). Zo rekent de app | Een beleidsregel of verordening van Leiden waarin het inkomensbegrip voor deze regelingen staat |
 | V13 | Telt een reiskostenvergoeding van de werkgever mee als inkomen voor de bijstand? | Nee: het is een doelverstrekking (bevestigd 13 november 2026). Zo rekent de app al | Een officiële bron met deze tekst (wet, beleidsregel of uitspraak) |
 
 ## Uit te zoeken
