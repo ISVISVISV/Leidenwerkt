@@ -85,7 +85,7 @@ export interface KindVeld {
 }
 
 /** Ja/nee-vragen zonder vooraf gekozen antwoord. */
-export type JaNeeVraag = "partner" | "heeftKinderen" | "partnerWerkt" | "heeftAnderInkomen" | "woonlasten" | "andereBewoners" | "werktNu";
+export type JaNeeVraag = "partner" | "heeftKinderen" | "partnerWerkt" | "heeftAnderInkomen" | "krijgtKinderalimentatie" | "woonlasten" | "andereBewoners" | "werktNu";
 
 export interface Formulier {
   leefvorm: Leefvorm;
@@ -100,7 +100,7 @@ export interface Formulier {
   heeftAnderInkomen: boolean;
   anderInkomen: string;
   partneralimentatie: string;
-  /** Vinkje bij de kinderen: er komt kinderalimentatie binnen. */
+  /** Ja bij de vraag of er kinderalimentatie binnenkomt (bij de kinderen). */
   kinderalimentatieJa: boolean;
   kinderalimentatie: string;
   /** Wonen er nog andere mensen in huis, naast partner en kinderen? */
@@ -280,6 +280,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (!f.beantwoord.heeftKinderen) fouten.heeftKinderen = kies;
     if (f.leefvorm === "paar" && !f.beantwoord.partnerWerkt) fouten.partnerWerkt = kies;
     if (!f.beantwoord.heeftAnderInkomen) fouten.heeftAnderInkomen = kies;
+    if (f.kinderen.length > 0 && !f.beantwoord.krijgtKinderalimentatie) fouten.krijgtKinderalimentatie = kies;
     const geboren = (veld: string, g: Geboortedatum, min: number, maxi: number, melding: string) => {
       if (!g.trim()) fouten[veld] = "Vul dit in.";
       else if (!isoDatum(g)) fouten[veld] = `Vul een datum in die bestaat, met dag, maand en jaar. Bijvoorbeeld ${veld.startsWith("kind") ? "14-03-2018" : "14-03-1990"}.`;
