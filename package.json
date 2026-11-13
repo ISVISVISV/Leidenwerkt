@@ -17,7 +17,8 @@
     "build": "npm run regels && npm run build -w app",
     "build:los": "npm run regels && npm run build:los -w app",
     "test:e2e": "npm run build && playwright test",
-    "docs": "tsx scripts/documenten.ts"
+    "docs": "tsx scripts/documenten.ts",
+    "audit": "npm run regels && tsx scripts/audit.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",

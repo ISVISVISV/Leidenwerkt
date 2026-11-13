@@ -428,7 +428,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       stap(anderVoorToeslagen.gt(0) ? "Bijstand en ander inkomen per jaar, teruggerekend naar bruto" : "Bijstand per jaar, teruggerekend naar bruto", brutoBijstand);
     }
     stap("Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)", ti);
-    aanname("Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag; Dienst Toeslagen gebruikt het werkelijke bruto bedrag.");
+    aanname("Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.");
     aanname("Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.");
     return ti;
   };

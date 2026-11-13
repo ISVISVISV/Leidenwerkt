@@ -36,7 +36,18 @@ function onbekendeOnderdelen(datum: string): string[] {
 const leesbareDatum = (iso: string) =>
   new Date(`${iso}T12:00:00`).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
 
-export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUren?: number; onUren?: (uren: number) => void }) {
+export function Uitkomst({
+  f,
+  bewaardeUren,
+  onUren,
+  beginFase = "start",
+}: {
+  f: Formulier;
+  bewaardeUren?: number;
+  onUren?: (uren: number) => void;
+  /** De periode die eerst getoond wordt. Alleen anders voor de audit (scripts/audit.ts). */
+  beginFase?: "start" | "later" | "geen";
+}) {
   const start = schuifStart(f);
   const extra = start.wat === "extra";
   const maxUren = Math.max(extra ? 32 : 40, start.uren);
@@ -51,7 +62,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
     onUren?.(u);
   };
   const urenTekst = (u: number) => `${u} uur ${extra ? "extra werk " : ""}per week`;
-  const [gekozenFase, setFase] = useState<"start" | "later" | "geen">("start");
+  const [gekozenFase, setFase] = useState<"start" | "later" | "geen">(beginFase);
   const { datum, teruggevallen } = useMemo(() => bruikbareDatum(f), [f]);
 
   const uitleg = useMemo(() => vrijlatingUitleg(naarInvoer(f, { uren, fase: "start", datum })), [f, uren, datum]);

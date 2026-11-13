@@ -64,6 +64,8 @@ Nog niet gebruikt, als idee: iemand die in 2027 rekent.
 
 ## Andere soorten tests
 
+**Automatische audit.** `npm run audit` doet zonder AI wat testers eerder met de hand deden: omwegen vergelijken, bedragen in zinnen naast de tabel leggen, de afdruk op overlap controleren, de urenschuif op verspringen door afronding, en teksten op ";" en bedragen zonder punt. Zie [audit/README.md](../audit/README.md). Een AI-tester is daarna alleen nog nodig voor begrijpelijkheid, en kan de tekstbestanden in audit/uitvoer lezen.
+
 Naast de test met personages zijn twee andere tests nuttig gebleken (ronde 6):
 
 - **Omwegen.** De tester vult elk scenario twee keer in: één keer meteen goed, en één keer met een omweg (eerst iets anders invullen, dan wijzigen via "Gegevens aanpassen", "Vorige stap", de terugknop van de browser of "Opnieuw beginnen"). Elk verschil in de uitkomst is een fout. Zo vond ronde 6 dat de urenschuif terugsprong en dat oude bedragen bleven staan in een veld met een andere betekenis.
