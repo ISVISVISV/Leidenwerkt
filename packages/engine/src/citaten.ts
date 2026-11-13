@@ -101,6 +101,12 @@ export const CITATEN = {
     tekst:
       "De algemene bijstand wordt per kalendermaand vastgesteld en betaald. In afwijking van de eerste volzin wordt de vakantietoeslag, voorzover niet reeds eerder betaald, jaarlijks betaald in de maand juni over de aan die maand voorafgaande twaalf maanden of zo veel eerder als de vakantietoeslag over deze periode vaststaat, dan wel binnen drie maanden volgend op de maand waarin de algemene bijstand is beëindigd.",
   },
+  inkomenDoorgeven: {
+    titel: "Belastingdienst, Mijn inkomen verandert – moet ik dat doorgeven?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/werk-en-inkomen/content/mijn-inkomen-verandert-moet-ik-dat-doorgeven",
+    versie: "geraadpleegd op 13 november 2026",
+    tekst: "Ja, als u een voorlopige aanslag of een toeslag hebt. […] Geef dan aan ons door dat uw inkomen verandert. Dit doet u met Mijn toeslagen of met de app Toeslagen.",
+  },
   awirTerugvordering: {
     titel: "Algemene wet inkomensafhankelijke regelingen, art. 26 lid 1",
     url: "https://wetten.overheid.nl/BWBR0018472/2026-10-01#Hoofdstuk2_Paragraaf3_Artikel26",
