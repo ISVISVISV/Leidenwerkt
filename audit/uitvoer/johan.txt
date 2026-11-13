@@ -227,7 +227,7 @@ Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst T
 Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.
 Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.
 
-Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.4.0.
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.5.0.
 
 ### Wat u heeft ingevuld (afdruk)
 

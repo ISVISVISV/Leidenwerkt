@@ -6,6 +6,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ## Nog niet uitgebracht
 
+## 0.5.0 – 13 november 2026
+
 ### Gewijzigd
 
 - Toets van de belastingberekening aan de witte en groene maandtabel loonheffing 2026 van de Belastingdienst (`packages/engine/test/loonheffingstabellen.test.ts`): verschil hoogstens € 0,18 per maand.

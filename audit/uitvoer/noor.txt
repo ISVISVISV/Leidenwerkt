@@ -277,7 +277,7 @@ Voor de vergoeding kijkt de gemeente naar uw inkomen zonder vakantiegeld. Dat is
 De combinatiekorting krijgt u via de aangifte of een voorlopige aanslag, niet via de werkgever.
 De korting gaat af van de belasting over uw loon en uw bijstand samen. Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag.
 
-Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.4.0.
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.5.0.
 
 ### Wat u heeft ingevuld (afdruk)
 

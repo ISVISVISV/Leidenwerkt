@@ -58,17 +58,21 @@ Werk de lijst "Wat je niet meldt" bij als er een nieuwe bewuste keuze bij komt; 
 | 4 (november 2026) | Fleur (UWV-uitkering naast bijstand); Ricardo (alleenstaande vader, kinderen 17 en 19); Mila en Daan (stel, partner werkt al, kind naar kinderdagverblijf); Joost (nachtopvang, netto loon); Henk en Joke en Noor opnieuw |
 | 5 (november 2026) | Thijs (26, bij ouders); Esra (drie kinderen, verschillende opvang); Pim (ander werk in plaats van het huidige); Yara (medische urenbeperking, kamer); Gerard en Ans (werk erbij); Sem (huisgenoten, voltijd) |
 | 6 (november 2026) | Twee andere soorten tests, zie hieronder: omwegen (tien scenario's); toeslagen tegen de proefberekening (Ria en Kemal, Lotte en Ruben, Wendy, Hatice, Marco, Iris) |
-| 7 (november 2026) | Na het inkorten: Dewi, Tom en Ilse, Noor (opnieuw), Yara (opnieuw, andere gegevens), Karim (36, voltijd); vreemde invoer en toetsenbord nog niet afgerond |
+| 7 (november 2026) | Na het inkorten: Dewi, Tom en Ilse, Noor (opnieuw), Yara (opnieuw, andere gegevens), Karim (36, voltijd). Daarna vreemde invoer en alleen het toetsenbord |
+| 8 (november 2026) | Op versie 0.4.0: Tom en Ilse, Noor, Yara en Karim opnieuw. Nieuw: Johan (58, werkt al, meer uren), Marieke (woonvorm met begeleiding), Fatou en Ibrahim (kinderen van 3 en 19, studiefinanciering), Lars (25, kostgeld bij zijn vader), Priya (partneralimentatie) |
+| 9 (november 2026) | Eerste indruk en personen: Tom en Ilse (partner werkt kort), Priya, Hatice (kinderalimentatie, zoon met onbekend inkomen), Lars (weekloon), Sanne (bij een vriendin in huis), Dewi (werk erbij, opvang), Fatou en Ibrahim |
+| 10 (november 2026) | Omwegen bij de nieuwe vragen (negen scenario's en twee eigen); toeslagen tegen de proefberekening (Priya, Hatice, Tom en Ilse); alleen het toetsenbord in stap 1 |
+| 11 (november 2026) | De afdruk (Tom en Ilse, Sanne, Johan); de zin bij de urenschuif bij zeven soorten loon; stap 1 in de nieuwe volgorde (Ahmed en Leila, Joke, Sanne) |
 
 Nog niet gebruikt, als idee: iemand die in 2027 rekent.
 
 ## Andere soorten tests
 
-**Automatische audit.** `npm run audit` doet zonder AI wat testers eerder met de hand deden: omwegen vergelijken, bedragen in zinnen naast de tabel leggen, de afdruk op overlap controleren, de urenschuif op verspringen door afronding, en teksten op ";" en bedragen zonder punt. Zie [audit/README.md](../audit/README.md). Een AI-tester is daarna alleen nog nodig voor begrijpelijkheid, en kan de tekstbestanden in audit/uitvoer lezen.
+**Automatische audit.** `npm run audit` doet zonder AI wat testers eerder met de hand deden: omwegen vergelijken, bedragen in zinnen naast de tabel leggen, de afdruk op overlap controleren, de urenschuif op verspringen door afronding, en teksten op ";" en bedragen zonder punt. Personen met bedragen uit een officiële bron (zoals de proefberekening van Dienst Toeslagen) staan erin met `verwacht`, of als bestand in audit/extern. De audit draait bij elke wijziging op GitHub. Zie [audit/README.md](../audit/README.md). Een tester is daarna vooral nodig voor begrijpelijkheid en voor nieuwe functies, en kan de tekstbestanden in audit/uitvoer lezen in plaats van door de site te klikken.
 
 Naast de test met personages zijn twee andere tests nuttig gebleken (ronde 6):
 
 - **Omwegen.** De tester vult elk scenario twee keer in: één keer meteen goed, en één keer met een omweg (eerst iets anders invullen, dan wijzigen via "Gegevens aanpassen", "Vorige stap", de terugknop van de browser of "Opnieuw beginnen"). Elk verschil in de uitkomst is een fout. Zo vond ronde 6 dat de urenschuif terugsprong en dat oude bedragen bleven staan in een veld met een andere betekenis.
-- **Toeslagen tegen de proefberekening.** De tester neemt het geschatte jaarinkomen over uit "Hoe is dit berekend?" en vult het met dezelfde situatie in bij de proefberekening van Dienst Toeslagen. Zet de uitkomsten daarna als toets in `packages/engine/test/proefberekening.test.ts`. Dit toetst de formules, niet de schatting van het inkomen.
+- **Toeslagen tegen de proefberekening.** De tester neemt het geschatte jaarinkomen over uit "Hoe is dit berekend?" en vult het met dezelfde situatie in bij de proefberekening van Dienst Toeslagen. Zet de uitkomsten daarna als toets in `packages/engine/test/proefberekening.test.ts` (de formules), of met het hele formulier als `verwacht` in de audit (zie audit/README.md). Dat laatste toetst ook de schatting van het inkomen.
 
 Doe ook deze tests na grote wijzigingen in de vragen of in de berekening van de toeslagen. Laat de tester ook hier geen voorstellen doen, alleen beschrijven wat er gebeurt.
