@@ -117,8 +117,8 @@ Waar je moet kijken:
 
 De volledige lijst staat in [OPEN_VRAGEN.md](OPEN_VRAGEN.md). De punten die een uitkomst kunnen raken:
 
-- **Bruto bijstand voor de toeslagen.** De app rekent de netto bijstand terug naar bruto om het jaarinkomen te schatten. De gemeente gebruikt daarvoor de loonheffingstabellen; het verschil is niet getoetst.
-- **Reiskostenvergoeding van de werkgever.** De app telt die niet mee als inkomen voor de bijstand. Dat is een aanname.
+- **Overgangsrecht 2027.** Of iemand na de oude vrijlating nog de nieuwe bijverdienregeling krijgt, beslist de gemeente. Dat is bevestigd door klantmanagers in Leiden, maar staat nog niet in een officieel document (G1).
+- **Reiskostenvergoeding van de werkgever.** De app telt die niet mee als inkomen voor de bijstand: het is een doelverstrekking. Bevestigd door klantmanagers in Leiden; een officiële bron met deze tekst moet nog worden toegevoegd.
 - **2027.** De bedragen voor 2027 zijn nog niet gepubliceerd. Voor een datum in 2027 rekent de app met de laatste bekende regels en zegt dat erbij.
 - **Praktijk in Leiden.** Een paar keuzes volgen de praktijk en niet een beleidsregel, bijvoorbeeld dat bewoners van een woonvorm met begeleiding niets voor het verblijf betalen. Ze staan bij de betreffende regel in REKENREGELS.md.
 

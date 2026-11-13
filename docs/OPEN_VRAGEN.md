@@ -1,12 +1,15 @@
 # Open vragen
 
-Stand: 12 november 2026. Per vraag staat wat ontbreekt en waar het te vinden is.
+Stand: 13 november 2026. Per vraag staat wat ontbreekt en waar het te vinden is.
 
-## Na te vragen bij de gemeente
+## Wacht op officiële bevestiging
 
-| # | Vraag | Waarom | Urgentie |
+Beantwoord door klantmanagers in Leiden, maar nog niet in een officieel document. Zodra dat er is: bron toevoegen en hier weghalen.
+
+| # | Vraag | Antwoord uit de praktijk | Wat ontbreekt |
 | --- | --- | --- | --- |
-| G1 | Krijgt iemand die in 2027 het overgangsrecht van onderdeel n gebruikt daarna nog de nieuwe bijverdienregeling (art. 34a)? | Wet, memorie van toelichting en de andere Kamerstukken van dossier 36582 zeggen het niet (doorzocht op 8 november 2026). De gemeente beslist; de app zegt dat erbij | Laag |
+| G1 | Krijgt iemand die in 2027 het overgangsrecht van onderdeel n gebruikt daarna nog de nieuwe bijverdienregeling (art. 34a)? | De gemeente beslist (bevestigd 13 november 2026). De app neemt aan van niet en zegt dat de gebruiker het bij de gemeente moet vragen | Officiële documentatie. Wet, memorie van toelichting en de andere Kamerstukken van dossier 36582 zeggen het niet (doorzocht op 8 november 2026). Geen datum bekend |
+| V13 | Telt een reiskostenvergoeding van de werkgever mee als inkomen voor de bijstand? | Nee: het is een doelverstrekking (bevestigd 13 november 2026). Zo rekent de app al | Een officiële bron met deze tekst (wet, beleidsregel of uitspraak) |
 
 ## Uit te zoeken
 
@@ -18,7 +21,6 @@ Stand: 12 november 2026. Per vraag staat wat ontbreekt en waar het te vinden is.
 | V4 | Kinderopvangtoeslag 2027 | Tabel en maximum uurprijzen zijn gepubliceerd in **Stb. 2026, 308** (besluit van 3 oktober 2026); nog verwerken. Ook de **Wet van 1 juli 2026** tot wijziging van de Wet kinderopvang (Stb. 2026, 184; inwerkingtreding Stb. 2026, 253) nalezen op gevolgen voor de berekening | officielebekendmakingen.nl |
 | V5 | Kostendelersnorm 2027 | Art. 19a en 22a in de versie per 1 januari 2027 nalezen (nu `onbevestigd`, overgenomen van 2026) | wetten.overheid.nl/BWBR0015703/2027-01-01 |
 | V6 | Verrekening per 2027 | Uniform verrekenen, verrekening vakantiegeld, bufferbudget (art. 34b, max. € 1.000 per jaar); de app rekent dit niet | Regeling Participatiewet, IOAW en IOAZ (versie 2027) |
-| V13 | Reiskostenvergoeding van de werkgever | De app telt een vergoeding voor reiskosten niet mee als inkomen voor de bijstand. Art. 31 en 32 Pw noemen dit niet uitdrukkelijk; navragen hoe Leiden een vergoeding voor werkelijk gemaakte reiskosten behandelt | Klantmanager of beleidsregels Leiden |
 | V14 | Jongeren onder 27 vlak voor 2027 | De uitkomst toont voor wie jonger is dan 27 alleen 2026 (geen vrijlating). Vanaf 1 januari 2027 mag die persoon wel een deel houden (art. 34a). Zodra de normen voor 2027 officieel zijn (V1), nagaan of de uitkomst ook een bedrag vanaf januari 2027 kan tonen. Geen bedrag tonen zolang de normen onbekend zijn | Staatscourant, begin december 2026 |
 
 ## Opgelost
@@ -49,7 +51,7 @@ Stand: 12 november 2026. Per vraag staat wat ontbreekt en waar het te vinden is.
 - **Individuele inkomenstoeslag**: actuele bedragen op leiden.nl (€ 462 / € 577 / € 635). Ze bevestigen artikel 4 van de verordening van 2020; de afwijkende toelichting is niet bepalend.
 - **Garantieknop**: termijn en voorwaarden uit de Beleidsregels inkomensvoorzieningen Leiden 2026 (hoofdstuk 3).
 - **Kostendelersnorm 2026**: formule en leeftijdsgrens in de wettekst (art. 19a en 22a).
-- **Vrijlating over het loon van de partner** (was V15): de vrijlating van art. 31 lid 2 onder n geldt "voor zover hij algemene bijstand ontvangt"; gehuwden ontvangen ieder de helft (art. 45 lid 4), dus de vrijlating geldt per partner. Leiden heeft hierover geen eigen beleidsregel; andere gemeenten schrijven in hun beleidsregels letterlijk dat het recht "bij gehuwden voor ieder van de partners afzonderlijk" bestaat. De app vraagt hoe lang de partner al werkt en rekent bij korter dan 6 maanden 25% vrijlating, in beide kolommen en alleen in de eerste periode (aanname: de 6 maanden van de partner lopen tegelijk). Alleen in de regels tot en met 2026. Wordt nog besproken met klantmanagers van de gemeente.
+- **Vrijlating over het loon van de partner** (was V15): de vrijlating van art. 31 lid 2 onder n geldt "voor zover hij algemene bijstand ontvangt"; gehuwden ontvangen ieder de helft (art. 45 lid 4), dus de vrijlating geldt per partner. Leiden heeft hierover geen eigen beleidsregel; andere gemeenten schrijven in hun beleidsregels letterlijk dat het recht "bij gehuwden voor ieder van de partners afzonderlijk" bestaat. De app vraagt hoe lang de partner al werkt en rekent bij korter dan 6 maanden 25% vrijlating, in beide kolommen en alleen in de eerste periode (aanname: de 6 maanden van de partner lopen tegelijk). Alleen in de regels tot en met 2026. Bevestigd door de memorie van toelichting bij de wet Breed offensief ([Kamerstuk 35394, nr. 3](https://zoek.officielebekendmakingen.nl/kst-35394-3.html)): "net als bij de overige reeds bestaande vrijlatingsregels, dat wanneer beide partners onder de doelgroep vallen iedere partner afzonderlijk recht heeft op de inkomstenvrijlating", en door klantmanagers in Leiden (13 november 2026).
 - **Kinderalimentatie en toeslagen** (was V16): kinderalimentatie telt mee voor de bijstand, niet voor de toeslagen. De app vraagt haar apart, bij de kinderen.
 - **Partneralimentatie**: de bijstand telt het bedrag na inkomstenbelasting (art. 31 lid 3 Pw). De app trekt het tarief van de eerste schijf af.
 - **Inkomen van kinderen voor de huurtoeslag**: het hele toetsingsinkomen telt mee, min € 6.218 voor een kind dat aan het begin van het jaar jonger is dan 23; studiefinanciering telt niet mee (belastingdienst.nl, "Mijn kind woont thuis en verdient geld").

@@ -332,7 +332,8 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         huishoudinkomen: inkomen,
         norm,
       });
-      // Vrijlating voor het loon van de partner: per partner (art. 31 lid 2 onder n en art. 45 lid 4 Pw),
+      // Vrijlating voor het loon van de partner: per partner (art. 31 lid 2 onder n en art. 45 lid 4 Pw;
+      // Kamerstukken II 2019/20, 35394, nr. 3: "iedere partner afzonderlijk recht"),
       // alleen als de partner korter dan 6 maanden werkt. Nu, en met het nieuwe werk in de eerste periode.
       // Alleen in de regels tot en met 2026; voor de bijverdienregeling vanaf 2027 nog niet nagegaan.
       // In beide kolommen dezelfde periode: het einde van de vrijlating van de partner komt niet door het nieuwe werk.
