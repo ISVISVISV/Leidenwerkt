@@ -152,7 +152,7 @@ Ongewijzigd ten opzichte van de vorige stand; alle waarden 2026 `geverifieerd` (
 
 **Combinatiekorting.** De inkomensafhankelijke combinatiekorting gaat af van de belasting over het hele inkomen in box 1, dus over loon, bijstand en ander inkomen samen, na de algemene heffingskorting en de arbeidskorting. De app rekent de bijstand daarvoor terug naar bruto. De korting is niet hoger dan die belasting.
 
-**Ander inkomen.** De app vraagt of het huishouden ander inkomen heeft dan bijstand en loon (alimentatie, een andere uitkering, pensioen) en zo ja het netto bedrag per maand. Dat telt volledig mee als inkomen voor de bijstand (art. 32 lid 1 Pw), zonder vrijlating, in beide situaties. Voor de toeslagen wordt het naar bruto omgerekend alsof het een uitkering is; kinderalimentatie telt bij Dienst Toeslagen niet mee, en dat staat bij de aannames.
+**Ander inkomen.** De app vraagt of het huishouden ander inkomen heeft dan bijstand en loon (alimentatie, een andere uitkering, pensioen) en zo ja het netto bedrag per maand. Dat telt volledig mee als inkomen voor de bijstand (art. 32 lid 1 Pw), zonder vrijlating, in beide situaties. Voor de toeslagen wordt het naar bruto omgerekend alsof het een uitkering is; kinderalimentatie telt bij Dienst Toeslagen niet mee, en dat staat bij de aannames. Kinderalimentatie vraagt de app niet bij ander inkomen, maar bij de kinderen, met het vinkje "Ik krijg kinderalimentatie" (zie BESLUITEN.md, besluit 16).
 
 **Afdruk.** De afdruk toont boven de uitkomst wat de gebruiker heeft ingevuld (huishouden, woning, werk) en laat de bediening en de uitleg per onderdeel weg, zodat invoer en uitkomst samen op één of twee A4'tjes passen.
 
