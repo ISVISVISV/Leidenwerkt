@@ -6,12 +6,15 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ## Nog niet uitgebracht
 
-## 0.5.0 – 13 november 2026
-
 ### Gewijzigd
 
 - "t/m" (bijvoorbeeld "maand 1 t/m 6") breekt niet meer af na de schuine streep. Dat gebeurde in sommige browsers op een smal scherm.
 - De melding over de toeslagen heet nu "Geef uw nieuwe inkomen door aan Dienst Toeslagen". Wie een toeslag krijgt, ziet die melding nu altijd, ook als de toeslag niet verandert: een nieuw inkomen moet u dan toch doorgeven (Belastingdienst, "Mijn inkomen verandert – moet ik dat doorgeven?").
+
+## 0.5.0 – 13 november 2026
+
+### Gewijzigd
+
 - Toets van de belastingberekening aan de witte en groene maandtabel loonheffing 2026 van de Belastingdienst (`packages/engine/test/loonheffingstabellen.test.ts`): verschil hoogstens € 0,18 per maand.
 - Werkt uw partner al? Dan vraagt de rekenhulp hoe lang. Bij korter dan 6 maanden mag ook uw partner een deel van het loon houden (art. 31 lid 2 onder n en art. 45 lid 4 Pw).
 - Gemeentepolis bij verblijf in een instelling: de grens volgt de tabel van de gemeente (€ 512,36 zonder vakantiegeld).
