@@ -19,7 +19,7 @@ parameters:
     citaat:
       kop: "Belastingdienst, Voorlopige aanslag 2026: gebruikte tarieven en heffingskortingen"
       tekst: "Schijf Belastbaar inkomen Percentage 1 tot en met € 38.883 35,75% 2 meer dan € 38.883 tot en met € 78.426 37,56% 3 meer dan € 78.426 49,50% […] Algemene heffingskorting tot € 29.736 € 3.115 vanaf € 29.736 tot € 78.426 € 3.115 - 6,398% x (verzamelinkomen - € 29.736) vanaf € 78.426 € 0 […] Arbeidskorting tot € 11.965 8,324% x arbeidsinkomen vanaf € 11.965 tot € 25.845 € 996 + 31,009% x (arbeidsinkomen - € 11.965) vanaf € 25.845 tot € 45.592 € 5.300 + 1,950% x (arbeidsinkomen - € 25.845) vanaf € 45.592 tot € 132.920 € 5.685 - 6,510% x (arbeidsinkomen - € 45.592) vanaf € 132.920 € 0 […] Inkomensafhankelijke combinatiekorting tot € 6.239 € 0 vanaf € 6.239 tot € 32.710 11,45% x (arbeidsinkomen - € 6.239) vanaf € 32.710 € 3.032"
-      versie: "geraadpleegd op 11 november 2026; tabellen voor wie de AOW-leeftijd nog niet heeft"
+      versie: "geraadpleegd op 11 november 2026, tabellen voor wie de AOW-leeftijd nog niet heeft"
   - id: ib.ahk
     omschrijving: Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf))
     eenheid: tabel
@@ -34,7 +34,7 @@ parameters:
     citaat:
       kop: "Belastingdienst, Voorlopige aanslag 2026: gebruikte tarieven en heffingskortingen"
       tekst: "Schijf Belastbaar inkomen Percentage 1 tot en met € 38.883 35,75% 2 meer dan € 38.883 tot en met € 78.426 37,56% 3 meer dan € 78.426 49,50% […] Algemene heffingskorting tot € 29.736 € 3.115 vanaf € 29.736 tot € 78.426 € 3.115 - 6,398% x (verzamelinkomen - € 29.736) vanaf € 78.426 € 0 […] Arbeidskorting tot € 11.965 8,324% x arbeidsinkomen vanaf € 11.965 tot € 25.845 € 996 + 31,009% x (arbeidsinkomen - € 11.965) vanaf € 25.845 tot € 45.592 € 5.300 + 1,950% x (arbeidsinkomen - € 25.845) vanaf € 45.592 tot € 132.920 € 5.685 - 6,510% x (arbeidsinkomen - € 45.592) vanaf € 132.920 € 0 […] Inkomensafhankelijke combinatiekorting tot € 6.239 € 0 vanaf € 6.239 tot € 32.710 11,45% x (arbeidsinkomen - € 6.239) vanaf € 32.710 € 3.032"
-      versie: "geraadpleegd op 11 november 2026; tabellen voor wie de AOW-leeftijd nog niet heeft"
+      versie: "geraadpleegd op 11 november 2026, tabellen voor wie de AOW-leeftijd nog niet heeft"
   - id: ib.arbeidskorting
     omschrijving: Arbeidskorting (bedrag = basis + percentage × (arbeidsinkomen − vanaf))
     eenheid: tabel
@@ -51,7 +51,7 @@ parameters:
     citaat:
       kop: "Belastingdienst, Voorlopige aanslag 2026: gebruikte tarieven en heffingskortingen"
       tekst: "Schijf Belastbaar inkomen Percentage 1 tot en met € 38.883 35,75% 2 meer dan € 38.883 tot en met € 78.426 37,56% 3 meer dan € 78.426 49,50% […] Algemene heffingskorting tot € 29.736 € 3.115 vanaf € 29.736 tot € 78.426 € 3.115 - 6,398% x (verzamelinkomen - € 29.736) vanaf € 78.426 € 0 […] Arbeidskorting tot € 11.965 8,324% x arbeidsinkomen vanaf € 11.965 tot € 25.845 € 996 + 31,009% x (arbeidsinkomen - € 11.965) vanaf € 25.845 tot € 45.592 € 5.300 + 1,950% x (arbeidsinkomen - € 25.845) vanaf € 45.592 tot € 132.920 € 5.685 - 6,510% x (arbeidsinkomen - € 45.592) vanaf € 132.920 € 0 […] Inkomensafhankelijke combinatiekorting tot € 6.239 € 0 vanaf € 6.239 tot € 32.710 11,45% x (arbeidsinkomen - € 6.239) vanaf € 32.710 € 3.032"
-      versie: "geraadpleegd op 11 november 2026; tabellen voor wie de AOW-leeftijd nog niet heeft"
+      versie: "geraadpleegd op 11 november 2026, tabellen voor wie de AOW-leeftijd nog niet heeft"
   - id: ib.iack
     omschrijving: Inkomensafhankelijke combinatiekorting (ouder met kind jonger dan 12 jaar)
     eenheid: tabel
@@ -66,4 +66,4 @@ parameters:
     citaat:
       kop: "Belastingdienst, Voorlopige aanslag 2026: gebruikte tarieven en heffingskortingen"
       tekst: "Schijf Belastbaar inkomen Percentage 1 tot en met € 38.883 35,75% 2 meer dan € 38.883 tot en met € 78.426 37,56% 3 meer dan € 78.426 49,50% […] Algemene heffingskorting tot € 29.736 € 3.115 vanaf € 29.736 tot € 78.426 € 3.115 - 6,398% x (verzamelinkomen - € 29.736) vanaf € 78.426 € 0 […] Arbeidskorting tot € 11.965 8,324% x arbeidsinkomen vanaf € 11.965 tot € 25.845 € 996 + 31,009% x (arbeidsinkomen - € 11.965) vanaf € 25.845 tot € 45.592 € 5.300 + 1,950% x (arbeidsinkomen - € 25.845) vanaf € 45.592 tot € 132.920 € 5.685 - 6,510% x (arbeidsinkomen - € 45.592) vanaf € 132.920 € 0 […] Inkomensafhankelijke combinatiekorting tot € 6.239 € 0 vanaf € 6.239 tot € 32.710 11,45% x (arbeidsinkomen - € 6.239) vanaf € 32.710 € 3.032"
-      versie: "geraadpleegd op 11 november 2026; tabellen voor wie de AOW-leeftijd nog niet heeft"
+      versie: "geraadpleegd op 11 november 2026, tabellen voor wie de AOW-leeftijd nog niet heeft"

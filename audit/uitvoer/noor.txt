@@ -141,7 +141,7 @@ Mag u houden: geen vrijlating toegepast
 Bijstand: € 1.419,46 − € 966,05 = € 453,41
 Gebruikte regels
 Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Combinatiekorting (via belastingaangifte)
 Met dit werk
 Combinatiekorting volgens de tabel, per maand
@@ -246,12 +246,12 @@ Uw inkomen is niet hoger dan € 1.907,14 (110% van de norm). U hoeft zelf niet
 Vergoeding: eigen bijdrage min wat u zelf moet bijdragen
 € 30,70
 Gebruikte regels
-Vakantietoeslag als deel van de algemene bijstand; de normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw): 5% (Participatiewet art. 19 lid 3 (wetten.overheid.nl, versie 2026-07-01))
+Vakantietoeslag als deel van de algemene bijstand. De normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw).: 5% (Participatiewet art. 19 lid 3 (wetten.overheid.nl, versie 2026-07-01))
 Bijstandsnorm gehuwden/samenwonenden, beiden 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 b Pw): € 2.027,79 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
 Bijzondere bijstand — de bijstandsnorm van een alleenstaande ouder is voor deze beleidsregels dit deel van de gezinsnorm (art. 1 onder d): 90% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — geen draagkracht bij een inkomen tot dit deel van de bijstandsnorm, beide zonder vakantietoeslag (art. 6 lid 1): 110% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — tot dit deel van de bijstandsnorm telt 20% van het meerinkomen als draagkracht (art. 6 lid 2): 130% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
-Bijzondere bijstand — tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen; daarboven 100% (art. 6 lid 2): 150% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
+Bijzondere bijstand: tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen. Daarboven telt 100% (art. 6 lid 2).: 150% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 110% en 130% van de bijstandsnorm (art. 6 lid 2): 20% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 130% en 150% van de bijstandsnorm (art. 6 lid 2): 50% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen boven 150% van de bijstandsnorm (art. 6 lid 2): 100% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))

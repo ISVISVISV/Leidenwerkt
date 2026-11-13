@@ -18,7 +18,9 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createServer } from "vite";
 import { chromium } from "@playwright/test";
-import { PERSONEN, type Persoon } from "../audit/personen.ts";
+import { readdirSync } from "node:fs";
+import { parse } from "yaml";
+import { PERSONEN, REKENDATUM, formulier, kind, type Persoon, type Verwachting } from "../audit/personen.ts";
 import { willekeurigePersonen } from "../audit/willekeurig.ts";
 import type { Formulier } from "../app/src/formulier.ts";
 
@@ -67,6 +69,10 @@ async function main() {
     appType: "custom",
     logLevel: "error",
   });
+  // Vaste rekendatum (audit/personen.ts of --datum JJJJ-MM-DD): dezelfde uitkomst voor iedereen, elke dag.
+  const datumArg = process.argv.indexOf("--datum");
+  const rekendatum = datumArg > 0 ? process.argv[datumArg + 1] : REKENDATUM;
+  ((await vite.ssrLoadModule("/src/formulier.ts")) as { zetVandaag: (d: string) => void }).zetVandaag(rekendatum);
   const { Uitkomst } = (await vite.ssrLoadModule("/src/Uitkomst.tsx")) as {
     Uitkomst: (p: object) => unknown;
   };
@@ -371,7 +377,7 @@ async function main() {
   // ---- Personen doorrekenen ---------------------------------------------------------------------------------
   const personen: Persoon[] = aantalWillekeurig
     ? willekeurigePersonen(aantalWillekeurig, zaad)
-    : PERSONEN;
+    : [...PERSONEN, ...externePersonen()];
   if (!aantalWillekeurig) {
     rmSync(uitvoerMap, { recursive: true, force: true });
     mkdirSync(uitvoerMap, { recursive: true });
@@ -392,6 +398,20 @@ async function main() {
           gezien.add(w.tekst);
           const waar = `${uren ?? ingevuld} uur${w.periode ? `, ${w.periode}` : ""}`;
           controleer(p.naam, waar, w);
+          // 14. Officiële bedragen (alleen bij de ingevulde uren).
+          if (uren === undefined)
+            for (const v of p.verwacht ?? []) {
+              if (v.periode && v.periode !== w.periode) continue;
+              const rij = w.rijen.find((r) => r.label.replace(/\s*\*.*$/, "") === v.onderdeel);
+              const app = rij ? ((v.situatie === "nu" ? rij.nu : rij.werk) ?? 0) : 0;
+              controle(
+                "Gelijk aan de officiële bron",
+                p.naam,
+                waar,
+                Math.abs(app - v.waarde) <= (v.tolerantie ?? 0),
+                `${v.onderdeel} (${v.situatie === "nu" ? "nu" : "met werk"}): rekenhulp € ${app}, ${v.bron.titel}: € ${v.waarde}`,
+              );
+            }
           delen.push(
             `\n## ${waar}\n\n${w.tekst}\n\n### Wat u heeft ingevuld (afdruk)\n\n${w.afdrukTekst}`,
           );
@@ -473,8 +493,8 @@ async function main() {
     "# Auditrapport",
     "",
     aantalWillekeurig
-      ? `Gemaakt met \`npm run audit -- --willekeurig ${aantalWillekeurig} --zaad ${zaad}\` op ${new Date().toISOString().slice(0, 10)}. ${personen.length} willekeurige personen. De formulieren van personen met een melding staan in audit/willekeurig-fouten.json.`
-      : `Gemaakt met \`npm run audit\` op ${new Date().toISOString().slice(0, 10)}. ${personen.length} personen uit audit/personen.ts. De uitkomsten staan in audit/uitvoer/.`,
+      ? `Gemaakt met \`npm run audit -- --willekeurig ${aantalWillekeurig} --zaad ${zaad}\` met rekendatum ${rekendatum}. ${personen.length} willekeurige personen. De formulieren van personen met een melding staan in audit/willekeurig-fouten.json.`
+      : `Gemaakt met \`npm run audit\` met rekendatum ${rekendatum}. ${personen.length} personen uit audit/personen.ts. De uitkomsten staan in audit/uitvoer/.`,
     "",
     "| Controle | Aantal keer | Niet goed |",
     "| --- | --- | --- |",
@@ -502,6 +522,27 @@ async function main() {
     );
   console.log(regels.slice(4).join("\n"));
   process.exitCode = fouten.length ? 1 : 0;
+}
+
+/**
+ * Personen die een ander (bijvoorbeeld een klantmanager) heeft ingevuld, met bedragen uit een officiële bron.
+ * Elk bestand in audit/extern/*.yaml is één persoon. Zie audit/README.md.
+ */
+function externePersonen(): Persoon[] {
+  const map = join(wortel, "audit", "extern");
+  return readdirSync(map)
+    .filter((b) => b.endsWith(".yaml"))
+    .sort()
+    .map((b) => {
+      const d = parse(readFileSync(join(map, b), "utf8")) as { naam: string; formulier: Record<string, unknown>; verwacht?: Verwachting[]; uren?: number[] };
+      const kinderen = (d.formulier.kinderen as { geboren: string }[] | undefined)?.map((k) => kind(k.geboren, k as never));
+      return {
+        naam: d.naam,
+        f: formulier({ ...(d.formulier as object), ...(kinderen ? { kinderen } : {}) }),
+        verwacht: d.verwacht,
+        uren: d.uren,
+      };
+    });
 }
 
 /**

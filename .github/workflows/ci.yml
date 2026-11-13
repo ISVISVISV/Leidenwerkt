@@ -23,6 +23,29 @@ jobs:
       - run: npm test
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
+      # Audit met vaste personen en een vaste rekendatum (audit/README.md). Het rapport staat bij de run.
+      # De uitvoer in de repository moet bij de code passen: zo is elke verandering in een uitkomst zichtbaar in de pull request.
+      - name: Audit
+        run: |
+          status=0; npm run audit || status=$?
+          cat audit/rapport.md >> "$GITHUB_STEP_SUMMARY"
+          git diff --exit-code -- audit/ || { echo "::error::audit/uitvoer of audit/rapport.md is niet bijgewerkt. Draai npm run audit en commit de uitvoer."; exit 1; }
+          exit $status
+      # Willekeurige personen: elke run andere (het zaad is het runnummer), zodat er steeds nieuwe situaties getest worden.
+      - name: Audit met willekeurige personen
+        run: |
+          status=0; npx tsx scripts/audit.ts --willekeurig 60 --zaad ${{ github.run_number }} || status=$?
+          cat audit/rapport-willekeurig.md >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit
+          path: |
+            audit/rapport.md
+            audit/uitvoer/
+            audit/rapport-willekeurig.md
+            audit/willekeurig-fouten.json
       - run: npm run build:los
       - uses: actions/upload-artifact@v4
         with:

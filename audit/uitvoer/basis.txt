@@ -128,10 +128,10 @@ Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 28
 Bijstand: € 1.419,46 − (€ 1.370,83 − € 289,00) = € 337,63
 Gebruikte regels
 Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Zorgtoeslag
 Nu
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
@@ -195,11 +195,11 @@ Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): z
 Basishuur eenpersoonshuishouden (het deel van de huur dat u altijd zelf betaalt): € 202,52 per maand (Dienst Toeslagen — Berekening huurtoeslag 2026 (TG 083-1Z62FD, juni 2026))
 Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag): € 498,20 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht): € 713,02 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
-Maximale huurgrens (rekengrens, 21 jaar en ouder; art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Maximale huurgrens (rekengrens, 21 jaar en ouder, art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht): 100% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag): 65% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag): 40% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
-Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons (art. 21 lid 2 Wht): 27% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Waar deze berekening van uitgaat
 Bekijk de 9 aannames
@@ -357,8 +357,8 @@ Mag u houden: vanaf maand 7 geen vrijlating meer
 Bijstand: € 1.419,46 − € 1.370,83 = € 48,63
 Gebruikte regels
 Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Zorgtoeslag
 Nu
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
@@ -422,11 +422,11 @@ Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): z
 Basishuur eenpersoonshuishouden (het deel van de huur dat u altijd zelf betaalt): € 202,52 per maand (Dienst Toeslagen — Berekening huurtoeslag 2026 (TG 083-1Z62FD, juni 2026))
 Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag): € 498,20 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht): € 713,02 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
-Maximale huurgrens (rekengrens, 21 jaar en ouder; art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Maximale huurgrens (rekengrens, 21 jaar en ouder, art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht): 100% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag): 65% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag): 40% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
-Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons (art. 21 lid 2 Wht): 27% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Waar deze berekening van uitgaat
 Bekijk de 9 aannames
@@ -586,10 +586,10 @@ Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 28
 Bijstand: € 1.419,46 − (€ 1.103,35 − € 275,84) = € 591,95
 Gebruikte regels
 Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Zorgtoeslag
 Nu
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
@@ -653,11 +653,11 @@ Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): z
 Basishuur eenpersoonshuishouden (het deel van de huur dat u altijd zelf betaalt): € 202,52 per maand (Dienst Toeslagen — Berekening huurtoeslag 2026 (TG 083-1Z62FD, juni 2026))
 Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag): € 498,20 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht): € 713,02 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
-Maximale huurgrens (rekengrens, 21 jaar en ouder; art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Maximale huurgrens (rekengrens, 21 jaar en ouder, art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht): 100% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag): 65% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag): 40% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
-Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons (art. 21 lid 2 Wht): 27% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Waar deze berekening van uitgaat
 Bekijk de 9 aannames
@@ -815,8 +815,8 @@ Mag u houden: vanaf maand 7 geen vrijlating meer
 Bijstand: € 1.419,46 − € 1.103,35 = € 316,11
 Gebruikte regels
 Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Zorgtoeslag
 Nu
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
@@ -880,11 +880,11 @@ Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): z
 Basishuur eenpersoonshuishouden (het deel van de huur dat u altijd zelf betaalt): € 202,52 per maand (Dienst Toeslagen — Berekening huurtoeslag 2026 (TG 083-1Z62FD, juni 2026))
 Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag): € 498,20 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht): € 713,02 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
-Maximale huurgrens (rekengrens, 21 jaar en ouder; art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Maximale huurgrens (rekengrens, 21 jaar en ouder, art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht): 100% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag): 65% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag): 40% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
-Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons (art. 21 lid 2 Wht): 27% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Waar deze berekening van uitgaat
 Bekijk de 9 aannames
@@ -1044,10 +1044,10 @@ Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 28
 Bijstand: € 1.419,46 − (€ 1.638,32 − € 289,00) = € 70,14
 Gebruikte regels
 Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Zorgtoeslag
 Nu
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
@@ -1111,11 +1111,11 @@ Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): z
 Basishuur eenpersoonshuishouden (het deel van de huur dat u altijd zelf betaalt): € 202,52 per maand (Dienst Toeslagen — Berekening huurtoeslag 2026 (TG 083-1Z62FD, juni 2026))
 Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag): € 498,20 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht): € 713,02 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
-Maximale huurgrens (rekengrens, 21 jaar en ouder; art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Maximale huurgrens (rekengrens, 21 jaar en ouder, art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht): 100% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag): 65% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag): 40% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
-Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons (art. 21 lid 2 Wht): 27% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Waar deze berekening van uitgaat
 Bekijk de 9 aannames
@@ -1280,8 +1280,8 @@ Mag u houden: vanaf maand 7 geen vrijlating meer
 Bijstand: € 1.419,46 − € 1.638,32 is minder dan nul, dus geen bijstand
 Gebruikte regels
 Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Zorgtoeslag
 Nu
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
@@ -1337,11 +1337,11 @@ Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): z
 Basishuur eenpersoonshuishouden (het deel van de huur dat u altijd zelf betaalt): € 202,52 per maand (Dienst Toeslagen — Berekening huurtoeslag 2026 (TG 083-1Z62FD, juni 2026))
 Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag): € 498,20 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht): € 713,02 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
-Maximale huurgrens (rekengrens, 21 jaar en ouder; art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Maximale huurgrens (rekengrens, 21 jaar en ouder, art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht): 100% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag): 65% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag): 40% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
-Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons (art. 21 lid 2 Wht): 27% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Waar deze berekening van uitgaat
 Bekijk de 8 aannames
@@ -1505,10 +1505,10 @@ Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 28
 Bijstand: € 1.419,46 − (€ 2.146,37 − € 289,00) is minder dan nul, dus geen bijstand
 Gebruikte regels
 Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Zorgtoeslag
 Nu
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
@@ -1566,11 +1566,11 @@ Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): z
 Basishuur eenpersoonshuishouden (het deel van de huur dat u altijd zelf betaalt): € 202,52 per maand (Dienst Toeslagen — Berekening huurtoeslag 2026 (TG 083-1Z62FD, juni 2026))
 Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag): € 498,20 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht): € 713,02 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
-Maximale huurgrens (rekengrens, 21 jaar en ouder; art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Maximale huurgrens (rekengrens, 21 jaar en ouder, art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht): 100% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag): 65% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag): 40% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
-Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons (art. 21 lid 2 Wht): 27% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Waar deze berekening van uitgaat
 Bekijk de 8 aannames

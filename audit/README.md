@@ -1,6 +1,6 @@
 # Audit
 
-`npm run audit` rekent de verzonnen personen uit [personen.ts](personen.ts) door met de echte uitkomstpagina en controleert automatisch wat testers eerder met de hand vonden. Er is geen AI en geen internet voor nodig. Het duurt ongeveer een halve minuut.
+`npm run audit` rekent de verzonnen personen uit [personen.ts](personen.ts) en [extern/](extern/) door met de echte uitkomstpagina en controleert automatisch wat testers eerder met de hand vonden. Er is geen AI en geen internet voor nodig. Het duurt ongeveer een halve minuut.
 
 ## Wat eruit komt
 
@@ -24,6 +24,27 @@ Een AI-tester die moet beoordelen of de uitkomst begrijpelijk is, kan deze tekst
 11. **Geen kapotte tekst**: geen "NaN", "undefined", "null" of een minteken direct na het euroteken.
 12. **Rekent zonder fout**: de pagina komt tot stand zonder foutmelding.
 13. **Zin over de bijstand past bij de tabel**: "Uw bijstand van € … stopt" en "U houdt € … bijstand" noemen het bedrag uit de tabel.
+14. **Gelijk aan de officiële bron**: bij personen met officiële bedragen (`verwacht`) is de regel in de tabel gelijk aan die bron, binnen de opgegeven tolerantie.
+
+## Zelf de audit doen
+
+Iedereen kan de audit draaien, zonder ons:
+
+1. Installeer [Node.js](https://nodejs.org) 22 en download dit project (`git clone https://github.com/ISVISVISV/Leidenwerkt.git`).
+2. Draai `npm ci` en daarna `npm run audit`.
+
+De audit rekent met een vaste datum (`REKENDATUM` in [personen.ts](personen.ts)). Daardoor krijgt iedereen, op elke dag, precies dezelfde uitvoer als in deze repository staat. Een andere datum kan met `npm run audit -- --datum 2026-12-01`.
+
+De audit draait ook bij elke wijziging automatisch op GitHub. Het rapport staat bij elke run onder "Actions", met de uitvoer als download. Verandert een uitkomst, dan is dat te zien in de pull request, omdat de uitvoer in de repository moet passen bij de code.
+
+## Zelf een persoon met officiële bedragen toevoegen
+
+Een onafhankelijke partij, zoals een klantmanager of de sociaal raadslieden, kan zelf personen toevoegen met bedragen uit een officiële bron. Maak in [extern/](extern/) een bestand `naam.yaml`, zoals [extern/priya.yaml](extern/priya.yaml):
+
+- `formulier`: wat er in de rekenhulp is ingevuld. De namen van de velden staan in `app/src/formulier.ts` (`Formulier`). Bedragen en uren als tekst, zoals in het formulier ("790", "16,50").
+- `verwacht`: per regel in de tabel het bedrag per maand uit de officiële bron. Met `onderdeel` (de naam van de regel, bijvoorbeeld "Huurtoeslag"), `situatie` (`nu` of `met_werk`), `waarde`, eventueel `periode` ("Maand 1 t/m 6") en `tolerantie` in euro's, en de `bron` (titel, adres, datum).
+
+Gebruik alleen verzonnen gegevens. De audit legt de rekenhulp naast elk bedrag en meldt elk verschil.
 
 ## Willekeurige personen
 
@@ -33,4 +54,4 @@ Een AI-tester die moet beoordelen of de uitkomst begrijpelijk is, kan deze tekst
 
 Voeg in [personen.ts](personen.ts) een persoon toe met een ingevuld formulier. Gebruik alleen verzonnen gegevens. Een omweg beschrijft wat iemand eerst invulde (`begin`) en precies wat hij daarna veranderde (`wijzig`). Oude velden blijven staan, net als in de rekenhulp.
 
-De uitkomst hangt af van de datum van vandaag (regels en leeftijden). Draai de audit daarom vóór en na een wijziging op dezelfde dag als je de uitvoer wilt vergelijken.
+Zet bij personen met een bedrag uit een officiële bron ook `verwacht` erbij (zie hierboven).

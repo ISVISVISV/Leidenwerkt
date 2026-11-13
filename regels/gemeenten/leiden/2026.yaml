@@ -173,7 +173,7 @@ parameters:
     bron: *bijzondere_bijstand
     citaat: *cdraag
   - id: leiden.bb.draagkracht.grens2
-    omschrijving: Bijzondere bijstand — tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen; daarboven 100% (art. 6 lid 2)
+    omschrijving: "Bijzondere bijstand: tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen. Daarboven telt 100% (art. 6 lid 2)."
     eenheid: breuk
     waarde: { soort: percentage, breuk: "1.50" }
     status: geverifieerd

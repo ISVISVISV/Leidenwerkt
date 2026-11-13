@@ -29,7 +29,7 @@ parameters:
     waarde: { soort: percentage, breuk: "0.25" }
     status: geverifieerd
     bron: &pw31
-      titel: Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; noemt ook het bedrag tot 1 juli)
+      titel: Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, die ook het bedrag tot 1 juli noemt)
       url: https://wetten.overheid.nl/BWBR0015703/2026-07-01
       geraadpleegd_op: 2026-11-08
     citaat: &c31n
@@ -127,7 +127,7 @@ parameters:
     citaat:
       kop: "Participatiewet, art. 19a lid 1 en art. 22a lid 1"
       tekst: "Art. 19a lid 1: In deze paragraaf wordt onder kostendelende medebewoner verstaan de persoon van 27 jaar of ouder die in dezelfde woning als de belanghebbende zijn hoofdverblijf heeft […] Art. 22a lid 1: Indien de belanghebbende van 21 jaar of ouder een of meer kostendelende medebewoners heeft, is de norm per kalendermaand voor de belanghebbende: (40% + A x 30%) / A x B. Hierbij staat: A voor het aantal kostendelende medebewoners plus de belanghebbende en zijn echtgenoot van 21 jaar of ouder indien hij gehuwd is; en B voor de norm, bedoeld in artikel: a. 21, onderdeel b, indien de belanghebbende jonger dan de pensioengerechtigde leeftijd is […]"
-      versie: "geldend op 1 januari en 1 juli 2026; de formule staat als afbeelding in de wettekst"
+      versie: "geldend op 1 januari en 1 juli 2026. De formule staat als afbeelding in de wettekst."
   - id: pw.kostendeler.basis
     omschrijving: Vast deel in de kostendelersformule ((40% + A × 30%) / A) × gehuwdennorm (art. 22a lid 1 Pw)
     eenheid: breuk
@@ -137,7 +137,7 @@ parameters:
     citaat:
       kop: "Participatiewet, art. 19a lid 1 en art. 22a lid 1"
       tekst: "Art. 19a lid 1: In deze paragraaf wordt onder kostendelende medebewoner verstaan de persoon van 27 jaar of ouder die in dezelfde woning als de belanghebbende zijn hoofdverblijf heeft […] Art. 22a lid 1: Indien de belanghebbende van 21 jaar of ouder een of meer kostendelende medebewoners heeft, is de norm per kalendermaand voor de belanghebbende: (40% + A x 30%) / A x B. Hierbij staat: A voor het aantal kostendelende medebewoners plus de belanghebbende en zijn echtgenoot van 21 jaar of ouder indien hij gehuwd is; en B voor de norm, bedoeld in artikel: a. 21, onderdeel b, indien de belanghebbende jonger dan de pensioengerechtigde leeftijd is […]"
-      versie: "geldend op 1 januari en 1 juli 2026; de formule staat als afbeelding in de wettekst"
+      versie: "geldend op 1 januari en 1 juli 2026. De formule staat als afbeelding in de wettekst."
   - id: pw.kostendeler.per_persoon
     omschrijving: Deel per persoon in de kostendelersformule ((40% + A × 30%) / A) × gehuwdennorm (art. 22a lid 1 Pw)
     eenheid: breuk
@@ -147,9 +147,9 @@ parameters:
     citaat:
       kop: "Participatiewet, art. 19a lid 1 en art. 22a lid 1"
       tekst: "Art. 19a lid 1: In deze paragraaf wordt onder kostendelende medebewoner verstaan de persoon van 27 jaar of ouder die in dezelfde woning als de belanghebbende zijn hoofdverblijf heeft […] Art. 22a lid 1: Indien de belanghebbende van 21 jaar of ouder een of meer kostendelende medebewoners heeft, is de norm per kalendermaand voor de belanghebbende: (40% + A x 30%) / A x B. Hierbij staat: A voor het aantal kostendelende medebewoners plus de belanghebbende en zijn echtgenoot van 21 jaar of ouder indien hij gehuwd is; en B voor de norm, bedoeld in artikel: a. 21, onderdeel b, indien de belanghebbende jonger dan de pensioengerechtigde leeftijd is […]"
-      versie: "geldend op 1 januari en 1 juli 2026; de formule staat als afbeelding in de wettekst"
+      versie: "geldend op 1 januari en 1 juli 2026. De formule staat als afbeelding in de wettekst."
   - id: pw.vakantietoeslag
-    omschrijving: Vakantietoeslag als deel van de algemene bijstand; de normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw)
+    omschrijving: Vakantietoeslag als deel van de algemene bijstand. De normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw).
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.05" }
     status: geverifieerd
