@@ -839,3 +839,18 @@ test("regelingen: met bijstand telt het vrijgelaten deel van het loon niet mee",
   await expect(polis).toContainText("U krijgt nog bijstand. Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee.");
   await expect(polis).not.toContainText("zonder toeslagen, is ongeveer");
 });
+
+test("loon per 4 weken: eigen keuze, met de melding over twee keer loon in één maand", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await geboren(page, "Uw geboortedatum", 36);
+  await verder(page);
+  await page.getByLabel("In een koopwoning").check();
+  await verder(page);
+  await kiesLoon(page, "Netto loon per 4 weken (wat op mijn rekening komt)");
+  await page.getByRole("textbox", { name: /Netto loon per 4 weken/ }).fill("1100");
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("20");
+  await verder(page, "Bereken wat ik overhoud");
+  await expect(page.locator(".signalen")).toContainText("Loon per 4 weken");
+  await expect(page.getByText(/U vulde €\s1\.100 netto per 4 weken in/)).toBeVisible();
+});

@@ -22,6 +22,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Stap 1 en 3 in delen: een kop met een streep erboven ("Kinderen", "Uw werk nu", "Het werk dat u overweegt"), in plaats van een streep naast de titel van een groep (besluit 18).
 - Regelingen van Leiden (Sleutelpas, Kindtegoed, Gemeentepolis, zwemabonnement, Sport en cultuur): zolang iemand bijstand krijgt, telt het vrijgelaten deel van het loon niet mee. De regeling kan dan nog, en de melding zegt: "U krijgt nog bijstand. Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee." Praktijk van de gemeente, bevestigd door klantmanagers.
 - Teksten zonder ";" (aannames, meldingen, uitleg en "Wat u heeft ingevuld").
+- Loon per 4 weken is weer een eigen keuze (bruto en netto). Dan staat de melding over twee keer loon in één maand erbij. De zin "Deel het bedrag dan door 4" bij het weekloon is weg.
+- `npm run audit -- --willekeurig 200`: dezelfde controles met willekeurige verzonnen personen, en drie controles erbij (kapotte tekst, rekenen zonder fout, de zin over de bijstand).
 - `npm run audit`: rekent vaste verzonnen personen door met de echte uitkomstpagina, schrijft de uitkomsten als tekst weg en doet tien automatische controles (zie audit/README.md).
 - Afronding: de bijstand in de tabel neemt het afrondingsverschil van de andere rijen op. "U houdt over" is daardoor precies het afgeronde totaal en verspringt niet meer met € 1 als de urenschuif een uur verschuift.
 - Eigen bijdrage kinderopvang: het deel dat de gemeente vergoedt en het deel dat u zelf betaalt, zijn samen precies het totaal.

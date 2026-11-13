@@ -116,4 +116,6 @@ export const PERSONEN: Persoon[] = [
     f: formulier({ leefvorm: "paar", geboren: "01-03-1995", partnerGeboren: "01-03-1997", kinderen: [kind("01-03-2023"), kind("01-03-2007", { inkomen: "3000" })], ...huur("880"), ...uurloon("15", "24") }),
   },
   { naam: "Netto weekloon: € 300 per week, 20 uur", f: { ...basis, per: "nettoweek", loon: "300" }, uren: [32] },
+  { naam: "Uitzendkracht: € 1.100 netto per 4 weken, 20 uur", f: { ...basis, per: "nettovierweken", loon: "1100" }, uren: [28] },
+  { naam: "Bruto vierwekenloon: € 1.650 per 4 weken, 24 uur", f: { ...basis, per: "vierweken", loon: "1650", uren: "24" }, uren: [32] },
 ];
