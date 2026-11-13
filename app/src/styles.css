@@ -771,9 +771,23 @@ details.uitleg summary {
   .info-knop,
   .bediening input,
   .bediening label,
-  .bediening fieldset,
-  .urengrens {
+  .bediening fieldset {
     display: none !important;
+  }
+
+  .urengrens {
+    margin: 0 0 0.4rem;
+  }
+
+  /* De punten onder "Wat u nu kunt doen" verwijzen naar de meldingen verderop: op papier gewone tekst. */
+  .te-doen a {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  /* De tabel heeft in de afdruk geen ruimte eronder: de noten mogen er niet overheen schuiven. */
+  .tabel-noten {
+    margin: 0.4rem 0 0.6rem;
   }
 
   .kopregel {

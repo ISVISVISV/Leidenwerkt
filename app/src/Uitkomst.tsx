@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Lezer, woonkorting, bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Fase, type Opvangsoort, type Post, type Resultaat } from "@leidenwerkt/engine";
 import { Bron } from "./Bron.tsx";
-import { LOON_PER, OPVANG, getal, ingevuld, ingevuldLoon, maxUurprijs, naarInvoer, schuifStart, vasteFase, vandaag, vraagInkomenAnderen, vraagInkomenKind, type Formulier } from "./formulier.ts";
+import { LOON_PER, OPVANG, euroTekst, getal, ingevuld, ingevuldLoon, maxUurprijs, naarInvoer, schuifStart, vasteFase, vandaag, vraagInkomenAnderen, vraagInkomenKind, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */
 function bruikbareDatum(f: Formulier): { datum: string; teruggevallen: boolean } {
@@ -167,7 +167,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
       <section className="alleen-print gegevens" aria-label="Wat u heeft ingevuld">
         <h2>Wat u heeft ingevuld</h2>
         <div className="gegevens-kolommen">
-          {ingevuld(f).map((blok) => (
+          {ingevuld(f, uren).map((blok) => (
             <div key={blok.kop}>
               <h3>{blok.kop}</h3>
               <dl>
@@ -293,7 +293,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
       {r.signalen.length > 0 && (
         <section aria-labelledby="let-op">
           <h2 id="let-op">Goed om te weten{meerPeriodes ? ` ${periodeInZin(gekozen.naam)}` : ""}</h2>
-          <p className="klein">Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.</p>
+          <p className="klein niet-print">Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.</p>
           <ul className="signalen">
             {r.signalen.map((s, i) => (
               <li key={i} className={`${s.soort} bron-blok`}>
@@ -360,11 +360,14 @@ const bijstandVan = (r: Resultaat) => r.werk.posten.find((p) => p.id === "bijsta
 
 /** Eén zin over de bijstand: blijft die, of stopt die? Alleen voor wie nu bijstand krijgt. */
 function bijstandZin(r: Resultaat, stoptVanaf?: string): string | undefined {
-  const nu = r.huidig.posten.find((p) => p.id === "bijstand")?.perMaand;
-  const met = bijstandVan(r);
-  if (!nu || nu === "0.00" || met === null) return undefined;
+  const nuExact = r.huidig.posten.find((p) => p.id === "bijstand")?.perMaand;
+  const metExact = bijstandVan(r);
+  if (!nuExact || nuExact === "0.00" || metExact === null) return undefined;
+  // Dezelfde bedragen als in de tabel.
+  const nu = (tabelBedragen(r, r.huidig).get("bijstand") ?? D(nuExact)).toFixed(2);
+  const met = metExact === "0.00" ? metExact : (tabelBedragen(r, r.werk).get("bijstand") ?? D(metExact)).toFixed(2);
   if (met === "0.00") return `Uw bijstand van ${euro(nu, true)} per maand stopt. Met dit werk heeft u genoeg inkomen om geen bijstand meer nodig te hebben.`;
-  if (Number(met) < 1) return "U houdt bijna geen bijstand meer: minder dan € 1 per maand.";
+  if (Number(metExact) < 1) return "U houdt bijna geen bijstand meer: minder dan € 1 per maand.";
   if (stoptVanaf) return `In deze periode houdt u nog ${euro(met, true)} bijstand per maand, door de vrijlating. ${stoptVanaf} stopt uw bijstand.`;
   return `U houdt ${euro(met, true)} bijstand per maand naast uw loon.`;
 }
@@ -440,10 +443,10 @@ function Antwoord({
 const VOLGORDE = ["loon", "loon_partner", "ander_inkomen", "bijstand", "reisvergoeding", "iack", "zorgtoeslag", "huurtoeslag", "kgb", "kinderbijslag", "kot", "bb_opvang", "opvangkosten", "werkkosten"];
 const opVolgorde = (a: string, b: string) => VOLGORDE.indexOf(a) - VOLGORDE.indexOf(b);
 
-function waarde(p: Post | undefined): string {
+function waarde(p: Post | undefined, bedragen: Map<string, ReturnType<typeof D>>): string {
   if (!p) return "–";
   if (p.perMaand === null) return "niet berekend";
-  return euro(p.perMaand, true);
+  return euro((bedragen.get(p.id) ?? D(p.perMaand)).toFixed(2), true);
 }
 
 function Vergelijking({ r, allIn, tweeBanen }: { r: Resultaat; allIn?: boolean; tweeBanen?: boolean }) {
@@ -461,6 +464,8 @@ function Vergelijking({ r, allIn, tweeBanen }: { r: Resultaat; allIn?: boolean; 
     const b = r.werk.posten.find((p) => p.id === id);
     return !(a?.perMaand === "0.00" && (!b || b.perMaand === "0.00"));
   });
+  const bedragenNu = tabelBedragen(r, r.huidig);
+  const bedragenWerk = tabelBedragen(r, r.werk);
   const meegeteld = (s: Resultaat["huidig"], kosten: boolean) => somZoalsTabel(r, s, kosten ? "eraf" : "binnen");
   const rij = (id: string) => {
     const p = labels.get(id)!;
@@ -479,8 +484,8 @@ function Vergelijking({ r, allIn, tweeBanen }: { r: Resultaat; allIn?: boolean; 
             </span>
           )}
         </th>
-        <td>{waarde(a)}</td>
-        <td>{waarde(b)}</td>
+        <td>{waarde(a, bedragenNu)}</td>
+        <td>{waarde(b, bedragenWerk)}</td>
       </tr>
     );
   };
@@ -664,14 +669,30 @@ function eersteJaarUitPerioden(perioden: { naam: string; verschil: string }[]): 
 const heel = (x: string) => D(x).toDecimalPlaces(0, 4);
 
 /**
- * Som van de rijen zoals de tabel ze toont: elke rij eerst afgerond. Zo zijn totalen, "U houdt over" en
- * alle verschillen op de pagina na te rekenen met de bedragen in de tabel.
+ * De bedragen per rij zoals de tabel ze toont, op hele euro's. Elke rij wordt afgerond, behalve de bijstand:
+ * die vult aan tot de norm (plus wat u mag houden), dus die neemt het afrondingsverschil van de andere rijen
+ * op. Dan is "U houdt over" precies het afgeronde totaal, en verspringt het niet met € 1 als de urenschuif
+ * een uur verschuift terwijl er in werkelijkheid niets verandert.
  */
+function tabelBedragen(r: Resultaat, s: Resultaat["huidig"]): Map<string, ReturnType<typeof D>> {
+  const posten = s.posten.filter((p) => p.perMaand !== null && !r.nietMeegenomen.some((n) => n.id === p.id));
+  const uit = new Map(posten.map((p) => [p.id, heel(p.perMaand!)]));
+  const bijstand = posten.find((p) => p.id === "bijstand");
+  if (bijstand && !D(bijstand.perMaand!).isZero()) {
+    const totaal = heel(posten.reduce((t, p) => t.plus(D(p.perMaand!)), D(0)).toFixed(2));
+    const rest = posten.filter((p) => p.id !== "bijstand").reduce((t, p) => t.plus(uit.get(p.id)!), D(0));
+    uit.set("bijstand", totaal.minus(rest));
+  }
+  return uit;
+}
+
+/** Som van de rijen zoals de tabel ze toont. Zo zijn totalen, "U houdt over" en alle verschillen na te rekenen. */
 function somZoalsTabel(r: Resultaat, s: Resultaat["huidig"], wat: "binnen" | "eraf" | "alles" = "alles") {
+  const bedragen = tabelBedragen(r, s);
   return s.posten
-    .filter((p) => p.perMaand !== null && !r.nietMeegenomen.some((n) => n.id === p.id))
+    .filter((p) => bedragen.has(p.id))
     .filter((p) => wat === "alles" || (p.soort === "kosten") === (wat === "eraf"))
-    .reduce((t, p) => t.plus(heel(p.perMaand!)), D(0));
+    .reduce((t, p) => t.plus(bedragen.get(p.id)!), D(0));
 }
 
 /** Het verschil per maand zoals de tabel het toont: "U houdt over" met werk min nu. */
@@ -717,16 +738,11 @@ function openSignaal(i: number) {
 
 /** De meldingen met een inkomensgrens vergelijken die grens met dit bedrag: netto loon, bijstand en ander inkomen, zonder toeslagen. */
 function inkomenVoorGrenzen(r: Resultaat): number {
-  return r.werk.posten
-    .filter((p) => ["loon", "loon_partner", "ander_inkomen", "bijstand"].includes(p.id) && p.perMaand)
-    .reduce((som, p) => som + Number(heel(p.perMaand!)), 0);
+  const bedragen = tabelBedragen(r, r.werk);
+  return ["loon", "loon_partner", "ander_inkomen", "bijstand"].reduce((som, id) => som + Number(bedragen.get(id) ?? 0), 0);
 }
 
-/** Een ingevuld bedrag netjes als euro: "€ 1.250" of "€ 14,50". */
-const bedragTekst = (tekst: string) => {
-  const n = getal(tekst) ?? 0;
-  return Number.isInteger(n) ? euro(String(n), true) : euro(n.toFixed(2));
-};
+const bedragTekst = euroTekst;
 
 /** Korte uitleg onder de tabel bij bedragen die anders zijn dan wat de gebruiker invulde of verwacht. */
 function TabelNoten({ f, r, uren }: { f: Formulier; r: Resultaat; uren: number }) {

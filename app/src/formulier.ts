@@ -1,4 +1,4 @@
-import { Lezer, standaardRegels, type Invoer, type Kind, type Leefvorm, type Opvangsoort } from "@leidenwerkt/engine";
+import { Lezer, standaardRegels, euro, type Invoer, type Kind, type Leefvorm, type Opvangsoort } from "@leidenwerkt/engine";
 
 /** Hoogste uurprijs waarover kinderopvangtoeslag wordt gegeven, voor de rekendatum. */
 export function maxUurprijs(l: Lezer, soort: Opvangsoort): number {
@@ -520,17 +520,22 @@ export function alleenCijfers(tekst: string, soort: "geheel" | "getal"): string 
 
 /** Een geboortedatum als tekst, bijvoorbeeld "14-3-1990". */
 const datumTekst = (g: Geboortedatum) => g.trim();
-export const euroTekst = (t: string) => `€ ${t}`;
+/** Een ingevuld bedrag netjes als euro, zoals elders op de uitkomst: "€ 1.250" of "€ 14,50". */
+export const euroTekst = (t: string) => {
+  const n = getal(t);
+  if (n === undefined) return `€ ${t}`;
+  return Number.isInteger(n) ? euro(String(n), true) : euro(n.toFixed(2));
+};
 
 export const LOON_PER: Record<LoonPer, string> = { maand: "bruto per maand", netto: "netto per maand", week: "bruto per week", nettoweek: "netto per week", uur: "bruto per uur" };
 export const OPVANG: Record<Opvangsoort, string> = { dagopvang: "kinderdagverblijf", bso: "buitenschoolse opvang", gastouder: "gastouder" };
 
 /**
  * Wat de gebruiker heeft ingevuld, als korte regels per onderdeel. Voor de afdruk,
- * zodat invoer en uitkomst op één pagina staan. Toont wat er is ingevuld,
- * niet de stand van de urenschuif; die staat in de uitkomst zelf.
+ * zodat invoer en uitkomst op één pagina staan. Toont wat er is ingevuld. Staat de urenschuif
+ * op een ander aantal uren (schuifUren), dan staat dat bij het werk.
  */
-export function ingevuld(f: Formulier): { kop: string; regels: [string, string][] }[] {
+export function ingevuld(f: Formulier, schuifUren?: number): { kop: string; regels: [string, string][] }[] {
   const paar = f.leefvorm === "paar";
   const huishouden: [string, string][] = [
     ["Huishouden", f.leefvorm === "alleenstaande" ? "zonder partner en zonder kinderen" : f.leefvorm === "alleenstaande_ouder" ? "zonder partner, met kinderen" : f.kinderen.length > 0 ? "met partner en kinderen" : "met partner"],
@@ -538,7 +543,7 @@ export function ingevuld(f: Formulier): { kop: string; regels: [string, string][
   ];
   if (paar) {
     huishouden.push(["Partner geboren", datumTekst(f.partnerGeboren)]);
-    huishouden.push(["Partner werkt", f.partnerWerkt ? `ja, ${euroTekst(f.partnerBruto)} bruto per maand; ${f.partnerWerktAl === "lang" ? "6 maanden of langer" : "korter dan 6 maanden"}` : "nee"]);
+    huishouden.push(["Partner werkt", f.partnerWerkt ? `ja, ${euroTekst(f.partnerBruto)} bruto per maand. Werkt ${f.partnerWerktAl === "lang" ? "al 6 maanden of langer" : "korter dan 6 maanden"} naast de bijstand.` : "nee"]);
   }
   f.kinderen.forEach((k, i) => {
     const opvang = k.opvang ? `; ${k.soort ? OPVANG[k.soort] : "soort onbekend"}, ${k.uren} uur per week${k.uurprijs ? ` × ${euroTekst(k.uurprijs)}` : ", prijs onbekend"}` : "";
@@ -583,16 +588,19 @@ export function ingevuld(f: Formulier): { kop: string; regels: [string, string][
     ]);
   }
 
-  const loon = (per: LoonPerKeuze, bedrag: string, allIn: AllIn) =>
-    `${euroTekst(bedrag)} ${LOON_PER[per || "maand"]}${per === "uur" && allIn !== "nee" ? (allIn === "ja" ? ", all-in" : ", all-in onbekend") : ""}`;
+  const VAKANTIEGELD: Record<AllIn, string> = { nee: ", vakantiegeld apart", ja: ", vakantiegeld zit in het uurloon", onbekend: ", onbekend of vakantiegeld in het uurloon zit", "": "" };
+  const loon = (per: LoonPerKeuze, bedrag: string, allIn: AllIn) => `${euroTekst(bedrag)} ${LOON_PER[per || "maand"]}${per === "uur" ? VAKANTIEGELD[allIn] : ""}`;
+  // Staat de urenschuif op de uitkomst op een ander aantal uren dan ingevuld? Dan staat dat erbij.
+  const ingevuldeUren = getal(f.werktNu && f.verandering === "meer" ? f.meerUren : f.uren);
+  const geschoven = schuifUren !== undefined && ingevuldeUren !== undefined && schuifUren !== ingevuldeUren ? ` U heeft de urenschuif verschoven naar ${schuifUren} uur.` : "";
   const werk: [string, string][] = [];
   if (f.werktNu) {
-    werk.push(["Werkt nu", `${f.nuUren} uur per week, ${loon(f.nuPer, f.nuLoon, f.nuAllIn)}; ${f.werktAl === "lang" ? "6 maanden of langer" : "korter dan 6 maanden"}`]);
+    werk.push(["Werkt nu", `${f.nuUren} uur per week, ${loon(f.nuPer, f.nuLoon, f.nuAllIn)}. Werkt ${f.werktAl === "lang" ? "al 6 maanden of langer" : "korter dan 6 maanden"} naast de bijstand.`]);
     if (heeftOpvang(f)) werk.push(["Opvang nu al", f.opvangNu === "ja" ? "ja" : "nee"]);
   } else werk.push(["Werkt nu", "nee"]);
-  if (f.werktNu && f.verandering === "meer") werk.push(["Straks", `${f.meerUren} uur per week bij het huidige werk`]);
-  else if (f.werktNu && f.verandering === "erbij") werk.push(["Werk erbij", `${f.uren} uur per week; ${loon(f.per, f.loon, f.allIn)}`]);
-  else werk.push([f.werktNu ? "Ander werk" : "Nieuw werk", `${f.uren} uur per week; ${loon(f.per, f.loon, f.allIn)}`]);
+  if (f.werktNu && f.verandering === "meer") werk.push(["Straks", `${f.meerUren} uur per week bij het huidige werk.${geschoven}`]);
+  else if (f.werktNu && f.verandering === "erbij") werk.push(["Werk erbij", `${f.uren} uur per week, ${loon(f.per, f.loon, f.allIn)}.${geschoven}`]);
+  else werk.push([f.werktNu ? "Ander werk" : "Nieuw werk", `${f.uren} uur per week, ${loon(f.per, f.loon, f.allIn)}.${geschoven}`]);
   if (f.medisch) werk.push(["Medische urenbeperking", "ja"]);
   const kosten = [
     f.reiskosten && `reiskosten ${euroTekst(f.reiskosten)}`,

@@ -350,6 +350,7 @@ exports[`snapshots van de uitleg > all-in uurloon, 24 jaar 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "loon": [
+        "Bruto uurloon dat u invulde: 16.50",
         "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1430.00",
         "Vakantiegeld per maand (gemiddeld, 0% van het bruto loon): 0.00",
         "Loonbelasting en premies per maand: 511.23",
@@ -426,6 +427,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, eerste helft 2026 1`] =
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "loon": [
+        "Bruto uurloon dat u invulde: 15.00",
         "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1560.00",
         "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 124.80",
         "Loonbelasting en premies per maand: 602.32",
@@ -502,6 +504,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, maand 1-6 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "loon": [
+        "Bruto uurloon dat u invulde: 15.00",
         "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1560.00",
         "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 124.80",
         "Loonbelasting en premies per maand: 602.32",
@@ -578,6 +581,7 @@ exports[`snapshots van de uitleg > alleenstaande 24 uur, na maand 6 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "loon": [
+        "Bruto uurloon dat u invulde: 15.00",
         "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1560.00",
         "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 124.80",
         "Loonbelasting en premies per maand: 602.32",
@@ -652,6 +656,7 @@ exports[`snapshots van de uitleg > alleenstaande 25 jaar, 20 uur 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 394.00",
       ],
       "loon": [
+        "Bruto uurloon dat u invulde: 14.50",
         "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1256.67",
         "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 100.53",
         "Loonbelasting en premies per maand: 485.20",
@@ -730,6 +735,7 @@ exports[`snapshots van de uitleg > alleenstaande 36 uur 1`] = `
         "Huurtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 193.00",
       ],
       "loon": [
+        "Bruto uurloon dat u invulde: 16.00",
         "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 2496.00",
         "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 199.68",
         "Loonbelasting en premies per maand: 963.71",
@@ -1008,6 +1014,7 @@ exports[`snapshots van de uitleg > alleenstaande ouder, kind 4 met opvang 1`] = 
         "Kinderopvangtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet: 844.00",
       ],
       "loon": [
+        "Bruto uurloon dat u invulde: 15.00",
         "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1560.00",
         "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 124.80",
         "Loonbelasting en premies per maand: 602.32",
@@ -1321,6 +1328,7 @@ exports[`snapshots van de uitleg > kamer, ander inkomen, kosten met vergoeding 1
         "Bijstand: € 1.419,46 − € 1.403,96 = € 15,50",
       ],
       "loon": [
+        "Bruto uurloon dat u invulde: 15.00",
         "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1235.00",
         "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 98.80",
         "Loonbelasting en premies per maand: 476.83",
@@ -1385,6 +1393,7 @@ exports[`snapshots van de uitleg > kostendeler, geen huur 1`] = `
         "Bijstand: € 1.013,90 − (€ 1.638,32 − € 289,00) is minder dan nul, dus geen bijstand",
       ],
       "loon": [
+        "Bruto uurloon dat u invulde: 15.00",
         "Bruto loon per maand (gemiddeld, zonder vakantiegeld): 1560.00",
         "Vakantiegeld per maand (gemiddeld, 8% van het bruto loon): 124.80",
         "Loonbelasting en premies per maand: 602.32",
