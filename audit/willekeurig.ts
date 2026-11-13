@@ -5,8 +5,8 @@
  * De personen zijn geldig zoals het formulier ze toelaat: elk veld dat de rekenhulp vraagt, is ingevuld met een
  * waarde die de controle in het formulier goedkeurt.
  */
-import { controleer, leegFormulier, nieuwKind, type Formulier, type JaNeeVraag, type KindVeld } from "../app/src/formulier.ts";
-import type { Persoon } from "./personen.ts";
+import { controleer, leegFormulier, zetVandaag, nieuwKind, type Formulier, type JaNeeVraag, type KindVeld } from "../app/src/formulier.ts";
+import { REKENDATUM, type Persoon } from "./personen.ts";
 
 /** Kleine, voorspelbare toevalsgenerator (mulberry32). */
 function toeval(zaad: number) {
@@ -26,8 +26,7 @@ function toeval(zaad: number) {
 
 const ALLE: JaNeeVraag[] = ["partner", "heeftKinderen", "partnerWerkt", "heeftAnderInkomen", "krijgtKinderalimentatie", "woonlasten", "andereBewoners", "werktNu"];
 const datum = (leeftijd: number, t: ReturnType<typeof toeval>) => {
-  const nu = new Date();
-  return `${String(t.tussen(1, 28)).padStart(2, "0")}-${String(t.tussen(1, 12)).padStart(2, "0")}-${nu.getFullYear() - leeftijd - 1}`;
+  return `${String(t.tussen(1, 28)).padStart(2, "0")}-${String(t.tussen(1, 12)).padStart(2, "0")}-${Number(REKENDATUM.slice(0, 4)) - leeftijd - 1}`;
 };
 const komma = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(2).replace(".", ","));
 
@@ -51,6 +50,7 @@ function loon(t: ReturnType<typeof toeval>, per: string, uren: number): string {
 }
 
 export function willekeurigePersonen(aantal: number, zaad: number): Persoon[] {
+  zetVandaag(REKENDATUM);
   const t = toeval(zaad);
   const uit: Persoon[] = [];
   let poging = 0;

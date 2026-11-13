@@ -27,7 +27,7 @@ parameters:
       tekst: "1 Inkomsten uit arbeid worden niet met de algemene bijstand verrekend ten aanzien van degene die: a. de pensioengerechtigde leeftijd nog niet heeft bereikt: gedurende een aaneengesloten periode van maximaal twaalf maanden voor 15 procent van deze inkomsten per maand, indien dit naar het oordeel van het college bijdraagt aan de arbeidsinschakeling van deze persoon; b. medisch urenbeperkt is: voor 15 procent van deze inkomsten per maand; […] 2 Nadat de periode, bedoeld in het eerste lid, onderdeel a, is verstreken kan het college de periode waarin de inkomsten uit arbeid niet worden verrekend verlengen met een door het college te bepalen periode, indien het college een uitbreiding van de arbeidsomvang gelet op de individuele omstandigheden niet mogelijk acht."
       versie: "geldend vanaf 1 januari 2027, geraadpleegd op 11 november 2026"
   - id: pw.bijverdien.duur
-    omschrijving: Maximale duur bijverdienregeling (aaneengesloten maanden); het college kan verlengen als meer uren werken niet mogelijk is (art. 34a lid 2)
+    omschrijving: Maximale duur bijverdienregeling (aaneengesloten maanden). Het college kan verlengen als meer uren werken niet mogelijk is (art. 34a lid 2)
     eenheid: maanden
     waarde: { soort: aantal, aantal: "12" }
     status: geverifieerd
@@ -78,7 +78,7 @@ parameters:
     bron: *pw2027
     notitie: Overgenomen van de versie per 1 juli 2026; de versie per 1 januari 2027 is op dit artikel nog niet nagelezen.
   - id: pw.vakantietoeslag
-    omschrijving: Vakantietoeslag als deel van de algemene bijstand; de normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw)
+    omschrijving: Vakantietoeslag als deel van de algemene bijstand. De normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw).
     eenheid: breuk
     waarde: { soort: percentage, breuk: "0.05" }
     status: onbevestigd

@@ -1,0 +1,19 @@
+# Verzonnen persoon. Voorbeeld voor een onafhankelijke controle: wat de rekenhulp invult (formulier) en wat een
+# officiële bron zegt (verwacht). Zie audit/README.md, "Zelf een persoon met officiële bedragen toevoegen".
+naam: "Priya: partneralimentatie"
+formulier:
+  geboren: "01-06-1988"
+  heeftAnderInkomen: true
+  partneralimentatie: "300"
+  woont: huur
+  zelfstandig: true
+  kaleHuur: "790"
+  per: uur
+  loon: "16"
+  allIn: nee
+  uren: "20"
+verwacht:
+  - { onderdeel: Zorgtoeslag, situatie: nu, waarde: 129, bron: &proef { titel: "Dienst Toeslagen, proefberekening toeslagen 2026 (gebruikerstest ronde 10)", url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen", datum: "2026-11-13" } }
+  - { onderdeel: Zorgtoeslag, situatie: met_werk, waarde: 129, bron: *proef }
+  - { onderdeel: Huurtoeslag, situatie: nu, waarde: 466, bron: *proef }
+  - { onderdeel: Huurtoeslag, situatie: met_werk, waarde: 466, bron: *proef }

@@ -133,10 +133,10 @@ Bijstand: € 496,44 − (€ 516,67 − € 129,17) = € 108,94
 Gebruikte regels
 Norm bij verblijf in een inrichting, alleenstaande (ouder), netto incl. vakantietoeslag (art. 23 lid 1 a Pw): € 449,44 per maand (Participatiewet art. 23 (wetten.overheid.nl, versie 1 juli 2026))
 Verhoging van de norm bij verblijf in een inrichting, alleenstaande (ouder) (art. 23 lid 2 a Pw): € 47 per maand (Participatiewet art. 23 (wetten.overheid.nl, versie 1 juli 2026))
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Zorgtoeslag
 Nu
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
@@ -326,8 +326,8 @@ Bijstand: € 496,44 − € 516,67 is minder dan nul, dus geen bijstand
 Gebruikte regels
 Norm bij verblijf in een inrichting, alleenstaande (ouder), netto incl. vakantietoeslag (art. 23 lid 1 a Pw): € 449,44 per maand (Participatiewet art. 23 (wetten.overheid.nl, versie 1 juli 2026))
 Verhoging van de norm bij verblijf in een inrichting, alleenstaande (ouder) (art. 23 lid 2 a Pw): € 47 per maand (Participatiewet art. 23 (wetten.overheid.nl, versie 1 juli 2026))
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Zorgtoeslag
 Nu
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)

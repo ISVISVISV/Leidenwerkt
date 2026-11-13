@@ -169,10 +169,10 @@ Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 28
 Bijstand: € 1.419,46 − (€ 1.684,00 − € 289,00) = € 24,46
 Gebruikte regels
 Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Combinatiekorting (via belastingaangifte)
 Met dit werk
 Combinatiekorting volgens de tabel, per maand
@@ -248,11 +248,11 @@ Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): z
 Basishuur meerpersoonshuishouden: € 200,71 per maand (Dienst Toeslagen — Berekening huurtoeslag 2026 (TG 083-1Z62FD, juni 2026))
 Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag): € 498,20 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht): € 713,02 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
-Maximale huurgrens (rekengrens, 21 jaar en ouder; art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Maximale huurgrens (rekengrens, 21 jaar en ouder, art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht): 100% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag): 65% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag): 40% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
-Minimum-inkomensijkpunt meerpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026): € 31.500 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Minimum-inkomensijkpunt meerpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 31.500 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, meerpersoons (art. 21 lid 2 Wht): 22% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Kindgebonden budget
 Nu
@@ -327,12 +327,12 @@ Uw inkomen is niet hoger dan € 1.907,14 (110% van de norm). U hoeft zelf niet
 Vergoeding: eigen bijdrage min wat u zelf moet bijdragen
 € 53,50
 Gebruikte regels
-Vakantietoeslag als deel van de algemene bijstand; de normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw): 5% (Participatiewet art. 19 lid 3 (wetten.overheid.nl, versie 2026-07-01))
+Vakantietoeslag als deel van de algemene bijstand. De normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw).: 5% (Participatiewet art. 19 lid 3 (wetten.overheid.nl, versie 2026-07-01))
 Bijstandsnorm gehuwden/samenwonenden, beiden 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 b Pw): € 2.027,79 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
 Bijzondere bijstand — de bijstandsnorm van een alleenstaande ouder is voor deze beleidsregels dit deel van de gezinsnorm (art. 1 onder d): 90% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — geen draagkracht bij een inkomen tot dit deel van de bijstandsnorm, beide zonder vakantietoeslag (art. 6 lid 1): 110% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — tot dit deel van de bijstandsnorm telt 20% van het meerinkomen als draagkracht (art. 6 lid 2): 130% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
-Bijzondere bijstand — tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen; daarboven 100% (art. 6 lid 2): 150% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
+Bijzondere bijstand: tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen. Daarboven telt 100% (art. 6 lid 2).: 150% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 110% en 130% van de bijstandsnorm (art. 6 lid 2): 20% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 130% en 150% van de bijstandsnorm (art. 6 lid 2): 50% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen boven 150% van de bijstandsnorm (art. 6 lid 2): 100% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
@@ -552,10 +552,10 @@ Mag u houden: vrijlating alleenstaande ouder: 12,5% van het netto loon, maximaal
 Bijstand: € 1.419,46 − (€ 1.684,00 − € 175,50) is minder dan nul, dus geen bijstand
 Gebruikte regels
 Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Vrijlating alleenstaande ouder met volledige zorg voor een kind tot 12 jaar (art. 31 lid 2 onder r Pw): 12,5% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximaal vrij te laten bedrag alleenstaande ouder per maand (art. 31 lid 2 onder r Pw): € 180,17 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder r (aaneengesloten maanden, na de periode onder n): 30 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Vrijlating alleenstaande ouder met volledige zorg voor een kind tot 12 jaar (art. 31 lid 2 onder r Pw): 12,5% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximaal vrij te laten bedrag alleenstaande ouder per maand (art. 31 lid 2 onder r Pw): € 180,17 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder r (aaneengesloten maanden, na de periode onder n): 30 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Combinatiekorting (via belastingaangifte)
 Met dit werk
 Combinatiekorting volgens de tabel, per maand
@@ -623,11 +623,11 @@ Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): z
 Basishuur meerpersoonshuishouden: € 200,71 per maand (Dienst Toeslagen — Berekening huurtoeslag 2026 (TG 083-1Z62FD, juni 2026))
 Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag): € 498,20 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht): € 713,02 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
-Maximale huurgrens (rekengrens, 21 jaar en ouder; art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Maximale huurgrens (rekengrens, 21 jaar en ouder, art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht): 100% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag): 65% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag): 40% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
-Minimum-inkomensijkpunt meerpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026): € 31.500 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Minimum-inkomensijkpunt meerpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 31.500 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, meerpersoons (art. 21 lid 2 Wht): 22% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Kindgebonden budget
 Nu
@@ -692,12 +692,12 @@ Uw inkomen is niet hoger dan € 1.907,14 (110% van de norm). U hoeft zelf niet
 Vergoeding: eigen bijdrage min wat u zelf moet bijdragen
 € 53,50
 Gebruikte regels
-Vakantietoeslag als deel van de algemene bijstand; de normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw): 5% (Participatiewet art. 19 lid 3 (wetten.overheid.nl, versie 2026-07-01))
+Vakantietoeslag als deel van de algemene bijstand. De normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw).: 5% (Participatiewet art. 19 lid 3 (wetten.overheid.nl, versie 2026-07-01))
 Bijstandsnorm gehuwden/samenwonenden, beiden 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 b Pw): € 2.027,79 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
 Bijzondere bijstand — de bijstandsnorm van een alleenstaande ouder is voor deze beleidsregels dit deel van de gezinsnorm (art. 1 onder d): 90% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — geen draagkracht bij een inkomen tot dit deel van de bijstandsnorm, beide zonder vakantietoeslag (art. 6 lid 1): 110% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — tot dit deel van de bijstandsnorm telt 20% van het meerinkomen als draagkracht (art. 6 lid 2): 130% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
-Bijzondere bijstand — tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen; daarboven 100% (art. 6 lid 2): 150% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
+Bijzondere bijstand: tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen. Daarboven telt 100% (art. 6 lid 2).: 150% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 110% en 130% van de bijstandsnorm (art. 6 lid 2): 20% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 130% en 150% van de bijstandsnorm (art. 6 lid 2): 50% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen boven 150% van de bijstandsnorm (art. 6 lid 2): 100% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
@@ -912,10 +912,10 @@ Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 28
 Bijstand: € 1.419,46 − (€ 2.140,87 − € 289,00) is minder dan nul, dus geen bijstand
 Gebruikte regels
 Bijstandsnorm alleenstaande (ouder), 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 a Pw): € 1.419,46 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
-Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
-Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026; bedrag per 1 juli 2026))
+Vrijlating onder n en r geldt niet voor wie jonger is dan deze leeftijd (art. 31 lid 5 Pw): 27 jaar (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid): 25% (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximaal vrij te laten inkomsten uit arbeid per maand (art. 31 lid 2 onder n Pw): € 289 per maand (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
+Maximale duur vrijlating onder n (maanden, onder de AOW-leeftijd): 6 maanden (Participatiewet art. 31 lid 2 onder n, r en y en lid 5 (wetten.overheid.nl, versie 1 juli 2026, bedrag per 1 juli 2026))
 Combinatiekorting (via belastingaangifte)
 Met dit werk
 Combinatiekorting volgens de tabel, per maand
@@ -983,11 +983,11 @@ Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): z
 Basishuur meerpersoonshuishouden: € 200,71 per maand (Dienst Toeslagen — Berekening huurtoeslag 2026 (TG 083-1Z62FD, juni 2026))
 Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag): € 498,20 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht): € 713,02 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
-Maximale huurgrens (rekengrens, 21 jaar en ouder; art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Maximale huurgrens (rekengrens, 21 jaar en ouder, art. 13 lid 1 a Wht): € 932,93 per maand (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht): 100% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag): 65% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
 Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag): 40% (Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2026))
-Minimum-inkomensijkpunt meerpersoonshuishouden (jaarinkomen; art. 3 Regeling huurtoeslaggrenzen 2026): € 31.500 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
+Minimum-inkomensijkpunt meerpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 31.500 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, meerpersoons (art. 21 lid 2 Wht): 22% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Kindgebonden budget
 Nu
@@ -1052,12 +1052,12 @@ Wat u zelf moet bijdragen (draagkracht): een deel van uw inkomen boven 110% van 
 Vergoeding: eigen bijdrage min wat u zelf moet bijdragen
 € 34,32
 Gebruikte regels
-Vakantietoeslag als deel van de algemene bijstand; de normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw): 5% (Participatiewet art. 19 lid 3 (wetten.overheid.nl, versie 2026-07-01))
+Vakantietoeslag als deel van de algemene bijstand. De normen van art. 21 zijn inclusief deze toeslag (art. 19 lid 3 Pw).: 5% (Participatiewet art. 19 lid 3 (wetten.overheid.nl, versie 2026-07-01))
 Bijstandsnorm gehuwden/samenwonenden, beiden 21 jaar tot AOW-leeftijd, netto incl. vakantietoeslag (art. 21 b Pw): € 2.027,79 per maand (Rijksoverheid — Hoe wordt de hoogte van mijn bijstandsuitkering berekend?)
 Bijzondere bijstand — de bijstandsnorm van een alleenstaande ouder is voor deze beleidsregels dit deel van de gezinsnorm (art. 1 onder d): 90% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — geen draagkracht bij een inkomen tot dit deel van de bijstandsnorm, beide zonder vakantietoeslag (art. 6 lid 1): 110% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — tot dit deel van de bijstandsnorm telt 20% van het meerinkomen als draagkracht (art. 6 lid 2): 130% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
-Bijzondere bijstand — tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen; daarboven 100% (art. 6 lid 2): 150% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
+Bijzondere bijstand: tussen de vorige grens en dit deel van de bijstandsnorm telt 50% van het meerinkomen. Daarboven telt 100% (art. 6 lid 2).: 150% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 110% en 130% van de bijstandsnorm (art. 6 lid 2): 20% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen tussen 130% en 150% van de bijstandsnorm (art. 6 lid 2): 50% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))
 Bijzondere bijstand — draagkracht, deel van het meerinkomen boven 150% van de bijstandsnorm (art. 6 lid 2): 100% (Beleidsregels bijzondere bijstand 2022 gemeente Leiden (CVDR677687))

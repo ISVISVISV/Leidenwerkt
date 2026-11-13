@@ -9,22 +9,58 @@
  */
 import { leegFormulier, nieuwKind, type Formulier, type JaNeeVraag, type KindVeld } from "../app/src/formulier.ts";
 
+/**
+ * De datum waarop de audit rekent. Vast, zodat iedereen die de audit draait precies dezelfde uitkomst krijgt.
+ * Pas hem bewust aan (bijvoorbeeld als er nieuwe bedragen zijn) en draai de audit dan opnieuw.
+ */
+export const REKENDATUM = "2026-11-13";
+
+/**
+ * Een bedrag uit een officiële bron (bijvoorbeeld de proefberekening van Dienst Toeslagen) voor een regel in de
+ * tabel "Zo is het bedrag opgebouwd". De audit legt de rekenhulp ernaast.
+ */
+export interface Verwachting {
+  /** De naam van de regel in de tabel, bijvoorbeeld "Zorgtoeslag", "Huurtoeslag" of "Kindgebonden budget". */
+  onderdeel: string;
+  situatie: "nu" | "met_werk";
+  /** Alleen bij deze periode, bijvoorbeeld "Maand 1 t/m 6". Zonder periode: elke periode. */
+  periode?: string;
+  /** Per maand, in euro's. */
+  waarde: number;
+  /** Toegestaan verschil in euro's. Standaard 0. */
+  tolerantie?: number;
+  bron: { titel: string; url?: string; datum: string };
+  toelichting?: string;
+}
+
 export interface Persoon {
   naam: string;
   f: Formulier;
+  verwacht?: Verwachting[];
   uren?: number[];
   omwegen?: { naam: string; begin: Partial<Formulier>; wijzig: Partial<Formulier> }[];
 }
 
 const ALLE: JaNeeVraag[] = ["partner", "heeftKinderen", "partnerWerkt", "heeftAnderInkomen", "krijgtKinderalimentatie", "woonlasten", "andereBewoners", "werktNu"];
-const formulier = (over: Partial<Formulier>): Formulier => ({
+export const formulier = (over: Partial<Formulier>): Formulier => ({
   ...leegFormulier,
   beantwoord: Object.fromEntries(ALLE.map((k) => [k, true])),
   ...over,
 });
-const kind = (geboren: string, over: Partial<KindVeld> = {}): KindVeld => ({ ...nieuwKind(), geboren, ...over });
+export const kind = (geboren: string, over: Partial<KindVeld> = {}): KindVeld => ({ ...nieuwKind(), geboren, ...over });
 const huur = (kaleHuur: string, zelfstandig = true): Partial<Formulier> => ({ woont: "huur", zelfstandig, kaleHuur });
 const uurloon = (loon: string, uren: string): Partial<Formulier> => ({ per: "uur", loon, uren, allIn: "nee" });
+
+/** Proefberekening toeslagen 2026 van Dienst Toeslagen, ingevuld tijdens gebruikerstest ronde 10. */
+const PROEF = {
+  titel: "Dienst Toeslagen, proefberekening toeslagen 2026 (gebruikerstest ronde 10)",
+  url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen",
+  datum: "2026-11-13",
+};
+const proef = (onderdeel: string, nu: number, metWerk: number): Verwachting[] => [
+  { onderdeel, situatie: "nu", waarde: nu, bron: PROEF },
+  { onderdeel, situatie: "met_werk", waarde: metWerk, bron: PROEF },
+];
 
 const basis = formulier({ geboren: "01-03-1990", ...huur("750"), ...uurloon("15", "20") });
 
@@ -45,6 +81,7 @@ export const PERSONEN: Persoon[] = [
     naam: "Tom en Ilse: stel, Ilse werkt kort, Tom 32 uur",
     f: formulier({ leefvorm: "paar", geboren: "01-06-1985", partnerGeboren: "01-06-1987", partnerWerkt: true, partnerBruto: "450", partnerWerktAl: "kort", ...huur("820"), per: "maand", loon: "2300", uren: "32" }),
     omwegen: [{ naam: "eerst partner werkt niet", begin: { partnerWerkt: false }, wijzig: { partnerWerkt: true } }],
+    verwacht: [...proef("Zorgtoeslag", 246, 179), ...proef("Huurtoeslag", 479, 404)],
   },
   {
     naam: "Sanne: alleenstaande moeder, opvang, kinderalimentatie, netto loon",
@@ -78,7 +115,6 @@ export const PERSONEN: Persoon[] = [
   },
   { naam: "Yara: kamer, medische urenbeperking", f: formulier({ geboren: "01-03-1981", ...huur("480", false), medisch: true, ...uurloon("15", "12") }) },
   { naam: "Karim: voltijd 36 uur", f: formulier({ geboren: "01-03-1996", ...huur("640"), per: "maand", loon: "2600", uren: "36" }) },
-  { naam: "Priya: partneralimentatie", f: formulier({ geboren: "01-06-1988", heeftAnderInkomen: true, partneralimentatie: "300", ...huur("790"), ...uurloon("16", "20") }) },
   {
     naam: "Hatice: kinderen van 16 en 20, kinderalimentatie, zoon met inkomen",
     f: formulier({
@@ -93,6 +129,8 @@ export const PERSONEN: Persoon[] = [
     omwegen: [
       { naam: "eerst inkomen zoon onbekend", begin: { kinderen: [kind("01-06-2010"), kind("01-06-2006", { inkomenOnbekend: true })] }, wijzig: { kinderen: [kind("01-06-2010"), kind("01-06-2006", { inkomen: "9000" })] } },
     ],
+    // Kindgebonden budget: de proefberekening geeft vanaf juli € 580 (het kind is dan 16), dus ook in november.
+    verwacht: [...proef("Zorgtoeslag", 129, 129), ...proef("Huurtoeslag", 476, 476), ...proef("Kindgebonden budget", 580, 580)],
   },
   { naam: "Joke: partneralimentatie, bij haar zus in huis", f: formulier({ geboren: "01-03-1974", heeftAnderInkomen: true, partneralimentatie: "350", woont: "kostgeld", kaleHuur: "250", kostendelers: "1", ...uurloon("14", "16") }) },
   { naam: "Lars: 25, woont bij zijn vader, voltijd", f: formulier({ geboren: "01-03-2001", woont: "kostgeld", kaleHuur: "200", kostendelers: "1", per: "maand", loon: "2400", uren: "40" }) },

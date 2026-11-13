@@ -203,7 +203,14 @@ export function getal(tekst: string): number | undefined {
   return Number.isFinite(n) ? n : NaN;
 }
 
+/** Alleen voor de audit (scripts/audit.ts): een vaste datum, zodat iedereen dezelfde uitkomst krijgt. */
+let vasteDatum: string | undefined;
+export function zetVandaag(datum: string | undefined) {
+  vasteDatum = datum;
+}
+
 export function vandaag(): string {
+  if (vasteDatum) return vasteDatum;
   const d = new Date();
   const p = (n: number) => String(n).padStart(2, "0");
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
