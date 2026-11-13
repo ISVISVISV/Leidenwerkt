@@ -228,7 +228,7 @@ export function Uitkomst({
             {periodes.map((p) => (
               <label className="optie" key={p.fase}>
                 <input type="radio" name="fase" checked={fase === p.fase} onChange={() => setFase(p.fase)} />
-                <span>{p.naam}</span>
+                <span>{tm(p.naam)}</span>
               </label>
             ))}
           </fieldset>
@@ -249,11 +249,11 @@ export function Uitkomst({
                 ? "U werkt al 6 maanden of langer naast de bijstand."
                 : meerPeriodes
                   ? gekozen.naam.includes("nadat u")
-                    ? `${gekozen.naam}.`
-                    : `${gekozen.naam} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.`
-                  : `${gekozen.naam}.`}
+                    ? `${tm(gekozen.naam)}.`
+                    : `${tm(gekozen.naam)} ${f.werktNu ? "nadat u naast de bijstand bent gaan werken" : "na de start van uw werk"}.`
+                  : `${tm(gekozen.naam)}.`}
             </strong>{" "}
-            {gekozen.regel}
+            {tm(gekozen.regel)}
             {vrijlatingTelt && " Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt."}
           </p>
           {vrijlatingTelt && (
@@ -303,14 +303,14 @@ export function Uitkomst({
 
       {r.signalen.length > 0 && (
         <section aria-labelledby="let-op">
-          <h2 id="let-op">Goed om te weten{meerPeriodes ? ` ${periodeInZin(gekozen.naam)}` : ""}</h2>
+          <h2 id="let-op">Goed om te weten{meerPeriodes ? ` ${tm(periodeInZin(gekozen.naam))}` : ""}</h2>
           <p className="klein niet-print">Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.</p>
           <ul className="signalen">
             {r.signalen.map((s, i) => (
               <li key={i} className={`${s.soort} bron-blok`}>
                 <details id={`signaal-${i}`} className="signaal">
                   <summary className="signaal-kop">{s.kop}</summary>
-                  <p>{metLinks(s.tekst)}</p>
+                  <p>{metLinks(tm(s.tekst))}</p>
                   {s.tekst.includes("De grens is ongeveer") && (
                     <p>
                       {/* Met bijstand telt voor deze regelingen de norm, niet het vrijgelaten deel van het loon (zie de engine). */}
@@ -428,7 +428,7 @@ function Antwoord({
   const overBijstand = bijstandZin(r, stoptVanaf);
   return (
     <div className={`antwoord ${Math.abs(v) < 10 ? "gelijk" : v > 0 ? "meer" : "minder"}`} aria-live="polite">
-      <p className="antwoord-zin">{zin}</p>
+      <p className="antwoord-zin">{tm(zin)}</p>
       {doorKosten && (
         <p className="antwoord-sub">Dat komt door de kosten voor het werk die u zelf betaalt: {euro(kosten.toFixed(2), true)} per maand.</p>
       )}
@@ -437,7 +437,7 @@ function Antwoord({
           <p className="antwoord-sub">Bij {urenTekst}:</p>
           <ul className="antwoord-lijst">
             {perioden.map((p) => (
-              <li key={p.naam}>{verschilRegel(p.naam, p.verschil, " per maand")}</li>
+              <li key={p.naam}>{tm(verschilRegel(p.naam, p.verschil, " per maand"))}</li>
             ))}
             {eersteJaar !== undefined && <li>{verschilRegel("De eerste 12 maanden samen", eersteJaar, "")}</li>}
           </ul>
@@ -445,7 +445,7 @@ function Antwoord({
       ) : (
         <p className="antwoord-sub">Bij {urenTekst}.</p>
       )}
-      {overBijstand && <p className="antwoord-sub antwoord-bijstand">{overBijstand}</p>}
+      {overBijstand && <p className="antwoord-sub antwoord-bijstand">{tm(overBijstand)}</p>}
       {r.betrouwbaarheid.niveau !== "goed" && <p className="antwoord-noot">{r.betrouwbaarheid.tekst}</p>}
       {r.zekerheid === "onbevestigd" && r.betrouwbaarheid.niveau === "beperkt" && (
         <p className="antwoord-noot">Een deel van de bedragen is nog niet officieel bevestigd. Ze zijn hieronder gemarkeerd met een sterretje.</p>
@@ -578,7 +578,7 @@ function Uitleg({ r }: { r: Resultaat }) {
                   <dl className="stappen">
                     {post.stappen.map((s, i) => (
                       <div key={i}>
-                        <dt>{s.tekst}</dt>
+                        <dt>{tm(s.tekst)}</dt>
                         <dd>{s.bedrag !== undefined ? euro(s.bedrag) : ""}</dd>
                       </div>
                     ))}
@@ -621,6 +621,13 @@ function Uitleg({ r }: { r: Resultaat }) {
 }
 
 /** Maakt adressen van officiële sites in een melding klikbaar, bijvoorbeeld "leiden.nl/inkomenstoeslag". */
+/**
+ * "t/m" blijft bij elkaar: sommige browsers (zoals Safari) breken een regel na de schuine streep, waardoor de "m"
+ * alleen op de volgende regel staat. Een onzichtbaar verbindingsteken (U+2060) voorkomt dat. Een schermlezer
+ * leest het niet voor.
+ */
+const tm = (tekst: string) => tekst.replaceAll("t/m", "t/\u2060m");
+
 function metLinks(tekst: string) {
   const delen = tekst.split(/((?:https?:\/\/)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)*\.nl\/[A-Za-z0-9\-/_]+)/g);
   return delen.map((d, i) =>
@@ -863,7 +870,7 @@ function TabelNoten({ f, r, uren }: { f: Formulier; r: Resultaat; uren: number }
   return (
     <ul className="tabel-noten">
       {noten.map((n) => (
-        <li key={n}>{n}</li>
+        <li key={n}>{tm(n)}</li>
       ))}
     </ul>
   );

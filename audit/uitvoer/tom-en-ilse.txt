@@ -10,7 +10,7 @@ Uw bijstand van € 1.663 per maand stopt. Met dit werk heeft u genoeg inkomen 
 
 Wat u nu kunt doen:
 Meld uw werk bij de gemeente
-Geef uw nieuwe inkomen door
+Geef uw nieuwe inkomen door aan Dienst Toeslagen
 Uren per week: 32
 
 U heeft vanaf 21 uur per week geen bijstand meer nodig.
@@ -38,7 +38,7 @@ Meld uw werk bij de gemeente
 Gaat u werken? Geef dat zo snel mogelijk door aan de gemeente, net als elke verandering in uw loon. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.
 
 Bron: Participatiewet, art. 17 lid 1
-Geef uw nieuwe inkomen door
+Geef uw nieuwe inkomen door aan Dienst Toeslagen
 
 Uw toeslagen gaan samen € 142 per maand omlaag (zorgtoeslag € 67, huurtoeslag € 75). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 142 te veel, en moet u na een jaar ongeveer € 1.704 terugbetalen.
 
@@ -139,7 +139,7 @@ Norm voor gehuwden of samenwonenden
 € 2.027,79
 Netto loon van uw partner
 € 486,00
-Mag uw partner houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand
+Mag uw partner houden: vrijlating maand 1 t/⁠m 6: 25% van het netto loon, maximaal € 289,00 per maand
 € 121,50
 Bijstand: € 2.027,79 − (€ 486,00 − € 121,50) = € 1.663,29
 Met dit werk
@@ -149,9 +149,9 @@ Uw netto loon
 € 2.303,28
 Netto loon van uw partner
 € 486,00
-Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand
+Mag u houden: vrijlating maand 1 t/⁠m 6: 25% van het netto loon, maximaal € 289,00 per maand
 € 289,00
-Mag uw partner houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand
+Mag uw partner houden: vrijlating maand 1 t/⁠m 6: 25% van het netto loon, maximaal € 289,00 per maand
 € 121,50
 Bijstand: € 2.027,79 − (€ 2.789,28 − € 410,50) is minder dan nul, dus geen bijstand
 Gebruikte regels
@@ -275,7 +275,7 @@ Uw bijstand van € 1.542 per maand stopt. Met dit werk heeft u genoeg inkomen 
 
 Wat u nu kunt doen:
 Meld uw werk bij de gemeente
-Geef uw nieuwe inkomen door
+Geef uw nieuwe inkomen door aan Dienst Toeslagen
 Uren per week: 32
 
 U heeft vanaf 21 uur per week geen bijstand meer nodig.
@@ -303,7 +303,7 @@ Meld uw werk bij de gemeente
 Gaat u werken? Geef dat zo snel mogelijk door aan de gemeente, net als elke verandering in uw loon. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.
 
 Bron: Participatiewet, art. 17 lid 1
-Geef uw nieuwe inkomen door
+Geef uw nieuwe inkomen door aan Dienst Toeslagen
 
 Uw toeslagen gaan samen € 142 per maand omlaag (zorgtoeslag € 67, huurtoeslag € 75). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 142 te veel, en moet u na een jaar ongeveer € 1.704 terugbetalen.
 

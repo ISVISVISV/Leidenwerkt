@@ -1,12 +1,12 @@
 # Basis: alleenstaand, 20 uur × € 15
 
-## 20 uur, Maand 1 t/m 6
+## 20 uur, Maand 1 t/⁠m 6
 
-Met dit werk houdt u in maand 1 t/m 6 ongeveer € 289 per maand meer over.
+Met dit werk houdt u in maand 1 t/⁠m 6 ongeveer € 289 per maand meer over.
 
 Bij 20 uur per week:
 
-Maand 1 t/m 6: € 289 per maand meer
+Maand 1 t/⁠m 6: € 289 per maand meer
 Vanaf maand 7: ongeveer evenveel als nu
 De eerste 12 maanden samen: € 1.734 meer
 
@@ -19,10 +19,10 @@ Uren per week: 20
 Zonder vrijlating heeft u vanaf 21 uur per week geen bijstand meer nodig.
 
 Voor welke maanden wilt u de uitkomst zien?
-Maand 1 t/m 6
+Maand 1 t/⁠m 6
 Vanaf maand 7
 
-Maand 1 t/m 6 na de start van uw werk. U mag dan 25% van uw netto loon houden naast de bijstand, tot € 289 per maand. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
+Maand 1 t/⁠m 6 na de start van uw werk. U mag dan 25% van uw netto loon houden naast de bijstand, tot € 289 per maand. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
 
 Zonder vrijlating zou u ongeveer evenveel overhouden als nu.
 
@@ -40,7 +40,7 @@ U houdt over	€ 1.998	€ 2.287
 U vulde € 15 bruto per uur in. In de tabel staat het netto loon: na belasting en premies, omgerekend naar een maand, met vakantiegeld, verdeeld over 12 maanden.
 Zorgtoeslag en huurtoeslag blijven gelijk, omdat uw inkomen onder de grens blijft waarboven ze dalen.
 Vaste lasten zoals huur, kostgeld en zorgpremie staan niet in de tabel, want die betaalt u met en zonder werk.
-Goed om te weten in maand 1 t/m 6
+Goed om te weten in maand 1 t/⁠m 6
 
 Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.
 
@@ -123,7 +123,7 @@ Norm voor een alleenstaande (ouder)
 € 1.419,46
 Uw netto loon
 € 1.370,83
-Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand
+Mag u houden: vrijlating maand 1 t/⁠m 6: 25% van het netto loon, maximaal € 289,00 per maand
 € 289,00
 Bijstand: € 1.419,46 − (€ 1.370,83 − € 289,00) = € 337,63
 Gebruikte regels
@@ -237,7 +237,7 @@ Met dit werk houdt u vanaf maand 7 per maand ongeveer evenveel over als nu.
 
 Bij 20 uur per week:
 
-Maand 1 t/m 6: € 289 per maand meer
+Maand 1 t/⁠m 6: € 289 per maand meer
 Vanaf maand 7: ongeveer evenveel als nu
 De eerste 12 maanden samen: € 1.734 meer
 
@@ -250,7 +250,7 @@ Uren per week: 20
 Zonder vrijlating heeft u vanaf 21 uur per week geen bijstand meer nodig.
 
 Voor welke maanden wilt u de uitkomst zien?
-Maand 1 t/m 6
+Maand 1 t/⁠m 6
 Vanaf maand 7
 
 Vanaf maand 7 na de start van uw werk. Geen vrijlating meer. Verdient u minder dan de bijstandsnorm, dan krijgt u samen evenveel loon en bijstand als zonder werk: de bijstand vult uw loon aan tot de norm. Kosten die u zelf voor het werk maakt, gaan daar nog af. Verdient u de norm of meer, dan stopt de bijstand en houdt u uw hele netto loon. Daarin zit ook de arbeidskorting: korting op de belasting omdat u werkt.
@@ -458,13 +458,13 @@ Werkt nunee
 Nieuw werk20 uur per week, € 15 bruto per uur, vakantiegeld apart.
 Kosten per maandgeen ingevuld
 
-## 16 uur, Maand 1 t/m 6
+## 16 uur, Maand 1 t/⁠m 6
 
-Met dit werk houdt u in maand 1 t/m 6 ongeveer € 276 per maand meer over.
+Met dit werk houdt u in maand 1 t/⁠m 6 ongeveer € 276 per maand meer over.
 
 Bij 16 uur per week:
 
-Maand 1 t/m 6: € 276 per maand meer
+Maand 1 t/⁠m 6: € 276 per maand meer
 Vanaf maand 7: ongeveer evenveel als nu
 De eerste 12 maanden samen: € 1.656 meer
 
@@ -477,10 +477,10 @@ Uren per week: 16
 Zonder vrijlating heeft u vanaf 21 uur per week geen bijstand meer nodig.
 
 Voor welke maanden wilt u de uitkomst zien?
-Maand 1 t/m 6
+Maand 1 t/⁠m 6
 Vanaf maand 7
 
-Maand 1 t/m 6 na de start van uw werk. U mag dan 25% van uw netto loon houden naast de bijstand, tot € 289 per maand. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
+Maand 1 t/⁠m 6 na de start van uw werk. U mag dan 25% van uw netto loon houden naast de bijstand, tot € 289 per maand. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
 
 Zonder vrijlating zou u ongeveer evenveel overhouden als nu.
 
@@ -498,7 +498,7 @@ U houdt over	€ 1.998	€ 2.274
 U vulde € 15 bruto per uur in. In de tabel staat het netto loon: na belasting en premies, omgerekend naar een maand, met vakantiegeld, verdeeld over 12 maanden.
 Zorgtoeslag en huurtoeslag blijven gelijk, omdat uw inkomen onder de grens blijft waarboven ze dalen.
 Vaste lasten zoals huur, kostgeld en zorgpremie staan niet in de tabel, want die betaalt u met en zonder werk.
-Goed om te weten in maand 1 t/m 6
+Goed om te weten in maand 1 t/⁠m 6
 
 Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.
 
@@ -581,7 +581,7 @@ Norm voor een alleenstaande (ouder)
 € 1.419,46
 Uw netto loon
 € 1.103,35
-Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand
+Mag u houden: vrijlating maand 1 t/⁠m 6: 25% van het netto loon, maximaal € 289,00 per maand
 € 275,84
 Bijstand: € 1.419,46 − (€ 1.103,35 − € 275,84) = € 591,95
 Gebruikte regels
@@ -695,7 +695,7 @@ Met dit werk houdt u vanaf maand 7 per maand ongeveer evenveel over als nu.
 
 Bij 16 uur per week:
 
-Maand 1 t/m 6: € 276 per maand meer
+Maand 1 t/⁠m 6: € 276 per maand meer
 Vanaf maand 7: ongeveer evenveel als nu
 De eerste 12 maanden samen: € 1.656 meer
 
@@ -708,7 +708,7 @@ Uren per week: 16
 Zonder vrijlating heeft u vanaf 21 uur per week geen bijstand meer nodig.
 
 Voor welke maanden wilt u de uitkomst zien?
-Maand 1 t/m 6
+Maand 1 t/⁠m 6
 Vanaf maand 7
 
 Vanaf maand 7 na de start van uw werk. Geen vrijlating meer. Verdient u minder dan de bijstandsnorm, dan krijgt u samen evenveel loon en bijstand als zonder werk: de bijstand vult uw loon aan tot de norm. Kosten die u zelf voor het werk maakt, gaan daar nog af. Verdient u de norm of meer, dan stopt de bijstand en houdt u uw hele netto loon. Daarin zit ook de arbeidskorting: korting op de belasting omdat u werkt.
@@ -916,13 +916,13 @@ Werkt nunee
 Nieuw werk20 uur per week, € 15 bruto per uur, vakantiegeld apart. U heeft de urenschuif verschoven naar 16 uur.
 Kosten per maandgeen ingevuld
 
-## 24 uur, Maand 1 t/m 6
+## 24 uur, Maand 1 t/⁠m 6
 
-Met dit werk houdt u in maand 1 t/m 6 ongeveer € 289 per maand meer over.
+Met dit werk houdt u in maand 1 t/⁠m 6 ongeveer € 289 per maand meer over.
 
 Bij 24 uur per week:
 
-Maand 1 t/m 6: € 289 per maand meer
+Maand 1 t/⁠m 6: € 289 per maand meer
 Vanaf maand 7: € 219 per maand meer
 De eerste 12 maanden samen: € 3.048 meer
 
@@ -935,10 +935,10 @@ Uren per week: 24
 Zonder vrijlating heeft u vanaf 21 uur per week geen bijstand meer nodig. Met dit werk krijgt u in deze periode nog bijstand, omdat u een deel van uw loon mag houden.
 
 Voor welke maanden wilt u de uitkomst zien?
-Maand 1 t/m 6
+Maand 1 t/⁠m 6
 Vanaf maand 7
 
-Maand 1 t/m 6 na de start van uw werk. U mag dan 25% van uw netto loon houden naast de bijstand, tot € 289 per maand. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
+Maand 1 t/⁠m 6 na de start van uw werk. U mag dan 25% van uw netto loon houden naast de bijstand, tot € 289 per maand. Het deel dat u mag houden, heet de vrijlating. De gemeente beslist of die voor u geldt.
 
 Zonder vrijlating zou u € 219 per maand meer overhouden dan nu.
 
@@ -956,7 +956,7 @@ U houdt over	€ 1.998	€ 2.287
 U vulde € 15 bruto per uur in. In de tabel staat het netto loon: na belasting en premies, omgerekend naar een maand, met vakantiegeld, verdeeld over 12 maanden.
 Zorgtoeslag en huurtoeslag blijven gelijk, omdat uw inkomen onder de grens blijft waarboven ze dalen.
 Vaste lasten zoals huur, kostgeld en zorgpremie staan niet in de tabel, want die betaalt u met en zonder werk.
-Goed om te weten in maand 1 t/m 6
+Goed om te weten in maand 1 t/⁠m 6
 
 Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.
 
@@ -1039,7 +1039,7 @@ Norm voor een alleenstaande (ouder)
 € 1.419,46
 Uw netto loon
 € 1.638,32
-Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand
+Mag u houden: vrijlating maand 1 t/⁠m 6: 25% van het netto loon, maximaal € 289,00 per maand
 € 289,00
 Bijstand: € 1.419,46 − (€ 1.638,32 − € 289,00) = € 70,14
 Gebruikte regels
@@ -1153,7 +1153,7 @@ Met dit werk houdt u vanaf maand 7 ongeveer € 219 per maand meer over.
 
 Bij 24 uur per week:
 
-Maand 1 t/m 6: € 289 per maand meer
+Maand 1 t/⁠m 6: € 289 per maand meer
 Vanaf maand 7: € 219 per maand meer
 De eerste 12 maanden samen: € 3.048 meer
 
@@ -1166,7 +1166,7 @@ Uren per week: 24
 Zonder vrijlating heeft u vanaf 21 uur per week geen bijstand meer nodig.
 
 Voor welke maanden wilt u de uitkomst zien?
-Maand 1 t/m 6
+Maand 1 t/⁠m 6
 Vanaf maand 7
 Zo is het bedrag opgebouwd
 Per maand	Nu	Met dit werk
@@ -1382,7 +1382,7 @@ Uw bijstand van € 1.419 per maand stopt. Met dit werk heeft u genoeg inkomen 
 
 Wat u nu kunt doen:
 Meld uw werk bij de gemeente
-Geef uw nieuwe inkomen door
+Geef uw nieuwe inkomen door aan Dienst Toeslagen
 Uren per week: 32
 
 U heeft vanaf 21 uur per week geen bijstand meer nodig.
@@ -1409,7 +1409,7 @@ Meld uw werk bij de gemeente
 Gaat u werken? Geef dat zo snel mogelijk door aan de gemeente, net als elke verandering in uw loon. Dat moet volgens de wet: u geeft alles door wat invloed kan hebben op uw bijstand. Weet u niet hoe? Vraag het uw contactpersoon bij de gemeente of bel 14 071 en kies 1.
 
 Bron: Participatiewet, art. 17 lid 1
-Geef uw nieuwe inkomen door
+Geef uw nieuwe inkomen door aan Dienst Toeslagen
 
 Uw toeslagen gaan samen € 80 per maand omlaag (huurtoeslag € 80). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 80 te veel, en moet u na een jaar ongeveer € 960 terugbetalen.
 
@@ -1500,7 +1500,7 @@ Norm voor een alleenstaande (ouder)
 € 1.419,46
 Uw netto loon
 € 2.146,37
-Mag u houden: vrijlating maand 1 t/m 6: 25% van het netto loon, maximaal € 289,00 per maand
+Mag u houden: vrijlating maand 1 t/⁠m 6: 25% van het netto loon, maximaal € 289,00 per maand
 € 289,00
 Bijstand: € 1.419,46 − (€ 2.146,37 − € 289,00) is minder dan nul, dus geen bijstand
 Gebruikte regels
