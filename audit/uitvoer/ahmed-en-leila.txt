@@ -300,7 +300,7 @@ Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverweg
 Bij partners betaalt de gemeente ieder de helft van de bijstand (Participatiewet, art. 45 lid 4). Daarom is de bijstand per partner teruggerekend naar bruto, ieder met een eigen heffingskorting. Krijgt één van u de hele bijstand, dan is het bruto bedrag hoger en de toeslag lager.
 Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.
 
-Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.4.0.
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.5.0.
 
 ### Wat u heeft ingevuld (afdruk)
 
@@ -617,7 +617,7 @@ Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverweg
 Bij partners betaalt de gemeente ieder de helft van de bijstand (Participatiewet, art. 45 lid 4). Daarom is de bijstand per partner teruggerekend naar bruto, ieder met een eigen heffingskorting. Krijgt één van u de hele bijstand, dan is het bruto bedrag hoger en de toeslag lager.
 Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.
 
-Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.4.0.
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.5.0.
 
 ### Wat u heeft ingevuld (afdruk)
 
