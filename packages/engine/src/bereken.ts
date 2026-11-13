@@ -861,6 +861,17 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       bron: CITATEN.awirTerugvordering,
       tekst: `Uw toeslagen gaan samen ${euro(totaal, true)} per maand omlaag (${lijst}). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand ${euro(totaal, true)} te veel, en moet u na een jaar ongeveer ${euro(totaal.times(12), true)} terugbetalen.`,
     });
+  } else if (
+    // Een nieuw inkomen geeft u altijd door als u een toeslag krijgt, ook als die niet verandert.
+    ["zorgtoeslag", "huurtoeslag", "kgb"].some((id) => bedragVan(huidig, id)?.gt(0) || bedragVan(werk, id)?.gt(0))
+  ) {
+    uit.push({
+      soort: "waarschuwing",
+      kop: "Geef uw nieuwe inkomen door aan Dienst Toeslagen",
+      actie: true,
+      bron: CITATEN.inkomenDoorgeven,
+      tekst: "Krijgt u een toeslag? Geef uw nieuwe inkomen dan meteen door via Mijn toeslagen of de app Toeslagen, ook als uw toeslag niet verandert. Zo rekent Dienst Toeslagen met het juiste inkomen.",
+    });
   }
 
   // Leiden: Sleutelpas en Kindtegoed (tot 130% van het sociaal minimum; Kindtegoed tot 140%).

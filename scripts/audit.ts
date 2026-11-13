@@ -419,7 +419,9 @@ async function main() {
       }
       // 9. De urenschuif: "U houdt over" verspringt niet heen en weer met € 1.
       const reeks: number[] = [];
-      const van = Math.max(1, ingevuld - 4);
+      // Bij meer uren kan de schuif niet onder het huidige aantal uren plus één (zie Uitkomst): daaronder niet meten.
+      const minimum = p.f.werktNu && p.f.verandering === "meer" ? Number(p.f.nuUren) + 1 : 1;
+      const van = Math.max(minimum, ingevuld - 4);
       for (let u = van; u <= ingevuld + 4; u++) {
         const over = (await bekijk(p.f, u, "start")).rijen.find(
           (r) => r.soort === "totaal",
