@@ -326,3 +326,15 @@ describe("Partneralimentatie voor de toeslagen (ronde 9)", () => {
     expect(Number(ti.bedrag)).toBeGreaterThan(3600);
   });
 });
+
+describe("Netto loon met de urenschuif", () => {
+  it("toont het ingevulde netto loon en het bruto loon bij de ingevulde uren", () => {
+    const r = bereken(basis({ nieuwWerk: { nettoMaandloon: 1300, urenPerWeek: 40, urenFactor: 40 / 24 } }));
+    const stappen = r.werk.posten.find((p) => p.id === "loon")!.stappen!;
+    const waarde = (tekst: string) => stappen.find((s) => s.tekst.startsWith(tekst))?.bedrag;
+    expect(waarde("Netto maandloon dat u invulde")).toBe("1300.00");
+    const brutoBijIngevuld = Number(waarde("Teruggerekend naar bruto, bij de uren die u invulde"));
+    const bruto = Number(waarde("Bruto loon per maand (gemiddeld"));
+    expect(bruto / brutoBijIngevuld).toBeCloseTo(40 / 24, 6);
+  });
+});

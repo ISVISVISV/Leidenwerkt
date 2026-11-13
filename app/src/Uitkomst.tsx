@@ -738,11 +738,19 @@ function TabelNoten({ f, r, uren }: { f: Formulier; r: Resultaat; uren: number }
     const omgerekend = loon.per === "maand" || loon.per === "netto" ? "" : ", omgerekend naar een maand";
     // Bij een maand- of weekloon schaalt het loon mee met de urenschuif. Staat de schuif op een ander aantal
     // uren dan bij het ingevulde loon hoort, dan noemt de zin beide, zodat het bedrag in de tabel te volgen is.
+    // Een bruto loon schaalt precies mee. Een netto loon niet: over meer loon betaalt u verhoudingsgewijs meer
+    // belasting. Daarom komt het netto bedrag uit de tabel, zonder vakantiegeld (de rekenhulp rekent een netto
+    // loon terug met het vakantiegeld als vast deel erbovenop).
     const ingevuldeUren = getal(f.werktNu && f.verandering === "meer" ? f.nuUren : f.uren) ?? 0;
-    const geschaald =
-      loon.per !== "uur" && ingevuldeUren > 0 && uren !== ingevuldeUren
-        ? `, bij ${ingevuldeUren} uur per week. Bij ${uren} uur is dat ${euro(String(Math.round(((getal(loon.bedrag) ?? 0) * uren) / ingevuldeUren)), true)} ${LOON_PER[loon.per]}`
-        : "";
+    let geschaald = "";
+    if (loon.per !== "uur" && ingevuldeUren > 0 && uren !== ingevuldeUren) {
+      const netto = loon.per === "netto" || loon.per === "nettoweek";
+      const perWeek = loon.per === "week" || loon.per === "nettoweek";
+      const bedrag = netto
+        ? (Number(nettoLoon) / (1 + Number(new Lezer(standaardRegels, r.datum).breuk("wml.vakantiebijslag")))) * (perWeek ? 12 / 52 : 1)
+        : ((getal(loon.bedrag) ?? 0) * uren) / ingevuldeUren;
+      geschaald = `, bij ${ingevuldeUren} uur per week. Bij ${uren} uur is dat ${netto ? "ongeveer " : ""}${euro(String(Math.round(bedrag)), true)} ${LOON_PER[loon.per]}`;
+    }
     noten.push(
       `U vulde ${bedragTekst(loon.bedrag)} ${LOON_PER[loon.per]} in${geschaald}. In de tabel staat het netto loon${loon.per === "netto" || loon.per === "nettoweek" ? "" : ": na belasting en premies"}${omgerekend}${vakantiegeld}.`,
     );

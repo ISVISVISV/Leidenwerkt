@@ -211,10 +211,14 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       const r = nettoLoon(l, bruto, pensioenJaar(werk));
       kern.loon = r;
       kern.nettoMaand = r.nettoJaar.div(12);
-      if (werk?.nettoVierwekenloon !== undefined) stap("Netto loon per 4 weken dat u invulde, × 13 / 12", D(werk.nettoVierwekenloon).times(werk.urenFactor ?? 1));
-      if (werk?.nettoWeekloon !== undefined) stap("Netto loon per week dat u invulde, × 52 / 12", D(werk.nettoWeekloon).times(werk.urenFactor ?? 1));
+      if (werk?.nettoVierwekenloon !== undefined) stap("Netto loon per 4 weken dat u invulde, × 13 / 12", D(werk.nettoVierwekenloon));
+      if (werk?.nettoWeekloon !== undefined) stap("Netto loon per week dat u invulde, × 52 / 12", D(werk.nettoWeekloon));
       if (werk?.nettoMaandloon !== undefined) {
-        stap("Netto maandloon dat u invulde (zonder vakantiegeld)", D(werk.nettoMaandloon).times(werk.urenFactor ?? 1));
+        stap("Netto maandloon dat u invulde (zonder vakantiegeld)", D(werk.nettoMaandloon));
+        // Met de urenschuif schaalt het bruto loon mee, niet het netto loon: over meer loon betaalt u
+        // verhoudingsgewijs meer belasting. Daarom eerst het bruto loon bij de ingevulde uren.
+        const f = D(werk.urenFactor ?? 1);
+        if (!f.eq(1)) stap("Teruggerekend naar bruto, bij de uren die u invulde", eigenBrutoJaarExcl(werk).div(12).div(f));
         aanname("U vulde netto loon in. De rekenhulp rekent dat terug naar bruto. Uw echte bruto loon kan iets anders zijn.");
       }
       if (werk?.brutoVierwekenloon !== undefined) stap("Bruto loon per 4 weken", D(werk.brutoVierwekenloon).times(werk.urenFactor ?? 1));

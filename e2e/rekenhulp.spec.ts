@@ -747,7 +747,9 @@ test("kinderalimentatie als ja/nee-vraag bij de kinderen, en de zin onder de tab
   await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).getByRole("row", { name: /Ander inkomen/ })).toContainText("€ 250");
   await expect(page.getByText("U vulde € 1.300 netto per maand in. In de tabel")).toBeVisible();
   await page.getByRole("slider").fill("40");
-  await expect(page.getByText("U vulde € 1.300 netto per maand in, bij 24 uur per week. Bij 40 uur is dat € 2.167 netto per maand. In de tabel")).toBeVisible();
+  // Netto loon: het bruto loon schaalt mee, niet het netto loon. De zin past bij de tabel (netto zonder vakantiegeld × 1,08).
+  await expect(page.getByText("U vulde € 1.300 netto per maand in, bij 24 uur per week. Bij 40 uur is dat ongeveer € 2.080 netto per maand. In de tabel")).toBeVisible();
+  await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).getByRole("row", { name: /Netto loon/ })).toContainText("€ 2.247");
 
   // Geen kinderen meer: de kinderalimentatie telt niet meer mee.
   await page.getByRole("button", { name: "Gegevens aanpassen" }).click();
@@ -758,4 +760,40 @@ test("kinderalimentatie als ja/nee-vraag bij de kinderen, en de zin onder de tab
   await verder(page);
   await verder(page, "Bereken wat ik overhoud");
   await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).getByRole("row", { name: /Ander inkomen/ })).toHaveCount(0);
+});
+
+test("urenschuif bij een bruto maandloon: het bedrag in de zin schaalt precies mee", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await geboren(page, "Uw geboortedatum", 38);
+  await verder(page);
+  await page.getByLabel("In een koopwoning").check();
+  await verder(page);
+  await kiesLoon(page, "Bruto loon per maand");
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("2300");
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("32");
+  await verder(page, "Bereken wat ik overhoud");
+  await page.getByRole("slider").fill("36");
+  await expect(page.getByText("U vulde € 2.300 bruto per maand in, bij 32 uur per week. Bij 36 uur is dat € 2.588 bruto per maand.")).toBeVisible();
+});
+
+test("Escape in een geopende uitleg sluit die en zet de focus terug op het i-knopje", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  const knop = page.locator(".info-knop").first();
+  await knop.click();
+  const uitleg = page.locator(`#${await knop.getAttribute("aria-controls")}`);
+  const bronknop = uitleg.locator(".bron-knop").first();
+  // Eerst een bron open: Escape sluit alleen de bron.
+  await bronknop.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator(".bron.open")).toHaveCount(1);
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".bron.open")).toHaveCount(0);
+  await expect(knop).toHaveAttribute("aria-expanded", "true");
+  // Daarna, met de focus op de bronknop: Escape sluit de uitleg.
+  await expect(bronknop).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(knop).toHaveAttribute("aria-expanded", "false");
+  await expect(knop).toBeFocused();
 });
