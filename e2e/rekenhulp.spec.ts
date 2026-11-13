@@ -819,3 +819,23 @@ test("afronding: bij de maximale vrijlating verspringt het bedrag niet met € 1
   }
   expect(zinnen.size).toBe(1);
 });
+
+test("regelingen: met bijstand telt het vrijgelaten deel van het loon niet mee", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await geboren(page, "Uw geboortedatum", 36);
+  await verder(page);
+  await page.getByLabel(/In een huurwoning met een eigen voordeur/).check();
+  await page.getByLabel("Kale huur per maand").fill("750");
+  await verder(page);
+  await kiesLoon(page, "Bruto loon per uur");
+  await page.getByRole("textbox", { name: "Bedrag per uur" }).fill("15");
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("20");
+  await page.getByLabel("Nee, ik krijg het apart").check();
+  await verder(page, "Bereken wat ik overhoud");
+  // Maand 1 t/m 6: nog bijstand door de vrijlating.
+  const polis = page.locator("details.signaal", { has: page.locator("summary", { hasText: "Zorgverzekering" }) });
+  await expect(polis).toContainText("kunt u de Gemeentepolis");
+  await expect(polis).toContainText("U krijgt nog bijstand. Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee.");
+  await expect(polis).not.toContainText("zonder toeslagen, is ongeveer");
+});

@@ -123,7 +123,7 @@ function pw34a(l: Lezer, v: VrijlatingVraag): VrijlatingUitkomst {
       return {
         bedrag: min(v.nettoArbeid.times(p), m),
         uitleg: `Overgangsrecht: de oude vrijlating loopt door, ${pct(p)} van het netto loon, maximaal ${euro(m)} per maand`,
-        aannames: [`Het bedrag van de oude vrijlating is dat van ${dagVoor(nieuw)}; het wordt niet meer verhoogd.`],
+        aannames: [`Het bedrag van de oude vrijlating is dat van ${dagVoor(nieuw)}. Het wordt niet meer verhoogd.`],
       };
     }
   }

@@ -302,7 +302,10 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
                   <p>{metLinks(s.tekst)}</p>
                   {s.tekst.includes("De grens is ongeveer") && (
                     <p>
-                      {f.leefvorm === "paar" ? "Uw inkomen samen" : "Uw inkomen"}, zonder toeslagen, is ongeveer {euro(inkomenVoorGrenzen(r).toFixed(2), true)} per maand, met vakantiegeld.
+                      {/* Met bijstand telt voor deze regelingen de norm, niet het vrijgelaten deel van het loon (zie de engine). */}
+                      {nogBijstand(r)
+                        ? `U krijgt nog bijstand.${heeftVrijlating(r) ? " Het deel van uw loon dat u mag houden, telt voor deze regeling niet mee." : ""}`
+                        : `${f.leefvorm === "paar" ? "Uw inkomen samen" : "Uw inkomen"}, zonder toeslagen, is ongeveer ${euro(inkomenVoorGrenzen(r).toFixed(2), true)} per maand, met vakantiegeld.`}
                     </p>
                   )}
                   {s.bron && (
@@ -736,6 +739,12 @@ function openSignaal(i: number) {
   el.querySelector("summary")?.focus();
 }
 
+/** Krijgt deze persoon met het werk nog bijstand? */
+const nogBijstand = (r: Resultaat) => Number(bijstandVan(r) ?? 0) > 0;
+/** Mag deze persoon (of de partner) met het werk een deel van het loon houden? */
+const heeftVrijlating = (r: Resultaat) =>
+  (r.werk.posten.find((p) => p.id === "bijstand")?.stappen ?? []).some((st) => /^Mag (u|uw partner) houden/.test(st.tekst) && Number(st.bedrag ?? 0) > 0);
+
 /** De meldingen met een inkomensgrens vergelijken die grens met dit bedrag: netto loon, bijstand en ander inkomen, zonder toeslagen. */
 function inkomenVoorGrenzen(r: Resultaat): number {
   const bedragen = tabelBedragen(r, r.werk);
@@ -801,7 +810,7 @@ function TabelNoten({ f, r, uren }: { f: Formulier; r: Resultaat; uren: number }
       (getal(f.kostendelers) ?? 0) > 0
         ? "Uw kostgeld verandert uw bijstand niet, omdat er iemand van 27 jaar of ouder bij u woont. Dan geldt de kostendelersnorm."
         : korting.bedrag.gt(0)
-          ? "Uw kostgeld zelf staat niet in de tabel; het deel voor uw woonruimte telt wel mee voor de bijstand, zie hierboven."
+          ? "Uw kostgeld zelf staat niet in de tabel. Het deel voor uw woonruimte telt wel mee voor de bijstand. Dat staat hierboven."
           : "Uw kostgeld verandert uw bijstand niet: het deel voor uw woonruimte is niet lager dan de grens.",
     );
   }

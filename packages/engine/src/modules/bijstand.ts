@@ -93,7 +93,7 @@ export function woonkorting(l: Lezer, invoer: Invoer): Woonkorting {
     tekst: `U betaalt ${wat}. De gemeente verlaagt de norm met ${pct.times(100).toString().replace(".", ",")}% van de norm voor partners`,
     reden: w.dakloos ? `We gaan ervan uit dat u ${wat} heeft` : `U betaalt ${wat}`,
     aanname: w.dakloos
-      ? "Zonder vaste woonplek gaat de gemeente Leiden ervan uit dat u geen woonkosten heeft. Betaalt u toch voor onderdak? Laat dat zien aan uw contactpersoon bij de gemeente; dan kan de verlaging lager zijn."
+      ? "Zonder vaste woonplek gaat de gemeente Leiden ervan uit dat u geen woonkosten heeft. Betaalt u toch voor onderdak? Laat dat zien aan uw contactpersoon bij de gemeente. Dan kan de verlaging lager zijn."
       : "Betaalt iemand anders langer dan 6 maanden uw woonkosten, dan verlaagt de gemeente Leiden de norm. Korter dan 6 maanden telt het als gift. Vraag uw contactpersoon bij de gemeente wat voor u geldt.",
   };
 }

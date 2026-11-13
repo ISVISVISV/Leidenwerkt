@@ -246,14 +246,14 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       stap("Korting daarop: arbeidskorting per maand", r.arbeidskorting.div(12));
       stap("U betaalt per maand aan belasting en premies", r.heffing.div(12));
       stap("Netto per maand (gemiddeld, inclusief vakantiegeld)", r.nettoJaar.div(12));
-      aanname("Het vakantiegeld is over 12 maanden verdeeld; in werkelijkheid komt het meestal in mei of juni.");
+      aanname("Het vakantiegeld is over 12 maanden verdeeld. In werkelijkheid komt het meestal in mei of juni.");
       if (werk?.brutoVierwekenloon !== undefined) {
         aanname("Bij een vierwekenloon krijgt u 13 keer per jaar loon. Het loon is hier omgerekend naar een gemiddelde maand.");
       }
       if (werk?.brutoWeekloon !== undefined || werk?.nettoWeekloon !== undefined) {
         aanname("Bij een weekloon krijgt u 52 keer per jaar loon. Het loon is hier omgerekend naar een gemiddelde maand.");
       }
-      aanname("Netto loon is benaderd met een jaarberekening; de loonstrook kan een paar euro afwijken.");
+      aanname("Het netto loon is berekend over een heel jaar. Op uw loonstrook kan het een paar euro anders zijn.");
       if (werk?.bijbaan) {
         stap("Waarvan het extra werk, bruto per maand (zonder vakantiegeld)", brutoMaandloon(werk.bijbaan));
         aanname("Met twee banen is de belasting berekend over het totaal, zoals bij de belastingaangifte. Op de loonstroken kan het anders verdeeld zijn, omdat maar één werkgever de heffingskorting toepast.");
@@ -310,7 +310,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
           stap("Partneralimentatie per maand, zoals u die ontvangt", partneralimentatie);
           stap(`Min inkomstenbelasting (${tarief.times(100).toString().replace(".", ",")}%, het tarief van de eerste schijf)`, partneralimentatie.times(tarief).neg());
           aanname(
-            "Over partneralimentatie betaalt u inkomstenbelasting; de bijstand telt het bedrag na belasting (Participatiewet, art. 31 lid 3). De rekenhulp rekent met het tarief van de eerste schijf, en neemt aan dat uw heffingskortingen al gebruikt worden voor uw bijstand of loon.",
+            "Over partneralimentatie betaalt u inkomstenbelasting. De bijstand telt het bedrag na belasting (Participatiewet, art. 31 lid 3). De rekenhulp rekent met het tarief van de eerste schijf, en neemt aan dat uw heffingskortingen al gebruikt worden voor uw bijstand of loon.",
           );
         }
         return ander;
@@ -391,7 +391,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
         stap(bijstand.isZero() ? `Bijstand: ${formule} is minder dan nul, dus geen bijstand` : `Bijstand: ${formule} = ${euro(bijstand)}`);
       }
       kern.bijstandMaand = bijstand;
-      aanname("Bijstand is netto en inclusief vakantietoeslag per maand gerekend; de gemeente betaalt de vakantietoeslag één keer per jaar uit.");
+      aanname("De bijstand is netto per maand gerekend, met de vakantietoeslag. De gemeente betaalt de vakantietoeslag één keer per jaar uit.");
       aanname("De rekenhulp neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaargeld en bezit onder de grens voor bijstand en toeslagen blijven.");
       return bijstand;
     }),
@@ -709,7 +709,7 @@ export function bereken(gegeven: Invoer, regels: RegelSet = standaardRegels): Re
           ]
         : []),
       ...(invoer.wonen.soort === "huur" && invoer.wonen.zelfstandig === false && !invoer.wonen.bijIemandAnders
-        ? ["Als u de voordeur, keuken, wc of douche deelt, bijvoorbeeld op een kamer, krijgt u meestal geen huurtoeslag. Daarom is die niet meegerekend. Voor sommige kamers kan het wel; dat ziet u met de proefberekening van Dienst Toeslagen."]
+        ? ["Als u de voordeur, keuken, wc of douche deelt, bijvoorbeeld op een kamer, krijgt u meestal geen huurtoeslag. Daarom is die niet meegerekend. Voor sommige kamers kan het wel. Dat ziet u met de proefberekening van Dienst Toeslagen."]
         : []),
     ],
   };
@@ -869,7 +869,13 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     boven
       ? `Met dit inkomen krijgt u ${wat} niet meer. De grens is ongeveer ${euro(grens, true)} netto per maand, met vakantiegeld. Dat zit niet in de bedragen hierboven.`
       : `Met dit inkomen kunt u ${wat} nog krijgen. De grens is ongeveer ${euro(grens, true)} netto per maand, met vakantiegeld.`;
-  const inkomenWerk = INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
+  // Welk inkomen telt voor de Leidse regelingen (Sleutelpas, Kindtegoed, Gemeentepolis, zwemabonnement,
+  // Sport en cultuur)? Praktijk van de gemeente Leiden, bevestigd door klantmanagers (13 november 2026): de gemeente
+  // toetst aan de norm van de klant. Zolang iemand bijstand krijgt, vult die aan tot de norm; ander inkomen gaat er
+  // al van af en het vrijgelaten deel van het loon telt niet mee. Het inkomen dat telt is dan dus de norm, en die
+  // ligt altijd onder de grens. Zonder bijstand telt het hele netto inkomen.
+  const metBijstand = !!bijstandWerk && bijstandWerk.gt(0);
+  const inkomenWerk = metBijstand ? NUL : INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
   probeer(() => {
     const grens = l.breuk("leiden.sleutelpas.inkomensgrens");
     const norm = sociaalMinimum(l, invoer);
@@ -943,7 +949,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       soort: boven ? "waarschuwing" : "info",
       kop: "Sport en cultuur",
       bron: bronVan(l, "leiden.volwassenenfonds.inkomensgrens"),
-      tekst: `${regelingZin(`hulp van het Volwassenenfonds Sport & Cultuur (tot ${maximum} per jaar)`, boven, grens)}${boven ? "" : " Aanvragen gaat via een tussenpersoon; vraag het uw contactpersoon bij de gemeente."}`,
+      tekst: `${regelingZin(`hulp van het Volwassenenfonds Sport & Cultuur (tot ${maximum} per jaar)`, boven, grens)}${boven ? "" : " Aanvragen gaat via een tussenpersoon. Vraag het uw contactpersoon bij de gemeente."}`,
     });
   });
 
@@ -1032,7 +1038,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
       bron: CITATEN.bbKinderopvang,
       tekst:
         vergoeding && vergoeding.gt(0)
-          ? `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. De gemeente Leiden kan dit deel vergoeden. Dat heet bijzondere bijstand. Voorwaarde: u heeft de opvang nodig om te kunnen werken. Hoeveel u krijgt, hangt af van uw inkomen. Hier is ${euro(vergoeding, true)} per maand meegerekend${rest.gt("0.5") ? `; u betaalt zelf ${euro(rest, true)}` : ""}. Dit geldt ook als u door het werk geen bijstand meer krijgt. U krijgt de vergoeding niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.`
+          ? `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. De gemeente Leiden kan dit deel vergoeden. Dat heet bijzondere bijstand. Voorwaarde: u heeft de opvang nodig om te kunnen werken. Hoeveel u krijgt, hangt af van uw inkomen. Hier is ${euro(vergoeding, true)} per maand meegerekend${rest.gt("0.5") ? `. U betaalt zelf ${euro(rest, true)}` : ""}. Dit geldt ook als u door het werk geen bijstand meer krijgt. U krijgt de vergoeding niet vanzelf: vraag haar aan bij de gemeente, het liefst voordat u begint met werken.`
           : `Na de kinderopvangtoeslag betaalt u nog ${euro(eigen, true)} per maand voor de opvang. Met dit inkomen betaalt de gemeente Leiden hier waarschijnlijk niets van. Volgens de regels kunt u dit zelf betalen. Twijfelt u? Vraag het aan de gemeente.`,
     });
   }
