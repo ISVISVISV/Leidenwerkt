@@ -272,6 +272,16 @@ const normenBekend = () => new Lezer(standaardRegels, vandaag()).bestaat("pw.nor
 
 type StapProps = { f: Formulier; zet: <K extends keyof Formulier>(k: K, v: Formulier[K]) => void; fouten: Fouten };
 
+/**
+ * Escape in een geopende uitleg sluit die uitleg en zet de focus terug op het i-knopje.
+ * Staat er in de uitleg een bron open, dan sluit Escape eerst alleen die bron.
+ */
+const sluitMetEscape = (hintId: string, sluit: () => void) => (e: React.KeyboardEvent<HTMLDivElement>) => {
+  if (e.key !== "Escape" || e.currentTarget.querySelector(".bron.open")) return;
+  sluit();
+  document.querySelector<HTMLButtonElement>(`button[aria-controls="${hintId}"]`)?.focus();
+};
+
 /** Knop "i" die uitleg toont of verbergt. De uitleg blijft staan tot de gebruiker hem weer sluit. */
 function InfoKnop({ open, onToggle, controls, onderwerp }: { open: boolean; onToggle: () => void; controls: string; onderwerp: string }) {
   return (
@@ -321,7 +331,7 @@ function Veld(props: {
         {props.hint && <InfoKnop open={uitleg} onToggle={() => setUitleg(!uitleg)} controls={hintId!} onderwerp={props.label} />}
       </div>
       {props.hint && (
-        <div className="hint" id={hintId} hidden={!uitleg}>
+        <div className="hint" id={hintId} hidden={!uitleg} onKeyDown={sluitMetEscape(hintId!, () => setUitleg(false))}>
           {props.hint}
         </div>
       )}
@@ -435,7 +445,7 @@ function Keuze<T extends string>(props: {
         <legend>{props.legend}</legend>
       )}
       {props.hint && (
-        <div className="hint" id={hintId} hidden={!uitleg}>
+        <div className="hint" id={hintId} hidden={!uitleg} onKeyDown={sluitMetEscape(hintId!, () => setUitleg(false))}>
           {props.hint}
         </div>
       )}
