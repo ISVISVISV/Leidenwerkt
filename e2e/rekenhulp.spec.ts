@@ -539,8 +539,8 @@ test("omwegen: een oud bedrag blijft niet hangen, opgeloste fouten verdwijnen, e
   await verder(page, "Bereken wat ik overhoud");
   await expect(schuif).toHaveValue("28");
   await expect(page.locator(".antwoord-zin")).toHaveText(bij28);
-  // "Wat u heeft ingevuld" toont wat er is ingevuld.
-  await expect(page.getByText("20 uur per week; € 15 bruto per uur").first()).toBeAttached();
+  // "Wat u heeft ingevuld" toont wat er is ingevuld, en dat de urenschuif is verschoven.
+  await expect(page.getByText("20 uur per week, € 15 bruto per uur, vakantiegeld apart. U heeft de urenschuif verschoven naar 28 uur.").first()).toBeAttached();
 
   // Andere uren ingevuld: de schuif begint bij die uren.
   await page.getByRole("button", { name: "Gegevens aanpassen" }).click();
@@ -689,7 +689,7 @@ test("alimentatie: partneralimentatie na belasting, kinderalimentatie alleen met
   await verder(page, "Bereken wat ik overhoud");
   const tabel = page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ });
   // € 300 − 35,75% belasting = € 192,75.
-  await expect(tabel.getByRole("row", { name: /Ander inkomen/ })).toContainText("€ 193");
+  await expect(tabel.getByRole("row", { name: /Partneralimentatie \(na belasting\)/ })).toContainText("€ 193");
   // Sleutelpas en Kindtegoed zijn twee aparte meldingen; grenzen met vakantiegeld.
   await expect(page.locator(".signalen")).toContainText("met vakantiegeld");
 });
@@ -744,7 +744,7 @@ test("kinderalimentatie als ja/nee-vraag bij de kinderen, en de zin onder de tab
   await page.getByRole("textbox", { name: "Netto loon per maand voor deze uren" }).fill("1300");
   await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("24");
   await verder(page, "Bereken wat ik overhoud");
-  await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).getByRole("row", { name: /Ander inkomen/ })).toContainText("€ 250");
+  await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).getByRole("row", { name: /Kinderalimentatie/ })).toContainText("€ 250");
   await expect(page.getByText("U vulde € 1.300 netto per maand in. In de tabel")).toBeVisible();
   await page.getByRole("slider").fill("40");
   // Netto loon: het bruto loon schaalt mee, niet het netto loon. De zin past bij de tabel (netto zonder vakantiegeld × 1,08).
@@ -759,7 +759,7 @@ test("kinderalimentatie als ja/nee-vraag bij de kinderen, en de zin onder de tab
   await verder(page);
   await verder(page);
   await verder(page, "Bereken wat ik overhoud");
-  await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).getByRole("row", { name: /Ander inkomen/ })).toHaveCount(0);
+  await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).getByRole("row", { name: /alimentatie|Ander inkomen/i })).toHaveCount(0);
 });
 
 test("urenschuif bij een bruto maandloon: het bedrag in de zin schaalt precies mee", async ({ page }) => {
@@ -796,4 +796,26 @@ test("Escape in een geopende uitleg sluit die en zet de focus terug op het i-kno
   await page.keyboard.press("Escape");
   await expect(knop).toHaveAttribute("aria-expanded", "false");
   await expect(knop).toBeFocused();
+});
+
+test("afronding: bij de maximale vrijlating verspringt het bedrag niet met € 1 per uur", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await geboren(page, "Uw geboortedatum", 36);
+  await verder(page);
+  await page.getByLabel(/In een huurwoning met een eigen voordeur/).check();
+  await page.getByLabel("Kale huur per maand").fill("750");
+  await verder(page);
+  await kiesLoon(page, "Bruto loon per uur");
+  await page.getByRole("textbox", { name: "Bedrag per uur" }).fill("15");
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("20");
+  await page.getByLabel("Nee, ik krijg het apart").check();
+  await verder(page, "Bereken wat ik overhoud");
+  const zinnen = new Set<string>();
+  for (let u = 17; u <= 24; u++) {
+    await page.getByRole("slider").fill(String(u));
+    const houdtOver = page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).locator("tfoot td").last();
+    zinnen.add(`${await page.locator(".antwoord-zin").innerText()}|${await houdtOver.innerText()}`);
+  }
+  expect(zinnen.size).toBe(1);
 });

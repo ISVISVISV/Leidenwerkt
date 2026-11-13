@@ -211,10 +211,17 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       const r = nettoLoon(l, bruto, pensioenJaar(werk));
       kern.loon = r;
       kern.nettoMaand = r.nettoJaar.div(12);
-      if (werk?.nettoVierwekenloon !== undefined) stap("Netto loon per 4 weken dat u invulde, × 13 / 12", D(werk.nettoVierwekenloon));
-      if (werk?.nettoWeekloon !== undefined) stap("Netto loon per week dat u invulde, × 52 / 12", D(werk.nettoWeekloon));
+      if (werk?.nettoVierwekenloon !== undefined) stap("Netto loon per 4 weken dat u invulde", D(werk.nettoVierwekenloon));
+      if (werk?.nettoWeekloon !== undefined) stap("Netto loon per week dat u invulde", D(werk.nettoWeekloon));
       if (werk?.nettoMaandloon !== undefined) {
-        stap("Netto maandloon dat u invulde (zonder vakantiegeld)", D(werk.nettoMaandloon));
+        stap(
+          werk.nettoWeekloon !== undefined
+            ? "Omgerekend naar een maand (× 52 / 12), zonder vakantiegeld"
+            : werk.nettoVierwekenloon !== undefined
+              ? "Omgerekend naar een maand (× 13 / 12), zonder vakantiegeld"
+              : "Netto maandloon dat u invulde (zonder vakantiegeld)",
+          D(werk.nettoMaandloon),
+        );
         // Met de urenschuif schaalt het bruto loon mee, niet het netto loon: over meer loon betaalt u
         // verhoudingsgewijs meer belasting. Daarom eerst het bruto loon bij de ingevulde uren.
         const f = D(werk.urenFactor ?? 1);
@@ -223,6 +230,7 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
       }
       if (werk?.brutoVierwekenloon !== undefined) stap("Bruto loon per 4 weken", D(werk.brutoVierwekenloon).times(werk.urenFactor ?? 1));
       if (werk?.brutoWeekloon !== undefined) stap("Bruto loon per week", D(werk.brutoWeekloon).times(werk.urenFactor ?? 1));
+      if (werk?.brutoUurloon !== undefined) stap("Bruto uurloon dat u invulde", D(werk.brutoUurloon));
       stap("Bruto loon per maand (gemiddeld, zonder vakantiegeld)", brutoMaandloon(werk));
       if (werk?.vakantiegeld === undefined || D(werk.vakantiegeld).gt(0)) l.breuk("wml.vakantiebijslag");
       stap(
@@ -281,8 +289,20 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
   // Voor de toeslagen telt kinderalimentatie niet mee; partneralimentatie telt bruto mee (zie toetsingsinkomen).
   const anderVoorToeslagen = anderNetto;
   if (ander.gt(0)) {
+    // De naam van de regel zegt wat erin zit.
+    const soorten = [anderNetto, kinderalimentatie, partneralimentatie].filter((x) => x.gt(0)).length;
+    const naam =
+      soorten > 1
+        ? anderNetto.gt(0)
+          ? "Alimentatie en ander inkomen"
+          : "Alimentatie"
+        : kinderalimentatie.gt(0)
+          ? "Kinderalimentatie"
+          : partneralimentatie.gt(0)
+            ? "Partneralimentatie (na belasting)"
+            : "Ander inkomen";
     posten.push(
-      maakPost(regels, datum, "ander_inkomen", partneralimentatie.gt(0) ? "Ander inkomen (na belasting)" : "Ander inkomen", "inkomen", ({ l, stap, aanname }) => {
+      maakPost(regels, datum, "ander_inkomen", naam, "inkomen", ({ l, stap, aanname }) => {
         if (anderNetto.gt(0)) stap("Uitkering, pensioen of ander inkomen per maand, zoals u het invulde (netto)", anderNetto);
         if (kinderalimentatie.gt(0)) stap("Kinderalimentatie per maand (daarover betaalt u geen belasting)", kinderalimentatie);
         if (partneralimentatie.gt(0)) {
@@ -1001,8 +1021,10 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   const opvang = bedragVan(werk, "opvangkosten");
   const vergoeding = bedragVan(werk, "bb_opvang");
   if (invoer.gemeente === "leiden" && opvang && opvang.neg().minus(kot).gt("0.5")) {
-    const eigen = opvang.neg().minus(kot);
-    const rest = vergoeding ? eigen.minus(vergoeding) : eigen;
+    // In hele euro's, zoals in de tabel: dan zijn de delen in de tekst samen precies het totaal.
+    const heel = (x: Bedrag) => x.toDecimalPlaces(0, 4);
+    const eigen = heel(opvang.neg()).minus(heel(kot));
+    const rest = vergoeding ? eigen.minus(heel(vergoeding)) : eigen;
     uit.push({
       soort: "waarschuwing",
       kop: vergoeding && vergoeding.gt(0) ? "Vraag bijzondere bijstand aan voor de eigen bijdrage kinderopvang" : "Eigen bijdrage kinderopvang",
