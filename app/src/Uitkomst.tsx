@@ -288,7 +288,7 @@ export function Uitkomst({ f, bewaardeUren, onUren }: { f: Formulier; bewaardeUr
       )}
 
       <Vergelijking r={r} allIn={(ingevuldLoon(f)?.allIn ?? "") === "ja"} tweeBanen={f.werktNu && f.verandering === "erbij"} />
-      <TabelNoten f={f} r={r} />
+      <TabelNoten f={f} r={r} uren={uren} />
 
       {r.signalen.length > 0 && (
         <section aria-labelledby="let-op">
@@ -729,15 +729,22 @@ const bedragTekst = (tekst: string) => {
 };
 
 /** Korte uitleg onder de tabel bij bedragen die anders zijn dan wat de gebruiker invulde of verwacht. */
-function TabelNoten({ f, r }: { f: Formulier; r: Resultaat }) {
+function TabelNoten({ f, r, uren }: { f: Formulier; r: Resultaat; uren: number }) {
   const noten: string[] = [];
   const loon = ingevuldLoon(f);
   const nettoLoon = r.werk.posten.find((p) => p.id === "loon")?.perMaand;
   if (loon && nettoLoon && f.verandering !== "erbij") {
     const vakantiegeld = loon.per === "uur" && loon.allIn === "ja" ? "" : ", met vakantiegeld, verdeeld over 12 maanden";
     const omgerekend = loon.per === "maand" || loon.per === "netto" ? "" : ", omgerekend naar een maand";
+    // Bij een maand- of weekloon schaalt het loon mee met de urenschuif. Staat de schuif op een ander aantal
+    // uren dan bij het ingevulde loon hoort, dan noemt de zin beide, zodat het bedrag in de tabel te volgen is.
+    const ingevuldeUren = getal(f.werktNu && f.verandering === "meer" ? f.nuUren : f.uren) ?? 0;
+    const geschaald =
+      loon.per !== "uur" && ingevuldeUren > 0 && uren !== ingevuldeUren
+        ? `, bij ${ingevuldeUren} uur per week. Bij ${uren} uur is dat ${euro(String(Math.round(((getal(loon.bedrag) ?? 0) * uren) / ingevuldeUren)), true)} ${LOON_PER[loon.per]}`
+        : "";
     noten.push(
-      `U vulde ${bedragTekst(loon.bedrag)} ${LOON_PER[loon.per]} in. In de tabel staat het netto loon${loon.per === "netto" || loon.per === "nettoweek" ? "" : ": na belasting en premies"}${omgerekend}${vakantiegeld}.`,
+      `U vulde ${bedragTekst(loon.bedrag)} ${LOON_PER[loon.per]} in${geschaald}. In de tabel staat het netto loon${loon.per === "netto" || loon.per === "nettoweek" ? "" : ": na belasting en premies"}${omgerekend}${vakantiegeld}.`,
     );
   }
   if (r.werk.posten.some((p) => p.id === "huurtoeslag" && p.perMaand)) {

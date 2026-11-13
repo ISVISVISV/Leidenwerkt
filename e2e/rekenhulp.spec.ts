@@ -714,7 +714,7 @@ test("partner werkt korter dan 6 maanden: ook voor het loon van de partner een v
   await geenToegankelijkheidsfouten(page);
 });
 
-test("kinderalimentatie met een vinkje bij de kinderen", async ({ page }) => {
+test("kinderalimentatie met een vinkje bij de kinderen, en de zin onder de tabel volgt de urenschuif", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await page.getByRole("group", { name: "Woont u samen met een partner?" }).getByLabel("Nee").check();
@@ -742,6 +742,9 @@ test("kinderalimentatie met een vinkje bij de kinderen", async ({ page }) => {
   await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("24");
   await verder(page, "Bereken wat ik overhoud");
   await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).getByRole("row", { name: /Ander inkomen/ })).toContainText("€ 250");
+  await expect(page.getByText("U vulde € 1.300 netto per maand in. In de tabel")).toBeVisible();
+  await page.getByRole("slider").fill("40");
+  await expect(page.getByText("U vulde € 1.300 netto per maand in, bij 24 uur per week. Bij 40 uur is dat € 2.167 netto per maand. In de tabel")).toBeVisible();
 
   // Geen kinderen meer: de kinderalimentatie telt niet meer mee.
   await page.getByRole("button", { name: "Gegevens aanpassen" }).click();

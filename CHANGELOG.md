@@ -19,6 +19,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Sleutelpas en Kindtegoed zijn twee aparte meldingen. Alle grenzen staan er "met vakantiegeld" bij.
 - Werkt u al korter dan 6 maanden, dan heet de eerste periode "Tot 6 maanden nadat u naast de bijstand bent gaan werken" en vervalt "De eerste 12 maanden samen".
 - Uw huishouden: ander inkomen staat nu vóór de kinderen. Kinderalimentatie vult u in bij de kinderen, na het vinkje "Ik krijg kinderalimentatie" (BESLUITEN.md, besluit 16). Terug te draaien met de commit "Stap 1: kinderalimentatie bij de kinderen".
+- Onder de tabel: staat de urenschuif op een ander aantal uren dan bij het ingevulde maand- of weekloon, dan noemt de zin beide, bijvoorbeeld "U vulde € 1.300 netto per maand in, bij 24 uur per week. Bij 40 uur is dat € 2.167 netto per maand." (besluit 17).
 - Uitleg bij kinderen: "Dat vult u later in bij het onderdeel 'Uw woning'." De vraag zelf staat er niet meer in, omdat die per huishouden anders luidt.
 - Bij de uren kinderopvang staat geen rekenuitleg meer: de rekenhulp vraagt het aantal uren per week en houdt zelf rekening met het maximum van 230 uur per maand.
 - Het i-knopje staat direct achter de vraag, ook als die over twee regels loopt. Geen dubbele witruimte meer onder een groep vragen.
