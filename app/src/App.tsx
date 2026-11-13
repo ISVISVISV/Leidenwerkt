@@ -561,9 +561,64 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
       )}
 
       <Keuze
+        naam="heeftAnderInkomen"
+        legend={f.leefvorm === "paar" ? "Heeft u of uw partner ander inkomen dan bijstand en loon?" : "Heeft u ander inkomen dan bijstand en loon?"}
+        hint={
+          <>
+            <p>
+              Bijvoorbeeld partneralimentatie, een uitkering (zoals WW of Wajong) of een pensioen. Kinderalimentatie vult u hierna in, bij de kinderen. De gemeente vult uw inkomen aan tot de
+              bijstandsnorm. Met ander inkomen krijgt u dus minder bijstand. Kinderbijslag, kindgebonden budget en toeslagen telt u niet mee;
+              die rekent de rekenhulp zelf.
+            </p>
+            <p className="bron-blok">
+              Bron: <Bron citaat={CITATEN.pw32} />, <Bron citaat={CITATEN.alimentatie} />
+            </p>
+          </>
+        }
+        waarde={f.beantwoord.heeftAnderInkomen ? f.heeftAnderInkomen ? "ja" : "nee" : ""}
+        onChange={metAntwoord("heeftAnderInkomen", (v) => zet("heeftAnderInkomen", v === "ja"))}
+        fout={fouten.heeftAnderInkomen}
+        opties={[
+          ["nee", "Nee"],
+          ["ja", "Ja"],
+        ]}
+      />
+      {f.heeftAnderInkomen && (
+        <div className="groep-velden">
+          <p className="uitleg-paar">Vul in wat u heeft. Heeft u iets niet? Laat het vak leeg.</p>
+          <Veld
+            id="partneralimentatie"
+            voorbeeld="bijv. 300"
+            label="Partneralimentatie per maand (wat u ontvangt)"
+            hint={
+              <>
+                <p>Alimentatie voor uzelf, van uw ex-partner. Over dit bedrag betaalt u nog belasting. De rekenhulp trekt die er zelf af.</p>
+                <p className="bron-blok">
+                  Bron: <Bron citaat={CITATEN.pw31lid3} />
+                </p>
+              </>
+            }
+            waarde={f.partneralimentatie}
+            onChange={(v) => zet("partneralimentatie", v)}
+            fout={fouten.partneralimentatie}
+            voorvoegsel="€"
+          />
+          <Veld
+            id="anderInkomen"
+            voorbeeld="bijv. 250"
+            label={f.leefvorm === "paar" ? "Ander inkomen per maand van u en uw partner samen (wat op uw rekening komt)" : "Ander inkomen per maand (wat op uw rekening komt)"}
+            waarde={f.anderInkomen}
+            onChange={(v) => zet("anderInkomen", v)}
+            fout={fouten.anderInkomen}
+            voorvoegsel="€"
+          />
+        </div>
+      )}
+
+      <Keuze
         naam="heeftKinderen"
         legend="Heeft u kinderen die bij u wonen?"
-        hint="Alleen kinderen jonger dan 27 jaar. Woont er een kind van 27 jaar of ouder bij u? Dat vult u later in bij 'Uw woning', bij de vraag wie er nog meer bij u wonen."
+        hint="Alleen kinderen jonger dan 27 jaar. Woont er een kind van 27 jaar of ouder bij u? Dat vult u later in bij het onderdeel 'Uw woning'."
         waarde={f.beantwoord.heeftKinderen ? f.leefvorm === "alleenstaande_ouder" || f.kinderen.length > 0 ? "ja" : "nee" : ""}
         onChange={metAntwoord("heeftKinderen", (v) => {
           if (v === "ja") {
@@ -650,53 +705,11 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           >
             Kind toevoegen
           </button>
-        </fieldset>
-      )}
-
-      <Keuze
-        naam="heeftAnderInkomen"
-        legend={f.leefvorm === "paar" ? "Heeft u of uw partner ander inkomen dan bijstand en loon?" : "Heeft u ander inkomen dan bijstand en loon?"}
-        hint={
-          <>
-            <p>
-              Bijvoorbeeld alimentatie, een uitkering (zoals WW of Wajong) of een pensioen. De gemeente vult uw inkomen aan tot de
-              bijstandsnorm. Met ander inkomen krijgt u dus minder bijstand. Kinderbijslag, kindgebonden budget en toeslagen telt u niet mee;
-              die rekent de rekenhulp zelf.
-            </p>
-            <p className="bron-blok">
-              Bron: <Bron citaat={CITATEN.pw32} />, <Bron citaat={CITATEN.alimentatie} />
-            </p>
-          </>
-        }
-        waarde={f.beantwoord.heeftAnderInkomen ? f.heeftAnderInkomen ? "ja" : "nee" : ""}
-        onChange={metAntwoord("heeftAnderInkomen", (v) => zet("heeftAnderInkomen", v === "ja"))}
-        fout={fouten.heeftAnderInkomen}
-        opties={[
-          ["nee", "Nee"],
-          ["ja", "Ja"],
-        ]}
-      />
-      {f.heeftAnderInkomen && (
-        <div className="groep-velden">
-          <p className="uitleg-paar">Vul in wat u heeft. Heeft u iets niet? Laat het vak leeg.</p>
-          <Veld
-            id="partneralimentatie"
-            voorbeeld="bijv. 300"
-            label="Partneralimentatie per maand (wat u ontvangt)"
-            hint={
-              <>
-                <p>Alimentatie voor uzelf, van uw ex-partner. Over dit bedrag betaalt u nog belasting. De rekenhulp trekt die er zelf af.</p>
-                <p className="bron-blok">
-                  Bron: <Bron citaat={CITATEN.pw31lid3} />
-                </p>
-              </>
-            }
-            waarde={f.partneralimentatie}
-            onChange={(v) => zet("partneralimentatie", v)}
-            fout={fouten.partneralimentatie}
-            voorvoegsel="€"
-          />
-          {f.kinderen.length > 0 && (
+          <label className="vinkje">
+            <input type="checkbox" checked={f.kinderalimentatieJa} onChange={(e) => zet("kinderalimentatieJa", e.target.checked)} />
+            <span>{f.leefvorm === "paar" ? "Ik of mijn partner krijgt kinderalimentatie" : "Ik krijg kinderalimentatie"}</span>
+          </label>
+          {f.kinderalimentatieJa && (
             <Veld
               id="kinderalimentatie"
               voorbeeld="bijv. 250"
@@ -715,17 +728,9 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
               voorvoegsel="€"
             />
           )}
-          <Veld
-            id="anderInkomen"
-            voorbeeld="bijv. 250"
-            label={f.leefvorm === "paar" ? "Ander inkomen per maand van u en uw partner samen (wat op uw rekening komt)" : "Ander inkomen per maand (wat op uw rekening komt)"}
-            waarde={f.anderInkomen}
-            onChange={(v) => zet("anderInkomen", v)}
-            fout={fouten.anderInkomen}
-            voorvoegsel="€"
-          />
-        </div>
+        </fieldset>
       )}
+
     </section>
   );
 }

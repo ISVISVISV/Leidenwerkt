@@ -100,6 +100,8 @@ export interface Formulier {
   heeftAnderInkomen: boolean;
   anderInkomen: string;
   partneralimentatie: string;
+  /** Vinkje bij de kinderen: er komt kinderalimentatie binnen. */
+  kinderalimentatieJa: boolean;
   kinderalimentatie: string;
   /** Wonen er nog andere mensen in huis, naast partner en kinderen? */
   andereBewoners: boolean;
@@ -155,6 +157,7 @@ export const leegFormulier: Formulier = {
   heeftAnderInkomen: false,
   anderInkomen: "",
   partneralimentatie: "",
+  kinderalimentatieJa: false,
   kinderalimentatie: "",
   andereBewoners: false,
   kostendelers: "",
@@ -304,13 +307,13 @@ export function controleer(f: Formulier, stap: number): Fouten {
       // Elk vak mag leeg; samen moet er wel iets ingevuld zijn.
       const vakken: [string, string][] = [
         ["partneralimentatie", f.partneralimentatie],
-        ...(f.kinderen.length > 0 ? ([["kinderalimentatie", f.kinderalimentatie]] as [string, string][]) : []),
         ["anderInkomen", f.anderInkomen],
       ];
       for (const [veld, tekst] of vakken) if (tekst.trim() !== "") moet(veld, tekst, 0, 10000, "Vul een bedrag per maand in, bijvoorbeeld 250.");
       if (vakken.every(([, t]) => (getal(t) ?? 0) === 0) && !vakken.some(([v]) => fouten[v]))
         fouten.anderInkomen = "Vul bij minstens één soort inkomen een bedrag in. Of kies Nee bij de vraag hierboven.";
     }
+    if (f.kinderen.length > 0 && f.kinderalimentatieJa) moet("kinderalimentatie", f.kinderalimentatie, 1, 10000, "Vul een bedrag per maand in, bijvoorbeeld 250.");
   }
   if (stap === 2 && metAnderen(f)) {
     moet("kostendelers", f.kostendelers, 0, 10, "Vul een aantal van 0 tot 10 in.");
@@ -453,7 +456,7 @@ export function naarInvoer(f: Formulier, opties: { uren?: number; fase: Invoer["
     medischUrenbeperkt: f.medisch || undefined,
     anderInkomenPerMaand: f.heeftAnderInkomen ? getal(f.anderInkomen) : undefined,
     partneralimentatiePerMaand: f.heeftAnderInkomen ? getal(f.partneralimentatie) : undefined,
-    kinderalimentatiePerMaand: f.heeftAnderInkomen && f.kinderen.length > 0 ? getal(f.kinderalimentatie) : undefined,
+    kinderalimentatiePerMaand: f.kinderalimentatieJa && f.kinderen.length > 0 ? getal(f.kinderalimentatie) : undefined,
     opvangNu: f.werktNu && heeftOpvang(f) && f.opvangNu === "ja" ? true : undefined,
   };
 }
@@ -540,10 +543,10 @@ export function ingevuld(f: Formulier): { kop: string; regels: [string, string][
     const opvang = k.opvang ? `; ${k.soort ? OPVANG[k.soort] : "soort onbekend"}, ${k.uren} uur per week${k.uurprijs ? ` × ${euroTekst(k.uurprijs)}` : ", prijs onbekend"}` : "";
     huishouden.push([`Kind ${i + 1}`, `geboren ${datumTekst(k.geboren)}${opvang}`]);
   });
+  if (f.kinderen.length > 0 && f.kinderalimentatieJa && getal(f.kinderalimentatie)) huishouden.push(["Kinderalimentatie", `${euroTekst(f.kinderalimentatie)} per maand`]);
   if (!f.heeftAnderInkomen) huishouden.push(["Ander inkomen", "nee"]);
   else {
     if (getal(f.partneralimentatie)) huishouden.push(["Partneralimentatie", `${euroTekst(f.partneralimentatie)} per maand`]);
-    if (f.kinderen.length > 0 && getal(f.kinderalimentatie)) huishouden.push(["Kinderalimentatie", `${euroTekst(f.kinderalimentatie)} per maand`]);
     if (getal(f.anderInkomen)) huishouden.push(["Ander inkomen", `${euroTekst(f.anderInkomen)} netto per maand`]);
   }
 

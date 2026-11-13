@@ -713,3 +713,43 @@ test("partner werkt korter dan 6 maanden: ook voor het loon van de partner een v
   await expect(page.locator("main")).toContainText("Mag uw partner houden");
   await geenToegankelijkheidsfouten(page);
 });
+
+test("kinderalimentatie met een vinkje bij de kinderen", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByRole("group", { name: "Woont u samen met een partner?" }).getByLabel("Nee").check();
+  await geboren(page, "Uw geboortedatum", 38);
+  // Ander inkomen staat nu boven de kinderen, zonder vak voor kinderalimentatie.
+  const anderInkomen = page.getByRole("group", { name: "Heeft u ander inkomen dan bijstand en loon?" });
+  const kinderen = page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" });
+  expect((await anderInkomen.boundingBox())!.y).toBeLessThan((await kinderen.boundingBox())!.y);
+  await anderInkomen.getByLabel("Ja").check();
+  await expect(page.getByLabel("Kinderalimentatie per maand")).toHaveCount(0);
+  await anderInkomen.getByLabel("Nee").check();
+  await kinderen.getByLabel("Ja").check();
+  await geboren(page, "Geboortedatum kind 1", 6);
+  await expect(page.getByLabel("Kinderalimentatie per maand")).toHaveCount(0);
+  await page.getByLabel("Ik krijg kinderalimentatie").check();
+  // Aangevinkt maar leeg: een melding.
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await expect(page.locator(".foutsamenvatting")).toContainText("Vul dit in");
+  await page.getByLabel("Kinderalimentatie per maand").fill("250");
+  await verder(page);
+  await page.getByLabel("In een koopwoning").check();
+  await verder(page);
+  await kiesLoon(page, "Netto loon per maand (wat op mijn rekening komt)");
+  await page.getByRole("textbox", { name: "Netto loon per maand voor deze uren" }).fill("1300");
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("24");
+  await verder(page, "Bereken wat ik overhoud");
+  await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).getByRole("row", { name: /Ander inkomen/ })).toContainText("€ 250");
+
+  // Geen kinderen meer: de kinderalimentatie telt niet meer mee.
+  await page.getByRole("button", { name: "Gegevens aanpassen" }).click();
+  await page.getByRole("button", { name: "Vorige stap" }).click();
+  await page.getByRole("button", { name: "Vorige stap" }).click();
+  await page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" }).getByLabel("Nee").check();
+  await verder(page);
+  await verder(page);
+  await verder(page, "Bereken wat ik overhoud");
+  await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).getByRole("row", { name: /Ander inkomen/ })).toHaveCount(0);
+});

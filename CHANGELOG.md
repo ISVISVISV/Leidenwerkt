@@ -18,6 +18,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Bij iemand anders in huis: geen ja/nee-vraag over andere bewoners, maar meteen het aantal, met de persoon bij wie u woont meegeteld.
 - Sleutelpas en Kindtegoed zijn twee aparte meldingen. Alle grenzen staan er "met vakantiegeld" bij.
 - Werkt u al korter dan 6 maanden, dan heet de eerste periode "Tot 6 maanden nadat u naast de bijstand bent gaan werken" en vervalt "De eerste 12 maanden samen".
+- Uw huishouden: ander inkomen staat nu vóór de kinderen. Kinderalimentatie vult u in bij de kinderen, na het vinkje "Ik krijg kinderalimentatie" (BESLUITEN.md, besluit 16). Terug te draaien met de commit "Stap 1: kinderalimentatie bij de kinderen".
+- Uitleg bij kinderen: "Dat vult u later in bij het onderdeel 'Uw woning'." De vraag zelf staat er niet meer in, omdat die per huishouden anders luidt.
 - Bij de uren kinderopvang staat geen rekenuitleg meer: de rekenhulp vraagt het aantal uren per week en houdt zelf rekening met het maximum van 230 uur per maand.
 - Het i-knopje staat direct achter de vraag, ook als die over twee regels loopt. Geen dubbele witruimte meer onder een groep vragen.
 - Het inkomen van een kind van 18 of ouder wordt per kind gevraagd, het hele bedrag; de rekenhulp trekt zelf € 6.218 af bij een kind dat aan het begin van het jaar jonger is dan 23 (Belastingdienst). Studiefinanciering telt niet mee.
