@@ -40,7 +40,7 @@ Modules:
 
 - React + Vite, eigen componenten, geen state- of CSS-framework.
 - Vier stappen: huishouden, woning, werk, uitkomst. De uitkomst heeft een urenschuif en een keuze tussen "de eerste maanden" en "daarna".
-- Lettertype Atkinson Hyperlegible zit in de bundel. De CSP verbiedt netwerkverbindingen.
+- Lettertype Open Sans (SIL Open Font License 1.1) zit in de bundel. De CSP verbiedt netwerkverbindingen.
 - Twee builds: statische site (`app/dist`) en één los HTML-bestand (`app/dist-los`).
 
 ## Kwaliteit

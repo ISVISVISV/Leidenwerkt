@@ -22,7 +22,7 @@
   /* Afgeronde stap in de voortgang: lichtgroen, contrast 3,6:1 met de achtergrond (WCAG 1.4.11). */
   --klaar: #3a8f62;
   color-scheme: light dark;
-  font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+  font-family: "Open Sans", system-ui, sans-serif;
   font-size: 112.5%;
   line-height: 1.5;
   color: var(--inkt);
