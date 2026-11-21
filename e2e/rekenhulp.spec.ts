@@ -210,7 +210,7 @@ test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", asyn
   await page.getByRole("textbox", { name: "Bruto maandloon van uw partner" }).fill("700");
   await page.getByRole("group", { name: "Hoe lang werkt uw partner al naast de bijstand?" }).getByLabel("6 maanden of langer").check();
   await geboren(page, "Geboortedatum kind 1", 2);
-  await page.getByRole("group", { name: "Gaat dit kind naar de opvang als u werkt?" }).getByLabel("Ja").check();
+  await page.getByRole("group", { name: "Als u gaat werken, gaat dit kind dan naar de opvang?" }).getByLabel("Ja").check();
   // Er is geen soort opvang vooraf gekozen.
   await expect(page.getByLabel("Kinderdagverblijf")).not.toBeChecked();
   await page.getByLabel("Hoeveel uur per week gaat dit kind naar de opvang?").fill("16");
@@ -556,7 +556,7 @@ test("alleenstaande ouder: kinderopvangtoeslag aanvragen, meldingen per periode,
   await page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" }).getByLabel("Ja").check();
   await geboren(page, "Uw geboortedatum", 34);
   await geboren(page, "Geboortedatum kind 1", 2);
-  await page.getByRole("group", { name: "Gaat dit kind naar de opvang als u werkt?" }).getByLabel("Ja").check();
+  await page.getByRole("group", { name: "Als u gaat werken, gaat dit kind dan naar de opvang?" }).getByLabel("Ja").check();
   await page.getByLabel("Kinderdagverblijf").check();
   await page.getByLabel("Hoeveel uur per week gaat dit kind naar de opvang?").fill("24");
   await verder(page);

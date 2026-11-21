@@ -75,7 +75,7 @@ export function leeftijdOp(g: Geboortedatum, datum: string): number | undefined 
 export interface KindVeld {
   geboren: Geboortedatum;
   opvang: boolean;
-  /** Is de vraag "Gaat dit kind naar de opvang als u werkt?" beantwoord? */
+  /** Is de vraag "Als u gaat werken, gaat dit kind dan naar de opvang?" beantwoord? */
   opvangGekozen: boolean;
   /** Leeg: nog niet gekozen. */
   soort: Opvangsoort | "";

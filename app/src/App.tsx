@@ -173,13 +173,20 @@ export function App() {
           <p>Deze rekenhulp is voor inwoners van Leiden van 21 jaar tot de AOW-leeftijd met algemene bijstand, ook als u geen vast adres heeft.</p>
         )}
         <p>
-          Uw gegevens blijven op uw eigen apparaat. Er wordt niets opgeslagen of verstuurd.
+          Wat u op deze website invult, blijft op uw eigen telefoon of computer. Het wordt niet verstuurd en niet bewaard. Sluit u de pagina,
+          dan is alles weg.
         </p>
         <p>
-          Dit is een inschatting om u inzicht te geven. Wat u echt krijgt, bepalen de gemeente Leiden en Dienst Toeslagen.
-          Leidenwerkt is geen product van de gemeente. De broncode is open (EUPL-1.2).
+          Leidenwerkt biedt een schatting om u inzicht te geven. Wat u echt krijgt, bepalen de gemeente Leiden en Dienst Toeslagen.
+          Leidenwerkt is geen product van de gemeente.
         </p>
-        <p>Leidenwerkt is gemaakt door Ian Vriend, met hulp van AI. Versie {__VERSIE__}.</p>
+        <p>
+          Leidenwerkt is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
+          <a href="https://github.com/ISVISVISV/Leidenwerkt" rel="noopener noreferrer">
+            broncode
+          </a>{" "}
+          bekijken en gebruiken (licentie EUPL-1.2). Versie {__VERSIE__}.
+        </p>
       </footer>
     </div>
   );
@@ -663,7 +670,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
               {(leeftijdOp(k.geboren, vandaag()) ?? 99) < 13 && (
                 <Keuze
                   naam={`opvang${i}`}
-                  legend="Gaat dit kind naar de opvang als u werkt?"
+                  legend="Als u gaat werken, gaat dit kind dan naar de opvang?"
                   waarde={k.opvangGekozen ? (k.opvang ? "ja" : "nee") : ""}
                   onChange={(v) => zetKind(i, { opvang: v === "ja", opvangGekozen: true })}
                   fout={fouten[`opvang${i}`]}
