@@ -286,7 +286,8 @@ const SOORTEN: [Inkomenssoort, string][] = [
   ["ander", "Ander inkomen, zoals alimentatie of pensioen"],
   ["geen", "Geen inkomen"],
 ];
-const nettoHint = "Tel alles bij elkaar op. Zonder vakantiegeld. Tel toeslagen en kinderbijslag niet mee. Is uw inkomen elke maand anders? Tel dan de laatste 3 maanden op en deel door 3.";
+const nettoHint =
+  "Netto is het bedrag dat u op uw bankrekening krijgt. Vul het bedrag in zonder vakantiegeld. Krijgt u elke maand een ander bedrag? Tel dan de laatste 3 maanden bij elkaar op. Deel dat door 3.";
 
 function StapInkomen({ f, zet, fouten }: StapProps) {
   const paar = f.partner === "ja";
