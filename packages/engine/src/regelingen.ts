@@ -17,14 +17,22 @@ import { huurtoeslag, kindgebondenBudget, maandbedragToeslag, zorgtoeslag } from
 import type { Kind } from "./types.ts";
 
 /** Soort inkomen. "geen" sluit de andere uit. */
-export type Inkomenssoort = "loon" | "uwv" | "bedrijf" | "studiefinanciering" | "ander" | "geen";
+export type Inkomenssoort = "loon" | "uwv" | "bedrijf" | "studiefinanciering" | "partneralimentatie" | "kinderalimentatie" | "ander" | "geen";
+export type Uitkeringssoort = "ww" | "wajong" | "wia" | "ziektewet" | "anders";
 
 export interface CheckPersoon {
   leeftijd: number;
-  soorten: Inkomenssoort[];
-  /** Netto per maand, zonder vakantiegeld, zonder toeslagen en kinderbijslag. Niet gebruikt bij bijstand. */
-  nettoPerMaand: number;
+  /**
+   * Inkomen per soort, per maand, zonder vakantiegeld. Loon, uitkering, bedrijf en ander inkomen: netto.
+   * Alimentatie en studiefinanciering: het bedrag dat binnenkomt. Leeg bij bijstand of geen inkomen.
+   */
+  inkomen: Partial<Record<Exclude<Inkomenssoort, "geen">, number>>;
+  /** Welke uitkering van UWV, als er een is. */
+  uitkering?: Uitkeringssoort;
 }
+
+const heeft = (p: CheckPersoon, s: Exclude<Inkomenssoort, "geen">) => p.inkomen[s] !== undefined;
+const totaalVan = (p: CheckPersoon) => Object.values(p.inkomen).reduce((t, x) => t + (x ?? 0), 0);
 
 export type Woonsoort = "huur" | "kamer" | "koop" | "kostgeld" | "inwonend" | "dakloos" | "instelling";
 export type JaNeeOnbekend = "ja" | "nee" | "onbekend";
@@ -58,8 +66,10 @@ export interface Vermogen {
   spaarrekening: number;
   /** Waarde van elke auto, motor of scooter. */
   voertuigen: number[];
-  /** Andere dingen die veel geld waard zijn, en contant geld. */
-  overig: number;
+  /** Contant geld, aandelen of andere beleggingen. */
+  beleggingen: number;
+  /** Spullen die veel geld waard zijn, zoals sieraden of een boot. */
+  spullen: number;
   schulden: number;
 }
 
@@ -120,8 +130,8 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
   const minderjarig = invoer.kinderen.filter((k) => k.leeftijd < 18);
   const jong = personen.some((p) => p.leeftijd < VOLWASSEN);
   const metKinderen = invoer.kinderen.length > 0;
-  const studeert = invoer.aanvrager.soorten.includes("studiefinanciering");
-  const bedrijf = personen.some((p) => p.soorten.includes("bedrijf"));
+  const studeert = heeft(invoer.aanvrager, "studiefinanciering");
+  const bedrijf = personen.some((p) => heeft(p, "bedrijf"));
 
   // Het sociaal minimum zonder vakantiegeld, zoals in de tabellen van de gemeente (zie VOORWAARDEN.md).
   // Controle: 120% × 95% × € 1.419,46 = € 1.618,18, het bedrag voor een alleenstaande op gemeente.leiden.nl.
@@ -132,7 +142,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
     return zonderVakantiegeld(l.bedrag(paar ? "pw.norm.gehuwden" : "pw.norm.alleenstaande"));
   };
   // Met bijstand telt de norm als inkomen: de bijstand vult aan tot de norm (praktijk van de gemeente, 13 november 2026).
-  const inkomen = invoer.bijstand ? undefined : personen.reduce((s, p) => s.plus(D(p.nettoPerMaand)), NUL);
+  const inkomen = invoer.bijstand ? undefined : personen.reduce((s, p) => s.plus(D(totaalVan(p))), NUL);
 
   /** Grens van een Leidse regeling: deel van het sociaal minimum. Zonder id: het sociaal minimum zelf (100%). */
   const toets = (pctId?: string): { kans: Kans; grens?: Bedrag } => {
@@ -317,8 +327,10 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
   if (paar)
     uit.push(
       probeer(() => {
-        const grootste = personen.reduce((a, b) => (b.nettoPerMaand > a.nettoPerMaand ? b : a));
-        const uwv = !invoer.bijstand && grootste.soorten.includes("uwv");
+        // "Uw grootste inkomen bestaat uit een uitkering van het UWV": het grootste bedrag van het huishouden.
+        const stromen = personen.flatMap((p) => Object.entries(p.inkomen).map(([soort, bedrag]) => ({ soort, bedrag: bedrag ?? 0 })));
+        const grootste = stromen.reduce((a, b) => (b.bedrag > a.bedrag ? b : a), { soort: "", bedrag: 0 });
+        const uwv = !invoer.bijstand && grootste.soort === "uwv";
         const basis = {
           id: "alleenverdieners",
           naam: "Tegemoetkoming voor alleenverdieners",
@@ -346,7 +358,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       probeer(() => {
         const a = invoer.aanvrager.leeftijd;
         const id = a >= 21 ? "pw.studietoeslag.21" : a === 20 ? "pw.studietoeslag.20" : a === 19 ? "pw.studietoeslag.19" : "pw.studietoeslag.18";
-        const uwv = invoer.aanvrager.soorten.includes("uwv");
+        const wajong = invoer.aanvrager.uitkering === "wajong";
         const basis = {
           id: "studietoeslag",
           naam: "Studietoeslag",
@@ -355,12 +367,13 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
           aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.studietoeslag },
           bronnen: [CITATEN.pw36b, ...bron(l, id)],
         };
+        if (wajong) return { ...basis, kans: "nee", waarom: "Met een Wajong-uitkering kunt u geen studietoeslag krijgen." };
         if (invoer.studieMedisch === "nee")
           return { ...basis, kans: "nee", waarom: "Studietoeslag is voor studenten die door ziekte of een handicap niet kunnen werken naast hun studie." };
         return {
           ...basis,
-          kans: uwv ? "misschien" : "ja",
-          waarom: `Voor studenten met studiefinanciering die door ziekte of een handicap niet kunnen werken naast hun studie. De gemeente vraagt meestal een arts om advies.${uwv ? " Met een Wajong-uitkering kunt u geen studietoeslag krijgen." : ""}`,
+          kans: "ja",
+          waarom: "Voor studenten met studiefinanciering die door ziekte of een handicap niet kunnen werken naast hun studie. De gemeente vraagt meestal een arts om advies.",
         };
       }),
     );
@@ -402,12 +415,13 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
  * - Toeslagen: zoals bij de belastingaangifte, de auto telt niet mee (Dienst Toeslagen).
  */
 export function telbaarVermogen(l: Lezer, v: Vermogen, voor: "bijstand" | "toeslagen"): Bedrag {
-  const basis = D(v.betaalrekening).plus(v.spaarrekening).plus(v.overig).minus(v.schulden);
+  // Spullen voor eigen gebruik tellen niet mee voor de toeslagen, net als bij de belastingaangifte.
+  const basis = D(v.betaalrekening).plus(v.spaarrekening).plus(v.beleggingen).minus(v.schulden);
   if (voor === "toeslagen") return basis;
   const voertuigen = v.voertuigen.reduce((s, x) => s.plus(x), NUL);
   const hoogste = v.voertuigen.reduce((m, x) => Math.max(m, x), 0);
   const vrij = D(Math.min(hoogste, l.bedrag("leiden.vermogen.voertuig_vrij").toNumber()));
-  return basis.plus(voertuigen).minus(vrij);
+  return basis.plus(v.spullen).plus(voertuigen).minus(vrij);
 }
 
 /** Vermogen tegen een grens. Bij een koopwoning telt een deel van de woning mee voor de bijstand: dan misschien. */
@@ -428,16 +442,19 @@ function toetsingsinkomen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[
     const norm = l.bedrag(personen.length > 1 ? "pw.norm.gehuwden" : "pw.norm.alleenstaande").times(12);
     return personen.length > 1 ? brutoUitNetto(l, norm.div(2)).times(2) : brutoUitNetto(l, norm);
   }
+  // Per persoon. Loon en uitkering: bruto terugrekenen uit netto, met vakantiegeld. Partneralimentatie komt bruto
+  // binnen en telt zo mee. Kinderalimentatie en studiefinanciering tellen niet mee voor de toeslagen.
+  // Twee soorten met loonheffing (loon en uitkering), een eigen bedrijf of ander inkomen: dat rekent Leidenrekent niet uit.
   const vg = l.breuk("wml.vakantiebijslag");
   let totaal = NUL;
   for (const p of personen) {
-    const s = p.soorten.filter((x) => x !== "geen");
-    if (s.length === 0 || p.nettoPerMaand <= 0) continue;
-    if (s.length > 1 || s[0] === "bedrijf" || s[0] === "studiefinanciering") return undefined;
-    const netto = D(p.nettoPerMaand);
-    totaal = totaal.plus(
-      s[0] === "loon" ? brutoMaandUitNetto(l, netto, vg).times(12).times(vg.plus(1)) : brutoUitNetto(l, netto.times(12).times(vg.plus(1))),
-    );
+    if (heeft(p, "bedrijf") || heeft(p, "ander")) return undefined;
+    if (heeft(p, "loon") && heeft(p, "uwv")) return undefined;
+    const loon = p.inkomen.loon ?? 0;
+    const uwv = p.inkomen.uwv ?? 0;
+    if (loon > 0) totaal = totaal.plus(brutoMaandUitNetto(l, D(loon), vg).times(12).times(vg.plus(1)));
+    if (uwv > 0) totaal = totaal.plus(brutoUitNetto(l, D(uwv).times(12).times(vg.plus(1))));
+    totaal = totaal.plus(D(p.inkomen.partneralimentatie ?? 0).times(12));
   }
   return totaal;
 }

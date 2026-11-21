@@ -6,10 +6,10 @@ import { describe, expect, it } from "vitest";
 import { bereken, checkRegelingen, type CheckInvoer, type Invoer, type Kans, type Uitslag, type Vermogen } from "../src/index.js";
 
 const DATUM = "2026-11-21";
-const geld = (spaarrekening: number, over: Partial<Vermogen> = {}): Vermogen => ({ betaalrekening: 0, spaarrekening, voertuigen: [], overig: 0, schulden: 0, ...over });
+const geld = (spaarrekening: number, over: Partial<Vermogen> = {}): Vermogen => ({ betaalrekening: 0, spaarrekening, voertuigen: [], beleggingen: 0, spullen: 0, schulden: 0, ...over });
 const invoer = (over: Partial<CheckInvoer> = {}): CheckInvoer => ({
   datum: DATUM,
-  aanvrager: { leeftijd: 40, soorten: ["loon"], nettoPerMaand: 1200 },
+  aanvrager: { leeftijd: 40, inkomen: { loon: 1200 } },
   kinderen: [],
   bijstand: false,
   langLaagInkomen: "ja",
@@ -27,7 +27,7 @@ describe("grenzen van de gemeente", () => {
     expect(uitslag(checkRegelingen(invoer()), "volwassenenfonds")!.waarom).toContain("ongeveer € 1.618 netto per maand");
   });
   it("120% voor een stel is ongeveer € 2.312 (tabel: € 2.311,68)", () => {
-    const i = invoer({ partner: { leeftijd: 40, soorten: ["geen"], nettoPerMaand: 0 } });
+    const i = invoer({ partner: { leeftijd: 40, inkomen: {} } });
     expect(uitslag(checkRegelingen(i), "volwassenenfonds")!.waarom).toContain("ongeveer € 2.312 netto per maand");
   });
   it("130% voor een eenoudergezin is ongeveer € 1.753 (tabel: € 1.753,04)", () => {
@@ -35,22 +35,22 @@ describe("grenzen van de gemeente", () => {
     expect(uitslag(checkRegelingen(i), "sleutelpas")!.waarom).toContain("ongeveer € 1.753 netto per maand");
   });
   it("net onder en net boven de grens van 120%", () => {
-    expect(kans(invoer({ aanvrager: { leeftijd: 40, soorten: ["loon"], nettoPerMaand: 1618 } }), "gemeentepolis")).toBe("ja");
-    expect(kans(invoer({ aanvrager: { leeftijd: 40, soorten: ["loon"], nettoPerMaand: 1619 } }), "gemeentepolis")).toBe("nee");
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 1618 } } }), "gemeentepolis")).toBe("ja");
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 1619 } } }), "gemeentepolis")).toBe("nee");
   });
   it("met bijstand telt de norm als inkomen: onder elke grens", () => {
-    const u = checkRegelingen(invoer({ bijstand: true, aanvrager: { leeftijd: 40, soorten: ["geen"], nettoPerMaand: 0 } }));
+    const u = checkRegelingen(invoer({ bijstand: true, aanvrager: { leeftijd: 40, inkomen: {} } }));
     for (const id of ["sleutelpas", "volwassenenfonds", "gemeentepolis", "ovpas"]) expect(uitslag(u, id)!.kans, id).toBe("ja");
     expect(uitslag(u, "sleutelpas")!.waarom).toContain("vanzelf");
     expect(uitslag(u, "bijstand")).toBeUndefined();
   });
   it("jongeren van 18 tot 21: de check rekent de grens niet uit en zegt dat", () => {
-    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 19, soorten: ["loon"], nettoPerMaand: 600 } })), "gemeentepolis")!;
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 19, inkomen: { loon: 600 } } })), "gemeentepolis")!;
     expect(u.kans).toBe("misschien");
     expect(u.waarom).toContain("18, 19 en 20 jaar");
   });
   it("een eigen bedrijf: misschien, met uitleg", () => {
-    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, soorten: ["bedrijf"], nettoPerMaand: 900 } })), "sleutelpas")!;
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { bedrijf: 900 } } })), "sleutelpas")!;
     expect(u.kans).toBe("misschien");
     expect(u.waarom).toContain("winst");
   });
@@ -61,7 +61,7 @@ describe("Sleutelpas, Kindtegoed, laptop en zwemles", () => {
     expect(kans(invoer({ wonen: "instelling" }), "sleutelpas")).toBe("nee");
   });
   it("niet met studiefinanciering, wel met een kind (art. 2.2 c)", () => {
-    const student = { leeftijd: 22, soorten: ["studiefinanciering" as const], nettoPerMaand: 800 };
+    const student = { leeftijd: 22, inkomen: { studiefinanciering: 800 } };
     expect(kans(invoer({ aanvrager: student }), "sleutelpas")).toBe("nee");
     expect(kans(invoer({ aanvrager: student, kinderen: [{ leeftijd: 2 }], kinderbijslag: true }), "sleutelpas")).toBe("ja");
   });
@@ -83,7 +83,7 @@ describe("Sleutelpas, Kindtegoed, laptop en zwemles", () => {
 });
 
 describe("individuele inkomenstoeslag", () => {
-  const laag = { leeftijd: 40, soorten: ["uwv" as const], nettoPerMaand: 1300 };
+  const laag = { leeftijd: 40, inkomen: { uwv: 1300 } };
   it("vanaf 23 jaar", () => {
     expect(kans(invoer({ aanvrager: { ...laag, leeftijd: 22 } }), "iit")).toBe("nee");
     expect(kans(invoer({ aanvrager: laag }), "iit")).toBe("ja");
@@ -102,7 +102,7 @@ describe("individuele inkomenstoeslag", () => {
 });
 
 describe("geld en bezit", () => {
-  const laag = { leeftijd: 40, soorten: ["uwv" as const], nettoPerMaand: 1300 };
+  const laag = { leeftijd: 40, inkomen: { uwv: 1300 } };
   it("bijstand: één auto tot € 4.500 telt niet mee (Leiden, art. 2.1 lid 1)", () => {
     expect(kans(invoer({ aanvrager: laag, vermogen: geld(7000, { voertuigen: [4500] }) }), "iit")).toBe("ja");
   });
@@ -129,10 +129,10 @@ describe("geld en bezit", () => {
 describe("tegemoetkoming voor alleenverdieners", () => {
   const paar = (aanvrager: CheckInvoer["aanvrager"], partner: CheckInvoer["aanvrager"]) => invoer({ aanvrager, partner });
   it("grootste inkomen een uitkering van UWV en samen onder de norm: ja", () => {
-    expect(kans(paar({ leeftijd: 40, soorten: ["uwv"], nettoPerMaand: 1500 }, { leeftijd: 40, soorten: ["geen"], nettoPerMaand: 0 }), "alleenverdieners")).toBe("ja");
+    expect(kans(paar({ leeftijd: 40, inkomen: { uwv: 1500 } }, { leeftijd: 40, inkomen: {} }), "alleenverdieners")).toBe("ja");
   });
   it("grootste inkomen loon: nee", () => {
-    expect(kans(paar({ leeftijd: 40, soorten: ["uwv"], nettoPerMaand: 400 }, { leeftijd: 40, soorten: ["loon"], nettoPerMaand: 1000 }), "alleenverdieners")).toBe("nee");
+    expect(kans(paar({ leeftijd: 40, inkomen: { uwv: 400 } }, { leeftijd: 40, inkomen: { loon: 1000 } }), "alleenverdieners")).toBe("nee");
   });
   it("zonder partner geen uitslag", () => {
     expect(kans(invoer(), "alleenverdieners")).toBeUndefined();
@@ -140,7 +140,7 @@ describe("tegemoetkoming voor alleenverdieners", () => {
 });
 
 describe("studietoeslag en bijstand", () => {
-  const student = (leeftijd: number) => ({ leeftijd, soorten: ["studiefinanciering" as const], nettoPerMaand: 600 });
+  const student = (leeftijd: number) => ({ leeftijd, inkomen: { studiefinanciering: 600 } });
   it("minimumbedrag naar leeftijd (art. 7a)", () => {
     expect(uitslag(checkRegelingen(invoer({ aanvrager: student(24), studieMedisch: "ja" })), "studietoeslag")!.bedrag).toBe("minstens € 390,07 per maand");
     expect(uitslag(checkRegelingen(invoer({ aanvrager: student(19), studieMedisch: "ja" })), "studietoeslag")!.bedrag).toBe("minstens € 234,05 per maand");
@@ -152,8 +152,8 @@ describe("studietoeslag en bijstand", () => {
     expect(kans(invoer({ aanvrager: student(24) }), "bijstand")).toBe("nee");
   });
   it("inkomen onder de norm: misschien bijstand, nooit zeker", () => {
-    expect(kans(invoer({ aanvrager: { leeftijd: 40, soorten: ["geen"], nettoPerMaand: 0 } }), "bijstand")).toBe("misschien");
-    expect(kans(invoer({ aanvrager: { leeftijd: 40, soorten: ["geen"], nettoPerMaand: 0 }, vermogen: geld(9000) }), "bijstand")).toBe("nee");
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: {} } }), "bijstand")).toBe("misschien");
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: {} }, vermogen: geld(9000) }), "bijstand")).toBe("nee");
   });
 });
 
@@ -172,7 +172,7 @@ describe("toeslagen", () => {
     };
     const r = bereken(lw);
     const lwBedrag = (id: string) => r.huidig.posten.find((p) => p.id === id)!.perMaand!;
-    const u = checkRegelingen(invoer({ bijstand: true, aanvrager: { leeftijd: 40, soorten: ["geen"], nettoPerMaand: 0 } }));
+    const u = checkRegelingen(invoer({ bijstand: true, aanvrager: { leeftijd: 40, inkomen: {} } }));
     for (const id of ["zorgtoeslag", "huurtoeslag"]) {
       const getal = Number(lwBedrag(id));
       expect(uitslag(u, id)!.bedrag, id).toBe(`ongeveer € ${getal.toLocaleString("nl-NL", { maximumFractionDigits: 0 })} per maand`);
@@ -190,9 +190,37 @@ describe("toeslagen", () => {
     expect(kans(i, "zorgtoeslag")).toBe("ja");
   });
   it("meer dan één soort inkomen: geen bedrag, wel de proefberekening", () => {
-    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, soorten: ["loon", "uwv"], nettoPerMaand: 1200 } })), "zorgtoeslag")!;
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 600, uwv: 600 } } })), "zorgtoeslag")!;
     expect(u.kans).toBe("misschien");
     expect(u.bedrag).toBeUndefined();
+  });
+});
+
+describe("soorten inkomen", () => {
+  it("kinderalimentatie telt niet mee voor de toeslagen, wel voor de grenzen van de gemeente", () => {
+    const zonder = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 1200 } } })), "zorgtoeslag")!;
+    const met = checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 1200, kinderalimentatie: 500 } } }));
+    expect(uitslag(met, "zorgtoeslag")!.bedrag).toBe(zonder.bedrag);
+    expect(uitslag(met, "gemeentepolis")!.kans).toBe("nee"); // 1.700 > 1.618
+  });
+  it("loon met partneralimentatie: wel een bedrag, en lager dan zonder alimentatie", () => {
+    const bedrag = (i: CheckInvoer) => Number(uitslag(checkRegelingen(i), "zorgtoeslag")!.bedrag!.replace(/\D/g, ""));
+    const met = invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 2000, partneralimentatie: 300 } } });
+    expect(bedrag(met)).toBeLessThan(bedrag(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 2000 } } })));
+  });
+  it("met Wajong geen studietoeslag (art. 36b lid 3 b)", () => {
+    const i = invoer({ aanvrager: { leeftijd: 22, inkomen: { studiefinanciering: 400, uwv: 300 }, uitkering: "wajong" }, studieMedisch: "ja" });
+    expect(kans(i, "studietoeslag")).toBe("nee");
+  });
+  it("spullen tellen niet mee voor de toeslagen, wel voor de bijstand", () => {
+    const laag = { leeftijd: 40, inkomen: { uwv: 1300 } };
+    const i = invoer({ aanvrager: laag, vermogen: geld(1000, { spullen: 50000 }) });
+    expect(kans(i, "huurtoeslag")).toBe("ja");
+    expect(kans(i, "iit")).toBe("nee");
+  });
+  it("alleenverdieners: het grootste bedrag in het huishouden is een uitkering van UWV", () => {
+    const i = invoer({ aanvrager: { leeftijd: 40, inkomen: { uwv: 900, loon: 200 } }, partner: { leeftijd: 40, inkomen: { loon: 500 } } });
+    expect(kans(i, "alleenverdieners")).toBe("ja");
   });
 });
 
@@ -200,9 +228,9 @@ describe("teksten", () => {
   const voorbeelden: CheckInvoer[] = [
     invoer(),
     invoer({ bijstand: true, kinderen: [{ leeftijd: 3 }, { leeftijd: 14 }], kinderbijslag: true }),
-    invoer({ partner: { leeftijd: 50, soorten: ["uwv"], nettoPerMaand: 1600 }, wonen: "koop", vermogen: geld(0) }),
-    invoer({ aanvrager: { leeftijd: 20, soorten: ["studiefinanciering"], nettoPerMaand: 500 }, studieMedisch: "ja", wonen: "kamer" }),
-    invoer({ wonen: "dakloos", aanvrager: { leeftijd: 30, soorten: ["geen"], nettoPerMaand: 0 } }),
+    invoer({ partner: { leeftijd: 50, inkomen: { uwv: 1600 } }, wonen: "koop", vermogen: geld(0) }),
+    invoer({ aanvrager: { leeftijd: 20, inkomen: { studiefinanciering: 500 } }, studieMedisch: "ja", wonen: "kamer" }),
+    invoer({ wonen: "dakloos", aanvrager: { leeftijd: 30, inkomen: {} } }),
   ];
   it("elke uitslag heeft een bron, een reden en geen puntkomma", () => {
     for (const i of voorbeelden)

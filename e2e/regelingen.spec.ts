@@ -30,22 +30,26 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
   await kies(page, "Woont u in de gemeente Leiden?", "Ja");
   await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(35));
   await kies(page, "Woont u samen met een partner?", "Nee");
-  await kies(page, "Heeft u kinderen die bij u wonen?", "Ja");
+  await kies(page, "Wonen er kinderen bij u?", "Ja");
   await page.getByLabel("Geboortedatum van uw kind", { exact: true }).fill(jaar(8));
   await kies(page, "Krijgt u kinderbijslag voor dit kind?", "Ja");
+  await kies(page, "Waar woont u?", "In een huurwoning met een eigen voordeur, keuken, wc en douche");
+  await page.getByLabel("Kale huur per maand").fill("750");
+  await kies(page, "Woont er nog iemand anders bij u?", "Nee");
   await page.getByRole("button", { name: "Volgende stap" }).click();
 
   await expect(page.getByRole("heading", { level: 1, name: "Uw inkomen" })).toBeFocused();
   await kies(page, "Krijgt u bijstand van de gemeente?", "Nee");
-  await page.getByRole("group", { name: "Wat voor inkomen heeft u?" }).getByLabel("Loon uit werk").check();
-  await page.getByLabel("Hoeveel inkomen heeft u netto per maand?").fill("1500");
+  const soorten = page.getByRole("group", { name: "Wat voor inkomen heeft u?" });
+  await soorten.getByLabel("Loon uit werk").check();
+  await soorten.getByLabel("Kinderalimentatie").check();
+  await page.getByLabel("Hoeveel loon krijgt u netto per maand?").fill("1300");
+  await page.getByLabel("Hoeveel kinderalimentatie krijgt u per maand?").fill("200");
   await kies(page, "Heeft u al 5 jaar of langer een laag inkomen?", "Nee");
   await geenToegankelijkheidsfouten(page);
   await page.getByRole("button", { name: "Volgende stap" }).click();
 
-  await kies(page, "Waar woont u?", "In een huurwoning met een eigen voordeur, keuken, wc en douche");
-  await page.getByLabel("Kale huur per maand").fill("750");
-  await kies(page, "Wonen er nog andere mensen bij u in huis?", "Nee");
+  await expect(page.getByRole("heading", { level: 1, name: "Geld en bezit" })).toBeFocused();
   const bezit = page.getByRole("group", { name: "Wat heeft u?" });
   await bezit.getByLabel("Geld op een spaarrekening").check();
   await bezit.getByLabel("Een auto, motor of scooter").check();
@@ -72,6 +76,30 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
   expect(extern).toEqual([]);
 });
 
+test("stel: per persoon een bedrag per soort inkomen, met welke uitkering", async ({ page }) => {
+  await page.goto(ADRES);
+  await page.getByRole("button", { name: "Begin de check" }).click();
+  await kies(page, "Woont u in de gemeente Leiden?", "Ja");
+  await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(40));
+  await kies(page, "Woont u samen met een partner?", "Ja");
+  await page.getByLabel("Geboortedatum van uw partner", { exact: true }).fill(jaar(38));
+  await kies(page, "Wonen er kinderen bij u?", "Nee");
+  await kies(page, "Waar woont u?", "Op een kamer, of in een woning waar ik de keuken, wc of douche deel");
+  await kies(page, "Woont er nog iemand anders bij u?", "Nee");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await kies(page, "Krijgt u samen bijstand van de gemeente?", "Nee");
+  await page.getByRole("group", { name: "Wat voor inkomen heeft u?" }).getByLabel("Een uitkering van UWV").check();
+  await kies(page, "Welke uitkering krijgt u?", "Wajong");
+  await page.getByLabel("Hoeveel uitkering krijgt u netto per maand?").fill("1500");
+  await page.getByRole("group", { name: "Wat voor inkomen heeft uw partner?" }).getByLabel("Geen inkomen").check();
+  await kies(page, "Heeft u al 5 jaar of langer een laag inkomen?", "Ja");
+  await geenToegankelijkheidsfouten(page);
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("group", { name: "Wat hebben u en uw partner samen?" }).getByLabel("Niets van dit").check();
+  await page.getByRole("button", { name: "Bekijk het overzicht" }).click();
+  await expect(page.locator(".groep.ja").getByRole("heading", { level: 3, name: "Tegemoetkoming voor alleenverdieners" })).toBeVisible();
+});
+
 test("niet in Leiden: de check zegt dat hij alleen voor Leiden is", async ({ page }) => {
   await page.goto(ADRES);
   await page.getByRole("button", { name: "Begin de check" }).click();
@@ -86,14 +114,14 @@ test("met bijstand: geen vragen over het inkomen, wel de Sleutelpas vanzelf", as
   await kies(page, "Woont u in de gemeente Leiden?", "Ja");
   await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(45));
   await kies(page, "Woont u samen met een partner?", "Nee");
-  await kies(page, "Heeft u kinderen die bij u wonen?", "Nee");
+  await kies(page, "Wonen er kinderen bij u?", "Nee");
+  await kies(page, "Waar woont u?", "In een koopwoning");
+  await kies(page, "Woont er nog iemand anders bij u?", "Nee");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await kies(page, "Krijgt u bijstand van de gemeente?", "Ja");
   await expect(page.getByRole("group", { name: "Wat voor inkomen heeft u?" })).toHaveCount(0);
   await kies(page, "Heeft u al 5 jaar of langer een laag inkomen?", "Weet ik niet");
   await page.getByRole("button", { name: "Volgende stap" }).click();
-  await kies(page, "Waar woont u?", "In een koopwoning");
-  await kies(page, "Wonen er nog andere mensen bij u in huis?", "Nee");
   await page.getByRole("group", { name: "Wat heeft u?" }).getByLabel("Niets van dit").check();
   await page.getByRole("button", { name: "Bekijk het overzicht" }).click();
   await expect(page.locator(".groep.ja .regeling").filter({ has: page.getByRole("heading", { level: 3, name: "Sleutelpas", exact: true }) })).toContainText("vanzelf");

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { CITATEN, type Inkomenssoort } from "@leidenwerkt/engine";
+import { CITATEN, type Inkomenssoort, type Uitkeringssoort } from "@leidenwerkt/engine";
 import { Bron, Datum, Keuze, Veld, Vinkjes } from "@leidenwerkt/ui";
-import { bronVan, controleer, leegFormulier, minderjarigen, vraagHuur, vraagInkomen, vraagLangLaag, vraagNetto, vraagStudie, type Fouten, type Formulier } from "./formulier.ts";
+import { bedragId, bedragSoorten, bronVan, controleer, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagInkomen, vraagLangLaag, vraagStudie, type Bedragsoort, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Overzicht } from "./Overzicht.tsx";
 
-const STAPPEN = ["Uw huishouden", "Uw inkomen", "Wonen en geld", "Overzicht"];
+const STAPPEN = ["Uw huishouden", "Uw inkomen", "Geld en bezit", "Overzicht"];
 const JA_NEE: ["ja" | "nee", string][] = [
   ["nee", "Nee"],
   ["ja", "Ja"],
@@ -98,7 +98,7 @@ export function App() {
 
         {stap === 1 && <StapHuishouden f={f} zet={zet} fouten={zichtbareFouten} />}
         {stap === 2 && <StapInkomen f={f} zet={zet} fouten={zichtbareFouten} />}
-        {stap === 3 && <StapWonen f={f} zet={zet} fouten={zichtbareFouten} />}
+        {stap === 3 && <StapGeld f={f} zet={zet} fouten={zichtbareFouten} />}
         {stap === 4 && <Overzicht f={f} />}
 
         {stap > 0 && (
@@ -192,6 +192,7 @@ function naarVraag(id: string) {
 }
 
 function StapHuishouden({ f, zet, fouten }: StapProps) {
+  const paar = f.partner === "ja";
   return (
     <section>
       <Keuze naam="leiden" legend="Woont u in de gemeente Leiden?" waarde={f.leiden} onChange={(v) => zet("leiden", v)} fout={fouten.leiden} opties={JA_NEE} />
@@ -231,7 +232,11 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
       )}
 
       <h2 className="deel">Kinderen</h2>
-      <Keuze naam="heeftKinderen" legend="Heeft u kinderen die bij u wonen?" waarde={f.heeftKinderen} onChange={(v) => zet("heeftKinderen", v)} fout={fouten.heeftKinderen} opties={JA_NEE} />
+      <Keuze
+        naam="heeftKinderen"
+        legend="Wonen er kinderen bij u?"
+        hint="Tel ook kinderen van 18 jaar of ouder. Woont uw kind een deel van de week bij u? Tel het dan ook mee."
+        waarde={f.heeftKinderen} onChange={(v) => zet("heeftKinderen", v)} fout={fouten.heeftKinderen} opties={JA_NEE} />
       {f.heeftKinderen === "ja" && (
         <>
           {f.kinderen.map((k, i) => (
@@ -274,105 +279,8 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           )}
         </>
       )}
-    </section>
-  );
-}
 
-const SOORTEN: [Inkomenssoort, string][] = [
-  ["loon", "Loon uit werk"],
-  ["uwv", "Een uitkering van UWV, zoals WW, Wajong of WIA"],
-  ["bedrijf", "Inkomen uit een eigen bedrijf"],
-  ["studiefinanciering", "Studiefinanciering"],
-  ["ander", "Ander inkomen, zoals alimentatie of pensioen"],
-  ["geen", "Geen inkomen"],
-];
-const nettoHint =
-  "Netto is het bedrag dat u op uw bankrekening krijgt. Vul het bedrag in zonder vakantiegeld. Krijgt u elke maand een ander bedrag? Tel dan de laatste 3 maanden bij elkaar op. Deel dat door 3.";
-
-function StapInkomen({ f, zet, fouten }: StapProps) {
-  const paar = f.partner === "ja";
-  return (
-    <section>
-      <Keuze
-        naam="bijstand"
-        legend={paar ? "Krijgt u samen bijstand van de gemeente?" : "Krijgt u bijstand van de gemeente?"}
-        waarde={f.bijstand}
-        onChange={(v) => zet("bijstand", v)}
-        fout={fouten.bijstand}
-        opties={JA_NEE}
-      />
-      {vraagInkomen(f) && (
-        <>
-          <Vinkjes naam="soorten" legend="Wat voor inkomen heeft u?" hint="U kunt meer dan één antwoord kiezen." opties={SOORTEN} alleen="geen" waarde={f.soorten} onChange={(v) => zet("soorten", v)} fout={fouten.soorten} />
-          {vraagNetto(f.soorten) && (
-            <Veld id="netto" label="Hoeveel inkomen heeft u netto per maand?" hint={nettoHint} voorbeeld="bijv. 1.400" voorvoegsel="€" waarde={f.netto} onChange={(v) => zet("netto", v)} fout={fouten.netto} />
-          )}
-          {paar && (
-            <>
-              <Vinkjes
-                naam="partnerSoorten"
-                legend="Wat voor inkomen heeft uw partner?"
-                hint="U kunt meer dan één antwoord kiezen."
-                opties={SOORTEN}
-                alleen="geen"
-                waarde={f.partnerSoorten}
-                onChange={(v) => zet("partnerSoorten", v)}
-                fout={fouten.partnerSoorten}
-              />
-              {vraagNetto(f.partnerSoorten) && (
-                <Veld
-                  id="partnerNetto"
-                  label="Hoeveel inkomen heeft uw partner netto per maand?"
-                  hint={nettoHint}
-                  voorbeeld="bijv. 1.400"
-                  voorvoegsel="€"
-                  waarde={f.partnerNetto}
-                  onChange={(v) => zet("partnerNetto", v)}
-                  fout={fouten.partnerNetto}
-                />
-              )}
-            </>
-          )}
-        </>
-      )}
-      {vraagStudie(f) && (
-        <Keuze
-          naam="studieMedisch"
-          legend="Kunt u door ziekte of een handicap niet werken naast uw studie?"
-          hint={
-            <p className="bron-blok">
-              Bron: <Bron citaat={CITATEN.pw36b} />
-            </p>
-          }
-          waarde={f.studieMedisch}
-          onChange={(v) => zet("studieMedisch", v)}
-          fout={fouten.studieMedisch}
-          opties={JA_NEE}
-        />
-      )}
-      {vraagLangLaag(f) && (
-        <Keuze
-          naam="langLaag"
-          legend="Heeft u al 5 jaar of langer een laag inkomen?"
-          hint="Laag betekent: niet hoger dan de bijstand."
-          waarde={f.langLaag}
-          onChange={(v) => zet("langLaag", v)}
-          fout={fouten.langLaag}
-          opties={[
-            ["nee", "Nee"],
-            ["ja", "Ja"],
-            ["onbekend", "Weet ik niet"],
-          ]}
-        />
-      )}
-    </section>
-  );
-}
-
-function StapWonen({ f, zet, fouten }: StapProps) {
-  const paar = f.partner === "ja";
-  return (
-    <section>
+      <h2 className="deel">Wonen</h2>
       <Keuze
         naam="woont"
         legend="Waar woont u?"
@@ -410,7 +318,7 @@ function StapWonen({ f, zet, fouten }: StapProps) {
         <Veld
           id="kaleHuur"
           label="Kale huur per maand"
-          hint="De kale huur is de huur zonder servicekosten en zonder gas, water en licht. Die staat in uw huurcontract of op het overzicht van de verhuurder."
+          hint="De kale huur is de huur zonder servicekosten. Gas, water en licht tellen ook niet mee. U vindt de kale huur in uw huurcontract. Of op het overzicht van uw verhuurder."
           voorbeeld="bijv. 750"
           voorvoegsel="€"
           waarde={f.kaleHuur}
@@ -420,15 +328,145 @@ function StapWonen({ f, zet, fouten }: StapProps) {
       )}
       <Keuze
         naam="andereBewoners"
-        legend="Wonen er nog andere mensen bij u in huis?"
-        hint={paar ? "Niet uw partner en niet uw kinderen." : "Niet uw kinderen."}
+        legend="Woont er nog iemand anders bij u?"
+        hint="Bijvoorbeeld een vriend of familielid. Uw partner en uw kinderen tellen hier niet mee."
         waarde={f.andereBewoners}
         onChange={(v) => zet("andereBewoners", v)}
         fout={fouten.andereBewoners}
         opties={JA_NEE}
       />
 
-      <h2 className="deel">Geld en bezit</h2>
+    </section>
+  );
+}
+
+const SOORTEN: [Inkomenssoort, string][] = [
+  ["loon", "Loon uit werk"],
+  ["uwv", "Een uitkering van UWV"],
+  ["bedrijf", "Inkomen uit een eigen bedrijf"],
+  ["studiefinanciering", "Studiefinanciering"],
+  ["partneralimentatie", "Partneralimentatie"],
+  ["kinderalimentatie", "Kinderalimentatie"],
+  ["ander", "Ander inkomen, zoals pensioen"],
+  ["geen", "Geen inkomen"],
+];
+const UITKERINGEN: [Uitkeringssoort, string][] = [
+  ["ww", "WW"],
+  ["wajong", "Wajong"],
+  ["wia", "WIA of WAO"],
+  ["ziektewet", "Ziektewet"],
+  ["anders", "Een andere uitkering"],
+];
+/** De vraag naar het bedrag per soort inkomen. Netto-uitleg alleen bij bedragen waar belasting af gaat. */
+const BEDRAGVRAAG: Record<Bedragsoort, { u: string; partner: string; netto: boolean }> = {
+  loon: { u: "Hoeveel loon krijgt u netto per maand?", partner: "Hoeveel loon krijgt uw partner netto per maand?", netto: true },
+  uwv: { u: "Hoeveel uitkering krijgt u netto per maand?", partner: "Hoeveel uitkering krijgt uw partner netto per maand?", netto: true },
+  bedrijf: { u: "Hoeveel verdient u netto per maand met uw eigen bedrijf?", partner: "Hoeveel verdient uw partner netto per maand met het eigen bedrijf?", netto: true },
+  studiefinanciering: { u: "Hoeveel studiefinanciering krijgt u per maand?", partner: "Hoeveel studiefinanciering krijgt uw partner per maand?", netto: false },
+  partneralimentatie: { u: "Hoeveel partneralimentatie krijgt u per maand?", partner: "Hoeveel partneralimentatie krijgt uw partner per maand?", netto: false },
+  kinderalimentatie: { u: "Hoeveel kinderalimentatie krijgt u per maand?", partner: "Hoeveel kinderalimentatie krijgt uw partner per maand?", netto: false },
+  ander: { u: "Hoeveel ander inkomen krijgt u netto per maand?", partner: "Hoeveel ander inkomen krijgt uw partner netto per maand?", netto: true },
+};
+const nettoHint =
+  "Netto is het bedrag dat u op uw bankrekening krijgt. Vul het bedrag in zonder vakantiegeld. Krijgt u elke maand een ander bedrag? Tel dan de laatste 3 maanden bij elkaar op. Deel dat door 3.";
+
+function InkomenBlok({ v, partner, onChange, fouten }: { v: InkomenVelden; partner: boolean; onChange: (v: InkomenVelden) => void; fouten: Fouten }) {
+  return (
+    <>
+      {partner && <h2 className="deel">Inkomen van uw partner</h2>}
+      <Vinkjes
+        naam={soortenId(partner)}
+        legend={partner ? "Wat voor inkomen heeft uw partner?" : "Wat voor inkomen heeft u?"}
+        hint="U kunt meer antwoorden kiezen."
+        opties={SOORTEN}
+        alleen="geen"
+        waarde={v.soorten}
+        onChange={(soorten) => onChange({ ...v, soorten })}
+        fout={fouten[soortenId(partner)]}
+      />
+      {v.soorten.includes("uwv") && (
+        <Keuze
+          naam={uitkeringId(partner)}
+          legend={partner ? "Welke uitkering krijgt uw partner?" : "Welke uitkering krijgt u?"}
+          opties={UITKERINGEN}
+          waarde={v.uitkering}
+          onChange={(uitkering) => onChange({ ...v, uitkering })}
+          fout={fouten[uitkeringId(partner)]}
+        />
+      )}
+      {bedragSoorten(v).map((s) => (
+        <Veld
+          key={s}
+          id={bedragId(partner, s)}
+          label={partner ? BEDRAGVRAAG[s].partner : BEDRAGVRAAG[s].u}
+          hint={BEDRAGVRAAG[s].netto ? nettoHint : undefined}
+          voorbeeld="bijv. 1.400"
+          voorvoegsel="€"
+          waarde={v.bedragen[s] ?? ""}
+          onChange={(bedrag) => onChange({ ...v, bedragen: { ...v.bedragen, [s]: bedrag } })}
+          fout={fouten[bedragId(partner, s)]}
+        />
+      ))}
+    </>
+  );
+}
+
+function StapInkomen({ f, zet, fouten }: StapProps) {
+  const paar = f.partner === "ja";
+  return (
+    <section>
+      <Keuze
+        naam="bijstand"
+        legend={paar ? "Krijgt u samen bijstand van de gemeente?" : "Krijgt u bijstand van de gemeente?"}
+        waarde={f.bijstand}
+        onChange={(v) => zet("bijstand", v)}
+        fout={fouten.bijstand}
+        opties={JA_NEE}
+      />
+      {vraagInkomen(f) && (
+        <>
+          <InkomenBlok v={f.inkomen} partner={false} onChange={(v) => zet("inkomen", v)} fouten={fouten} />
+          {paar && <InkomenBlok v={f.partnerInkomen} partner onChange={(v) => zet("partnerInkomen", v)} fouten={fouten} />}
+        </>
+      )}
+      {vraagStudie(f) && (
+        <Keuze
+          naam="studieMedisch"
+          legend="Kunt u door ziekte of een handicap niet werken naast uw studie?"
+          hint={
+            <p className="bron-blok">
+              Bron: <Bron citaat={CITATEN.pw36b} />
+            </p>
+          }
+          waarde={f.studieMedisch}
+          onChange={(v) => zet("studieMedisch", v)}
+          fout={fouten.studieMedisch}
+          opties={JA_NEE}
+        />
+      )}
+      {vraagLangLaag(f) && (
+        <Keuze
+          naam="langLaag"
+          legend="Heeft u al 5 jaar of langer een laag inkomen?"
+          hint="Laag betekent: niet hoger dan de bijstand."
+          waarde={f.langLaag}
+          onChange={(v) => zet("langLaag", v)}
+          fout={fouten.langLaag}
+          opties={[
+            ["nee", "Nee"],
+            ["ja", "Ja"],
+            ["onbekend", "Weet ik niet"],
+          ]}
+        />
+      )}
+    </section>
+  );
+}
+
+function StapGeld({ f, zet, fouten }: StapProps) {
+  const paar = f.partner === "ja";
+  return (
+    <section>
       <Vinkjes
         naam="bezit"
         legend={paar ? "Wat hebben u en uw partner samen?" : "Wat heeft u?"}
@@ -445,7 +483,8 @@ function StapWonen({ f, zet, fouten }: StapProps) {
           ["betaal", "Geld op een betaalrekening"],
           ["spaar", "Geld op een spaarrekening"],
           ["voertuig", "Een auto, motor of scooter"],
-          ["overig", "Andere dingen die veel geld waard zijn, of contant geld"],
+          ["beleggingen", "Contant geld, aandelen of andere beleggingen"],
+          ["spullen", "Spullen die veel geld waard zijn, zoals sieraden of een boot"],
           ["schuld", "Schulden"],
           ["niets", "Niets van dit"],
         ]}
@@ -503,15 +542,26 @@ function StapWonen({ f, zet, fouten }: StapProps) {
           </button>
         </>
       )}
-      {f.bezit.includes("overig") && (
+      {f.bezit.includes("beleggingen") && (
         <Veld
-          id="overig"
-          label={paar ? "Hoeveel zijn deze dingen en het contante geld van u en uw partner samen waard?" : "Hoeveel zijn deze dingen en uw contante geld samen waard?"}
+          id="beleggingen"
+          label={paar ? "Hoeveel contant geld en beleggingen hebben u en uw partner samen?" : "Hoeveel contant geld en beleggingen heeft u?"}
           voorbeeld="bijv. 500"
           voorvoegsel="€"
-          waarde={f.overig}
-          onChange={(v) => zet("overig", v)}
-          fout={fouten.overig}
+          waarde={f.beleggingen}
+          onChange={(v) => zet("beleggingen", v)}
+          fout={fouten.beleggingen}
+        />
+      )}
+      {f.bezit.includes("spullen") && (
+        <Veld
+          id="spullen"
+          label="Hoeveel zijn deze spullen samen waard?"
+          voorbeeld="bijv. 1.000"
+          voorvoegsel="€"
+          waarde={f.spullen}
+          onChange={(v) => zet("spullen", v)}
+          fout={fouten.spullen}
         />
       )}
       {f.bezit.includes("schuld") && (

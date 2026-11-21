@@ -1,12 +1,33 @@
 /**
  * Het formulier van Leidenrekent: wat iemand invult, de controle per stap en de vertaling naar de rekenkern.
  * Er wordt niets bewaard: alles staat alleen in het geheugen van de pagina.
+ *
+ * Stappen: 1 Uw huishouden (met wonen), 2 Uw inkomen, 3 Geld en bezit, 4 Overzicht.
  */
-import { Lezer, naarCitaat, standaardRegels, type CheckInvoer, type CheckPersoon, type Citaat, type Inkomenssoort, type Woonsoort } from "@leidenwerkt/engine";
+import {
+  Lezer,
+  naarCitaat,
+  standaardRegels,
+  type CheckInvoer,
+  type CheckPersoon,
+  type Citaat,
+  type Inkomenssoort,
+  type Uitkeringssoort,
+  type Woonsoort,
+} from "@leidenwerkt/engine";
 import { getal, isoDatum, leeftijdOp, type Geboortedatum } from "@leidenwerkt/ui/invoer";
 
 export type JaNee = "" | "ja" | "nee";
-export type Bezit = "betaal" | "spaar" | "voertuig" | "overig" | "schuld" | "niets";
+export type Bezit = "betaal" | "spaar" | "voertuig" | "beleggingen" | "spullen" | "schuld" | "niets";
+/** Een soort inkomen met een bedrag (alles behalve "geen"). */
+export type Bedragsoort = Exclude<Inkomenssoort, "geen">;
+
+/** Het inkomen van één persoon: welke soorten, het bedrag per soort, en welke uitkering. */
+export interface InkomenVelden {
+  soorten: Inkomenssoort[];
+  bedragen: Partial<Record<Bedragsoort, string>>;
+  uitkering: "" | Uitkeringssoort;
+}
 
 export interface Formulier {
   leiden: JaNee;
@@ -16,25 +37,26 @@ export interface Formulier {
   heeftKinderen: JaNee;
   kinderen: Geboortedatum[];
   kinderbijslag: JaNee;
-  bijstand: JaNee;
-  soorten: Inkomenssoort[];
-  netto: string;
-  partnerSoorten: Inkomenssoort[];
-  partnerNetto: string;
-  langLaag: "" | "ja" | "nee" | "onbekend";
-  studieMedisch: JaNee;
   woont: "" | Woonsoort;
   kaleHuur: string;
   andereBewoners: JaNee;
+  bijstand: JaNee;
+  inkomen: InkomenVelden;
+  partnerInkomen: InkomenVelden;
+  langLaag: "" | "ja" | "nee" | "onbekend";
+  studieMedisch: JaNee;
   /** Welke soorten geld en bezit iemand heeft. */
   bezit: Bezit[];
   betaalrekening: string;
   spaarrekening: string;
   /** Waarde per auto, motor of scooter. */
   voertuigen: string[];
-  overig: string;
+  beleggingen: string;
+  spullen: string;
   schulden: string;
 }
+
+const leegInkomen: InkomenVelden = { soorten: [], bedragen: {}, uitkering: "" };
 
 export const leegFormulier: Formulier = {
   leiden: "",
@@ -44,21 +66,20 @@ export const leegFormulier: Formulier = {
   heeftKinderen: "",
   kinderen: [""],
   kinderbijslag: "",
-  bijstand: "",
-  soorten: [],
-  netto: "",
-  partnerSoorten: [],
-  partnerNetto: "",
-  langLaag: "",
-  studieMedisch: "",
   woont: "",
   kaleHuur: "",
   andereBewoners: "",
+  bijstand: "",
+  inkomen: leegInkomen,
+  partnerInkomen: leegInkomen,
+  langLaag: "",
+  studieMedisch: "",
   bezit: [],
   betaalrekening: "",
   spaarrekening: "",
   voertuigen: [""],
-  overig: "",
+  beleggingen: "",
+  spullen: "",
   schulden: "",
 };
 
@@ -79,11 +100,17 @@ const metPartner = (f: Formulier) => f.partner === "ja";
 const kinderen = (f: Formulier) => (f.heeftKinderen === "ja" ? f.kinderen : []);
 export const minderjarigen = (f: Formulier) => kinderen(f).filter((k) => (leeftijd(k) ?? 99) < 18).length;
 
+/** Het id van het bedragveld, voor de aanvrager of de partner. */
+export const bedragId = (partner: boolean, s: Bedragsoort) => `${partner ? "partnerInkomen" : "inkomen"}_${s}`;
+export const uitkeringId = (partner: boolean) => (partner ? "partnerUitkering" : "uitkering");
+export const soortenId = (partner: boolean) => (partner ? "partnerSoorten" : "soorten");
+
 /** Vragen die alleen in bepaalde situaties komen. */
 export const vraagInkomen = (f: Formulier) => f.bijstand === "nee";
-export const vraagNetto = (s: Inkomenssoort[]) => s.length > 0 && !s.includes("geen");
-export const vraagLangLaag = (f: Formulier) => (leeftijd(f.geboren) ?? 0) >= 23 && !f.soorten.includes("studiefinanciering");
-export const vraagStudie = (f: Formulier) => vraagInkomen(f) && f.soorten.includes("studiefinanciering");
+export const bedragSoorten = (v: InkomenVelden): Bedragsoort[] => v.soorten.filter((s): s is Bedragsoort => s !== "geen");
+const studeert = (f: Formulier) => vraagInkomen(f) && f.inkomen.soorten.includes("studiefinanciering");
+export const vraagLangLaag = (f: Formulier) => (leeftijd(f.geboren) ?? 0) >= 23 && !studeert(f);
+export const vraagStudie = studeert;
 export const vraagHuur = (f: Formulier) => f.woont === "huur";
 
 export type Fouten = Partial<Record<string, string>>;
@@ -91,8 +118,8 @@ export type Fouten = Partial<Record<string, string>>;
 export function controleer(f: Formulier, stap: number): Fouten {
   const fouten: Fouten = {};
   const kies = "Kies een antwoord.";
-  const bedrag = (veld: keyof Formulier | string, tekst: string, maxi: number, melding: string) => {
-    const n = getal(tekst);
+  const bedrag = (veld: string, tekst: string | undefined, maxi: number, melding: string) => {
+    const n = getal(tekst ?? "");
     if (n === undefined) fouten[veld] = "Vul dit in.";
     else if (Number.isNaN(n) || n < 0 || n > maxi) fouten[veld] = melding;
   };
@@ -105,6 +132,11 @@ export function controleer(f: Formulier, stap: number): Fouten {
       if (l < min || l > maxi) fouten[veld] = melding;
     }
   };
+  const inkomen = (v: InkomenVelden, partner: boolean) => {
+    if (v.soorten.length === 0) fouten[soortenId(partner)] = "Kies minstens één antwoord.";
+    if (v.soorten.includes("uwv") && !v.uitkering) fouten[uitkeringId(partner)] = kies;
+    for (const s of bedragSoorten(v)) bedrag(bedragId(partner, s), v.bedragen[s], 20000, "Vul een bedrag per maand in, bijvoorbeeld 1.400.");
+  };
   if (stap === 1) {
     if (!f.leiden) fouten.leiden = kies;
     else if (f.leiden === "nee") fouten.leiden = "Leidenrekent is alleen voor inwoners van de gemeente Leiden.";
@@ -114,66 +146,65 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (!f.heeftKinderen) fouten.heeftKinderen = kies;
     kinderen(f).forEach((k, i) => datum(`kind${i}`, k, 0, 30, "Vul de geboortedatum van uw kind in.", true));
     if (minderjarigen(f) > 0 && !f.kinderbijslag) fouten.kinderbijslag = kies;
+    if (!f.woont) fouten.woont = kies;
+    if (vraagHuur(f)) {
+      const n = getal(f.kaleHuur);
+      if (n === undefined) fouten.kaleHuur = "Vul dit in.";
+      else if (Number.isNaN(n) || n < 1 || n > 3000) fouten.kaleHuur = "Vul de kale huur per maand in, bijvoorbeeld 750.";
+    }
+    if (!f.andereBewoners) fouten.andereBewoners = kies;
   }
   if (stap === 2) {
     if (!f.bijstand) fouten.bijstand = kies;
     if (vraagInkomen(f)) {
-      if (f.soorten.length === 0) fouten.soorten = "Kies minstens één antwoord.";
-      if (vraagNetto(f.soorten)) bedrag("netto", f.netto, 20000, "Vul een bedrag per maand in, bijvoorbeeld 1.400.");
-      if (metPartner(f)) {
-        if (f.partnerSoorten.length === 0) fouten.partnerSoorten = "Kies minstens één antwoord.";
-        if (vraagNetto(f.partnerSoorten)) bedrag("partnerNetto", f.partnerNetto, 20000, "Vul een bedrag per maand in, bijvoorbeeld 1.400.");
-      }
+      inkomen(f.inkomen, false);
+      if (metPartner(f)) inkomen(f.partnerInkomen, true);
     }
     if (vraagLangLaag(f) && !f.langLaag) fouten.langLaag = kies;
     if (vraagStudie(f) && !f.studieMedisch) fouten.studieMedisch = kies;
   }
   if (stap === 3) {
-    if (!f.woont) fouten.woont = kies;
-    if (vraagHuur(f)) {
-      const n = getal(f.kaleHuur);
-      if (n === undefined) fouten.kaleHuur = "Vul dit in.";
-      else if (Number.isNaN(n) || n < 1 || n > 3000) fouten.kaleHuur = "Vul de kale huur per maand in. Die staat in uw huurcontract of op het overzicht van de verhuurder.";
-    }
-    if (!f.andereBewoners) fouten.andereBewoners = kies;
     if (f.bezit.length === 0) fouten.bezit = "Kies minstens één antwoord.";
     const melding = "Vul een bedrag in, bijvoorbeeld 2.500.";
     if (f.bezit.includes("betaal")) bedrag("betaalrekening", f.betaalrekening, 10_000_000, melding);
     if (f.bezit.includes("spaar")) bedrag("spaarrekening", f.spaarrekening, 10_000_000, melding);
-    if (f.bezit.includes("voertuig")) f.voertuigen.forEach((v, i) => bedrag(`voertuig${i}` as keyof Formulier, v, 10_000_000, melding));
-    if (f.bezit.includes("overig")) bedrag("overig", f.overig, 10_000_000, melding);
+    if (f.bezit.includes("voertuig")) f.voertuigen.forEach((v, i) => bedrag(`voertuig${i}`, v, 10_000_000, melding));
+    if (f.bezit.includes("beleggingen")) bedrag("beleggingen", f.beleggingen, 10_000_000, melding);
+    if (f.bezit.includes("spullen")) bedrag("spullen", f.spullen, 10_000_000, melding);
     if (f.bezit.includes("schuld")) bedrag("schulden", f.schulden, 10_000_000, melding);
   }
   return fouten;
 }
 
-const persoon = (geboren: Geboortedatum, soorten: Inkomenssoort[], netto: string): CheckPersoon => ({
+const persoon = (geboren: Geboortedatum, v: InkomenVelden | undefined): CheckPersoon => ({
   leeftijd: leeftijd(geboren) ?? 0,
-  soorten,
-  nettoPerMaand: vraagNetto(soorten) ? (getal(netto) ?? 0) : 0,
+  inkomen: v ? Object.fromEntries(bedragSoorten(v).map((s) => [s, getal(v.bedragen[s] ?? "") ?? 0])) : {},
+  uitkering: v?.soorten.includes("uwv") && v.uitkering ? v.uitkering : undefined,
 });
 
 /** Het ingevulde formulier als invoer voor de rekenkern. Alleen aanroepen als alle stappen goed zijn. */
 export function naarInvoer(f: Formulier): CheckInvoer {
   const bijstand = f.bijstand === "ja";
+  const som = (b: Bezit, t: string) => (f.bezit.includes(b) ? (getal(t) ?? 0) : 0);
   return {
     datum: vandaag(),
-    aanvrager: persoon(f.geboren, bijstand ? ["geen"] : f.soorten, f.netto),
-    partner: metPartner(f) ? persoon(f.partnerGeboren, bijstand ? ["geen"] : f.partnerSoorten, f.partnerNetto) : undefined,
+    aanvrager: persoon(f.geboren, bijstand ? undefined : f.inkomen),
+    partner: metPartner(f) ? persoon(f.partnerGeboren, bijstand ? undefined : f.partnerInkomen) : undefined,
     kinderen: kinderen(f).map((k) => ({ leeftijd: leeftijd(k) ?? 0 })),
     kinderbijslag: minderjarigen(f) > 0 ? f.kinderbijslag === "ja" : undefined,
     bijstand,
-    langLaagInkomen: vraagLangLaag(f) ? (f.langLaag || undefined) : undefined,
-    studieMedisch: vraagStudie(f) ? (f.studieMedisch || undefined) : undefined,
+    langLaagInkomen: vraagLangLaag(f) ? f.langLaag || undefined : undefined,
+    studieMedisch: vraagStudie(f) ? f.studieMedisch || undefined : undefined,
     wonen: f.woont || "huur",
     kaleHuurPerMaand: vraagHuur(f) ? getal(f.kaleHuur) : undefined,
     andereBewoners: f.andereBewoners === "ja",
     vermogen: {
-      betaalrekening: f.bezit.includes("betaal") ? (getal(f.betaalrekening) ?? 0) : 0,
-      spaarrekening: f.bezit.includes("spaar") ? (getal(f.spaarrekening) ?? 0) : 0,
+      betaalrekening: som("betaal", f.betaalrekening),
+      spaarrekening: som("spaar", f.spaarrekening),
       voertuigen: f.bezit.includes("voertuig") ? f.voertuigen.map((v) => getal(v) ?? 0) : [],
-      overig: f.bezit.includes("overig") ? (getal(f.overig) ?? 0) : 0,
-      schulden: f.bezit.includes("schuld") ? (getal(f.schulden) ?? 0) : 0,
+      beleggingen: som("beleggingen", f.beleggingen),
+      spullen: som("spullen", f.spullen),
+      schulden: som("schuld", f.schulden),
     },
   };
 }
