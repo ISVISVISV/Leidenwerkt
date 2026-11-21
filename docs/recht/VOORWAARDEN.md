@@ -45,7 +45,7 @@ De gemeente noemt op [Hulp bij laag inkomen](https://gemeente.leiden.nl/inwoners
 | Woonplaats | "U woont in Leiden." | ✓ | [Gemeente Leiden, individuele inkomenstoeslag](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/individuele-inkomenstoeslag) |
 | Leeftijd | "U bent 23 jaar of ouder, maar u hebt nog niet de AOW-leeftijd bereikt." Volgens de verordening telt de periode van 5 jaar vanaf 18 jaar, dus 23 jaar. De bedragen noemen "21 jaar tot de pensioengerechtigde leeftijd" | ✓ (bevestigd in de praktijk, 21 november 2026) | idem |
 | Inkomen | 5 jaar of langer "een inkomen hebt van maximaal 100% van de geldende bijstandsnorm" | ✓ | idem |
-| Vermogen | "Uw vermogen mag niet te hoog zijn." Geen bedrag op de pagina | ? verordening CVDR634399 | idem |
+| Vermogen | Op de peildatum "geen in aanmerking te nemen vermogen heeft als bedoeld in artikel 34 van de Participatiewet" (toelichting bij de verordening). Dat is de vermogensgrens van de bijstand: alleenstaande € 8.000, alleenstaande ouder € 16.000, gehuwden samen € 16.000 (art. 34 lid 3 Pw) | ✓ | [Gemeenteblad 2019, 316445](https://zoek.officielebekendmakingen.nl/gmb-2019-316445.html), [Participatiewet art. 34](https://wetten.overheid.nl/BWBR0015703/2026-07-01) |
 | Uitgesloten | Studie met studiefinanciering of tegemoetkoming in de afgelopen 5 jaar, een verlaging van de bijstand omdat iemand niet genoeg werk zocht, of de toeslag al gekregen in de afgelopen 12 maanden | ✓ | idem |
 | Bedrag | Alleenstaande € 462, alleenstaande ouder € 577, gehuwden € 635 | ✓ | idem |
 
@@ -88,13 +88,33 @@ De gemeente noemt op [Hulp bij laag inkomen](https://gemeente.leiden.nl/inwoners
 | Wie | In Leiden of Leiderdorp, 15 jaar of ouder, studiefinanciering of tegemoetkoming schoolkosten, geen Wajong, door ziekte of een blijvende medische beperking niet kunnen bijverdienen | ✓ | [Gemeente Leiden, studietoeslag](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/studietoeslag) |
 | Wet | Art. 36b Pw: voor wie "als rechtstreeks gevolg van een ziekte of gebrek structureel niet in staat is naast de studie inkomsten te verwerven", met studiefinanciering of een tegemoetkoming (WTOS) en zonder Wajong. De minimale hoogte staat in een algemene maatregel van bestuur | ✓ | [Participatiewet art. 36b](https://wetten.overheid.nl/BWBR0015703/2026-07-01) |
 | Samen met bijstand | Wie jonger is dan 27 en studiefinanciering kan krijgen, heeft geen recht op algemene bijstand (art. 13 lid 2 c Pw). Studietoeslag en bijstand gaan dus in de regel niet samen | ✓ | idem |
-| Bedrag | De pagina noemt bedragen "geldig vanaf 1 januari 2024" (21 jaar en ouder € 352,80). Mogelijk verouderd | ? bedragen 2026 in de algemene maatregel van bestuur nazoeken | [Gemeente Leiden, studietoeslag](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/studietoeslag) |
+| Bedrag | Wettelijk minimum per maand sinds 1 juli 2026: 21 jaar en ouder € 390,07, 20 jaar € 312,06, 19 jaar € 234,05, 18 jaar € 195,04, 17 jaar € 154,08, 16 jaar € 134,58, 15 jaar € 117,03 (art. 7a) | ✓ | [Besluit loonkostensubsidie en minimumbedragen studietoeslag Participatiewet 2021](https://wetten.overheid.nl/BWBR0044894/2026-07-01) |
+| Bedrag op de site van de gemeente | "geldig vanaf 1 januari 2024", 21 jaar en ouder € 352,80. Dat is lager dan het wettelijke minimum van nu | ! de pagina van de gemeente is verouderd | [Gemeente Leiden, studietoeslag](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/studietoeslag) |
 
-### Nog niet gevonden (website van de gemeente gaf geen antwoord)
+### Gemeentepolis (collectieve aanvullende zorgverzekering)
 
-- **Collectieve aanvullende zorgverzekering (Gemeentepolis):** grens 120% al bekend uit Leidenwerkt. Vermogen nog niet.
-- **Zwemabonnement voor de zomer:** grens 120% van de bijstandsnorm al bekend (Beleidsregels bijzondere bijstand 2022, art. 12). Vermogen nog niet.
-- **Hulp bij kosten schoolgaande kinderen.**
+| Voorwaarde | Uit de bron | Status | Bron |
+| --- | --- | --- | --- |
+| Inkomen | "voor inwoners van Leiden met een inkomen tot 120% van het sociaal minimum", dezelfde tabel als het Volwassenenfonds. Zzp'ers: jaarinkomen tot € 18.567,29 (alleenstaand) of € 26.524,66 (samenwonend). Jongeren van 18 tot 21 zonder steun van hun ouders: tot € 1.057,08 | ✓ | [Gemeente Leiden, collectieve aanvullende zorgverzekering](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/collectieve-aanvullende-zorgverzekering/) |
+| Vermogen | Niet genoemd | ✓ (geen grens op de pagina) | idem |
+| Aanvragen | Nieuwe klanten tussen 12 november en 31 december. Wie al bij Zorg en Zekerheid verzekerd is, op elk moment | ✓ | idem |
+
+### Sleutelpas met kindtegoed, de bedragen van de gemeente
+
+| Voorwaarde | Uit de bron | Status | Bron |
+| --- | --- | --- | --- |
+| Inkomen 130% | Netto per maand zonder vakantiegeld: eenoudergezin 21 tot AOW € 1.753,04, eenoudergezin AOW € 1.960,36, tweeoudergezin 21 tot AOW € 2.504,32, tweeoudergezin AOW € 2.687,48 | ✓ | [Gemeente Leiden, hulp bij kosten schoolgaande kinderen](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/hulp-bij-kosten-schoolgaande-kinderen/) |
+| Laptop | Een voucher op de Sleutelpas: kinderen van 4 t/m 11 één laptop per huishouden per 5 jaar, kinderen van 12 t/m 17 elk een laptop per 5 jaar | ✓ | idem |
+
+### Zwemabonnement voor de zomer
+
+Kan nu niet worden aangevraagd (13 april tot en met 31 juli). De grens van 120% van de bijstandsnorm staat al in de regels van Leidenwerkt (Beleidsregels bijzondere bijstand 2022, art. 12). [Gemeente Leiden, zwemabonnement](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/zwemabonnement-voor-de-zomer/)
+
+### Nog uitzoeken
+
+- **Volwassenentegoed** (art. 3.4 Beleidsregels Kindtegoed): hoogte, en hoe het zich verhoudt tot het Volwassenenfonds. De site met lokale regelgeving gaf een foutmelding.
+- **Kinderopvangtoeslag** in andere situaties dan werk (studie, traject naar werk).
+- **Huurtoeslag:** vermogensgrens 2027.
 - **Kwijtschelding** en **bijzondere bijstand**: later, zoals afgesproken.
 
 ## Vragen voor de praktijk
