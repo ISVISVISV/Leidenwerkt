@@ -101,6 +101,8 @@ const URL = {
   iit: `${LEIDEN}/individuele-inkomenstoeslag`,
   alleenverdieners: `${LEIDEN}/tegemoetkoming-voor-alleenverdieners/`,
   studietoeslag: `${LEIDEN}/studietoeslag`,
+  smi: "https://gemeente.leiden.nl/inwoners-en-ondernemers/zorg-en-onderwijs/kinderopvang/kinderopvang-bij-sociale-of-medische-problemen/",
+  kinderbijslag: "https://www.svb.nl/nl/kinderbijslag/wat-is-kinderbijslag/wat-is-kinderbijslag",
   bijstand: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/bijstand/",
   toeslagen: "https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen",
 };
@@ -391,6 +393,19 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       }),
     );
 
+  // Kinderopvang bij sociale of medische problemen: kinderen jonger dan 4 of op de basisschool (hier: jonger dan 13).
+  if (invoer.kinderen.some((k) => k.leeftijd < 13))
+    uit.push({
+      id: "smi",
+      naam: "Kinderopvang bij sociale of medische problemen",
+      groep: "gemeente",
+      kans: "misschien",
+      waarom:
+        "Heeft u of uw partner lichamelijke, psychische of sociale problemen? En heeft uw kind daarom kinderopvang nodig? Dan kan de gemeente de kinderopvang betalen, voor hoogstens 3 dagen per week. U betaalt wel een eigen bijdrage.",
+      aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.smi },
+      bronnen: [CITATEN.kinderopvangSmi],
+    });
+
   // Bijstand: alleen een melding. Onder de norm en onder de vermogensgrens: misschien recht op bijstand.
   if (!invoer.bijstand)
     uit.push(
@@ -532,6 +547,28 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
       return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Dit is geld voor uw huur. ${v.zin}` };
     }),
   );
+
+  // Kinderbijslag: hangt niet af van het inkomen. Alleen tonen als iemand het nog niet krijgt.
+  const kbKinderen = invoer.kinderen.filter((k) => k.leeftijd < 18);
+  if (kbKinderen.length > 0 && invoer.kinderbijslag === false)
+    uit.push(
+      probeer(() => {
+        const perKwartaal = kbKinderen.reduce(
+          (s, k) => s.plus(l.bedrag(k.leeftijd <= 5 ? "akw.kwartaal.0_5" : k.leeftijd <= 11 ? "akw.kwartaal.6_11" : "akw.kwartaal.12_17")),
+          NUL,
+        );
+        return {
+          id: "kinderbijslag",
+          naam: "Kinderbijslag",
+          groep: "toeslagen",
+          kans: "ja",
+          bedrag: `${euro(perKwartaal)} per kwartaal`,
+          waarom: "Kinderbijslag is geld voor uw kinderen jonger dan 18 jaar. Het hangt niet af van uw inkomen. U vraagt het aan bij de SVB.",
+          aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.kinderbijslag },
+          bronnen: [CITATEN.kinderbijslagWie, ...bron(l, "akw.kwartaal.0_5")],
+        };
+      }),
+    );
 
   if (invoer.kinderen.some((k) => k.leeftijd < 13))
     uit.push({

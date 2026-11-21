@@ -26,7 +26,7 @@ const aantalWillekeurig = optie("willekeurig");
 const zaad = optie("zaad") ?? Date.now() % 100000;
 
 /** Officiële sites waar een aanvraaglink naartoe mag wijzen. */
-const OFFICIEEL = ["leiden.nl", "belastingdienst.nl", "rijksoverheid.nl", "overheid.nl"];
+const OFFICIEEL = ["leiden.nl", "belastingdienst.nl", "rijksoverheid.nl", "overheid.nl", "svb.nl"];
 
 async function main() {
   const vite = await viteVoor(join(wortel, "regelingen"));

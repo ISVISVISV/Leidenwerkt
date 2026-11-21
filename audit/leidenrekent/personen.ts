@@ -190,6 +190,17 @@ export const PERSONEN: Persoon[] = [
     }),
   },
   {
+    naam: "Amina: net in Nederland, nog geen kinderbijslag",
+    f: formulier({
+      geboren: "01-03-1996",
+      heeftKinderen: "ja",
+      kinderen: ["01-03-2024", "01-03-2020"],
+      kinderbijslag: "nee",
+      kaleHuur: "650",
+      inkomen: inkomen({ loon: "1100" }),
+    }),
+  },
+  {
     naam: "Hatice: huisgenoot en een zoon van 20",
     f: formulier({
       geboren: "01-03-1978",

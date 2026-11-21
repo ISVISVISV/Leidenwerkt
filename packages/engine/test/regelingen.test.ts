@@ -243,6 +243,21 @@ describe("soorten inkomen", () => {
   });
 });
 
+describe("kinderbijslag en kinderopvang bij problemen", () => {
+  it("geen kinderbijslag: wel tonen, met het bedrag per kwartaal (€ 298,40 + € 362,35)", () => {
+    const u = uitslag(checkRegelingen(invoer({ kinderen: [{ leeftijd: 3 }, { leeftijd: 8 }], kinderbijslag: false })), "kinderbijslag")!;
+    expect(u.kans).toBe("ja");
+    expect(u.bedrag).toBe("€\u00a0660,75 per kwartaal");
+  });
+  it("al kinderbijslag: niet tonen", () => {
+    expect(kans(invoer({ kinderen: [{ leeftijd: 3 }], kinderbijslag: true }), "kinderbijslag")).toBeUndefined();
+  });
+  it("kinderopvang bij sociale of medische problemen: alleen met een kind jonger dan 13", () => {
+    expect(kans(invoer({ kinderen: [{ leeftijd: 14 }], kinderbijslag: true }), "smi")).toBeUndefined();
+    expect(kans(invoer({ kinderen: [{ leeftijd: 2 }], kinderbijslag: true }), "smi")).toBe("misschien");
+  });
+});
+
 describe("teksten", () => {
   const voorbeelden: CheckInvoer[] = [
     invoer(),

@@ -67,6 +67,20 @@ export const CITATEN = {
     tekst:
       "Schuldregeling: bij een schuldregeling bemiddelt de Stadsbank tussen de schuldenaar en zijn schuldeisers om een minnelijke regeling van de totale schuldenlast te bewerkstelligen; […] Stadsbank: de Stadsbank Leiden, (statutair) gevestigd te Leiden, en kantoorhoudende te 2312 NH Leiden aan de Langegracht 72;",
   },
+  kinderbijslagWie: {
+    titel: "SVB, Wat is kinderbijslag",
+    url: "https://www.svb.nl/nl/kinderbijslag/wat-is-kinderbijslag/wat-is-kinderbijslag",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "Kinderbijslag is een bijdrage in de kosten voor de verzorging van kinderen tot 18 jaar. De betaling is per kwartaal. Heeft u een kind jonger dan 18 jaar? Dan kunt u kinderbijslag krijgen als u hiervoor verzekerd bent. U bent meestal verzekerd voor de kinderbijslag als u in Nederland woont of werkt.",
+  },
+  kinderopvangSmi: {
+    titel: "Gemeente Leiden, Kinderopvang bij sociale of medische problemen",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/zorg-en-onderwijs/kinderopvang/kinderopvang-bij-sociale-of-medische-problemen/",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "Hebt u lichamelijke, psychische of sociale problemen? Of heeft uw partner lichamelijke, psychische of sociale problemen? En wilt u daarom voor uw kind(eren) kinderopvang regelen? Dan kunt u een vergoeding voor de kinderopvangkosten aanvragen. U kunt voor maximaal 3 dagen een vergoeding voor de kinderopvang krijgen. […] Uw kind(eren) is (zijn) jonger dan 4 jaar of zit(ten) op de basisschool. U en/of uw partner krijgen geen andere vergoeding voor de kinderopvangkosten. […] Hou er rekening mee dat u ook een eigen bijdrage moet betalen.",
+  },
   pw13studie: {
     titel: "Participatiewet, art. 13 lid 2 c",
     url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
