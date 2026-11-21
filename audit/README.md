@@ -1,5 +1,7 @@
 # Audit
 
+Dit is de audit van Leidenwerkt. Leidenrekent heeft een eigen audit met dezelfde opzet: zie [leidenrekent/README.md](leidenrekent/README.md).
+
 `npm run audit` rekent de verzonnen personen uit [personen.ts](personen.ts) en [extern/](extern/) door met de echte uitkomstpagina en controleert automatisch wat testers eerder met de hand vonden. Er is geen AI en geen internet voor nodig. Het duurt ongeveer een halve minuut.
 
 ## Wat eruit komt

@@ -37,6 +37,18 @@ jobs:
           status=0; npx tsx scripts/audit.ts --willekeurig 60 --zaad ${{ github.run_number }} || status=$?
           cat audit/rapport-willekeurig.md >> "$GITHUB_STEP_SUMMARY"
           exit $status
+      # Leidenrekent: dezelfde opzet (audit/leidenrekent/README.md), met vaste en willekeurige personen.
+      - name: Audit Leidenrekent
+        run: |
+          status=0; npm run audit:leidenrekent || status=$?
+          cat audit/leidenrekent/rapport.md >> "$GITHUB_STEP_SUMMARY"
+          git diff --exit-code -- audit/leidenrekent/ || { echo "::error::audit/leidenrekent is niet bijgewerkt. Draai npm run audit:leidenrekent en commit de uitvoer."; exit 1; }
+          exit $status
+      - name: Audit Leidenrekent met willekeurige personen
+        run: |
+          status=0; npx tsx scripts/audit-leidenrekent.ts --willekeurig 60 --zaad ${{ github.run_number }} || status=$?
+          cat audit/leidenrekent/rapport-willekeurig.md >> "$GITHUB_STEP_SUMMARY"
+          exit $status
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -46,6 +58,10 @@ jobs:
             audit/uitvoer/
             audit/rapport-willekeurig.md
             audit/willekeurig-fouten.json
+            audit/leidenrekent/rapport.md
+            audit/leidenrekent/uitvoer/
+            audit/leidenrekent/rapport-willekeurig.md
+            audit/leidenrekent/willekeurig-fouten.json
       - run: npm run build:los
       - uses: actions/upload-artifact@v4
         with:

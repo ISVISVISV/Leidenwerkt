@@ -60,13 +60,13 @@ export function Overzicht({ f }: { f: Formulier }) {
 
 function Regeling({ u }: { u: Uitslag }) {
   return (
-    <li className={`regeling ${u.kans}`}>
+    <li className={`regeling ${u.kans}`} data-id={u.id}>
       <h3>{u.naam}</h3>
       {u.bedrag && <p className="bedrag">{u.bedrag}</p>}
-      <p>{u.waarom}</p>
+      <p className="waarom">{u.waarom}</p>
       {u.aanvragen && u.kans !== "nee" && (
         <p>
-          <a href={u.aanvragen.url} target="_blank" rel="noopener noreferrer">
+          <a className="aanvraag" href={u.aanvragen.url} target="_blank" rel="noopener noreferrer">
             {u.aanvragen.tekst}
             <span className="sr"> (opent in een nieuw venster)</span>
           </a>
