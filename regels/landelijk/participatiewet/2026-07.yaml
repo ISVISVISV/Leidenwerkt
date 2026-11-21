@@ -276,3 +276,18 @@ parameters:
     status: geverifieerd
     bron: *st7a
     citaat: *cst7a
+  - id: pw.norm.jong.alleenstaande
+    omschrijving: Jongerennorm, alleenstaande (ouder) van 18, 19 of 20 jaar, netto incl. vakantietoeslag, zonder de verhoging van lid 3 (art. 20 lid 1 a en lid 2 a Pw)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "350.42" }
+    status: geverifieerd
+    bron:
+      titel: Participatiewet art. 20 (wetten.overheid.nl, versie 1 juli 2026)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01
+      geraadpleegd_op: 2026-11-21
+    citaat:
+      kop: "Participatiewet, art. 20"
+      tekst: "1 Voor belanghebbenden jonger dan 21 jaar zonder ten laste komende kinderen is de norm per kalendermaand, indien het betreft: a. een alleenstaande van 18, 19 of 20 jaar: € 350,42; […] 2 Voor belanghebbenden jonger dan 21 jaar met een of meer ten laste komende kinderen is de norm per kalendermaand, indien het betreft: a. een alleenstaande ouder van 18, 19 of 20 jaar: € 350,42; […] 3 Voor belanghebbenden van 18, 19 of 20 jaar verhoogt het college de norm met een bedrag van € 762,24, indien die belanghebbende voor de kosten van levensonderhoud geen beroep kan doen op zijn ouders, omdat: a. de middelen van de ouders daartoe niet toereikend zijn; of b. deze persoon redelijkerwijs het onderhoudsrecht jegens de ouders niet te gelde kan maken."
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel20
+      versie: "geldend vanaf 1 juli 2026"
+    notitie: "Controle: de gemeente Leiden noemt voor de Gemeentepolis (120%) bij alleenstaand van 18 tot 21 jaar € 399,48 zonder vakantiegeld. Dat is 120% × 95% × € 350,42."

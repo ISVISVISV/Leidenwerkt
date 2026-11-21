@@ -97,7 +97,9 @@ async function main() {
       const boven = /Uw inkomen is hoger dan de grens/.test(k.waarom);
       const onder = /Uw inkomen is niet hoger dan de grens/.test(k.waarom);
       if (boven || onder) {
-        c.controle("Grens past bij de groep", p.naam, waar, boven ? k.groep === "nee" : k.groep !== "nee", `${k.naam}: "${boven ? "hoger" : "niet hoger"}" in groep "${k.groep}"`);
+        // Jongeren van 18 tot 21 zonder steun van hun ouders kunnen een hogere grens hebben: dan "misschien".
+        const misschienHoger = /Krijgt u geen geld van uw ouders\?/.test(k.waarom);
+        c.controle("Grens past bij de groep", p.naam, waar, boven ? k.groep === "nee" || (misschienHoger && k.groep === "misschien") : k.groep !== "nee", `${k.naam}: "${boven ? "hoger" : "niet hoger"}" in groep "${k.groep}"`);
         const g = /grens voor uw huishouden is ongeveer €\s([\d.]+)/.exec(k.waarom);
         if (g && inkomen !== undefined) {
           const grens = getal(g[1]);

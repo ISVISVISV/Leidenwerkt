@@ -138,8 +138,12 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
   // Het sociaal minimum zonder vakantiegeld, zoals in de tabellen van de gemeente (zie VOORWAARDEN.md).
   // Controle: 120% × 95% × € 1.419,46 = € 1.618,18, het bedrag voor een alleenstaande op gemeente.leiden.nl.
   const zonderVakantiegeld = (norm: Bedrag) => norm.times(D(1).minus(l.breuk("pw.vakantietoeslag")));
+  // Jongeren: alleen voor een alleenstaande van 18, 19 of 20 jaar zonder kinderen noemt de gemeente een bedrag
+  // (Gemeentepolis: € 399,48 = 120% × 95% × de jongerennorm van art. 20 lid 1 a Pw). Zonder steun van de ouders
+  // kan de norm hoger zijn (art. 20 lid 3). Daarom is "boven de grens" voor hen "misschien".
+  const jongAlleen = jong && !paar && invoer.kinderen.length === 0 && invoer.wonen !== "instelling";
   const minimum = (): Bedrag | undefined => {
-    if (jong) return undefined;
+    if (jong) return jongAlleen ? zonderVakantiegeld(l.bedrag("pw.norm.jong.alleenstaande")) : undefined;
     if (invoer.wonen === "instelling") return paar ? undefined : zonderVakantiegeld(l.bedrag("pw.norm.inrichting.alleenstaande"));
     return zonderVakantiegeld(l.bedrag(paar ? "pw.norm.gehuwden" : "pw.norm.alleenstaande"));
   };
@@ -147,21 +151,25 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
   const inkomen = invoer.bijstand ? undefined : personen.reduce((s, p) => s.plus(D(totaalVan(p))), NUL);
 
   /** Grens van een Leidse regeling: deel van het sociaal minimum. Zonder id: het sociaal minimum zelf (100%). */
-  const toets = (pctId?: string): { kans: Kans; grens?: Bedrag } => {
+  type Toets = { kans: Kans; grens?: Bedrag; boven?: boolean };
+  const toets = (pctId?: string): Toets => {
     const min = minimum();
     if (!min) return { kans: "misschien" };
     const grens = pctId ? min.times(l.breuk(pctId)) : min;
     if (!inkomen) return { kans: "ja", grens };
-    return { kans: inkomen.lte(grens) ? "ja" : "nee", grens };
+    const boven = inkomen.gt(grens);
+    return { kans: boven ? (jongAlleen ? "misschien" : "nee") : "ja", grens, boven };
   };
   const grensZin = (grens?: Bedrag) =>
     grens ? ` De grens voor uw huishouden is ongeveer ${heel(grens)} netto per maand. Vakantiegeld telt niet mee.` : "";
-  const waaromInkomen = (kans: Kans, grens?: Bedrag): string => {
+  const waaromInkomen = ({ grens, boven }: Toets): string => {
     if (!grens) return jong
       ? "Leidenrekent kan de grens voor jongeren van 18, 19 en 20 jaar nog niet uitrekenen. Vraag het de gemeente."
       : "Leidenrekent kan de grens voor uw woonsituatie niet uitrekenen. Vraag het de gemeente.";
     if (invoer.bijstand) return `Met bijstand is uw inkomen niet hoger dan de grens.${grensZin(grens)}`;
-    return `${kans === "ja" ? "Uw inkomen is niet hoger dan de grens." : "Uw inkomen is hoger dan de grens."}${grensZin(grens)}`;
+    if (boven && jongAlleen)
+      return `Uw inkomen is hoger dan de grens.${grensZin(grens)} Krijgt u geen geld van uw ouders? Dan kan de grens hoger zijn. Vraag het de gemeente.`;
+    return `${boven ? "Uw inkomen is hoger dan de grens." : "Uw inkomen is niet hoger dan de grens."}${grensZin(grens)}`;
   };
   const bedrijfZin = " Heeft u een eigen bedrijf? Dan kijkt de gemeente naar de winst in uw belastingaangifte.";
 
@@ -183,7 +191,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       if (invoer.schuldregeling)
         return { ...basis, kans: "ja", waarom: "Met een schuldregeling of in de Wsnp kunt u de Sleutelpas krijgen. Dat kan zolang u zich aan de afspraken houdt." };
       const kans = bedrijf && t.kans !== "nee" ? "misschien" : t.kans;
-      return { ...basis, kans, waarom: `Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. ${waaromInkomen(t.kans, t.grens)}${bedrijf ? bedrijfZin : ""}` };
+      return { ...basis, kans, waarom: `Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. ${waaromInkomen(t)}${bedrijf ? bedrijfZin : ""}` };
     }),
   );
 
@@ -200,7 +208,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         if (invoer.kinderbijslag === false)
           return { ...basis, kans: "nee", waarom: "Het Kindtegoed is alleen voor kinderen voor wie u kinderbijslag krijgt." };
         const kans = bedrijf && t.kans !== "nee" ? "misschien" : t.kans;
-        return { ...basis, kans, waarom: `U krijgt geld op de Sleutelpas. Daarmee betaalt u schoolspullen, sport en cultuur voor uw kinderen. ${waaromInkomen(t.kans, t.grens)}` };
+        return { ...basis, kans, waarom: `U krijgt geld op de Sleutelpas. Daarmee betaalt u schoolspullen, sport en cultuur voor uw kinderen. ${waaromInkomen(t)}` };
       }),
     );
 
@@ -242,7 +250,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
           groep: "gemeente",
           kans: bedrijf && t.kans !== "nee" ? "misschien" : t.kans,
           bedrag: `Diploma A: alles betaald. Diploma B of C: ${bc}.`,
-          waarom: `Dit is voor kinderen vanaf ${vanaf.toString()} jaar. U vraagt het aan bij het Jeugdfonds Sport & Cultuur. ${waaromInkomen(t.kans, t.grens)}`,
+          waarom: `Dit is voor kinderen vanaf ${vanaf.toString()} jaar. U vraagt het aan bij het Jeugdfonds Sport & Cultuur. ${waaromInkomen(t)}`,
           aanvragen: { tekst: "Meer informatie", url: URL.sportCultuur },
           bronnen: bron(l, "leiden.zwemles.inkomensgrens"),
         };
@@ -259,7 +267,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         groep: "gemeente",
         kans: bedrijf && t.kans !== "nee" ? "misschien" : t.kans,
         bedrag: `tot ${heel(l.bedrag("leiden.volwassenenfonds.maximum"))} per jaar`,
-        waarom: `Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. U vraagt het aan via een tussenpersoon. ${waaromInkomen(t.kans, t.grens)}`,
+        waarom: `Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. U vraagt het aan via een tussenpersoon. ${waaromInkomen(t)}`,
         aanvragen: { tekst: "Meer informatie", url: URL.sportCultuur },
         bronnen: [...bron(l, "leiden.volwassenenfonds.inkomensgrens"), CITATEN.volwassenentegoed],
       };
@@ -275,7 +283,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         naam: "Zorgverzekering van de gemeente",
         groep: "gemeente",
         kans: bedrijf && t.kans !== "nee" ? "misschien" : t.kans,
-        waarom: `De Gemeentepolis is de zorgverzekering van de gemeente. Er zit een aanvullende verzekering bij. Nieuwe klanten melden zich aan tussen 12 november en 31 december. ${waaromInkomen(t.kans, t.grens)}${bedrijf ? " Voor zzp'ers geldt een grens per jaar." : ""}`,
+        waarom: `De Gemeentepolis is de zorgverzekering van de gemeente. Er zit een aanvullende verzekering bij. Nieuwe klanten melden zich aan tussen 12 november en 31 december. ${waaromInkomen(t)}${bedrijf ? " Voor zzp'ers geldt een grens per jaar." : ""}`,
         aanvragen: { tekst: "Meer informatie", url: URL.gemeentepolis },
         bronnen: bron(l, "leiden.gemeentepolis.inkomensgrens"),
       };
@@ -292,7 +300,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       return {
         ...basis,
         kans: bedrijf && t.kans !== "nee" ? "misschien" : t.kans,
-        waarom: `U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. ${waaromInkomen(t.kans, t.grens)}`,
+        waarom: `U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. ${waaromInkomen(t)}`,
       };
     }),
   );
@@ -352,7 +360,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         return {
           ...basis,
           kans: t.kans === "misschien" || v.kans === "misschien" ? "misschien" : "ja",
-          waarom: `Dit is voor stellen met een uitkering van UWV en weinig ander inkomen. Uw inkomen samen is lager dan de bijstand voor stellen.${grensZin(t.grens)} De gemeente kijkt ook: zou u met alleen bijstand meer overhouden?`,
+          waarom: `Dit is voor stellen met een uitkering van UWV en weinig ander inkomen. ${t.grens ? `Uw inkomen samen is lager dan de bijstand voor stellen.${grensZin(t.grens)}` : waaromInkomen(t)} De gemeente kijkt ook: zou u met alleen bijstand meer overhouden?`,
         };
       }),
     );
@@ -403,7 +411,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         return {
           ...basis,
           kans: "misschien",
-          waarom: `Uw inkomen is lager dan de bijstand.${grensZin(t.grens)} ${v.zin} De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.`,
+          waarom: `${t.grens && !t.boven ? `Uw inkomen is lager dan de bijstand.${grensZin(t.grens)}` : waaromInkomen(t)} ${v.zin} De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.`,
         };
       }),
     );

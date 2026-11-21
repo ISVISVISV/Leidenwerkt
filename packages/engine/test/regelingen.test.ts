@@ -44,10 +44,24 @@ describe("grenzen van de gemeente", () => {
     expect(uitslag(u, "sleutelpas")!.waarom).toContain("vanzelf");
     expect(uitslag(u, "bijstand")).toBeUndefined();
   });
-  it("jongeren van 18 tot 21: de check rekent de grens niet uit en zegt dat", () => {
+  it("alleenstaande van 18 tot 21: de grens met de jongerennorm, € 399 bij 120% (tabel gemeente: € 399,48)", () => {
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 19, inkomen: { loon: 350 } } })), "gemeentepolis")!;
+    expect(u.kans).toBe("ja");
+    expect(u.waarom).toContain("ongeveer €\u00a0399 netto per maand");
+  });
+  it("alleenstaande van 18 tot 21 boven de grens: misschien, want zonder steun van de ouders kan de grens hoger zijn", () => {
     const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 19, inkomen: { loon: 600 } } })), "gemeentepolis")!;
     expect(u.kans).toBe("misschien");
+    expect(u.waarom).toContain("Krijgt u geen geld van uw ouders?");
+  });
+  it("jongeren met een partner of kinderen: Leidenrekent rekent de grens nog niet uit en zegt dat", () => {
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 19, inkomen: { loon: 600 } }, partner: { leeftijd: 25, inkomen: {} } })), "gemeentepolis")!;
+    expect(u.kans).toBe("misschien");
     expect(u.waarom).toContain("18, 19 en 20 jaar");
+  });
+  it("jongeren en bijstand: nooit de zin dat het inkomen lager is dan de bijstand als dat niet uit te rekenen is", () => {
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 19, inkomen: { loon: 600 } }, partner: { leeftijd: 20, inkomen: {} } })), "bijstand")!;
+    expect(u.waarom).not.toContain("lager dan de bijstand");
   });
   it("een eigen bedrijf: misschien, met uitleg", () => {
     const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { bedrijf: 900 } } })), "sleutelpas")!;
