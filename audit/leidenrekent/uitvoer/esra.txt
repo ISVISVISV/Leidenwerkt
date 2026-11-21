@@ -11,11 +11,11 @@ Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleg
 
 ## Overzicht
 
-Dit overzicht is een schatting met wat u heeft ingevuld. Er wordt niets bewaard. Wilt u het overzicht houden? Druk het af of sla het op als pdf.
+Dit overzicht is een schatting. Leidenrekent gebruikt alleen wat u heeft ingevuld. Leidenrekent bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
 
 Dit kunt u waarschijnlijk krijgen (3)
 
-Vraag het aan. De gemeente of Dienst Toeslagen kijkt of u het echt krijgt.
+Vraag het aan. Daarna beslist de gemeente of Dienst Toeslagen.
 
 Sleutelpas
 
@@ -33,7 +33,7 @@ Zorgtoeslag
 
 ongeveer € 129 per maand
 
-Hulp bij de kosten van uw zorgverzekering. Uw geld en bezit zijn niet meer dan € 146.011.
+Dit is geld voor de kosten van uw zorgverzekering. Uw geld en bezit zijn niet meer dan € 146.011.
 
 Proefberekening van Dienst Toeslagen
 (opent in een nieuw venster)
@@ -45,7 +45,7 @@ Huurtoeslag
 
 ongeveer € 465 per maand
 
-Hulp bij het betalen van uw huur. Uw geld en bezit zijn niet meer dan € 38.479.
+Dit is geld voor uw huur. Uw geld en bezit zijn niet meer dan € 38.479.
 
 Proefberekening van Dienst Toeslagen
 (opent in een nieuw venster)
@@ -62,7 +62,7 @@ Sport en cultuur voor volwassenen
 
 tot € 250 per jaar
 
-Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. Aanvragen gaat via een tussenpersoon. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand, zonder vakantiegeld.
+Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. U vraagt het aan via een tussenpersoon. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
 
 Bronnen:
 Gemeente Leiden, Hulp bij kosten sport en cultuur (sport voor volwassenen)
@@ -70,14 +70,14 @@ Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.4
 
 Zorgverzekering van de gemeente
 
-De Gemeentepolis is de zorgverzekering van de gemeente, met een aanvullende verzekering. Nieuwe klanten melden zich aan tussen 12 november en 31 december. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand, zonder vakantiegeld.
+De Gemeentepolis is de zorgverzekering van de gemeente. Er zit een aanvullende verzekering bij. Nieuwe klanten melden zich aan tussen 12 november en 31 december. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
 
 Bron:
 Gemeente Leiden, Collectieve aanvullende zorgverzekering
 
 Gratis OV-pas
 
-Gratis reizen met de streekbus, buiten de spits. Het aantal passen is beperkt. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.348 netto per maand, zonder vakantiegeld.
+U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee.
 
 Bron:
 Gemeente Leiden, Gratis openbaar vervoer (voorwaarden)
@@ -86,7 +86,7 @@ Individuele inkomenstoeslag
 
 € 462, één keer per 12 maanden
 
-Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand, zonder vakantiegeld.
+Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee.
 
 Bronnen:
 Gemeente Leiden, Individuele inkomenstoeslag (voorwaarden en bedragen)
@@ -95,7 +95,7 @@ Participatiewet, art. 34
 
 Bijstand
 
-Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand, zonder vakantiegeld.
+Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee.
 
 Bronnen:
 Participatiewet, art. 13 lid 2 c

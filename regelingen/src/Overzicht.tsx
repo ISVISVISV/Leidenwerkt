@@ -4,7 +4,7 @@ import { Bron } from "@leidenwerkt/ui";
 import { naarInvoer, type Formulier } from "./formulier.ts";
 
 const GROEPEN: { kans: Kans; kop: string; uitleg: string }[] = [
-  { kans: "ja", kop: "Dit kunt u waarschijnlijk krijgen", uitleg: "Vraag het aan. De gemeente of Dienst Toeslagen kijkt of u het echt krijgt." },
+  { kans: "ja", kop: "Dit kunt u waarschijnlijk krijgen", uitleg: "Vraag het aan. Daarna beslist de gemeente of Dienst Toeslagen." },
   { kans: "misschien", kop: "Dit kunt u misschien krijgen", uitleg: "Leidenrekent weet het niet zeker. Bij elke regeling staat waarom." },
   { kans: "nee", kop: "Dit kunt u waarschijnlijk niet krijgen", uitleg: "Bij elke regeling staat waarom niet." },
 ];
@@ -20,8 +20,8 @@ export function Overzicht({ f }: { f: Formulier }) {
   return (
     <section className="overzicht">
       <p className="inleiding">
-        Dit overzicht is een schatting met wat u heeft ingevuld. Er wordt niets bewaard. Wilt u het overzicht houden? Druk het af of sla het
-        op als pdf.
+        Dit overzicht is een schatting. Leidenrekent gebruikt alleen wat u heeft ingevuld. Leidenrekent bewaart niets. Wilt u het overzicht
+        houden? Druk het dan af. Of sla het op als pdf.
       </p>
       {GROEPEN.map((g) => {
         const lijst = uitslagen.filter((u) => u.kans === g.kans);

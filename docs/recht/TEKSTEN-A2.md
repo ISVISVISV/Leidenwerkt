@@ -1,4 +1,6 @@
-# Teksten van Leidenrekent in A2 (voorstel)
+# Teksten van Leidenrekent in A2
+
+**Doorgevoerd op 21 november 2026**, met aanpassingen na feedback: #4 en #7 blijven zoals ze waren. #6: "Vul dag, maand en jaar in. Bijvoorbeeld 14-03-1990." #11 en #12: "Leidenrekent kan de grens … niet uitrekenen." #14: "Woont u in een instelling? Dan kunt u de Sleutelpas niet krijgen." #15: "… voor wie u kinderbijslag krijgt." #23: "U krijgt deze toeslag alleen als u al 5 jaar of langer een laag inkomen heeft." #24: "… en geen kans op meer inkomen." #25: "Deze tegemoetkoming is alleen voor stellen. Het grootste inkomen moet een uitkering van UWV zijn. Bijvoorbeeld Wajong." #26: "De gemeente kijkt ook: zou u met alleen bijstand meer overhouden?" #29: "De gemeente kijkt ook naar hoe u woont en wie er bij u wonen."
 
 21 november 2026. Alleen de teksten die veranderen. Regels: korte zinnen, één boodschap per zin, gewone woorden, "u", actieve vorm, geen bijzinnen als het zonder kan, geen puntkomma. Een stuk zin zonder werkwoord ("Hulp bij de kosten van …") wordt een hele zin.
 

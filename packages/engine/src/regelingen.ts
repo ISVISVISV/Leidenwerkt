@@ -155,11 +155,11 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
     return { kans: inkomen.lte(grens) ? "ja" : "nee", grens };
   };
   const grensZin = (grens?: Bedrag) =>
-    grens ? ` De grens voor uw huishouden is ongeveer ${heel(grens)} netto per maand, zonder vakantiegeld.` : "";
+    grens ? ` De grens voor uw huishouden is ongeveer ${heel(grens)} netto per maand. Vakantiegeld telt niet mee.` : "";
   const waaromInkomen = (kans: Kans, grens?: Bedrag): string => {
     if (!grens) return jong
-      ? "Voor jongeren van 18, 19 en 20 jaar rekent Leidenrekent de grens nog niet uit. Vraag het de gemeente."
-      : "Voor uw woonsituatie rekent Leidenrekent de grens niet uit. Vraag het de gemeente.";
+      ? "Leidenrekent kan de grens voor jongeren van 18, 19 en 20 jaar nog niet uitrekenen. Vraag het de gemeente."
+      : "Leidenrekent kan de grens voor uw woonsituatie niet uitrekenen. Vraag het de gemeente.";
     if (invoer.bijstand) return `Met bijstand is uw inkomen niet hoger dan de grens.${grensZin(grens)}`;
     return `${kans === "ja" ? "Uw inkomen is niet hoger dan de grens." : "Uw inkomen is hoger dan de grens."}${grensZin(grens)}`;
   };
@@ -174,7 +174,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       const bronnen = [...bron(l, "leiden.sleutelpas.inkomensgrens"), CITATEN.sleutelpasWie, ...(invoer.schuldregeling ? [CITATEN.sleutelpasSchuld] : [])];
       const basis = { id: "sleutelpas", naam: "Sleutelpas", groep: "gemeente" as const, bronnen, aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.sleutelpas } };
       if (invoer.wonen === "instelling")
-        return { ...basis, kans: "nee", waarom: "Wie in een instelling woont, kan de Sleutelpas niet krijgen." };
+        return { ...basis, kans: "nee", waarom: "Woont u in een instelling? Dan kunt u de Sleutelpas niet krijgen." };
       if (studeert && minderjarig.length === 0)
         return { ...basis, kans: "nee", waarom: "Met studiefinanciering kunt u de Sleutelpas niet krijgen. Dat kan wel als u ook voor een kind zorgt." };
       if (invoer.bijstand)
@@ -198,9 +198,9 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         const bronnen = [...bron(l, "leiden.kindtegoed.0_3"), CITATEN.kindtegoedKind];
         const basis = { id: "kindtegoed", naam: "Kindtegoed", groep: "gemeente" as const, bedrag: `${heel(totaal)} per jaar`, bronnen, aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.sleutelpas } };
         if (invoer.kinderbijslag === false)
-          return { ...basis, kans: "nee", waarom: "Het Kindtegoed is voor kinderen voor wie u kinderbijslag krijgt." };
+          return { ...basis, kans: "nee", waarom: "Het Kindtegoed is alleen voor kinderen voor wie u kinderbijslag krijgt." };
         const kans = bedrijf && t.kans !== "nee" ? "misschien" : t.kans;
-        return { ...basis, kans, waarom: `Geld op de Sleutelpas voor schoolspullen, sport en cultuur van uw kinderen. ${waaromInkomen(t.kans, t.grens)}` };
+        return { ...basis, kans, waarom: `U krijgt geld op de Sleutelpas. Daarmee betaalt u schoolspullen, sport en cultuur voor uw kinderen. ${waaromInkomen(t.kans, t.grens)}` };
       }),
     );
 
@@ -221,7 +221,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
           groep: "gemeente",
           kans,
           bedrag: aantal === 1 ? `1 laptop per ${termijn} jaar` : `${aantal} laptops per ${termijn} jaar`,
-          waarom: `Een bon voor een laptop op de Sleutelpas. Kinderen van 4 tot en met 11 jaar krijgen samen 1 laptop. Kinderen van 12 tot en met 17 jaar krijgen elk een laptop. Dit hoort bij de Sleutelpas.`,
+          waarom: `Op de Sleutelpas staat een bon voor een laptop. Kinderen van 4 tot en met 11 jaar krijgen samen 1 laptop. Kinderen van 12 tot en met 17 jaar krijgen elk een laptop.`,
           aanvragen: { tekst: "Meer informatie", url: URL.sleutelpas },
           bronnen: bron(l, "leiden.laptop.termijn"),
         };
@@ -241,8 +241,8 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
           naam: "Zwemles",
           groep: "gemeente",
           kans: bedrijf && t.kans !== "nee" ? "misschien" : t.kans,
-          bedrag: `Zwemdiploma A helemaal, B of C ${bc}`,
-          waarom: `Voor kinderen vanaf ${vanaf.toString()} jaar, via het Jeugdfonds Sport & Cultuur. ${waaromInkomen(t.kans, t.grens)}`,
+          bedrag: `Diploma A: alles betaald. Diploma B of C: ${bc}.`,
+          waarom: `Dit is voor kinderen vanaf ${vanaf.toString()} jaar. U vraagt het aan bij het Jeugdfonds Sport & Cultuur. ${waaromInkomen(t.kans, t.grens)}`,
           aanvragen: { tekst: "Meer informatie", url: URL.sportCultuur },
           bronnen: bron(l, "leiden.zwemles.inkomensgrens"),
         };
@@ -259,7 +259,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         groep: "gemeente",
         kans: bedrijf && t.kans !== "nee" ? "misschien" : t.kans,
         bedrag: `tot ${heel(l.bedrag("leiden.volwassenenfonds.maximum"))} per jaar`,
-        waarom: `Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. Aanvragen gaat via een tussenpersoon. ${waaromInkomen(t.kans, t.grens)}`,
+        waarom: `Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. U vraagt het aan via een tussenpersoon. ${waaromInkomen(t.kans, t.grens)}`,
         aanvragen: { tekst: "Meer informatie", url: URL.sportCultuur },
         bronnen: [...bron(l, "leiden.volwassenenfonds.inkomensgrens"), CITATEN.volwassenentegoed],
       };
@@ -275,7 +275,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         naam: "Zorgverzekering van de gemeente",
         groep: "gemeente",
         kans: bedrijf && t.kans !== "nee" ? "misschien" : t.kans,
-        waarom: `De Gemeentepolis is de zorgverzekering van de gemeente, met een aanvullende verzekering. Nieuwe klanten melden zich aan tussen 12 november en 31 december. ${waaromInkomen(t.kans, t.grens)}${bedrijf ? " Voor zzp'ers geldt een grens per jaar." : ""}`,
+        waarom: `De Gemeentepolis is de zorgverzekering van de gemeente. Er zit een aanvullende verzekering bij. Nieuwe klanten melden zich aan tussen 12 november en 31 december. ${waaromInkomen(t.kans, t.grens)}${bedrijf ? " Voor zzp'ers geldt een grens per jaar." : ""}`,
         aanvragen: { tekst: "Meer informatie", url: URL.gemeentepolis },
         bronnen: bron(l, "leiden.gemeentepolis.inkomensgrens"),
       };
@@ -292,7 +292,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       return {
         ...basis,
         kans: bedrijf && t.kans !== "nee" ? "misschien" : t.kans,
-        waarom: `Gratis reizen met de streekbus, buiten de spits. Het aantal passen is beperkt. ${waaromInkomen(t.kans, t.grens)}`,
+        waarom: `U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. ${waaromInkomen(t.kans, t.grens)}`,
       };
     }),
   );
@@ -317,13 +317,13 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       const v = vermogenToets(l, invoer, paar ? "pw.vermogensgrens.gehuwden" : metKinderen ? "pw.vermogensgrens.alleenstaande_ouder" : "pw.vermogensgrens.alleenstaande");
       const t = toets();
       if (t.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw inkomen is hoger dan de bijstand.${grensZin(t.grens)}` };
-      if (invoer.langLaagInkomen === "nee") return { ...basis, kans: "nee", waarom: `Deze toeslag is voor mensen die al ${jaren} jaar of langer een laag inkomen hebben.` };
+      if (invoer.langLaagInkomen === "nee") return { ...basis, kans: "nee", waarom: `U krijgt deze toeslag alleen als u al ${jaren} jaar of langer een laag inkomen heeft.` };
       if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit zijn meer dan ${heel(v.grens)}.` };
       const open = invoer.langLaagInkomen !== "ja" || v.kans === "misschien" || t.kans === "misschien" || bedrijf;
       return {
         ...basis,
         kans: open ? "misschien" : "ja",
-        waarom: `Extra geld voor mensen die al ${jaren} jaar of langer een laag inkomen hebben en geen kans op meer inkomen. ${v.zin}`,
+        waarom: `Dit is extra geld. U krijgt het als u al ${jaren} jaar of langer een laag inkomen heeft, en geen kans op meer inkomen. ${v.zin}`,
       };
     }),
   );
@@ -344,7 +344,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
           aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.alleenverdieners },
           bronnen: [...bron(l, "leiden.alleenverdieners.bedrag"), ...bron(l, "zt.vermogen.met_partner")],
         };
-        if (!uwv) return { ...basis, kans: "nee", waarom: "Deze tegemoetkoming is voor stellen waarvan het grootste inkomen een uitkering van UWV is, zoals Wajong." };
+        if (!uwv) return { ...basis, kans: "nee", waarom: "Deze tegemoetkoming is alleen voor stellen. Het grootste inkomen moet een uitkering van UWV zijn. Bijvoorbeeld Wajong." };
         const t = toets();
         if (t.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw netto inkomen samen is niet lager dan de bijstand voor stellen.${grensZin(t.grens)}` };
         const v = vermogenToets(l, invoer, "zt.vermogen.met_partner");
@@ -352,7 +352,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         return {
           ...basis,
           kans: t.kans === "misschien" || v.kans === "misschien" ? "misschien" : "ja",
-          waarom: `Voor stellen met een uitkering van UWV en weinig ander inkomen. Uw inkomen samen is lager dan de bijstand voor stellen.${grensZin(t.grens)} De gemeente kijkt ook of u minder overhoudt dan met alleen bijstand.`,
+          waarom: `Dit is voor stellen met een uitkering van UWV en weinig ander inkomen. Uw inkomen samen is lager dan de bijstand voor stellen.${grensZin(t.grens)} De gemeente kijkt ook: zou u met alleen bijstand meer overhouden?`,
         };
       }),
     );
@@ -374,11 +374,11 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         };
         if (wajong) return { ...basis, kans: "nee", waarom: "Met een Wajong-uitkering kunt u geen studietoeslag krijgen." };
         if (invoer.studieMedisch === "nee")
-          return { ...basis, kans: "nee", waarom: "Studietoeslag is voor studenten die door ziekte of een handicap niet kunnen werken naast hun studie." };
+          return { ...basis, kans: "nee", waarom: "Studietoeslag is alleen voor studenten met een ziekte of handicap. Zij kunnen daardoor niet werken naast hun studie." };
         return {
           ...basis,
           kans: "ja",
-          waarom: "Voor studenten met studiefinanciering die door ziekte of een handicap niet kunnen werken naast hun studie. De gemeente vraagt meestal een arts om advies.",
+          waarom: "Dit is voor studenten met studiefinanciering. Zij kunnen door ziekte of een handicap niet werken naast hun studie. De gemeente vraagt meestal een arts om advies.",
         };
       }),
     );
@@ -403,7 +403,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         return {
           ...basis,
           kans: "misschien",
-          waarom: `Uw inkomen is lager dan de bijstand.${grensZin(t.grens)} ${v.zin} De gemeente kijkt ook naar uw woonsituatie en wie er bij u wonen.`,
+          waarom: `Uw inkomen is lager dan de bijstand.${grensZin(t.grens)} ${v.zin} De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.`,
         };
       }),
     );
@@ -473,7 +473,7 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
   const ti = vermogenTeHoog === false ? probeer2(() => toetsingsinkomen(l, invoer, personen)) : undefined;
   const proef = { tekst: "Proefberekening van Dienst Toeslagen", url: URL.toeslagen };
   const geenBedrag = vermogenTeHoog
-    ? "Met dit vermogen telt een deel ervan mee als inkomen. Leidenrekent rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen."
+    ? "Een deel van uw geld en bezit telt mee als inkomen. Leidenrekent rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen."
     : "Leidenrekent kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.";
   const kinderen: Kind[] = invoer.kinderen.map((k) => ({ leeftijd: k.leeftijd }));
   const uit: (Uitslag | undefined)[] = [];
@@ -486,7 +486,7 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
       if (!ti) return { ...basis, kans: "misschien", waarom: geenBedrag };
       const bedrag = maandbedragToeslag(zorgtoeslag(l, ti, paar).div(12));
       if (bedrag.lte(0)) return { ...basis, kans: "nee", waarom: "Met dit inkomen krijgt u waarschijnlijk geen zorgtoeslag." };
-      return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Hulp bij de kosten van uw zorgverzekering. ${v.zin}` };
+      return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Dit is geld voor de kosten van uw zorgverzekering. ${v.zin}` };
     }),
   );
 
@@ -499,7 +499,7 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
         if (!ti) return { ...basis, kans: "misschien", waarom: geenBedrag };
         const bedrag = maandbedragToeslag(kindgebondenBudget(l, ti, kinderen, paar).div(12));
         if (bedrag.lte(0)) return { ...basis, kans: "nee", waarom: "Met dit inkomen krijgt u waarschijnlijk geen kindgebonden budget." };
-        return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Extra geld voor ouders met kinderen jonger dan 18. ${v.zin}` };
+        return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Dit is extra geld voor ouders met kinderen jonger dan 18 jaar. ${v.zin}` };
       }),
     );
 
@@ -513,15 +513,15 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
       if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit op 1 januari waren meer dan ${heel(v.grens)}.` };
       const volwassenKind = invoer.kinderen.some((k) => k.leeftijd >= 18);
       if (invoer.andereBewoners || volwassenKind)
-        return { ...basis, kans: "misschien", waarom: "Er wonen nog andere volwassenen bij u. Hun inkomen en vermogen tellen mee. Leidenrekent rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen." };
+        return { ...basis, kans: "misschien", waarom: "Er wonen nog andere volwassenen bij u. Hun inkomen en hun geld en bezit tellen mee. Leidenrekent rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen." };
       if (personen.every((p) => p.leeftijd < 21))
-        return { ...basis, kans: "misschien", waarom: "Voor jongeren onder de 21 jaar rekent Leidenrekent de huurtoeslag niet uit. Doe de proefberekening van Dienst Toeslagen." };
+        return { ...basis, kans: "misschien", waarom: "Leidenrekent rekent de huurtoeslag voor jongeren onder de 21 jaar niet uit. Doe de proefberekening van Dienst Toeslagen." };
       if (!ti || invoer.kaleHuurPerMaand === undefined) return { ...basis, kans: "misschien", waarom: geenBedrag };
       const personenAantal = personen.length + invoer.kinderen.length;
       const r = huurtoeslag(l, D(invoer.kaleHuurPerMaand), ti, personenAantal);
       const bedrag = maandbedragToeslag(r.perMaand);
       if (bedrag.lte(0)) return { ...basis, kans: "nee", waarom: "Met deze huur en dit inkomen krijgt u waarschijnlijk geen huurtoeslag." };
-      return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Hulp bij het betalen van uw huur. ${v.zin}` };
+      return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Dit is geld voor uw huur. ${v.zin}` };
     }),
   );
 
@@ -532,7 +532,7 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
       groep: "toeslagen",
       kans: "misschien",
       waarom:
-        "Gaat uw kind naar een kinderopvang of gastouder? Dan kunt u kinderopvangtoeslag krijgen als u werkt, studeert, inburgert of een traject naar werk volgt. Met een partner geldt dat voor u allebei.",
+        "Gaat uw kind naar de kinderopvang of een gastouder? Dan kunt u misschien kinderopvangtoeslag krijgen. Dat kan als u werkt of studeert. Het kan ook als u inburgert of een traject naar werk volgt. Heeft u een partner? Dan geldt dit voor u allebei.",
       aanvragen: proef,
       bronnen: [CITATEN.kotWie],
     });

@@ -133,8 +133,8 @@ export function App() {
           is alles weg.
         </p>
         <p>
-          Leidenrekent geeft een schatting. Of u een regeling echt krijgt, bepalen de gemeente Leiden en Dienst Toeslagen. Leidenrekent is
-          geen product van de gemeente.
+          Leidenrekent geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden en Dienst Toeslagen. Leidenrekent
+          is geen product van de gemeente.
         </p>
         <p>
           Leidenrekent is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
@@ -153,14 +153,15 @@ function Start({ onStart }: { onStart: () => void }) {
     <section className="start">
       <h1>Welke regelingen kunt u krijgen?</h1>
       <p className="inleiding">
-        Heeft u een laag inkomen? Dan kunt u misschien hulp krijgen van de gemeente Leiden of geld van Dienst Toeslagen. Met Leidenrekent ziet u
-        welke regelingen er zijn voor u. Het duurt ongeveer vijf minuten.
+        Heeft u een laag inkomen? Dan kunt u misschien hulp krijgen van de gemeente Leiden. U kunt misschien ook geld krijgen van Dienst
+        Toeslagen. Leidenrekent laat zien welke regelingen er voor u zijn. Dit duurt ongeveer 5 minuten.
       </p>
       <p>U heeft nodig:</p>
       <ul>
-        <li>uw netto inkomen per maand, en dat van uw partner</li>
+        <li>uw netto inkomen per maand</li>
+        <li>het netto inkomen van uw partner per maand</li>
         <li>uw kale huur per maand, als u huurt</li>
-        <li>hoeveel geld en bezit u heeft, ongeveer</li>
+        <li>hoeveel geld en bezit u ongeveer heeft</li>
       </ul>
       <p>Leidenrekent is voor inwoners van Leiden van 18 jaar tot de AOW-leeftijd.</p>
       <button type="button" className="hoofdknop" onClick={onStart}>

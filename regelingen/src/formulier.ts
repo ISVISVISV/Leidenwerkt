@@ -127,7 +127,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
   };
   const datum = (veld: string, g: Geboortedatum, min: number, maxi: number, melding: string, kind = false) => {
     if (!g.trim()) fouten[veld] = "Vul dit in.";
-    else if (!isoDatum(g)) fouten[veld] = `Vul een datum in die bestaat, met dag, maand en jaar. Bijvoorbeeld ${kind ? "14-03-2018" : "14-03-1990"}.`;
+    else if (!isoDatum(g)) fouten[veld] = `Vul dag, maand en jaar in. Bijvoorbeeld ${kind ? "14-03-2018" : "14-03-1990"}.`;
     else if (isoDatum(g)! > vandaag()) fouten[veld] = "Deze datum ligt in de toekomst. Vul de geboortedatum in.";
     else {
       const l = leeftijd(g)!;

@@ -11,15 +11,15 @@ Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleg
 
 ## Overzicht
 
-Dit overzicht is een schatting met wat u heeft ingevuld. Er wordt niets bewaard. Wilt u het overzicht houden? Druk het af of sla het op als pdf.
+Dit overzicht is een schatting. Leidenrekent gebruikt alleen wat u heeft ingevuld. Leidenrekent bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
 
 Dit kunt u waarschijnlijk krijgen (3)
 
-Vraag het aan. De gemeente of Dienst Toeslagen kijkt of u het echt krijgt.
+Vraag het aan. Daarna beslist de gemeente of Dienst Toeslagen.
 
 Sleutelpas
 
-Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 2.504 netto per maand, zonder vakantiegeld.
+Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 2.504 netto per maand. Vakantiegeld telt niet mee.
 
 Meer informatie en aanvragen
 (opent in een nieuw venster)
@@ -32,7 +32,7 @@ Sport en cultuur voor volwassenen
 
 tot € 250 per jaar
 
-Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. Aanvragen gaat via een tussenpersoon. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 2.312 netto per maand, zonder vakantiegeld.
+Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. U vraagt het aan via een tussenpersoon. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 2.312 netto per maand. Vakantiegeld telt niet mee.
 
 Meer informatie
 (opent in een nieuw venster)
@@ -43,7 +43,7 @@ Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.4
 
 Zorgverzekering van de gemeente
 
-De Gemeentepolis is de zorgverzekering van de gemeente, met een aanvullende verzekering. Nieuwe klanten melden zich aan tussen 12 november en 31 december. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 2.312 netto per maand, zonder vakantiegeld.
+De Gemeentepolis is de zorgverzekering van de gemeente. Er zit een aanvullende verzekering bij. Nieuwe klanten melden zich aan tussen 12 november en 31 december. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 2.312 netto per maand. Vakantiegeld telt niet mee.
 
 Meer informatie
 (opent in een nieuw venster)
@@ -82,7 +82,7 @@ Bij elke regeling staat waarom niet.
 
 Gratis OV-pas
 
-Gratis reizen met de streekbus, buiten de spits. Het aantal passen is beperkt. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.926 netto per maand, zonder vakantiegeld.
+U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.926 netto per maand. Vakantiegeld telt niet mee.
 
 Bron:
 Gemeente Leiden, Gratis openbaar vervoer (voorwaarden)
@@ -91,7 +91,7 @@ Individuele inkomenstoeslag
 
 € 635, één keer per 12 maanden
 
-Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 1.926 netto per maand, zonder vakantiegeld.
+Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 1.926 netto per maand. Vakantiegeld telt niet mee.
 
 Bronnen:
 Gemeente Leiden, Individuele inkomenstoeslag (voorwaarden en bedragen)
@@ -102,7 +102,7 @@ Tegemoetkoming voor alleenverdieners
 
 € 1.100 per jaar
 
-Deze tegemoetkoming is voor stellen waarvan het grootste inkomen een uitkering van UWV is, zoals Wajong.
+Deze tegemoetkoming is alleen voor stellen. Het grootste inkomen moet een uitkering van UWV zijn. Bijvoorbeeld Wajong.
 
 Bronnen:
 Gemeente Leiden, Tegemoetkoming voor alleenverdieners
@@ -110,7 +110,7 @@ Dienst Toeslagen, maximaal vermogen zorgtoeslag
 
 Bijstand
 
-Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 1.926 netto per maand, zonder vakantiegeld.
+Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 1.926 netto per maand. Vakantiegeld telt niet mee.
 
 Bronnen:
 Participatiewet, art. 13 lid 2 c
