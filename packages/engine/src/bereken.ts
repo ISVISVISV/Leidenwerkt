@@ -892,7 +892,7 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     // Beleidsregels Sleutelpas 2026, art. 2.2 a: wie in een instelling verblijft, kan de Sleutelpas niet krijgen.
     // Instelling is hier hetzelfde als in de rest van de rekenhulp: de instellingsnorm van art. 23 Pw.
     if (invoer.wonen.soort === "instelling")
-      uit.push({ soort: "waarschuwing", kop: "Sleutelpas", tekst: "Wie in een instelling woont, kan de Sleutelpas niet krijgen.", bron: CITATEN.sleutelpasWie });
+      uit.push({ soort: "waarschuwing", kop: "Sleutelpas", tekst: "Woont u in een instelling? Dan kunt u de Sleutelpas niet krijgen.", bron: CITATEN.sleutelpasWie });
     const norm = sociaalMinimum(l, invoer);
     if (!norm) return;
     const kinderen = invoer.kinderen.filter((k) => k.leeftijd < 18);

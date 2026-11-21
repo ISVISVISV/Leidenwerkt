@@ -275,14 +275,14 @@ describe("na de QA", () => {
     const w = { brutoMaandloon: 300, urenPerWeek: 8 };
     const alleen = bereken(basis({ wonen: { soort: "instelling" }, nieuwWerk: w, vrijlatingFase: "start" }));
     // Sleutelpas: niet bij verblijf in een instelling (Beleidsregels Sleutelpas 2026, art. 2.2 a).
-    expect(alleen.signalen.find((s) => s.kop === "Sleutelpas")?.tekst).toBe("Wie in een instelling woont, kan de Sleutelpas niet krijgen.");
+    expect(alleen.signalen.find((s) => s.kop === "Sleutelpas")?.tekst).toBe("Woont u in een instelling? Dan kunt u de Sleutelpas niet krijgen.");
     // Gemeentepolis (V17): de gemeentepagina noemt voor een alleenstaande in een instelling € 512,36 zonder vakantiegeld,
     // dus € 539 met vakantiegeld (120% × € 449,44), net als het Volwassenenfonds.
     expect(alleen.signalen.find((s) => s.kop === "Zorgverzekering")?.tekst).toMatch(/€\s?539/);
     expect(alleen.signalen.find((s) => s.kop === "Sport en cultuur")?.tekst).toMatch(/€\s?539/);
     const paar = bereken(basis({ leefvorm: "paar", partner: { leeftijd: 35 }, wonen: { soort: "instelling" }, nieuwWerk: w, vrijlatingFase: "start" }));
     expect(paar.signalen.some((s) => ["Sport en cultuur", "Zorgverzekering"].includes(s.kop))).toBe(false);
-    expect(paar.signalen.find((s) => s.kop === "Sleutelpas")?.tekst).toBe("Wie in een instelling woont, kan de Sleutelpas niet krijgen.");
+    expect(paar.signalen.find((s) => s.kop === "Sleutelpas")?.tekst).toBe("Woont u in een instelling? Dan kunt u de Sleutelpas niet krijgen.");
   });
 });
 
