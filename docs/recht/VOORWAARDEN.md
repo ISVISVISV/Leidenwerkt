@@ -35,7 +35,7 @@ De gemeente noemt op [Hulp bij laag inkomen](https://gemeente.leiden.nl/inwoners
 | Automatisch | Wie bijstand, IOAW, IOAZ of Bbz krijgt, krijgt de pas zonder aanvraag (art. 3.1) | ✓ | idem |
 | Kindtegoed | Voor kinderen tot 18 met kinderbijslag (of pleegkindvergoeding) op hetzelfde adres. € 150 (0 t/m 3), € 350 (4 t/m 11), € 550 (12 t/m 17) (art. 1.1 d, 2.2) | ✓ | [Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, CVDR747564](https://lokaleregelgeving.overheid.nl/CVDR747564/1) |
 | Kindtegoed tussen 130% en 140% | Wel Kindtegoed, geen gratis Sleutelpas (art. 4.1 a) | ✓ | idem |
-| Volwassenentegoed | "Inwoners met een inkomen tot 120% van het WSM komen in aanmerking voor een Volwassenentegoed" (art. 3.4 a) | ? hoogte en verhouding tot het Volwassenenfonds | idem |
+| Volwassenentegoed | "Inwoners met een inkomen tot 120% van het WSM komen in aanmerking voor een Volwassenentegoed" (art. 3.4 a). Boven de 18 jaar aanvragen bij het Volwassenenfonds Sport en Cultuur (art. 3.4 c). "Het maximale tegoed dat het Volwassenenfonds kan toekennen is €250,-" (art. 3.4 e). Het Volwassenentegoed en het Volwassenenfonds zijn dus één regeling | ✓ | [Gemeenteblad 2025, 508798](https://zoek.officielebekendmakingen.nl/gmb-2025-508798.html) |
 | Aanvullend Kindtegoed | Wijziging van 27 oktober 2026: per aanvraag hoogstens € 350 schoolspullen, € 350 fiets, € 480 tussenschoolse opvang, € 500 sport, € 600 cultuur, alleen als het Kindtegoed niet genoeg is | ✓ (aanvullend, niet automatisch) | [Gemeenteblad 2026, 496852](https://zoek.officielebekendmakingen.nl/gmb-2026-496852.pdf) |
 
 ### Individuele inkomenstoeslag
@@ -106,15 +106,23 @@ De gemeente noemt op [Hulp bij laag inkomen](https://gemeente.leiden.nl/inwoners
 | Inkomen 130% | Netto per maand zonder vakantiegeld: eenoudergezin 21 tot AOW € 1.753,04, eenoudergezin AOW € 1.960,36, tweeoudergezin 21 tot AOW € 2.504,32, tweeoudergezin AOW € 2.687,48 | ✓ | [Gemeente Leiden, hulp bij kosten schoolgaande kinderen](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/hulp-bij-kosten-schoolgaande-kinderen/) |
 | Laptop | Een voucher op de Sleutelpas: kinderen van 4 t/m 11 één laptop per huishouden per 5 jaar, kinderen van 12 t/m 17 elk een laptop per 5 jaar | ✓ | idem |
 
+### Kinderopvangtoeslag: wie kan het krijgen
+
+| Voorwaarde | Uit de bron | Status | Bron |
+| --- | --- | --- | --- |
+| Ouder | Aanspraak als de ouder onder meer: werkt (art. 1.6 lid 1 a), bijstand krijgt en "gebruik maakt van een voorziening gericht op arbeidsinschakeling" (c), jonger dan 18 is, een opleiding volgt en bijstand krijgt of kan krijgen (e), als werkzoekende zonder uitkering bij UWV staat en een traject volgt (f), inburgert met een cursus (g), met een WW-uitkering scholing of een traject volgt (h), of "is ingeschreven bij een school of instelling" voor voortgezet onderwijs, vavo, mbo of hoger onderwijs (j) | ✓ | [Wet kinderopvang art. 1.6](https://wetten.overheid.nl/BWBR0017017/2026-01-01) |
+| Partner | Met een partner moet ook de partner werken, of in een van die situaties zijn (art. 1.6 lid 3) | ✓ | idem |
+| Na stoppen met werk | Nog drie kalendermaanden dezelfde aanspraak (art. 1.6 lid 5) | ✓ | idem |
+
+Gevolg voor de app: de vraag naar opvang hoort bij werk, studie, traject naar werk en inburgering. Leidenwerkt rekent alleen met werk. De nieuwe app kan de andere situaties noemen als reden om kinderopvangtoeslag te bekijken.
+
 ### Zwemabonnement voor de zomer
 
 Kan nu niet worden aangevraagd (13 april tot en met 31 juli). De grens van 120% van de bijstandsnorm staat al in de regels van Leidenwerkt (Beleidsregels bijzondere bijstand 2022, art. 12). [Gemeente Leiden, zwemabonnement](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/zwemabonnement-voor-de-zomer/)
 
 ### Nog uitzoeken
 
-- **Volwassenentegoed** (art. 3.4 Beleidsregels Kindtegoed): hoogte, en hoe het zich verhoudt tot het Volwassenenfonds. De site met lokale regelgeving gaf een foutmelding.
-- **Kinderopvangtoeslag** in andere situaties dan werk (studie, traject naar werk).
-- **Huurtoeslag:** vermogensgrens 2027.
+- **Huurtoeslag:** vermogensgrens 2027. Op 21 november 2026 nog niet gevonden. Het bericht van Dienst Toeslagen over 2027 noemt alleen zorgtoeslag en kindgebonden budget. Opnieuw kijken in december, samen met de andere bedragen van 2027.
 - **Kwijtschelding** en **bijzondere bijstand**: later, zoals afgesproken.
 
 ## Vragen voor de praktijk
