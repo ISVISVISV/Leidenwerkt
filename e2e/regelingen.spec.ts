@@ -71,7 +71,9 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
   await geenToegankelijkheidsfouten(page);
 
   // Een bron opent met de letterlijke tekst.
-  await ja.locator(".regeling").filter({ has: page.getByRole("heading", { level: 3, name: "Kindtegoed", exact: true }) }).locator(".bron-knop").first().click();
+  const kindtegoed = ja.locator(".regeling").filter({ has: page.getByRole("heading", { level: 3, name: "Kindtegoed", exact: true }) });
+  await kindtegoed.getByText("Bronnen", { exact: true }).click();
+  await kindtegoed.locator(".bron-knop").first().click();
   await expect(page.locator(".bron.open .bron-citaat")).toContainText("€150");
 
   expect(extern).toEqual([]);

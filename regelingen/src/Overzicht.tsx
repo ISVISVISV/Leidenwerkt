@@ -73,14 +73,17 @@ function Regeling({ u }: { u: Uitslag }) {
           </a>
         </p>
       )}
-      <p className="bron-blok">
-        {u.bronnen.length > 1 ? "Bronnen: " : "Bron: "}
-        {u.bronnen.map((b) => (
-          <span key={b.titel} className="bron-regel">
-            <Bron citaat={b} />
-          </span>
-        ))}
-      </p>
+      {/* De bronnen achter één knop: het overzicht blijft korter. Op papier gaan ze open. */}
+      <details className="bronnen">
+        <summary>{u.bronnen.length > 1 ? "Bronnen" : "Bron"}</summary>
+        <p className="bron-blok">
+          {u.bronnen.map((b) => (
+            <span key={b.titel} className="bron-regel">
+              <Bron citaat={b} />
+            </span>
+          ))}
+        </p>
+      </details>
     </li>
   );
 }
