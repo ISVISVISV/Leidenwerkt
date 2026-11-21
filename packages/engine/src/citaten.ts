@@ -18,6 +18,13 @@ export interface Citaat {
 }
 
 export const CITATEN = {
+  sleutelpasWie: {
+    titel: "Leiden, Beleidsregels Sleutelpas 2026, art. 2.2 en 3.1",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2025-429670.html",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "Een aantal inwoners is uitgesloten om een aanvraag te doen voor een Sleutelpas, dat zijn: a. Inwoners die in detentie of een instelling te verblijven. […] c. Inwoners die uit Rijkskas bekostigd onderwijs volgen en in verband daarmee aanspraak kunnen maken op studiefinanciering op grond van de Wet studiefinanciering 2000 of de Wet tegemoetkoming onderwijsbijdrage en schoolkosten, tenzij deze persoon zorgt draagt over een ten laste komend kind en het gezinsinkomen niet meer bedraagt dan 130% van het sociaal minimum. […] De Sleutelpas wordt ambtshalve toegekend aan inwoners, die: a. Een algemene bijstandsuitkering ontvangen vanuit de Participatiewet; b. Een uitkering ontvangen vanuit de IOAW, IOAZ of Bbz;",
+  },
   pw17: {
     titel: "Participatiewet, art. 17 lid 1",
     url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk2_Paragraaf2.3_Artikel17",

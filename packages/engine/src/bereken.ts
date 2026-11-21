@@ -889,6 +889,10 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
   const inkomenWerk = metBijstand ? NUL : INKOMEN.reduce((s, id) => s.plus(bedragVan(werk, id) ?? NUL), NUL);
   probeer(() => {
     const grens = l.breuk("leiden.sleutelpas.inkomensgrens");
+    // Beleidsregels Sleutelpas 2026, art. 2.2 a: wie in een instelling verblijft, kan de Sleutelpas niet krijgen.
+    // Instelling is hier hetzelfde als in de rest van de rekenhulp: de instellingsnorm van art. 23 Pw.
+    if (invoer.wonen.soort === "instelling")
+      uit.push({ soort: "waarschuwing", kop: "Sleutelpas", tekst: "Wie in een instelling woont, kan de Sleutelpas niet krijgen.", bron: CITATEN.sleutelpasWie });
     const norm = sociaalMinimum(l, invoer);
     if (!norm) return;
     const kinderen = invoer.kinderen.filter((k) => k.leeftijd < 18);
@@ -905,12 +909,13 @@ function signalen(invoer: Invoer, regels: RegelSet, huidig: Situatie, werk: Situ
     // Twee meldingen, elk met één grens: de Sleutelpas tot 130%, het Kindtegoed tot 140%.
     const g1 = norm.times(grens);
     const boven1 = inkomenWerk.gt(g1);
-    uit.push({
-      soort: boven1 ? "waarschuwing" : "info",
-      kop: "Sleutelpas",
-      tekst: regelingZin("de gratis Sleutelpas", boven1, g1),
-      bron: bronVan(l, "leiden.sleutelpas.inkomensgrens"),
-    });
+    if (invoer.wonen.soort !== "instelling")
+      uit.push({
+        soort: boven1 ? "waarschuwing" : "info",
+        kop: "Sleutelpas",
+        tekst: regelingZin("de gratis Sleutelpas", boven1, g1),
+        bron: bronVan(l, "leiden.sleutelpas.inkomensgrens"),
+      });
     if (kinderen.length > 0) {
       const g2 = norm.times(l.breuk("leiden.kindtegoed.inkomensgrens"));
       const boven2 = inkomenWerk.gt(g2);
