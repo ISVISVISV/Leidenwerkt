@@ -48,6 +48,8 @@ export interface CheckInvoer {
   kinderbijslag?: boolean;
   /** Bijstand van de gemeente (voor het huishouden). */
   bijstand: boolean;
+  /** Een schuldregeling via de Stadsbank Leiden, of toegelaten tot de Wsnp (art. 2.3 b en c Beleidsregels Sleutelpas). */
+  schuldregeling?: boolean;
   /** 5 jaar of langer een inkomen tot de bijstandsnorm. Alleen nodig vanaf 23 jaar. */
   langLaagInkomen?: JaNeeOnbekend;
   /** Studiefinanciering, en door ziekte of handicap niet kunnen werken naast de studie. */
@@ -169,7 +171,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
   uit.push(
     probeer(() => {
       const t = toets("leiden.sleutelpas.inkomensgrens");
-      const bronnen = [...bron(l, "leiden.sleutelpas.inkomensgrens"), CITATEN.sleutelpasWie];
+      const bronnen = [...bron(l, "leiden.sleutelpas.inkomensgrens"), CITATEN.sleutelpasWie, ...(invoer.schuldregeling ? [CITATEN.sleutelpasSchuld] : [])];
       const basis = { id: "sleutelpas", naam: "Sleutelpas", groep: "gemeente" as const, bronnen, aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.sleutelpas } };
       if (invoer.wonen === "instelling")
         return { ...basis, kans: "nee", waarom: "Wie in een instelling woont, kan de Sleutelpas niet krijgen." };
@@ -177,6 +179,9 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         return { ...basis, kans: "nee", waarom: "Met studiefinanciering kunt u de Sleutelpas niet krijgen. Dat kan wel als u ook voor een kind zorgt." };
       if (invoer.bijstand)
         return { ...basis, kans: "ja", waarom: "Met bijstand krijgt u de Sleutelpas vanzelf. U hoeft hem niet aan te vragen." };
+      // Art. 2.3: met een schuldregeling (MSNP) of in de Wsnp heeft iemand geen draagkracht, ook boven 130%.
+      if (invoer.schuldregeling)
+        return { ...basis, kans: "ja", waarom: "Met een schuldregeling of in de Wsnp kunt u de Sleutelpas krijgen. Dat kan zolang u zich aan de afspraken houdt." };
       const kans = bedrijf && t.kans !== "nee" ? "misschien" : t.kans;
       return { ...basis, kans, waarom: `Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. ${waaromInkomen(t.kans, t.grens)}${bedrijf ? bedrijfZin : ""}` };
     }),

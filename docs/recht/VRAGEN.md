@@ -2,7 +2,7 @@
 
 Werkversie, 21 november 2026.
 
-**Stand 21 november:** goedgekeurd en gebouwd: de vier stappen, de vragen over kinderen, andere mensen in huis en de kale huur, de soorten inkomen, welke uitkering, een bedrag per soort, de netto-uitleg en twee vakken voor beleggingen en spullen. Nog open: de vraag over een schuldregeling (tekst wordt scherper). Voorbeeld: berekenjerecht.nl (Nibud en Stimulansz), doorlopen op 21 november 2026 met gemeente Leiden. We nemen over wat goed werkt. We verbeteren wat beter kan. We kopiëren het ontwerp niet.
+**Stand 21 november:** goedgekeurd en gebouwd: de vier stappen, de vragen over kinderen, andere mensen in huis en de kale huur, de soorten inkomen, welke uitkering, een bedrag per soort, de netto-uitleg en twee vakken voor beleggingen en spullen. Ook gebouwd: "Heeft u een schuldregeling?", met de Stadsbank Leiden in de uitleg. Voorbeeld: berekenjerecht.nl (Nibud en Stimulansz), doorlopen op 21 november 2026 met gemeente Leiden. We nemen over wat goed werkt. We verbeteren wat beter kan. We kopiëren het ontwerp niet.
 
 Regels voor de tekst: A2-Nederlands, zoals ASD-STE100. Korte zinnen. Eén boodschap per zin. Gewone woorden. "U" en de actieve vorm. Geen puntkomma.
 

@@ -425,6 +425,22 @@ function StapInkomen({ f, zet, fouten }: StapProps) {
       />
       {vraagInkomen(f) && (
         <>
+          <Keuze
+            naam="schuldregeling"
+            legend="Heeft u een schuldregeling?"
+            hint={
+              <>
+                <p>U lost uw schulden af volgens een plan. De Stadsbank Leiden helpt u daarbij. Of de rechter heeft u toegelaten tot de Wsnp.</p>
+                <p className="bron-blok">
+                  Bronnen: <Bron citaat={CITATEN.sleutelpasSchuld} /> <Bron citaat={CITATEN.stadsbankSchuldregeling} />
+                </p>
+              </>
+            }
+            waarde={f.schuldregeling}
+            onChange={(v) => zet("schuldregeling", v)}
+            fout={fouten.schuldregeling}
+            opties={JA_NEE}
+          />
           <InkomenBlok v={f.inkomen} partner={false} onChange={(v) => zet("inkomen", v)} fouten={fouten} />
           {paar && <InkomenBlok v={f.partnerInkomen} partner onChange={(v) => zet("partnerInkomen", v)} fouten={fouten} />}
         </>

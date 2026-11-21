@@ -40,6 +40,7 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
 
   await expect(page.getByRole("heading", { level: 1, name: "Uw inkomen" })).toBeFocused();
   await kies(page, "Krijgt u bijstand van de gemeente?", "Nee");
+  await kies(page, "Heeft u een schuldregeling?", "Nee");
   const soorten = page.getByRole("group", { name: "Wat voor inkomen heeft u?" });
   await soorten.getByLabel("Loon uit werk").check();
   await soorten.getByLabel("Kinderalimentatie").check();
@@ -88,6 +89,7 @@ test("stel: per persoon een bedrag per soort inkomen, met welke uitkering", asyn
   await kies(page, "Woont er nog iemand anders bij u?", "Nee");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await kies(page, "Krijgt u samen bijstand van de gemeente?", "Nee");
+  await kies(page, "Heeft u een schuldregeling?", "Nee");
   await page.getByRole("group", { name: "Wat voor inkomen heeft u?" }).getByLabel("Een uitkering van UWV").check();
   await kies(page, "Welke uitkering krijgt u?", "Wajong");
   await page.getByLabel("Hoeveel uitkering krijgt u netto per maand?").fill("1500");

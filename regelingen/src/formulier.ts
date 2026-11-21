@@ -41,6 +41,7 @@ export interface Formulier {
   kaleHuur: string;
   andereBewoners: JaNee;
   bijstand: JaNee;
+  schuldregeling: JaNee;
   inkomen: InkomenVelden;
   partnerInkomen: InkomenVelden;
   langLaag: "" | "ja" | "nee" | "onbekend";
@@ -70,6 +71,7 @@ export const leegFormulier: Formulier = {
   kaleHuur: "",
   andereBewoners: "",
   bijstand: "",
+  schuldregeling: "",
   inkomen: leegInkomen,
   partnerInkomen: leegInkomen,
   langLaag: "",
@@ -157,6 +159,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
   if (stap === 2) {
     if (!f.bijstand) fouten.bijstand = kies;
     if (vraagInkomen(f)) {
+      if (!f.schuldregeling) fouten.schuldregeling = kies;
       inkomen(f.inkomen, false);
       if (metPartner(f)) inkomen(f.partnerInkomen, true);
     }
@@ -193,6 +196,7 @@ export function naarInvoer(f: Formulier): CheckInvoer {
     kinderen: kinderen(f).map((k) => ({ leeftijd: leeftijd(k) ?? 0 })),
     kinderbijslag: minderjarigen(f) > 0 ? f.kinderbijslag === "ja" : undefined,
     bijstand,
+    schuldregeling: vraagInkomen(f) ? f.schuldregeling === "ja" : undefined,
     langLaagInkomen: vraagLangLaag(f) ? f.langLaag || undefined : undefined,
     studieMedisch: vraagStudie(f) ? f.studieMedisch || undefined : undefined,
     wonen: f.woont || "huur",

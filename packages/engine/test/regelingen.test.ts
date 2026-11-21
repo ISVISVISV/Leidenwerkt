@@ -65,6 +65,11 @@ describe("Sleutelpas, Kindtegoed, laptop en zwemles", () => {
     expect(kans(invoer({ aanvrager: student }), "sleutelpas")).toBe("nee");
     expect(kans(invoer({ aanvrager: student, kinderen: [{ leeftijd: 2 }], kinderbijslag: true }), "sleutelpas")).toBe("ja");
   });
+  it("met een schuldregeling de Sleutelpas, ook boven 130% (art. 2.3 b en c)", () => {
+    const hoog = { leeftijd: 40, inkomen: { loon: 2500 } };
+    expect(kans(invoer({ aanvrager: hoog }), "sleutelpas")).toBe("nee");
+    expect(kans(invoer({ aanvrager: hoog, schuldregeling: true }), "sleutelpas")).toBe("ja");
+  });
   it("Kindtegoed per leeftijd: € 150 + € 350 + € 550 = € 1.050", () => {
     const u = uitslag(checkRegelingen(invoer({ kinderen: [{ leeftijd: 2 }, { leeftijd: 8 }, { leeftijd: 15 }], kinderbijslag: true })), "kindtegoed")!;
     expect(u.bedrag).toBe("€ 1.050 per jaar");

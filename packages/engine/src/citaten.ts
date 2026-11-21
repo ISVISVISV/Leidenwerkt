@@ -53,6 +53,20 @@ export const CITATEN = {
     tekst:
       "Het gaat om de datum waarop een persoon langdurig een laag inkomen heeft, geen in aanmerking te nemen vermogen heeft als bedoeld in artikel 34 van de Participatiewet en, gelet op de omstandigheden van die persoon, geen uitzicht op inkomensverbetering heeft.",
   },
+  sleutelpasSchuld: {
+    titel: "Leiden, Beleidsregels Sleutelpas 2026, art. 2.3",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2025-429670.html",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "De rechthebbende heeft geen draagkracht als: a. Het (gezins)inkomen van de rechthebbende niet hoger is dan 130% van het Wettelijk Sociaal Minimum (WSM), en; b. De rechthebbende is toegelaten tot de schuldsaneringsregeling (volgens de WSNP). c. De rechthebbende meedoet aan een schuldregeling die door de gemeente is afgesloten (MSNP). Dit geldt zolang die persoon zich aan de afspraken van de regeling houdt.",
+  },
+  stadsbankSchuldregeling: {
+    titel: "Leiden, Bankreglement stadsbank gemeente Leiden 2025, art. 1",
+    url: "https://lokaleregelgeving.overheid.nl/CVDR741747/",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "Schuldregeling: bij een schuldregeling bemiddelt de Stadsbank tussen de schuldenaar en zijn schuldeisers om een minnelijke regeling van de totale schuldenlast te bewerkstelligen; […] Stadsbank: de Stadsbank Leiden, (statutair) gevestigd te Leiden, en kantoorhoudende te 2312 NH Leiden aan de Langegracht 72;",
+  },
   pw13studie: {
     titel: "Participatiewet, art. 13 lid 2 c",
     url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
