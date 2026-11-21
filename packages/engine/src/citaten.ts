@@ -81,6 +81,13 @@ export const CITATEN = {
     tekst:
       "Hebt u lichamelijke, psychische of sociale problemen? Of heeft uw partner lichamelijke, psychische of sociale problemen? En wilt u daarom voor uw kind(eren) kinderopvang regelen? Dan kunt u een vergoeding voor de kinderopvangkosten aanvragen. U kunt voor maximaal 3 dagen een vergoeding voor de kinderopvang krijgen. […] Uw kind(eren) is (zijn) jonger dan 4 jaar of zit(ten) op de basisschool. U en/of uw partner krijgen geen andere vergoeding voor de kinderopvangkosten. […] Hou er rekening mee dat u ook een eigen bijdrage moet betalen.",
   },
+  kinderopvangSmiGeldzaken: {
+    titel: "Gemeente Leiden, Geldzaken: Kinderopvang bij sociale of medische problemen",
+    url: "https://geldzaken.leiden.nl/regeling/kinderopvang-bij-sociale-of-medische-problemen/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Hebt u last van lichamelijke, psychische of sociale klachten? En kan er geen andere volwassene voor uw kinderen zorgen? Dan kan de gemeente u helpen met de kosten voor kinderopvang. […] Uw kinderen zitten op de basisschool of zijn jonger dan 4 jaar.",
+  },
   kwijtschelding: {
     titel: "Gemeente Leiden, Geldzaken: Kwijtschelding of geld terugkrijgen",
     url: "https://geldzaken.leiden.nl/regeling/kwijtschelding-of-geld-terugkrijgen/",

@@ -402,9 +402,9 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       groep: "gemeente",
       kans: "misschien",
       waarom:
-        "Heeft u of uw partner lichamelijke, psychische of sociale problemen? En heeft uw kind daarom kinderopvang nodig? Dan kan de gemeente de kinderopvang betalen, voor hoogstens 3 dagen per week. U betaalt wel een eigen bijdrage.",
+        "Heeft u of uw partner last van lichamelijke, psychische of sociale klachten? Kan niemand anders voor uw kind zorgen? Dan kan de gemeente helpen met de kosten van kinderopvang. U betaalt zelf ook een deel.",
       aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.smi },
-      bronnen: [CITATEN.kinderopvangSmi],
+      bronnen: [CITATEN.kinderopvangSmi, CITATEN.kinderopvangSmiGeldzaken],
     });
 
   // Kwijtschelding van gemeentelijke belastingen (BSGR): inkomen op of onder bijstandsniveau. De berekening is van BSGR,
@@ -632,7 +632,7 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
           groep: "toeslagen",
           kans: "ja",
           bedrag: `${euro(perKwartaal)} per kwartaal`,
-          waarom: "Kinderbijslag is geld voor uw kinderen jonger dan 18 jaar. Het hangt niet af van uw inkomen. U vraagt het aan bij de SVB.",
+          waarom: "Kinderbijslag is geld voor uw kinderen tot 18 jaar. Uw inkomen maakt niet uit. U vraagt dit aan bij de Sociale Verzekeringsbank.",
           aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.kinderbijslag },
           bronnen: [CITATEN.kinderbijslagWie, ...bron(l, "akw.kwartaal.0_5")],
         };

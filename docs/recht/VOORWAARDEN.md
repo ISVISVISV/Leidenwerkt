@@ -120,10 +120,19 @@ Gevolg voor de app: de vraag naar opvang hoort bij werk, studie, traject naar we
 
 Kan nu niet worden aangevraagd (13 april tot en met 31 juli). De grens van 120% van de bijstandsnorm staat al in de regels van Leidenwerkt (Beleidsregels bijzondere bijstand 2022, art. 12). [Gemeente Leiden, zwemabonnement](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/zwemabonnement-voor-de-zomer/)
 
+### Toegevoegd op 22 november 2026
+
+| Regeling | Wat Leidenrekent doet | Bron |
+| --- | --- | --- |
+| Kinderbijslag | Alleen bij kinderen jonger dan 18 voor wie iemand nog geen kinderbijslag krijgt. Bedrag per kwartaal uit de tabel van de SVB. Hangt niet af van het inkomen | [SVB, Wat is kinderbijslag](https://www.svb.nl/nl/kinderbijslag/wat-is-kinderbijslag/wat-is-kinderbijslag) |
+| Kinderopvang bij sociale of medische problemen | "Misschien" bij een kind jonger dan 13. Leidenrekent vraagt niet naar klachten | [Gemeente Leiden](https://gemeente.leiden.nl/inwoners-en-ondernemers/zorg-en-onderwijs/kinderopvang/kinderopvang-bij-sociale-of-medische-problemen/), [Geldzaken](https://geldzaken.leiden.nl/regeling/kinderopvang-bij-sociale-of-medische-problemen/) |
+| Kwijtschelding | "Misschien" tot het sociaal minimum. BSGR rekent het zelf uit | [Geldzaken](https://geldzaken.leiden.nl/regeling/kwijtschelding-of-geld-terugkrijgen/) |
+| Bijzondere bijstand | "Misschien" tot 150% van de bijstandsnorm. Maatwerk | [Geldzaken](https://geldzaken.leiden.nl/regeling/bijzondere-bijstand-als-het-echt-nodig-is/) |
+| Goed om te weten | Goede Buur Spreekuur, Stadsbank, Voedselbank. Voor iedereen | [Geldzaken](https://geldzaken.leiden.nl/) |
+
 ### Nog uitzoeken
 
 - **Huurtoeslag:** vermogensgrens 2027. Op 21 november 2026 nog niet gevonden. Het bericht van Dienst Toeslagen over 2027 noemt alleen zorgtoeslag en kindgebonden budget. Opnieuw kijken in december, samen met de andere bedragen van 2027.
-- **Kwijtschelding** en **bijzondere bijstand**: later, zoals afgesproken.
 
 ## Vragen voor de praktijk
 
