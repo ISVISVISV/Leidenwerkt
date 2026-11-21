@@ -202,3 +202,67 @@ export function Keuze<T extends string>(props: {
     </fieldset>
   );
 }
+
+/** Een vraag waarbij meer antwoorden mogen. Een optie in `alleen` (bijvoorbeeld "Geen inkomen") zet de andere uit. */
+export function Vinkjes<T extends string>(props: {
+  naam: string;
+  legend: string;
+  hint?: ReactNode;
+  fout?: string;
+  opties: [T, string][];
+  waarde: T[];
+  alleen?: T;
+  onChange: (v: T[]) => void;
+}) {
+  const [uitleg, setUitleg] = useState(false);
+  const hintId = `${props.naam}-hint`;
+  const foutId = `${props.naam}-fout`;
+  const wissel = (w: T, aan: boolean) => {
+    if (!aan) return props.onChange(props.waarde.filter((x) => x !== w));
+    if (w === props.alleen) return props.onChange([w]);
+    props.onChange([...props.waarde.filter((x) => x !== props.alleen), w]);
+  };
+  return (
+    <fieldset
+      className={`keuze${props.fout ? " fout" : ""}`}
+      aria-describedby={[props.hint && uitleg ? hintId : "", props.fout ? foutId : ""].filter(Boolean).join(" ") || undefined}
+    >
+      {props.hint ? (
+        <>
+          <legend className="visueel-verborgen">{props.legend}</legend>
+          <div className="vraag-rij">
+            <span className="vraag-tekst" aria-hidden="true">
+              {props.legend}
+            </span>
+            <InfoKnop open={uitleg} onToggle={() => setUitleg(!uitleg)} controls={hintId} onderwerp={props.legend} />
+          </div>
+        </>
+      ) : (
+        <legend>{props.legend}</legend>
+      )}
+      {props.hint && (
+        <div className="hint" id={hintId} hidden={!uitleg} onKeyDown={sluitMetEscape(hintId, () => setUitleg(false))}>
+          {props.hint}
+        </div>
+      )}
+      {props.fout && (
+        <p className="foutmelding" id={foutId}>
+          {props.fout}
+        </p>
+      )}
+      {props.opties.map(([w, tekst]) => (
+        <label key={w} className="optie">
+          <input
+            type="checkbox"
+            name={props.naam}
+            value={w}
+            checked={props.waarde.includes(w)}
+            aria-invalid={props.fout ? true : undefined}
+            onChange={(e) => wissel(w, e.target.checked)}
+          />
+          <span>{tekst}</span>
+        </label>
+      ))}
+    </fieldset>
+  );
+}

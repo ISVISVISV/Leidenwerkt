@@ -1,0 +1,63 @@
+/* Alleen wat de check extra nodig heeft. De huisstijl staat in packages/ui/src/stijl.css. */
+
+.overzicht .groep {
+  margin: 1.5rem 0;
+}
+
+.overzicht h2 {
+  font-size: 1.2rem;
+  margin: 0 0 0.4rem;
+}
+
+.overzicht details.groep summary {
+  cursor: pointer;
+}
+
+.overzicht details.groep summary h2 {
+  display: inline;
+}
+
+.regelingen {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.regeling {
+  background: var(--veld);
+  border: 1px solid var(--lijn);
+  border-left: 4px solid var(--lijn);
+  border-radius: 4px;
+  padding: 0.8rem 1rem;
+  margin: 0 0 0.8rem;
+  break-inside: avoid;
+}
+
+.regeling.ja {
+  border-left-color: var(--positief);
+}
+
+.regeling.misschien {
+  border-left-color: var(--let-op);
+}
+
+.regeling h3 {
+  font-size: 1.05rem;
+  margin: 0 0 0.3rem;
+}
+
+.regeling p {
+  margin: 0.3rem 0;
+}
+
+.regeling .bedrag {
+  font-weight: 700;
+}
+
+.kind {
+  margin-bottom: 0.5rem;
+}
+
+.bron-regel {
+  display: block;
+}
