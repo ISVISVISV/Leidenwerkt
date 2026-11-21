@@ -271,16 +271,18 @@ describe("na de QA", () => {
     expect(zonderVt("1401.50", 1.4)).toBe(1864);
     expect(zonderVt("2002.13", 1.4)).toBe(2662.83);
   });
-  it("in een instelling: alleenstaand de norm van art. 23 lid 1 zonder verhoging; voor een paar noemt de gemeente geen bedrag", () => {
+  it("in een instelling: geen Sleutelpas; verder alleenstaand de norm van art. 23 lid 1 zonder verhoging; voor een paar noemt de gemeente geen bedrag", () => {
     const w = { brutoMaandloon: 300, urenPerWeek: 8 };
     const alleen = bereken(basis({ wonen: { soort: "instelling" }, nieuwWerk: w, vrijlatingFase: "start" }));
-    expect(alleen.signalen.find((s) => s.kop === "Sleutelpas")?.tekst).toMatch(/€\s?584/); // 130% × € 449,44
+    // Sleutelpas: niet bij verblijf in een instelling (Beleidsregels Sleutelpas 2026, art. 2.2 a).
+    expect(alleen.signalen.find((s) => s.kop === "Sleutelpas")?.tekst).toBe("Wie in een instelling woont, kan de Sleutelpas niet krijgen.");
     // Gemeentepolis (V17): de gemeentepagina noemt voor een alleenstaande in een instelling € 512,36 zonder vakantiegeld,
     // dus € 539 met vakantiegeld (120% × € 449,44), net als het Volwassenenfonds.
     expect(alleen.signalen.find((s) => s.kop === "Zorgverzekering")?.tekst).toMatch(/€\s?539/);
     expect(alleen.signalen.find((s) => s.kop === "Sport en cultuur")?.tekst).toMatch(/€\s?539/);
     const paar = bereken(basis({ leefvorm: "paar", partner: { leeftijd: 35 }, wonen: { soort: "instelling" }, nieuwWerk: w, vrijlatingFase: "start" }));
-    expect(paar.signalen.some((s) => ["Sleutelpas", "Sport en cultuur", "Zorgverzekering"].includes(s.kop))).toBe(false);
+    expect(paar.signalen.some((s) => ["Sport en cultuur", "Zorgverzekering"].includes(s.kop))).toBe(false);
+    expect(paar.signalen.find((s) => s.kop === "Sleutelpas")?.tekst).toBe("Wie in een instelling woont, kan de Sleutelpas niet krijgen.");
   });
 });
 

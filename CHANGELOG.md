@@ -12,6 +12,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Kinderopvang: bij elk kind jonger dan 13 de vraag "Als u gaat werken, gaat dit kind dan naar de opvang?" (Nee / Ja), in plaats van een vinkje. Op de startpagina: "Gaat uw kind naar de opvang terwijl u werkt? Vul dan in hoeveel uur per week dit is. Weet u de prijs per uur? Vul die dan ook in."
 - Tekst onderaan de pagina: wat u invult blijft op uw eigen telefoon of computer, Leidenwerkt geeft een schatting, en een link naar de broncode.
 - Lettertype Open Sans in plaats van Atkinson Hyperlegible. Het zit in de bundel, de site laadt niets van buiten.
+- Sleutelpas bij verblijf in een instelling: "Wie in een instelling woont, kan de Sleutelpas niet krijgen." Zo staat het in de Beleidsregels Sleutelpas 2026, art. 2.2 a. Eerder gaf de rekenhulp hier een inkomensgrens.
 - De melding over de toeslagen heet nu "Geef uw nieuwe inkomen door aan Dienst Toeslagen". Wie een toeslag krijgt, ziet die melding nu altijd, ook als de toeslag niet verandert: een nieuw inkomen moet u dan toch doorgeven (Belastingdienst, "Mijn inkomen verandert – moet ik dat doorgeven?").
 
 ## 0.5.0 – 13 november 2026
