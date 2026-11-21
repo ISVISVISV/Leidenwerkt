@@ -7,22 +7,7 @@
  */
 import { controleer, leegFormulier, zetVandaag, nieuwKind, type Formulier, type JaNeeVraag, type KindVeld } from "../app/src/formulier.ts";
 import { REKENDATUM, type Persoon } from "./personen.ts";
-
-/** Kleine, voorspelbare toevalsgenerator (mulberry32). */
-function toeval(zaad: number) {
-  let a = zaad >>> 0;
-  const r = () => {
-    a = (a + 0x6d2b79f5) >>> 0;
-    let t = a;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-  const tussen = (van: number, tot: number) => van + Math.floor(r() * (tot - van + 1));
-  const kies = <T,>(lijst: readonly T[]): T => lijst[Math.floor(r() * lijst.length)];
-  const kans = (p: number) => r() < p;
-  return { tussen, kies, kans };
-}
+import { toeval } from "../scripts/audit-kern.ts";
 
 const ALLE: JaNeeVraag[] = ["partner", "heeftKinderen", "partnerWerkt", "heeftAnderInkomen", "krijgtKinderalimentatie", "woonlasten", "andereBewoners", "werktNu"];
 const datum = (leeftijd: number, t: ReturnType<typeof toeval>) => {

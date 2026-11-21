@@ -16,9 +16,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { createServer } from "vite";
-import { chromium } from "@playwright/test";
 import { readdirSync } from "node:fs";
+import { Controles, bestandsnaam, browserMetPaginas, optie, overlapIn, pagina, rekendatumUit, viteVoor } from "./audit-kern.ts";
 import { parse } from "yaml";
 import { PERSONEN, REKENDATUM, formulier, kind, type Persoon, type Verwachting } from "../audit/personen.ts";
 import { willekeurigePersonen } from "../audit/willekeurig.ts";
@@ -26,10 +25,6 @@ import type { Formulier } from "../app/src/formulier.ts";
 
 const wortel = join(dirname(fileURLToPath(import.meta.url)), "..");
 // `npm run audit -- --willekeurig 200 --zaad 7`: willekeurige personen in plaats van de vaste.
-const optie = (naam: string) => {
-  const i = process.argv.indexOf(`--${naam}`);
-  return i > 0 ? Number(process.argv[i + 1]) : undefined;
-};
 const aantalWillekeurig = optie("willekeurig");
 const zaad = optie("zaad") ?? Date.now() % 100000;
 const uitvoerMap = join(wortel, "audit", "uitvoer");
@@ -62,50 +57,35 @@ function bedrag(t: string): number | null {
 }
 
 async function main() {
-  const vite = await createServer({
-    configFile: join(wortel, "app", "vite.config.ts"),
-    root: join(wortel, "app"),
-    server: { middlewareMode: true, hmr: false },
-    appType: "custom",
-    logLevel: "error",
-  });
+  const vite = await viteVoor(join(wortel, "app"));
   // Vaste rekendatum (audit/personen.ts of --datum JJJJ-MM-DD): dezelfde uitkomst voor iedereen, elke dag.
-  const datumArg = process.argv.indexOf("--datum");
-  const rekendatum = datumArg > 0 ? process.argv[datumArg + 1] : REKENDATUM;
+  const rekendatum = rekendatumUit(REKENDATUM);
   ((await vite.ssrLoadModule("/src/formulier.ts")) as { zetVandaag: (d: string) => void }).zetVandaag(rekendatum);
   const { Uitkomst } = (await vite.ssrLoadModule("/src/Uitkomst.tsx")) as {
     Uitkomst: (p: object) => unknown;
   };
   const css = readFileSync(join(wortel, "packages", "ui", "src", "stijl.css"), "utf8");
-  // Net als de e2e-tests: lokaal kan een bestaande Chrome gebruikt worden (CHROME_PATH=/pad/naar/chrome).
-  const browser = await chromium.launch(
-    process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {},
-  );
-  const scherm = await browser.newPage({
-    viewport: { width: 390, height: 844 },
-  });
-  const papier = await browser.newPage({
-    viewport: { width: 718, height: 1000 },
-  }); // A4 min 15 mm marge
-  await papier.emulateMedia({ media: "print" });
+  const { browser, scherm, papier } = await browserMetPaginas();
 
-  // tsx geeft functies een naam met de hulpfunctie __name; die bestaat niet in de browser.
   const html = (f: Formulier, uren: number | undefined, fase: Fase) =>
-    `<!doctype html><html lang="nl"><head><meta charset="utf-8"><script>window.__name = (f) => f;</script><style>${css}</style></head><body><div class="pagina"><main>${renderToStaticMarkup(
-      createElement(Uitkomst as never, {
-        f,
-        bewaardeUren: uren,
-        beginFase: fase,
-      }),
-    )}</main></div></body></html>`;
+    pagina(
+      css,
+      renderToStaticMarkup(
+        createElement(Uitkomst as never, {
+          f,
+          bewaardeUren: uren,
+          beginFase: fase,
+        }),
+      ),
+    );
 
   async function bekijk(
     f: Formulier,
     uren: number | undefined,
     fase: Fase,
   ): Promise<Weergave> {
-    const pagina = html(f, uren, fase);
-    await scherm.setContent(pagina);
+    const inhoud = html(f, uren, fase);
+    await scherm.setContent(inhoud);
     const w = await scherm.evaluate(() => {
       document
         .querySelectorAll("details")
@@ -148,41 +128,15 @@ async function main() {
         periode: gekozen ? tekst(gekozen.closest("label")) : undefined,
       };
     });
-    await papier.setContent(pagina);
-    const afdruk = await papier.evaluate(() => {
-      document
-        .querySelectorAll("details")
-        .forEach((d) => ((d as HTMLDetailsElement).open = true));
-      const blokken = [
-        ...document.querySelectorAll(
-          ".antwoord, .te-doen, .gegevens, .urengrens, table.vergelijking, .tabel-noten, .signalen > li, .aannames, main > section, main > p",
-        ),
-      ]
-        .map((e) => ({ e, r: e.getBoundingClientRect() }))
-        .filter(({ r }) => r.width > 0 && r.height > 0);
-      const overlap: string[] = [];
-      for (let i = 0; i < blokken.length; i++)
-        for (let j = i + 1; j < blokken.length; j++) {
-          const a = blokken[i];
-          const b = blokken[j];
-          if (a.e.contains(b.e) || b.e.contains(a.e)) continue;
-          const x =
-            Math.min(a.r.right, b.r.right) - Math.max(a.r.left, b.r.left);
-          const y =
-            Math.min(a.r.bottom, b.r.bottom) - Math.max(a.r.top, b.r.top);
-          if (x > 2 && y > 2)
-            overlap.push(
-              `${a.e.className || a.e.tagName} en ${b.e.className || b.e.tagName} (${Math.round(y)} px)`,
-            );
-        }
-      return {
-        overlap,
-        tekst:
-          (
-            document.querySelector(".gegevens") as HTMLElement | null
-          )?.innerText.trim() ?? "",
-      };
-    });
+    await papier.setContent(inhoud);
+    const overlap = await overlapIn(
+      papier,
+      ".antwoord, .te-doen, .gegevens, .urengrens, table.vergelijking, .tabel-noten, .signalen > li, .aannames, main > section, main > p",
+    );
+    const afdruk = {
+      overlap,
+      tekst: await papier.evaluate(() => (document.querySelector(".gegevens") as HTMLElement | null)?.innerText.trim() ?? ""),
+    };
     return {
       ...w,
       rijen: w.rijen.map((r) => ({
@@ -197,23 +151,9 @@ async function main() {
   }
 
   // ---- Controles ------------------------------------------------------------------------------------------
-  const fouten: {
-    persoon: string;
-    waar: string;
-    controle: string;
-    wat: string;
-  }[] = [];
-  const telling = new Map<string, number>();
-  const controle = (
-    naam: string,
-    persoon: string,
-    waar: string,
-    ok: boolean,
-    wat: string,
-  ) => {
-    telling.set(naam, (telling.get(naam) ?? 0) + 1);
-    if (!ok) fouten.push({ persoon, waar, controle: naam, wat });
-  };
+  const c = new Controles();
+  const fouten = c.fouten;
+  const controle = c.controle.bind(c);
 
   function controleer(persoon: string, waar: string, w: Weergave) {
     // 1. De tabel telt op.
@@ -316,32 +256,9 @@ async function main() {
       );
     }
     // 6. Geen puntkomma in tekst voor gebruikers (de letterlijke wetteksten tellen niet mee).
-    const zinnen = [w.tekst, w.afdrukTekst]
-      .join("\n")
-      .split("\n")
-      .filter((r) => /;/.test(r));
-    controle(
-      "Geen ; in teksten",
-      persoon,
-      waar,
-      zinnen.length === 0,
-      zinnen
-        .map(
-          (z) =>
-            `"…${z.slice(Math.max(0, z.indexOf(";") - 70), z.indexOf(";") + 50)}…"`,
-        )
-        .join(" | "),
-    );
+    c.geenPuntkomma(persoon, waar, [w.tekst, w.afdrukTekst]);
     // 7. Bedragen van 1.000 of meer met een punt.
-    const zonderPunt =
-      [w.tekst, w.afdrukTekst].join("\n").match(/€\s?\d{4,}/g) ?? [];
-    controle(
-      "Bedragen met een punt",
-      persoon,
-      waar,
-      zonderPunt.length === 0,
-      zonderPunt.join(", "),
-    );
+    c.bedragenMetPunt(persoon, waar, [w.tekst, w.afdrukTekst]);
     // 8. In de afdruk overlapt niets.
     controle(
       "Afdruk zonder overlap",
@@ -360,18 +277,7 @@ async function main() {
     if (bijstand && houdt)
       controle("Zin over de bijstand past bij de tabel", persoon, waar, bijstand.werk === getal(houdt[1]), `zin: "${houdt[0]}", tabel met werk: € ${bijstand.werk}`);
     // 11. Geen kapotte tekst.
-    const kapot =
-      [w.tekst, w.afdrukTekst]
-        .join("\n")
-        .match(/.{0,40}(NaN|undefined|null|\[object|Infinity|€\s?-).{0,40}/g) ??
-      [];
-    controle(
-      "Geen kapotte tekst",
-      persoon,
-      waar,
-      kapot.length === 0,
-      kapot.map((k) => `"${k}"`).join(" | "),
-    );
+    c.geenKapotteTekst(persoon, waar, [w.tekst, w.afdrukTekst]);
   }
 
   // ---- Personen doorrekenen ---------------------------------------------------------------------------------
@@ -464,11 +370,7 @@ async function main() {
         }
       }
       if (!aantalWillekeurig) {
-        const bestand = p.naam
-          .split(":")[0]
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/^-|-$/g, "");
+        const bestand = bestandsnaam(p.naam);
         writeFileSync(
           join(uitvoerMap, `${bestand}.txt`),
           delen.join("\n") + "\n",
@@ -491,24 +393,12 @@ async function main() {
   await vite.close();
 
   // ---- Rapport -----------------------------------------------------------------------------------------------
-  const regels = [
-    "# Auditrapport",
-    "",
+  const regels = c.rapport(
+    "Auditrapport",
     aantalWillekeurig
       ? `Gemaakt met \`npm run audit -- --willekeurig ${aantalWillekeurig} --zaad ${zaad}\` met rekendatum ${rekendatum}. ${personen.length} willekeurige personen. De formulieren van personen met een melding staan in audit/willekeurig-fouten.json.`
       : `Gemaakt met \`npm run audit\` met rekendatum ${rekendatum}. ${personen.length} personen uit audit/personen.ts. De uitkomsten staan in audit/uitvoer/.`,
-    "",
-    "| Controle | Aantal keer | Niet goed |",
-    "| --- | --- | --- |",
-    ...[...telling].map(
-      ([naam, n]) =>
-        `| ${naam} | ${n} | ${fouten.filter((f) => f.controle === naam).length} |`,
-    ),
-    "",
-    fouten.length === 0 ? "Alles klopt." : "## Wat niet klopt\n",
-    ...samengevat(fouten),
-    "",
-  ];
+  );
   writeFileSync(
     join(
       wortel,
@@ -545,30 +435,6 @@ function externePersonen(): Persoon[] {
         uren: d.uren,
       };
     });
-}
-
-/**
- * Elke melding één keer, met bij wie en waar ze voorkomt. Bij "Geen ; in teksten" is elke zin een aparte melding,
- * zodat dezelfde zin bij tien personen één regel wordt.
- */
-function samengevat(
-  fouten: { persoon: string; waar: string; controle: string; wat: string }[],
-): string[] {
-  const groepen = new Map<string, Set<string>>();
-  for (const f of fouten) {
-    const delen =
-      f.controle === "Geen ; in teksten" ? f.wat.split(" | ") : [f.wat];
-    for (const d of delen) {
-      const sleutel = `**${f.controle}**: ${f.controle === "Geen ; in teksten" ? d : `${f.persoon} · ${f.waar}: ${d}`}`;
-      if (!groepen.has(sleutel)) groepen.set(sleutel, new Set());
-      groepen.get(sleutel)!.add(f.persoon.split(":")[0]);
-    }
-  }
-  return [...groepen].map(([s, wie]) =>
-    s.startsWith("**Geen ;")
-      ? `- ${s} (bij ${[...wie].slice(0, 4).join(", ")}${wie.size > 4 ? ` en ${wie.size - 4} anderen` : ""})`
-      : `- ${s}`,
-  );
 }
 
 main().catch((e) => {
