@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Lezer, woonkorting, bereken, verschilEersteJaar, citaatVoorParameter, euro, vrijlatingUitleg, regimeOp, standaardRegels, D, type Fase, type Opvangsoort, type Post, type Resultaat } from "@leidenwerkt/engine";
-import { Bron } from "./Bron.tsx";
+import { Bron } from "@leidenwerkt/ui";
 import { LOON_PER, OPVANG, euroTekst, getal, ingevuld, ingevuldLoon, maxUurprijs, naarInvoer, schuifStart, vasteFase, vandaag, vraagInkomenAnderen, vraagInkomenKind, type Formulier } from "./formulier.ts";
 
 /** Zoekt de meest recente datum (vanaf vandaag terug) waarvoor de bijstand berekend kan worden. */

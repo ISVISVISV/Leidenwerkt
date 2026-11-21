@@ -76,7 +76,7 @@ async function main() {
   const { Uitkomst } = (await vite.ssrLoadModule("/src/Uitkomst.tsx")) as {
     Uitkomst: (p: object) => unknown;
   };
-  const css = readFileSync(join(wortel, "app", "src", "styles.css"), "utf8");
+  const css = readFileSync(join(wortel, "packages", "ui", "src", "stijl.css"), "utf8");
   // Net als de e2e-tests: lokaal kan een bestaande Chrome gebruikt worden (CHROME_PATH=/pad/naar/chrome).
   const browser = await chromium.launch(
     process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {},

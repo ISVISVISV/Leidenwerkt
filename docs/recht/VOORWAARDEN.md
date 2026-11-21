@@ -16,8 +16,8 @@ Tekens in de kolom Status: ✓ uit de bron, ? nog uitzoeken, ! vraag voor de pra
 | Huurtoeslag | Vermogen 2026 | "niet hoger is dan € 38.479"; met toeslagpartner "maximaal € 76.958"; "Ook medebewoners mogen niet meer dan € 38.479 aan vermogen hebben" | ✓ | [Belastingdienst, maximaal vermogen huurtoeslag](https://www.belastingdienst.nl/wps/wcm/connect/nl/huurtoeslag/content/maximaal-vermogen-huurtoeslag) |
 | Zorgtoeslag en kindgebonden budget | Vermogen vanaf 2027 | Zonder toeslagpartner "maximaal € 119.122", met toeslagpartner "maximaal € 158.748" (bericht van 15 oktober 2026) | ✓ | [Belastingdienst, lagere vermogensgrenzen vanaf 2027](https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/berichten/nieuws/toeslagen/lagere-vermogensgrenzen-zorgtoeslag-kindgebonden-budget-vanaf-1-januari-2027) |
 | Alle toeslagen | Inkomen en bedragen | Rekenregels zitten al in de rekenkern van Leidenwerkt, met bronnen | ✓ | regels/landelijk |
-| Kinderopvangtoeslag | Voorwaarden (werk of studie van beide ouders, geregistreerde opvang) | Nog niet uitgezocht voor andere situaties dan werk | ? | |
-| Huurtoeslag | Vermogen 2027 | Nog niet gezocht | ? | |
+| Kinderopvangtoeslag | Wie het kan krijgen | Zie de tabel "Kinderopvangtoeslag: wie kan het krijgen" hieronder | ✓ | [Wet kinderopvang art. 1.6](https://wetten.overheid.nl/BWBR0017017/2026-01-01) |
+| Huurtoeslag | Vermogen 2027 | Nog niet gepubliceerd (gezocht op 21 november 2026) | ? | |
 
 ## Regelingen van de gemeente Leiden
 
