@@ -75,6 +75,8 @@ export function leeftijdOp(g: Geboortedatum, datum: string): number | undefined 
 export interface KindVeld {
   geboren: Geboortedatum;
   opvang: boolean;
+  /** Is de vraag "Gaat dit kind naar de opvang als u werkt?" beantwoord? */
+  opvangGekozen: boolean;
   /** Leeg: nog niet gekozen. */
   soort: Opvangsoort | "";
   uren: string;
@@ -189,7 +191,7 @@ export const leegFormulier: Formulier = {
   overigeKosten: "",
 };
 
-export const nieuwKind = (): KindVeld => ({ geboren: legeDatum(), opvang: false, soort: "", uren: "", uurprijs: "", inkomen: "", inkomenOnbekend: false });
+export const nieuwKind = (): KindVeld => ({ geboren: legeDatum(), opvang: false, opvangGekozen: false, soort: "", uren: "", uurprijs: "", inkomen: "", inkomenOnbekend: false });
 
 /** Leest "15,50", "15.50" of "1.250,00" als getal; leeg geeft undefined. */
 export function getal(tekst: string): number | undefined {
@@ -304,6 +306,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (f.leefvorm === "alleenstaande_ouder" && f.kinderen.length === 0) fouten.kinderen = "Voeg minstens één kind toe.";
     f.kinderen.forEach((k, i) => {
       geboren(`kind${i}`, k.geboren, 0, 26, "Dit kind is 27 jaar of ouder. Haal het hier weg en vul het bij de volgende stap in, bij de andere bewoners.");
+      if ((leeftijdOp(k.geboren, vandaag()) ?? 99) < 13 && !k.opvangGekozen) fouten[`opvang${i}`] = kies;
       if (k.opvang) {
         if (!k.soort) fouten[`soort${i}`] = "Kies de soort opvang.";
         // Uren per week; boven het maximum van de toeslag rekent de rekenkern de kosten wel, de toeslag niet.

@@ -201,7 +201,7 @@ function Start({ onStart }: { onStart: () => void }) {
         <li>krijgt u of uw partner een uitkering, alimentatie of ander inkomen? Dan het bedrag per maand</li>
         <li>uw kale huur of kostgeld per maand</li>
         <li>wonen er volwassenen bij u, of kinderen van 18 jaar of ouder? Dan hun inkomen per jaar</li>
-        <li>gaan uw kinderen naar de opvang? Dan het aantal uren per week, en de prijs per uur als u die weet</li>
+        <li>Gaat uw kind naar de opvang terwijl u werkt? Vul dan in hoeveel uur per week dit is. Weet u de prijs per uur? Vul die dan ook in.</li>
       </ul>
       <button type="button" className="hoofdknop" onClick={onStart}>
         Begin met rekenen
@@ -661,10 +661,17 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                 fout={fouten[`kind${i}`]}
               />
               {(leeftijdOp(k.geboren, vandaag()) ?? 99) < 13 && (
-                <label className="vinkje">
-                  <input type="checkbox" checked={k.opvang} onChange={(e) => zetKind(i, { opvang: e.target.checked })} />
-                  <span>Dit kind gaat naar de kinderopvang als ik werk</span>
-                </label>
+                <Keuze
+                  naam={`opvang${i}`}
+                  legend="Gaat dit kind naar de opvang als u werkt?"
+                  waarde={k.opvangGekozen ? (k.opvang ? "ja" : "nee") : ""}
+                  onChange={(v) => zetKind(i, { opvang: v === "ja", opvangGekozen: true })}
+                  fout={fouten[`opvang${i}`]}
+                  opties={[
+                    ["nee", "Nee"],
+                    ["ja", "Ja"],
+                  ]}
+                />
               )}
               {k.opvang && (
                 <div className="opvang">

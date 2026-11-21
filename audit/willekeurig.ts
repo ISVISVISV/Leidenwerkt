@@ -66,6 +66,7 @@ export function willekeurigePersonen(aantal: number, zaad: number): Persoon[] {
             ...nieuwKind(),
             geboren: datum(leeftijd, t),
             opvang,
+            opvangGekozen: true,
             soort: opvang ? (leeftijd < 4 ? t.kies(["dagopvang", "gastouder"] as const) : t.kies(["bso", "gastouder"] as const)) : "",
             uren: opvang ? String(t.tussen(4, 50)) : "",
             uurprijs: opvang ? komma(t.tussen(600, 1400) / 100) : "",

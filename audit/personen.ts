@@ -47,7 +47,7 @@ export const formulier = (over: Partial<Formulier>): Formulier => ({
   beantwoord: Object.fromEntries(ALLE.map((k) => [k, true])),
   ...over,
 });
-export const kind = (geboren: string, over: Partial<KindVeld> = {}): KindVeld => ({ ...nieuwKind(), geboren, ...over });
+export const kind = (geboren: string, over: Partial<KindVeld> = {}): KindVeld => ({ ...nieuwKind(), geboren, opvangGekozen: true, ...over });
 const huur = (kaleHuur: string, zelfstandig = true): Partial<Formulier> => ({ woont: "huur", zelfstandig, kaleHuur });
 const uurloon = (loon: string, uren: string): Partial<Formulier> => ({ per: "uur", loon, uren, allIn: "nee" });
 
