@@ -29,7 +29,7 @@ De gemeente noemt op [Hulp bij laag inkomen](https://gemeente.leiden.nl/inwoners
 | --- | --- | --- | --- |
 | Wie | Inwoner van Leiden met een BSN (art. 2.1) | ✓ | [Beleidsregels Sleutelpas 2026, CVDR744950](https://lokaleregelgeving.overheid.nl/CVDR744950/1) |
 | Inkomen | Het (gezins)inkomen "niet hoger is dan 130% van het Wettelijk Sociaal Minimum (WSM)" (art. 2.3 a). Of: toegelaten tot de WSNP, of deelname aan een schuldregeling van de gemeente (art. 2.3 b en c) | ✓ | idem |
-| Welk inkomen | Netto maandinkomen volgens art. 32 Participatiewet, "met verwijzing naar artikel 31, behalve het tweede lid van artikel 31" (art. 4.3 a). Een maand met vakantiegeld, eindejaarsuitkering of bonus telt niet mee (art. 4.3 b) | ! | idem |
+| Welk inkomen | "netto maandinkomen zoals bedoeld in artikel 32 van de Participatiewet (PW) onder verwijzing naar artikel 31 PW, met uitzondering van artikel 31 lid 2 PW." (art. 4.3 a). Art. 31 lid 2 Pw noemt wat "Niet tot de middelen" hoort, onder meer kinderbijslag (b), toeslagen (d) en de vrijlatingen (n, r, y). Die tellen dus niet mee. Dat past bij de praktijk die op 13 november is bevestigd. Een maand met vakantiegeld, eindejaarsuitkering of bonus telt niet mee (art. 4.3 b) | ✓ | [Gemeenteblad 2025, 429670](https://zoek.officielebekendmakingen.nl/gmb-2025-429670.html), [Participatiewet art. 31](https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.4_Artikel31) |
 | Vermogen | Geen vermogensgrens. Alleen bij ondernemers gelden privé-onttrekkingen als vermogen (art. 4.3 c) | ✓ | idem |
 | Uitgesloten | Detentie of instelling, geen geldig verblijfsrecht (behalve azc), studenten met studiefinanciering of tegemoetkoming (behalve met een kind ten laste en inkomen tot 130%), sommige EU-studenten en studievergunningen (art. 2.2) | ✓ | idem |
 | Automatisch | Wie bijstand, IOAW, IOAZ of Bbz krijgt, krijgt de pas zonder aanvraag (art. 3.1) | ✓ | idem |
@@ -43,7 +43,7 @@ De gemeente noemt op [Hulp bij laag inkomen](https://gemeente.leiden.nl/inwoners
 | Voorwaarde | Uit de bron | Status | Bron |
 | --- | --- | --- | --- |
 | Woonplaats | "U woont in Leiden." | ✓ | [Gemeente Leiden, individuele inkomenstoeslag](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/individuele-inkomenstoeslag) |
-| Leeftijd | "U bent 23 jaar of ouder, maar u hebt nog niet de AOW-leeftijd bereikt." (de bedragen noemen "21 jaar tot de pensioengerechtigde leeftijd") | ✓ 23 jaar, zoals al uitgezocht voor Leidenwerkt (verordening, art. 1) | idem |
+| Leeftijd | "U bent 23 jaar of ouder, maar u hebt nog niet de AOW-leeftijd bereikt." Volgens de verordening telt de periode van 5 jaar vanaf 18 jaar, dus 23 jaar. De bedragen noemen "21 jaar tot de pensioengerechtigde leeftijd" | ✓ (bevestigd in de praktijk, 21 november 2026) | idem |
 | Inkomen | 5 jaar of langer "een inkomen hebt van maximaal 100% van de geldende bijstandsnorm" | ✓ | idem |
 | Vermogen | "Uw vermogen mag niet te hoog zijn." Geen bedrag op de pagina | ? verordening CVDR634399 | idem |
 | Uitgesloten | Studie met studiefinanciering of tegemoetkoming in de afgelopen 5 jaar, een verlaging van de bijstand omdat iemand niet genoeg werk zocht, of de toeslag al gekregen in de afgelopen 12 maanden | ✓ | idem |
@@ -86,7 +86,9 @@ De gemeente noemt op [Hulp bij laag inkomen](https://gemeente.leiden.nl/inwoners
 | Voorwaarde | Uit de bron | Status | Bron |
 | --- | --- | --- | --- |
 | Wie | In Leiden of Leiderdorp, 15 jaar of ouder, studiefinanciering of tegemoetkoming schoolkosten, geen Wajong, door ziekte of een blijvende medische beperking niet kunnen bijverdienen | ✓ | [Gemeente Leiden, studietoeslag](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/studietoeslag) |
-| Bedrag | De pagina noemt bedragen "geldig vanaf 1 januari 2024" (21 jaar en ouder € 352,80). Mogelijk verouderd | ! bedragen 2026 in de Participatiewet nazoeken | idem |
+| Wet | Art. 36b Pw: voor wie "als rechtstreeks gevolg van een ziekte of gebrek structureel niet in staat is naast de studie inkomsten te verwerven", met studiefinanciering of een tegemoetkoming (WTOS) en zonder Wajong. De minimale hoogte staat in een algemene maatregel van bestuur | ✓ | [Participatiewet art. 36b](https://wetten.overheid.nl/BWBR0015703/2026-07-01) |
+| Samen met bijstand | Wie jonger is dan 27 en studiefinanciering kan krijgen, heeft geen recht op algemene bijstand (art. 13 lid 2 c Pw). Studietoeslag en bijstand gaan dus in de regel niet samen | ✓ | idem |
+| Bedrag | De pagina noemt bedragen "geldig vanaf 1 januari 2024" (21 jaar en ouder € 352,80). Mogelijk verouderd | ? bedragen 2026 in de algemene maatregel van bestuur nazoeken | [Gemeente Leiden, studietoeslag](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/studietoeslag) |
 
 ### Nog niet gevonden (website van de gemeente gaf geen antwoord)
 
@@ -97,6 +99,4 @@ De gemeente noemt op [Hulp bij laag inkomen](https://gemeente.leiden.nl/inwoners
 
 ## Vragen voor de praktijk
 
-1. **Welk inkomen telt voor de Sleutelpas (art. 4.3 a)?** De beleidsregel zegt: netto inkomen volgens art. 32 Participatiewet, "behalve het tweede lid van artikel 31". Art. 31 lid 2 noemt wat níet als inkomen telt, onder meer de vrijlatingen. Als dat lid niet geldt, telt het vrijgelaten loon dus wél mee. Dat is anders dan de praktijk die op 13 november is bevestigd ("het stukje vrijlating wordt niet meegenomen"). Dit raakt ook Leidenwerkt.
-2. **Individuele inkomenstoeslag:** 21 of 23 jaar? De pagina noemt beide. De verordening (art. 1) leidt tot 23 jaar.
-3. **Studietoeslag:** gelden de bedragen van 2024 nog?
+1. **Studietoeslag:** gelden de bedragen van 2024 nog? (Eerst zelf nazoeken in de algemene maatregel van bestuur.)
