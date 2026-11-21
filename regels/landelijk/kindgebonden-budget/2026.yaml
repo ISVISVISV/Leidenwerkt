@@ -76,3 +76,23 @@ parameters:
       kop: "Dienst Toeslagen, Berekening kindgebonden budget 2026, stap 1, 2 en 4"
       tekst: "Maximaal jaar bedrag kindgebonden budget Aantal kinderen Alleenstaande ouder Ouder met toeslagpartner 1 kind € 5.996 € 2.580 2 kinderen € 8.576 € 5.160 Verhoging vanaf 3e kind € 2.580 € 2.580 […] Verhoog dan het maximale toeslagbedrag met: • € 724 voor elk kind van 12 t/m 15 jaar • € 964 voor elk kind van 16 en 17 jaar […] Bij een toetsingsinkomen tot en met € 29.736 ontvangt uw klant de maximale toeslag. Is het toetsingsinkomen meer dan € 29.736? Dan moet u de vermindering van het maximale toeslagbedrag berekenen: 7,6% x (het toetsingsinkomen - € 29.736) = vermindering. Heeft uw klant een toeslagpartner? Bij een toetsingsinkomen tot en met € 39.141 ontvangt uw klant de maximale toeslag."
       versie: "geraadpleegd op 11 november 2026"
+  - id: kgb.vermogen.zonder_partner
+    omschrijving: Kindgebonden budget 2026, hoogste vermogen zonder toeslagpartner
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "146011" }
+    status: geverifieerd
+    bron: &kgbvermogen
+      titel: Dienst Toeslagen, Hoeveel vermogen mag ik hebben om kindgebonden budget te krijgen?
+      url: https://www.belastingdienst.nl/wps/wcm/connect/nl/kindgebonden-budget/content/maximaal-vermogen-kindgebonden-budget
+      geraadpleegd_op: 2026-11-21
+    citaat: &ckgbvermogen
+      kop: "Dienst Toeslagen, maximaal vermogen kindgebonden budget"
+      tekst: "U mag in 2026 maximaal € 146.011 vermogen hebben als u geen toeslagpartner hebt. En € 184.633 als u wel een toeslagpartner hebt. Hebt u meer vermogen? Dan kunt u helaas geen kindgebonden budget krijgen."
+      versie: "geraadpleegd op 21 november 2026"
+  - id: kgb.vermogen.met_partner
+    omschrijving: Kindgebonden budget 2026, hoogste vermogen met toeslagpartner, samen
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "184633" }
+    status: geverifieerd
+    bron: *kgbvermogen
+    citaat: *ckgbvermogen

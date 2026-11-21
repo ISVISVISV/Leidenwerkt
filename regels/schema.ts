@@ -64,6 +64,7 @@ export const Parameter = z
     id: z.string().regex(/^[a-z0-9_.]+$/, "id: kleine letters, cijfers, punt, underscore"),
     omschrijving: z.string().min(5),
     eenheid: z.enum([
+      "euro",
       "euro_per_maand",
       "euro_per_jaar",
       "euro_per_kwartaal",

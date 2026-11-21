@@ -48,7 +48,7 @@ export interface RuweParameter {
   geldig_tot: string | null;
 }
 
-const PER: Record<string, string> = { euro_per_maand: " per maand", euro_per_jaar: " per jaar", euro_per_kwartaal: " per kwartaal", euro_per_uur: " per uur" };
+const PER: Record<string, string> = { euro: "", euro_per_maand: " per maand", euro_per_jaar: " per jaar", euro_per_kwartaal: " per kwartaal", euro_per_uur: " per uur" };
 const EENHEID: Record<string, string> = { jaren: " jaar", maanden: " maanden", uren_per_maand: " uur per maand" };
 
 /** "1419.46" met eenheid euro_per_maand wordt "€ 1.419,46 per maand"; "25%" blijft "25%" met een komma. */

@@ -18,6 +18,55 @@ export interface Citaat {
 }
 
 export const CITATEN = {
+  sleutelpasWie: {
+    titel: "Leiden, Beleidsregels Sleutelpas 2026, art. 2.2 en 3.1",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2025-429670.html",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "Een aantal inwoners is uitgesloten om een aanvraag te doen voor een Sleutelpas, dat zijn: a. Inwoners die in detentie of een instelling te verblijven. […] c. Inwoners die uit Rijkskas bekostigd onderwijs volgen en in verband daarmee aanspraak kunnen maken op studiefinanciering op grond van de Wet studiefinanciering 2000 of de Wet tegemoetkoming onderwijsbijdrage en schoolkosten, tenzij deze persoon zorgt draagt over een ten laste komend kind en het gezinsinkomen niet meer bedraagt dan 130% van het sociaal minimum. […] De Sleutelpas wordt ambtshalve toegekend aan inwoners, die: a. Een algemene bijstandsuitkering ontvangen vanuit de Participatiewet; b. Een uitkering ontvangen vanuit de IOAW, IOAZ of Bbz;",
+  },
+  kindtegoedKind: {
+    titel: "Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 1.1 d",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2025-508798.html",
+    versie: "geldend vanaf 1 januari 2026",
+    tekst:
+      "Kind: de minderjarige (tot 18 jaar) die op moment van aanvraag op hetzelfde adres woont als de rechthebbende en voor wie kinderbijslag wordt ontvangen zoals bedoeld in de Algemene Kinderbijslagwet, of zal worden ontvangen vanaf het eerstvolgende kwartaal of het pleegkind waarvoor een pleegkindvergoeding wordt ontvangen.",
+  },
+  volwassenentegoed: {
+    titel: "Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.4",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2025-508798.html",
+    versie: "geldend vanaf 1 januari 2026",
+    tekst:
+      "a. Inwoners met een inkomen tot 120% van het WSM komen in aanmerking voor een Volwassenentegoed. […] c. Rechthebbenden boven de 18 jaar oud kunnen hiervoor een aanvraag doen bij het Volwassenenfonds Sport en Cultuur. […] e. Het maximale tegoed dat het Volwassenenfonds kan toekennen is €250,-",
+  },
+  pw36b: {
+    titel: "Participatiewet, art. 36b lid 1 tot en met 3",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
+    versie: "geldend vanaf 1 juli 2026",
+    tekst:
+      "1 In aanvulling op de artikelen 7 en 7a, eerste lid, onderdeel b of c verstrekt het college op aanvraag van een belanghebbende die als rechtstreeks gevolg van een ziekte of gebrek structureel niet in staat is naast de studie inkomsten te verwerven, een studietoeslag […] 2 Bij de beoordeling of recht bestaat op de studietoeslag vraagt het college een geneeskundig advies, tenzij zonder dit advies vastgesteld kan worden dat recht bestaat op de studietoeslag. 3 De aanvraag kan worden gedaan door een belanghebbende die: a. studiefinanciering ontvangt op grond van de Wet studiefinanciering 2000, niet zijnde het levenlanglerenkrediet, of een tegemoetkoming krijgt op grond van hoofdstuk 4 van de Wet tegemoetkoming onderwijsbijdrage en schoolkosten; en b. geen recht heeft op een uitkering op grond van de Wet arbeidsongeschiktheidsvoorziening jonggehandicapten.",
+  },
+  iitPeildatum: {
+    titel: "Leiden, Verordening individuele inkomenstoeslag, toelichting (Gemeenteblad 2019, 316445)",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2019-316445.html",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "Het gaat om de datum waarop een persoon langdurig een laag inkomen heeft, geen in aanmerking te nemen vermogen heeft als bedoeld in artikel 34 van de Participatiewet en, gelet op de omstandigheden van die persoon, geen uitzicht op inkomensverbetering heeft.",
+  },
+  pw13studie: {
+    titel: "Participatiewet, art. 13 lid 2 c",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
+    versie: "geldend vanaf 1 juli 2026",
+    tekst:
+      "Geen recht op algemene bijstand heeft degene: […] c. die jonger is dan 27 jaar en uit ’s Rijks kas bekostigd onderwijs kan volgen en: 1°. in verband daarmee aanspraak heeft op studiefinanciering op grond van de Wet studiefinanciering 2000, dan wel 2°. in verband daarmee geen aanspraak heeft op studiefinanciering en dit onderwijs niet volgt;",
+  },
+  kotWie: {
+    titel: "Wet kinderopvang, art. 1.6 lid 1",
+    url: "https://wetten.overheid.nl/BWBR0017017/2026-01-01",
+    versie: "geldend vanaf 1 januari 2026",
+    tekst:
+      "Een ouder heeft voor een berekeningsjaar aanspraak op een kinderopvangtoeslag, indien de ouder in dat jaar: a. tegenwoordige arbeid verricht waaruit inkomen uit werk en woning in de zin van de Wet inkomstenbelasting 2001 wordt genoten, […] c. algemene bijstand of een uitkering ontvangt op grond van de Participatiewet […] en gebruik maakt van een voorziening gericht op arbeidsinschakeling […] die de noodzaak tot kinderopvang met zich brengt, […] g. inburgeringsplichtig is op grond van de Wet inburgering 2021 en een cursus of opleiding volgt […] j. is ingeschreven bij een school of instelling, voor het volgen van: […]",
+  },
   pw17: {
     titel: "Participatiewet, art. 17 lid 1",
     url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk2_Paragraaf2.3_Artikel17",

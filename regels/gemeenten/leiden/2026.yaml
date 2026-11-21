@@ -283,3 +283,53 @@ parameters:
       tekst: "Woont u in Leiden en krijgt u een bijstandsuitkering? Of is uw inkomen niet hoger dan 100% van het sociaal minimum? Dan kunt u een gratis pas voor het openbaar vervoer (OV-pas) aanvragen. […] U woont in Leiden. Uw inkomen is maximaal 100% van het sociaal minimum. U bent geen student. U bent 18 jaar of ouder. U bent niet dak- of thuisloos. […] Met de OV-pas kunt u op werkdagen tussen 09:00 en 16:00 uur en na 18:30 uur gratis reizen. In het weekend en op feestdagen kunt u de OV-pas de hele dag gebruiken."
       versie: "geraadpleegd op 10 november 2026"
     notitie: Het aantal passen is beperkt. De pas geldt niet in de spits; voor woon-werkverkeer is hij dus vaak niet bruikbaar.
+  - id: leiden.alleenverdieners.bedrag
+    omschrijving: Tegemoetkoming voor alleenverdieners 2026, één keer per jaar
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "1100" }
+    status: geverifieerd
+    bron:
+      titel: Gemeente Leiden, Tegemoetkoming voor alleenverdieners
+      url: https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/tegemoetkoming-voor-alleenverdieners/
+      geraadpleegd_op: 2026-11-21
+    citaat:
+      kop: "Gemeente Leiden, Tegemoetkoming voor alleenverdieners"
+      tekst: "In 2026 is de tegemoetkoming € 1.100,00. […] U woont in Leiden. Uw grootste inkomen bestaat uit een uitkering van het UWV, bijvoorbeeld een Wajong-uitkering. Of een private uitkering. […] U hebt minder geld om van te leven dan wanneer u alleen een bijstandsuitkering zou hebben. Bijvoorbeeld omdat u minder zorgtoeslag of huurtoeslag krijgt. Uw netto inkomen is lager dan 100% van het sociaal minimum. […] U hebt de tegemoetkoming nog niet ontvangen in het jaar waarover u het aanvraagt. Uw vermogen is niet hoger dan mag voor de zorgtoeslag. […] U en uw partner zijn voor de belasting en toeslagen elkaars partner (fiscale partner)."
+      versie: "geraadpleegd op 21 november 2026"
+  - id: leiden.zwemles.inkomensgrens
+    omschrijving: Zwemlesregeling (Jeugdfonds Sport en Cultuur) tot dit deel van het WSM (art. 3.3)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "1.40" }
+    status: geverifieerd
+    bron: &kindtegoed2026
+      titel: Beleidsregels Kindtegoed en armoederegelingen Sleutelpas Gemeente Leiden 2026 (Gemeenteblad 2025, 508798)
+      url: https://zoek.officielebekendmakingen.nl/gmb-2025-508798.html
+      geraadpleegd_op: 2026-11-21
+    citaat: &czwemles
+      kop: "Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.3"
+      tekst: "Voor kinderen vanaf 5 jaar oud kan een aanvraag worden ingediend voor de volledige vergoeding van zwemdiploma A. […] Voor Zwemdiploma B of C geldt een vaste vergoeding van €250. Aanvragen voor zwemdiploma B en C mogen in hetzelfde kalenderjaar worden gedaan. […] De zwemlesregeling geldt voor kinderen uit huishoudens met een inkomen tot 140% van het WSM."
+      versie: "geldend vanaf 1 januari 2026"
+  - id: leiden.zwemles.minimumleeftijd
+    omschrijving: Zwemlesregeling, vanaf deze leeftijd van het kind (art. 3.3)
+    eenheid: jaren
+    waarde: { soort: aantal, aantal: "5" }
+    status: geverifieerd
+    bron: *kindtegoed2026
+    citaat: *czwemles
+  - id: leiden.zwemles.diploma_bc
+    omschrijving: Zwemlesregeling, vaste vergoeding voor zwemdiploma B of C (art. 3.3)
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "250" }
+    status: geverifieerd
+    bron: *kindtegoed2026
+    citaat: *czwemles
+  - id: leiden.laptop.termijn
+    omschrijving: Laptopvoucher op de Sleutelpas, één per deze termijn (art. 3.2)
+    eenheid: jaren
+    waarde: { soort: aantal, aantal: "5" }
+    status: geverifieerd
+    bron: *kindtegoed2026
+    citaat:
+      kop: "Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.1 en 3.2"
+      tekst: "3.1 Doelgroep a. De armoederegelingen op de Sleutelpas zijn bedoeld voor inwoners of huishoudens met een inkomen tot 130% van het WSM. 3.2 Laptopvoucher a. Voor kinderen in de leeftijdscategorie 4 t/m 11 (basisschoolleeftijd) staat een voucher voor 1 laptop per huishouden per 5 jaar op de Sleutelpas b. Voor kinderen in de leeftijdscategorie 12 t/m 17 (middelbare schoolleeftijd) staat een voucher voor 1 laptop per kind per 5 jaar op de Sleutelpas"
+      versie: "geldend vanaf 1 januari 2026"
