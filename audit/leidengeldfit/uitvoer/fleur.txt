@@ -1,33 +1,21 @@
-# Basis: alleenstaand, loon, huurwoning
+# Fleur: student met Wajong
 
 ## Wat is ingevuld
 
-Aanvrager: 36 jaar. Inkomen per maand: loon € 1.300.
+Aanvrager: 23 jaar. Inkomen per maand: studiefinanciering € 500, uwv € 600 (uitkering: wajong).
 Geen partner.
 Geen kinderen.
-Wonen: huur, kale huur € 750. Andere mensen in huis: nee.
-Bijstand: nee. Schuldregeling: nee. 5 jaar laag inkomen: nee.
-Geld en bezit: betaalrekening € 0, spaarrekening € 2.000, voertuigen geen, beleggingen € 0, spullen € 0, schulden € 0.
+Wonen: kamer. Andere mensen in huis: nee.
+Bijstand: nee. Schuldregeling: nee. 5 jaar laag inkomen: niet gevraagd.
+Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleggingen € 0, spullen € 0, schulden € 0.
 
 ## Overzicht
 
-Dit overzicht is een schatting. Leidenrekent gebruikt alleen wat u heeft ingevuld. Leidenrekent bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
+Dit overzicht is een schatting. Leidengeldfit gebruikt alleen wat u heeft ingevuld. Leidengeldfit bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
 
-Dit kunt u waarschijnlijk krijgen (6)
+Dit kunt u waarschijnlijk krijgen (3)
 
 Vraag het aan. Daarna beslist de gemeente of Dienst Toeslagen.
-
-Sleutelpas
-
-Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.753 netto per maand. Vakantiegeld telt niet mee.
-
-Meer informatie en aanvragen
-(opent in een nieuw venster)
-
-Bronnen
-
-Leiden, beleidsregels Kindtegoed en Sleutelpas 2026
-Leiden, Beleidsregels Sleutelpas 2026, art. 2.2 en 3.1
 
 Sport en cultuur voor volwassenen
 
@@ -54,17 +42,6 @@ Bron
 
 Gemeente Leiden, Collectieve aanvullende zorgverzekering
 
-Gratis OV-pas
-
-U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee.
-
-Meer informatie en aanvragen
-(opent in een nieuw venster)
-
-Bron
-
-Gemeente Leiden, Gratis openbaar vervoer (voorwaarden)
-
 Zorgtoeslag
 
 ongeveer € 129 per maand
@@ -78,23 +55,9 @@ Bron
 
 Dienst Toeslagen, maximaal vermogen zorgtoeslag
 
-Huurtoeslag
+Dit kunt u misschien krijgen (2)
 
-ongeveer € 450 per maand
-
-Dit is geld voor uw huur. Uw geld en bezit zijn niet meer dan € 38.479.
-
-Proefberekening van Dienst Toeslagen
-(opent in een nieuw venster)
-
-Bronnen
-
-Dienst Toeslagen, Kan ik huurtoeslag krijgen?
-Dienst Toeslagen, maximaal vermogen huurtoeslag
-
-Dit kunt u misschien krijgen (3)
-
-Leidenrekent weet het niet zeker. Bij elke regeling staat waarom.
+Leidengeldfit weet het niet zeker. Bij elke regeling staat waarom.
 
 Kwijtschelding van gemeentelijke belastingen
 
@@ -118,19 +81,6 @@ Bronnen
 
 Gemeente Leiden, Geldzaken: Bijzondere bijstand als het echt nodig is
 Gemeente Leiden, Geldzaken: Bijzondere bijstand
-
-Bijstand
-
-Uw inkomen is lager dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee. Uw geld en bezit zijn niet meer dan € 8.000. De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.
-
-Meer informatie en aanvragen
-(opent in een nieuw venster)
-
-Bronnen
-
-Participatiewet, art. 13 lid 2 c
-Participatiewet, art. 21
-Participatiewet, art. 34
 
 Goed om te weten (3)
 
@@ -169,18 +119,65 @@ Bron
 
 Gemeente Leiden, Geldzaken: De Voedselbank
 
-Dit kunt u waarschijnlijk niet krijgen (1)
+Dit kunt u waarschijnlijk niet krijgen (6)
 
 Bij elke regeling staat waarom niet.
+
+Sleutelpas
+
+Met studiefinanciering kunt u de Sleutelpas niet krijgen. Dat kan wel als u ook voor een kind zorgt.
+
+Bronnen
+
+Leiden, beleidsregels Kindtegoed en Sleutelpas 2026
+Leiden, Beleidsregels Sleutelpas 2026, art. 2.2 en 3.1
+
+Gratis OV-pas
+
+De gratis OV-pas is niet voor studenten.
+
+Bron
+
+Gemeente Leiden, Gratis openbaar vervoer (voorwaarden)
 
 Individuele inkomenstoeslag
 
 € 462, één keer per 12 maanden
 
-U krijgt deze toeslag alleen als u al 5 jaar of langer een laag inkomen heeft.
+Met studiefinanciering in de afgelopen 5 jaar kunt u deze toeslag niet krijgen.
 
 Bronnen
 
 Gemeente Leiden, Individuele inkomenstoeslag (voorwaarden en bedragen)
 Leiden, Verordening individuele inkomenstoeslag, toelichting (Gemeenteblad 2019, 316445)
 Participatiewet, art. 34
+
+Studietoeslag
+
+minstens € 390,07 per maand
+
+Met een Wajong-uitkering kunt u geen studietoeslag krijgen.
+
+Bronnen
+
+Participatiewet, art. 36b lid 1 tot en met 3
+Besluit minimumbedragen studietoeslag, art. 7a
+
+Bijstand
+
+Bent u jonger dan 27 jaar en krijgt u studiefinanciering? Dan kunt u geen bijstand krijgen.
+
+Bronnen
+
+Participatiewet, art. 13 lid 2 c
+Participatiewet, art. 21
+Participatiewet, art. 34
+
+Huurtoeslag
+
+Huurtoeslag is er meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche.
+
+Bronnen
+
+Dienst Toeslagen, Kan ik huurtoeslag krijgen?
+Dienst Toeslagen, maximaal vermogen huurtoeslag

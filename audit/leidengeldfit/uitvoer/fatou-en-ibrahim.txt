@@ -11,7 +11,7 @@ Geld en bezit: betaalrekening € 400, spaarrekening € 0, voertuigen € 2.500
 
 ## Overzicht
 
-Dit overzicht is een schatting. Leidenrekent gebruikt alleen wat u heeft ingevuld. Leidenrekent bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
+Dit overzicht is een schatting. Leidengeldfit gebruikt alleen wat u heeft ingevuld. Leidengeldfit bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
 
 Dit kunt u waarschijnlijk krijgen (9)
 
@@ -136,7 +136,7 @@ Dienst Toeslagen, maximaal vermogen huurtoeslag
 
 Dit kunt u misschien krijgen (3)
 
-Leidenrekent weet het niet zeker. Bij elke regeling staat waarom.
+Leidengeldfit weet het niet zeker. Bij elke regeling staat waarom.
 
 Kinderopvang bij sociale of medische problemen
 

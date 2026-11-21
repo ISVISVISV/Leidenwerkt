@@ -1,6 +1,6 @@
 /**
- * Gedeelde onderdelen van de audits van Leidenwerkt (scripts/audit.ts) en Leidenrekent
- * (scripts/audit-leidenrekent.ts): de browser, de controles die voor elke pagina gelden en het rapport.
+ * Gedeelde onderdelen van de audits van Leidenwerkt (scripts/audit.ts) en Leidengeldfit
+ * (scripts/audit-leidengeldfit.ts): de browser, de controles die voor elke pagina gelden en het rapport.
  *
  * Werkwijze van beide audits: de pagina wordt met Vite op de server gemaakt (zoals in de browser) en met
  * Playwright in een echte browser geopend, op telefoonbreedte en als afdruk op A4. Geen AI, geen internet.

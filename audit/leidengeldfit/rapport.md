@@ -1,6 +1,6 @@
-# Auditrapport Leidenrekent
+# Auditrapport Leidengeldfit
 
-Gemaakt met `npm run audit:leidenrekent` met rekendatum 2026-11-21. 17 personen uit audit/leidenrekent/personen.ts en extern/. De overzichten staan in audit/leidenrekent/uitvoer/.
+Gemaakt met `npm run audit:leidengeldfit` met rekendatum 2026-11-21. 17 personen uit audit/leidengeldfit/personen.ts en extern/. De overzichten staan in audit/leidengeldfit/uitvoer/.
 
 | Controle | Aantal keer | Niet goed |
 | --- | --- | --- |

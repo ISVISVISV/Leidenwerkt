@@ -1,6 +1,6 @@
-# Teksten van Leidenrekent in A2
+# Teksten van Leidengeldfit in A2
 
-**Doorgevoerd op 21 november 2026**, met aanpassingen na feedback: #4 en #7 blijven zoals ze waren. #6: "Vul dag, maand en jaar in. Bijvoorbeeld 14-03-1990." #11 en #12: "Leidenrekent kan de grens … niet uitrekenen." #14: "Woont u in een instelling? Dan kunt u de Sleutelpas niet krijgen." #15: "… voor wie u kinderbijslag krijgt." #23: "U krijgt deze toeslag alleen als u al 5 jaar of langer een laag inkomen heeft." #24: "… en geen kans op meer inkomen." #25: "Deze tegemoetkoming is alleen voor stellen. Het grootste inkomen moet een uitkering van UWV zijn. Bijvoorbeeld Wajong." #26: "De gemeente kijkt ook: zou u met alleen bijstand meer overhouden?" #29: "De gemeente kijkt ook naar hoe u woont en wie er bij u wonen."
+**Doorgevoerd op 21 november 2026**, met aanpassingen na feedback: #4 en #7 blijven zoals ze waren. #6: "Vul dag, maand en jaar in. Bijvoorbeeld 14-03-1990." #11 en #12: "Leidengeldfit kan de grens … niet uitrekenen." #14: "Woont u in een instelling? Dan kunt u de Sleutelpas niet krijgen." #15: "… voor wie u kinderbijslag krijgt." #23: "U krijgt deze toeslag alleen als u al 5 jaar of langer een laag inkomen heeft." #24: "… en geen kans op meer inkomen." #25: "Deze tegemoetkoming is alleen voor stellen. Het grootste inkomen moet een uitkering van UWV zijn. Bijvoorbeeld Wajong." #26: "De gemeente kijkt ook: zou u met alleen bijstand meer overhouden?" #29: "De gemeente kijkt ook naar hoe u woont en wie er bij u wonen."
 
 21 november 2026. Alleen de teksten die veranderen. Regels: korte zinnen, één boodschap per zin, gewone woorden, "u", actieve vorm, geen bijzinnen als het zonder kan, geen puntkomma. Een stuk zin zonder werkwoord ("Hulp bij de kosten van …") wordt een hele zin.
 
@@ -10,11 +10,11 @@ Niet in deze lijst: de vragen (al goedgekeurd), de tekst over privacy onderaan (
 
 | # | Nu | Voorstel |
 | --- | --- | --- |
-| 1 | Heeft u een laag inkomen? Dan kunt u misschien hulp krijgen van de gemeente Leiden of geld van Dienst Toeslagen. Met Leidenrekent ziet u welke regelingen er zijn voor u. Het duurt ongeveer vijf minuten. | Heeft u een laag inkomen? Dan kunt u misschien hulp krijgen van de gemeente Leiden. U kunt misschien ook geld krijgen van Dienst Toeslagen. Leidenrekent laat zien welke regelingen er voor u zijn. Dit duurt ongeveer 5 minuten. |
+| 1 | Heeft u een laag inkomen? Dan kunt u misschien hulp krijgen van de gemeente Leiden of geld van Dienst Toeslagen. Met Leidengeldfit ziet u welke regelingen er zijn voor u. Het duurt ongeveer vijf minuten. | Heeft u een laag inkomen? Dan kunt u misschien hulp krijgen van de gemeente Leiden. U kunt misschien ook geld krijgen van Dienst Toeslagen. Leidengeldfit laat zien welke regelingen er voor u zijn. Dit duurt ongeveer 5 minuten. |
 | 2 | uw netto inkomen per maand, en dat van uw partner | uw netto inkomen per maand · het netto inkomen van uw partner per maand (twee regels) |
 | 3 | hoeveel geld en bezit u heeft, ongeveer | hoeveel geld en bezit u ongeveer heeft |
 | 4 | Knop: Begin de check | Knop: Begin met invullen |
-| 5 | Leidenrekent geeft een schatting. Of u een regeling echt krijgt, bepalen de gemeente Leiden en Dienst Toeslagen. Leidenrekent is geen product van de gemeente. | Leidenrekent geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden en Dienst Toeslagen. Leidenrekent is geen product van de gemeente. |
+| 5 | Leidengeldfit geeft een schatting. Of u een regeling echt krijgt, bepalen de gemeente Leiden en Dienst Toeslagen. Leidengeldfit is geen product van de gemeente. | Leidengeldfit geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden en Dienst Toeslagen. Leidengeldfit is geen product van de gemeente. |
 
 ## Foutmeldingen
 
@@ -27,7 +27,7 @@ Niet in deze lijst: de vragen (al goedgekeurd), de tekst over privacy onderaan (
 
 | # | Nu | Voorstel |
 | --- | --- | --- |
-| 8 | Dit overzicht is een schatting met wat u heeft ingevuld. Er wordt niets bewaard. Wilt u het overzicht houden? Druk het af of sla het op als pdf. | Dit overzicht is een schatting. Leidenrekent gebruikt alleen wat u heeft ingevuld. Leidenrekent bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf. |
+| 8 | Dit overzicht is een schatting met wat u heeft ingevuld. Er wordt niets bewaard. Wilt u het overzicht houden? Druk het af of sla het op als pdf. | Dit overzicht is een schatting. Leidengeldfit gebruikt alleen wat u heeft ingevuld. Leidengeldfit bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf. |
 | 9 | Vraag het aan. De gemeente of Dienst Toeslagen kijkt of u het echt krijgt. | Vraag het aan. Daarna beslist de gemeente of Dienst Toeslagen. |
 
 ## Zinnen die bij veel regelingen terugkomen
@@ -35,9 +35,9 @@ Niet in deze lijst: de vragen (al goedgekeurd), de tekst over privacy onderaan (
 | # | Nu | Voorstel |
 | --- | --- | --- |
 | 10 | De grens voor uw huishouden is ongeveer € 1.618 netto per maand, zonder vakantiegeld. | De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee. |
-| 11 | Voor jongeren van 18, 19 en 20 jaar rekent Leidenrekent de grens nog niet uit. Vraag het de gemeente. | Leidenrekent kent de grens voor jongeren van 18, 19 en 20 jaar nog niet. Vraag het de gemeente. |
-| 12 | Voor uw woonsituatie rekent Leidenrekent de grens niet uit. Vraag het de gemeente. | Leidenrekent kent de grens voor uw woonsituatie niet. Vraag het de gemeente. |
-| 13 | Met dit vermogen telt een deel ervan mee als inkomen. Leidenrekent rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen. | Een deel van uw geld en bezit telt mee als inkomen. Leidenrekent rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen. |
+| 11 | Voor jongeren van 18, 19 en 20 jaar rekent Leidengeldfit de grens nog niet uit. Vraag het de gemeente. | Leidengeldfit kent de grens voor jongeren van 18, 19 en 20 jaar nog niet. Vraag het de gemeente. |
+| 12 | Voor uw woonsituatie rekent Leidengeldfit de grens niet uit. Vraag het de gemeente. | Leidengeldfit kent de grens voor uw woonsituatie niet. Vraag het de gemeente. |
+| 13 | Met dit vermogen telt een deel ervan mee als inkomen. Leidengeldfit rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen. | Een deel van uw geld en bezit telt mee als inkomen. Leidengeldfit rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen. |
 
 ## Per regeling
 
@@ -63,5 +63,5 @@ Niet in deze lijst: de vragen (al goedgekeurd), de tekst over privacy onderaan (
 | 31 | Kindgebonden budget | Extra geld voor ouders met kinderen jonger dan 18. | Dit is extra geld voor ouders met kinderen jonger dan 18 jaar. |
 | 32 | Huurtoeslag | Hulp bij het betalen van uw huur. | Dit is geld voor uw huur. |
 | 33 | Huurtoeslag | Er wonen nog andere volwassenen bij u. Hun inkomen en vermogen tellen mee. … | Er wonen nog andere volwassenen bij u. Hun inkomen en hun geld en bezit tellen mee. … |
-| 34 | Huurtoeslag | Voor jongeren onder de 21 jaar rekent Leidenrekent de huurtoeslag niet uit. … | Leidenrekent rekent de huurtoeslag voor jongeren onder de 21 jaar niet uit. … |
+| 34 | Huurtoeslag | Voor jongeren onder de 21 jaar rekent Leidengeldfit de huurtoeslag niet uit. … | Leidengeldfit rekent de huurtoeslag voor jongeren onder de 21 jaar niet uit. … |
 | 35 | Kinderopvangtoeslag | Gaat uw kind naar een kinderopvang of gastouder? Dan kunt u kinderopvangtoeslag krijgen als u werkt, studeert, inburgert of een traject naar werk volgt. Met een partner geldt dat voor u allebei. | Gaat uw kind naar de kinderopvang of een gastouder? Dan kunt u misschien kinderopvangtoeslag krijgen. Dat kan als u werkt of studeert. Het kan ook als u inburgert of een traject naar werk volgt. Heeft u een partner? Dan geldt dit voor u allebei. |

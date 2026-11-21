@@ -54,7 +54,7 @@ describe("grenzen van de gemeente", () => {
     expect(u.kans).toBe("misschien");
     expect(u.waarom).toContain("Krijgt u geen geld van uw ouders?");
   });
-  it("jongeren met een partner of kinderen: Leidenrekent rekent de grens nog niet uit en zegt dat", () => {
+  it("jongeren met een partner of kinderen: Leidengeldfit rekent de grens nog niet uit en zegt dat", () => {
     const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 19, inkomen: { loon: 600 } }, partner: { leeftijd: 25, inkomen: {} } })), "gemeentepolis")!;
     expect(u.kans).toBe("misschien");
     expect(u.waarom).toContain("18, 19 en 20 jaar");

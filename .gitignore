@@ -9,6 +9,6 @@ app/dist-los/
 *.tsbuildinfo
 audit/rapport-willekeurig.md
 audit/willekeurig-fouten.json
-audit/leidenrekent/rapport-willekeurig.md
-audit/leidenrekent/willekeurig-fouten.json
+audit/leidengeldfit/rapport-willekeurig.md
+audit/leidengeldfit/willekeurig-fouten.json
 regelingen/dist-los/

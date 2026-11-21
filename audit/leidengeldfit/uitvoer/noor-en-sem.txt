@@ -11,7 +11,7 @@ Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleg
 
 ## Overzicht
 
-Dit overzicht is een schatting. Leidenrekent gebruikt alleen wat u heeft ingevuld. Leidenrekent bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
+Dit overzicht is een schatting. Leidengeldfit gebruikt alleen wat u heeft ingevuld. Leidengeldfit bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
 
 Dit kunt u waarschijnlijk krijgen (3)
 
@@ -56,7 +56,7 @@ Gemeente Leiden, Collectieve aanvullende zorgverzekering
 
 Dit kunt u misschien krijgen (3)
 
-Leidenrekent weet het niet zeker. Bij elke regeling staat waarom.
+Leidengeldfit weet het niet zeker. Bij elke regeling staat waarom.
 
 Bijzondere bijstand
 
@@ -72,7 +72,7 @@ Gemeente Leiden, Geldzaken: Bijzondere bijstand
 
 Zorgtoeslag
 
-Leidenrekent kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.
+Leidengeldfit kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.
 
 Proefberekening van Dienst Toeslagen
 (opent in een nieuw venster)
@@ -83,7 +83,7 @@ Dienst Toeslagen, maximaal vermogen zorgtoeslag
 
 Huurtoeslag
 
-Leidenrekent kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.
+Leidengeldfit kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.
 
 Proefberekening van Dienst Toeslagen
 (opent in een nieuw venster)

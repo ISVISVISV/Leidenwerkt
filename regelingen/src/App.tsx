@@ -51,7 +51,7 @@ export function App() {
   return (
     <div className="pagina">
       <header className="kopregel">
-        <p className="merk">Leidenrekent</p>
+        <p className="merk">Leidengeldfit</p>
         <p className="kopregel-tekst">Welke regelingen kunt u krijgen in Leiden?</p>
       </header>
 
@@ -133,11 +133,11 @@ export function App() {
           is alles weg.
         </p>
         <p>
-          Leidenrekent geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden en Dienst Toeslagen. Leidenrekent
+          Leidengeldfit geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden en Dienst Toeslagen. Leidengeldfit
           is geen product van de gemeente.
         </p>
         <p>
-          Leidenrekent is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
+          Leidengeldfit is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
           <a href="https://github.com/ISVISVISV/Leidenwerkt" rel="noopener noreferrer">
             broncode
           </a>{" "}
@@ -154,7 +154,7 @@ function Start({ onStart }: { onStart: () => void }) {
       <h1>Welke regelingen kunt u krijgen?</h1>
       <p className="inleiding">
         Heeft u een laag inkomen? Dan kunt u misschien hulp krijgen van de gemeente Leiden. U kunt misschien ook geld krijgen van Dienst
-        Toeslagen. Leidenrekent laat zien welke regelingen er voor u zijn. Dit duurt ongeveer 5 minuten.
+        Toeslagen. Leidengeldfit laat zien welke regelingen er voor u zijn. Dit duurt ongeveer 5 minuten.
       </p>
       <p>U heeft nodig:</p>
       <ul>
@@ -163,7 +163,7 @@ function Start({ onStart }: { onStart: () => void }) {
         <li>uw kale huur per maand, als u huurt</li>
         <li>hoeveel geld en bezit u ongeveer heeft</li>
       </ul>
-      <p>Leidenrekent is voor inwoners van Leiden van 18 jaar tot de AOW-leeftijd.</p>
+      <p>Leidengeldfit is voor inwoners van Leiden van 18 jaar tot de AOW-leeftijd.</p>
       <button type="button" className="hoofdknop" onClick={onStart}>
         Begin de check
       </button>

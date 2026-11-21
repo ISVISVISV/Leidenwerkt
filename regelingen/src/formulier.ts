@@ -1,5 +1,5 @@
 /**
- * Het formulier van Leidenrekent: wat iemand invult, de controle per stap en de vertaling naar de rekenkern.
+ * Het formulier van Leidengeldfit: wat iemand invult, de controle per stap en de vertaling naar de rekenkern.
  * Er wordt niets bewaard: alles staat alleen in het geheugen van de pagina.
  *
  * Stappen: 1 Uw huishouden (met wonen), 2 Uw inkomen, 3 Geld en bezit, 4 Overzicht.
@@ -141,8 +141,8 @@ export function controleer(f: Formulier, stap: number): Fouten {
   };
   if (stap === 1) {
     if (!f.leiden) fouten.leiden = kies;
-    else if (f.leiden === "nee") fouten.leiden = "Leidenrekent is alleen voor inwoners van de gemeente Leiden.";
-    datum("geboren", f.geboren, 18, 66, "Leidenrekent werkt voor mensen van 18 jaar tot de AOW-leeftijd.");
+    else if (f.leiden === "nee") fouten.leiden = "Leidengeldfit is alleen voor inwoners van de gemeente Leiden.";
+    datum("geboren", f.geboren, 18, 66, "Leidengeldfit werkt voor mensen van 18 jaar tot de AOW-leeftijd.");
     if (!f.partner) fouten.partner = kies;
     if (metPartner(f)) datum("partnerGeboren", f.partnerGeboren, 18, 66, "Uw partner moet 18 jaar of ouder zijn en jonger dan de AOW-leeftijd.");
     if (!f.heeftKinderen) fouten.heeftKinderen = kies;

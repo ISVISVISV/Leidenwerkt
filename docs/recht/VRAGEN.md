@@ -1,4 +1,4 @@
-# Vragen van Leidenrekent (voorstel, versie 2)
+# Vragen van Leidengeldfit (voorstel, versie 2)
 
 Werkversie, 21 november 2026.
 
@@ -6,19 +6,19 @@ Werkversie, 21 november 2026.
 
 Regels voor de tekst: A2-Nederlands, zoals ASD-STE100. Korte zinnen. Eén boodschap per zin. Gewone woorden. "U" en de actieve vorm. Geen puntkomma.
 
-Leidenwerkt vraagt "u". Berekenjerecht.nl zegt "je". Leidenrekent zegt "u", net als de gemeente Leiden en Leidenwerkt.
+Leidenwerkt vraagt "u". Berekenjerecht.nl zegt "je". Leidengeldfit zegt "u", net als de gemeente Leiden en Leidenwerkt.
 
 ## De stappen
 
-| Berekenjerecht.nl | Leidenrekent nu | Voorstel |
+| Berekenjerecht.nl | Leidengeldfit nu | Voorstel |
 | --- | --- | --- |
 | Introductie (kies welke regelingen), Woonsituatie, Inkomen, Vermogen, Regelingen, Resultaat | Uw huishouden, Uw inkomen, Wonen en geld, Overzicht | **Uw huishouden** (met wonen), **Uw inkomen**, **Geld en bezit**, **Overzicht** |
 
-Waarom: wonen hoort bij het huishouden, net als bij berekenjerecht.nl. Geld en bezit krijgt een eigen stap. Kiezen welke regelingen u wilt zien, laten we weg: Leidenrekent toont altijd alles.
+Waarom: wonen hoort bij het huishouden, net als bij berekenjerecht.nl. Geld en bezit krijgt een eigen stap. Kiezen welke regelingen u wilt zien, laten we weg: Leidengeldfit toont altijd alles.
 
 ## Stap 1. Uw huishouden
 
-| # | Berekenjerecht.nl | Leidenrekent nu | Voorstel |
+| # | Berekenjerecht.nl | Leidengeldfit nu | Voorstel |
 | --- | --- | --- | --- |
 | 1 | Kies eerst uw gemeente | Woont u in de gemeente Leiden? | Hetzelfde |
 | 2 | Wat is je leeftijd? (getal) | Uw geboortedatum | Hetzelfde als nu. Leidenwerkt vraagt ook de geboortedatum. |
@@ -33,34 +33,34 @@ Waarom: wonen hoort bij het huishouden, net als bij berekenjerecht.nl. Geld en b
 
 ## Stap 2. Uw inkomen
 
-| # | Berekenjerecht.nl | Leidenrekent nu | Voorstel |
+| # | Berekenjerecht.nl | Leidengeldfit nu | Voorstel |
 | --- | --- | --- | --- |
 | 11 | Maak je gebruik van een schuldhulptraject? (Wsnp of Msnp) | (geen vraag) | **Doet u mee aan een schuldregeling?** Uitleg: "Bijvoorbeeld via de gemeente of via de rechter (Wsnp)." Nieuw. Met een schuldregeling krijgt u de Sleutelpas, ook als uw inkomen hoger is (art. 2.3 Beleidsregels Sleutelpas). |
-| 12 | (bijstand is een soort uitkering) | Krijgt u bijstand van de gemeente? | Hetzelfde. Met bijstand slaat Leidenrekent de vragen over inkomen over. |
+| 12 | (bijstand is een soort uitkering) | Krijgt u bijstand van de gemeente? | Hetzelfde. Met bijstand slaat Leidengeldfit de vragen over inkomen over. |
 | 13 | Welke inkomsten heb je? Uitkering, loon, eigen bedrijf, pensioen, partneralimentatie, kinderalimentatie, AOW, geen inkomen | Wat voor inkomen heeft u? (6 antwoorden) | **Wat voor inkomen heeft u?** U kunt meer antwoorden kiezen. Loon uit werk. Een uitkering van UWV. Inkomen uit een eigen bedrijf. Studiefinanciering. Partneralimentatie. Kinderalimentatie. Ander inkomen, zoals pensioen. Geen inkomen. |
 | 14 | Welke uitkering krijg je? Bijstand, Wajong, WIA/WAO, WW, Ziektewet | (in vraag 13) | **Welke uitkering krijgt u?** WW. Wajong. WIA of WAO. Ziektewet. Een andere uitkering. Nodig voor de studietoeslag: met Wajong krijgt u die niet. |
-| 15 | Per soort inkomen een bedrag. "Wat is je nettoloon zonder vakantietoeslag?" Met keuze per maand. | Eén bedrag voor alles samen | **Eén bedrag per soort inkomen.** Bijvoorbeeld: "Hoeveel loon krijgt u netto per maand?" Zo kan Leidenrekent de toeslagen ook uitrekenen als u meer dan één soort inkomen heeft. |
+| 15 | Per soort inkomen een bedrag. "Wat is je nettoloon zonder vakantietoeslag?" Met keuze per maand. | Eén bedrag voor alles samen | **Eén bedrag per soort inkomen.** Bijvoorbeeld: "Hoeveel loon krijgt u netto per maand?" Zo kan Leidengeldfit de toeslagen ook uitrekenen als u meer dan één soort inkomen heeft. |
 | 16 | Uitleg: "Het nettoloon is het bedrag dat je op je bankrekening krijgt. Vul het loon in zonder vakantiegeld." | "Tel alles bij elkaar op. Zonder vakantiegeld. Tel toeslagen en kinderbijslag niet mee. Is uw inkomen elke maand anders? Tel dan de laatste 3 maanden op en deel door 3." | **Netto is het bedrag dat u op uw bankrekening krijgt. Vul het bedrag in zonder vakantiegeld. Krijgt u elke maand een ander bedrag? Tel dan de laatste 3 maanden bij elkaar op. Deel dat door 3.** |
-| 17 | Bonus, 13e maand, auto van de zaak | (geen vraag) | Nog niet. Leidenrekent rekent die niet uit. Het overzicht zegt dat dan. |
+| 17 | Bonus, 13e maand, auto van de zaak | (geen vraag) | Nog niet. Leidengeldfit rekent die niet uit. Het overzicht zegt dat dan. |
 | 18 | Zorgpremie per maand, betaalde partneralimentatie, inkomen van medebewoners | (geen vraag) | Nog niet. Nodig voor kwijtschelding en bijzondere bijstand. Die komen later. |
 | 19 | (geen vraag) | Heeft u al 5 jaar of langer een laag inkomen? | Hetzelfde. Uitleg: "Laag betekent: niet hoger dan de bijstand." |
 | 20 | (geen vraag) | Kunt u door ziekte of een handicap niet werken naast uw studie? | Hetzelfde |
 
-Vraag 13 tot en met 16 stelt Leidenrekent ook voor de partner.
+Vraag 13 tot en met 16 stelt Leidengeldfit ook voor de partner.
 
 ## Stap 3. Geld en bezit (goedgekeurd op 21 november, voor nu)
 
-| Berekenjerecht.nl | Leidenrekent |
+| Berekenjerecht.nl | Leidengeldfit |
 | --- | --- |
 | Uit welke onderdelen bestaat het vermogen? Betaalrekening, spaarrekening, auto of motor, overige kostbaarheden, schulden | Wat heeft u? Geld op een betaalrekening. Geld op een spaarrekening. Een auto, motor of scooter. Andere dingen die veel geld waard zijn, of contant geld. Schulden. Niets van dit. |
 | Eén bedrag per onderdeel | Eén bedrag per onderdeel. Voor elke auto, motor of scooter een eigen bedrag. |
 | Telt de auto overal mee? (niet te zien) | Bijstand: één auto of motor tot € 4.500 telt niet mee. Een tweede telt wel mee (Leiden, Beleidsregels Vermogen 2026, art. 2.1). Toeslagen: de auto telt niet mee (Dienst Toeslagen). |
 
-Nog een open punt. Voor de toeslagen tellen spullen voor eigen gebruik niet mee. Contant geld en beleggingen tellen wel mee. Nu staan ze in één vak. Leidenrekent telt ze daarom allebei mee. Dat is voorzichtig: een toeslag kan dan onterecht "waarschijnlijk niet" krijgen. Splitsen in twee vakken lost dat op.
+Nog een open punt. Voor de toeslagen tellen spullen voor eigen gebruik niet mee. Contant geld en beleggingen tellen wel mee. Nu staan ze in één vak. Leidengeldfit telt ze daarom allebei mee. Dat is voorzichtig: een toeslag kan dan onterecht "waarschijnlijk niet" krijgen. Splitsen in twee vakken lost dat op.
 
 ## Het overzicht
 
-| Berekenjerecht.nl | Leidenrekent |
+| Berekenjerecht.nl | Leidengeldfit |
 | --- | --- |
 | Drie tabbladen: Veel kans, Weinig kans, Twijfel | Drie groepen op één pagina: waarschijnlijk wel, misschien, waarschijnlijk niet. Eén pagina is beter te printen en voor te lezen. |
 | Bedrag zonder "per maand" (bijvoorbeeld "€ 128") | "ongeveer € 128 per maand" |
@@ -70,7 +70,7 @@ Nog een open punt. Voor de toeslagen tellen spullen voor eigen gebruik niet mee.
 
 ## Regelingen
 
-| Alleen bij berekenjerecht.nl | Alleen bij Leidenrekent |
+| Alleen bij berekenjerecht.nl | Alleen bij Leidengeldfit |
 | --- | --- |
 | Kwijtschelding, bijzondere bijstand, kinderopvang met een sociaal-medische indicatie, kinderbijslag, Stichting Babyspullen, voedselbank, hulp bij geldzaken | Gratis OV-pas, tegemoetkoming voor alleenverdieners, laptop voor school, een melding over bijstand |
 

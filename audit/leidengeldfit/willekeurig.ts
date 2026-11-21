@@ -1,5 +1,5 @@
 /**
- * Willekeurige, verzonnen personen voor `npm run audit:leidenrekent -- --willekeurig 200 --zaad 7`.
+ * Willekeurige, verzonnen personen voor `npm run audit:leidengeldfit -- --willekeurig 200 --zaad 7`.
  * Hetzelfde zaad geeft dezelfde personen, zodat een gevonden fout na te doen is. Alleen personen die het
  * formulier in alle drie de stappen goedkeurt, doen mee.
  */

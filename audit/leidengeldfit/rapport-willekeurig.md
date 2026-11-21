@@ -1,6 +1,6 @@
-# Auditrapport Leidenrekent
+# Auditrapport Leidengeldfit
 
-Gemaakt met `npm run audit:leidenrekent -- --willekeurig 150 --zaad 4` met rekendatum 2026-11-21. 150 willekeurige personen. De formulieren van personen met een melding staan in audit/leidenrekent/willekeurig-fouten.json.
+Gemaakt met `npm run audit:leidengeldfit -- --willekeurig 150 --zaad 4` met rekendatum 2026-11-21. 150 willekeurige personen. De formulieren van personen met een melding staan in audit/leidengeldfit/willekeurig-fouten.json.
 
 | Controle | Aantal keer | Niet goed |
 | --- | --- | --- |

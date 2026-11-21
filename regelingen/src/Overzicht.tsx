@@ -5,7 +5,7 @@ import { naarInvoer, type Formulier } from "./formulier.ts";
 
 const GROEPEN: { kans: Kans; kop: string; uitleg: string }[] = [
   { kans: "ja", kop: "Dit kunt u waarschijnlijk krijgen", uitleg: "Vraag het aan. Daarna beslist de gemeente of Dienst Toeslagen." },
-  { kans: "misschien", kop: "Dit kunt u misschien krijgen", uitleg: "Leidenrekent weet het niet zeker. Bij elke regeling staat waarom." },
+  { kans: "misschien", kop: "Dit kunt u misschien krijgen", uitleg: "Leidengeldfit weet het niet zeker. Bij elke regeling staat waarom." },
   { kans: "info", kop: "Goed om te weten", uitleg: "Deze hulp is er voor alle Leidenaren." },
   { kans: "nee", kop: "Dit kunt u waarschijnlijk niet krijgen", uitleg: "Bij elke regeling staat waarom niet." },
 ];
@@ -21,7 +21,7 @@ export function Overzicht({ f }: { f: Formulier }) {
   return (
     <section className="overzicht">
       <p className="inleiding">
-        Dit overzicht is een schatting. Leidenrekent gebruikt alleen wat u heeft ingevuld. Leidenrekent bewaart niets. Wilt u het overzicht
+        Dit overzicht is een schatting. Leidengeldfit gebruikt alleen wat u heeft ingevuld. Leidengeldfit bewaart niets. Wilt u het overzicht
         houden? Druk het dan af. Of sla het op als pdf.
       </p>
       {GROEPEN.map((g) => {

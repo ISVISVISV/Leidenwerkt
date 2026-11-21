@@ -1,17 +1,17 @@
-# Joke: bijstand, koopwoning, auto van € 6.000
+# Ruud: geen vaste woonplek, geen inkomen
 
 ## Wat is ingevuld
 
-Aanvrager: 56 jaar. Inkomen per maand: bijstand.
+Aanvrager: 51 jaar. Inkomen per maand: geen.
 Geen partner.
 Geen kinderen.
-Wonen: koop. Andere mensen in huis: nee.
-Bijstand: ja. Schuldregeling: nee. 5 jaar laag inkomen: ja.
-Geld en bezit: betaalrekening € 0, spaarrekening € 3.000, voertuigen € 6.000, beleggingen € 0, spullen € 0, schulden € 0.
+Wonen: dakloos. Andere mensen in huis: nee.
+Bijstand: nee. Schuldregeling: nee. 5 jaar laag inkomen: ja.
+Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleggingen € 0, spullen € 0, schulden € 0.
 
 ## Overzicht
 
-Dit overzicht is een schatting. Leidenrekent gebruikt alleen wat u heeft ingevuld. Leidenrekent bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
+Dit overzicht is een schatting. Leidengeldfit gebruikt alleen wat u heeft ingevuld. Leidengeldfit bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
 
 Dit kunt u waarschijnlijk krijgen (5)
 
@@ -19,7 +19,7 @@ Vraag het aan. Daarna beslist de gemeente of Dienst Toeslagen.
 
 Sleutelpas
 
-Met bijstand krijgt u de Sleutelpas vanzelf. U hoeft hem niet aan te vragen.
+Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.753 netto per maand. Vakantiegeld telt niet mee.
 
 Meer informatie en aanvragen
 (opent in een nieuw venster)
@@ -33,7 +33,7 @@ Sport en cultuur voor volwassenen
 
 tot € 250 per jaar
 
-Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. U vraagt het aan via een tussenpersoon. Met bijstand is uw inkomen niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
+Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. U vraagt het aan via een tussenpersoon. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
 
 Meer informatie
 (opent in een nieuw venster)
@@ -45,7 +45,7 @@ Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.4
 
 Zorgverzekering van de gemeente
 
-De Gemeentepolis is de zorgverzekering van de gemeente. Er zit een aanvullende verzekering bij. Nieuwe klanten melden zich aan tussen 12 november en 31 december. Met bijstand is uw inkomen niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
+De Gemeentepolis is de zorgverzekering van de gemeente. Er zit een aanvullende verzekering bij. Nieuwe klanten melden zich aan tussen 12 november en 31 december. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
 
 Meer informatie
 (opent in een nieuw venster)
@@ -54,16 +54,20 @@ Bron
 
 Gemeente Leiden, Collectieve aanvullende zorgverzekering
 
-Gratis OV-pas
+Individuele inkomenstoeslag
 
-U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. Met bijstand is uw inkomen niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee.
+€ 462, één keer per 12 maanden
+
+Dit is extra geld. U krijgt het als u al 5 jaar of langer een laag inkomen heeft, en geen kans op meer inkomen. Uw geld en bezit zijn niet meer dan € 8.000.
 
 Meer informatie en aanvragen
 (opent in een nieuw venster)
 
-Bron
+Bronnen
 
-Gemeente Leiden, Gratis openbaar vervoer (voorwaarden)
+Gemeente Leiden, Individuele inkomenstoeslag (voorwaarden en bedragen)
+Leiden, Verordening individuele inkomenstoeslag, toelichting (Gemeenteblad 2019, 316445)
+Participatiewet, art. 34
 
 Zorgtoeslag
 
@@ -80,22 +84,7 @@ Dienst Toeslagen, maximaal vermogen zorgtoeslag
 
 Dit kunt u misschien krijgen (3)
 
-Leidenrekent weet het niet zeker. Bij elke regeling staat waarom.
-
-Individuele inkomenstoeslag
-
-€ 462, één keer per 12 maanden
-
-Dit is extra geld. U krijgt het als u al 5 jaar of langer een laag inkomen heeft, en geen kans op meer inkomen. Uw geld en bezit zijn niet meer dan € 8.000. De gemeente kijkt ook naar de waarde van uw huis.
-
-Meer informatie en aanvragen
-(opent in een nieuw venster)
-
-Bronnen
-
-Gemeente Leiden, Individuele inkomenstoeslag (voorwaarden en bedragen)
-Leiden, Verordening individuele inkomenstoeslag, toelichting (Gemeenteblad 2019, 316445)
-Participatiewet, art. 34
+Leidengeldfit weet het niet zeker. Bij elke regeling staat waarom.
 
 Kwijtschelding van gemeentelijke belastingen
 
@@ -119,6 +108,19 @@ Bronnen
 
 Gemeente Leiden, Geldzaken: Bijzondere bijstand als het echt nodig is
 Gemeente Leiden, Geldzaken: Bijzondere bijstand
+
+Bijstand
+
+Uw inkomen is lager dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee. Uw geld en bezit zijn niet meer dan € 8.000. De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.
+
+Meer informatie en aanvragen
+(opent in een nieuw venster)
+
+Bronnen
+
+Participatiewet, art. 13 lid 2 c
+Participatiewet, art. 21
+Participatiewet, art. 34
 
 Goed om te weten (3)
 
@@ -156,3 +158,15 @@ Meer informatie
 Bron
 
 Gemeente Leiden, Geldzaken: De Voedselbank
+
+Dit kunt u waarschijnlijk niet krijgen (1)
+
+Bij elke regeling staat waarom niet.
+
+Gratis OV-pas
+
+De gratis OV-pas is niet voor mensen zonder vaste woonplek.
+
+Bron
+
+Gemeente Leiden, Gratis openbaar vervoer (voorwaarden)
