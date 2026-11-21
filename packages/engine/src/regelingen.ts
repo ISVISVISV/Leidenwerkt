@@ -168,7 +168,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       : "Leidenrekent kan de grens voor uw woonsituatie niet uitrekenen. Vraag het de gemeente.";
     if (invoer.bijstand) return `Met bijstand is uw inkomen niet hoger dan de grens.${grensZin(grens)}`;
     if (boven && jongAlleen)
-      return `Uw inkomen is hoger dan de grens.${grensZin(grens)} Krijgt u geen geld van uw ouders? Dan kan de grens hoger zijn. Vraag het de gemeente.`;
+      return `Uw inkomen is hoger dan de grens.${grensZin(grens)} Krijgt u geen geld van uw ouders? Dan kan de grens voor uw inkomen hoger zijn. Vraag de gemeente of u de regeling toch kunt krijgen. Bel 14 071 en kies 1.`;
     return `${boven ? "Uw inkomen is hoger dan de grens." : "Uw inkomen is niet hoger dan de grens."}${grensZin(grens)}`;
   };
   const bedrijfZin = " Heeft u een eigen bedrijf? Dan kijkt de gemeente naar de winst in uw belastingaangifte.";
