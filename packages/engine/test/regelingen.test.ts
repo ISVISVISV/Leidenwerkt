@@ -3,9 +3,10 @@
  * De voorwaarden staan in docs/recht/VOORWAARDEN.md.
  */
 import { describe, expect, it } from "vitest";
-import { bereken, checkRegelingen, type CheckInvoer, type Invoer, type Kans, type Uitslag } from "../src/index.js";
+import { bereken, checkRegelingen, type CheckInvoer, type Invoer, type Kans, type Uitslag, type Vermogen } from "../src/index.js";
 
 const DATUM = "2026-11-21";
+const geld = (spaarrekening: number, over: Partial<Vermogen> = {}): Vermogen => ({ betaalrekening: 0, spaarrekening, voertuigen: [], overig: 0, schulden: 0, ...over });
 const invoer = (over: Partial<CheckInvoer> = {}): CheckInvoer => ({
   datum: DATUM,
   aanvrager: { leeftijd: 40, soorten: ["loon"], nettoPerMaand: 1200 },
@@ -15,7 +16,7 @@ const invoer = (over: Partial<CheckInvoer> = {}): CheckInvoer => ({
   wonen: "huur",
   kaleHuurPerMaand: 750,
   andereBewoners: false,
-  vermogen: 1000,
+  vermogen: geld(1000),
   ...over,
 });
 const uitslag = (u: Uitslag[], id: string) => u.find((x) => x.id === id);
@@ -88,8 +89,8 @@ describe("individuele inkomenstoeslag", () => {
     expect(kans(invoer({ aanvrager: laag }), "iit")).toBe("ja");
   });
   it("vermogen boven de grens van de bijstand (€ 8.000 voor een alleenstaande): nee", () => {
-    expect(kans(invoer({ aanvrager: laag, vermogen: 8000 }), "iit")).toBe("ja");
-    expect(kans(invoer({ aanvrager: laag, vermogen: 8001 }), "iit")).toBe("nee");
+    expect(kans(invoer({ aanvrager: laag, vermogen: geld(8000) }), "iit")).toBe("ja");
+    expect(kans(invoer({ aanvrager: laag, vermogen: geld(8001) }), "iit")).toBe("nee");
   });
   it("weet niet of het inkomen al 5 jaar laag is: misschien", () => {
     expect(kans(invoer({ aanvrager: laag, langLaagInkomen: "onbekend" }), "iit")).toBe("misschien");
@@ -97,6 +98,31 @@ describe("individuele inkomenstoeslag", () => {
   });
   it("koopwoning: misschien, de gemeente kijkt ook naar het huis", () => {
     expect(kans(invoer({ aanvrager: laag, wonen: "koop" }), "iit")).toBe("misschien");
+  });
+});
+
+describe("geld en bezit", () => {
+  const laag = { leeftijd: 40, soorten: ["uwv" as const], nettoPerMaand: 1300 };
+  it("bijstand: één auto tot € 4.500 telt niet mee (Leiden, art. 2.1 lid 1)", () => {
+    expect(kans(invoer({ aanvrager: laag, vermogen: geld(7000, { voertuigen: [4500] }) }), "iit")).toBe("ja");
+  });
+  it("bijstand: van een duurdere auto telt alleen het deel boven € 4.500 (lid 2)", () => {
+    // 7.000 + (6.000 − 4.500) = 8.500, meer dan € 8.000
+    expect(kans(invoer({ aanvrager: laag, vermogen: geld(7000, { voertuigen: [6000] }) }), "iit")).toBe("nee");
+  });
+  it("bijstand: een tweede auto telt helemaal mee (lid 3)", () => {
+    // 5.000 + 4.000 + 2.000 − 4.000 = 7.000; met de vrijstelling op de duurste auto
+    expect(kans(invoer({ aanvrager: laag, vermogen: geld(5000, { voertuigen: [4000, 2000] }) }), "iit")).toBe("ja");
+    expect(kans(invoer({ aanvrager: laag, vermogen: geld(5000, { voertuigen: [4000, 3500] }) }), "iit")).toBe("nee");
+  });
+  it("toeslagen: de auto telt niet mee, schulden gaan eraf", () => {
+    expect(kans(invoer({ vermogen: geld(38000, { voertuigen: [20000] }) }), "huurtoeslag")).toBe("ja");
+    expect(kans(invoer({ vermogen: geld(40000, { schulden: 2000 }) }), "huurtoeslag")).toBe("ja");
+  });
+  it("toeslagen: boven € 59.357 geen bedrag, want inkomen uit vermogen telt mee", () => {
+    const u = uitslag(checkRegelingen(invoer({ vermogen: geld(60000) })), "zorgtoeslag")!;
+    expect(u.kans).toBe("misschien");
+    expect(u.bedrag).toBeUndefined();
   });
 });
 
@@ -127,7 +153,7 @@ describe("studietoeslag en bijstand", () => {
   });
   it("inkomen onder de norm: misschien bijstand, nooit zeker", () => {
     expect(kans(invoer({ aanvrager: { leeftijd: 40, soorten: ["geen"], nettoPerMaand: 0 } }), "bijstand")).toBe("misschien");
-    expect(kans(invoer({ aanvrager: { leeftijd: 40, soorten: ["geen"], nettoPerMaand: 0 }, vermogen: 9000 }), "bijstand")).toBe("nee");
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, soorten: ["geen"], nettoPerMaand: 0 }, vermogen: geld(9000) }), "bijstand")).toBe("nee");
   });
 });
 
@@ -159,7 +185,7 @@ describe("toeslagen", () => {
     expect(kans(invoer({ andereBewoners: true }), "huurtoeslag")).toBe("misschien");
   });
   it("vermogen boven € 38.479: geen huurtoeslag, wel zorgtoeslag", () => {
-    const i = invoer({ vermogen: 40000 });
+    const i = invoer({ vermogen: geld(40000) });
     expect(kans(i, "huurtoeslag")).toBe("nee");
     expect(kans(i, "zorgtoeslag")).toBe("ja");
   });
@@ -174,7 +200,7 @@ describe("teksten", () => {
   const voorbeelden: CheckInvoer[] = [
     invoer(),
     invoer({ bijstand: true, kinderen: [{ leeftijd: 3 }, { leeftijd: 14 }], kinderbijslag: true }),
-    invoer({ partner: { leeftijd: 50, soorten: ["uwv"], nettoPerMaand: 1600 }, wonen: "koop", vermogen: undefined }),
+    invoer({ partner: { leeftijd: 50, soorten: ["uwv"], nettoPerMaand: 1600 }, wonen: "koop", vermogen: geld(0) }),
     invoer({ aanvrager: { leeftijd: 20, soorten: ["studiefinanciering"], nettoPerMaand: 500 }, studieMedisch: "ja", wonen: "kamer" }),
     invoer({ wonen: "dakloos", aanvrager: { leeftijd: 30, soorten: ["geen"], nettoPerMaand: 0 } }),
   ];

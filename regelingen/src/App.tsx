@@ -428,29 +428,103 @@ function StapWonen({ f, zet, fouten }: StapProps) {
       />
 
       <h2 className="deel">Geld en bezit</h2>
-      {!f.vermogenOnbekend && (
+      <Vinkjes
+        naam="bezit"
+        legend={paar ? "Wat hebben u en uw partner samen?" : "Wat heeft u?"}
+        hint={
+          <>
+            <p>U kunt meer antwoorden kiezen.</p>
+            <p className="bron-blok">
+              Bronnen: <BronVan id="pw.vermogensgrens.alleenstaande" /> <BronVan id="leiden.vermogen.voertuig_vrij" />{" "}
+              <BronVan id="toeslagen.vermogen.inkomen.zonder_partner" />
+            </p>
+          </>
+        }
+        opties={[
+          ["betaal", "Geld op een betaalrekening"],
+          ["spaar", "Geld op een spaarrekening"],
+          ["voertuig", "Een auto, motor of scooter"],
+          ["overig", "Andere dingen die veel geld waard zijn, of contant geld"],
+          ["schuld", "Schulden"],
+          ["niets", "Niets van dit"],
+        ]}
+        alleen="niets"
+        waarde={f.bezit}
+        onChange={(v) => zet("bezit", v)}
+        fout={fouten.bezit}
+      />
+      {f.bezit.includes("betaal") && (
         <Veld
-          id="vermogen"
-          label={paar ? "Hoeveel geld en bezit heeft u samen?" : "Hoeveel geld en bezit heeft u?"}
-          hint={
-            <>
-              <p>Bijvoorbeeld spaargeld, geld op uw bankrekening en een auto. Haal schulden eraf. Uw eigen huis telt hier niet mee.</p>
-              <p className="bron-blok">
-                Bron: <BronVan id="pw.vermogensgrens.alleenstaande" />
-              </p>
-            </>
-          }
-          voorbeeld="bijv. 2.500"
+          id="betaalrekening"
+          label={paar ? "Hoeveel geld staat er op de betaalrekening van u en uw partner samen?" : "Hoeveel geld staat er op uw betaalrekening?"}
+          hint="Staat u rood? Vul dan 0 in. Tel het bedrag op bij uw schulden."
+          voorbeeld="bijv. 250"
           voorvoegsel="€"
-          waarde={f.vermogen}
-          onChange={(v) => zet("vermogen", v)}
-          fout={fouten.vermogen}
+          waarde={f.betaalrekening}
+          onChange={(v) => zet("betaalrekening", v)}
+          fout={fouten.betaalrekening}
         />
       )}
-      <label className="vinkje">
-        <input type="checkbox" checked={f.vermogenOnbekend} onChange={(e) => zet("vermogenOnbekend", e.target.checked)} />
-        <span>Ik weet het niet</span>
-      </label>
+      {f.bezit.includes("spaar") && (
+        <Veld
+          id="spaarrekening"
+          label={paar ? "Hoeveel geld staat er op de spaarrekening van u en uw partner samen?" : "Hoeveel geld staat er op uw spaarrekening?"}
+          voorbeeld="bijv. 1.500"
+          voorvoegsel="€"
+          waarde={f.spaarrekening}
+          onChange={(v) => zet("spaarrekening", v)}
+          fout={fouten.spaarrekening}
+        />
+      )}
+      {f.bezit.includes("voertuig") && (
+        <>
+          {f.voertuigen.map((w, i) => (
+            <div key={i} className="kind">
+              <Veld
+                id={`voertuig${i}`}
+                label={f.voertuigen.length > 1 ? `Hoeveel is auto, motor of scooter ${i + 1} nu waard?` : "Hoeveel is uw auto, motor of scooter nu waard?"}
+                hint="Wat krijgt u ervoor als u hem nu verkoopt?"
+                voorbeeld="bijv. 3.000"
+                voorvoegsel="€"
+                waarde={w}
+                onChange={(v) => zet("voertuigen", f.voertuigen.map((x, j) => (i === j ? v : x)))}
+                fout={fouten[`voertuig${i}`]}
+              />
+              {f.voertuigen.length > 1 && (
+                <button type="button" className="stilleknop" onClick={() => zet("voertuigen", f.voertuigen.filter((_, j) => j !== i))}>
+                  Auto, motor of scooter {i + 1} weghalen
+                </button>
+              )}
+            </div>
+          ))}
+          <button type="button" className="tweedeknop" onClick={() => zet("voertuigen", [...f.voertuigen, ""])}>
+            Nog een auto, motor of scooter toevoegen
+          </button>
+        </>
+      )}
+      {f.bezit.includes("overig") && (
+        <Veld
+          id="overig"
+          label={paar ? "Hoeveel zijn deze dingen en het contante geld van u en uw partner samen waard?" : "Hoeveel zijn deze dingen en uw contante geld samen waard?"}
+          voorbeeld="bijv. 500"
+          voorvoegsel="€"
+          waarde={f.overig}
+          onChange={(v) => zet("overig", v)}
+          fout={fouten.overig}
+        />
+      )}
+      {f.bezit.includes("schuld") && (
+        <Veld
+          id="schulden"
+          label={paar ? "Hoeveel schulden hebben u en uw partner samen?" : "Hoeveel schulden heeft u?"}
+          hint="Tel alle schulden bij elkaar op."
+          voorbeeld="bijv. 2.000"
+          voorvoegsel="€"
+          waarde={f.schulden}
+          onChange={(v) => zet("schulden", v)}
+          fout={fouten.schulden}
+        />
+      )}
     </section>
   );
 }

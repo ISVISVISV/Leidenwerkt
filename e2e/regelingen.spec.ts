@@ -46,7 +46,13 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
   await kies(page, "Waar woont u?", "In een huurwoning met een eigen voordeur, keuken, wc en douche");
   await page.getByLabel("Kale huur per maand").fill("750");
   await kies(page, "Wonen er nog andere mensen bij u in huis?", "Nee");
-  await page.getByLabel("Hoeveel geld en bezit heeft u?").fill("2000");
+  const bezit = page.getByRole("group", { name: "Wat heeft u?" });
+  await bezit.getByLabel("Geld op een spaarrekening").check();
+  await bezit.getByLabel("Een auto, motor of scooter").check();
+  await page.getByLabel("Hoeveel geld staat er op uw spaarrekening?").fill("2000");
+  await page.getByLabel("Hoeveel is uw auto, motor of scooter nu waard?").fill("3000");
+  await page.getByRole("button", { name: "Nog een auto, motor of scooter toevoegen" }).click();
+  await page.getByLabel("Hoeveel is auto, motor of scooter 2 nu waard?").fill("1500");
   await geenToegankelijkheidsfouten(page);
   await page.getByRole("button", { name: "Bekijk het overzicht" }).click();
 
@@ -88,7 +94,7 @@ test("met bijstand: geen vragen over het inkomen, wel de Sleutelpas vanzelf", as
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await kies(page, "Waar woont u?", "In een koopwoning");
   await kies(page, "Wonen er nog andere mensen bij u in huis?", "Nee");
-  await page.getByLabel("Ik weet het niet").check();
+  await page.getByRole("group", { name: "Wat heeft u?" }).getByLabel("Niets van dit").check();
   await page.getByRole("button", { name: "Bekijk het overzicht" }).click();
   await expect(page.locator(".groep.ja .regeling").filter({ has: page.getByRole("heading", { level: 3, name: "Sleutelpas", exact: true }) })).toContainText("vanzelf");
   await expect(page.locator(".groep.misschien").getByRole("heading", { name: "Individuele inkomenstoeslag" })).toBeVisible();

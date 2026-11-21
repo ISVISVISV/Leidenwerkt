@@ -48,8 +48,19 @@ export interface CheckInvoer {
   kaleHuurPerMaand?: number;
   /** Andere mensen in huis, naast partner en kinderen. */
   andereBewoners: boolean;
-  /** Geld en bezit min schulden, zonder de eigen woning. Undefined: "Weet ik niet". */
-  vermogen?: number;
+  /** Geld en bezit, per onderdeel. De eigen woning zit er niet in. */
+  vermogen: Vermogen;
+}
+
+/** Geld en bezit van het huishouden, in euro's. Leidenrekent telt per regeling wat meetelt. */
+export interface Vermogen {
+  betaalrekening: number;
+  spaarrekening: number;
+  /** Waarde van elke auto, motor of scooter. */
+  voertuigen: number[];
+  /** Andere dingen die veel geld waard zijn, en contant geld. */
+  overig: number;
+  schulden: number;
 }
 
 export type Kans = "ja" | "misschien" | "nee";
@@ -385,13 +396,27 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
   return uit.filter((u): u is Uitslag => !!u);
 }
 
+/**
+ * Het vermogen dat meetelt.
+ * - Bijstand (art. 34 Pw): alles, behalve één auto of motor tot € 4.500 (Leiden, Beleidsregels Vermogen 2026, art. 2.1).
+ * - Toeslagen: zoals bij de belastingaangifte, de auto telt niet mee (Dienst Toeslagen).
+ */
+export function telbaarVermogen(l: Lezer, v: Vermogen, voor: "bijstand" | "toeslagen"): Bedrag {
+  const basis = D(v.betaalrekening).plus(v.spaarrekening).plus(v.overig).minus(v.schulden);
+  if (voor === "toeslagen") return basis;
+  const voertuigen = v.voertuigen.reduce((s, x) => s.plus(x), NUL);
+  const hoogste = v.voertuigen.reduce((m, x) => Math.max(m, x), 0);
+  const vrij = D(Math.min(hoogste, l.bedrag("leiden.vermogen.voertuig_vrij").toNumber()));
+  return basis.plus(voertuigen).minus(vrij);
+}
+
 /** Vermogen tegen een grens. Bij een koopwoning telt een deel van de woning mee voor de bijstand: dan misschien. */
 function vermogenToets(l: Lezer, invoer: CheckInvoer, grensId: string): { kans: Kans; grens: Bedrag; zin: string } {
   const grens = l.bedrag(grensId);
-  if (invoer.vermogen === undefined)
-    return { kans: "misschien", grens, zin: `U weet niet hoeveel geld en bezit u heeft. De grens is ${heel(grens)}.` };
-  if (D(invoer.vermogen).gt(grens)) return { kans: "nee", grens, zin: "" };
-  if (invoer.wonen === "koop" && grensId.startsWith("pw."))
+  const bijstand = grensId.startsWith("pw.");
+  const vermogen = telbaarVermogen(l, invoer.vermogen, bijstand ? "bijstand" : "toeslagen");
+  if (vermogen.gt(grens)) return { kans: "nee", grens, zin: "" };
+  if (invoer.wonen === "koop" && bijstand)
     return { kans: "misschien", grens, zin: `Uw geld en bezit zijn niet meer dan ${heel(grens)}. De gemeente kijkt ook naar de waarde van uw huis.` };
   return { kans: "ja", grens, zin: `Uw geld en bezit zijn niet meer dan ${heel(grens)}.` };
 }
@@ -419,10 +444,15 @@ function toetsingsinkomen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[
 
 function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Uitslag | undefined)[] {
   const paar = personen.length > 1;
-  const ti = probeer2(() => toetsingsinkomen(l, invoer, personen));
+  // Boven deze grens telt inkomen uit vermogen mee in het toetsingsinkomen. Dat rekent Leidenrekent niet uit.
+  const vermogenTeHoog = probeer2(() =>
+    telbaarVermogen(l, invoer.vermogen, "toeslagen").gt(l.bedrag(paar ? "toeslagen.vermogen.inkomen.met_partner" : "toeslagen.vermogen.inkomen.zonder_partner")),
+  );
+  const ti = vermogenTeHoog === false ? probeer2(() => toetsingsinkomen(l, invoer, personen)) : undefined;
   const proef = { tekst: "Proefberekening van Dienst Toeslagen", url: URL.toeslagen };
-  const geenBedrag =
-    "Leidenrekent kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.";
+  const geenBedrag = vermogenTeHoog
+    ? "Met dit vermogen telt een deel ervan mee als inkomen. Leidenrekent rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen."
+    : "Leidenrekent kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.";
   const kinderen: Kind[] = invoer.kinderen.map((k) => ({ leeftijd: k.leeftijd }));
   const uit: (Uitslag | undefined)[] = [];
 

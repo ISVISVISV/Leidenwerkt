@@ -142,7 +142,7 @@ parameters:
     citaat: &cwoon
       kop: "Leiden, beleidsregels lage woonkosten 2026, art. 3.1 lid 2"
       tekst: "De verlaging in verband met de woonsituatie, als bedoeld in artikel 27 van de wet, bedraagt: a. als de belanghebbende (zelf) geen woonkosten betaalt: 10% van de gehuwden norm. b. als de woonkosten van de belanghebbende (zelf) minder dan 10% van de gehuwden norm zijn: het verschil tussen de daadwerkelijke woonkosten en 10% van de gehuwden norm. c. als belanghebbende (zelf) geen woonlasten betaalt: 9 % van de gehuwdennorm. d. als belanghebbende (zelf) geen woonkosten betaalt en geen woonlasten heeft; 19 % van de gehuwdennorm."
-      versie: "geldend vanaf 14 april 2026"
+      versie: "geraadpleegd op 21 november 2026"
   - id: leiden.woonkosten.korting_geen_woonlasten
     omschrijving: Extra verlaging van de bijstandsnorm als u zelf geen woonlasten (gas, elektriciteit, water) betaalt (art. 3.1 lid 2 c en d, deel van de gehuwdennorm)
     eenheid: breuk
@@ -333,3 +333,17 @@ parameters:
       kop: "Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.1 en 3.2"
       tekst: "3.1 Doelgroep a. De armoederegelingen op de Sleutelpas zijn bedoeld voor inwoners of huishoudens met een inkomen tot 130% van het WSM. 3.2 Laptopvoucher a. Voor kinderen in de leeftijdscategorie 4 t/m 11 (basisschoolleeftijd) staat een voucher voor 1 laptop per huishouden per 5 jaar op de Sleutelpas b. Voor kinderen in de leeftijdscategorie 12 t/m 17 (middelbare schoolleeftijd) staat een voucher voor 1 laptop per kind per 5 jaar op de Sleutelpas"
       versie: "geldend vanaf 1 januari 2026"
+  - id: leiden.vermogen.voertuig_vrij
+    omschrijving: Bijstand, waarde van één auto of motor die niet meetelt als vermogen (art. 2.1 lid 1 tot en met 3)
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "4500" }
+    status: geverifieerd
+    bron:
+      titel: Beleidsregels Vermogen en Algemene Bijstandsnorm bij lage woonkosten of verblijf in inrichting 2026 (Gemeenteblad 2026, 171912)
+      url: https://zoek.officielebekendmakingen.nl/gmb-2026-171912.html
+      geraadpleegd_op: 2026-11-21
+    citaat:
+      kop: "Leiden, Beleidsregels Vermogen 2026, art. 2.1"
+      tekst: "1. Een auto of motor met een waarde tot maximaal € 4.500,00 wordt als algemeen gebruikelijk aangemerkt en wordt niet tot de middelen van belanghebbende gerekend. 2. Een auto of motor met een waarde hoger dan bedoeld in het eerste lid, wordt alleen tot de middelen van belanghebbende gerekend voor het deel van de waarde boven het bedrag in het eerste lid. 3. Als een belanghebbende beschikt of redelijkerwijs kan beschikken over meer dan één auto of motor, geldt de vrijlating zoals bedoeld in het eerste of tweede lid, slechts voor één auto of één motor."
+      versie: "geraadpleegd op 21 november 2026"
+    notitie: Het college kan een duurdere auto ook vrijlaten als die nodig is om medische of zorgredenen (lid 6 tot en met 8). Leidenrekent rekent dat niet uit.

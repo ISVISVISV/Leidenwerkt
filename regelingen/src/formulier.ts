@@ -6,6 +6,7 @@ import { Lezer, naarCitaat, standaardRegels, type CheckInvoer, type CheckPersoon
 import { getal, isoDatum, leeftijdOp, type Geboortedatum } from "@leidenwerkt/ui/invoer";
 
 export type JaNee = "" | "ja" | "nee";
+export type Bezit = "betaal" | "spaar" | "voertuig" | "overig" | "schuld" | "niets";
 
 export interface Formulier {
   leiden: JaNee;
@@ -25,8 +26,14 @@ export interface Formulier {
   woont: "" | Woonsoort;
   kaleHuur: string;
   andereBewoners: JaNee;
-  vermogen: string;
-  vermogenOnbekend: boolean;
+  /** Welke soorten geld en bezit iemand heeft. */
+  bezit: Bezit[];
+  betaalrekening: string;
+  spaarrekening: string;
+  /** Waarde per auto, motor of scooter. */
+  voertuigen: string[];
+  overig: string;
+  schulden: string;
 }
 
 export const leegFormulier: Formulier = {
@@ -47,8 +54,12 @@ export const leegFormulier: Formulier = {
   woont: "",
   kaleHuur: "",
   andereBewoners: "",
-  vermogen: "",
-  vermogenOnbekend: false,
+  bezit: [],
+  betaalrekening: "",
+  spaarrekening: "",
+  voertuigen: [""],
+  overig: "",
+  schulden: "",
 };
 
 let vasteDatum: string | undefined;
@@ -80,7 +91,7 @@ export type Fouten = Partial<Record<string, string>>;
 export function controleer(f: Formulier, stap: number): Fouten {
   const fouten: Fouten = {};
   const kies = "Kies een antwoord.";
-  const bedrag = (veld: keyof Formulier, tekst: string, maxi: number, melding: string) => {
+  const bedrag = (veld: keyof Formulier | string, tekst: string, maxi: number, melding: string) => {
     const n = getal(tekst);
     if (n === undefined) fouten[veld] = "Vul dit in.";
     else if (Number.isNaN(n) || n < 0 || n > maxi) fouten[veld] = melding;
@@ -125,7 +136,13 @@ export function controleer(f: Formulier, stap: number): Fouten {
       else if (Number.isNaN(n) || n < 1 || n > 3000) fouten.kaleHuur = "Vul de kale huur per maand in. Die staat in uw huurcontract of op het overzicht van de verhuurder.";
     }
     if (!f.andereBewoners) fouten.andereBewoners = kies;
-    if (!f.vermogenOnbekend) bedrag("vermogen", f.vermogen, 10_000_000, "Vul een bedrag in, bijvoorbeeld 2.500. Geen geld of bezit? Vul 0 in.");
+    if (f.bezit.length === 0) fouten.bezit = "Kies minstens één antwoord.";
+    const melding = "Vul een bedrag in, bijvoorbeeld 2.500.";
+    if (f.bezit.includes("betaal")) bedrag("betaalrekening", f.betaalrekening, 10_000_000, melding);
+    if (f.bezit.includes("spaar")) bedrag("spaarrekening", f.spaarrekening, 10_000_000, melding);
+    if (f.bezit.includes("voertuig")) f.voertuigen.forEach((v, i) => bedrag(`voertuig${i}` as keyof Formulier, v, 10_000_000, melding));
+    if (f.bezit.includes("overig")) bedrag("overig", f.overig, 10_000_000, melding);
+    if (f.bezit.includes("schuld")) bedrag("schulden", f.schulden, 10_000_000, melding);
   }
   return fouten;
 }
@@ -151,7 +168,13 @@ export function naarInvoer(f: Formulier): CheckInvoer {
     wonen: f.woont || "huur",
     kaleHuurPerMaand: vraagHuur(f) ? getal(f.kaleHuur) : undefined,
     andereBewoners: f.andereBewoners === "ja",
-    vermogen: f.vermogenOnbekend ? undefined : (getal(f.vermogen) ?? 0),
+    vermogen: {
+      betaalrekening: f.bezit.includes("betaal") ? (getal(f.betaalrekening) ?? 0) : 0,
+      spaarrekening: f.bezit.includes("spaar") ? (getal(f.spaarrekening) ?? 0) : 0,
+      voertuigen: f.bezit.includes("voertuig") ? f.voertuigen.map((v) => getal(v) ?? 0) : [],
+      overig: f.bezit.includes("overig") ? (getal(f.overig) ?? 0) : 0,
+      schulden: f.bezit.includes("schuld") ? (getal(f.schulden) ?? 0) : 0,
+    },
   };
 }
 
