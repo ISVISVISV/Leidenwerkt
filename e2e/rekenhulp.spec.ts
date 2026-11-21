@@ -13,11 +13,12 @@ const JA_NEE = ["partner", "heeftKinderen", "partnerWerkt", "heeftAnderInkomen",
  * krijgt hier "Nee", zodat elke test alleen invult wat voor die test telt.
  */
 async function verder(page: Page, knop = "Volgende stap") {
-  for (const naam of JA_NEE) {
+  const opvang = [...new Set(await page.locator('input[type=radio][name^="opvang"]:not([name="opvangNu"])').evaluateAll((e) => e.map((x) => (x as HTMLInputElement).name)))];
+  for (const naam of [...JA_NEE, ...opvang]) {
     const keuzes = page.locator(`input[type=radio][name="${naam}"]`);
     if ((await keuzes.count()) === 0 || !(await keuzes.first().isVisible())) continue;
     if ((await page.locator(`input[type=radio][name="${naam}"]:checked`).count()) > 0) continue;
-    await page.locator(`fieldset:has(input[name="${naam}"])`).getByRole("radio", { name: "Nee", exact: true }).check();
+    await page.getByRole("radio", { name: "Nee", exact: true }).and(page.locator(`[name="${naam}"]`)).check();
   }
   await page.getByRole("button", { name: knop }).click();
 }
@@ -209,7 +210,7 @@ test("stel met kinderen en opvang: de gemeente vergoedt de eigen bijdrage", asyn
   await page.getByRole("textbox", { name: "Bruto maandloon van uw partner" }).fill("700");
   await page.getByRole("group", { name: "Hoe lang werkt uw partner al naast de bijstand?" }).getByLabel("6 maanden of langer").check();
   await geboren(page, "Geboortedatum kind 1", 2);
-  await page.getByText("Dit kind gaat naar de kinderopvang").click();
+  await page.getByRole("group", { name: "Gaat dit kind naar de opvang als u werkt?" }).getByLabel("Ja").check();
   // Er is geen soort opvang vooraf gekozen.
   await expect(page.getByLabel("Kinderdagverblijf")).not.toBeChecked();
   await page.getByLabel("Hoeveel uur per week gaat dit kind naar de opvang?").fill("16");
@@ -555,7 +556,7 @@ test("alleenstaande ouder: kinderopvangtoeslag aanvragen, meldingen per periode,
   await page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" }).getByLabel("Ja").check();
   await geboren(page, "Uw geboortedatum", 34);
   await geboren(page, "Geboortedatum kind 1", 2);
-  await page.getByText("Dit kind gaat naar de kinderopvang").click();
+  await page.getByRole("group", { name: "Gaat dit kind naar de opvang als u werkt?" }).getByLabel("Ja").check();
   await page.getByLabel("Kinderdagverblijf").check();
   await page.getByLabel("Hoeveel uur per week gaat dit kind naar de opvang?").fill("24");
   await verder(page);
