@@ -11,7 +11,7 @@ Gemaakt met `npm run audit` met rekendatum 2026-11-13. 17 personen uit audit/per
 | Afdruk zonder overlap | 37 | 0 |
 | Zin over de bijstand past bij de tabel | 37 | 0 |
 | Geen kapotte tekst | 37 | 0 |
-| Inkomen en grens kloppen met elkaar | 100 | 0 |
+| Inkomen en grens kloppen met elkaar | 99 | 0 |
 | Urenschuif verspringt niet met € 1 | 17 | 0 |
 | Omweg geeft dezelfde uitkomst | 16 | 0 |
 | Gelijk aan de officiële bron | 22 | 0 |
