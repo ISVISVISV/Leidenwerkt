@@ -14,7 +14,7 @@ export default defineConfig({
       url: "http://localhost:4173",
       reuseExistingServer: true,
     },
-    // De tweede app (werkversie, nog niet gepubliceerd): e2e/regelingen.spec.ts.
+    // De tweede app (Leidenrekent, nog niet gepubliceerd): e2e/regelingen.spec.ts.
     {
       command: "npm run preview -w regelingen -- --port 4174 --strictPort",
       url: "http://localhost:4174",

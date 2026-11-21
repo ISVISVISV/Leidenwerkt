@@ -51,7 +51,7 @@ export function App() {
   return (
     <div className="pagina">
       <header className="kopregel">
-        <p className="merk">Werkversie</p>
+        <p className="merk">Leidenrekent</p>
         <p className="kopregel-tekst">Welke regelingen kunt u krijgen in Leiden?</p>
       </header>
 
@@ -133,15 +133,15 @@ export function App() {
           is alles weg.
         </p>
         <p>
-          Deze check geeft een schatting. Of u een regeling echt krijgt, bepalen de gemeente Leiden en Dienst Toeslagen. Deze check is geen
-          product van de gemeente.
+          Leidenrekent geeft een schatting. Of u een regeling echt krijgt, bepalen de gemeente Leiden en Dienst Toeslagen. Leidenrekent is
+          geen product van de gemeente.
         </p>
         <p>
-          Gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
+          Leidenrekent is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
           <a href="https://github.com/ISVISVISV/Leidenwerkt" rel="noopener noreferrer">
             broncode
           </a>{" "}
-          bekijken en gebruiken (licentie EUPL-1.2). Werkversie {__VERSIE__}.
+          bekijken en gebruiken (licentie EUPL-1.2). Versie {__VERSIE__}.
         </p>
       </footer>
     </div>
@@ -153,7 +153,7 @@ function Start({ onStart }: { onStart: () => void }) {
     <section className="start">
       <h1>Welke regelingen kunt u krijgen?</h1>
       <p className="inleiding">
-        Heeft u een laag inkomen? Dan kunt u misschien hulp krijgen van de gemeente Leiden of geld van Dienst Toeslagen. Met deze check ziet u
+        Heeft u een laag inkomen? Dan kunt u misschien hulp krijgen van de gemeente Leiden of geld van Dienst Toeslagen. Met Leidenrekent ziet u
         welke regelingen er zijn voor u. Het duurt ongeveer vijf minuten.
       </p>
       <p>U heeft nodig:</p>
@@ -162,7 +162,7 @@ function Start({ onStart }: { onStart: () => void }) {
         <li>uw kale huur per maand, als u huurt</li>
         <li>hoeveel geld en bezit u heeft, ongeveer</li>
       </ul>
-      <p>De check is voor inwoners van Leiden van 18 jaar tot de AOW-leeftijd.</p>
+      <p>Leidenrekent is voor inwoners van Leiden van 18 jaar tot de AOW-leeftijd.</p>
       <button type="button" className="hoofdknop" onClick={onStart}>
         Begin de check
       </button>
@@ -286,7 +286,7 @@ const SOORTEN: [Inkomenssoort, string][] = [
   ["ander", "Ander inkomen, zoals alimentatie of pensioen"],
   ["geen", "Geen inkomen"],
 ];
-const nettoHint = "Tel alles bij elkaar op. Zonder vakantiegeld. Tel toeslagen en kinderbijslag niet mee.";
+const nettoHint = "Tel alles bij elkaar op. Zonder vakantiegeld. Tel toeslagen en kinderbijslag niet mee. Is uw inkomen elke maand anders? Tel dan de laatste 3 maanden op en deel door 3.";
 
 function StapInkomen({ f, zet, fouten }: StapProps) {
   const paar = f.partner === "ja";

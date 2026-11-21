@@ -5,7 +5,7 @@ import { naarInvoer, type Formulier } from "./formulier.ts";
 
 const GROEPEN: { kans: Kans; kop: string; uitleg: string }[] = [
   { kans: "ja", kop: "Dit kunt u waarschijnlijk krijgen", uitleg: "Vraag het aan. De gemeente of Dienst Toeslagen kijkt of u het echt krijgt." },
-  { kans: "misschien", kop: "Dit kunt u misschien krijgen", uitleg: "De check weet het niet zeker. Bij elke regeling staat waarom." },
+  { kans: "misschien", kop: "Dit kunt u misschien krijgen", uitleg: "Leidenrekent weet het niet zeker. Bij elke regeling staat waarom." },
   { kans: "nee", kop: "Dit kunt u waarschijnlijk niet krijgen", uitleg: "Bij elke regeling staat waarom niet." },
 ];
 

@@ -1,12 +1,12 @@
 /**
- * Welke regelingen kan iemand in Leiden krijgen? Rekenkern voor de tweede app (werknaam: de check).
+ * Welke regelingen kan iemand in Leiden krijgen? Rekenkern van Leidenrekent, de tweede app.
  *
  * Elke regeling geeft een uitslag: waarschijnlijk wel ("ja"), misschien, of waarschijnlijk niet ("nee"), met de reden
  * in gewone taal en de letterlijke bron. De voorwaarden staan in docs/recht/VOORWAARDEN.md, de bedragen en grenzen in
  * regels/**\/*.yaml.
  *
- * "Misschien" betekent: de check weet het niet zeker. Bijvoorbeeld omdat iemand "Weet ik niet" antwoordde, of omdat
- * de check een situatie niet uitrekent (andere mensen in huis, inkomen uit een eigen bedrijf). De check zegt dan wat
+ * "Misschien" betekent: Leidenrekent weet het niet zeker. Bijvoorbeeld omdat iemand "Weet ik niet" antwoordde, of omdat
+ * Leidenrekent een situatie niet uitrekent (andere mensen in huis, inkomen uit een eigen bedrijf). Leidenrekent zegt dan wat
  * er nog open is.
  */
 import { CITATEN, naarCitaat, type Citaat } from "./citaten.ts";
@@ -99,7 +99,7 @@ const bron = (l: Lezer, id: string): Citaat[] => {
 
 const heel = (b: Bedrag) => euro(b, true);
 
-/** Leeftijd vanaf wanneer de gewone normen gelden. Voor 18, 19 en 20 jaar rekent de check nog niet. */
+/** Leeftijd vanaf wanneer de gewone normen gelden. Voor 18, 19 en 20 jaar rekent Leidenrekent nog niet. */
 const VOLWASSEN = 21;
 
 export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaardRegels): Uitslag[] {
@@ -135,8 +135,8 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
     grens ? ` De grens voor uw huishouden is ongeveer ${heel(grens)} netto per maand, zonder vakantiegeld.` : "";
   const waaromInkomen = (kans: Kans, grens?: Bedrag): string => {
     if (!grens) return jong
-      ? "Voor jongeren van 18, 19 en 20 jaar rekent de check de grens nog niet uit. Vraag het de gemeente."
-      : "Voor uw woonsituatie rekent de check de grens niet uit. Vraag het de gemeente.";
+      ? "Voor jongeren van 18, 19 en 20 jaar rekent Leidenrekent de grens nog niet uit. Vraag het de gemeente."
+      : "Voor uw woonsituatie rekent Leidenrekent de grens niet uit. Vraag het de gemeente.";
     if (invoer.bijstand) return `Met bijstand is uw inkomen niet hoger dan de grens.${grensZin(grens)}`;
     return `${kans === "ja" ? "Uw inkomen is niet hoger dan de grens." : "Uw inkomen is hoger dan de grens."}${grensZin(grens)}`;
   };
@@ -240,7 +240,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
     }),
   );
 
-  // Gemeentepolis: tot 120%. Ondernemers: een jaargrens die de check niet uitrekent.
+  // Gemeentepolis: tot 120%. Ondernemers: een jaargrens die Leidenrekent niet uitrekent.
   uit.push(
     probeer(() => {
       const t = toets("leiden.gemeentepolis.inkomensgrens");
@@ -396,7 +396,7 @@ function vermogenToets(l: Lezer, invoer: CheckInvoer, grensId: string): { kans: 
   return { kans: "ja", grens, zin: `Uw geld en bezit zijn niet meer dan ${heel(grens)}.` };
 }
 
-/** Toetsingsinkomen per jaar (bruto), afgeleid uit het netto inkomen. Undefined als de check het niet kan afleiden. */
+/** Toetsingsinkomen per jaar (bruto), afgeleid uit het netto inkomen. Undefined als Leidenrekent het niet kan afleiden. */
 function toetsingsinkomen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): Bedrag | undefined {
   if (invoer.bijstand) {
     // Zoals Leidenwerkt: de bijstand (met vakantietoeslag) als uitkering, bij een paar half om half.
@@ -422,7 +422,7 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
   const ti = probeer2(() => toetsingsinkomen(l, invoer, personen));
   const proef = { tekst: "Proefberekening van Dienst Toeslagen", url: URL.toeslagen };
   const geenBedrag =
-    "De check kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.";
+    "Leidenrekent kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.";
   const kinderen: Kind[] = invoer.kinderen.map((k) => ({ leeftijd: k.leeftijd }));
   const uit: (Uitslag | undefined)[] = [];
 
@@ -461,9 +461,9 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
       if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit op 1 januari waren meer dan ${heel(v.grens)}.` };
       const volwassenKind = invoer.kinderen.some((k) => k.leeftijd >= 18);
       if (invoer.andereBewoners || volwassenKind)
-        return { ...basis, kans: "misschien", waarom: "Er wonen nog andere volwassenen bij u. Hun inkomen en vermogen tellen mee. De check rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen." };
+        return { ...basis, kans: "misschien", waarom: "Er wonen nog andere volwassenen bij u. Hun inkomen en vermogen tellen mee. Leidenrekent rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen." };
       if (personen.every((p) => p.leeftijd < 21))
-        return { ...basis, kans: "misschien", waarom: "Voor jongeren onder de 21 jaar rekent de check de huurtoeslag niet uit. Doe de proefberekening van Dienst Toeslagen." };
+        return { ...basis, kans: "misschien", waarom: "Voor jongeren onder de 21 jaar rekent Leidenrekent de huurtoeslag niet uit. Doe de proefberekening van Dienst Toeslagen." };
       if (!ti || invoer.kaleHuurPerMaand === undefined) return { ...basis, kans: "misschien", waarom: geenBedrag };
       const personenAantal = personen.length + invoer.kinderen.length;
       const r = huurtoeslag(l, D(invoer.kaleHuurPerMaand), ti, personenAantal);

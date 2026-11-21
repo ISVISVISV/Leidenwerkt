@@ -1,5 +1,5 @@
 /**
- * Het formulier van de check: wat iemand invult, de controle per stap en de vertaling naar de rekenkern.
+ * Het formulier van Leidenrekent: wat iemand invult, de controle per stap en de vertaling naar de rekenkern.
  * Er wordt niets bewaard: alles staat alleen in het geheugen van de pagina.
  */
 import { Lezer, naarCitaat, standaardRegels, type CheckInvoer, type CheckPersoon, type Citaat, type Inkomenssoort, type Woonsoort } from "@leidenwerkt/engine";
@@ -96,8 +96,8 @@ export function controleer(f: Formulier, stap: number): Fouten {
   };
   if (stap === 1) {
     if (!f.leiden) fouten.leiden = kies;
-    else if (f.leiden === "nee") fouten.leiden = "Deze check is alleen voor inwoners van de gemeente Leiden.";
-    datum("geboren", f.geboren, 18, 66, "Deze check werkt voor mensen van 18 jaar tot de AOW-leeftijd.");
+    else if (f.leiden === "nee") fouten.leiden = "Leidenrekent is alleen voor inwoners van de gemeente Leiden.";
+    datum("geboren", f.geboren, 18, 66, "Leidenrekent werkt voor mensen van 18 jaar tot de AOW-leeftijd.");
     if (!f.partner) fouten.partner = kies;
     if (metPartner(f)) datum("partnerGeboren", f.partnerGeboren, 18, 66, "Uw partner moet 18 jaar of ouder zijn en jonger dan de AOW-leeftijd.");
     if (!f.heeftKinderen) fouten.heeftKinderen = kies;
