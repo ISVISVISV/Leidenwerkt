@@ -5,9 +5,9 @@ Gemaakt met `npm run audit:leidenrekent` met rekendatum 2026-11-21. 17 personen 
 | Controle | Aantal keer | Niet goed |
 | --- | --- | --- |
 | Formulier keurt de persoon goed | 17 | 0 |
-| Elke uitslag staat op de pagina | 181 | 0 |
-| Reden en bron bij elke regeling | 164 | 0 |
-| Links naar officiële sites | 122 | 0 |
+| Elke uitslag staat op de pagina | 261 | 0 |
+| Reden en bron bij elke regeling | 244 | 0 |
+| Links naar officiële sites | 202 | 0 |
 | Grens past bij de groep | 58 | 0 |
 | Grens past bij het inkomen | 58 | 0 |
 | Geen ; in teksten | 17 | 0 |

@@ -258,6 +258,21 @@ describe("kinderbijslag en kinderopvang bij problemen", () => {
   });
 });
 
+describe("kwijtschelding, bijzondere bijstand en goed om te weten", () => {
+  it("kwijtschelding: misschien tot het sociaal minimum, daarboven geen melding", () => {
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { uwv: 1300 } } }), "kwijtschelding")).toBe("misschien");
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { uwv: 1400 } } }), "kwijtschelding")).toBeUndefined();
+  });
+  it("bijzondere bijstand: misschien tot 150%, daarboven geen melding", () => {
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 2000 } } }), "bijzondere_bijstand")).toBe("misschien");
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 2100 } } }), "bijzondere_bijstand")).toBeUndefined();
+  });
+  it("goed om te weten staat er altijd, ook bij een hoog inkomen", () => {
+    const u = checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 5000 } } }));
+    expect(u.filter((x) => x.kans === "info").map((x) => x.id)).toEqual(["goede_buur", "stadsbank", "voedselbank"]);
+  });
+});
+
 describe("teksten", () => {
   const voorbeelden: CheckInvoer[] = [
     invoer(),

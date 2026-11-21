@@ -81,6 +81,41 @@ export const CITATEN = {
     tekst:
       "Hebt u lichamelijke, psychische of sociale problemen? Of heeft uw partner lichamelijke, psychische of sociale problemen? En wilt u daarom voor uw kind(eren) kinderopvang regelen? Dan kunt u een vergoeding voor de kinderopvangkosten aanvragen. U kunt voor maximaal 3 dagen een vergoeding voor de kinderopvang krijgen. […] Uw kind(eren) is (zijn) jonger dan 4 jaar of zit(ten) op de basisschool. U en/of uw partner krijgen geen andere vergoeding voor de kinderopvangkosten. […] Hou er rekening mee dat u ook een eigen bijdrage moet betalen.",
   },
+  kwijtschelding: {
+    titel: "Gemeente Leiden, Geldzaken: Kwijtschelding of geld terugkrijgen",
+    url: "https://geldzaken.leiden.nl/regeling/kwijtschelding-of-geld-terugkrijgen/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Hebt u moeite met het betalen van de gemeentelijke belastingen? Dan kunt u misschien kwijtschelding krijgen. Dit betekent dat u de belasting niet hoeft te betalen. Hebt u de belasting al betaald? Dan kunt u misschien het geld terugkrijgen. Is dit voor u? Uw inkomen is op of onder bijstandsniveau en uw vermogen is niet te hoog. […] Het inkomen van uw huisgenoten kan ook meetellen.",
+  },
+  bijzondereBijstand: {
+    titel: "Gemeente Leiden, Geldzaken: Bijzondere bijstand als het echt nodig is",
+    url: "https://geldzaken.leiden.nl/regeling/bijzondere-bijstand-als-het-echt-nodig-is/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Soms hebt u kosten die u niet kunt betalen. Bijvoorbeeld omdat ze onverwacht zijn. De gemeente kan u dan een vergoeding of een lening geven. Dit heet bijzondere bijstand. […] U hebt de kosten nog niet gemaakt. De kosten zijn noodzakelijk: voor dingen die u echt nodig hebt. […] Uw inkomen is maximaal 110% van de bijstandsnorm en uw vermogen is niet te hoog. Hebt u een hoger inkomen, tot 150% van de bijstandsnorm? Dan kunt u ook nog in aanmerking komen. Maar u krijgt dan een lagere vergoeding. […] Het gaat bijvoorbeeld om kosten voor bewindvoering, rechtshulp, kinderopvang, verhuizing of woninginrichting.",
+  },
+  goedeBuur: {
+    titel: "Gemeente Leiden, Geldzaken: Het Goede Buur Spreekuur",
+    url: "https://geldzaken.leiden.nl/regeling/rekeningen/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Vindt u het even moeilijk om de rekeningen te betalen? Wilt u dat iemand u helpt met een aanvraag of sollicitatie? Of hebt u andere vragen over geld? In Leiden zijn er veel mensen die graag met u meekijken. Deze hulp is gratis en vrijblijvend. […] Op maandag, dinsdag en donderdag kunt u binnenlopen bij het Goede Buur Spreekuur. U hebt hier geen afspraak voor nodig.",
+  },
+  stadsbank: {
+    titel: "Gemeente Leiden, Geldzaken: Samen werken aan een oplossing",
+    url: "https://geldzaken.leiden.nl/regeling/samen-werken-aan-een-oplossing/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Hebt u schulden? Wilt u voorkomen dat u schulden krijgt? Of maakt u zich zorgen over geld? Dan kan een schuldhulpverlener van de Stadsbank u helpen. […] Alle inwoners van Leiden kunnen contact opnemen met de Stadsbank. Er zijn geen voorwaarden. […] Bellen kan ook: 14 071 (keuzenummer 1).",
+  },
+  voedselbank: {
+    titel: "Gemeente Leiden, Geldzaken: De Voedselbank",
+    url: "https://geldzaken.leiden.nl/regeling/gratis-een-gezonde-maaltijd-op-tafel/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Zijn boodschappen even te duur? Of vindt u het moeilijk om een gezonde maaltijd te kopen? Dan kunt u tijdelijk naar de Voedselbank. U krijgt daar elke week een pakket met eten en drinken voor u en uw gezin. […] De Voedselbank bepaalt voorwaarden en eisen.",
+  },
   pw13studie: {
     titel: "Participatiewet, art. 13 lid 2 c",
     url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",

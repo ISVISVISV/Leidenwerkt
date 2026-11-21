@@ -347,3 +347,17 @@ parameters:
       tekst: "1. Een auto of motor met een waarde tot maximaal € 4.500,00 wordt als algemeen gebruikelijk aangemerkt en wordt niet tot de middelen van belanghebbende gerekend. 2. Een auto of motor met een waarde hoger dan bedoeld in het eerste lid, wordt alleen tot de middelen van belanghebbende gerekend voor het deel van de waarde boven het bedrag in het eerste lid. 3. Als een belanghebbende beschikt of redelijkerwijs kan beschikken over meer dan één auto of motor, geldt de vrijlating zoals bedoeld in het eerste of tweede lid, slechts voor één auto of één motor."
       versie: "geraadpleegd op 21 november 2026"
     notitie: Het college kan een duurdere auto ook vrijlaten als die nodig is om medische of zorgredenen (lid 6 tot en met 8). Leidenrekent rekent dat niet uit.
+  - id: leiden.bb.inkomensgrens
+    omschrijving: Bijzondere bijstand, tot dit deel van de bijstandsnorm (met een lagere vergoeding boven 110%)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "1.50" }
+    status: geverifieerd
+    bron:
+      titel: Gemeente Leiden, Geldzaken, Bijzondere bijstand als het echt nodig is
+      url: https://geldzaken.leiden.nl/regeling/bijzondere-bijstand-als-het-echt-nodig-is/
+      geraadpleegd_op: 2026-11-22
+    citaat:
+      kop: "Gemeente Leiden, Geldzaken: Bijzondere bijstand"
+      tekst: "Uw inkomen is maximaal 110% van de bijstandsnorm en uw vermogen is niet te hoog. Hebt u een hoger inkomen, tot 150% van de bijstandsnorm? Dan kunt u ook nog in aanmerking komen. Maar u krijgt dan een lagere vergoeding."
+      versie: "geraadpleegd op 22 november 2026"
+    notitie: Leidenrekent toont bijzondere bijstand als "misschien" tot deze grens. Het is maatwerk. De norm is hier het sociaal minimum zonder kostendelers, net als bij de andere Leidse regelingen.

@@ -52,7 +52,7 @@ async function main() {
       const tekst = (e: Element | null) => (e as HTMLElement | null)?.innerText.trim() ?? "";
       const kaarten = [...document.querySelectorAll(".regeling")].map((li) => ({
         id: li.getAttribute("data-id") ?? "",
-        groep: ["ja", "misschien", "nee"].find((g) => li.closest(".groep")?.classList.contains(g)) ?? "",
+        groep: ["ja", "misschien", "info", "nee"].find((g) => li.closest(".groep")?.classList.contains(g)) ?? "",
         naam: tekst(li.querySelector("h3")),
         bedrag: tekst(li.querySelector(".bedrag")),
         waarom: tekst(li.querySelector(".waarom")),

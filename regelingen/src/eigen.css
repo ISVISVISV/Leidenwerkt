@@ -61,3 +61,7 @@
 .bron-regel {
   display: block;
 }
+
+.regeling.info {
+  border-left-color: var(--inkt-zacht);
+}

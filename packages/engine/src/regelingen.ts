@@ -75,8 +75,9 @@ export interface Vermogen {
   schulden: number;
 }
 
-export type Kans = "ja" | "misschien" | "nee";
-export type Groep = "gemeente" | "toeslagen" | "inkomen";
+/** "info": goed om te weten, voor iedereen (hulp en voorzieningen zonder rekensom). */
+export type Kans = "ja" | "misschien" | "nee" | "info";
+export type Groep = "gemeente" | "toeslagen" | "inkomen" | "hulp";
 
 export interface Uitslag {
   id: string;
@@ -405,6 +406,74 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.smi },
       bronnen: [CITATEN.kinderopvangSmi],
     });
+
+  // Kwijtschelding van gemeentelijke belastingen (BSGR): inkomen op of onder bijstandsniveau. De berekening is van BSGR,
+  // daarom altijd "misschien". Boven bijstandsniveau geen melding.
+  uit.push(
+    probeer(() => {
+      const t = toets();
+      if (t.kans === "nee" || (t.boven && !jongAlleen)) return undefined;
+      return {
+        id: "kwijtschelding",
+        naam: "Kwijtschelding van gemeentelijke belastingen",
+        groep: "gemeente",
+        kans: "misschien",
+        waarom:
+          "Heeft u moeite met het betalen van de gemeentelijke belastingen? Dan hoeft u ze misschien niet te betalen. Dit heet kwijtschelding. Uw inkomen mag niet hoger zijn dan de bijstand. Uw geld en bezit en het inkomen van uw huisgenoten tellen ook mee.",
+        aanvragen: { tekst: "Meer informatie en aanvragen", url: CITATEN.kwijtschelding.url },
+        bronnen: [CITATEN.kwijtschelding],
+      };
+    }),
+  );
+
+  // Bijzondere bijstand: maatwerk, tot 150% van de bijstandsnorm. Boven die grens geen melding.
+  uit.push(
+    probeer(() => {
+      const t = toets("leiden.bb.inkomensgrens");
+      if (t.kans === "nee" || (t.boven && !jongAlleen)) return undefined;
+      return {
+        id: "bijzondere_bijstand",
+        naam: "Bijzondere bijstand",
+        groep: "gemeente",
+        kans: "misschien",
+        waarom:
+          "Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rechtshulp. Dan kan de gemeente u misschien helpen. Dit heet bijzondere bijstand. U krijgt dan een vergoeding of een lening. Vraag het aan voordat u de kosten maakt.",
+        aanvragen: { tekst: "Meer informatie en aanvragen", url: CITATEN.bijzondereBijstand.url },
+        bronnen: [CITATEN.bijzondereBijstand, ...bron(l, "leiden.bb.inkomensgrens")],
+      };
+    }),
+  );
+
+  // Goed om te weten: hulp voor iedereen, zonder voorwaarden van Leidenrekent.
+  uit.push(
+    {
+      id: "goede_buur",
+      naam: "Hulp bij uw aanvraag",
+      groep: "hulp",
+      kans: "info",
+      waarom: "Wilt u hulp bij een aanvraag of bij uw geldzaken? Ga dan naar het Goede Buur Spreekuur. U hoeft geen afspraak te maken. De hulp is gratis.",
+      aanvragen: { tekst: "Waar en wanneer", url: CITATEN.goedeBuur.url },
+      bronnen: [CITATEN.goedeBuur],
+    },
+    {
+      id: "stadsbank",
+      naam: "Hulp bij schulden",
+      groep: "hulp",
+      kans: "info",
+      waarom: "Heeft u schulden? Of maakt u zich zorgen over geld? Dan kan de Stadsbank u helpen. Bel 14 071 en kies 1.",
+      aanvragen: { tekst: "Meer informatie", url: CITATEN.stadsbank.url },
+      bronnen: [CITATEN.stadsbank],
+    },
+    {
+      id: "voedselbank",
+      naam: "Voedselbank",
+      groep: "hulp",
+      kans: "info",
+      waarom: "Zijn boodschappen te duur? Dan kunt u misschien naar de Voedselbank. De Voedselbank bepaalt zelf de voorwaarden.",
+      aanvragen: { tekst: "Meer informatie", url: CITATEN.voedselbank.url },
+      bronnen: [CITATEN.voedselbank],
+    },
+  );
 
   // Bijstand: alleen een melding. Onder de norm en onder de vermogensgrens: misschien recht op bijstand.
   if (!invoer.bijstand)
