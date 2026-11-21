@@ -127,4 +127,5 @@ Kan nu niet worden aangevraagd (13 april tot en met 31 juli). De grens van 120% 
 
 ## Vragen voor de praktijk
 
-1. **Studietoeslag:** gelden de bedragen van 2024 nog? (Eerst zelf nazoeken in de algemene maatregel van bestuur.)
+1. **Studietoeslag:** gelden de bedragen van 2024 nog? Zelf nagezocht: het wettelijke minimum is sinds 1 juli 2026 hoger (€ 390,07 voor 21 jaar en ouder). De pagina van de gemeente noemt nog € 352,80. Vraag: past de gemeente de pagina aan?
+2. **Sleutelpas met een schuldregeling (art. 2.3):** de tekst is "a. inkomen tot 130% …, en; b. toegelaten tot de Wsnp. c. schuldregeling (MSNP)". Leidenrekent leest a, b en c als drie losse mogelijkheden. Wie een schuldregeling bij de Stadsbank Leiden heeft of in de Wsnp zit, krijgt de Sleutelpas dan ook met een inkomen boven 130%. Vraag: klopt deze lezing in de praktijk? Zo niet, dan past Leidenrekent de uitkomst aan.
