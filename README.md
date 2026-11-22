@@ -1,14 +1,20 @@
-# Leidenwerkt
+# Rekenhulp voor Leidenaren
 
-Gratis, open rekenhulp voor inwoners van Leiden met bijstand. De vraag die de app beantwoordt: **hoeveel houd ik per maand meer of minder over als ik (meer) ga werken?**
+Twee gratis, open rekenhulpen voor inwoners van Leiden. **[isvisvisv.github.io/Rekenhulp](https://isvisvisv.github.io/Rekenhulp/)**
 
-**Probeer het: [isvisvisv.github.io/Rekenhulp/leidenwerkt](https://isvisvisv.github.io/Rekenhulp/leidenwerkt/)**. De startpagina [isvisvisv.github.io/Rekenhulp](https://isvisvisv.github.io/Rekenhulp/) laat beide rekenhulpen zien: Leidenwerkt en Leidengeldwijzer.
+| Rekenhulp | Vraag | Voor wie | Adres |
+| --- | --- | --- | --- |
+| **Leidengeldwijzer** | Welke regelingen kunt u krijgen? Bijvoorbeeld de Sleutelpas, de toeslagen en de bijstand. | Inwoners van Leiden van 18 jaar tot de AOW-leeftijd | [/leidengeldwijzer](https://isvisvisv.github.io/Rekenhulp/leidengeldwijzer/) (proefversie) |
+| **Leidenwerkt** | Hoeveel houdt u per maand meer of minder over als u (meer) gaat werken? | Inwoners van Leiden met bijstand | [/leidenwerkt](https://isvisvisv.github.io/Rekenhulp/leidenwerkt/) |
 
-- Alles draait in de browser. Er is geen server; invoer verlaat het apparaat niet.
-- Elke regel en elk bedrag heeft een officiële bron en een status (`geverifieerd`, `onbevestigd`, `ontbrekend`). Ontbreekt een gegeven, dan rekent de app dat onderdeel niet uit in plaats van te gokken.
-- De uitkomst is een inschatting, geen advies of beslissing.
+Voor beide geldt:
 
-In deze repository zit ook **Leidengeldwijzer**: een check voor alle Leidenaren van 18 jaar tot de AOW-leeftijd. Welke regelingen van de gemeente en welke toeslagen kunt u krijgen? Leidengeldwijzer is nog in ontwikkeling. Het valt onder dezelfde open licentie (EUPL-1.2) en volgt dezelfde regels: alles in de browser, alleen officiële bronnen. Het logo van de Sleutelpas (`regelingen/src/afbeeldingen/sleutelpas.png`) is van de gemeente Leiden en is rechtenvrij te gebruiken. Het valt niet onder de EUPL.
+- Alles draait in de browser. Er is geen server. Wat iemand invult, verlaat het apparaat niet.
+- Elke regel en elk bedrag heeft een officiële bron. Ontbreekt een gegeven, dan rekent de rekenhulp dat onderdeel niet uit in plaats van te gokken.
+- De uitkomst is een schatting, geen advies of beslissing.
+- Alle tekst is in eenvoudig Nederlands (taalniveau A2) en de apps voldoen aan WCAG 2.2 AA.
+
+De code valt onder de open licentie EUPL-1.2. Het logo van de Sleutelpas (`regelingen/src/afbeeldingen/sleutelpas.png`) is van de gemeente Leiden en is rechtenvrij te gebruiken. Het valt niet onder de EUPL.
 
 ## Snel starten
 
@@ -16,6 +22,7 @@ In deze repository zit ook **Leidengeldwijzer**: een check voor alle Leidenaren 
 npm install
 npm run dev        # ontwikkelserver
 npm run dev:regelingen  # ontwikkelserver van Leidengeldwijzer
+npm run build:start     # de startpagina in start/dist
 npm test           # regeldata controleren + unit-, eigenschaps- en proefpersonentests
 npm run docs       # PROEFPERSONEN.md en de statustabel in REKENREGELS.md opnieuw maken
 npm run test:e2e   # bouwen + browsertest met toegankelijkheidscontrole (axe)
@@ -32,7 +39,8 @@ Voor `test:e2e` is Chromium nodig (`npx playwright install chromium`) of een bes
 | `regels/` | Normbedragen en parameters als YAML, per onderwerp en periode, met bron |
 | `packages/engine/` | Rekenengine in TypeScript, los van de app, met uitlegspoor |
 | `app/` | React-app Leidenwerkt (Vite) |
-| `regelingen/` | Leidengeldwijzer, de tweede app: welke regelingen kunt u krijgen in Leiden? Nog in ontwikkeling en nog niet gepubliceerd |
+| `regelingen/` | Leidengeldwijzer: welke regelingen kunt u krijgen in Leiden? Proefversie |
+| `start/` | De startpagina met beide rekenhulpen |
 | `packages/ui/` | Formuliervelden, bronvermelding en huisstijl, gedeeld door beide apps |
 | `testgevallen/` | Proefpersonen: verzonnen huishoudens met officiële vergelijkingswaarden |
 | `scripts/` | Regeldata bouwen en controleren, documentatie genereren, overzicht bij pull requests, bewaking van wetten |
