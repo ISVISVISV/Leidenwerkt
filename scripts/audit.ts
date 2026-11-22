@@ -22,6 +22,7 @@ import { parse } from "yaml";
 import { PERSONEN, REKENDATUM, formulier, kind, type Persoon, type Verwachting } from "../audit/personen.ts";
 import { willekeurigePersonen } from "../audit/willekeurig.ts";
 import type { Formulier } from "../app/src/formulier.ts";
+import { bereken, type Invoer } from "../packages/engine/src/index.ts";
 
 const wortel = join(dirname(fileURLToPath(import.meta.url)), "..");
 // `npm run audit -- --willekeurig 200 --zaad 7`: willekeurige personen in plaats van de vaste.
@@ -64,6 +65,7 @@ async function main() {
   const { Uitkomst } = (await vite.ssrLoadModule("/src/Uitkomst.tsx")) as {
     Uitkomst: (p: object) => unknown;
   };
+  const naarInvoerLw = ((await vite.ssrLoadModule("/src/formulier.ts")) as { naarInvoer: (f: Formulier, o: { uren?: number; fase: Fase; datum: string }) => Invoer }).naarInvoer;
   const css = readFileSync(join(wortel, "packages", "ui", "src", "stijl.css"), "utf8");
   const { browser, scherm, papier } = await browserMetPaginas();
 
@@ -334,6 +336,15 @@ async function main() {
         );
         reeks.push(over?.werk ?? NaN);
       }
+      // Het echte bedrag (zonder afronding per rij): toeslagen gaan per hele euro omlaag (wettelijke afronding), dus het
+      // echte "U houdt over" kan zelf € 1 heen en weer gaan. Dan is dat geen fout van de tabel.
+      const echt: number[] = [];
+      for (let u = van; u <= ingevuld + 4; u++) {
+        const r = bereken(naarInvoerLw(p.f, { uren: u, fase: "start", datum: rekendatum }));
+        const posten = r.werk.posten.filter((x) => x.perMaand !== null && !r.nietMeegenomen.some((n) => n.id === x.id));
+        echt.push(Math.round(posten.reduce((t, x) => t + Number(x.perMaand), 0)));
+      }
+      const zoalsEcht = reeks.every((x, i) => x === echt[i]);
       const stappen = reeks.slice(1).map((x, i) => x - reeks[i]);
       // Een stap van € 1 terug tegen de richting in (bijvoorbeeld 289, 290, 290, 289) is afronding, geen echte verandering.
       let laatste = 0;
@@ -348,8 +359,8 @@ async function main() {
         "Urenschuif verspringt niet met € 1",
         p.naam,
         `${van} t/m ${ingevuld + 4} uur`,
-        !zigzag,
-        `"U houdt over" per uur: ${reeks.map((x) => `€ ${x}`).join(", ")}`,
+        !zigzag || zoalsEcht,
+        `"U houdt over" per uur: ${reeks.map((x) => `€ ${x}`).join(", ")}. Zonder afronding per rij: ${echt.map((x) => `€ ${x}`).join(", ")}`,
       );
       // 10. Omwegen: dezelfde uitkomst als de directe route.
       for (const o of p.omwegen ?? []) {
