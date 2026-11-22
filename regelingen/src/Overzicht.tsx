@@ -19,8 +19,12 @@ const GROEPEN: { kans: Kans; kop: string; uitleg: string }[] = [
 ];
 const HULP = { kop: "Hulp nodig?" };
 
-/** De regelingen die op de Sleutelpas staan. */
-const OP_DE_PAS = ["kindtegoed", "laptop", "zwemles", "volwassenenfonds"];
+/**
+ * De regelingen die u via de Sleutelpas krijgt: Kindtegoed, laptop en zwemles (Beleidsregels Sleutelpas 2026, hoofdstuk 2 en art. 3.2 en 3.3).
+ * Het Volwassenenfonds staat er bewust niet bij. De beleidsregels zetten het tegoed wel op de Sleutelpas (art. 3.4 d),
+ * maar u vraagt het aan via een tussenpersoon. De pagina van de gemeente noemt de Sleutelpas daarbij niet.
+ */
+const OP_DE_PAS = ["kindtegoed", "laptop", "zwemles"];
 
 type Blok = "sleutelpas" | "gemeente" | "svb" | "toeslagen";
 /** De volgorde van de blokken: eerst Leiden (met de Sleutelpas erin), dan het Rijk. */
