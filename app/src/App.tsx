@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
-import { Bron, Datum, Keuze, Veld } from "@leidenwerkt/ui";
+import { Bron, Datum, Keuze, ThemaKnop, Veld } from "@leidenwerkt/ui";
 import { controleer, heeftOpvang, leeftijdOp, leegFormulier, maxUurprijs, nieuwKind, schuifSleutel, vandaag, vraagBewoners, vraagInkomenAnderen, vraagInkomenKind, bijIemandAnders, vraagWoonlasten, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
@@ -65,6 +65,7 @@ export function App() {
       <header className="kopregel">
         <p className="merk">Leidenwerkt</p>
         <p className="kopregel-tekst">Gratis rekenhulp voor Leidenaren met bijstand</p>
+        <ThemaKnop />
       </header>
 
       <main>

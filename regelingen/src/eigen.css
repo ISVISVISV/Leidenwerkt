@@ -19,7 +19,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-thema="licht"]) {
     --icoon-gemeente: #ff9aa0;
     --icoon-gemeente-vlak: #3a1d20;
     --icoon-rijk: #8ccbf0;
@@ -32,6 +32,21 @@
     --tegel: #151e25;
     --tegel-hover: #24303a;
   }
+}
+
+/* De knop voor licht en donker zet data-thema op <html>. Die keuze gaat voor de instelling van het apparaat. */
+:root[data-thema="donker"] {
+  --icoon-gemeente: #ff9aa0;
+  --icoon-gemeente-vlak: #3a1d20;
+  --icoon-rijk: #8ccbf0;
+  --icoon-rijk-vlak: #16303f;
+  --icoon-svb: #8fd8bb;
+  --icoon-svb-vlak: #13302a;
+  --icoon-hulp: #c7b8f0;
+  --icoon-hulp-vlak: #2a2440;
+  --pas-vlak: #2a2516;
+  --tegel: #151e25;
+  --tegel-hover: #24303a;
 }
 
 /* Het formulier blijft smal (goed te lezen). Het overzicht mag op een groot scherm breed. */

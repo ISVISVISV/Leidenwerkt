@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CITATEN, Lezer, euro, sociaalMinimum, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
-import { Bron, Datum, Keuze, Veld, Vinkjes } from "@leidenwerkt/ui";
+import { Bron, Datum, Keuze, ThemaKnop, Veld, Vinkjes } from "@leidenwerkt/ui";
 import { bedragId, bedragSoorten, controleer, naarInvoer, infoVan, vandaag, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Overzicht } from "./Overzicht.tsx";
 import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANGSOORTEN, SOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
@@ -50,6 +50,7 @@ export function App() {
       <header className="kopregel">
         <p className="merk">Leidengeldwijzer</p>
         <p className="kopregel-tekst">Welke regelingen kunt u krijgen in Leiden?</p>
+        <ThemaKnop />
       </header>
 
       <main>
