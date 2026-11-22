@@ -204,8 +204,35 @@ describe("toeslagen", () => {
   it("een kamer: geen huurtoeslag", () => {
     expect(kans(invoer({ wonen: "kamer" }), "huurtoeslag")).toBe("nee");
   });
-  it("andere volwassenen in huis: huurtoeslag misschien", () => {
+  it("andere volwassenen in huis met onbekend inkomen: huurtoeslag misschien", () => {
     expect(kans(invoer({ andereBewoners: true }), "huurtoeslag")).toBe("misschien");
+    expect(kans(invoer({ andereBewoners: true, andereBewonersAantal: 1 }), "huurtoeslag")).toBe("misschien");
+    expect(kans(invoer({ kinderen: [{ leeftijd: 19 }] }), "huurtoeslag")).toBe("misschien");
+  });
+  it("met het inkomen van de huisgenoten rekent Leidengeldwijzer de huurtoeslag uit, net als Leidenwerkt", () => {
+    const lw: Invoer = {
+      datum: DATUM,
+      gemeente: "leiden",
+      leefvorm: "alleenstaande",
+      leeftijd: 40,
+      kinderen: [],
+      kostendelers: 1,
+      huisgenotenInkomenJaar: 6000,
+      wonen: { soort: "huur", kaleHuurPerMaand: 750 },
+      nieuwWerk: { brutoMaandloon: 0, urenPerWeek: 0 },
+      vrijlatingFase: "start",
+    };
+    const getal = Number(bereken(lw).huidig.posten.find((p) => p.id === "huurtoeslag")!.perMaand!);
+    const u = uitslag(checkRegelingen(invoer({ bijstand: true, aanvrager: { leeftijd: 40, inkomen: {} }, andereBewoners: true, andereBewonersAantal: 1, andereBewonersInkomenJaar: 6000 })), "huurtoeslag")!;
+    expect(u.bedrag).toBe(`ongeveer €\u00a0${getal.toLocaleString("nl-NL", { maximumFractionDigits: 0 })} per maand`);
+    expect(u.waarom).toContain("Het inkomen van de andere volwassenen in uw huis telt mee.");
+    expect(u.bronnen).toContainEqual(CITATEN.htMedebewoners);
+  });
+  it("een kind jonger dan 23 met een klein inkomen: de vrijstelling, dus dezelfde huurtoeslag", () => {
+    const zonder = uitslag(checkRegelingen(invoer({ kinderen: [{ leeftijd: 19, leeftijdBeginJaar: 18, inkomenJaar: 0 }] })), "huurtoeslag")!.bedrag;
+    const klein = uitslag(checkRegelingen(invoer({ kinderen: [{ leeftijd: 19, leeftijdBeginJaar: 18, inkomenJaar: 3000 }] })), "huurtoeslag")!.bedrag;
+    expect(zonder).toBeDefined();
+    expect(klein).toBe(zonder);
   });
   it("vermogen boven € 38.479: geen huurtoeslag, wel zorgtoeslag", () => {
     const i = invoer({ vermogen: geld(40000) });
@@ -293,5 +320,22 @@ describe("teksten", () => {
         expect(u.waarom, u.id).not.toContain(";");
         expect(u.waarom, u.id).not.toMatch(/  |undefined|NaN/);
       }
+  });
+});
+
+describe("kinderopvangtoeslag", () => {
+  const opvang = { soort: "dagopvang" as const, urenPerMaand: 80, uurprijs: 10 };
+  it("geen kind naar de opvang: geen kaart", () => {
+    expect(uitslag(checkRegelingen(invoer({ kinderen: [{ leeftijd: 3 }] })), "kot")).toBeUndefined();
+  });
+  it("met werk en opvang: een bedrag. U betaalt zelf ook een deel.", () => {
+    const u = uitslag(checkRegelingen(invoer({ kinderen: [{ leeftijd: 3, opvang }], kinderbijslag: true })), "kot")!;
+    expect(u.kans).toBe("ja");
+    expect(u.bedrag).toMatch(/^ongeveer €\s\d+ per maand$/);
+    expect(u.waarom).toContain("U betaalt zelf ook een deel.");
+  });
+  it("zonder werk of studie: misschien (bijvoorbeeld met inburgering)", () => {
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { uwv: 1200 } }, kinderen: [{ leeftijd: 3, opvang }] })), "kot")!;
+    expect(u.kans).toBe("misschien");
   });
 });

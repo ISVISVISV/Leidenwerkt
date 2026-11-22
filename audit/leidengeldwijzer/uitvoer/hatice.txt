@@ -4,8 +4,8 @@
 
 Aanvrager: 48 jaar. Inkomen per maand: uwv € 1.100, partneralimentatie € 250.
 Geen partner.
-Kinderen: 20 jaar, 14 jaar. Kinderbijslag: ja.
-Wonen: huur, kale huur € 750. Andere mensen in huis: ja.
+Kinderen: 20 jaar (inkomen € 5.000 per jaar), 14 jaar. Kinderbijslag: ja.
+Wonen: huur, kale huur € 750. Andere mensen in huis: ja, 1, inkomen € 18.000 per jaar.
 Bijstand: nee. 5 jaar laag inkomen: nee.
 Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleggingen € 4.000, spullen € 6.000, schulden € 0.
 
@@ -13,8 +13,8 @@ Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleg
 
 Overzicht van 21 november 2026. Leidengeldwijzer versie 0.1.0.
 
-Dit kunt u waarschijnlijk krijgen (8)
-SLEUTELPAS
+Dit kunt u waarschijnlijk krijgen (9)
+GEMEENTE LEIDEN
 Sleutelpas
 Kindtegoed
 € 550 per jaar
@@ -24,18 +24,17 @@ Zwemles
 Diploma A: alles betaald. Diploma B of C: € 250.
 Sport en cultuur voor volwassenen
 tot € 250 per jaar
-GEMEENTE LEIDEN
 Zorgverzekering van de gemeente
 DIENST TOESLAGEN
 Zorgtoeslag
 ongeveer € 129 per maand
 Kindgebonden budget
 ongeveer € 560 per maand
-Dit kunt u misschien krijgen (2)
+Huurtoeslag
+ongeveer € 335 per maand
+Dit kunt u misschien krijgen (1)
 GEMEENTE LEIDEN
 Bijzondere bijstand
-DIENST TOESLAGEN
-Huurtoeslag
 Dit kunt u waarschijnlijk niet krijgen (3)
 
 Gratis OV-pas, Individuele inkomenstoeslag, Bijstand.
@@ -78,16 +77,20 @@ Bel 0800 - 0543. Dit nummer is gratis.
 
 Maandag tot en met donderdag van 8.00 tot 20.00 uur. Vrijdag van 8.00 tot 17.00 uur.
 
+Langskomen kan bij het steunpunt van de Belastingdienst in het Stadskantoor, Bargelaan 190. Elke vrijdag van 9.00 tot 16.00 uur.
+
+Maak eerst een afspraak: www.belastingdienst.nl/langskomen.
+
 Wat u heeft ingevuld
 UW HUISHOUDEN
 Geboren01-03-1978
 Partnernee
-Kind 1geboren 01-03-2006
+Kind 1geboren 01-03-2006. Inkomen: € 5.000 bruto per jaar
 Kind 2geboren 01-03-2012
 Kinderbijslagja
 Woningin een huurwoning met een eigen voordeur, keuken, wc en douche
 Kale huur€ 750 per maand
-Andere bewonersja
+Andere bewoners1, samen € 18.000 bruto per jaar
 UW INKOMEN
 Bijstandnee
 Inkomeneen uitkering van UWV € 1.100, partneralimentatie € 250 per maand
@@ -128,11 +131,12 @@ Kindgebonden budget
 ongeveer € 560 per maand
 Dit is extra geld voor ouders met kinderen jonger dan 18 jaar. Uw geld en bezit zijn niet meer dan € 146.011.
 
+Huurtoeslag
+ongeveer € 335 per maand
+Dit is geld voor uw huur. Uw geld en bezit zijn niet meer dan € 38.479. Het inkomen van de andere volwassenen in uw huis telt mee. Hun geld en bezit tellen ook mee. Leidengeldwijzer rekent alleen met hun inkomen.
+
 Bijzondere bijstand
 Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rechtshulp. Dan kan de gemeente u misschien helpen. Dit heet bijzondere bijstand. U krijgt dan een vergoeding of een lening. Vraag het aan voordat u de kosten maakt.
-
-Huurtoeslag
-Er wonen nog andere volwassenen bij u. Hun inkomen en hun geld en bezit tellen mee. Leidengeldwijzer rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen.
 
 Gratis OV-pas
 U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee.

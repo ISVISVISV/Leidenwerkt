@@ -6,7 +6,7 @@
  * - `omwegen`: een andere route naar hetzelfde formulier. `begin` is wat iemand eerst invulde, `wijzig` is wat
  *   iemand daarna veranderde. Oude velden blijven staan, net als in Leidengeldwijzer. De uitkomst moet gelijk zijn.
  */
-import { leegFormulier, type Formulier, type InkomenVelden } from "../../regelingen/src/formulier.ts";
+import { leegFormulier, leegKind, type Formulier, type InkomenVelden, type KindInfo } from "../../regelingen/src/formulier.ts";
 
 /** De datum waarop de audit rekent. Vast, zodat iedereen dezelfde uitkomst krijgt. */
 export const REKENDATUM = "2026-11-21";
@@ -30,9 +30,13 @@ export interface Persoon {
   omwegen?: { naam: string; begin: Partial<Formulier>; wijzig: Partial<Formulier> }[];
 }
 
-/** Een ingevuld formulier: alles "nee" of leeg, behalve wat de persoon zelf invult. */
+/**
+ * Een ingevuld formulier: alles "nee" of leeg, behalve wat de persoon zelf invult.
+ * Per kind standaard: niet naar de opvang, en het inkomen (vanaf 18 jaar) onbekend.
+ */
 export const formulier = (over: Partial<Formulier>): Formulier => ({
   ...leegFormulier,
+  kindInfo: (over.kinderen ?? []).map((): KindInfo => ({ ...leegKind, opvang: "nee", inkomenOnbekend: true })),
   partner: "nee",
   heeftKinderen: "nee",
   woont: "huur",
@@ -206,10 +210,35 @@ export const PERSONEN: Persoon[] = [
       kinderen: ["01-03-2006", "01-03-2012"],
       kinderbijslag: "ja",
       andereBewoners: "ja",
+      andereAantal: "1",
+      andereInkomen: "18000",
+      kindInfo: [
+        { ...leegKind, inkomen: "5000" },
+        { ...leegKind, opvang: "nee" },
+      ],
       inkomen: inkomen({ uwv: "1100", partneralimentatie: "250" }, "anders"),
       bezit: ["beleggingen", "spullen"],
       beleggingen: "4000",
       spullen: "6000",
     }),
+  },
+  {
+    naam: "Mila: moeder met loon, twee kinderen naar de opvang",
+    f: formulier({
+      geboren: "01-03-1992",
+      heeftKinderen: "ja",
+      kinderen: ["01-03-2023", "01-03-2019"],
+      kindInfo: [
+        { ...leegKind, opvang: "ja", soort: "dagopvang", uren: "20", prijs: "10,50" },
+        { ...leegKind, opvang: "ja", soort: "bso", uren: "8", prijs: "" },
+      ],
+      kinderbijslag: "ja",
+      kaleHuur: "800",
+      inkomen: inkomen({ loon: "1900" }),
+    }),
+  },
+  {
+    naam: "Bram: huisgenoot met inkomen, inkomen onbekend",
+    f: formulier({ geboren: "01-03-1985", andereBewoners: "ja", andereAantal: "1", andereOnbekend: true, inkomen: inkomen({ loon: "1400" }) }),
   },
 ];

@@ -10,10 +10,10 @@
  * er nog open is.
  */
 import { CITATEN, naarCitaat, type Citaat } from "./citaten.ts";
-import { D, NUL, euro, type Bedrag } from "./geld.ts";
+import { D, NUL, euro, max, type Bedrag } from "./geld.ts";
 import { Lezer, OntbrekendeParameter, standaardRegels, type RegelSet } from "./regels.ts";
 import { brutoMaandUitNetto, brutoUitNetto } from "./modules/belasting.ts";
-import { huurtoeslag, kindgebondenBudget, maandbedragToeslag, zorgtoeslag } from "./modules/toeslagen.ts";
+import { huurtoeslag, kindgebondenBudget, kinderopvangtoeslag, maandbedragToeslag, zorgtoeslag } from "./modules/toeslagen.ts";
 import type { Kind } from "./types.ts";
 
 /** Soort inkomen. "geen" sluit de andere uit. */
@@ -42,8 +42,11 @@ export interface CheckInvoer {
   datum: string;
   aanvrager: CheckPersoon;
   partner?: CheckPersoon;
-  /** Kinderen die bij de aanvrager wonen. */
-  kinderen: { leeftijd: number }[];
+  /**
+   * Kinderen die bij de aanvrager wonen. Voor de huurtoeslag: het bruto inkomen per jaar van een kind van 18 of ouder
+   * (inkomenJaar, leeg als het onbekend is). Voor de kinderopvangtoeslag: de opvang van een kind jonger dan 13.
+   */
+  kinderen: Pick<Kind, "leeftijd" | "leeftijdBeginJaar" | "inkomenJaar" | "opvang">[];
   /** Krijgt de aanvrager kinderbijslag voor de kinderen? Alleen nodig als er kinderen jonger dan 18 zijn. */
   kinderbijslag?: boolean;
   /** Bijstand van de gemeente (voor het huishouden). */
@@ -56,6 +59,10 @@ export interface CheckInvoer {
   kaleHuurPerMaand?: number;
   /** Andere mensen in huis, naast partner en kinderen. */
   andereBewoners: boolean;
+  /** Hoeveel andere mensen er in huis wonen. Voor de huurtoeslag. */
+  andereBewonersAantal?: number;
+  /** Hun bruto inkomen per jaar, samen. Voor de huurtoeslag. Leeg: onbekend. */
+  andereBewonersInkomenJaar?: number;
   /** Geld en bezit, per onderdeel. De eigen woning zit er niet in. */
   vermogen: Vermogen;
 }
@@ -127,6 +134,16 @@ const heel = (b: Bedrag) => euro(b, true);
 /** Leeftijd vanaf wanneer de gewone normen gelden. Voor 18, 19 en 20 jaar rekent Leidengeldwijzer nog niet. */
 const VOLWASSEN = 21;
 
+/**
+ * Het sociaal minimum per maand zonder vakantiegeld, voor iemand van 21 jaar of ouder: de bijstandsnorm van het huishouden.
+ * Zoals in de tabellen van de gemeente. Leeg als Leidengeldwijzer het niet weet (een stel in een instelling).
+ */
+export function sociaalMinimum(l: Lezer, paar: boolean, wonen: Woonsoort): Bedrag | undefined {
+  const zonderVakantiegeld = (norm: Bedrag) => norm.times(D(1).minus(l.breuk("pw.vakantietoeslag")));
+  if (wonen === "instelling") return paar ? undefined : zonderVakantiegeld(l.bedrag("pw.norm.inrichting.alleenstaande"));
+  return zonderVakantiegeld(l.bedrag(paar ? "pw.norm.gehuwden" : "pw.norm.alleenstaande"));
+}
+
 export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaardRegels): Uitslag[] {
   const l = new Lezer(regels, invoer.datum);
   const paar = !!invoer.partner;
@@ -146,8 +163,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
   const jongAlleen = jong && !paar && invoer.kinderen.length === 0 && invoer.wonen !== "instelling";
   const minimum = (): Bedrag | undefined => {
     if (jong) return jongAlleen ? zonderVakantiegeld(l.bedrag("pw.norm.jong.alleenstaande")) : undefined;
-    if (invoer.wonen === "instelling") return paar ? undefined : zonderVakantiegeld(l.bedrag("pw.norm.inrichting.alleenstaande"));
-    return zonderVakantiegeld(l.bedrag(paar ? "pw.norm.gehuwden" : "pw.norm.alleenstaande"));
+    return sociaalMinimum(l, paar, invoer.wonen);
   };
   // Met bijstand telt de norm als inkomen: de bijstand vult aan tot de norm (praktijk van de gemeente, 13 november 2026).
   const inkomen = invoer.bijstand ? undefined : personen.reduce((s, p) => s.plus(D(totaalVan(p))), NUL);
@@ -579,6 +595,7 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
     ? "Een deel van uw geld en bezit telt mee als inkomen. Leidengeldwijzer rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen."
     : "Leidengeldwijzer kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.";
   const kinderen: Kind[] = invoer.kinderen.map((k) => ({ leeftijd: k.leeftijd }));
+  const werkenOfStuderen = personen.every((p) => heeft(p, "loon") || heeft(p, "bedrijf") || heeft(p, "studiefinanciering"));
   const uit: (Uitslag | undefined)[] = [];
 
   uit.push(
@@ -614,17 +631,34 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
         return { ...basis, kans: "nee", waarom: "Huurtoeslag is er meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche." };
       const v = vermogenToets(l, invoer, paar ? "ht.vermogen.met_partner" : "ht.vermogen.zonder_partner");
       if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit op 1 januari waren meer dan ${heel(v.grens)}.` };
-      const volwassenKind = invoer.kinderen.some((k) => k.leeftijd >= 18);
-      if (invoer.andereBewoners || volwassenKind)
+      // Andere volwassenen in huis (huisgenoten en kinderen van 18 of ouder): hun inkomen telt mee (art. 7 Wet op de huurtoeslag).
+      // Een kind dat op 1 januari jonger is dan 23, heeft een vrijstelling. Weet iemand een inkomen niet? Dan geen bedrag.
+      const volwassenKinderen = invoer.kinderen.filter((k) => k.leeftijd >= 18);
+      const anderen = invoer.andereBewoners || volwassenKinderen.length > 0;
+      const onbekend =
+        (invoer.andereBewoners && (invoer.andereBewonersInkomenJaar === undefined || !invoer.andereBewonersAantal)) ||
+        volwassenKinderen.some((k) => k.inkomenJaar === undefined);
+      if (onbekend)
         return { ...basis, kans: "misschien", waarom: "Er wonen nog andere volwassenen bij u. Hun inkomen en hun geld en bezit tellen mee. Leidengeldwijzer rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen." };
+      const inkomenAnderen = anderen
+        ? volwassenKinderen.reduce((s, k) => {
+            const jong = (k.leeftijdBeginJaar ?? k.leeftijd) < 23;
+            const ink = D(k.inkomenJaar!);
+            return s.plus(jong ? max(NUL, ink.minus(l.bedrag("ht.vrijstelling_kind_onder_23"))) : ink);
+          }, D(invoer.andereBewoners ? invoer.andereBewonersInkomenJaar! : 0))
+        : NUL;
+      if (anderen) basis.bronnen.push(CITATEN.htMedebewoners, ...(volwassenKinderen.length > 0 ? [CITATEN.htInkomenKind, ...bron(l, "ht.vrijstelling_kind_onder_23")] : []));
+      const anderenZin = anderen
+        ? " Het inkomen van de andere volwassenen in uw huis telt mee. Hun geld en bezit tellen ook mee. Leidengeldwijzer rekent alleen met hun inkomen."
+        : "";
       if (personen.every((p) => p.leeftijd < 21))
         return { ...basis, kans: "misschien", waarom: "Leidengeldwijzer rekent de huurtoeslag voor jongeren onder de 21 jaar niet uit. Doe de proefberekening van Dienst Toeslagen." };
       if (!ti || invoer.kaleHuurPerMaand === undefined) return { ...basis, kans: "misschien", waarom: geenBedrag };
-      const personenAantal = personen.length + invoer.kinderen.length;
-      const r = huurtoeslag(l, D(invoer.kaleHuurPerMaand), ti, personenAantal);
+      const personenAantal = personen.length + invoer.kinderen.length + (invoer.andereBewoners ? (invoer.andereBewonersAantal ?? 0) : 0);
+      const r = huurtoeslag(l, D(invoer.kaleHuurPerMaand), ti.plus(inkomenAnderen), personenAantal);
       const bedrag = maandbedragToeslag(r.perMaand);
-      if (bedrag.lte(0)) return { ...basis, kans: "nee", waarom: "Met deze huur en dit inkomen krijgt u waarschijnlijk geen huurtoeslag." };
-      return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Dit is geld voor uw huur. ${v.zin}` };
+      if (bedrag.lte(0)) return { ...basis, kans: "nee", waarom: `Met deze huur en dit inkomen krijgt u waarschijnlijk geen huurtoeslag.${anderenZin}` };
+      return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Dit is geld voor uw huur. ${v.zin}${anderenZin}` };
     }),
   );
 
@@ -650,17 +684,35 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
       }),
     );
 
-  if (invoer.kinderen.some((k) => k.leeftijd < 13))
-    uit.push({
-      id: "kot",
-      naam: "Kinderopvangtoeslag",
-      groep: "toeslagen",
-      kans: "misschien",
-      waarom:
-        "Gaat uw kind naar de kinderopvang of een gastouder? Dan kunt u misschien kinderopvangtoeslag krijgen. Dat kan als u werkt of studeert. Het kan ook als u inburgert of een traject naar werk volgt. Heeft u een partner? Dan geldt dit voor u allebei.",
-      aanvragen: proef,
-      bronnen: [CITATEN.kotWie],
-    });
+  // Kinderopvangtoeslag: alleen voor kinderen die naar de opvang gaan. Werken of studeren alle ouders?
+  // Dan rekent Leidengeldwijzer de toeslag uit. Anders kan het misschien, bijvoorbeeld met inburgering of een traject naar werk.
+  const opvang = invoer.kinderen.filter((k) => k.leeftijd < 13 && k.opvang && k.opvang.urenPerMaand > 0);
+  if (opvang.length > 0)
+    uit.push(
+      probeer(() => {
+        const basis = { id: "kot", naam: "Kinderopvangtoeslag", groep: "toeslagen" as const, aanvragen: proef, bronnen: [CITATEN.kotWie] };
+        const misschien = {
+          ...basis,
+          kans: "misschien" as const,
+          waarom:
+            "Gaat uw kind naar de kinderopvang of een gastouder? Dan kunt u misschien kinderopvangtoeslag krijgen. Dat kan als u werkt of studeert. Het kan ook als u inburgert of een traject naar werk volgt. Heeft u een partner? Dan geldt dit voor u allebei.",
+        };
+        if (!werkenOfStuderen) return misschien;
+        if (!ti) return { ...basis, kans: "misschien", waarom: geenBedrag };
+        const r = kinderopvangtoeslag(l, ti, opvang as Kind[]);
+        const bedrag = maandbedragToeslag(r.toeslagPerMaand);
+        if (bedrag.lte(0)) return { ...basis, kans: "nee", waarom: "Met dit inkomen krijgt u waarschijnlijk geen kinderopvangtoeslag." };
+        const geschat = opvang.some((k) => k.opvang!.uurprijsGeschat);
+        return {
+          ...basis,
+          kans: "ja",
+          bedrag: `ongeveer ${heel(bedrag)} per maand`,
+          waarom: `Dit is geld voor de kosten van de kinderopvang. U betaalt zelf ook een deel.${
+            geschat ? " U wist de prijs per uur niet. Leidengeldwijzer rekent met de hoogste prijs per uur waarover u toeslag krijgt." : ""
+          }`,
+        };
+      }),
+    );
 
   return uit;
 }

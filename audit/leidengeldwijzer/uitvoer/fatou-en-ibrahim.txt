@@ -14,7 +14,7 @@ Geld en bezit: betaalrekening € 400, spaarrekening € 0, voertuigen € 2.500
 Overzicht van 21 november 2026. Leidengeldwijzer versie 0.1.0.
 
 Dit kunt u waarschijnlijk krijgen (9)
-SLEUTELPAS
+GEMEENTE LEIDEN
 Sleutelpas
 Kindtegoed
 € 500 per jaar
@@ -24,7 +24,6 @@ Zwemles
 Diploma A: alles betaald. Diploma B of C: € 250.
 Sport en cultuur voor volwassenen
 tot € 250 per jaar
-GEMEENTE LEIDEN
 Zorgverzekering van de gemeente
 DIENST TOESLAGEN
 Zorgtoeslag
@@ -33,12 +32,10 @@ Kindgebonden budget
 ongeveer € 430 per maand
 Huurtoeslag
 ongeveer € 516 per maand
-Dit kunt u misschien krijgen (3)
+Dit kunt u misschien krijgen (2)
 GEMEENTE LEIDEN
 Kinderopvang bij sociale of medische problemen
 Bijzondere bijstand
-DIENST TOESLAGEN
-Kinderopvangtoeslag
 Dit kunt u waarschijnlijk niet krijgen (4)
 
 Gratis OV-pas, Individuele inkomenstoeslag, Tegemoetkoming voor alleenverdieners, Bijstand.
@@ -80,6 +77,10 @@ DIENST TOESLAGEN
 Bel 0800 - 0543. Dit nummer is gratis.
 
 Maandag tot en met donderdag van 8.00 tot 20.00 uur. Vrijdag van 8.00 tot 17.00 uur.
+
+Langskomen kan bij het steunpunt van de Belastingdienst in het Stadskantoor, Bargelaan 190. Elke vrijdag van 9.00 tot 16.00 uur.
+
+Maak eerst een afspraak: www.belastingdienst.nl/langskomen.
 
 Wat u heeft ingevuld
 UW HUISHOUDEN
@@ -141,9 +142,6 @@ Heeft u of uw partner last van lichamelijke, psychische of sociale klachten? Kan
 
 Bijzondere bijstand
 Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rechtshulp. Dan kan de gemeente u misschien helpen. Dit heet bijzondere bijstand. U krijgt dan een vergoeding of een lening. Vraag het aan voordat u de kosten maakt.
-
-Kinderopvangtoeslag
-Gaat uw kind naar de kinderopvang of een gastouder? Dan kunt u misschien kinderopvangtoeslag krijgen. Dat kan als u werkt of studeert. Het kan ook als u inburgert of een traject naar werk volgt. Heeft u een partner? Dan geldt dit voor u allebei.
 
 Gratis OV-pas
 U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.926 netto per maand. Vakantiegeld telt niet mee.

@@ -2,7 +2,7 @@
  * De vragen en antwoorden van het formulier op één plek. Het formulier (App.tsx) en de lijst
  * "Wat u heeft ingevuld" op de afdruk (Overzicht.tsx) gebruiken dezelfde tekst.
  */
-import type { Inkomenssoort, Uitkeringssoort, Woonsoort } from "@leidenwerkt/engine";
+import type { Inkomenssoort, Opvangsoort, Uitkeringssoort, Woonsoort } from "@leidenwerkt/engine";
 import type { Bedragsoort, Bezit } from "./formulier.ts";
 
 export const JA_NEE: ["ja" | "nee", string][] = [
@@ -14,6 +14,12 @@ export const LANG_LAAG: ["nee" | "ja" | "onbekend", string][] = [
   ["nee", "Nee"],
   ["ja", "Ja"],
   ["onbekend", "Weet ik niet"],
+];
+
+export const OPVANGSOORTEN: [Opvangsoort, string][] = [
+  ["dagopvang", "Kinderdagverblijf"],
+  ["bso", "Buitenschoolse opvang"],
+  ["gastouder", "Gastouder"],
 ];
 
 export const SOORTEN: [Inkomenssoort, string][] = [
@@ -70,12 +76,19 @@ export const VRAAG = {
   geboren: "Uw geboortedatum",
   partner: "Woont u samen met een partner?",
   partnerGeboren: "Geboortedatum van uw partner",
-  heeftKinderen: "Wonen er kinderen bij u?",
+  heeftKinderen: "Heeft u kinderen die bij u wonen?",
   kind: (i: number, aantal: number) => (aantal > 1 ? `Geboortedatum van kind ${i + 1}` : "Geboortedatum van uw kind"),
-  kinderbijslag: (minderjarig: number) => (minderjarig > 1 ? "Krijgt u kinderbijslag voor deze kinderen?" : "Krijgt u kinderbijslag voor dit kind?"),
+  kinderbijslag: "Krijgt u kinderbijslag voor uw kinderen jonger dan 18 jaar?",
   woont: "Waar woont u?",
   kaleHuur: "Kale huur per maand",
   andereBewoners: "Woont er nog iemand anders bij u?",
+  andereAantal: "Hoeveel mensen zijn dat?",
+  andereInkomen: "Voor de huurtoeslag: bruto inkomen per jaar van deze mensen, samen",
+  opvang: "Gaat dit kind naar de opvang?",
+  soortOpvang: "Soort opvang",
+  uren: "Hoeveel uur per week gaat dit kind naar de opvang?",
+  prijs: "Prijs per uur",
+  inkomenKind: (welke: string, leeftijd: number) => `Voor de huurtoeslag: bruto inkomen per jaar van ${welke} van ${leeftijd} jaar`,
   bijstand: (paar: boolean) => (paar ? "Krijgt u samen bijstand van de gemeente?" : "Krijgt u bijstand van de gemeente?"),
   soorten: (partner: boolean) => (partner ? "Wat voor inkomen heeft uw partner?" : "Wat voor inkomen heeft u?"),
   uitkering: (partner: boolean) => (partner ? "Welke uitkering krijgt uw partner?" : "Welke uitkering krijgt u?"),

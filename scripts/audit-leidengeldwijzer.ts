@@ -185,8 +185,19 @@ function ingevuld(i: CheckInvoer): string {
   return [
     persoon("Aanvrager", i.aanvrager),
     i.partner ? persoon("Partner", i.partner) : "Geen partner.",
-    i.kinderen.length ? `Kinderen: ${i.kinderen.map((k) => `${k.leeftijd} jaar`).join(", ")}. Kinderbijslag: ${i.kinderbijslag ? "ja" : "nee"}.` : "Geen kinderen.",
-    `Wonen: ${i.wonen}${i.kaleHuurPerMaand !== undefined ? `, kale huur ${euro(i.kaleHuurPerMaand)}` : ""}. Andere mensen in huis: ${i.andereBewoners ? "ja" : "nee"}.`,
+    i.kinderen.length
+      ? `Kinderen: ${i.kinderen
+          .map(
+            (k) =>
+              `${k.leeftijd} jaar${k.opvang ? ` (opvang ${k.opvang.soort}, ${k.opvang.urenPerMaand} uur per maand, ${euro(k.opvang.uurprijs)} per uur${k.opvang.uurprijsGeschat ? ", prijs geschat" : ""})` : ""}${k.leeftijd >= 18 ? ` (inkomen ${k.inkomenJaar === undefined ? "onbekend" : `${euro(k.inkomenJaar)} per jaar`})` : ""}`,
+          )
+          .join(", ")}. Kinderbijslag: ${i.kinderbijslag ? "ja" : "nee"}.`
+      : "Geen kinderen.",
+    `Wonen: ${i.wonen}${i.kaleHuurPerMaand !== undefined ? `, kale huur ${euro(i.kaleHuurPerMaand)}` : ""}. Andere mensen in huis: ${
+      i.andereBewoners
+        ? `ja${i.andereBewonersAantal ? `, ${i.andereBewonersAantal}, inkomen ${i.andereBewonersInkomenJaar === undefined ? "onbekend" : `${euro(i.andereBewonersInkomenJaar)} per jaar`}` : ""}`
+        : "nee"
+    }.`,
     `Bijstand: ${i.bijstand ? "ja" : "nee"}. 5 jaar laag inkomen: ${i.langLaagInkomen ?? "niet gevraagd"}.`,
     `Geld en bezit: betaalrekening ${euro(v.betaalrekening)}, spaarrekening ${euro(v.spaarrekening)}, voertuigen ${v.voertuigen.map(euro).join(" en ") || "geen"}, beleggingen ${euro(v.beleggingen)}, spullen ${euro(v.spullen)}, schulden ${euro(v.schulden)}.`,
   ].join("\n");

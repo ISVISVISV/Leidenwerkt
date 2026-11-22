@@ -4,6 +4,7 @@
   /* De kleuren van de Sleutelpas zelf, alleen voor het pasje. */
   --pas-geel: #fdc83f;
   --pas-rood: #e3161b;
+  --pas-vlak: #fff6dc;
   /* Per aanbieder een kleur voor het icoon: rood voor de gemeente, blauw voor het Rijk. */
   --icoon-gemeente: #a50f1a;
   --icoon-gemeente-vlak: #f6e3e3;
@@ -23,6 +24,7 @@
     --icoon-rijk-vlak: #16303f;
     --icoon-hulp: #c7b8f0;
     --icoon-hulp-vlak: #2a2440;
+    --pas-vlak: #2a2516;
     --tegel: #151e25;
     --tegel-hover: #24303a;
   }
@@ -33,7 +35,7 @@
   max-width: 72rem;
 }
 
-.lgw.breed main > :not(.overzicht),
+.lgw.breed main > :not(.overzicht):not(.voortgang),
 .lgw.breed .voet {
   max-width: 38rem;
 }
@@ -232,7 +234,7 @@
 }
 
 .blok-kop {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   margin: 0 0 0.7rem;
 }
 
@@ -351,12 +353,36 @@
 
 .pasje {
   flex: none;
-  width: 5.5rem;
+  width: 4.5rem;
   height: auto;
 }
 
 .pas-tegel .regeling-naam {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
+}
+
+/* De Sleutelpas binnen het blok van de gemeente: een eigen vlak in een zachte kleur van de pas. */
+.pas-blok {
+  background: var(--pas-vlak);
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.pas-blok .tegel {
+  background: var(--tegel);
+}
+
+.pas-blok .tegel:hover {
+  background: var(--tegel-hover);
+}
+
+.pas-blok .pas-tegel .tegel {
+  background: none;
+}
+
+.pas-blok .blok-uitleg {
+  margin-top: 0.6rem;
 }
 
 .pas-uitleg {
@@ -605,6 +631,14 @@
 
   .afdruk-naam {
     font-weight: 700;
+  }
+
+  .afdruk-blok li.op-pas {
+    padding-left: 1rem;
+  }
+
+  .afdruk-blok li.op-pas .afdruk-naam {
+    font-weight: 400;
   }
 
   .afdruk-bedrag {

@@ -23,9 +23,8 @@ const HULP = { kop: "Hulp nodig?", uitleg: "Deze hulp is er voor alle Leidenaren
 const OP_DE_PAS = ["kindtegoed", "laptop", "zwemles", "volwassenenfonds"];
 
 type Blok = "sleutelpas" | "gemeente" | "svb" | "toeslagen";
-/** De volgorde van de blokken: eerst Leiden, dan het Rijk. */
-const BLOKKEN: { blok: Blok; kop: string }[] = [
-  { blok: "sleutelpas", kop: "Sleutelpas" },
+/** De volgorde van de blokken: eerst Leiden (met de Sleutelpas erin), dan het Rijk. */
+const BLOKKEN: { blok: Exclude<Blok, "sleutelpas">; kop: string }[] = [
   { blok: "gemeente", kop: "Gemeente Leiden" },
   { blok: "svb", kop: "Sociale Verzekeringsbank" },
   { blok: "toeslagen", kop: "Dienst Toeslagen" },
@@ -101,28 +100,28 @@ export function Overzicht({ f }: { f: Formulier }) {
               </span>
             </h2>
           );
+          // De Sleutelpas is van de gemeente: het pas-blok staat binnen het blok van de gemeente Leiden, bovenaan.
           const blokken = BLOKKEN.map(({ blok, kop: blokKop }) => {
             const inBlok = lijst.filter((u) => blokVan(u, pasInGroep) === blok);
-            if (inBlok.length === 0) return null;
-            if (blok === "sleutelpas") {
-              const pas = inBlok.find((u) => u.id === "sleutelpas")!;
-              const opPas = inBlok.filter((u) => u.id !== "sleutelpas");
-              return (
-                <section key={blok} className="blok blok-pas" aria-label={blokKop}>
-                  <PasTegel u={pas} onOpen={() => toon(pas)} />
-                  {opPas.length > 0 && (
-                    <>
-                      <p className="blok-uitleg">Deze regelingen horen bij de Sleutelpas.</p>
-                      <ul className="tegels">{opPas.map(tegel)}</ul>
-                    </>
-                  )}
-                </section>
-              );
-            }
+            const pasBlok = blok === "gemeente" ? lijst.filter((u) => blokVan(u, pasInGroep) === "sleutelpas") : [];
+            if (inBlok.length === 0 && pasBlok.length === 0) return null;
+            const pas = pasBlok.find((u) => u.id === "sleutelpas");
+            const opPas = pasBlok.filter((u) => u.id !== "sleutelpas");
             return (
               <section key={blok} className="blok">
                 <h3 className="blok-kop">{blokKop}</h3>
-                <ul className="tegels">{inBlok.map(tegel)}</ul>
+                {pas && (
+                  <div className="pas-blok">
+                    <PasTegel u={pas} onOpen={() => toon(pas)} />
+                    {opPas.length > 0 && (
+                      <>
+                        <p className="blok-uitleg">Deze regelingen horen bij de Sleutelpas.</p>
+                        <ul className="tegels">{opPas.map(tegel)}</ul>
+                      </>
+                    )}
+                  </div>
+                )}
+                {inBlok.length > 0 && <ul className="tegels">{inBlok.map(tegel)}</ul>}
               </section>
             );
           });
@@ -299,14 +298,16 @@ function Afdruk({ f, uitslagen }: { f: Formulier; uitslagen: Uitslag[] }) {
               <section key={g.kans} className={`afdruk-groep ${g.kans}`}>
                 {kop}
                 {BLOKKEN.map(({ blok, kop: blokKop }) => {
-                  const inBlok = lijst.filter((u) => blokVan(u, pasInGroep) === blok);
+                  // Op papier ook: de Sleutelpas en wat erop staat bovenaan bij de gemeente, wat op de pas staat iets ingesprongen.
+                  const pasBlok = blok === "gemeente" ? lijst.filter((u) => blokVan(u, pasInGroep) === "sleutelpas") : [];
+                  const inBlok = [...pasBlok, ...lijst.filter((u) => blokVan(u, pasInGroep) === blok)];
                   if (inBlok.length === 0) return null;
                   return (
                     <div key={blok} className="afdruk-blok">
                       <h3>{blokKop}</h3>
                       <ul>
                         {inBlok.map((u) => (
-                          <li key={u.id}>
+                          <li key={u.id} className={pasBlok.includes(u) && u.id !== "sleutelpas" ? "op-pas" : undefined}>
                             <span className="afdruk-naam">{u.naam}</span>
                             {u.bedrag && <span className="afdruk-bedrag">{u.bedrag}</span>}
                           </li>

@@ -8,8 +8,10 @@ import sleutelpas from "./afbeeldingen/sleutelpas.png";
 const PADEN: Record<string, ReactNode> = {
   kind: (
     <>
-      <circle cx="12" cy="6" r="3" />
-      <path d="M8 21v-6l-2-4h12l-2 4v6" />
+      <circle cx="12" cy="13" r="8" />
+      <path d="M9.5 12h.01M14.5 12h.01" />
+      <path d="M9.5 15.5c1.4 1.2 3.6 1.2 5 0" />
+      <path d="M12 5c0-1.6 1.6-2.6 3.2-1.8" />
     </>
   ),
   laptop: (
@@ -29,7 +31,8 @@ const PADEN: Record<string, ReactNode> = {
   sport: (
     <>
       <circle cx="12" cy="12" r="9" />
-      <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" />
+      <path d="M12 8.5l3.3 2.4-1.3 3.9h-4l-1.3-3.9z" />
+      <path d="M12 8.5V3.2M15.3 10.9l4.9-1.6M14 14.8l3 4.3M10 14.8l-3 4.3M8.7 10.9L3.8 9.3" />
     </>
   ),
   hart: <path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z" />,
@@ -80,8 +83,16 @@ const PADEN: Record<string, ReactNode> = {
   ),
   tas: (
     <>
-      <path d="M5 8h14l-1 13H6z" />
-      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+      <path d="M12 7.5c-1.6-1.3-5-1.4-6.4 1.3-1.5 2.9-.6 7.6 1.6 10.4 1.6 2 3.3 2 4.8 1.2 1.5.8 3.2.8 4.8-1.2 2.2-2.8 3.1-7.5 1.6-10.4-1.4-2.7-4.8-2.6-6.4-1.3z" />
+      <path d="M12 7.5c0-2 .8-3.6 2.4-4.5" />
+    </>
+  ),
+  opvang: (
+    <>
+      <circle cx="7.5" cy="4.5" r="2" />
+      <path d="M7.5 7v7.5M7.5 14.5L5.5 21M7.5 14.5l2 6.5M4 10l3.5-1 6 3" />
+      <circle cx="16.5" cy="11" r="1.8" />
+      <path d="M16.5 13v4M16.5 17l-1.5 4M16.5 17l1.5 4M13.5 12l3 2.2 3-1" />
     </>
   ),
   pijl: <path d="M9 6l6 6-6 6" />,
@@ -108,14 +119,14 @@ const BIJ: Record<string, keyof typeof PADEN> = {
   iit: "euro",
   alleenverdieners: "euro",
   studietoeslag: "boek",
-  smi: "kind",
+  smi: "opvang",
   kwijtschelding: "brief",
   bijzondere_bijstand: "hand",
   bijstand: "euro",
   zorgtoeslag: "hart",
   kgb: "kind",
   huurtoeslag: "huis",
-  kot: "kind",
+  kot: "opvang",
   kinderbijslag: "kind",
   goede_buur: "vraag",
   stadsbank: "euro",

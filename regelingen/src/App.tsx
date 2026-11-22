@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { CITATEN } from "@leidenwerkt/engine";
+import { CITATEN, Lezer, euro, sociaalMinimum, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron, Datum, Keuze, Veld, Vinkjes } from "@leidenwerkt/ui";
-import { bedragId, bedragSoorten, controleer, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
+import { bedragId, bedragSoorten, controleer, infoVan, vandaag, vraagAnderen, vraagInkomenKind, vraagOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Overzicht } from "./Overzicht.tsx";
-import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, SOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
+import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANGSOORTEN, SOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
+import { leeftijdOp } from "@leidenwerkt/ui/invoer";
 
 const STAPPEN = ["Uw huishouden", "Uw inkomen", "Geld en bezit", "Overzicht"];
 
@@ -237,9 +238,17 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                 onChange={(v) => zet("kinderen", f.kinderen.map((x, j) => (i === j ? v : x)))}
                 fout={fouten[`kind${i}`]}
               />
+              <KindVragen f={f} i={i} zet={zet} fouten={fouten} />
               {f.kinderen.length > 1 && (
-                <button type="button" className="stilleknop" onClick={() => zet("kinderen", f.kinderen.filter((_, j) => j !== i))}>
-                  Kind {i + 1} weghalen
+                <button
+                  type="button"
+                  className="stilleknop"
+                  onClick={() => {
+                    zet("kinderen", f.kinderen.filter((_, j) => j !== i));
+                    zet("kindInfo", f.kindInfo.filter((_, j) => j !== i));
+                  }}
+                >
+                  Kind {i + 1} verwijderen
                 </button>
               )}
             </div>
@@ -260,7 +269,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           {minderjarigen(f) > 0 && (
             <Keuze
               naam="kinderbijslag"
-              legend={VRAAG.kinderbijslag(minderjarigen(f))}
+              legend={VRAAG.kinderbijslag}
               hint={
                 <>
                   <p>Kinderbijslag krijgt u van de SVB voor kinderen jonger dan 18 jaar.</p>
@@ -325,9 +334,132 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         fout={fouten.andereBewoners}
         opties={JA_NEE}
       />
+      {vraagAnderen(f) && (
+        <>
+          <Veld id="andereAantal" label={VRAAG.andereAantal} voorbeeld="bijv. 1" waarde={f.andereAantal} onChange={(v) => zet("andereAantal", v)} fout={fouten.andereAantal} />
+          {!f.andereOnbekend ? (
+            <Veld
+              id="andereInkomen"
+              label={VRAAG.andereInkomen}
+              hint={
+                <>
+                  <p>
+                    Dit telt mee voor de huurtoeslag. Het inkomen van uw partner en uw kinderen telt u hier niet mee. Weet u het niet precies? Vul dan
+                    een schatting in. Heeft niemand inkomen? Vul dan 0 in. Weet u het helemaal niet? Vink dan hieronder "Ik weet dit inkomen niet" aan.
+                  </p>
+                  <p className="bron-blok">
+                    Bron: <Bron citaat={CITATEN.htMedebewoners} />
+                  </p>
+                </>
+              }
+              voorvoegsel="€"
+              voorbeeld="bijv. 25.000"
+              waarde={f.andereInkomen}
+              onChange={(v) => zet("andereInkomen", v)}
+              fout={fouten.andereInkomen}
+            />
+          ) : (
+            <p className="vraag-tekst">{VRAAG.andereInkomen}</p>
+          )}
+          <label className="vinkje">
+            <input type="checkbox" checked={f.andereOnbekend} onChange={(e) => zet("andereOnbekend", e.target.checked)} />
+            <span>Ik weet dit inkomen niet</span>
+          </label>
+        </>
+      )}
 
     </section>
   );
+}
+
+/** Per kind: de opvang (jonger dan 13) en het inkomen (18 jaar of ouder, voor de huurtoeslag). Zoals in Leidenwerkt. */
+function KindVragen({ f, i, zet, fouten }: StapProps & { i: number }) {
+  const k = f.kinderen[i];
+  const info = infoVan(f, i);
+  const zetInfo = (deel: Partial<KindInfo>) =>
+    zet(
+      "kindInfo",
+      f.kinderen.map((_, j) => (j === i ? { ...infoVan(f, j), ...deel } : infoVan(f, j))),
+    );
+  const welke = f.kinderen.length > 1 ? `kind ${i + 1}` : "uw kind";
+  return (
+    <>
+      {vraagOpvang(k) && (
+        <Keuze naam={`opvang${i}`} legend={VRAAG.opvang} waarde={info.opvang} onChange={(v) => zetInfo({ opvang: v })} fout={fouten[`opvang${i}`]} opties={JA_NEE} />
+      )}
+      {vraagOpvang(k) && info.opvang === "ja" && (
+        <div className="opvang">
+          <Keuze naam={`soort${i}`} legend={VRAAG.soortOpvang} waarde={info.soort} onChange={(v) => zetInfo({ soort: v })} fout={fouten[`soort${i}`]} opties={OPVANGSOORTEN} />
+          <Veld id={`kind${i}uren`} label={VRAAG.uren} voorbeeld="bijv. 16" waarde={info.uren} onChange={(v) => zetInfo({ uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
+          <Veld
+            id={`kind${i}prijs`}
+            label={VRAAG.prijs}
+            hint={
+              info.soort && maxPrijsTekst(info.soort)
+                ? `Vraag het aan de opvang. Weet u het niet? Laat het vak leeg. Leidengeldwijzer rekent dan met € ${maxPrijsTekst(info.soort)} per uur. Dat is de hoogste prijs per uur waarover u toeslag krijgt.`
+                : "Vraag dit na bij de opvang. Weet u het niet? Laat het vak dan leeg."
+            }
+            voorbeeld="bijv. 10,50"
+            voorvoegsel="€"
+            waarde={info.prijs}
+            onChange={(v) => zetInfo({ prijs: v })}
+            fout={fouten[`kind${i}prijs`]}
+          />
+        </div>
+      )}
+      {vraagInkomenKind(f, k) && (
+        <>
+          {!info.inkomenOnbekend ? (
+            <Veld
+              id={`kind${i}inkomen`}
+              label={VRAAG.inkomenKind(welke, leeftijdOp(k, vandaag()) ?? 0)}
+              hint={
+                <>
+                  <p>
+                    Het bruto inkomen, zoals op de jaaropgave of de loonstrook van uw kind. Vul het hele bedrag in. Leidengeldwijzer trekt zelf af wat
+                    niet meetelt. Studiefinanciering telt niet mee. Heeft uw kind geen inkomen? Vul dan 0 in.
+                  </p>
+                  <p className="bron-blok">
+                    Bron: <Bron citaat={CITATEN.htInkomenKind} />
+                  </p>
+                </>
+              }
+              voorvoegsel="€"
+              voorbeeld="bijv. 4.000"
+              waarde={info.inkomen}
+              onChange={(v) => zetInfo({ inkomen: v })}
+              fout={fouten[`kind${i}inkomen`]}
+            />
+          ) : (
+            <p className="vraag-tekst">{VRAAG.inkomenKind(welke, leeftijdOp(k, vandaag()) ?? 0)}</p>
+          )}
+          <label className="vinkje">
+            <input type="checkbox" checked={info.inkomenOnbekend} onChange={(e) => zetInfo({ inkomenOnbekend: e.target.checked })} />
+            <span>Ik weet dit inkomen niet</span>
+          </label>
+        </>
+      )}
+    </>
+  );
+}
+
+/** Hoogste uurprijs voor de toeslag, als tekst ("11,23"), of leeg als die voor vandaag niet bekend is. Zoals in Leidenwerkt. */
+const maxPrijsTekst = (soort: Opvangsoort) => {
+  try {
+    return new Lezer(standaardRegels, vandaag()).bedrag(`kot.max_uurprijs.${soort}`).toFixed(2).replace(".", ",");
+  } catch {
+    return "";
+  }
+};
+
+/**
+ * Wat "laag inkomen" betekent, met het bedrag voor dit huishouden: het sociaal minimum zonder vakantiegeld.
+ * De gemeente kijkt naar 5 jaar. De bijstand was toen iets lager. Daarom "ongeveer".
+ */
+function laagUitleg(f: Formulier): string {
+  const grens = sociaalMinimum(new Lezer(standaardRegels, vandaag()), f.partner === "ja", f.woont || "huur");
+  if (!grens) return "Laag betekent: niet hoger dan de bijstand.";
+  return `Laag betekent: ongeveer ${euro(grens, true)} netto per maand of minder. Vakantiegeld telt niet mee. Dit is ongeveer de bijstand voor uw huishouden.`;
 }
 
 const nettoHint =
@@ -411,7 +543,7 @@ function StapInkomen({ f, zet, fouten }: StapProps) {
         <Keuze
           naam="langLaag"
           legend={VRAAG.langLaag}
-          hint="Laag betekent: niet hoger dan de bijstand."
+          hint={laagUitleg(f)}
           waarde={f.langLaag}
           onChange={(v) => zet("langLaag", v)}
           fout={fouten.langLaag}

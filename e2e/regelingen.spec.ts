@@ -29,9 +29,14 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
 
   await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(35));
   await kies(page, "Woont u samen met een partner?", "Nee");
-  await kies(page, "Wonen er kinderen bij u?", "Ja");
+  await kies(page, "Heeft u kinderen die bij u wonen?", "Ja");
   await page.getByLabel("Geboortedatum van uw kind", { exact: true }).fill(jaar(8));
-  await kies(page, "Krijgt u kinderbijslag voor dit kind?", "Ja");
+  // Een kind jonger dan 13: gaat het naar de opvang? Dan rekent Leidengeldwijzer de kinderopvangtoeslag uit.
+  await kies(page, "Gaat dit kind naar de opvang?", "Ja");
+  await kies(page, "Soort opvang", "Buitenschoolse opvang");
+  await page.getByLabel("Hoeveel uur per week gaat dit kind naar de opvang?").fill("10");
+  await kies(page, "Krijgt u kinderbijslag voor uw kinderen jonger dan 18 jaar?", "Ja");
+  // De uitleg bij "5 jaar laag inkomen" noemt het bedrag van de bijstand voor dit huishouden (zie stap 2).
   await kies(page, "Waar woont u?", "In een huurwoning met een eigen voordeur, keuken, wc en douche");
   await page.getByLabel("Kale huur per maand").fill("750");
   await kies(page, "Woont er nog iemand anders bij u?", "Nee");
@@ -65,7 +70,7 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
   const ids = await ja.locator(".regeling").evaluateAll((e) => e.map((x) => x.getAttribute("data-id")));
   expect(ids.slice(0, 3)).toEqual(["sleutelpas", "kindtegoed", "laptop"]);
   expect(ids.indexOf("zwemles")).toBeLessThan(ids.indexOf("huurtoeslag"));
-  for (const id of ["zwemles", "huurtoeslag", "zorgtoeslag", "kgb"]) expect(ids).toContain(id);
+  for (const id of ["zwemles", "huurtoeslag", "zorgtoeslag", "kgb", "kot"]) expect(ids).toContain(id);
   await expect(ja.getByRole("button", { name: /^Kindtegoed/ })).toContainText("€ 350 per jaar");
   // Wat waarschijnlijk niet kan, staat dichtgeklapt.
   await expect(page.locator("details.groep.nee")).not.toHaveAttribute("open", "");
@@ -101,7 +106,7 @@ test("stel: per persoon een bedrag per soort inkomen. Welke uitkering alleen bij
   await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(40));
   await kies(page, "Woont u samen met een partner?", "Ja");
   await page.getByLabel("Geboortedatum van uw partner", { exact: true }).fill(jaar(38));
-  await kies(page, "Wonen er kinderen bij u?", "Nee");
+  await kies(page, "Heeft u kinderen die bij u wonen?", "Nee");
   await kies(page, "Waar woont u?", "Op een kamer, of in een woning waar ik de keuken, wc of douche deel");
   await kies(page, "Woont er nog iemand anders bij u?", "Nee");
   await page.getByRole("button", { name: "Volgende stap" }).click();
@@ -128,7 +133,7 @@ test("met bijstand: geen vragen over het inkomen, wel de Sleutelpas vanzelf", as
   await page.getByRole("button", { name: "Begin de check" }).click();
   await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(45));
   await kies(page, "Woont u samen met een partner?", "Nee");
-  await kies(page, "Wonen er kinderen bij u?", "Nee");
+  await kies(page, "Heeft u kinderen die bij u wonen?", "Nee");
   await kies(page, "Waar woont u?", "In een koopwoning");
   await kies(page, "Woont er nog iemand anders bij u?", "Nee");
   await page.getByRole("button", { name: "Volgende stap" }).click();
@@ -142,4 +147,26 @@ test("met bijstand: geen vragen over het inkomen, wel de Sleutelpas vanzelf", as
   await expect(page.getByRole("dialog", { name: "Sleutelpas" })).toContainText("vanzelf");
   await page.getByRole("button", { name: "Sluiten" }).click();
   await expect(page.locator('.groep.misschien .regeling[data-id="iit"]')).toBeVisible();
+});
+
+test("huisgenoten met een bekend inkomen: Leidengeldwijzer rekent de huurtoeslag uit", async ({ page }) => {
+  await page.goto(ADRES);
+  await page.getByRole("button", { name: "Begin de check" }).click();
+  await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(45));
+  await kies(page, "Woont u samen met een partner?", "Nee");
+  await kies(page, "Heeft u kinderen die bij u wonen?", "Nee");
+  await kies(page, "Waar woont u?", "In een huurwoning met een eigen voordeur, keuken, wc en douche");
+  await page.getByLabel("Kale huur per maand").fill("750");
+  await kies(page, "Woont er nog iemand anders bij u?", "Ja");
+  await page.getByLabel("Hoeveel mensen zijn dat?").fill("1");
+  await page.getByLabel("Voor de huurtoeslag: bruto inkomen per jaar van deze mensen, samen").fill("6000");
+  await geenToegankelijkheidsfouten(page);
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await kies(page, "Krijgt u bijstand van de gemeente?", "Ja");
+  await expect(page.getByRole("group", { name: "Heeft u al 5 jaar of langer een laag inkomen?" })).toContainText("netto per maand of minder");
+  await kies(page, "Heeft u al 5 jaar of langer een laag inkomen?", "Nee");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("group", { name: "Wat heeft u?" }).getByLabel("Niets van dit").check();
+  await page.getByRole("button", { name: "Bekijk het overzicht" }).click();
+  await expect(page.locator('.groep.ja .regeling[data-id="huurtoeslag"] .bedrag')).toContainText("per maand");
 });

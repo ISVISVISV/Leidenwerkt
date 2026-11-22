@@ -14,7 +14,7 @@ Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleg
 Overzicht van 21 november 2026. Leidengeldwijzer versie 0.1.0.
 
 Dit kunt u waarschijnlijk krijgen (10)
-SLEUTELPAS
+GEMEENTE LEIDEN
 Sleutelpas
 Laptop voor school
 1 laptop per 5 jaar
@@ -22,7 +22,6 @@ Zwemles
 Diploma A: alles betaald. Diploma B of C: € 250.
 Sport en cultuur voor volwassenen
 tot € 250 per jaar
-GEMEENTE LEIDEN
 Zorgverzekering van de gemeente
 Gratis OV-pas
 SOCIALE VERZEKERINGSBANK
@@ -35,14 +34,12 @@ Kindgebonden budget
 ongeveer € 714 per maand
 Huurtoeslag
 ongeveer € 396 per maand
-Dit kunt u misschien krijgen (5)
+Dit kunt u misschien krijgen (4)
 GEMEENTE LEIDEN
 Kinderopvang bij sociale of medische problemen
 Kwijtschelding van gemeentelijke belastingen
 Bijzondere bijstand
 Bijstand
-DIENST TOESLAGEN
-Kinderopvangtoeslag
 Dit kunt u waarschijnlijk niet krijgen (2)
 
 Kindtegoed, Individuele inkomenstoeslag.
@@ -84,6 +81,10 @@ DIENST TOESLAGEN
 Bel 0800 - 0543. Dit nummer is gratis.
 
 Maandag tot en met donderdag van 8.00 tot 20.00 uur. Vrijdag van 8.00 tot 17.00 uur.
+
+Langskomen kan bij het steunpunt van de Belastingdienst in het Stadskantoor, Bargelaan 190. Elke vrijdag van 9.00 tot 16.00 uur.
+
+Maak eerst een afspraak: www.belastingdienst.nl/langskomen.
 
 Wat u heeft ingevuld
 UW HUISHOUDEN
@@ -152,9 +153,6 @@ Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rech
 
 Bijstand
 Uw inkomen is lager dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee. Uw geld en bezit zijn niet meer dan € 16.000. De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.
-
-Kinderopvangtoeslag
-Gaat uw kind naar de kinderopvang of een gastouder? Dan kunt u misschien kinderopvangtoeslag krijgen. Dat kan als u werkt of studeert. Het kan ook als u inburgert of een traject naar werk volgt. Heeft u een partner? Dan geldt dit voor u allebei.
 
 Kindtegoed
 € 500 per jaar

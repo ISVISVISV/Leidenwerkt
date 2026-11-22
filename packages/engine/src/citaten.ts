@@ -116,6 +116,13 @@ export const CITATEN = {
     tekst:
       "Hieronder ziet u wanneer de spreekuren van Een Goede Buur zijn. Maandag van 9.00 uur – 11.00 uur. Dinsdag van 9.00 uur – 11.00 uur. Donderdag van 13.00 – 15.00 uur. In de binnenstad: Maandag van 9.00 – 11.00 uur (bij Speeltuinvereniging Ons Eiland). Dinsdag van 9.30 – 11.30 (in de Stadskamer). […] Huis van de Buurt De Kooi, Driftstraat 29. Huis van de Buurt Het Gebouw, Arubapad 2. Huis van de Buurt Matilo, Zaanstraat 126. Huis van de Buurt Morschwijck, Topaaslaan 19. Speeltuinvereniging Ons Eiland, Kortenaerstraat 61. de Stadskamer, Nieuwstraat 7. Huis van de Buurt Op Eigen Wieken, Valkenpad 5. Huis van de Buurt Stevenshof, Trix Terwindtstraat 4. Huis van de Buurt Bos- en Gasthuis, Boshuizerkade 119. […] Vrijwilligers van Incluzio zijn tijdens openingstijden te bellen of te appen via 06 – 21 42 76 37. […] Dan kunt u bellen naar 14071 van maandag tot en met vrijdag tussen 9:00 en 17:00.",
   },
+  steunpuntBelastingdienst: {
+    titel: "Gemeente Leiden, Belastingdienst opent steunpunt in het Stadskantoor Leiden (10 juli 2026)",
+    url: "https://gemeente.leiden.nl/nieuws-en-publicaties/nieuws/belastingdienst-opent-steunpunt-in-het-stadskantoor-leiden/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Het steunpunt van de Belastingdienst in Stadskantoor Leiden (Bargelaan 190) is iedere vrijdag geopend van 9.00 tot 16.00 uur. U kunt langskomen voor persoonlijke hulp of (video)bellen. Maak wel eerst een afspraak via de website van de Belastingdienst.",
+  },
   toeslagenBellen: {
     titel: "Dienst Toeslagen, Bellen met Dienst Toeslagen",
     url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/contact-met-dienst-toeslagen/content/bellen",

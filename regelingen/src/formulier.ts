@@ -13,6 +13,7 @@ import {
   type CheckPersoon,
   type Citaat,
   type Inkomenssoort,
+  type Opvangsoort,
   type Uitkeringssoort,
   type Woonsoort,
 } from "@leidenwerkt/engine";
@@ -37,10 +38,16 @@ export interface Formulier {
   partnerGeboren: Geboortedatum;
   heeftKinderen: JaNee;
   kinderen: Geboortedatum[];
+  /** Per kind (zelfde volgorde als kinderen): opvang (jonger dan 13) en inkomen (18 jaar of ouder, voor de huurtoeslag). */
+  kindInfo: KindInfo[];
   kinderbijslag: JaNee;
   woont: "" | Woonsoort;
   kaleHuur: string;
   andereBewoners: JaNee;
+  /** Hoeveel andere mensen er wonen, en hun bruto inkomen per jaar samen. Voor de huurtoeslag. */
+  andereAantal: string;
+  andereInkomen: string;
+  andereOnbekend: boolean;
   bijstand: JaNee;
   inkomen: InkomenVelden;
   partnerInkomen: InkomenVelden;
@@ -57,6 +64,21 @@ export interface Formulier {
   schulden: string;
 }
 
+export interface KindInfo {
+  opvang: JaNee;
+  soort: "" | Opvangsoort;
+  /** Uren per week. */
+  uren: string;
+  /** Prijs per uur. Leeg: onbekend, dan de hoogste prijs waarover u toeslag krijgt. */
+  prijs: string;
+  /** Bruto inkomen per jaar, voor de huurtoeslag. */
+  inkomen: string;
+  inkomenOnbekend: boolean;
+}
+export const leegKind: KindInfo = { opvang: "", soort: "", uren: "", prijs: "", inkomen: "", inkomenOnbekend: false };
+/** Wat er per kind is ingevuld. Ontbreekt het (nieuw kind), dan is alles leeg. */
+export const infoVan = (f: Formulier, i: number): KindInfo => f.kindInfo[i] ?? leegKind;
+
 const leegInkomen: InkomenVelden = { soorten: [], bedragen: {}, uitkering: "" };
 
 export const leegFormulier: Formulier = {
@@ -65,10 +87,14 @@ export const leegFormulier: Formulier = {
   partnerGeboren: "",
   heeftKinderen: "",
   kinderen: [""],
+  kindInfo: [],
   kinderbijslag: "",
   woont: "",
   kaleHuur: "",
   andereBewoners: "",
+  andereAantal: "",
+  andereInkomen: "",
+  andereOnbekend: false,
   bijstand: "",
   inkomen: leegInkomen,
   partnerInkomen: leegInkomen,
@@ -117,6 +143,15 @@ const studeert = (f: Formulier) => vraagInkomen(f) && f.inkomen.soorten.includes
 export const vraagLangLaag = (f: Formulier) => (leeftijd(f.geboren) ?? 0) >= 23 && !studeert(f);
 export const vraagStudie = studeert;
 export const vraagHuur = (f: Formulier) => f.woont === "huur";
+/** Voor de huurtoeslag: hoeveel andere mensen en hun inkomen. Alleen bij een huurwoning. */
+export const vraagAnderen = (f: Formulier) => vraagHuur(f) && f.andereBewoners === "ja";
+/** Voor de huurtoeslag: het inkomen van een kind van 18 jaar of ouder. */
+export const vraagInkomenKind = (f: Formulier, k: Geboortedatum) => vraagHuur(f) && (leeftijd(k) ?? 0) >= 18;
+/** Voor de kinderopvangtoeslag: gaat een kind jonger dan 13 naar de opvang? */
+export const vraagOpvang = (k: Geboortedatum) => (leeftijd(k) ?? 99) < 13;
+/** Uren per week omgerekend naar een maand: 52 weken verdeeld over 12 maanden, zoals in Leidenwerkt. */
+const urenPerMaand = (perWeek: number) => Math.round(((perWeek * 52) / 12) * 100) / 100;
+const maxUurprijs = (l: Lezer, soort: Opvangsoort) => Number(l.bedrag(`kot.max_uurprijs.${soort}`).toFixed(2));
 
 export type Fouten = Partial<Record<string, string>>;
 
@@ -147,7 +182,19 @@ export function controleer(f: Formulier, stap: number): Fouten {
     if (!f.partner) fouten.partner = kies;
     if (metPartner(f)) datum("partnerGeboren", f.partnerGeboren, 18, 66, "Uw partner moet 18 jaar of ouder zijn en jonger dan de AOW-leeftijd.");
     if (!f.heeftKinderen) fouten.heeftKinderen = kies;
-    kinderen(f).forEach((k, i) => datum(`kind${i}`, k, 0, 30, "Vul de geboortedatum van uw kind in.", true));
+    kinderen(f).forEach((k, i) => {
+      datum(`kind${i}`, k, 0, 30, "Vul de geboortedatum van uw kind in.", true);
+      const info = infoVan(f, i);
+      if (vraagOpvang(k)) {
+        if (!info.opvang) fouten[`opvang${i}`] = kies;
+        if (info.opvang === "ja") {
+          if (!info.soort) fouten[`soort${i}`] = kies;
+          bedrag(`kind${i}uren`, info.uren, 60, "Vul het aantal uur per week in, bijvoorbeeld 16.");
+          if (info.prijs.trim()) bedrag(`kind${i}prijs`, info.prijs, 50, "Vul de prijs per uur in, bijvoorbeeld 10,50.");
+        }
+      }
+      if (vraagInkomenKind(f, k) && !info.inkomenOnbekend) bedrag(`kind${i}inkomen`, info.inkomen, 1_000_000, "Vul een bedrag per jaar in, bijvoorbeeld 4.000.");
+    });
     if (minderjarigen(f) > 0 && !f.kinderbijslag) fouten.kinderbijslag = kies;
     if (!f.woont) fouten.woont = kies;
     if (vraagHuur(f)) {
@@ -156,6 +203,12 @@ export function controleer(f: Formulier, stap: number): Fouten {
       else if (Number.isNaN(n) || n < 1 || n > 3000) fouten.kaleHuur = "Vul de kale huur per maand in, bijvoorbeeld 750.";
     }
     if (!f.andereBewoners) fouten.andereBewoners = kies;
+    if (vraagAnderen(f)) {
+      const n = getal(f.andereAantal);
+      if (n === undefined) fouten.andereAantal = "Vul dit in.";
+      else if (Number.isNaN(n) || !Number.isInteger(n) || n < 1 || n > 20) fouten.andereAantal = "Vul een aantal in, bijvoorbeeld 1.";
+      if (!f.andereOnbekend) bedrag("andereInkomen", f.andereInkomen, 10_000_000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000.");
+    }
   }
   if (stap === 2) {
     if (!f.bijstand) fouten.bijstand = kies;
@@ -193,7 +246,22 @@ export function naarInvoer(f: Formulier): CheckInvoer {
     datum: vandaag(),
     aanvrager: persoon(f.geboren, bijstand ? undefined : f.inkomen),
     partner: metPartner(f) ? persoon(f.partnerGeboren, bijstand ? undefined : f.partnerInkomen, true) : undefined,
-    kinderen: kinderen(f).map((k) => ({ leeftijd: leeftijd(k) ?? 0 })),
+    kinderen: kinderen(f).map((k, i) => {
+      const info = infoVan(f, i);
+      const iso = isoDatum(k);
+      const soort = info.soort || "dagopvang";
+      const prijs = getal(info.prijs);
+      const geschat = prijs === undefined || Number.isNaN(prijs);
+      return {
+        leeftijd: leeftijd(k) ?? 0,
+        leeftijdBeginJaar: iso ? (leeftijdOp(k, `${vandaag().slice(0, 4)}-01-01`) ?? undefined) : undefined,
+        inkomenJaar: vraagInkomenKind(f, k) && !info.inkomenOnbekend ? getal(info.inkomen) : undefined,
+        opvang:
+          vraagOpvang(k) && info.opvang === "ja"
+            ? { soort, urenPerMaand: urenPerMaand(getal(info.uren) ?? 0), uurprijs: geschat ? maxUurprijs(new Lezer(standaardRegels, vandaag()), soort) : prijs, uurprijsGeschat: geschat || undefined }
+            : undefined,
+      };
+    }),
     kinderbijslag: minderjarigen(f) > 0 ? f.kinderbijslag === "ja" : undefined,
     bijstand,
     langLaagInkomen: vraagLangLaag(f) ? f.langLaag || undefined : undefined,
@@ -201,6 +269,8 @@ export function naarInvoer(f: Formulier): CheckInvoer {
     wonen: f.woont || "huur",
     kaleHuurPerMaand: vraagHuur(f) ? getal(f.kaleHuur) : undefined,
     andereBewoners: f.andereBewoners === "ja",
+    andereBewonersAantal: vraagAnderen(f) ? getal(f.andereAantal) : undefined,
+    andereBewonersInkomenJaar: vraagAnderen(f) && !f.andereOnbekend ? getal(f.andereInkomen) : undefined,
     vermogen: {
       betaalrekening: som("betaal", f.betaalrekening),
       spaarrekening: som("spaar", f.spaarrekening),
@@ -236,12 +306,28 @@ export function ingevuld(f: Formulier): { kop: string; regels: [string, string][
   const huishouden: [string, string][] = [["Geboren", f.geboren.trim()]];
   huishouden.push(["Partner", paar ? `geboren ${f.partnerGeboren.trim()}` : "nee"]);
   if (kinderen(f).length === 0) huishouden.push(["Kinderen", "nee"]);
-  kinderen(f).forEach((k, i) => huishouden.push([`Kind ${i + 1}`, `geboren ${k.trim()}`]));
+  const OPVANG: Record<Opvangsoort, string> = { dagopvang: "kinderdagverblijf", bso: "buitenschoolse opvang", gastouder: "gastouder" };
+  kinderen(f).forEach((k, i) => {
+    const info = infoVan(f, i);
+    const opvang =
+      vraagOpvang(k) && info.opvang === "ja"
+        ? `. ${info.soort ? OPVANG[info.soort].charAt(0).toUpperCase() + OPVANG[info.soort].slice(1) : "Opvang"}, ${info.uren} uur per week${info.prijs.trim() ? ` × ${euroTekst(info.prijs)}` : ", prijs onbekend"}`
+        : "";
+    const inkomen = vraagInkomenKind(f, k) ? `. Inkomen: ${info.inkomenOnbekend ? "onbekend" : `${euroTekst(info.inkomen)} bruto per jaar`}` : "";
+    huishouden.push([`Kind ${i + 1}`, `geboren ${k.trim()}${opvang}${inkomen}`]);
+  });
   if (minderjarigen(f) > 0) huishouden.push(["Kinderbijslag", f.kinderbijslag === "ja" ? "ja" : "nee"]);
   const woon = woonOpties(paar).find(([w]) => w === f.woont);
   if (woon) huishouden.push(["Woning", kleineLetter(woon[1])]);
   if (vraagHuur(f)) huishouden.push(["Kale huur", `${euroTekst(f.kaleHuur)} per maand`]);
-  huishouden.push(["Andere bewoners", f.andereBewoners === "ja" ? "ja" : "nee"]);
+  huishouden.push([
+    "Andere bewoners",
+    f.andereBewoners !== "ja"
+      ? "nee"
+      : vraagAnderen(f)
+        ? `${f.andereAantal}, samen ${f.andereOnbekend ? "inkomen onbekend" : `${euroTekst(f.andereInkomen)} bruto per jaar`}`
+        : "ja",
+  ]);
 
   const inkomen: [string, string][] = [["Bijstand", f.bijstand === "ja" ? "ja" : "nee"]];
   const persoon = (v: InkomenVelden, partner: boolean) => {

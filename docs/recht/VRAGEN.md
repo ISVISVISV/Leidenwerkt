@@ -91,3 +91,10 @@ Berekenjerecht.nl stelt deze vragen wel. Leidengeldwijzer niet:
 | Maak je gebruik van een schuldhulptraject? | Met een schuldregeling of in de Wsnp kunt u de Sleutelpas krijgen, ook boven 130% | Geen vraag meer (weggehaald op 22 november). Bij een inkomen boven de grens zegt de Sleutelpas: "Heeft u een schuldregeling? Dan kunt u de Sleutelpas misschien toch krijgen." |
 
 Deze vragen blijven wel, omdat ze de uitslag concreet maken: kinderbijslag (Kindtegoed), 5 jaar of langer een laag inkomen (inkomenstoeslag), ziekte of handicap naast de studie (studietoeslag) en welke uitkering (Wajong en de studietoeslag, alleen gevraagd bij studiefinanciering met een uitkering van UWV).
+
+## Huisgenoten en kinderopvang (22 november 2026)
+
+- **Woont er nog iemand anders bij u? Ja**, in een huurwoning: Leidengeldwijzer vraagt hoeveel mensen dat zijn en hun bruto inkomen per jaar samen, met "Ik weet dit inkomen niet". Zo rekent Leidengeldwijzer de huurtoeslag uit (art. 7 Wet op de huurtoeslag). Hun geld en bezit vraagt Leidengeldwijzer niet. Het overzicht zegt dat.
+- **Kinderen van 18 jaar of ouder**, in een huurwoning: hun bruto inkomen per jaar, met "Ik weet dit inkomen niet". Jonger dan 23 op 1 januari: de vrijstelling van de huurtoeslag. Zelfde vragen als Leidenwerkt.
+- **Kinderen jonger dan 13**: gaat dit kind naar de opvang? Zo ja: soort, uren per week en prijs per uur (leeg: de hoogste prijs waarover u toeslag krijgt). Zelfde vragen als Leidenwerkt. Werken of studeren alle ouders? Dan rekent Leidengeldwijzer de kinderopvangtoeslag uit. Anders: misschien (bijvoorbeeld met inburgering of een traject naar werk).
+- **Heeft u al 5 jaar of langer een laag inkomen?** De uitleg noemt nu het bedrag van de bijstand voor het huishouden (sociaal minimum zonder vakantiegeld), niet "de bijstand". "Minimuminkomen" is bewust niet gebruikt: veel mensen denken dan aan het minimumloon, en dat is hoger.
