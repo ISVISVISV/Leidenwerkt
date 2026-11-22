@@ -231,6 +231,9 @@
 }
 
 .blok-kop {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.15rem;
   margin: 0 0 0.7rem;
 }
@@ -330,6 +333,10 @@
 
 .blok.svb {
   border-top: 4px solid var(--icoon-svb);
+}
+
+.sleutels {
+  flex: none;
 }
 
 .blok.gemeente > .blok-kop {
