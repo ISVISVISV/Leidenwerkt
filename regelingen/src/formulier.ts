@@ -30,7 +30,6 @@ export interface InkomenVelden {
 }
 
 export interface Formulier {
-  leiden: JaNee;
   geboren: Geboortedatum;
   partner: JaNee;
   partnerGeboren: Geboortedatum;
@@ -59,7 +58,6 @@ export interface Formulier {
 const leegInkomen: InkomenVelden = { soorten: [], bedragen: {}, uitkering: "" };
 
 export const leegFormulier: Formulier = {
-  leiden: "",
   geboren: "",
   partner: "",
   partnerGeboren: "",
@@ -138,8 +136,6 @@ export function controleer(f: Formulier, stap: number): Fouten {
     for (const s of bedragSoorten(v)) bedrag(bedragId(partner, s), v.bedragen[s], 20000, "Vul een bedrag per maand in, bijvoorbeeld 1.400.");
   };
   if (stap === 1) {
-    if (!f.leiden) fouten.leiden = kies;
-    else if (f.leiden === "nee") fouten.leiden = "Leidengeldwijzer is alleen voor inwoners van de gemeente Leiden.";
     datum("geboren", f.geboren, 18, 66, "Leidengeldwijzer werkt voor mensen van 18 jaar tot de AOW-leeftijd.");
     if (!f.partner) fouten.partner = kies;
     if (metPartner(f)) datum("partnerGeboren", f.partnerGeboren, 18, 66, "Uw partner moet 18 jaar of ouder zijn en jonger dan de AOW-leeftijd.");

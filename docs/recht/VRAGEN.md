@@ -20,7 +20,7 @@ Waarom: wonen hoort bij het huishouden, net als bij berekenjerecht.nl. Geld en b
 
 | # | Berekenjerecht.nl | Leidengeldwijzer nu | Voorstel |
 | --- | --- | --- | --- |
-| 1 | Kies eerst uw gemeente | Woont u in de gemeente Leiden? | Hetzelfde |
+| 1 | Kies eerst uw gemeente | Woont u in de gemeente Leiden? | Weggehaald op 22 november. De startpagina zegt al: "Leidengeldwijzer is voor inwoners van Leiden van 18 jaar tot de AOW-leeftijd." |
 | 2 | Wat is je leeftijd? (getal) | Uw geboortedatum | Hetzelfde als nu. Leidenwerkt vraagt ook de geboortedatum. |
 | 3 | Woon je samen met een partner? Uitleg: "Dit kan ook een familielid of vriend zijn." | Woont u samen met een partner? (uitleg wie wel en wie geen partner is) | Hetzelfde als nu. De uitleg van berekenjerecht.nl klopt niet voor de bijstand: uw vader, moeder of kind is geen partner (art. 3 Pw). |
 | 4 | Wat is de leeftijd van je partner? | Geboortedatum van uw partner | Hetzelfde als nu |
@@ -75,3 +75,19 @@ Nog een open punt. Voor de toeslagen tellen spullen voor eigen gebruik niet mee.
 | Kwijtschelding, bijzondere bijstand, kinderopvang met een sociaal-medische indicatie, kinderbijslag, Stichting Babyspullen, voedselbank, hulp bij geldzaken | Gratis OV-pas, tegemoetkoming voor alleenverdieners, laptop voor school, een melding over bijstand |
 
 Voorstel: kwijtschelding en bijzondere bijstand komen later, zoals afgesproken. Kinderbijslag en kinderopvang met een sociaal-medische indicatie zoek ik uit in officiële bronnen. Babyspullen, de voedselbank en hulp bij geldzaken zijn geen regelingen van de overheid. Die kunnen onder "Goed om te weten", als de gemeente Leiden ze zelf noemt.
+
+## Wat Leidengeldwijzer niet vraagt, en waarom (22 november 2026)
+
+Uitgangspunt: zo weinig vragen als kan, maar een concrete uitslag gaat voor. "Misschien" is in beginsel geen wenselijke uitslag. Een vraag blijft dus als ze de uitslag van een regeling concreet maakt. Een vraag valt weg als ze alleen een tip of het moment van aanvragen bepaalt.
+
+Berekenjerecht.nl stelt deze vragen wel. Leidengeldwijzer niet:
+
+| Vraag bij berekenjerecht.nl | Waarom zij die stellen | Wat Leidengeldwijzer doet |
+| --- | --- | --- |
+| Zorgpremie per maand, betaalde partneralimentatie, inkomen van medebewoners | Ze rekenen kwijtschelding en bijzondere bijstand helemaal uit. Daarvoor zijn de vaste lasten nodig | "Misschien" bij kwijtschelding en bijzondere bijstand. BSGR en de gemeente rekenen het zelf uit. Een eigen berekening kan later, als de regels in officiële bronnen te vinden zijn |
+| Bent u zwanger of heeft u een baby? Heeft u moeite met boodschappen? Wilt u hulp bij geldzaken? | Ze kiezen daarmee welke tips u ziet (Stichting Babyspullen, voedselbank, hulp bij geldzaken) | Geen vraag. De tips staan voor iedereen onder "Goed om te weten". Stichting Babyspullen staat in VOORWAARDEN.md onder "Nog uitzoeken" |
+| Wilt u overstappen naar de Gemeentepolis? | Het gaat over de keuze van de inwoner, niet over het recht | De kaart noemt wanneer u zich kunt aanmelden |
+| Heeft u een aanslag ontvangen? | Kwijtschelding vraagt u aan na de aanslag. Dat gaat over het moment, niet over het recht | De kaart noemt hoe u het aanvraagt |
+| Maak je gebruik van een schuldhulptraject? | Met een schuldregeling of in de Wsnp kunt u de Sleutelpas krijgen, ook boven 130% | Geen vraag meer (weggehaald op 22 november). Bij een inkomen boven de grens zegt de Sleutelpas: "Heeft u een schuldregeling? Dan kunt u de Sleutelpas misschien toch krijgen." |
+
+Deze vragen blijven wel, omdat ze de uitslag concreet maken: kinderbijslag (Kindtegoed), 5 jaar of langer een laag inkomen (inkomenstoeslag), ziekte of handicap naast de studie (studietoeslag) en welke uitkering (Wajong en de studietoeslag).

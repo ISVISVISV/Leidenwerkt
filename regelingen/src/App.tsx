@@ -196,7 +196,6 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
   const paar = f.partner === "ja";
   return (
     <section>
-      <Keuze naam="leiden" legend="Woont u in de gemeente Leiden?" waarde={f.leiden} onChange={(v) => zet("leiden", v)} fout={fouten.leiden} opties={JA_NEE} />
       <Datum id="geboren" legend="Uw geboortedatum" eigen waarde={f.geboren} onChange={(v) => zet("geboren", v)} fout={fouten.geboren} />
       <Keuze
         naam="partner"

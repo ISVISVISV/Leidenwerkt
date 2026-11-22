@@ -33,7 +33,6 @@ export interface Persoon {
 /** Een ingevuld formulier: alles "nee" of leeg, behalve wat de persoon zelf invult. */
 export const formulier = (over: Partial<Formulier>): Formulier => ({
   ...leegFormulier,
-  leiden: "ja",
   partner: "nee",
   heeftKinderen: "nee",
   woont: "huur",

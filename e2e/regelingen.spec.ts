@@ -27,7 +27,6 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
   await expect(page.locator(".foutsamenvatting")).toBeFocused();
   await geenToegankelijkheidsfouten(page);
 
-  await kies(page, "Woont u in de gemeente Leiden?", "Ja");
   await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(35));
   await kies(page, "Woont u samen met een partner?", "Nee");
   await kies(page, "Wonen er kinderen bij u?", "Ja");
@@ -81,7 +80,6 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
 test("stel: per persoon een bedrag per soort inkomen, met welke uitkering", async ({ page }) => {
   await page.goto(ADRES);
   await page.getByRole("button", { name: "Begin de check" }).click();
-  await kies(page, "Woont u in de gemeente Leiden?", "Ja");
   await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(40));
   await kies(page, "Woont u samen met een partner?", "Ja");
   await page.getByLabel("Geboortedatum van uw partner", { exact: true }).fill(jaar(38));
@@ -102,18 +100,9 @@ test("stel: per persoon een bedrag per soort inkomen, met welke uitkering", asyn
   await expect(page.locator(".groep.ja").getByRole("heading", { level: 3, name: "Tegemoetkoming voor alleenverdieners" })).toBeVisible();
 });
 
-test("niet in Leiden: de check zegt dat hij alleen voor Leiden is", async ({ page }) => {
-  await page.goto(ADRES);
-  await page.getByRole("button", { name: "Begin de check" }).click();
-  await kies(page, "Woont u in de gemeente Leiden?", "Nee");
-  await page.getByRole("button", { name: "Volgende stap" }).click();
-  await expect(page.locator(".foutmelding").getByText("alleen voor inwoners van de gemeente Leiden")).toBeVisible();
-});
-
 test("met bijstand: geen vragen over het inkomen, wel de Sleutelpas vanzelf", async ({ page }) => {
   await page.goto(ADRES);
   await page.getByRole("button", { name: "Begin de check" }).click();
-  await kies(page, "Woont u in de gemeente Leiden?", "Ja");
   await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(45));
   await kies(page, "Woont u samen met een partner?", "Nee");
   await kies(page, "Wonen er kinderen bij u?", "Nee");
