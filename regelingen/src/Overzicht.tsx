@@ -10,7 +10,7 @@ import { checkRegelingen, type Kans, type Uitslag } from "@leidenwerkt/engine";
 import { Bron } from "@leidenwerkt/ui";
 import { ingevuld, naarInvoer, vandaag, type Formulier } from "./formulier.ts";
 import { CONTACT, GOEDE_BUUR } from "./contact.ts";
-import { Icoon, Pasje } from "./iconen.tsx";
+import { Icoon, Pasje, Sleutels } from "./iconen.tsx";
 
 const GROEPEN: { kans: Kans; kop: string; uitleg: string }[] = [
   { kans: "ja", kop: "Dit kunt u waarschijnlijk krijgen", uitleg: "Vraag het aan. Daarna beslist de gemeente of Dienst Toeslagen." },
@@ -109,7 +109,10 @@ export function Overzicht({ f }: { f: Formulier }) {
             const opPas = pasBlok.filter((u) => u.id !== "sleutelpas");
             return (
               <section key={blok} className={`blok ${blok}`}>
-                <h3 className="blok-kop">{blokKop}</h3>
+                <h3 className="blok-kop">
+                  {blok === "gemeente" && <Sleutels />}
+                  {blokKop}
+                </h3>
                 {pas && (
                   <div className="pas-blok">
                     <PasTegel u={pas} onOpen={() => toon(pas)} />

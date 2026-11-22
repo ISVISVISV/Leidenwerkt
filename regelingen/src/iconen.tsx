@@ -146,3 +146,19 @@ export function Icoon({ naam, regeling }: { naam?: keyof typeof PADEN; regeling?
 export function Pasje() {
   return <img className="pasje" src={sleutelpas} alt="" width="240" height="183" />;
 }
+
+/** Twee gekruiste sleutels, zoals in het wapen van Leiden. Eigen tekening, in het rood van de gemeente. */
+export function Sleutels() {
+  const sleutel = (
+    <>
+      <circle cx="0" cy="-15" r="5" fill="none" strokeWidth="3" />
+      <path d="M0-10V15M0 9h5M0 14h5" strokeWidth="3" strokeLinecap="round" fill="none" />
+    </>
+  );
+  return (
+    <svg className="sleutels" viewBox="-20 -22 40 42" width="28" height="29" aria-hidden="true" focusable="false" stroke="currentColor">
+      <g transform="rotate(-35)">{sleutel}</g>
+      <g transform="rotate(35) scale(-1 1)">{sleutel}</g>
+    </svg>
+  );
+}
