@@ -113,9 +113,53 @@ body {
   }
 }
 
+/* De kaarten verschijnen zacht bij het laden, de tweede iets later. */
+.keuzes li {
+  animation: verschijn 0.6s ease-out both;
+}
+
+.keuzes li + li {
+  animation-delay: 0.12s;
+}
+
+@keyframes verschijn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* Donkere modus: een avondlucht boven de stad, met een paar sterren. */
+:root[data-thema="donker"] .held {
+  background:
+    radial-gradient(1.5px 1.5px at 12% 18%, rgb(255 255 255 / 0.8), transparent),
+    radial-gradient(1.5px 1.5px at 27% 9%, rgb(255 255 255 / 0.6), transparent),
+    radial-gradient(1px 1px at 41% 24%, rgb(255 255 255 / 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 58% 12%, rgb(255 255 255 / 0.8), transparent),
+    radial-gradient(1px 1px at 73% 20%, rgb(255 255 255 / 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 86% 8%, rgb(255 255 255 / 0.7), transparent),
+    radial-gradient(1px 1px at 94% 28%, rgb(255 255 255 / 0.5), transparent),
+    linear-gradient(180deg, #1b1f3a 0%, #3a1f3f 45%, #7a1a14 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-thema="licht"]) .held {
+    background:
+      radial-gradient(1.5px 1.5px at 12% 18%, rgb(255 255 255 / 0.8), transparent),
+      radial-gradient(1.5px 1.5px at 27% 9%, rgb(255 255 255 / 0.6), transparent),
+      radial-gradient(1px 1px at 41% 24%, rgb(255 255 255 / 0.7), transparent),
+      radial-gradient(1.5px 1.5px at 58% 12%, rgb(255 255 255 / 0.8), transparent),
+      radial-gradient(1px 1px at 73% 20%, rgb(255 255 255 / 0.6), transparent),
+      radial-gradient(1.5px 1.5px at 86% 8%, rgb(255 255 255 / 0.7), transparent),
+      radial-gradient(1px 1px at 94% 28%, rgb(255 255 255 / 0.5), transparent),
+      linear-gradient(180deg, #1b1f3a 0%, #3a1f3f 45%, #7a1a14 100%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .wieken,
-  .water {
+  .water,
+  .keuzes li {
     animation: none;
   }
 }
