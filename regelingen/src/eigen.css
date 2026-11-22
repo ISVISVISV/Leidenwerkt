@@ -44,13 +44,6 @@
   max-width: 38rem;
 }
 
-/* Een altijd zichtbare korte uitleg onder een vraag, zoals "U kunt meer antwoorden kiezen." */
-.vraag-toelichting {
-  margin: -0.1rem 0 0.5rem;
-  color: var(--inkt-zacht);
-  font-size: 0.95rem;
-}
-
 /* De kinderen en de knop om een kind toe te voegen staan samen in één kader. */
 .kinderen-kader {
   border: 1px solid var(--lijn);

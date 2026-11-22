@@ -167,57 +167,49 @@ a {
   font-weight: 700;
 }
 
-/* Laatste woord en i-knop samen: nooit een i-knop alleen op een nieuwe regel. */
-.samen {
-  white-space: nowrap;
+/* Korte uitleg onder een vraag: altijd zichtbaar. */
+.vraag-toelichting {
+  margin: 0 0 0.5rem;
+  color: var(--inkt-zacht);
 }
 
-/* In een label: het laatste woord houdt plaats vrij, en de i-knop schuift daarin terug (netto geen eigen breedte). */
-.ruimte-i {
-  white-space: nowrap;
-  padding-right: calc(28px + 0.3rem);
-}
-
-
-.label-rij > label + .info-knop {
-  margin-left: calc(-28px);
-}
-
-/* Knop "i": een getekend icoon, zodat de i precies in het midden staat. Klikvlak minstens 24 × 24 pixels (WCAG 2.5.8). */
+/*
+ * Knop "Meer uitleg": een tekstknop onder de vraag, met een pijltje dat omdraait als de uitleg open is.
+ * Beter te vinden dan een klein i-icoon. Klikvlak minstens 24 pixels hoog (WCAG 2.5.8).
+ */
 .info-knop {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  margin-left: 0.3rem;
-  /* Midden op de hoofdletters van de vraag. De negatieve marges houden de regelhoogte gelijk. */
-  vertical-align: -0.28em;
-  margin-top: -6px;
-  margin-bottom: -4px;
+  gap: 0.25rem;
+  min-height: 28px;
+  margin: 0 0 0.4rem;
   padding: 0;
   border: 0;
-  border-radius: 50%;
   background: none;
-  color: var(--inkt-zacht);
+  color: var(--leiden-tekst);
+  font: inherit;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
   cursor: pointer;
 }
 
 .info-knop:hover {
-  color: var(--inkt);
+  text-decoration-thickness: 2px;
 }
 
-.info-knop[aria-expanded="true"] {
-  color: var(--inkt);
+.info-knop svg {
+  transition: transform 0.15s;
 }
 
-.info-knop[aria-expanded="true"] svg circle:first-child {
-  fill: var(--inkt);
+.info-knop[aria-expanded="true"] svg {
+  transform: rotate(180deg);
 }
 
-.info-knop[aria-expanded="true"] svg circle:last-of-type,
-.info-knop[aria-expanded="true"] svg rect {
-  fill: var(--papier);
+@media (prefers-reduced-motion: reduce) {
+  .info-knop svg {
+    transition: none;
+  }
 }
 
 /* Voortgang: een echte reeks van vier stappen */
@@ -1121,7 +1113,7 @@ details.uitleg summary {
 }
 
 
-/* Een vraag met i-knop: de legend is alleen voor schermlezers; zichtbaar staat de vraag met de i-knop direct achter het laatste woord. */
+/* Alleen voor schermlezers. */
 .visueel-verborgen {
   position: absolute;
   width: 1px;
@@ -1132,10 +1124,6 @@ details.uitleg summary {
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
-}
-
-.vraag-rij {
-  margin-bottom: 0.3rem;
 }
 
 .vraag-tekst {
