@@ -29,8 +29,8 @@
     --icoon-hulp: #c7b8f0;
     --icoon-hulp-vlak: #2a2440;
     --pas-vlak: #2a2516;
-    --tegel: #151e25;
-    --tegel-hover: #24303a;
+    --tegel: #29323a;
+    --tegel-hover: #36414b;
   }
 }
 
@@ -45,8 +45,8 @@
   --icoon-hulp: #c7b8f0;
   --icoon-hulp-vlak: #2a2440;
   --pas-vlak: #2a2516;
-  --tegel: #151e25;
-  --tegel-hover: #24303a;
+  --tegel: #29323a;
+  --tegel-hover: #36414b;
 }
 
 /* Het formulier blijft smal (goed te lezen). Het overzicht mag op een groot scherm breed. */
