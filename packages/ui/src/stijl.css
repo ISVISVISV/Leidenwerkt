@@ -33,12 +33,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-thema="licht"]) {
-    --papier: #0f161c;
-    --vlak: #1b242c;
-    --veld: #151e25;
+    --papier: #20272d;
+    --vlak: #2e3841;
+    --veld: #29323a;
     --inkt: #eceef0;
     --inkt-zacht: #a8b0b8;
-    --lijn: #36424d;
+    --lijn: #394650;
     --leiden: #d5313a;
     --leiden-tekst: #ff8a8f;
     --op-leiden: #ffffff;
@@ -48,7 +48,7 @@
     --let-op: #f3b866;
     --let-op-zacht: #382a15;
     --focus: #8fb2ff;
-    --voorbeeld: #8e9096;
+    --voorbeeld: #9ea4ab;
     --klaar: #4fae7c;
   }
 }
@@ -60,12 +60,12 @@
 
 :root[data-thema="donker"] {
   color-scheme: dark;
-  --papier: #0f161c;
-  --vlak: #1b242c;
-  --veld: #151e25;
+  --papier: #20272d;
+  --vlak: #2e3841;
+  --veld: #29323a;
   --inkt: #eceef0;
   --inkt-zacht: #a8b0b8;
-  --lijn: #36424d;
+  --lijn: #394650;
   --leiden: #d5313a;
   --leiden-tekst: #ff8a8f;
   --op-leiden: #ffffff;
@@ -75,7 +75,7 @@
   --let-op: #f3b866;
   --let-op-zacht: #382a15;
   --focus: #8fb2ff;
-  --voorbeeld: #8e9096;
+  --voorbeeld: #9ea4ab;
   --klaar: #4fae7c;
 }
 
