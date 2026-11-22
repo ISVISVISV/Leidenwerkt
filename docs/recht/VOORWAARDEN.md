@@ -133,6 +133,7 @@ Kan nu niet worden aangevraagd (13 april tot en met 31 juli). De grens van 120% 
 ### Nog uitzoeken
 
 - **Huurtoeslag:** vermogensgrens 2027. Op 21 november 2026 nog niet gevonden. Het bericht van Dienst Toeslagen over 2027 noemt alleen zorgtoeslag en kindgebonden budget. Opnieuw kijken in december, samen met de andere bedragen van 2027.
+- **Mensen met AOW:** Leidengeldwijzer werkt nu tot de AOW-leeftijd. Mensen met AOW kunnen ook minimaregelingen krijgen. De gemeente noemt hun grenzen al (bijvoorbeeld 120%: alleenstaand AOW € 1.809,57, samenwonend AOW € 2.480,75). De bijstand (AIO) en de toeslagen werken anders. Gaan we bouwen.
 - **Stichting Babyspullen:** misschien later toevoegen onder "Goed om te weten". Berekenjerecht.nl noemt deze stichting. Eerst nagaan of de gemeente Leiden of geldzaken.leiden.nl de stichting zelf noemt, en welke voorwaarden zij stelt.
 
 ## Vragen voor de praktijk

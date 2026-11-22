@@ -4,45 +4,99 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#b3101c" />
+    <meta name="theme-color" content="#c8200f" />
     <meta name="description" content="Twee gratis rekenhulpen voor inwoners van Leiden: welke regelingen kunt u krijgen, en hoeveel houdt u over als u gaat werken?" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; connect-src 'none'" />
     <title>Rekenhulp voor Leidenaren</title>
     <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
-    <div class="pagina start">
-      <header class="kopregel">
-        <p class="merk">Rekenhulp voor Leidenaren</p>
-        <p class="kopregel-tekst">Gratis, voor inwoners van Leiden</p>
-      </header>
-      <main>
-        <h1>Wat wilt u weten?</h1>
-        <p class="inleiding">Kies een rekenhulp. Wat u invult, blijft op uw eigen telefoon of computer.</p>
-        <ul class="keuzes">
-          <li>
-            <a class="keuze-tegel" href="./leidengeldwijzer/">
-              <span class="keuze-naam">Leidengeldwijzer</span>
-              <span class="keuze-vraag">Welke regelingen kunt u krijgen?</span>
-              <span class="keuze-uitleg">Bijvoorbeeld de Sleutelpas, de toeslagen en de bijstand. Voor iedereen van 18 jaar tot de AOW-leeftijd.</span>
-            </a>
-          </li>
-          <li>
-            <a class="keuze-tegel" href="./leidenwerkt/">
-              <span class="keuze-naam">Leidenwerkt</span>
-              <span class="keuze-vraag">Hoeveel houdt u over als u gaat werken?</span>
-              <span class="keuze-uitleg">Voor mensen met bijstand. U ziet wat u overhoudt met werk, en wat u zelf moet regelen.</span>
-            </a>
-          </li>
-        </ul>
-      </main>
-      <footer class="voet">
-        <p>Leidengeldwijzer en Leidenwerkt geven een schatting. Wat u echt krijgt, beslissen de gemeente Leiden, Dienst Toeslagen en de SVB. Deze tools zijn geen product van de gemeente.</p>
-        <p>
-          De tools zijn gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de
-          <a href="https://github.com/ISVISVISV/Rekenhulp" rel="noopener noreferrer">broncode</a> bekijken en gebruiken (licentie EUPL-1.2).
+    <header class="held">
+      <div class="binnen">
+        <p class="merk">
+          <!-- Twee gekruiste sleutels, zoals in het wapen van Leiden. Eigen tekening. -->
+          <svg viewBox="-21 -22 42 44" width="26" height="27" stroke="currentColor" aria-hidden="true" focusable="false">
+            <g transform="rotate(-40)"><circle cx="0" cy="13" r="5.5" fill="none" stroke-width="3.2" /><path d="M0 7.5V-17" stroke-width="3.2" stroke-linecap="round" fill="none" /><path d="M0-16.5h-6v4h3M0-10.5h-5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none" /></g>
+            <g transform="scale(-1 1) rotate(-40)"><circle cx="0" cy="13" r="5.5" fill="none" stroke-width="3.2" /><path d="M0 7.5V-17" stroke-width="3.2" stroke-linecap="round" fill="none" /><path d="M0-16.5h-6v4h3M0-10.5h-5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none" /></g>
+          </svg>
+          Rekenhulp voor Leidenaren
         </p>
-      </footer>
-    </div>
+        <h1>Welke hulp kunt u krijgen? En wat levert werken op?</h1>
+        <p class="held-tekst">U beantwoordt een paar vragen. Daarna ziet u de uitkomst.</p>
+      </div>
+      <!-- Eigen lijntekening van Leiden: grachtenpanden, molen De Valk, een brug en een kerk. -->
+      <svg class="skyline" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax slice" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true" focusable="false">
+        <path d="M0 200h1440" />
+        <path d="M0 214c40-6 80 6 120 0s80-6 120 0 80 6 120 0 80-6 120 0 80 6 120 0 80-6 120 0 80 6 120 0 80-6 120 0 80 6 120 0 80-6 120 0 80 6 120 0 80-6 120 0" />
+        <path d="M40 200V120h14v-12h12v-12h12v12h12v12h14v80" /><path d="M58 140h12M82 140h12M58 170h12M82 170h12" />
+        <path d="M118 200V110l30-30 30 30v90" /><path d="M134 130h12M154 130h12M134 160h12M154 160h12" />
+        <path d="M192 200V125h10v-10h10v-10h12v10h10v10h10v75" /><path d="M206 150h10M226 150h10" />
+        <path d="M330 200l12-90h46l12 90" /><path d="M336 150h58" /><path d="M342 110l23-24 23 24" />
+        <circle cx="365" cy="96" r="6" /><path d="M365 96L300 40M365 96l65-56M365 96l-65 56M365 96l65 56" /><path d="M312 51l12 10M418 51l-12 10" />
+        <path d="M520 200c30-50 130-50 160 0" /><path d="M500 172h200" /><path d="M540 172v-14M580 172v-14M620 172v-14M660 172v-14M520 158h160" />
+        <path d="M760 200V105h16v-14h16v-14h14v14h16v14h16v95" /><path d="M778 130h14M808 130h14M778 165h14M808 165h14" />
+        <path d="M854 200V118l26-26 26 26v82" /><path d="M868 140h10M886 140h10" />
+        <path d="M920 200V100h12v-12h14v-14h12v14h14v12h12v100" /><path d="M936 125h14M960 125h14M936 160h14M960 160h14" />
+        <path d="M1040 200V120h140v80" /><path d="M1040 120l70-40 70 40" /><path d="M1150 120V60l15-20 15 20v60" />
+        <path d="M1080 200v-40a10 10 0 0 1 20 0v40M1120 200v-40a10 10 0 0 1 20 0v40" />
+        <path d="M1220 200V115h14v-12h14v-12h12v12h14v12h14v85" /><path d="M1236 140h12M1262 140h12" />
+        <path d="M1300 200V108l30-30 30 30v92" /><path d="M1316 130h12M1336 130h12M1316 165h12M1336 165h12" />
+        <path d="M1374 200V125h66" />
+      </svg>
+    </header>
+
+    <main>
+      <ul class="keuzes">
+        <li>
+          <a class="kaart" href="./leidengeldwijzer/">
+            <span class="beeld"><img src="./src/sleutelpas.png" alt="" width="120" height="91" /></span>
+            <span class="naam">Leidengeldwijzer</span>
+            <span class="vraag">Welke regelingen kunt u krijgen?</span>
+            <span class="uitleg">Bijvoorbeeld de Sleutelpas, de toeslagen en de bijstand. Voor iedereen van 18 jaar tot de AOW-leeftijd.</span>
+            <span class="begin">Begin <span class="pijl" aria-hidden="true">→</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="kaart" href="./leidenwerkt/">
+            <span class="beeld">
+              <!-- Eigen tekening: een werktas en een stijgende lijn. -->
+              <svg viewBox="0 0 120 80" width="112" height="75" fill="none" aria-hidden="true" focusable="false">
+                <rect x="10" y="24" width="64" height="46" rx="6" class="tas-vlak" />
+                <rect x="10" y="24" width="64" height="46" rx="6" class="tas" stroke-width="4" />
+                <path d="M30 24v-8a5 5 0 0 1 5-5h14a5 5 0 0 1 5 5v8" class="tas" stroke-width="4" />
+                <path d="M66 62l14-16 10 9 22-26M100 29h12v12" class="lijn" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <span class="naam">Leidenwerkt</span>
+            <span class="vraag">Hoeveel houdt u over als u gaat werken?</span>
+            <span class="uitleg">Voor mensen met bijstand. U ziet wat u overhoudt met werk, en wat u zelf moet regelen.</span>
+            <span class="begin">Begin <span class="pijl" aria-hidden="true">→</span></span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="zeker">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M8 12.5l2.7 2.7L16 9.5" /></svg>
+          <div><strong>Gratis</strong> <span>U hoeft niet in te loggen.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>
+          <div><strong>Niets wordt bewaard</strong> <span>Wat u invult, blijft op uw eigen telefoon of computer.</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h9l4 4v14H6z" /><path d="M14 3v5h5M9 13h7M9 17h5" /></svg>
+          <div><strong>Officiële bronnen</strong> <span>De rekenhulpen gebruiken informatie van officiële websites. Bijvoorbeeld gemeente.leiden.nl en belastingdienst.nl.</span></div>
+        </li>
+      </ul>
+    </main>
+
+    <footer class="voet">
+      <p>Leidengeldwijzer en Leidenwerkt geven een schatting. Wat u echt krijgt, beslissen de gemeente Leiden, Dienst Toeslagen en de SVB. Deze tools zijn geen product van de gemeente.</p>
+      <p>
+        De tools zijn gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de
+        <a href="https://github.com/ISVISVISV/Rekenhulp" rel="noopener noreferrer">broncode</a> bekijken en gebruiken (licentie EUPL-1.2).
+      </p>
+    </footer>
   </body>
 </html>
