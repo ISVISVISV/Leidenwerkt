@@ -422,7 +422,7 @@ function KindVragen({ f, i, zet, fouten }: StapProps & { i: number }) {
                 ? `Vraag het aan de opvang. Weet u het niet? Laat het vak dan leeg. Leidengeldwijzer rekent dan met € ${maxPrijsTekst(info.soort)} per uur. Voor een hogere prijs krijgt u geen extra toeslag.`
                 : "Vraag dit na bij de opvang. Weet u het niet? Laat het vak dan leeg."
             }
-            voorbeeld="bijv. 10,50"
+            voorbeeld={`bijv. ${maxPrijsTekst(info.soort || "dagopvang") || "10,50"}`}
             voorvoegsel="€"
             waarde={info.prijs}
             onChange={(v) => zetInfo({ prijs: v })}

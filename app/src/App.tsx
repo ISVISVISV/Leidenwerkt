@@ -499,7 +499,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                   <Veld id={`kind${i}uren`} label="Hoeveel uur per week gaat dit kind naar de opvang?" voorbeeld="bijv. 16" waarde={k.uren} onChange={(v) => zetKind(i, { uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
                   <Veld
                     id={`kind${i}prijs`}
-                    voorbeeld="bijv. 10,50"
+                    voorbeeld={`bijv. ${maxPrijsTekst(k.soort || "dagopvang") || "10,50"}`}
                     label="Prijs per uur"
                     hint={
                       k.soort && maxPrijsTekst(k.soort)
