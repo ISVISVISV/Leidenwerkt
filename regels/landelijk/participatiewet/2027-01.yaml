@@ -107,3 +107,8 @@ parameters:
     eenheid: euro_per_maand
     status: ontbrekend
     notitie: Bedragen per 1 januari 2027 verwacht begin december 2026.
+  - id: pw.norm.jong.alleenstaande
+    omschrijving: Jongerennorm, alleenstaande (ouder) van 18, 19 of 20 jaar, netto incl. vakantietoeslag (art. 20 lid 1 a Pw)
+    eenheid: euro_per_maand
+    status: ontbrekend
+    notitie: Normenbrief en Staatscourant-mededeling per 1 januari 2027 verwacht begin december 2026.

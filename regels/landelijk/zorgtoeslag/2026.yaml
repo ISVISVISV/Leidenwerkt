@@ -55,3 +55,23 @@ parameters:
       kop: "Dienst Toeslagen, Berekening zorgtoeslag 2026, stap 1 en 3"
       tekst: "De standaardpremie is voor 2026 vastgesteld op € 2.119. Bij een aanvrager met een toeslagpartner wordt tweemaal de standaardpremie genomen (€ 4.238). […] Het drempelinkomen is voor 2026 vastgesteld op € 29.736. Voor een aanvrager zonder toeslagpartner: Normpremie = 1,912% x drempelinkomen + 13,73% (toetsingsinkomen - drempelinkomen) Voor een aanvrager met toeslagpartner: Normpremie = 4,289% x drempelinkomen + 13,73% (gezamenlijk toetsingsinkomen - drempelinkomen)"
       versie: "geraadpleegd op 11 november 2026"
+  - id: zt.vermogen.zonder_partner
+    omschrijving: Zorgtoeslag 2026, hoogste vermogen op 1 januari 2026 zonder toeslagpartner
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "146011" }
+    status: geverifieerd
+    bron: &ztvermogen
+      titel: Dienst Toeslagen, Hoeveel vermogen mag ik hebben om zorgtoeslag te krijgen?
+      url: https://www.belastingdienst.nl/wps/wcm/connect/nl/zorgtoeslag/content/maximaal-vermogen-zorgtoeslag
+      geraadpleegd_op: 2026-11-21
+    citaat: &cztvermogen
+      kop: "Dienst Toeslagen, maximaal vermogen zorgtoeslag"
+      tekst: "U kunt in 2026 zorgtoeslag krijgen als uw vermogen op 1 januari 2026 niet hoger is dan € 146.011. Hebt u een toeslagpartner? Dan mag het vermogen op 1 januari 2026 van u samen maximaal € 184.633 zijn. […] Is uw kind jonger dan 18 jaar? Dan telt het vermogen van dit kind mee bij uw vermogen."
+      versie: "geraadpleegd op 21 november 2026"
+  - id: zt.vermogen.met_partner
+    omschrijving: Zorgtoeslag 2026, hoogste vermogen op 1 januari 2026 met toeslagpartner, samen
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "184633" }
+    status: geverifieerd
+    bron: *ztvermogen
+    citaat: *cztvermogen

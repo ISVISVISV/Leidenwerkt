@@ -25,6 +25,139 @@ export const CITATEN = {
     tekst:
       "Een aantal inwoners is uitgesloten om een aanvraag te doen voor een Sleutelpas, dat zijn: a. Inwoners die in detentie of een instelling te verblijven. […] c. Inwoners die uit Rijkskas bekostigd onderwijs volgen en in verband daarmee aanspraak kunnen maken op studiefinanciering op grond van de Wet studiefinanciering 2000 of de Wet tegemoetkoming onderwijsbijdrage en schoolkosten, tenzij deze persoon zorgt draagt over een ten laste komend kind en het gezinsinkomen niet meer bedraagt dan 130% van het sociaal minimum. […] De Sleutelpas wordt ambtshalve toegekend aan inwoners, die: a. Een algemene bijstandsuitkering ontvangen vanuit de Participatiewet; b. Een uitkering ontvangen vanuit de IOAW, IOAZ of Bbz;",
   },
+  kindtegoedKind: {
+    titel: "Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 1.1 d",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2025-508798.html",
+    versie: "geldend vanaf 1 januari 2026",
+    tekst:
+      "Kind: de minderjarige (tot 18 jaar) die op moment van aanvraag op hetzelfde adres woont als de rechthebbende en voor wie kinderbijslag wordt ontvangen zoals bedoeld in de Algemene Kinderbijslagwet, of zal worden ontvangen vanaf het eerstvolgende kwartaal of het pleegkind waarvoor een pleegkindvergoeding wordt ontvangen.",
+  },
+  volwassenentegoed: {
+    titel: "Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.4",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2025-508798.html",
+    versie: "geldend vanaf 1 januari 2026",
+    tekst:
+      "a. Inwoners met een inkomen tot 120% van het WSM komen in aanmerking voor een Volwassenentegoed. […] c. Rechthebbenden boven de 18 jaar oud kunnen hiervoor een aanvraag doen bij het Volwassenenfonds Sport en Cultuur. […] e. Het maximale tegoed dat het Volwassenenfonds kan toekennen is €250,-",
+  },
+  pw36b: {
+    titel: "Participatiewet, art. 36b lid 1 tot en met 3",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
+    versie: "geldend vanaf 1 juli 2026",
+    tekst:
+      "1 In aanvulling op de artikelen 7 en 7a, eerste lid, onderdeel b of c verstrekt het college op aanvraag van een belanghebbende die als rechtstreeks gevolg van een ziekte of gebrek structureel niet in staat is naast de studie inkomsten te verwerven, een studietoeslag […] 2 Bij de beoordeling of recht bestaat op de studietoeslag vraagt het college een geneeskundig advies, tenzij zonder dit advies vastgesteld kan worden dat recht bestaat op de studietoeslag. 3 De aanvraag kan worden gedaan door een belanghebbende die: a. studiefinanciering ontvangt op grond van de Wet studiefinanciering 2000, niet zijnde het levenlanglerenkrediet, of een tegemoetkoming krijgt op grond van hoofdstuk 4 van de Wet tegemoetkoming onderwijsbijdrage en schoolkosten; en b. geen recht heeft op een uitkering op grond van de Wet arbeidsongeschiktheidsvoorziening jonggehandicapten.",
+  },
+  iitPeildatum: {
+    titel: "Leiden, Verordening individuele inkomenstoeslag, toelichting (Gemeenteblad 2019, 316445)",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2019-316445.html",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "Het gaat om de datum waarop een persoon langdurig een laag inkomen heeft, geen in aanmerking te nemen vermogen heeft als bedoeld in artikel 34 van de Participatiewet en, gelet op de omstandigheden van die persoon, geen uitzicht op inkomensverbetering heeft.",
+  },
+  sleutelpasSchuld: {
+    titel: "Leiden, Beleidsregels Sleutelpas 2026, art. 2.3",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2025-429670.html",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "De rechthebbende heeft geen draagkracht als: a. Het (gezins)inkomen van de rechthebbende niet hoger is dan 130% van het Wettelijk Sociaal Minimum (WSM), en; b. De rechthebbende is toegelaten tot de schuldsaneringsregeling (volgens de WSNP). c. De rechthebbende meedoet aan een schuldregeling die door de gemeente is afgesloten (MSNP). Dit geldt zolang die persoon zich aan de afspraken van de regeling houdt.",
+  },
+  stadsbankSchuldregeling: {
+    titel: "Leiden, Bankreglement stadsbank gemeente Leiden 2025, art. 1",
+    url: "https://lokaleregelgeving.overheid.nl/CVDR741747/",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "Schuldregeling: bij een schuldregeling bemiddelt de Stadsbank tussen de schuldenaar en zijn schuldeisers om een minnelijke regeling van de totale schuldenlast te bewerkstelligen; […] Stadsbank: de Stadsbank Leiden, (statutair) gevestigd te Leiden, en kantoorhoudende te 2312 NH Leiden aan de Langegracht 72;",
+  },
+  kinderbijslagWie: {
+    titel: "SVB, Wat is kinderbijslag",
+    url: "https://www.svb.nl/nl/kinderbijslag/wat-is-kinderbijslag/wat-is-kinderbijslag",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "Kinderbijslag is een bijdrage in de kosten voor de verzorging van kinderen tot 18 jaar. De betaling is per kwartaal. Heeft u een kind jonger dan 18 jaar? Dan kunt u kinderbijslag krijgen als u hiervoor verzekerd bent. U bent meestal verzekerd voor de kinderbijslag als u in Nederland woont of werkt.",
+  },
+  kinderopvangSmi: {
+    titel: "Gemeente Leiden, Kinderopvang bij sociale of medische problemen",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/zorg-en-onderwijs/kinderopvang/kinderopvang-bij-sociale-of-medische-problemen/",
+    versie: "geraadpleegd op 21 november 2026",
+    tekst:
+      "Hebt u lichamelijke, psychische of sociale problemen? Of heeft uw partner lichamelijke, psychische of sociale problemen? En wilt u daarom voor uw kind(eren) kinderopvang regelen? Dan kunt u een vergoeding voor de kinderopvangkosten aanvragen. U kunt voor maximaal 3 dagen een vergoeding voor de kinderopvang krijgen. […] Uw kind(eren) is (zijn) jonger dan 4 jaar of zit(ten) op de basisschool. U en/of uw partner krijgen geen andere vergoeding voor de kinderopvangkosten. […] Hou er rekening mee dat u ook een eigen bijdrage moet betalen.",
+  },
+  kinderopvangSmiGeldzaken: {
+    titel: "Gemeente Leiden, Geldzaken: Kinderopvang bij sociale of medische problemen",
+    url: "https://geldzaken.leiden.nl/regeling/kinderopvang-bij-sociale-of-medische-problemen/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Hebt u last van lichamelijke, psychische of sociale klachten? En kan er geen andere volwassene voor uw kinderen zorgen? Dan kan de gemeente u helpen met de kosten voor kinderopvang. […] Uw kinderen zitten op de basisschool of zijn jonger dan 4 jaar.",
+  },
+  kwijtschelding: {
+    titel: "Gemeente Leiden, Geldzaken: Kwijtschelding of geld terugkrijgen",
+    url: "https://geldzaken.leiden.nl/regeling/kwijtschelding-of-geld-terugkrijgen/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Hebt u moeite met het betalen van de gemeentelijke belastingen? Dan kunt u misschien kwijtschelding krijgen. Dit betekent dat u de belasting niet hoeft te betalen. Hebt u de belasting al betaald? Dan kunt u misschien het geld terugkrijgen. Is dit voor u? Uw inkomen is op of onder bijstandsniveau en uw vermogen is niet te hoog. […] Het inkomen van uw huisgenoten kan ook meetellen.",
+  },
+  bijzondereBijstand: {
+    titel: "Gemeente Leiden, Geldzaken: Bijzondere bijstand als het echt nodig is",
+    url: "https://geldzaken.leiden.nl/regeling/bijzondere-bijstand-als-het-echt-nodig-is/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Soms hebt u kosten die u niet kunt betalen. Bijvoorbeeld omdat ze onverwacht zijn. De gemeente kan u dan een vergoeding of een lening geven. Dit heet bijzondere bijstand. […] U hebt de kosten nog niet gemaakt. De kosten zijn noodzakelijk: voor dingen die u echt nodig hebt. […] Uw inkomen is maximaal 110% van de bijstandsnorm en uw vermogen is niet te hoog. Hebt u een hoger inkomen, tot 150% van de bijstandsnorm? Dan kunt u ook nog in aanmerking komen. Maar u krijgt dan een lagere vergoeding. […] Het gaat bijvoorbeeld om kosten voor bewindvoering, rechtshulp, kinderopvang, verhuizing of woninginrichting.",
+  },
+  goedeBuur: {
+    titel: "Gemeente Leiden, Geldzaken: Het Goede Buur Spreekuur",
+    url: "https://geldzaken.leiden.nl/regeling/rekeningen/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Vindt u het even moeilijk om de rekeningen te betalen? Wilt u dat iemand u helpt met een aanvraag of sollicitatie? Of hebt u andere vragen over geld? In Leiden zijn er veel mensen die graag met u meekijken. Deze hulp is gratis en vrijblijvend. […] Op maandag, dinsdag en donderdag kunt u binnenlopen bij het Goede Buur Spreekuur. U hebt hier geen afspraak voor nodig.",
+  },
+  goedeBuurTijden: {
+    titel: "Gemeente Leiden, Geldzaken: Het Goede Buur Spreekuur (tijden en plekken)",
+    url: "https://geldzaken.leiden.nl/hulp-bij-uw-aanvraag/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Hieronder ziet u wanneer de spreekuren van Een Goede Buur zijn. Maandag van 9.00 uur – 11.00 uur. Dinsdag van 9.00 uur – 11.00 uur. Donderdag van 13.00 – 15.00 uur. In de binnenstad: Maandag van 9.00 – 11.00 uur (bij Speeltuinvereniging Ons Eiland). Dinsdag van 9.30 – 11.30 (in de Stadskamer). […] Huis van de Buurt De Kooi, Driftstraat 29. Huis van de Buurt Het Gebouw, Arubapad 2. Huis van de Buurt Matilo, Zaanstraat 126. Huis van de Buurt Morschwijck, Topaaslaan 19. Speeltuinvereniging Ons Eiland, Kortenaerstraat 61. de Stadskamer, Nieuwstraat 7. Huis van de Buurt Op Eigen Wieken, Valkenpad 5. Huis van de Buurt Stevenshof, Trix Terwindtstraat 4. Huis van de Buurt Bos- en Gasthuis, Boshuizerkade 119. […] Vrijwilligers van Incluzio zijn tijdens openingstijden te bellen of te appen via 06 – 21 42 76 37. […] Dan kunt u bellen naar 14071 van maandag tot en met vrijdag tussen 9:00 en 17:00.",
+  },
+  steunpuntBelastingdienst: {
+    titel: "Gemeente Leiden, Belastingdienst opent steunpunt in het Stadskantoor Leiden (10 juli 2026)",
+    url: "https://gemeente.leiden.nl/nieuws-en-publicaties/nieuws/belastingdienst-opent-steunpunt-in-het-stadskantoor-leiden/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Het steunpunt van de Belastingdienst in Stadskantoor Leiden (Bargelaan 190) is iedere vrijdag geopend van 9.00 tot 16.00 uur. U kunt langskomen voor persoonlijke hulp of (video)bellen. Maak wel eerst een afspraak via de website van de Belastingdienst.",
+  },
+  toeslagenBellen: {
+    titel: "Dienst Toeslagen, Bellen met Dienst Toeslagen",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/contact-met-dienst-toeslagen/content/bellen",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Voor vragen over uw toeslagen kunt u ons bellen: 0800 - 0543. Dit nummer is gratis. […] We zijn bereikbaar op: maandag tot en met donderdag van 8.00 uur tot 20.00 uur, vrijdag van 8.00 uur tot 17.00 uur",
+  },
+  stadsbank: {
+    titel: "Gemeente Leiden, Geldzaken: Samen werken aan een oplossing",
+    url: "https://geldzaken.leiden.nl/regeling/samen-werken-aan-een-oplossing/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Hebt u schulden? Wilt u voorkomen dat u schulden krijgt? Of maakt u zich zorgen over geld? Dan kan een schuldhulpverlener van de Stadsbank u helpen. […] Alle inwoners van Leiden kunnen contact opnemen met de Stadsbank. Er zijn geen voorwaarden. […] Bellen kan ook: 14 071 (keuzenummer 1).",
+  },
+  voedselbank: {
+    titel: "Gemeente Leiden, Geldzaken: De Voedselbank",
+    url: "https://geldzaken.leiden.nl/regeling/gratis-een-gezonde-maaltijd-op-tafel/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Zijn boodschappen even te duur? Of vindt u het moeilijk om een gezonde maaltijd te kopen? Dan kunt u tijdelijk naar de Voedselbank. U krijgt daar elke week een pakket met eten en drinken voor u en uw gezin. […] De Voedselbank bepaalt voorwaarden en eisen.",
+  },
+  pw13studie: {
+    titel: "Participatiewet, art. 13 lid 2 c",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
+    versie: "geldend vanaf 1 juli 2026",
+    tekst:
+      "Geen recht op algemene bijstand heeft degene: […] c. die jonger is dan 27 jaar en uit ’s Rijks kas bekostigd onderwijs kan volgen en: 1°. in verband daarmee aanspraak heeft op studiefinanciering op grond van de Wet studiefinanciering 2000, dan wel 2°. in verband daarmee geen aanspraak heeft op studiefinanciering en dit onderwijs niet volgt;",
+  },
+  kotWie: {
+    titel: "Wet kinderopvang, art. 1.6 lid 1",
+    url: "https://wetten.overheid.nl/BWBR0017017/2026-01-01",
+    versie: "geldend vanaf 1 januari 2026",
+    tekst:
+      "Een ouder heeft voor een berekeningsjaar aanspraak op een kinderopvangtoeslag, indien de ouder in dat jaar: a. tegenwoordige arbeid verricht waaruit inkomen uit werk en woning in de zin van de Wet inkomstenbelasting 2001 wordt genoten, […] c. algemene bijstand of een uitkering ontvangt op grond van de Participatiewet […] en gebruik maakt van een voorziening gericht op arbeidsinschakeling […] die de noodzaak tot kinderopvang met zich brengt, […] g. inburgeringsplichtig is op grond van de Wet inburgering 2021 en een cursus of opleiding volgt […] j. is ingeschreven bij een school of instelling, voor het volgen van: […]",
+  },
   pw17: {
     titel: "Participatiewet, art. 17 lid 1",
     url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk2_Paragraaf2.3_Artikel17",

@@ -167,3 +167,23 @@ parameters:
       kop: "Dienst Toeslagen, Berekening huurtoeslag 2026, stap 5"
       tekst: "Voor inwonende kinderen die bij aanvang van 2026 jonger zijn dan 23 jaar, telt alleen het inkomen mee boven de vrijstellingsgrens van € 6.218 per persoon per jaar. Dit geldt ook voor pleeg-, stief- en adoptiekinderen."
       versie: "juni 2026"
+  - id: ht.vermogen.zonder_partner
+    omschrijving: Huurtoeslag 2026, hoogste vermogen op 1 januari 2026 zonder toeslagpartner (ook per medebewoner)
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "38479" }
+    status: geverifieerd
+    bron: &htvermogen
+      titel: Dienst Toeslagen, Hoeveel vermogen mag ik hebben om huurtoeslag te krijgen?
+      url: https://www.belastingdienst.nl/wps/wcm/connect/nl/huurtoeslag/content/maximaal-vermogen-huurtoeslag
+      geraadpleegd_op: 2026-11-21
+    citaat: &chtvermogen
+      kop: "Dienst Toeslagen, maximaal vermogen huurtoeslag"
+      tekst: "In 2026 kunt u huurtoeslag krijgen als uw vermogen op 1 januari 2026 niet hoger is dan € 38.479. Hebt u een toeslagpartner? In dat geval mag het vermogen van u samen op 1 januari 2026 maximaal € 76.958 zijn. […] Ook medebewoners mogen niet meer dan € 38.479 aan vermogen hebben."
+      versie: "geraadpleegd op 21 november 2026"
+  - id: ht.vermogen.met_partner
+    omschrijving: Huurtoeslag 2026, hoogste vermogen op 1 januari 2026 met toeslagpartner, samen
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "76958" }
+    status: geverifieerd
+    bron: *htvermogen
+    citaat: *chtvermogen

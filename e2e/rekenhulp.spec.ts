@@ -780,7 +780,7 @@ test("urenschuif bij een bruto maandloon: het bedrag in de zin schaalt precies m
   await expect(page.getByText("U vulde € 2.300 bruto per maand in, bij 32 uur per week. Bij 36 uur is dat € 2.588 bruto per maand.")).toBeVisible();
 });
 
-test("Escape in een geopende uitleg sluit die en zet de focus terug op het i-knopje", async ({ page }) => {
+test("Escape in een geopende uitleg sluit die en zet de focus terug op de knop Meer uitleg", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   const knop = page.locator(".info-knop").first();

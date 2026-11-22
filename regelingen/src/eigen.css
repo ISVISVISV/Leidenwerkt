@@ -1,0 +1,700 @@
+/* Alleen wat Leidengeldwijzer extra nodig heeft. De huisstijl staat in packages/ui/src/stijl.css. */
+
+:root {
+  /* De kleuren van de Sleutelpas zelf, alleen voor het pasje. */
+  --pas-geel: #fdc83f;
+  --pas-rood: #e3161b;
+  --pas-vlak: #fff6dc;
+  /* Per aanbieder een kleur voor het icoon: rood voor de gemeente, blauw voor het Rijk. */
+  --icoon-gemeente: #a50f1a;
+  --icoon-gemeente-vlak: #f6e3e3;
+  --icoon-rijk: #035989;
+  --icoon-rijk-vlak: #e2eef6;
+  --icoon-svb: #1d6b52;
+  --icoon-svb-vlak: #dff1e9;
+  --icoon-hulp: #4a3a7a;
+  --icoon-hulp-vlak: #ece8f5;
+  --tegel: #ffffff;
+  --tegel-hover: #eef0f2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --icoon-gemeente: #ff9aa0;
+    --icoon-gemeente-vlak: #3a1d20;
+    --icoon-rijk: #8ccbf0;
+    --icoon-rijk-vlak: #16303f;
+    --icoon-svb: #8fd8bb;
+    --icoon-svb-vlak: #13302a;
+    --icoon-hulp: #c7b8f0;
+    --icoon-hulp-vlak: #2a2440;
+    --pas-vlak: #2a2516;
+    --tegel: #151e25;
+    --tegel-hover: #24303a;
+  }
+}
+
+/* Het formulier blijft smal (goed te lezen). Het overzicht mag op een groot scherm breed. */
+.lgw.breed {
+  max-width: 72rem;
+}
+
+.lgw.breed main > :not(.overzicht):not(.voortgang),
+.lgw.breed .voet {
+  max-width: 38rem;
+}
+
+/* De kinderen en de knop om een kind toe te voegen staan samen in één kader. */
+.kinderen-kader {
+  border: 1px solid var(--lijn);
+  border-radius: 6px;
+  padding: 0.9rem 1rem 0.2rem;
+  margin: 0 0 1.25rem;
+  background: var(--veld);
+}
+
+.kind {
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- Overzicht ---------- */
+
+.overzicht-begin {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+}
+
+.overzicht-begin .inleiding {
+  margin: 0;
+  max-width: 38rem;
+  color: var(--inkt-zacht);
+}
+
+.printknop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.printknop .icoon {
+  width: 20px;
+  height: 20px;
+}
+
+/*
+ * Breed scherm: links de regelingen, rechts "Hulp nodig?". De koppen van beide kolommen staan op één rij,
+ * zodat de blokken eronder op dezelfde hoogte beginnen. Daarvoor doen de groepen "ja" en "info" niet mee
+ * als eigen vak (display: contents): hun kop en inhoud staan los in het raster.
+ */
+.overzicht-raster {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 19rem;
+  column-gap: 2rem;
+  margin-top: 1.75rem;
+}
+
+.groep.ja,
+.groep.info {
+  display: contents;
+}
+
+.groep.ja > .groep-kop {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.groep.ja > .groep-inhoud {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.groep.info > .groep-kop {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.groep.info > .groep-inhoud {
+  grid-column: 2;
+  grid-row: 2 / span 3;
+  align-self: start;
+}
+
+.groep.misschien,
+.groep.nee {
+  grid-column: 1;
+  margin-top: 1.5rem;
+}
+
+.overzicht h2 {
+  font-size: 1.3rem;
+  margin: 0 0 0.2rem;
+}
+
+/* De kop van een groep met een teken: vinkje (waarschijnlijk wel), vraagteken (misschien), kruis (waarschijnlijk niet). */
+.kans-kop {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.kans-teken {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.kans-teken .icoon {
+  width: 1.2rem;
+  height: 1.2rem;
+  stroke-width: 3;
+}
+
+.kans-teken.ja {
+  background: var(--positief);
+  color: var(--veld);
+}
+
+.kans-teken.misschien {
+  background: var(--let-op);
+  color: var(--veld);
+}
+
+.kans-teken.nee {
+  background: var(--vlak);
+  color: var(--inkt-zacht);
+}
+
+.groep.ja > .groep-kop .groep-uitleg,
+.groep.misschien > .groep-kop .groep-uitleg,
+.groep.nee > .groep-uitleg {
+  margin-left: 2.6rem;
+}
+
+.groep-uitleg {
+  margin: 0 0 0.9rem;
+  color: var(--inkt-zacht);
+}
+
+.groep.nee > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  background: var(--tegel);
+  border: 1px solid var(--lijn);
+  border-radius: 6px;
+}
+
+.groep.nee > summary::-webkit-details-marker {
+  display: none;
+}
+
+.groep.nee > summary::after {
+  content: "";
+  margin-left: auto;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.groep.nee[open] > summary::after {
+  transform: rotate(-135deg);
+}
+
+.groep.nee > summary h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.groep.nee[open] > summary {
+  margin-bottom: 0.6rem;
+}
+
+/* Een blok: de regelingen van één aanbieder. */
+.blok {
+  background: var(--tegel);
+  border: 1px solid var(--lijn);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.blok-kop {
+  font-size: 1.15rem;
+  margin: 0 0 0.7rem;
+}
+
+.blok-uitleg {
+  margin: 0.9rem 0 0.6rem;
+  color: var(--inkt-zacht);
+}
+
+.tegels {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 0.6rem;
+}
+
+.tegels.een {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.regeling {
+  margin: 0;
+}
+
+/* De hele tegel is één knop: naam, bedrag en een pijltje. */
+.tegel {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  min-height: 4.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 4px;
+  background: var(--papier);
+  color: var(--inkt);
+  font: inherit;
+}
+
+.tegel:hover {
+  background: var(--tegel-hover);
+}
+
+.tegel:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.tegel > .icoon:last-child {
+  margin-left: auto;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--inkt-zacht);
+}
+
+.tegel-icoon {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  background: var(--icoon-gemeente-vlak);
+  color: var(--icoon-gemeente);
+}
+
+.tegel-icoon .icoon {
+  width: 22px;
+  height: 22px;
+}
+
+.tegel-icoon.toeslagen {
+  background: var(--icoon-rijk-vlak);
+  color: var(--icoon-rijk);
+}
+
+.tegel-icoon.svb {
+  background: var(--icoon-svb-vlak);
+  color: var(--icoon-svb);
+}
+
+/* Elke aanbieder een eigen kleur: rood voor de gemeente Leiden, blauw voor Dienst Toeslagen, groen voor de SVB. */
+.blok.gemeente {
+  border-top: 4px solid var(--icoon-gemeente);
+}
+
+.blok.toeslagen {
+  border-top: 4px solid var(--icoon-rijk);
+}
+
+.blok.svb {
+  border-top: 4px solid var(--icoon-svb);
+}
+
+.blok.gemeente > .blok-kop {
+  color: var(--icoon-gemeente);
+}
+
+.blok.toeslagen > .blok-kop {
+  color: var(--icoon-rijk);
+}
+
+.blok.svb > .blok-kop {
+  color: var(--icoon-svb);
+}
+
+.tegel-icoon.hulp {
+  background: var(--icoon-hulp-vlak);
+  color: var(--icoon-hulp);
+}
+
+.tegel-tekst {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.regeling-naam {
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.tegel .bedrag {
+  font-size: 0.95rem;
+}
+
+/* De Sleutelpas: een brede tegel met het pasje. */
+.pas-tegel .tegel {
+  background: none;
+  padding: 0.2rem;
+  min-height: 0;
+  gap: 1rem;
+}
+
+.pas-tegel .tegel:hover {
+  background: var(--tegel-hover);
+}
+
+.pasje {
+  flex: none;
+  width: 4.5rem;
+  height: auto;
+}
+
+.pas-tegel .regeling-naam {
+  font-size: 1.05rem;
+}
+
+/* De Sleutelpas binnen het blok van de gemeente: een eigen vlak in een zachte kleur van de pas. */
+.pas-blok {
+  background: var(--pas-vlak);
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.pas-blok .tegel {
+  background: var(--tegel);
+}
+
+.pas-blok .tegel:hover {
+  background: var(--tegel-hover);
+}
+
+.pas-blok .pas-tegel .tegel {
+  background: none;
+}
+
+.pas-blok .blok-uitleg {
+  margin-top: 0.6rem;
+}
+
+.pas-uitleg {
+  color: var(--inkt-zacht);
+}
+
+/* Op het scherm staat de uitleg in het venster. Op papier staat hij bij de regeling. */
+.regeling-afdruk {
+  display: none;
+}
+
+/* ---------- Venster met de uitleg ---------- */
+
+.venster {
+  width: min(36rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 1.25rem 1.4rem 1.4rem;
+  border: 0;
+  border-radius: 8px;
+  background: var(--tegel);
+  color: var(--inkt);
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.3);
+}
+
+.venster::backdrop {
+  background: rgb(16 25 32 / 0.55);
+}
+
+.venster-bovenkant {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.venster-bovenkant .pasje {
+  width: 4rem;
+}
+
+.venster-bovenkant h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.sluitknop {
+  margin-left: auto;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--inkt);
+  cursor: pointer;
+}
+
+.sluitknop:hover {
+  background: var(--tegel-hover);
+}
+
+.uitleg-bedrag {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0.9rem 0 0.2rem;
+}
+
+.uitleg .waarom {
+  margin: 0.6rem 0 1rem;
+}
+
+.uitleg .aanvraag {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.regeling-bronnen {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.regeling-bronnen summary {
+  cursor: pointer;
+  color: var(--inkt-zacht);
+}
+
+.regeling-bronnen .bron-blok {
+  margin: 0.3rem 0 0;
+}
+
+.bron-regel {
+  display: block;
+}
+
+/* ---------- Smal scherm ---------- */
+
+@media (max-width: 52rem) {
+  .overzicht-raster {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Op de telefoon staat "Hulp nodig?" bovenaan: dat is snel te vinden. */
+  .groep.info > .groep-kop,
+  .groep.info > .groep-inhoud,
+  .groep.ja > .groep-kop,
+  .groep.ja > .groep-inhoud,
+  .groep.misschien,
+  .groep.nee {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .groep.info > .groep-kop {
+    order: 1;
+  }
+
+  .groep.info > .groep-inhoud {
+    order: 2;
+    margin-bottom: 1rem;
+  }
+
+  .groep.ja > .groep-kop {
+    order: 3;
+  }
+
+  .groep.ja > .groep-inhoud {
+    order: 4;
+  }
+
+  .groep.misschien {
+    order: 5;
+  }
+
+  .groep.nee {
+    order: 6;
+  }
+}
+
+@media (max-width: 40rem) {
+  .tegels {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: auto;
+  }
+
+  .blok {
+    padding: 0.75rem;
+  }
+
+  .pasje {
+    width: 4.5rem;
+  }
+}
+
+/* ---------- Afdruk: kort, op één A4 als het kan ---------- */
+
+.afdruk {
+  display: none;
+}
+
+@media print {
+  .lgw.breed {
+    max-width: none;
+  }
+
+  /* Op papier alleen de afdruk: niet het scherm-overzicht, niet de uitleg onderaan de pagina. */
+  .overzicht-begin,
+  .overzicht-raster,
+  .venster,
+  .lgw .voet {
+    display: none !important;
+  }
+
+  .afdruk {
+    display: block;
+  }
+
+  .afdruk h2 {
+    font-size: 1.1rem;
+    margin: 0.5rem 0 0.2rem;
+  }
+
+  .afdruk h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--inkt-zacht);
+    margin: 0.35rem 0 0.1rem;
+  }
+
+  .afdruk p {
+    margin: 0 0 0.2rem;
+  }
+
+  .afdruk-kolommen {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 0 1.4rem;
+  }
+
+  .afdruk-groep {
+    break-inside: avoid;
+  }
+
+  .kans-teken {
+    width: 1.3rem;
+    height: 1.3rem;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .kans-teken .icoon {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+
+  .kans-teken.ja {
+    background: #1f6b45;
+    color: #fff;
+  }
+
+  .kans-teken.misschien {
+    background: #8a4b00;
+    color: #fff;
+  }
+
+  .kans-teken.nee {
+    background: #ddd;
+    color: #333;
+  }
+
+  .afdruk-blok ul,
+  .afdruk-tijden,
+  .afdruk-plekken {
+    list-style: none;
+    margin: 0 0 0.2rem;
+    padding: 0;
+  }
+
+  .afdruk-blok li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.12rem 0;
+    border-bottom: 0.5pt dotted var(--lijn);
+  }
+
+  .afdruk-naam {
+    font-weight: 700;
+  }
+
+  .afdruk-blok.gemeente h3 {
+    color: #a50f1a;
+  }
+
+  .afdruk-blok.toeslagen h3 {
+    color: #035989;
+  }
+
+  .afdruk-blok.svb h3 {
+    color: #1d6b52;
+  }
+
+  .afdruk-blok li.op-pas {
+    padding-left: 1rem;
+  }
+
+  .afdruk-blok li.op-pas .afdruk-naam {
+    font-weight: 400;
+  }
+
+  .afdruk-bedrag {
+    text-align: right;
+  }
+
+  .afdruk-contact {
+    font-size: 0.9rem;
+    border-left: 0.75pt solid var(--lijn);
+    padding-left: 1rem;
+  }
+
+  .afdruk-plekken {
+    font-size: 0.85rem;
+  }
+
+  .afdruk .gegevens {
+    margin-top: 0.6rem;
+    break-inside: avoid;
+  }
+}

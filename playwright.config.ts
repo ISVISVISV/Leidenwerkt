@@ -8,9 +8,17 @@ export default defineConfig({
     // Lokaal kan een bestaande Chrome gebruikt worden: CHROME_PATH=/pad/naar/chrome
     launchOptions: process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {},
   },
-  webServer: {
-    command: "npm run preview -w app -- --port 4173 --strictPort",
-    url: "http://localhost:4173",
-    reuseExistingServer: true,
-  },
+  webServer: [
+    {
+      command: "npm run preview -w app -- --port 4173 --strictPort",
+      url: "http://localhost:4173",
+      reuseExistingServer: true,
+    },
+    // De tweede app (Leidengeldwijzer, nog niet gepubliceerd): e2e/regelingen.spec.ts.
+    {
+      command: "npm run preview -w regelingen -- --port 4174 --strictPort",
+      url: "http://localhost:4174",
+      reuseExistingServer: true,
+    },
+  ],
 });

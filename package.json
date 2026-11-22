@@ -7,7 +7,8 @@
   "type": "module",
   "workspaces": [
     "packages/*",
-    "app"
+    "app",
+    "regelingen"
   ],
   "scripts": {
     "regels": "tsx scripts/bouw-regels.ts",
@@ -16,9 +17,12 @@
     "dev": "npm run regels && npm run dev -w app",
     "build": "npm run regels && npm run build -w app",
     "build:los": "npm run regels && npm run build:los -w app",
-    "test:e2e": "npm run build && playwright test",
+    "test:e2e": "npm run build && npm run build -w regelingen && playwright test",
     "docs": "tsx scripts/documenten.ts",
-    "audit": "npm run regels && tsx scripts/audit.ts"
+    "audit": "npm run regels && tsx scripts/audit.ts",
+    "dev:regelingen": "npm run regels && npm run dev -w regelingen",
+    "build:regelingen": "npm run regels && npm run build -w regelingen",
+    "audit:leidengeldwijzer": "npm run regels && tsx scripts/audit-leidengeldwijzer.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",

@@ -37,6 +37,18 @@ jobs:
           status=0; npx tsx scripts/audit.ts --willekeurig 60 --zaad ${{ github.run_number }} || status=$?
           cat audit/rapport-willekeurig.md >> "$GITHUB_STEP_SUMMARY"
           exit $status
+      # Leidengeldwijzer: dezelfde opzet (audit/leidengeldwijzer/README.md), met vaste en willekeurige personen.
+      - name: Audit Leidengeldwijzer
+        run: |
+          status=0; npm run audit:leidengeldwijzer || status=$?
+          cat audit/leidengeldwijzer/rapport.md >> "$GITHUB_STEP_SUMMARY"
+          git diff --exit-code -- audit/leidengeldwijzer/ || { echo "::error::audit/leidengeldwijzer is niet bijgewerkt. Draai npm run audit:leidengeldwijzer en commit de uitvoer."; exit 1; }
+          exit $status
+      - name: Audit Leidengeldwijzer met willekeurige personen
+        run: |
+          status=0; npx tsx scripts/audit-leidengeldwijzer.ts --willekeurig 60 --zaad ${{ github.run_number }} || status=$?
+          cat audit/leidengeldwijzer/rapport-willekeurig.md >> "$GITHUB_STEP_SUMMARY"
+          exit $status
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -46,11 +58,22 @@ jobs:
             audit/uitvoer/
             audit/rapport-willekeurig.md
             audit/willekeurig-fouten.json
+            audit/leidengeldwijzer/rapport.md
+            audit/leidengeldwijzer/uitvoer/
+            audit/leidengeldwijzer/rapport-willekeurig.md
+            audit/leidengeldwijzer/willekeurig-fouten.json
       - run: npm run build:los
       - uses: actions/upload-artifact@v4
         with:
           name: leidenwerkt-los
           path: app/dist-los/index.html
+      # Leidengeldwijzer (proefversie, niet in zoekmachines) staat naast Leidenwerkt: /Leidenwerkt/leidengeldwijzer/.
+      - name: Leidengeldwijzer bij de site zetten
+        if: github.ref == 'refs/heads/main'
+        run: |
+          npm run build:regelingen
+          rm -rf app/dist/leidengeldwijzer
+          cp -r regelingen/dist app/dist/leidengeldwijzer
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main'
         with:

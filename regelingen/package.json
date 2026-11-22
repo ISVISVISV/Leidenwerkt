@@ -1,0 +1,21 @@
+{
+  "name": "@leidenwerkt/regelingen",
+  "private": true,
+  "version": "0.1.0",
+  "license": "EUPL-1.2",
+  "type": "module",
+  "description": "Leidengeldwijzer: welke regelingen kunt u krijgen in Leiden? Nog niet gepubliceerd.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build:los": "vite build --mode los"
+  },
+  "dependencies": {
+    "@fontsource/open-sans": "^5.3.0",
+    "@leidenwerkt/engine": "*",
+    "@leidenwerkt/ui": "*",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

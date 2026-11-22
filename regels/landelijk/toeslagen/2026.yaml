@@ -1,0 +1,24 @@
+gebied: Toeslagen algemeen 2026 (huurtoeslag, zorgtoeslag, kindgebonden budget)
+geldig_van: 2026-01-01
+geldig_tot: 2026-12-31
+parameters:
+  - id: toeslagen.vermogen.inkomen.zonder_partner
+    omschrijving: Boven dit vermogen telt inkomen uit vermogen mee in het toetsingsinkomen, zonder toeslagpartner
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "59357" }
+    status: geverifieerd
+    bron: &vermogen
+      titel: Dienst Toeslagen, Hoeveel vermogen mag ik hebben als ik toeslag krijg?
+      url: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/toeslagen/hoe_werken_toeslagen/kan_ik_toeslag_krijgen/vermogen/vermogen
+      geraadpleegd_op: 2026-11-21
+    citaat: &cvermogen
+      kop: "Dienst Toeslagen, vermogen en toeslagen"
+      tekst: "Vermogen is de waarde van uw bezittingen min uw schulden. Wat u wel en niet als vermogen moet meetellen, is hetzelfde als bij uw belastingaangifte. Spaargeld, aandelen en een vakantiehuis in Nederland of het buitenland tellen bijvoorbeeld mee. Maar het huis waarin u woont en uw auto tellen niet mee als vermogen. […] Is uw vermogen in 2026 hoger dan € 59.357? Of als u een partner hebt hoger dan € 118.714? Dan hebt u een inkomen uit vermogen. Hierdoor wordt uw toetsingsinkomen hoger, waardoor uw toeslag lager kan worden."
+      versie: "geraadpleegd op 21 november 2026"
+  - id: toeslagen.vermogen.inkomen.met_partner
+    omschrijving: Boven dit vermogen telt inkomen uit vermogen mee in het toetsingsinkomen, met toeslagpartner samen
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "118714" }
+    status: geverifieerd
+    bron: *vermogen
+    citaat: *cvermogen

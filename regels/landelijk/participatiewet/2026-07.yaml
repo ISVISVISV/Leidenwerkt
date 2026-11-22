@@ -206,3 +206,88 @@ parameters:
       url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel23
       geraadpleegd_op: 2026-11-08
     citaat: *c23
+  - id: pw.vermogensgrens.alleenstaande
+    omschrijving: Vermogensgrens bijstand, alleenstaande (art. 34 lid 3 a Pw)
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "8000" }
+    status: geverifieerd
+    bron: &pw34
+      titel: Participatiewet art. 34 (wetten.overheid.nl, versie 1 juli 2026)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01
+      geraadpleegd_op: 2026-11-21
+    citaat: &cpw34
+      kop: "Participatiewet, art. 34"
+      tekst: "1 Onder vermogen wordt verstaan: a. de waarde van de bezittingen waarover de alleenstaande of het gezin beschikt of redelijkerwijs kan beschikken, verminderd met de aanwezige schulden. […] 2 Niet als vermogen wordt in aanmerking genomen: […] d. het vermogen gebonden in de woning met bijbehorend erf, bedoeld in artikel 50, eerste lid, voorzover dit minder bedraagt dan € 67.500,00; […] 3 De in het tweede lid, onderdeel b, bedoelde vermogensgrens is: a. voor een alleenstaande: € 8.000,00; b. voor een alleenstaande ouder: € 16.000,00; c. voor de gehuwden tezamen: € 16.000,00."
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.4_Artikel34
+      versie: "geldend vanaf 1 juli 2026"
+  - id: pw.vermogensgrens.alleenstaande_ouder
+    omschrijving: Vermogensgrens bijstand, alleenstaande ouder (art. 34 lid 3 b Pw)
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "16000" }
+    status: geverifieerd
+    bron: *pw34
+    citaat: *cpw34
+  - id: pw.vermogensgrens.gehuwden
+    omschrijving: Vermogensgrens bijstand, gehuwden samen (art. 34 lid 3 c Pw)
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "16000" }
+    status: geverifieerd
+    bron: *pw34
+    citaat: *cpw34
+  - id: pw.vermogen.woning_vrij
+    omschrijving: Vermogen in de eigen woning dat niet meetelt voor de bijstand (art. 34 lid 2 d Pw)
+    eenheid: euro
+    waarde: { soort: bedrag, bedrag: "67500" }
+    status: geverifieerd
+    bron: *pw34
+    citaat: *cpw34
+  - id: pw.studietoeslag.21
+    omschrijving: Studietoeslag, wettelijk minimum per maand, 21 jaar en ouder (art. 7a a Besluit, art. 36b Pw)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "390.07" }
+    status: geverifieerd
+    bron: &st7a
+      titel: Besluit loonkostensubsidie en minimumbedragen studietoeslag Participatiewet 2021, art. 7a (versie 1 juli 2026)
+      url: https://wetten.overheid.nl/BWBR0044894/2026-07-01
+      geraadpleegd_op: 2026-11-21
+    citaat: &cst7a
+      kop: "Besluit minimumbedragen studietoeslag, art. 7a"
+      tekst: "Het bedrag, bedoeld in artikel 36b, eerste lid, van de Participatiewet bedraagt per maand minimaal voor: a. 21-jarigen en ouder: € 390,07; b. 20-jarigen: € 312,06; c. 19-jarigen: € 234,05; d. 18-jarigen: € 195,04; e. 17-jarigen: € 154,08; f. 16-jarigen: € 134,58; g. 15-jarigen: € 117,03."
+      versie: "geldend vanaf 1 juli 2026"
+    notitie: Op de pagina van de gemeente Leiden (geraadpleegd 21 november 2026) staan nog de bedragen van 1 januari 2024. Het wettelijke minimum is hoger.
+  - id: pw.studietoeslag.20
+    omschrijving: Studietoeslag, wettelijk minimum per maand, 20 jaar (art. 7a b)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "312.06" }
+    status: geverifieerd
+    bron: *st7a
+    citaat: *cst7a
+  - id: pw.studietoeslag.19
+    omschrijving: Studietoeslag, wettelijk minimum per maand, 19 jaar (art. 7a c)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "234.05" }
+    status: geverifieerd
+    bron: *st7a
+    citaat: *cst7a
+  - id: pw.studietoeslag.18
+    omschrijving: Studietoeslag, wettelijk minimum per maand, 18 jaar (art. 7a d)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "195.04" }
+    status: geverifieerd
+    bron: *st7a
+    citaat: *cst7a
+  - id: pw.norm.jong.alleenstaande
+    omschrijving: Jongerennorm, alleenstaande (ouder) van 18, 19 of 20 jaar, netto incl. vakantietoeslag, zonder de verhoging van lid 3 (art. 20 lid 1 a en lid 2 a Pw)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "350.42" }
+    status: geverifieerd
+    bron:
+      titel: Participatiewet art. 20 (wetten.overheid.nl, versie 1 juli 2026)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01
+      geraadpleegd_op: 2026-11-21
+    citaat:
+      kop: "Participatiewet, art. 20"
+      tekst: "1 Voor belanghebbenden jonger dan 21 jaar zonder ten laste komende kinderen is de norm per kalendermaand, indien het betreft: a. een alleenstaande van 18, 19 of 20 jaar: € 350,42; […] 2 Voor belanghebbenden jonger dan 21 jaar met een of meer ten laste komende kinderen is de norm per kalendermaand, indien het betreft: a. een alleenstaande ouder van 18, 19 of 20 jaar: € 350,42; […] 3 Voor belanghebbenden van 18, 19 of 20 jaar verhoogt het college de norm met een bedrag van € 762,24, indien die belanghebbende voor de kosten van levensonderhoud geen beroep kan doen op zijn ouders, omdat: a. de middelen van de ouders daartoe niet toereikend zijn; of b. deze persoon redelijkerwijs het onderhoudsrecht jegens de ouders niet te gelde kan maken."
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel20
+      versie: "geldend vanaf 1 juli 2026"
+    notitie: "Controle: de gemeente Leiden noemt voor de Gemeentepolis (120%) bij alleenstaand van 18 tot 21 jaar € 399,48 zonder vakantiegeld. Dat is 120% × 95% × € 350,42."
