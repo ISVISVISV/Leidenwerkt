@@ -22,14 +22,14 @@ export const GOEDE_BUUR = {
 };
 
 export const CONTACT: { naam: string; regels: string[] }[] = [
-  { naam: "Gemeente Leiden", regels: ["Bel 14 071. Maandag tot en met vrijdag van 9.00 tot 17.00 uur."] },
+  { naam: "Gemeente Leiden", regels: ["Bel 14 071. U kunt bellen van maandag tot en met vrijdag, van 9.00 tot 17.00 uur."] },
   { naam: "Stadsbank Leiden", regels: ["Heeft u schulden? Of maakt u zich zorgen over geld? Bel 14 071 en kies 1."] },
   {
     naam: "Dienst Toeslagen",
     regels: [
       "Bel 0800 - 0543. Dit nummer is gratis.",
-      "Maandag tot en met donderdag van 8.00 tot 20.00 uur. Vrijdag van 8.00 tot 17.00 uur.",
-      "Langskomen kan bij het steunpunt van de Belastingdienst in het Stadskantoor, Bargelaan 190. Elke vrijdag van 9.00 tot 16.00 uur.",
+      "U kunt bellen van maandag tot en met donderdag, van 8.00 tot 20.00 uur. Op vrijdag kan het van 8.00 tot 17.00 uur.",
+      "U kunt ook langskomen. Het steunpunt van de Belastingdienst is in het Stadskantoor, Bargelaan 190. Het is open op vrijdag, van 9.00 tot 16.00 uur.",
       "Maak eerst een afspraak: www.belastingdienst.nl/langskomen.",
     ],
   },

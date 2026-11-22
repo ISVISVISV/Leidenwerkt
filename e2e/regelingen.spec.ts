@@ -159,7 +159,7 @@ test("huisgenoten met een bekend inkomen: Leidengeldwijzer rekent de huurtoeslag
   await page.getByLabel("Kale huur per maand").fill("750");
   await kies(page, "Woont er nog iemand anders bij u?", "Ja");
   await page.getByLabel("Hoeveel mensen zijn dat?").fill("1");
-  await page.getByLabel("Voor de huurtoeslag: bruto inkomen per jaar van deze mensen, samen").fill("6000");
+  await page.getByLabel("Hoeveel bruto inkomen hebben deze mensen samen per jaar?").fill("6000");
   await geenToegankelijkheidsfouten(page);
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await kies(page, "Krijgt u bijstand van de gemeente?", "Ja");

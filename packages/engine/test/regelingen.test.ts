@@ -225,7 +225,7 @@ describe("toeslagen", () => {
     const getal = Number(bereken(lw).huidig.posten.find((p) => p.id === "huurtoeslag")!.perMaand!);
     const u = uitslag(checkRegelingen(invoer({ bijstand: true, aanvrager: { leeftijd: 40, inkomen: {} }, andereBewoners: true, andereBewonersAantal: 1, andereBewonersInkomenJaar: 6000 })), "huurtoeslag")!;
     expect(u.bedrag).toBe(`ongeveer €\u00a0${getal.toLocaleString("nl-NL", { maximumFractionDigits: 0 })} per maand`);
-    expect(u.waarom).toContain("Het inkomen van de andere volwassenen in uw huis telt mee.");
+    expect(u.waarom).toContain("Het inkomen van de andere volwassenen in huis telt mee.");
     expect(u.bronnen).toContainEqual(CITATEN.htMedebewoners);
   });
   it("een kind jonger dan 23 met een klein inkomen: de vrijstelling, dus dezelfde huurtoeslag", () => {

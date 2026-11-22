@@ -4,7 +4,6 @@ import { Bron, Datum, Keuze, Veld, Vinkjes } from "@leidenwerkt/ui";
 import { bedragId, bedragSoorten, controleer, infoVan, vandaag, vraagAnderen, vraagInkomenKind, vraagOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Overzicht } from "./Overzicht.tsx";
 import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANGSOORTEN, SOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
-import { leeftijdOp } from "@leidenwerkt/ui/invoer";
 
 const STAPPEN = ["Uw huishouden", "Uw inkomen", "Geld en bezit", "Overzicht"];
 
@@ -344,8 +343,8 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
               hint={
                 <>
                   <p>
-                    Dit telt mee voor de huurtoeslag. Het inkomen van uw partner en uw kinderen telt u hier niet mee. Weet u het niet precies? Vul dan
-                    een schatting in. Heeft niemand inkomen? Vul dan 0 in. Weet u het helemaal niet? Vink dan hieronder "Ik weet dit inkomen niet" aan.
+                    Dit inkomen telt mee voor de huurtoeslag. Tel uw partner en uw kinderen hier niet mee. Weet u het niet precies? Vul dan een
+                    schatting in. Heeft niemand inkomen? Vul dan 0 in. Weet u het niet? Kies dan "Ik weet dit inkomen niet".
                   </p>
                   <p className="bron-blok">
                     Bron: <Bron citaat={CITATEN.htMedebewoners} />
@@ -396,7 +395,7 @@ function KindVragen({ f, i, zet, fouten }: StapProps & { i: number }) {
             label={VRAAG.prijs}
             hint={
               info.soort && maxPrijsTekst(info.soort)
-                ? `Vraag het aan de opvang. Weet u het niet? Laat het vak leeg. Leidengeldwijzer rekent dan met € ${maxPrijsTekst(info.soort)} per uur. Dat is de hoogste prijs per uur waarover u toeslag krijgt.`
+                ? `Vraag het aan de opvang. Weet u het niet? Laat het vak dan leeg. Leidengeldwijzer rekent dan met € ${maxPrijsTekst(info.soort)} per uur. Voor een hogere prijs krijgt u geen extra toeslag.`
                 : "Vraag dit na bij de opvang. Weet u het niet? Laat het vak dan leeg."
             }
             voorbeeld="bijv. 10,50"
@@ -412,12 +411,12 @@ function KindVragen({ f, i, zet, fouten }: StapProps & { i: number }) {
           {!info.inkomenOnbekend ? (
             <Veld
               id={`kind${i}inkomen`}
-              label={VRAAG.inkomenKind(welke, leeftijdOp(k, vandaag()) ?? 0)}
+              label={VRAAG.inkomenKind(welke)}
               hint={
                 <>
                   <p>
-                    Het bruto inkomen, zoals op de jaaropgave of de loonstrook van uw kind. Vul het hele bedrag in. Leidengeldwijzer trekt zelf af wat
-                    niet meetelt. Studiefinanciering telt niet mee. Heeft uw kind geen inkomen? Vul dan 0 in.
+                    Dit inkomen telt mee voor de huurtoeslag. Kijk op de jaaropgave of de loonstrook van uw kind. Vul het hele bedrag in.
+                    Leidengeldwijzer trekt zelf af wat niet meetelt. Studiefinanciering telt niet mee. Heeft uw kind geen inkomen? Vul dan 0 in.
                   </p>
                   <p className="bron-blok">
                     Bron: <Bron citaat={CITATEN.htInkomenKind} />
@@ -431,7 +430,7 @@ function KindVragen({ f, i, zet, fouten }: StapProps & { i: number }) {
               fout={fouten[`kind${i}inkomen`]}
             />
           ) : (
-            <p className="vraag-tekst">{VRAAG.inkomenKind(welke, leeftijdOp(k, vandaag()) ?? 0)}</p>
+            <p className="vraag-tekst">{VRAAG.inkomenKind(welke)}</p>
           )}
           <label className="vinkje">
             <input type="checkbox" checked={info.inkomenOnbekend} onChange={(e) => zetInfo({ inkomenOnbekend: e.target.checked })} />

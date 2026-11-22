@@ -17,7 +17,7 @@ const GROEPEN: { kans: Kans; kop: string; uitleg: string }[] = [
   { kans: "misschien", kop: "Dit kunt u misschien krijgen", uitleg: "Leidengeldwijzer weet het niet zeker. Bij elke regeling staat waarom." },
   { kans: "nee", kop: "Dit kunt u waarschijnlijk niet krijgen", uitleg: "Bij elke regeling staat waarom niet." },
 ];
-const HULP = { kop: "Hulp nodig?", uitleg: "Deze hulp is er voor alle Leidenaren." };
+const HULP = { kop: "Hulp nodig?" };
 
 /** De regelingen die op de Sleutelpas staan. */
 const OP_DE_PAS = ["kindtegoed", "laptop", "zwemles", "volwassenenfonds"];
@@ -108,7 +108,7 @@ export function Overzicht({ f }: { f: Formulier }) {
             const pas = pasBlok.find((u) => u.id === "sleutelpas");
             const opPas = pasBlok.filter((u) => u.id !== "sleutelpas");
             return (
-              <section key={blok} className="blok">
+              <section key={blok} className={`blok ${blok}`}>
                 <h3 className="blok-kop">{blokKop}</h3>
                 {pas && (
                   <div className="pas-blok">
@@ -150,7 +150,6 @@ export function Overzicht({ f }: { f: Formulier }) {
           <div className="groep info">
             <div className="groep-kop">
               <h2>{HULP.kop}</h2>
-              <p className="groep-uitleg">{HULP.uitleg}</p>
             </div>
             <div className="groep-inhoud">
               <div className="blok">
@@ -303,7 +302,7 @@ function Afdruk({ f, uitslagen }: { f: Formulier; uitslagen: Uitslag[] }) {
                   const inBlok = [...pasBlok, ...lijst.filter((u) => blokVan(u, pasInGroep) === blok)];
                   if (inBlok.length === 0) return null;
                   return (
-                    <div key={blok} className="afdruk-blok">
+                    <div key={blok} className={`afdruk-blok ${blok}`}>
                       <h3>{blokKop}</h3>
                       <ul>
                         {inBlok.map((u) => (

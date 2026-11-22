@@ -649,7 +649,7 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
         : NUL;
       if (anderen) basis.bronnen.push(CITATEN.htMedebewoners, ...(volwassenKinderen.length > 0 ? [CITATEN.htInkomenKind, ...bron(l, "ht.vrijstelling_kind_onder_23")] : []));
       const anderenZin = anderen
-        ? " Het inkomen van de andere volwassenen in uw huis telt mee. Hun geld en bezit tellen ook mee. Leidengeldwijzer rekent alleen met hun inkomen."
+        ? " Het inkomen van de andere volwassenen in huis telt mee. Hun geld en bezit telt ook mee. Dat rekent Leidengeldwijzer niet uit."
         : "";
       if (personen.every((p) => p.leeftijd < 21))
         return { ...basis, kans: "misschien", waarom: "Leidengeldwijzer rekent de huurtoeslag voor jongeren onder de 21 jaar niet uit. Doe de proefberekening van Dienst Toeslagen." };
@@ -708,7 +708,7 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
           kans: "ja",
           bedrag: `ongeveer ${heel(bedrag)} per maand`,
           waarom: `Dit is geld voor de kosten van de kinderopvang. U betaalt zelf ook een deel.${
-            geschat ? " U wist de prijs per uur niet. Leidengeldwijzer rekent met de hoogste prijs per uur waarover u toeslag krijgt." : ""
+            geschat ? " U weet de prijs per uur niet. Leidengeldwijzer rekent daarom met de hoogste prijs voor de toeslag." : ""
           }`,
         };
       }),
