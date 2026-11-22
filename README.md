@@ -8,7 +8,7 @@ Gratis, open rekenhulp voor inwoners van Leiden met bijstand. De vraag die de ap
 - Elke regel en elk bedrag heeft een officiële bron en een status (`geverifieerd`, `onbevestigd`, `ontbrekend`). Ontbreekt een gegeven, dan rekent de app dat onderdeel niet uit in plaats van te gokken.
 - De uitkomst is een inschatting, geen advies of beslissing.
 
-In deze repository zit ook **Leidengeldwijzer**: een check voor alle Leidenaren van 18 jaar tot de AOW-leeftijd. Welke regelingen van de gemeente en welke toeslagen kunt u krijgen? Leidengeldwijzer is nog in ontwikkeling. Het valt onder dezelfde open licentie (EUPL-1.2) en volgt dezelfde regels: alles in de browser, alleen officiële bronnen.
+In deze repository zit ook **Leidengeldwijzer**: een check voor alle Leidenaren van 18 jaar tot de AOW-leeftijd. Welke regelingen van de gemeente en welke toeslagen kunt u krijgen? Leidengeldwijzer is nog in ontwikkeling. Het valt onder dezelfde open licentie (EUPL-1.2) en volgt dezelfde regels: alles in de browser, alleen officiële bronnen. Het logo van de Sleutelpas (`regelingen/src/afbeeldingen/sleutelpas.png`) is van de gemeente Leiden en is rechtenvrij te gebruiken. Het valt niet onder de EUPL.
 
 ## Snel starten
 

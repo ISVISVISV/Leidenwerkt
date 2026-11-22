@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { checkRegelingen, type Kans, type Uitslag } from "@leidenwerkt/engine";
 import { Bron } from "@leidenwerkt/ui";
 import { ingevuld, naarInvoer, vandaag, type Formulier } from "./formulier.ts";
+import { CONTACT, GOEDE_BUUR } from "./contact.ts";
 import { Icoon, Pasje } from "./iconen.tsx";
 
 const GROEPEN: { kans: Kans; kop: string; uitleg: string }[] = [
@@ -77,9 +78,6 @@ export function Overzicht({ f }: { f: Formulier }) {
 
   return (
     <section className="overzicht">
-      <p className="alleen-print afdruk-datum">
-        Overzicht van {leesbareDatum(vandaag())}. Leidengeldwijzer versie {__VERSIE__}.
-      </p>
       <div className="overzicht-begin">
         <p className="inleiding">
           Dit overzicht is een schatting. Leidengeldwijzer gebruikt alleen wat u heeft ingevuld. Leidengeldwijzer bewaart niets. Wilt u het overzicht
@@ -96,8 +94,11 @@ export function Overzicht({ f }: { f: Formulier }) {
           if (lijst.length === 0) return null;
           const pasInGroep = lijst.some((u) => u.id === "sleutelpas");
           const kop = (
-            <h2>
-              {g.kop} ({lijst.length})
+            <h2 className="kans-kop">
+              <KansTeken kans={g.kans} />
+              <span>
+                {g.kop} ({lijst.length})
+              </span>
             </h2>
           );
           const blokken = BLOKKEN.map(({ blok, kop: blokKop }) => {
@@ -161,30 +162,19 @@ export function Overzicht({ f }: { f: Formulier }) {
         )}
       </div>
 
-      <section className="alleen-print gegevens" aria-label="Wat u heeft ingevuld">
-        <h2>Wat u heeft ingevuld</h2>
-        <div className="gegevens-kolommen">
-          {ingevuld(f).map((blok) => (
-            <div key={blok.kop}>
-              <h3>{blok.kop}</h3>
-              <dl>
-                {blok.regels.map(([naam, waarde], i) => (
-                  <div key={i}>
-                    <dt>{naam}</dt>
-                    <dd>{waarde}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          ))}
-        </div>
-      </section>
+      <Afdruk f={f} uitslagen={uitslagen} />
 
       <dialog ref={venster} className="venster" aria-labelledby="venster-kop" onClose={gesloten}>
         {open && (
           <>
             <div className="venster-bovenkant">
-              <span className={`tegel-icoon ${open.groep}`}>{open.id === "sleutelpas" ? <Pasje /> : <Icoon regeling={open.id} />}</span>
+              {open.id === "sleutelpas" ? (
+                <Pasje />
+              ) : (
+                <span className={`tegel-icoon ${open.groep}`}>
+                  <Icoon regeling={open.id} />
+                </span>
+              )}
               <h2 id="venster-kop">{open.naam}</h2>
               <button type="button" className="sluitknop" aria-label="Sluiten" onClick={() => venster.current?.close()}>
                 <Icoon naam="kruis" />
@@ -261,5 +251,122 @@ function Uitleg({ u }: { u: Uitslag }) {
         </p>
       </details>
     </div>
+  );
+}
+
+/** Een teken bij de kop van een groep: een vinkje, een vraagteken of een kruis. Zo zie je meteen het verschil. */
+function KansTeken({ kans }: { kans: Kans }) {
+  return (
+    <span className={`kans-teken ${kans}`} aria-hidden="true">
+      <Icoon naam={kans === "ja" ? "vink" : kans === "misschien" ? "vraagteken" : "kruis"} />
+    </span>
+  );
+}
+
+/**
+ * De afdruk: kort, voor een spreekuur of voor thuis. Welke regelingen, waar u ze aanvraagt,
+ * waar u hulp krijgt en wat u heeft ingevuld. Geen uitleg, geen bronnen en geen webadressen: die heeft u op papier niet nodig.
+ */
+function Afdruk({ f, uitslagen }: { f: Formulier; uitslagen: Uitslag[] }) {
+  const toeslagen = uitslagen.some((u) => u.groep === "toeslagen" && u.kans !== "nee");
+  return (
+    <section className="alleen-print afdruk" aria-label="Afdruk">
+      <p className="afdruk-datum">
+        Overzicht van {leesbareDatum(vandaag())}. Leidengeldwijzer versie {__VERSIE__}.
+      </p>
+      <div className="afdruk-kolommen">
+        <div>
+          {GROEPEN.map((g) => {
+            const lijst = uitslagen.filter((u) => u.kans === g.kans);
+            if (lijst.length === 0) return null;
+            const kop = (
+              <h2 className="kans-kop">
+                <KansTeken kans={g.kans} />
+                <span>
+                  {g.kop} ({lijst.length})
+                </span>
+              </h2>
+            );
+            if (g.kans === "nee")
+              return (
+                <section key={g.kans} className="afdruk-groep nee">
+                  {kop}
+                  <p>{lijst.map((u) => u.naam).join(", ")}.</p>
+                </section>
+              );
+            const pasInGroep = lijst.some((u) => u.id === "sleutelpas");
+            return (
+              <section key={g.kans} className={`afdruk-groep ${g.kans}`}>
+                {kop}
+                {BLOKKEN.map(({ blok, kop: blokKop }) => {
+                  const inBlok = lijst.filter((u) => blokVan(u, pasInGroep) === blok);
+                  if (inBlok.length === 0) return null;
+                  return (
+                    <div key={blok} className="afdruk-blok">
+                      <h3>{blokKop}</h3>
+                      <ul>
+                        {inBlok.map((u) => (
+                          <li key={u.id}>
+                            <span className="afdruk-naam">{u.naam}</span>
+                            {u.bedrag && <span className="afdruk-bedrag">{u.bedrag}</span>}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </section>
+            );
+          })}
+        </div>
+
+        <section className="afdruk-contact">
+          <h2>Hulp en contact</h2>
+          <h3>{GOEDE_BUUR.naam}</h3>
+          <p>{GOEDE_BUUR.uitleg}</p>
+          <ul className="afdruk-tijden">
+            {GOEDE_BUUR.tijden.map((t) => (
+              <li key={t}>{t}</li>
+            ))}
+          </ul>
+          <p>{GOEDE_BUUR.waar}</p>
+          <ul className="afdruk-plekken">
+            {GOEDE_BUUR.plekken.map(([plek, adres]) => (
+              <li key={plek}>
+                {plek}, {adres}
+              </li>
+            ))}
+          </ul>
+          <p>{GOEDE_BUUR.bellen}</p>
+          {CONTACT.filter((c) => c.naam !== "Dienst Toeslagen" || toeslagen).map((c) => (
+            <div key={c.naam}>
+              <h3>{c.naam}</h3>
+              {c.regels.map((r) => (
+                <p key={r}>{r}</p>
+              ))}
+            </div>
+          ))}
+        </section>
+      </div>
+
+      <section className="gegevens">
+        <h2>Wat u heeft ingevuld</h2>
+        <div className="gegevens-kolommen">
+          {ingevuld(f).map((blok) => (
+            <div key={blok.kop}>
+              <h3>{blok.kop}</h3>
+              <dl>
+                {blok.regels.map(([naam, waarde], i) => (
+                  <div key={i}>
+                    <dt>{naam}</dt>
+                    <dd>{waarde}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          ))}
+        </div>
+      </section>
+    </section>
   );
 }

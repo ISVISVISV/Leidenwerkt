@@ -45,15 +45,12 @@ async function main() {
 
   async function bekijk(f: Formulier) {
     const inhoud = pagina(css, renderToStaticMarkup(createElement(Overzicht as never, { f })));
-    // Op het scherm staat de uitleg in een venster. Op papier staat alles bij de regeling: de audit leest de afdruk.
+    // Scherm: per regeling een tegel. De uitleg (waarom, aanvraag, bronnen) staat verborgen bij de tegel en opent in een venster.
+    // De audit leest die uitleg uit de pagina (textContent), zonder te klikken.
     await scherm.setContent(inhoud);
-    const schermTekst = await scherm.evaluate(() => (document.querySelector("main") as HTMLElement).innerText);
-    await papier.setContent(inhoud);
-    const w = await papier.evaluate(() => {
-      document.querySelectorAll("details").forEach((d) => ((d as HTMLDetailsElement).open = true));
-      document.querySelectorAll(".bron-tekst").forEach((e) => e.remove());
-      const tekst = (e: Element | null) => (e as HTMLElement | null)?.innerText.trim() ?? "";
-      const kaarten = [...document.querySelectorAll(".regeling")].map((li) => ({
+    const w = await scherm.evaluate(() => {
+      const tekst = (e: Element | null) => (e?.textContent ?? "").replace(/\s+/g, " ").trim();
+      const kaarten = [...document.querySelectorAll(".overzicht-raster .regeling")].map((li) => ({
         id: li.getAttribute("data-id") ?? "",
         groep: ["ja", "misschien", "info", "nee"].find((g) => li.closest(".groep")?.classList.contains(g)) ?? "",
         naam: tekst(li.querySelector(".regeling-naam")),
@@ -62,15 +59,15 @@ async function main() {
         links: [...li.querySelectorAll("a.aanvraag")].map((a) => (a as HTMLAnchorElement).href),
         bronnen: li.querySelectorAll(".bron-knop").length,
       }));
-      return { tekst: tekst(document.querySelector("main")), kaarten };
+      const uitleg = kaarten.map((k) => [k.naam, k.bedrag, k.waarom].filter(Boolean).join("\n")).join("\n\n");
+      return { schermTekst: (document.querySelector("main") as HTMLElement).innerText.trim(), uitleg, kaarten };
     });
-    const overlap = await overlapIn(papier, ".inleiding, .groep-kop, .groep > summary, .regeling");
-    const afdruk = await papier.evaluate(() => {
-      // Zoals bij afdrukken (beforeprint): alle groepen open.
-      document.querySelectorAll("details").forEach((d) => ((d as HTMLDetailsElement).open = true));
-      return [...document.querySelectorAll(".regeling")].filter((e) => (e as HTMLElement).offsetHeight > 0).length;
-    });
-    return { ...w, schermTekst, overlap, zichtbaarOpPapier: afdruk };
+    // Papier: de korte afdruk. Elke regeling staat erop met haar naam.
+    await papier.setContent(inhoud);
+    const overlap = await overlapIn(papier, ".afdruk-datum, .afdruk-groep, .afdruk-contact, .gegevens");
+    const afdruk = await papier.evaluate(() => (document.querySelector(".afdruk") as HTMLElement).innerText.trim());
+    const nietOpPapier = w.kaarten.filter((k) => k.groep !== "info" && !afdruk.includes(k.naam)).map((k) => k.naam);
+    return { ...w, tekst: `${afdruk}\n\n## Uitleg per regeling (op het scherm, in het venster)\n\n${w.uitleg}`, afdruk, overlap, nietOpPapier };
   }
 
   /** Het inkomen van het huishouden per maand, zoals de gemeente het telt (zonder bijstand). */
@@ -115,7 +112,7 @@ async function main() {
     c.geenKapotteTekst(p.naam, waar, [w.schermTekst, w.tekst]);
     // 6. Afdruk: niets overlapt, en ook de dichtgeklapte groep staat op papier.
     c.controle("Afdruk zonder overlap", p.naam, waar, w.overlap.length === 0, w.overlap.join(" | "));
-    c.controle("Afdruk toont alle regelingen", p.naam, waar, w.zichtbaarOpPapier === w.kaarten.length, `${w.zichtbaarOpPapier} van ${w.kaarten.length} op papier`);
+    c.controle("Afdruk toont alle regelingen", p.naam, waar, w.nietOpPapier.length === 0, `niet op papier: ${w.nietOpPapier.join(", ")}`);
     // 7. Officiële bedragen en grenzen.
     for (const v of p.verwacht ?? []) {
       const k = w.kaarten.find((x) => x.id === v.regeling);
@@ -156,7 +153,7 @@ async function main() {
         c.controle("Omweg geeft dezelfde uitkomst", p.naam, o.naam, i === -1 && a.length === b.length, i === -1 ? "andere lengte" : `direct: "${a[i]}" | omweg: "${b[i] ?? ""}"`);
       }
       if (!aantalWillekeurig)
-        writeFileSync(join(uitvoerMap, `${bestandsnaam(p.naam)}.txt`), `# ${p.naam}\n\n## Wat is ingevuld\n\n${ingevuld(form.naarInvoer(p.f))}\n\n## Overzicht\n\n${w.tekst}\n`);
+        writeFileSync(join(uitvoerMap, `${bestandsnaam(p.naam)}.txt`), `# ${p.naam}\n\n## Wat is ingevuld\n\n${ingevuld(form.naarInvoer(p.f))}\n\n## Afdruk\n\n${w.tekst}\n`);
     } catch (e) {
       c.controle("Rekent zonder fout", p.naam, "-", false, String(e).split("\n")[0]);
     }

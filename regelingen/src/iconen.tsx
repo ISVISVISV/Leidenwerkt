@@ -3,6 +3,7 @@
  * Alle iconen zijn decoratief: de naam van de regeling staat er altijd naast.
  */
 import type { ReactNode } from "react";
+import sleutelpas from "./afbeeldingen/sleutelpas.png";
 
 const PADEN: Record<string, ReactNode> = {
   kind: (
@@ -85,6 +86,8 @@ const PADEN: Record<string, ReactNode> = {
   ),
   pijl: <path d="M9 6l6 6-6 6" />,
   kruis: <path d="M6 6l12 12M18 6L6 18" />,
+  vink: <path d="M5 12.5l4.5 4.5L19 7.5" />,
+  vraagteken: <path d="M9 9a3 3 0 1 1 4.2 2.75c-.7.32-1.2 1-1.2 1.8V14M12 18h.01" />,
   print: (
     <>
       <path d="M6 9V3h12v6" />
@@ -128,14 +131,7 @@ export function Icoon({ naam, regeling }: { naam?: keyof typeof PADEN; regeling?
   );
 }
 
-/** Een Sleutelpas in de kleuren van de pas: geel met een rode sleutel. Eigen tekening. */
+/** Het logo van de Sleutelpas van de gemeente Leiden. Rechtenvrij te gebruiken. */
 export function Pasje() {
-  return (
-    <svg className="pasje" viewBox="0 0 120 76" width="96" height="61" aria-hidden="true" focusable="false">
-      <rect x="2" y="2" width="116" height="72" rx="10" fill="#fdc83f" />
-      <circle cx="34" cy="38" r="13" fill="none" stroke="#e3161b" strokeWidth="7" />
-      <path d="M46 38h52" stroke="#e3161b" strokeWidth="7" strokeLinecap="round" />
-      <path d="M84 38v12M94 38v9" stroke="#e3161b" strokeWidth="7" strokeLinecap="round" />
-    </svg>
-  );
+  return <img className="pasje" src={sleutelpas} alt="" width="240" height="183" />;
 }

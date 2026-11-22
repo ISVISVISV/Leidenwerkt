@@ -109,6 +109,20 @@ export const CITATEN = {
     tekst:
       "Vindt u het even moeilijk om de rekeningen te betalen? Wilt u dat iemand u helpt met een aanvraag of sollicitatie? Of hebt u andere vragen over geld? In Leiden zijn er veel mensen die graag met u meekijken. Deze hulp is gratis en vrijblijvend. […] Op maandag, dinsdag en donderdag kunt u binnenlopen bij het Goede Buur Spreekuur. U hebt hier geen afspraak voor nodig.",
   },
+  goedeBuurTijden: {
+    titel: "Gemeente Leiden, Geldzaken: Het Goede Buur Spreekuur (tijden en plekken)",
+    url: "https://geldzaken.leiden.nl/hulp-bij-uw-aanvraag/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Hieronder ziet u wanneer de spreekuren van Een Goede Buur zijn. Maandag van 9.00 uur – 11.00 uur. Dinsdag van 9.00 uur – 11.00 uur. Donderdag van 13.00 – 15.00 uur. In de binnenstad: Maandag van 9.00 – 11.00 uur (bij Speeltuinvereniging Ons Eiland). Dinsdag van 9.30 – 11.30 (in de Stadskamer). […] Huis van de Buurt De Kooi, Driftstraat 29. Huis van de Buurt Het Gebouw, Arubapad 2. Huis van de Buurt Matilo, Zaanstraat 126. Huis van de Buurt Morschwijck, Topaaslaan 19. Speeltuinvereniging Ons Eiland, Kortenaerstraat 61. de Stadskamer, Nieuwstraat 7. Huis van de Buurt Op Eigen Wieken, Valkenpad 5. Huis van de Buurt Stevenshof, Trix Terwindtstraat 4. Huis van de Buurt Bos- en Gasthuis, Boshuizerkade 119. […] Vrijwilligers van Incluzio zijn tijdens openingstijden te bellen of te appen via 06 – 21 42 76 37. […] Dan kunt u bellen naar 14071 van maandag tot en met vrijdag tussen 9:00 en 17:00.",
+  },
+  toeslagenBellen: {
+    titel: "Dienst Toeslagen, Bellen met Dienst Toeslagen",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/contact-met-dienst-toeslagen/content/bellen",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "Voor vragen over uw toeslagen kunt u ons bellen: 0800 - 0543. Dit nummer is gratis. […] We zijn bereikbaar op: maandag tot en met donderdag van 8.00 uur tot 20.00 uur, vrijdag van 8.00 uur tot 17.00 uur",
+  },
   stadsbank: {
     titel: "Gemeente Leiden, Geldzaken: Samen werken aan een oplossing",
     url: "https://geldzaken.leiden.nl/regeling/samen-werken-aan-een-oplossing/",

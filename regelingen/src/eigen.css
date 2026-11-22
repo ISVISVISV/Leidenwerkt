@@ -135,6 +135,49 @@
   margin: 0 0 0.2rem;
 }
 
+/* De kop van een groep met een teken: vinkje (waarschijnlijk wel), vraagteken (misschien), kruis (waarschijnlijk niet). */
+.kans-kop {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.kans-teken {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.kans-teken .icoon {
+  width: 1.2rem;
+  height: 1.2rem;
+  stroke-width: 3;
+}
+
+.kans-teken.ja {
+  background: var(--positief);
+  color: var(--veld);
+}
+
+.kans-teken.misschien {
+  background: var(--let-op);
+  color: var(--veld);
+}
+
+.kans-teken.nee {
+  background: var(--vlak);
+  color: var(--inkt-zacht);
+}
+
+.groep.ja > .groep-kop .groep-uitleg,
+.groep.misschien > .groep-kop .groep-uitleg,
+.groep.nee > .groep-uitleg {
+  margin-left: 2.6rem;
+}
+
 .groep-uitleg {
   margin: 0 0 0.9rem;
   color: var(--inkt-zacht);
@@ -310,8 +353,6 @@
   flex: none;
   width: 5.5rem;
   height: auto;
-  transform: rotate(-6deg);
-  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.15));
 }
 
 .pas-tegel .regeling-naam {
@@ -469,148 +510,119 @@
   }
 }
 
-/* ---------- Afdruk: een lijst, met alle uitleg en wat iemand heeft ingevuld ---------- */
+/* ---------- Afdruk: kort, op één A4 als het kan ---------- */
+
+.afdruk {
+  display: none;
+}
 
 @media print {
   .lgw.breed {
     max-width: none;
   }
 
-  .overzicht-raster {
-    display: block;
-    margin-top: 0.6rem;
-  }
-
-  .groep.ja,
-  .groep.info {
-    display: block;
-  }
-
-  .groep {
-    margin: 0 0 0.6rem;
-  }
-
-  .groep.nee > summary {
-    border: 0;
-    padding: 0;
-    background: none;
-  }
-
-  .groep.nee > summary::after {
-    display: none;
-  }
-
-  .overzicht h2,
-  .groep.nee > summary h2 {
-    font-size: 1.15rem;
-    margin: 0.4rem 0 0.1rem;
-  }
-
-  .groep-uitleg {
-    margin: 0 0 0.3rem;
-  }
-
-  .blok {
-    border: 0;
-    padding: 0;
-    margin: 0 0 0.4rem;
-    background: none;
-  }
-
-  .blok-kop {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--inkt-zacht);
-    margin: 0.3rem 0 0.15rem;
-  }
-
-  .blok-uitleg {
-    margin: 0.1rem 0 0.2rem;
-  }
-
-  .tegels {
-    display: block;
-  }
-
-  .regeling {
-    padding: 0.25rem 0 0.3rem;
-    border-bottom: 0.5pt solid var(--lijn);
-    break-inside: avoid;
-  }
-
-  /* Van de tegel blijft op papier alleen de naam over. Het bedrag staat in de uitleg. */
-  .tegel {
-    display: block;
-    min-height: 0;
-    padding: 0;
-    background: none;
-  }
-
-  .tegel-icoon,
-  .tegel > .icoon,
-  .tegel .bedrag,
-  .pasje,
-  .pas-uitleg,
-  .uitleg .aanvraag,
+  /* Op papier alleen de afdruk: niet het scherm-overzicht, niet de uitleg onderaan de pagina. */
+  .overzicht-begin,
+  .overzicht-raster,
   .venster,
-  .printknop {
+  .lgw .voet {
     display: none !important;
   }
 
-  .regeling-naam {
-    font-size: 1rem;
-  }
-
-  .regeling-afdruk {
+  .afdruk {
     display: block;
   }
 
-  .uitleg-bedrag {
-    font-size: 1rem;
-    margin: 0;
+  .afdruk h2 {
+    font-size: 1.1rem;
+    margin: 0.5rem 0 0.2rem;
   }
 
-  .uitleg .waarom {
-    margin: 0.1rem 0 0;
-  }
-
-  .regeling-bronnen {
-    margin-top: 0.1rem;
+  .afdruk h3 {
     font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--inkt-zacht);
+    margin: 0.35rem 0 0.1rem;
   }
 
-  .regeling-bronnen summary {
-    display: inline;
+  .afdruk p {
+    margin: 0 0 0.2rem;
+  }
+
+  .afdruk-kolommen {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 0 1.4rem;
+  }
+
+  .afdruk-groep {
+    break-inside: avoid;
+  }
+
+  .kans-teken {
+    width: 1.3rem;
+    height: 1.3rem;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .kans-teken .icoon {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+
+  .kans-teken.ja {
+    background: #1f6b45;
+    color: #fff;
+  }
+
+  .kans-teken.misschien {
+    background: #8a4b00;
+    color: #fff;
+  }
+
+  .kans-teken.nee {
+    background: #ddd;
+    color: #333;
+  }
+
+  .afdruk-blok ul,
+  .afdruk-tijden,
+  .afdruk-plekken {
     list-style: none;
+    margin: 0 0 0.2rem;
+    padding: 0;
   }
 
-  .regeling-bronnen summary::-webkit-details-marker {
-    display: none;
+  .afdruk-blok li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.12rem 0;
+    border-bottom: 0.5pt dotted var(--lijn);
   }
 
-  .regeling-bronnen summary::after {
-    content: ": ";
+  .afdruk-naam {
+    font-weight: 700;
   }
 
-  .regeling-bronnen::details-content {
-    display: inline;
+  .afdruk-bedrag {
+    text-align: right;
   }
 
-  .regeling-bronnen .bron-blok {
-    display: inline;
+  .afdruk-contact {
+    font-size: 0.9rem;
+    border-left: 0.75pt solid var(--lijn);
+    padding-left: 1rem;
   }
 
-  .bron-regel {
-    display: inline;
+  .afdruk-plekken {
+    font-size: 0.85rem;
   }
 
-  .bron-regel + .bron-regel::before {
-    content: " · ";
-  }
-
-  .gegevens {
-    margin-top: 0.8rem;
+  .afdruk .gegevens {
+    margin-top: 0.6rem;
     break-inside: avoid;
   }
 }
