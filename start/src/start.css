@@ -49,7 +49,7 @@ body {
 .held {
   position: relative;
   overflow: hidden;
-  padding: 1.25rem 0 13rem;
+  padding: 1.25rem 0 19rem;
   background: linear-gradient(160deg, var(--held-boven) 0%, var(--held-onder) 100%);
   color: #fff;
 }
@@ -93,7 +93,7 @@ body {
 /* De wieken van molen De Valk draaien langzaam. Het water golft zacht. Niet bij "minder beweging". */
 .wieken {
   transform-box: view-box;
-  transform-origin: 365px 96px;
+  transform-origin: 1210px 60px;
   animation: draai 40s linear infinite;
 }
 
@@ -191,7 +191,8 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  /* De stad staat net boven de kaarten, zodat de brug en de kerk te zien zijn. */
+  bottom: 4.5rem;
   width: 100%;
   height: auto;
   color: #fff;
@@ -347,7 +348,11 @@ body {
 
 @media (max-width: 44rem) {
   .held {
-    padding-bottom: 9rem;
+    padding-bottom: 12rem;
+  }
+
+  .skyline {
+    bottom: 4rem;
   }
 
   .keuzes {
