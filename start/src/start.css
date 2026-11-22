@@ -1,62 +1,251 @@
-/* Startpagina: twee grote tegels, een per rekenhulp. De huisstijl staat in packages/ui/src/stijl.css. */
+/*
+ * Startpagina: een rood vlak met een lijntekening van Leiden, twee kaarten die er half overheen liggen,
+ * en drie zekerheden. De kleuren en het lettertype komen uit de huisstijl (packages/ui/src/stijl.css).
+ * Het rood ligt dicht bij het rood van de gemeente. Witte tekst erop haalt een contrast van meer dan 4,5:1.
+ */
 
-.start .keuzes {
-  list-style: none;
-  margin: 1.5rem 0 2rem;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
+:root {
+  --held-boven: #c8200f;
+  --held-onder: #a8190c;
+  --tas: #035989;
+  --tas-vlak: #e2eef6;
+  --stijgt: #1f6b45;
 }
 
-.keuze-tegel {
+@media (prefers-color-scheme: dark) {
+  :root {
+    --held-boven: #8f1a10;
+    --held-onder: #66120b;
+    --tas: #8ccbf0;
+    --tas-vlak: #16303f;
+    --stijgt: #7fd3a2;
+  }
+}
+
+body {
+  background: var(--papier);
+}
+
+.binnen,
+.keuzes,
+.zeker,
+.voet {
+  max-width: 62rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.held {
+  position: relative;
+  overflow: hidden;
+  padding: 1.25rem 0 13rem;
+  background: linear-gradient(160deg, var(--held-boven) 0%, var(--held-onder) 100%);
+  color: #fff;
+}
+
+.held .binnen {
+  position: relative;
+  z-index: 1;
+}
+
+.held .merk {
+  color: #fff;
+}
+
+.merk {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.held h1 {
+  max-width: 20ch;
+  margin: 2rem 0 0.8rem;
+  font-size: clamp(1.9rem, 4.6vw, 3rem);
+  line-height: 1.12;
+  color: #fff;
+}
+
+.held-tekst {
+  max-width: 34ch;
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.skyline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  color: #fff;
+  opacity: 0.3;
+}
+
+.keuzes {
+  list-style: none;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: -5rem;
+  margin-bottom: 0;
+}
+
+.keuzes li {
+  display: flex;
+}
+
+.kaart {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  padding: 1.2rem 3rem 1.2rem 1.2rem;
+  gap: 0.5rem;
+  padding: 1.5rem;
   border: 1px solid var(--lijn);
-  border-top: 4px solid var(--leiden);
-  border-radius: 6px;
+  border-radius: 14px;
   background: var(--veld);
   color: var(--inkt);
   text-decoration: none;
-  position: relative;
+  box-shadow: 0 10px 30px rgb(16 25 32 / 0.14);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
-.keuze-tegel::after {
-  content: "";
-  position: absolute;
-  right: 1.3rem;
-  top: 50%;
-  width: 0.7rem;
-  height: 0.7rem;
-  border-right: 2.5px solid var(--inkt-zacht);
-  border-top: 2.5px solid var(--inkt-zacht);
-  transform: translateY(-50%) rotate(45deg);
+.kaart:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgb(16 25 32 / 0.18);
 }
 
-.keuze-tegel:hover {
-  background: var(--vlak);
-}
-
-.keuze-tegel:focus-visible {
+.kaart:focus-visible {
   outline: 3px solid var(--focus);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
-.keuze-naam {
-  font-size: 0.9rem;
+@media (prefers-reduced-motion: reduce) {
+  .kaart,
+  .kaart:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
+.beeld {
+  display: flex;
+  align-items: center;
+  height: 5.5rem;
+}
+
+.beeld img {
+  width: 7rem;
+  height: auto;
+}
+
+.tas {
+  stroke: var(--tas);
+}
+
+.tas-vlak {
+  fill: var(--tas-vlak);
+}
+
+.lijn {
+  stroke: var(--stijgt);
+}
+
+.naam {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--leiden-tekst);
+}
+
+.vraag {
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.uitleg {
+  color: var(--inkt-zacht);
+}
+
+.begin {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
   font-weight: 700;
   color: var(--leiden-tekst);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
-.keuze-vraag {
-  font-size: 1.3rem;
-  font-weight: 700;
-  line-height: 1.3;
+.pijl {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--leiden);
+  color: #fff;
 }
 
-.keuze-uitleg {
+.zeker {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0;
+}
+
+.zeker li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.zeker svg {
+  flex: none;
+  width: 2.2rem;
+  height: 2.2rem;
+  color: var(--leiden-tekst);
+}
+
+.zeker strong {
+  display: block;
+}
+
+.zeker span {
   color: var(--inkt-zacht);
+  font-size: 0.95rem;
+}
+
+.voet {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+  border-top: 1px solid var(--lijn);
+}
+
+@media (max-width: 44rem) {
+  .held {
+    padding-bottom: 9rem;
+  }
+
+  .keuzes {
+    grid-template-columns: 1fr;
+    margin-top: -4.5rem;
+  }
+
+  .zeker {
+    grid-template-columns: 1fr;
+  }
 }
