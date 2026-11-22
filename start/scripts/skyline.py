@@ -100,34 +100,33 @@ def water(x0=-120,n=15):
     d=f"M{x0} 254c40-6 80 6 120 0s80-6 120 0"+"".join(" 80 6 120 0" if i%2==0 else " 80-6 120 0" for i in range(n))
     return f'<path class="water" d="{d}"/>'
 
-SCHAAL=0.75  # de gebouwen zijn kleiner dan de breedte van de pagina; het water blijft even breed
+SCHAAL=0.5625  # de gebouwen zijn kleiner dan de breedte van de pagina; de lijnen worden even veel dunner
 BREED=1440/SCHAAL  # breedte van de tekening voor het schalen
 
 def skyline():
     p=[]
-    # links: een pand, molen De Valk, en panden tot aan de brug
-    p.append(trapgevel(20,64,80))
-    m,hub=molen(210); p.append(m); p.append(wieken(hub))
-    p.append(tuitgevel(338,56,90)); p.append(halsgevel(408,52,84)); p.append(trapgevel(474,64,80))
-    p.append(tuitgevel(552,50,84)); p.append(halsgevel(616,54,92)); p.append(trapgevel(684,58,70,2)); p.append(tuitgevel(756,46,80))
+    # links: een pand, molen De Valk, en twee groepjes panden (nooit meer dan vier naast elkaar)
+    p.append(trapgevel(60,64,80))
+    m,hub=molen(270); p.append(m); p.append(wieken(hub))
+    p.append(halsgevel(440,52,84)); p.append(trapgevel(506,64,80)); p.append(tuitgevel(584,50,84)); p.append(halsgevel(648,54,92))
+    p.append(trapgevel(830,58,70,2)); p.append(tuitgevel(902,46,80)); p.append(trapgevel(962,60,78))
     # midden: de Koornbrug
     bx=BREED/2-145
     p.append(koornbrug(bx))
-    # rechts: panden, de Hooglandse Kerk, en weer panden
-    p.append(halsgevel(1120,54,92)); p.append(trapgevel(1188,60,78))
-    p.append(hooglandsekerk(1268))
-    p.append(tuitgevel(1530,50,84)); p.append(trapgevel(1594,64,80)); p.append(halsgevel(1672,52,84))
-    p.append(trapgevel(1738,58,70,2)); p.append(tuitgevel(1810,56,90)); p.append(trapgevel(1876,40,72,2))
+    # rechts: een pand, de Hooglandse Kerk, twee groepjes panden en een pand aan het eind
+    p.append(halsgevel(1500,54,92))
+    p.append(hooglandsekerk(1600))
+    p.append(tuitgevel(1880,50,84)); p.append(trapgevel(1944,64,80)); p.append(halsgevel(2022,52,84))
+    p.append(trapgevel(2220,58,70,2)); p.append(tuitgevel(2292,56,90)); p.append(trapgevel(2362,46,72,2))
+    p.append(halsgevel(2470,52,84))
     lijn=f'<path d="M0 {B}H{bx}M{bx+290} {B}H{BREED}"/>'
-    import re
-    # lijnen even dik als zonder schalen
-    binnen=re.sub(r'stroke-width="([0-9.]+)"',lambda m:f'stroke-width="{float(m.group(1))/SCHAAL:.2f}"',lijn+"".join(p))
-    groep=f'<g transform="translate(0 {B}) scale({SCHAAL}) translate(0 -{B})" stroke-width="{3/SCHAAL:.0f}">{binnen}</g>'
+    groep=f'<g transform="translate(0 {B}) scale({SCHAAL}) translate(0 -{B})">{lijn}{"".join(p)}</g>'
     return water()+groep, hub
+
 if __name__=="__main__":
     inhoud,hub=skyline()
     import json; print(json.dumps({"hub":hub}))
-    svg=f'<svg class="skyline" viewBox="0 30 1440 229" preserveAspectRatio="xMidYMax slice" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">{inhoud}</svg>'
+    svg=f'<svg class="skyline" viewBox="0 80 1440 179" preserveAspectRatio="xMidYMax slice" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">{inhoud}</svg>'
     open("skyline.svg","w").write(svg)
     groot=svg.replace('class="skyline"','style="width:2880px;display:block"')
     open("los.html","w").write('<html><body style="margin:0;background:#c8200f;color:#fff">'+groot+'</body></html>')

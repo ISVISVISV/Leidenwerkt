@@ -192,8 +192,9 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  /* Het water ligt net boven de bovenrand van de kaarten. */
-  bottom: calc(5rem + 2px);
+  /* De straat ligt net boven de bovenrand van de kaarten. Het water ligt achter de kaarten.
+     De straat ligt 19 van de 179 eenheden boven de onderkant van de tekening: 19/1440 van de breedte. */
+  bottom: calc(5rem + 2px - 1.32vw);
   width: 100%;
   height: auto;
   color: #fff;
@@ -353,7 +354,7 @@ body {
   }
 
   .skyline {
-    bottom: calc(4.5rem + 2px);
+    bottom: calc(4.5rem + 2px - 1.32vw);
   }
 
   .keuzes {
