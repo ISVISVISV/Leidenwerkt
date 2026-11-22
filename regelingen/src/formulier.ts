@@ -5,6 +5,7 @@
  * Stappen: 1 Uw huishouden (met wonen), 2 Uw inkomen, 3 Geld en bezit, 4 Overzicht.
  */
 import {
+  euro,
   Lezer,
   naarCitaat,
   standaardRegels,
@@ -16,6 +17,7 @@ import {
   type Woonsoort,
 } from "@leidenwerkt/engine";
 import { getal, isoDatum, leeftijdOp, type Geboortedatum } from "@leidenwerkt/ui/invoer";
+import { SOORTEN, UITKERINGEN, woonOpties } from "./teksten.ts";
 
 export type JaNee = "" | "ja" | "nee";
 export type Bezit = "betaal" | "spaar" | "voertuig" | "beleggingen" | "spullen" | "schuld" | "niets";
@@ -105,6 +107,11 @@ export const soortenId = (partner: boolean) => (partner ? "partnerSoorten" : "so
 
 /** Vragen die alleen in bepaalde situaties komen. */
 export const vraagInkomen = (f: Formulier) => f.bijstand === "nee";
+/**
+ * Welke uitkering iemand krijgt, telt alleen voor de studietoeslag: met Wajong krijgt u die niet (art. 36b Pw).
+ * Daarom komt de vraag alleen bij de aanvrager, met studiefinanciering en een uitkering van UWV.
+ */
+export const vraagUitkering = (v: InkomenVelden, partner: boolean) => !partner && v.soorten.includes("uwv") && v.soorten.includes("studiefinanciering");
 export const bedragSoorten = (v: InkomenVelden): Bedragsoort[] => v.soorten.filter((s): s is Bedragsoort => s !== "geen");
 const studeert = (f: Formulier) => vraagInkomen(f) && f.inkomen.soorten.includes("studiefinanciering");
 export const vraagLangLaag = (f: Formulier) => (leeftijd(f.geboren) ?? 0) >= 23 && !studeert(f);
@@ -132,7 +139,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
   };
   const inkomen = (v: InkomenVelden, partner: boolean) => {
     if (v.soorten.length === 0) fouten[soortenId(partner)] = "Kies minstens één antwoord.";
-    if (v.soorten.includes("uwv") && !v.uitkering) fouten[uitkeringId(partner)] = kies;
+    if (vraagUitkering(v, partner) && !v.uitkering) fouten[uitkeringId(partner)] = kies;
     for (const s of bedragSoorten(v)) bedrag(bedragId(partner, s), v.bedragen[s], 20000, "Vul een bedrag per maand in, bijvoorbeeld 1.400.");
   };
   if (stap === 1) {
@@ -172,10 +179,10 @@ export function controleer(f: Formulier, stap: number): Fouten {
   return fouten;
 }
 
-const persoon = (geboren: Geboortedatum, v: InkomenVelden | undefined): CheckPersoon => ({
+const persoon = (geboren: Geboortedatum, v: InkomenVelden | undefined, partner = false): CheckPersoon => ({
   leeftijd: leeftijd(geboren) ?? 0,
   inkomen: v ? Object.fromEntries(bedragSoorten(v).map((s) => [s, getal(v.bedragen[s] ?? "") ?? 0])) : {},
-  uitkering: v?.soorten.includes("uwv") && v.uitkering ? v.uitkering : undefined,
+  uitkering: v && vraagUitkering(v, partner) && v.uitkering ? v.uitkering : undefined,
 });
 
 /** Het ingevulde formulier als invoer voor de rekenkern. Alleen aanroepen als alle stappen goed zijn. */
@@ -185,7 +192,7 @@ export function naarInvoer(f: Formulier): CheckInvoer {
   return {
     datum: vandaag(),
     aanvrager: persoon(f.geboren, bijstand ? undefined : f.inkomen),
-    partner: metPartner(f) ? persoon(f.partnerGeboren, bijstand ? undefined : f.partnerInkomen) : undefined,
+    partner: metPartner(f) ? persoon(f.partnerGeboren, bijstand ? undefined : f.partnerInkomen, true) : undefined,
     kinderen: kinderen(f).map((k) => ({ leeftijd: leeftijd(k) ?? 0 })),
     kinderbijslag: minderjarigen(f) > 0 ? f.kinderbijslag === "ja" : undefined,
     bijstand,
@@ -209,4 +216,60 @@ export function naarInvoer(f: Formulier): CheckInvoer {
 export function bronVan(id: string): Citaat | undefined {
   const b = new Lezer(standaardRegels, vandaag()).brontekst(id);
   return b ? naarCitaat(b.citaat, b.bron, b.geldigVan) : undefined;
+}
+
+/** Een ingevuld bedrag als euro, zoals in Leidenwerkt: "€ 1.250" of "€ 14,50". */
+export const euroTekst = (t: string) => {
+  const n = getal(t);
+  if (n === undefined || Number.isNaN(n)) return `€ ${t}`;
+  return Number.isInteger(n) ? euro(String(n), true) : euro(n.toFixed(2));
+};
+
+const kleineLetter = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
+
+/**
+ * Wat iemand heeft ingevuld, als korte regels per stap. Voor de afdruk, net als in Leidenwerkt:
+ * zo kan iemand het overzicht meenemen naar een spreekuur, met de gegevens erbij.
+ */
+export function ingevuld(f: Formulier): { kop: string; regels: [string, string][] }[] {
+  const paar = metPartner(f);
+  const huishouden: [string, string][] = [["Geboren", f.geboren.trim()]];
+  huishouden.push(["Partner", paar ? `geboren ${f.partnerGeboren.trim()}` : "nee"]);
+  if (kinderen(f).length === 0) huishouden.push(["Kinderen", "nee"]);
+  kinderen(f).forEach((k, i) => huishouden.push([`Kind ${i + 1}`, `geboren ${k.trim()}`]));
+  if (minderjarigen(f) > 0) huishouden.push(["Kinderbijslag", f.kinderbijslag === "ja" ? "ja" : "nee"]);
+  const woon = woonOpties(paar).find(([w]) => w === f.woont);
+  if (woon) huishouden.push(["Woning", kleineLetter(woon[1])]);
+  if (vraagHuur(f)) huishouden.push(["Kale huur", `${euroTekst(f.kaleHuur)} per maand`]);
+  huishouden.push(["Andere bewoners", f.andereBewoners === "ja" ? "ja" : "nee"]);
+
+  const inkomen: [string, string][] = [["Bijstand", f.bijstand === "ja" ? "ja" : "nee"]];
+  const persoon = (v: InkomenVelden, partner: boolean) => {
+    const naam = partner ? "Inkomen partner" : "Inkomen";
+    if (v.soorten.includes("geen")) return inkomen.push([naam, "geen"]);
+    const delen = bedragSoorten(v).map((s) => `${kleineLetter(SOORTEN.find(([w]) => w === s)![1])} ${euroTekst(v.bedragen[s] ?? "")}`);
+    inkomen.push([naam, `${delen.join(", ")} per maand`]);
+    if (vraagUitkering(v, partner) && v.uitkering) inkomen.push(["Uitkering", UITKERINGEN.find(([w]) => w === v.uitkering)![1]]);
+  };
+  if (vraagInkomen(f)) {
+    persoon(f.inkomen, false);
+    if (paar) persoon(f.partnerInkomen, true);
+  }
+  if (vraagLangLaag(f) && f.langLaag) inkomen.push(["5 jaar of langer laag inkomen", f.langLaag === "onbekend" ? "weet ik niet" : f.langLaag]);
+  if (vraagStudie(f) && f.studieMedisch) inkomen.push(["Door ziekte of handicap niet werken naast de studie", f.studieMedisch]);
+
+  const geld: [string, string][] = [];
+  if (f.bezit.includes("niets") || f.bezit.length === 0) geld.push(["Geld en bezit", "niets van dit"]);
+  if (f.bezit.includes("betaal")) geld.push(["Betaalrekening", euroTekst(f.betaalrekening)]);
+  if (f.bezit.includes("spaar")) geld.push(["Spaarrekening", euroTekst(f.spaarrekening)]);
+  if (f.bezit.includes("voertuig")) f.voertuigen.forEach((v, i) => geld.push([f.voertuigen.length > 1 ? `Auto, motor of scooter ${i + 1}` : "Auto, motor of scooter", euroTekst(v)]));
+  if (f.bezit.includes("beleggingen")) geld.push(["Contant geld en beleggingen", euroTekst(f.beleggingen)]);
+  if (f.bezit.includes("spullen")) geld.push(["Spullen", euroTekst(f.spullen)]);
+  if (f.bezit.includes("schuld")) geld.push(["Schulden", euroTekst(f.schulden)]);
+
+  return [
+    { kop: "Uw huishouden", regels: huishouden },
+    { kop: "Uw inkomen", regels: inkomen },
+    { kop: "Geld en bezit", regels: geld },
+  ];
 }

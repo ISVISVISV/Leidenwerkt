@@ -1,14 +1,16 @@
 /*
  * Kleuren. Het accentrood is afgeleid van de Leidse stadsvlag (rood-wit),
  * niet van de huisstijl van de gemeente: Leidenwerkt is geen gemeentelijke site.
+ * Inkt, papier en lijnen zijn koel en rustig, met een bijna-zwart met een vleugje blauw.
+ * Dat is geïnspireerd op gemeente.leiden.nl, zonder hun huisstijl over te nemen.
  */
 :root {
-  --papier: #f5f5f3;
-  --vlak: #e9e8e4;
+  --papier: #f6f6f7;
+  --vlak: #eaebed;
   --veld: #ffffff;
-  --inkt: #1c1d21;
-  --inkt-zacht: #53555c;
-  --lijn: #cfcdc7;
+  --inkt: #101920;
+  --inkt-zacht: #4c545c;
+  --lijn: #d0d3d7;
   --leiden: #b3101c;
   --leiden-tekst: #a50f1a;
   --op-leiden: #ffffff;
@@ -31,12 +33,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --papier: #17181b;
-    --vlak: #23252a;
-    --veld: #1e2024;
-    --inkt: #ececea;
-    --inkt-zacht: #a9abb0;
-    --lijn: #3d4047;
+    --papier: #0f161c;
+    --vlak: #1b242c;
+    --veld: #151e25;
+    --inkt: #eceef0;
+    --inkt-zacht: #a8b0b8;
+    --lijn: #36424d;
     --leiden: #d5313a;
     --leiden-tekst: #ff8a8f;
     --op-leiden: #ffffff;

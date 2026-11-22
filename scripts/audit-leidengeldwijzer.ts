@@ -45,30 +45,32 @@ async function main() {
 
   async function bekijk(f: Formulier) {
     const inhoud = pagina(css, renderToStaticMarkup(createElement(Overzicht as never, { f })));
+    // Op het scherm staat de uitleg in een venster. Op papier staat alles bij de regeling: de audit leest de afdruk.
     await scherm.setContent(inhoud);
-    const w = await scherm.evaluate(() => {
+    const schermTekst = await scherm.evaluate(() => (document.querySelector("main") as HTMLElement).innerText);
+    await papier.setContent(inhoud);
+    const w = await papier.evaluate(() => {
       document.querySelectorAll("details").forEach((d) => ((d as HTMLDetailsElement).open = true));
       document.querySelectorAll(".bron-tekst").forEach((e) => e.remove());
       const tekst = (e: Element | null) => (e as HTMLElement | null)?.innerText.trim() ?? "";
       const kaarten = [...document.querySelectorAll(".regeling")].map((li) => ({
         id: li.getAttribute("data-id") ?? "",
         groep: ["ja", "misschien", "info", "nee"].find((g) => li.closest(".groep")?.classList.contains(g)) ?? "",
-        naam: tekst(li.querySelector("h3")),
-        bedrag: tekst(li.querySelector(".bedrag")),
+        naam: tekst(li.querySelector(".regeling-naam")),
+        bedrag: tekst(li.querySelector(".uitleg-bedrag")),
         waarom: tekst(li.querySelector(".waarom")),
         links: [...li.querySelectorAll("a.aanvraag")].map((a) => (a as HTMLAnchorElement).href),
         bronnen: li.querySelectorAll(".bron-knop").length,
       }));
       return { tekst: tekst(document.querySelector("main")), kaarten };
     });
-    await papier.setContent(inhoud);
-    const overlap = await overlapIn(papier, ".inleiding, .groep > h2, .groep > summary, .regeling");
+    const overlap = await overlapIn(papier, ".inleiding, .groep-kop, .groep > summary, .regeling");
     const afdruk = await papier.evaluate(() => {
       // Zoals bij afdrukken (beforeprint): alle groepen open.
       document.querySelectorAll("details").forEach((d) => ((d as HTMLDetailsElement).open = true));
       return [...document.querySelectorAll(".regeling")].filter((e) => (e as HTMLElement).offsetHeight > 0).length;
     });
-    return { ...w, overlap, zichtbaarOpPapier: afdruk };
+    return { ...w, schermTekst, overlap, zichtbaarOpPapier: afdruk };
   }
 
   /** Het inkomen van het huishouden per maand, zoals de gemeente het telt (zonder bijstand). */
@@ -108,9 +110,9 @@ async function main() {
       }
     }
     // 5. Teksten.
-    c.geenPuntkomma(p.naam, waar, [w.tekst]);
-    c.bedragenMetPunt(p.naam, waar, [w.tekst]);
-    c.geenKapotteTekst(p.naam, waar, [w.tekst]);
+    c.geenPuntkomma(p.naam, waar, [w.schermTekst, w.tekst]);
+    c.bedragenMetPunt(p.naam, waar, [w.schermTekst, w.tekst]);
+    c.geenKapotteTekst(p.naam, waar, [w.schermTekst, w.tekst]);
     // 6. Afdruk: niets overlapt, en ook de dichtgeklapte groep staat op papier.
     c.controle("Afdruk zonder overlap", p.naam, waar, w.overlap.length === 0, w.overlap.join(" | "));
     c.controle("Afdruk toont alle regelingen", p.naam, waar, w.zichtbaarOpPapier === w.kaarten.length, `${w.zichtbaarOpPapier} van ${w.kaarten.length} op papier`);

@@ -61,23 +61,41 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
 
   await expect(page.getByRole("heading", { level: 1, name: "Overzicht" })).toBeVisible();
   const ja = page.locator(".groep.ja");
-  for (const naam of ["Sleutelpas", "Kindtegoed", "Zwemles", "Huurtoeslag", "Zorgtoeslag", "Kindgebonden budget"])
-    await expect(ja.getByRole("heading", { level: 3, name: naam })).toBeVisible();
-  await expect(ja.getByText("€ 350 per jaar")).toBeVisible();
+  // Eerst de Sleutelpas en wat erop staat, dan Dienst Toeslagen.
+  const ids = await ja.locator(".regeling").evaluateAll((e) => e.map((x) => x.getAttribute("data-id")));
+  expect(ids.slice(0, 3)).toEqual(["sleutelpas", "kindtegoed", "laptop"]);
+  expect(ids.indexOf("zwemles")).toBeLessThan(ids.indexOf("huurtoeslag"));
+  for (const id of ["zwemles", "huurtoeslag", "zorgtoeslag", "kgb"]) expect(ids).toContain(id);
+  await expect(ja.getByRole("button", { name: /^Kindtegoed/ })).toContainText("€ 350 per jaar");
   // Wat waarschijnlijk niet kan, staat dichtgeklapt.
   await expect(page.locator("details.groep.nee")).not.toHaveAttribute("open", "");
   await geenToegankelijkheidsfouten(page);
 
-  // Een bron opent met de letterlijke tekst.
-  const kindtegoed = ja.locator(".regeling").filter({ has: page.getByRole("heading", { level: 3, name: "Kindtegoed", exact: true }) });
-  await kindtegoed.getByText("Bronnen", { exact: true }).click();
-  await kindtegoed.locator(".bron-knop").first().click();
-  await expect(page.locator(".bron.open .bron-citaat")).toContainText("€150");
+  // Een tegel opent een venster met de uitleg. De bron opent met de letterlijke tekst. Esc sluit het venster.
+  const knop = ja.getByRole("button", { name: /^Kindtegoed/ });
+  await knop.click();
+  const venster = page.getByRole("dialog", { name: "Kindtegoed" });
+  await expect(venster).toBeVisible();
+  await expect(venster.getByRole("link", { name: /Meer informatie en aanvragen/ })).toBeVisible();
+  await geenToegankelijkheidsfouten(page);
+  await venster.getByText("Bronnen", { exact: true }).click();
+  await venster.locator(".bron-knop").first().click();
+  await expect(venster.locator(".bron.open .bron-citaat")).toContainText("€150");
+  await page.keyboard.press("Escape");
+  await page.keyboard.press("Escape");
+  await expect(venster).toBeHidden();
+  await expect(knop).toBeFocused();
+  // De terugknop sluit het venster ook, en blijft op het overzicht.
+  await knop.click();
+  await expect(venster).toBeVisible();
+  await page.goBack();
+  await expect(venster).toBeHidden();
+  await expect(page.getByRole("heading", { level: 1, name: "Overzicht" })).toBeVisible();
 
   expect(extern).toEqual([]);
 });
 
-test("stel: per persoon een bedrag per soort inkomen, met welke uitkering", async ({ page }) => {
+test("stel: per persoon een bedrag per soort inkomen. Welke uitkering alleen bij studiefinanciering", async ({ page }) => {
   await page.goto(ADRES);
   await page.getByRole("button", { name: "Begin de check" }).click();
   await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(40));
@@ -89,7 +107,12 @@ test("stel: per persoon een bedrag per soort inkomen, met welke uitkering", asyn
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await kies(page, "Krijgt u samen bijstand van de gemeente?", "Nee");
   await page.getByRole("group", { name: "Wat voor inkomen heeft u?" }).getByLabel("Een uitkering van UWV").check();
-  await kies(page, "Welke uitkering krijgt u?", "Wajong");
+  await expect(page.getByRole("group", { name: "Welke uitkering krijgt u?" })).toHaveCount(0);
+  const soorten = page.getByRole("group", { name: "Wat voor inkomen heeft u?" });
+  await soorten.getByLabel("Studiefinanciering").check();
+  await expect(page.getByRole("group", { name: "Welke uitkering krijgt u?" })).toBeVisible();
+  await soorten.getByLabel("Studiefinanciering").uncheck();
+  await expect(page.getByRole("group", { name: "Welke uitkering krijgt u?" })).toHaveCount(0);
   await page.getByLabel("Hoeveel uitkering krijgt u netto per maand?").fill("1500");
   await page.getByRole("group", { name: "Wat voor inkomen heeft uw partner?" }).getByLabel("Geen inkomen").check();
   await kies(page, "Heeft u al 5 jaar of langer een laag inkomen?", "Ja");
@@ -97,7 +120,7 @@ test("stel: per persoon een bedrag per soort inkomen, met welke uitkering", asyn
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("group", { name: "Wat hebben u en uw partner samen?" }).getByLabel("Niets van dit").check();
   await page.getByRole("button", { name: "Bekijk het overzicht" }).click();
-  await expect(page.locator(".groep.ja").getByRole("heading", { level: 3, name: "Tegemoetkoming voor alleenverdieners" })).toBeVisible();
+  await expect(page.locator('.groep.ja .regeling[data-id="alleenverdieners"]')).toBeVisible();
 });
 
 test("met bijstand: geen vragen over het inkomen, wel de Sleutelpas vanzelf", async ({ page }) => {
@@ -115,6 +138,8 @@ test("met bijstand: geen vragen over het inkomen, wel de Sleutelpas vanzelf", as
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("group", { name: "Wat heeft u?" }).getByLabel("Niets van dit").check();
   await page.getByRole("button", { name: "Bekijk het overzicht" }).click();
-  await expect(page.locator(".groep.ja .regeling").filter({ has: page.getByRole("heading", { level: 3, name: "Sleutelpas", exact: true }) })).toContainText("vanzelf");
-  await expect(page.locator(".groep.misschien").getByRole("heading", { name: "Individuele inkomenstoeslag" })).toBeVisible();
+  await page.locator(".groep.ja").getByRole("button", { name: /^Sleutelpas/ }).click();
+  await expect(page.getByRole("dialog", { name: "Sleutelpas" })).toContainText("vanzelf");
+  await page.getByRole("button", { name: "Sluiten" }).click();
+  await expect(page.locator('.groep.misschien .regeling[data-id="iit"]')).toBeVisible();
 });

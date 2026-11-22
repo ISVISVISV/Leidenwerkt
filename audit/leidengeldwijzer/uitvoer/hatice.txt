@@ -2,7 +2,7 @@
 
 ## Wat is ingevuld
 
-Aanvrager: 48 jaar. Inkomen per maand: uwv € 1.100, partneralimentatie € 250 (uitkering: anders).
+Aanvrager: 48 jaar. Inkomen per maand: uwv € 1.100, partneralimentatie € 250.
 Geen partner.
 Kinderen: 20 jaar, 14 jaar. Kinderbijslag: ja.
 Wonen: huur, kale huur € 750. Andere mensen in huis: ja.
@@ -10,6 +10,8 @@ Bijstand: nee. 5 jaar laag inkomen: nee.
 Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleggingen € 4.000, spullen € 6.000, schulden € 0.
 
 ## Overzicht
+
+Overzicht van 21 november 2026. Leidengeldwijzer versie 0.1.0.
 
 Dit overzicht is een schatting. Leidengeldwijzer gebruikt alleen wat u heeft ingevuld. Leidengeldwijzer bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
 
@@ -21,12 +23,11 @@ Sleutelpas
 
 Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.753 netto per maand. Vakantiegeld telt niet mee.
 
-Meer informatie en aanvragen
-(opent in een nieuw venster)
 Bronnen
 
-Leiden, beleidsregels Kindtegoed en Sleutelpas 2026
-Leiden, Beleidsregels Sleutelpas 2026, art. 2.2 en 3.1
+Leiden, beleidsregels Kindtegoed en Sleutelpas 2026 Leiden, Beleidsregels Sleutelpas 2026, art. 2.2 en 3.1
+
+Deze regelingen horen bij de Sleutelpas.
 
 Kindtegoed
 
@@ -34,12 +35,9 @@ Kindtegoed
 
 U krijgt geld op de Sleutelpas. Daarmee betaalt u schoolspullen, sport en cultuur voor uw kinderen. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.888 netto per maand. Vakantiegeld telt niet mee.
 
-Meer informatie en aanvragen
-(opent in een nieuw venster)
 Bronnen
 
-Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 2.2 en 4.1
-Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 1.1 d
+Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 2.2 en 4.1 Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 1.1 d
 
 Laptop voor school
 
@@ -47,8 +45,6 @@ Laptop voor school
 
 Op de Sleutelpas staat een bon voor een laptop. Kinderen van 4 tot en met 11 jaar krijgen samen 1 laptop. Kinderen van 12 tot en met 17 jaar krijgen elk een laptop.
 
-Meer informatie
-(opent in een nieuw venster)
 Bron
 
 Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.1 en 3.2
@@ -59,8 +55,6 @@ Diploma A: alles betaald. Diploma B of C: € 250.
 
 Dit is voor kinderen vanaf 5 jaar. U vraagt het aan bij het Jeugdfonds Sport & Cultuur. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.888 netto per maand. Vakantiegeld telt niet mee.
 
-Meer informatie
-(opent in een nieuw venster)
 Bron
 
 Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.3
@@ -71,31 +65,26 @@ tot € 250 per jaar
 
 Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. U vraagt het aan via een tussenpersoon. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
 
-Meer informatie
-(opent in een nieuw venster)
 Bronnen
 
-Gemeente Leiden, Hulp bij kosten sport en cultuur (sport voor volwassenen)
-Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.4
+Gemeente Leiden, Hulp bij kosten sport en cultuur (sport voor volwassenen) Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.4
 
+GEMEENTE LEIDEN
 Zorgverzekering van de gemeente
 
 De Gemeentepolis is de zorgverzekering van de gemeente. Er zit een aanvullende verzekering bij. Nieuwe klanten melden zich aan tussen 12 november en 31 december. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
 
-Meer informatie
-(opent in een nieuw venster)
 Bron
 
 Gemeente Leiden, Collectieve aanvullende zorgverzekering
 
+DIENST TOESLAGEN
 Zorgtoeslag
 
 ongeveer € 129 per maand
 
 Dit is geld voor de kosten van uw zorgverzekering. Uw geld en bezit zijn niet meer dan € 146.011.
 
-Proefberekening van Dienst Toeslagen
-(opent in een nieuw venster)
 Bron
 
 Dienst Toeslagen, maximaal vermogen zorgtoeslag
@@ -106,8 +95,6 @@ ongeveer € 560 per maand
 
 Dit is extra geld voor ouders met kinderen jonger dan 18 jaar. Uw geld en bezit zijn niet meer dan € 146.011.
 
-Proefberekening van Dienst Toeslagen
-(opent in een nieuw venster)
 Bron
 
 Dienst Toeslagen, maximaal vermogen kindgebonden budget
@@ -116,61 +103,23 @@ Dit kunt u misschien krijgen (2)
 
 Leidengeldwijzer weet het niet zeker. Bij elke regeling staat waarom.
 
+GEMEENTE LEIDEN
 Bijzondere bijstand
 
 Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rechtshulp. Dan kan de gemeente u misschien helpen. Dit heet bijzondere bijstand. U krijgt dan een vergoeding of een lening. Vraag het aan voordat u de kosten maakt.
 
-Meer informatie en aanvragen
-(opent in een nieuw venster)
 Bronnen
 
-Gemeente Leiden, Geldzaken: Bijzondere bijstand als het echt nodig is
-Gemeente Leiden, Geldzaken: Bijzondere bijstand
+Gemeente Leiden, Geldzaken: Bijzondere bijstand als het echt nodig is Gemeente Leiden, Geldzaken: Bijzondere bijstand
 
+DIENST TOESLAGEN
 Huurtoeslag
 
 Er wonen nog andere volwassenen bij u. Hun inkomen en hun geld en bezit tellen mee. Leidengeldwijzer rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen.
 
-Proefberekening van Dienst Toeslagen
-(opent in een nieuw venster)
 Bronnen
 
-Dienst Toeslagen, Kan ik huurtoeslag krijgen?
-Dienst Toeslagen, maximaal vermogen huurtoeslag
-
-Goed om te weten (3)
-
-Deze hulp is er voor alle Leidenaren.
-
-Hulp bij uw aanvraag
-
-Wilt u hulp bij een aanvraag of bij uw geldzaken? Ga dan naar het Goede Buur Spreekuur. U hoeft geen afspraak te maken. De hulp is gratis.
-
-Waar en wanneer
-(opent in een nieuw venster)
-Bron
-
-Gemeente Leiden, Geldzaken: Het Goede Buur Spreekuur
-
-Hulp bij schulden
-
-Heeft u schulden? Of maakt u zich zorgen over geld? Dan kan de Stadsbank u helpen. Bel 14 071 en kies 1.
-
-Meer informatie
-(opent in een nieuw venster)
-Bron
-
-Gemeente Leiden, Geldzaken: Samen werken aan een oplossing
-
-Voedselbank
-
-Zijn boodschappen te duur? Dan kunt u misschien naar de Voedselbank. De Voedselbank bepaalt zelf de voorwaarden.
-
-Meer informatie
-(opent in een nieuw venster)
-Bron
-
-Gemeente Leiden, Geldzaken: De Voedselbank
+Dienst Toeslagen, Kan ik huurtoeslag krijgen? Dienst Toeslagen, maximaal vermogen huurtoeslag
 
 Dit kunt u waarschijnlijk niet krijgen (3)
 
@@ -192,9 +141,7 @@ Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer €
 
 Bronnen
 
-Gemeente Leiden, Individuele inkomenstoeslag (voorwaarden en bedragen)
-Leiden, Verordening individuele inkomenstoeslag, toelichting (Gemeenteblad 2019, 316445)
-Participatiewet, art. 34
+Gemeente Leiden, Individuele inkomenstoeslag (voorwaarden en bedragen) Leiden, Verordening individuele inkomenstoeslag, toelichting (Gemeenteblad 2019, 316445) Participatiewet, art. 34
 
 Bijstand
 
@@ -202,5 +149,50 @@ Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer €
 
 Bronnen
 
-Participatiewet, art. 21
-Participatiewet, art. 34
+Participatiewet, art. 21 Participatiewet, art. 34
+
+Hulp nodig?
+
+Deze hulp is er voor alle Leidenaren.
+
+Hulp bij uw aanvraag
+
+Wilt u hulp bij een aanvraag of bij uw geldzaken? Ga dan naar het Goede Buur Spreekuur. U hoeft geen afspraak te maken. De hulp is gratis.
+
+Bron
+
+Gemeente Leiden, Geldzaken: Het Goede Buur Spreekuur
+
+Hulp bij schulden
+
+Heeft u schulden? Of maakt u zich zorgen over geld? Dan kan de Stadsbank u helpen. Bel 14 071 en kies 1.
+
+Bron
+
+Gemeente Leiden, Geldzaken: Samen werken aan een oplossing
+
+Voedselbank
+
+Zijn boodschappen te duur? Dan kunt u misschien naar de Voedselbank. De Voedselbank bepaalt zelf de voorwaarden.
+
+Bron
+
+Gemeente Leiden, Geldzaken: De Voedselbank
+
+Wat u heeft ingevuld
+UW HUISHOUDEN
+Geboren01-03-1978
+Partnernee
+Kind 1geboren 01-03-2006
+Kind 2geboren 01-03-2012
+Kinderbijslagja
+Woningin een huurwoning met een eigen voordeur, keuken, wc en douche
+Kale huur€ 750 per maand
+Andere bewonersja
+UW INKOMEN
+Bijstandnee
+Inkomeneen uitkering van UWV € 1.100, partneralimentatie € 250 per maand
+5 jaar of langer laag inkomennee
+GELD EN BEZIT
+Contant geld en beleggingen€ 4.000
+Spullen€ 6.000

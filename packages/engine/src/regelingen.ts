@@ -75,7 +75,8 @@ export interface Vermogen {
 
 /** "info": goed om te weten, voor iedereen (hulp en voorzieningen zonder rekensom). */
 export type Kans = "ja" | "misschien" | "nee" | "info";
-export type Groep = "gemeente" | "toeslagen" | "inkomen" | "hulp";
+/** Wie de regeling geeft: de gemeente Leiden, Dienst Toeslagen, de Sociale Verzekeringsbank, de bijstand, of hulp voor iedereen. */
+export type Groep = "gemeente" | "toeslagen" | "svb" | "inkomen" | "hulp";
 
 export interface Uitslag {
   id: string;
@@ -488,7 +489,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
           naam: "Bijstand",
           groep: "inkomen" as const,
           aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.bijstand },
-          bronnen: [...(studeert ? [CITATEN.pw13studie] : []), ...bron(l, jong ? "pw.norm.jong.alleenstaande" : "pw.norm.alleenstaande"), ...bron(l, "pw.vermogensgrens.alleenstaande")],
+          bronnen: [...(studeert ? [CITATEN.pw13studie] : []), ...bron(l, jong ? "pw.norm.jong.alleenstaande" : "pw.norm.alleenstaande"), ...bron(l, "pw.vermogensgrens.alleenstaande"), ...(invoer.vermogen.voertuigen.length > 0 ? bron(l, "leiden.vermogen.voertuig_vrij") : [])],
         };
         if (studeert && invoer.aanvrager.leeftijd < 27)
           return { ...basis, kans: "nee", waarom: "Bent u jonger dan 27 jaar en krijgt u studiefinanciering? Dan kunt u geen bijstand krijgen." };
@@ -639,7 +640,7 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
         return {
           id: "kinderbijslag",
           naam: "Kinderbijslag",
-          groep: "toeslagen",
+          groep: "svb",
           kans: "ja",
           bedrag: `${euro(perKwartaal)} per kwartaal`,
           waarom: "Kinderbijslag is geld voor uw kinderen tot 18 jaar. Uw inkomen maakt niet uit. U vraagt dit aan bij de Sociale Verzekeringsbank.",

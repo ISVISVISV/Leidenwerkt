@@ -1,14 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { CITATEN, type Inkomenssoort, type Uitkeringssoort } from "@leidenwerkt/engine";
+import { CITATEN } from "@leidenwerkt/engine";
 import { Bron, Datum, Keuze, Veld, Vinkjes } from "@leidenwerkt/ui";
-import { bedragId, bedragSoorten, bronVan, controleer, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagInkomen, vraagLangLaag, vraagStudie, type Bedragsoort, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
+import { bedragId, bedragSoorten, controleer, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Overzicht } from "./Overzicht.tsx";
+import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, SOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
 
 const STAPPEN = ["Uw huishouden", "Uw inkomen", "Geld en bezit", "Overzicht"];
-const JA_NEE: ["ja" | "nee", string][] = [
-  ["nee", "Nee"],
-  ["ja", "Ja"],
-];
 
 type StapProps = { f: Formulier; zet: <K extends keyof Formulier>(k: K, v: Formulier[K]) => void; fouten: Fouten };
 
@@ -49,7 +46,7 @@ export function App() {
   };
 
   return (
-    <div className="pagina">
+    <div className={stap === 4 ? "pagina lgw breed" : "pagina lgw"}>
       <header className="kopregel">
         <p className="merk">Leidengeldwijzer</p>
         <p className="kopregel-tekst">Welke regelingen kunt u krijgen in Leiden?</p>
@@ -118,11 +115,6 @@ export function App() {
             >
               {stap === 4 ? "Gegevens aanpassen" : "Vorige stap"}
             </button>
-            {stap === 4 && (
-              <button type="button" className="tweedeknop" onClick={() => window.print()}>
-                Afdrukken
-              </button>
-            )}
           </div>
         )}
       </main>
@@ -172,11 +164,6 @@ function Start({ onStart }: { onStart: () => void }) {
 }
 
 /** Bron uit de regeldata (met bedragen die per periode veranderen). */
-function BronVan({ id }: { id: string }) {
-  const c = bronVan(id);
-  return c ? <Bron citaat={c} /> : null;
-}
-
 /** De tekst van de vraag bij een veld of keuze, voor de foutensamenvatting. */
 function vraagVan(id: string): string {
   if (typeof document === "undefined") return "";
@@ -196,10 +183,10 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
   const paar = f.partner === "ja";
   return (
     <section>
-      <Datum id="geboren" legend="Uw geboortedatum" eigen waarde={f.geboren} onChange={(v) => zet("geboren", v)} fout={fouten.geboren} />
+      <Datum id="geboren" legend={VRAAG.geboren} eigen waarde={f.geboren} onChange={(v) => zet("geboren", v)} fout={fouten.geboren} />
       <Keuze
         naam="partner"
-        legend="Woont u samen met een partner?"
+        legend={VRAAG.partner}
         hint={
           <>
             <p className="hint-kop">Wie is uw partner?</p>
@@ -228,22 +215,23 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         opties={JA_NEE}
       />
       {f.partner === "ja" && (
-        <Datum id="partnerGeboren" legend="Geboortedatum van uw partner" waarde={f.partnerGeboren} onChange={(v) => zet("partnerGeboren", v)} fout={fouten.partnerGeboren} />
+        <Datum id="partnerGeboren" legend={VRAAG.partnerGeboren} waarde={f.partnerGeboren} onChange={(v) => zet("partnerGeboren", v)} fout={fouten.partnerGeboren} />
       )}
 
       <h2 className="deel">Kinderen</h2>
       <Keuze
         naam="heeftKinderen"
-        legend="Wonen er kinderen bij u?"
+        legend={VRAAG.heeftKinderen}
         hint="Tel ook kinderen van 18 jaar of ouder. Woont uw kind een deel van de week bij u? Tel het dan ook mee."
         waarde={f.heeftKinderen} onChange={(v) => zet("heeftKinderen", v)} fout={fouten.heeftKinderen} opties={JA_NEE} />
       {f.heeftKinderen === "ja" && (
         <>
+          <div className="kinderen-kader">
           {f.kinderen.map((k, i) => (
             <div key={i} className="kind">
               <Datum
                 id={`kind${i}`}
-                legend={f.kinderen.length > 1 ? `Geboortedatum van kind ${i + 1}` : "Geboortedatum van uw kind"}
+                legend={VRAAG.kind(i, f.kinderen.length)}
                 kind
                 waarde={k}
                 onChange={(v) => zet("kinderen", f.kinderen.map((x, j) => (i === j ? v : x)))}
@@ -268,10 +256,11 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           >
             Kind toevoegen
           </button>
+          </div>
           {minderjarigen(f) > 0 && (
             <Keuze
               naam="kinderbijslag"
-              legend={minderjarigen(f) > 1 ? "Krijgt u kinderbijslag voor deze kinderen?" : "Krijgt u kinderbijslag voor dit kind?"}
+              legend={VRAAG.kinderbijslag(minderjarigen(f))}
               hint={
                 <>
                   <p>Kinderbijslag krijgt u van de SVB voor kinderen jonger dan 18 jaar.</p>
@@ -292,7 +281,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
       <h2 className="deel">Wonen</h2>
       <Keuze
         naam="woont"
-        legend="Waar woont u?"
+        legend={VRAAG.woont}
         hint={
           <>
             <p>
@@ -313,20 +302,12 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         waarde={f.woont}
         fout={fouten.woont}
         onChange={(v) => zet("woont", v)}
-        opties={[
-          ["huur", "In een huurwoning met een eigen voordeur, keuken, wc en douche"],
-          ["kamer", "Op een kamer, of in een woning waar ik de keuken, wc of douche deel"],
-          ["koop", "In een koopwoning"],
-          ["kostgeld", `Bij iemand anders in huis${paar ? " (niet bij uw partner)" : ""}, en ik betaal kostgeld of huur`],
-          ["inwonend", `Bij iemand anders in huis${paar ? " (niet bij uw partner)" : ""}, en ik betaal niets voor mijn woonruimte`],
-          ["dakloos", "Ik heb geen vaste woonplek"],
-          ["instelling", "In een instelling of woonvorm waar ik zorg of begeleiding krijg"],
-        ]}
+        opties={woonOpties(paar)}
       />
       {vraagHuur(f) && (
         <Veld
           id="kaleHuur"
-          label="Kale huur per maand"
+          label={VRAAG.kaleHuur}
           hint="De kale huur is de huur zonder servicekosten. Gas, water en licht tellen ook niet mee. U vindt de kale huur in uw huurcontract. Of op het overzicht van uw verhuurder."
           voorbeeld="bijv. 750"
           voorvoegsel="€"
@@ -337,7 +318,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
       )}
       <Keuze
         naam="andereBewoners"
-        legend="Woont er nog iemand anders bij u?"
+        legend={VRAAG.andereBewoners}
         hint="Bijvoorbeeld een vriend of familielid. Uw partner en uw kinderen tellen hier niet mee."
         waarde={f.andereBewoners}
         onChange={(v) => zet("andereBewoners", v)}
@@ -349,33 +330,6 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
   );
 }
 
-const SOORTEN: [Inkomenssoort, string][] = [
-  ["loon", "Loon uit werk"],
-  ["uwv", "Een uitkering van UWV"],
-  ["bedrijf", "Inkomen uit een eigen bedrijf"],
-  ["studiefinanciering", "Studiefinanciering"],
-  ["partneralimentatie", "Partneralimentatie"],
-  ["kinderalimentatie", "Kinderalimentatie"],
-  ["ander", "Ander inkomen, zoals pensioen"],
-  ["geen", "Geen inkomen"],
-];
-const UITKERINGEN: [Uitkeringssoort, string][] = [
-  ["ww", "WW"],
-  ["wajong", "Wajong"],
-  ["wia", "WIA of WAO"],
-  ["ziektewet", "Ziektewet"],
-  ["anders", "Een andere uitkering"],
-];
-/** De vraag naar het bedrag per soort inkomen. Netto-uitleg alleen bij bedragen waar belasting af gaat. */
-const BEDRAGVRAAG: Record<Bedragsoort, { u: string; partner: string; netto: boolean }> = {
-  loon: { u: "Hoeveel loon krijgt u netto per maand?", partner: "Hoeveel loon krijgt uw partner netto per maand?", netto: true },
-  uwv: { u: "Hoeveel uitkering krijgt u netto per maand?", partner: "Hoeveel uitkering krijgt uw partner netto per maand?", netto: true },
-  bedrijf: { u: "Hoeveel verdient u netto per maand met uw eigen bedrijf?", partner: "Hoeveel verdient uw partner netto per maand met het eigen bedrijf?", netto: true },
-  studiefinanciering: { u: "Hoeveel studiefinanciering krijgt u per maand?", partner: "Hoeveel studiefinanciering krijgt uw partner per maand?", netto: false },
-  partneralimentatie: { u: "Hoeveel partneralimentatie krijgt u per maand?", partner: "Hoeveel partneralimentatie krijgt uw partner per maand?", netto: false },
-  kinderalimentatie: { u: "Hoeveel kinderalimentatie krijgt u per maand?", partner: "Hoeveel kinderalimentatie krijgt uw partner per maand?", netto: false },
-  ander: { u: "Hoeveel ander inkomen krijgt u netto per maand?", partner: "Hoeveel ander inkomen krijgt uw partner netto per maand?", netto: true },
-};
 const nettoHint =
   "Netto is het bedrag dat u op uw bankrekening krijgt. Vul het bedrag in zonder vakantiegeld. Krijgt u elke maand een ander bedrag? Tel dan de laatste 3 maanden bij elkaar op. Deel dat door 3.";
 
@@ -385,18 +339,18 @@ function InkomenBlok({ v, partner, onChange, fouten }: { v: InkomenVelden; partn
       {partner && <h2 className="deel">Inkomen van uw partner</h2>}
       <Vinkjes
         naam={soortenId(partner)}
-        legend={partner ? "Wat voor inkomen heeft uw partner?" : "Wat voor inkomen heeft u?"}
-        hint="U kunt meer antwoorden kiezen."
+        legend={VRAAG.soorten(partner)}
+        toelichting="U kunt meer antwoorden kiezen."
         opties={SOORTEN}
         alleen="geen"
         waarde={v.soorten}
         onChange={(soorten) => onChange({ ...v, soorten })}
         fout={fouten[soortenId(partner)]}
       />
-      {v.soorten.includes("uwv") && (
+      {vraagUitkering(v, partner) && (
         <Keuze
           naam={uitkeringId(partner)}
-          legend={partner ? "Welke uitkering krijgt uw partner?" : "Welke uitkering krijgt u?"}
+          legend={VRAAG.uitkering(partner)}
           opties={UITKERINGEN}
           waarde={v.uitkering}
           onChange={(uitkering) => onChange({ ...v, uitkering })}
@@ -426,7 +380,7 @@ function StapInkomen({ f, zet, fouten }: StapProps) {
     <section>
       <Keuze
         naam="bijstand"
-        legend={paar ? "Krijgt u samen bijstand van de gemeente?" : "Krijgt u bijstand van de gemeente?"}
+        legend={VRAAG.bijstand(paar)}
         waarde={f.bijstand}
         onChange={(v) => zet("bijstand", v)}
         fout={fouten.bijstand}
@@ -441,7 +395,7 @@ function StapInkomen({ f, zet, fouten }: StapProps) {
       {vraagStudie(f) && (
         <Keuze
           naam="studieMedisch"
-          legend="Kunt u door ziekte of een handicap niet werken naast uw studie?"
+          legend={VRAAG.studieMedisch}
           hint={
             <p className="bron-blok">
               Bron: <Bron citaat={CITATEN.pw36b} />
@@ -456,16 +410,12 @@ function StapInkomen({ f, zet, fouten }: StapProps) {
       {vraagLangLaag(f) && (
         <Keuze
           naam="langLaag"
-          legend="Heeft u al 5 jaar of langer een laag inkomen?"
+          legend={VRAAG.langLaag}
           hint="Laag betekent: niet hoger dan de bijstand."
           waarde={f.langLaag}
           onChange={(v) => zet("langLaag", v)}
           fout={fouten.langLaag}
-          opties={[
-            ["nee", "Nee"],
-            ["ja", "Ja"],
-            ["onbekend", "Weet ik niet"],
-          ]}
+          opties={LANG_LAAG}
         />
       )}
     </section>
@@ -478,25 +428,9 @@ function StapGeld({ f, zet, fouten }: StapProps) {
     <section>
       <Vinkjes
         naam="bezit"
-        legend={paar ? "Wat hebben u en uw partner samen?" : "Wat heeft u?"}
-        hint={
-          <>
-            <p>U kunt meer antwoorden kiezen.</p>
-            <p className="bron-blok">
-              Bronnen: <BronVan id="pw.vermogensgrens.alleenstaande" /> <BronVan id="leiden.vermogen.voertuig_vrij" />{" "}
-              <BronVan id="toeslagen.vermogen.inkomen.zonder_partner" />
-            </p>
-          </>
-        }
-        opties={[
-          ["betaal", "Geld op een betaalrekening"],
-          ["spaar", "Geld op een spaarrekening"],
-          ["voertuig", "Een auto, motor of scooter"],
-          ["beleggingen", "Contant geld, aandelen of andere beleggingen"],
-          ["spullen", "Spullen die veel geld waard zijn, zoals sieraden of een boot"],
-          ["schuld", "Schulden"],
-          ["niets", "Niets van dit"],
-        ]}
+        legend={VRAAG.bezit(paar)}
+        toelichting="U kunt meer antwoorden kiezen."
+        opties={BEZIT}
         alleen="niets"
         waarde={f.bezit}
         onChange={(v) => zet("bezit", v)}
@@ -505,7 +439,7 @@ function StapGeld({ f, zet, fouten }: StapProps) {
       {f.bezit.includes("betaal") && (
         <Veld
           id="betaalrekening"
-          label={paar ? "Hoeveel geld staat er op de betaalrekening van u en uw partner samen?" : "Hoeveel geld staat er op uw betaalrekening?"}
+          label={VRAAG.betaal(paar)}
           hint="Staat u rood? Vul dan 0 in. Tel het bedrag op bij uw schulden."
           voorbeeld="bijv. 250"
           voorvoegsel="€"
@@ -517,7 +451,7 @@ function StapGeld({ f, zet, fouten }: StapProps) {
       {f.bezit.includes("spaar") && (
         <Veld
           id="spaarrekening"
-          label={paar ? "Hoeveel geld staat er op de spaarrekening van u en uw partner samen?" : "Hoeveel geld staat er op uw spaarrekening?"}
+          label={VRAAG.spaar(paar)}
           voorbeeld="bijv. 1.500"
           voorvoegsel="€"
           waarde={f.spaarrekening}
@@ -531,7 +465,7 @@ function StapGeld({ f, zet, fouten }: StapProps) {
             <div key={i} className="kind">
               <Veld
                 id={`voertuig${i}`}
-                label={f.voertuigen.length > 1 ? `Hoeveel is auto, motor of scooter ${i + 1} nu waard?` : "Hoeveel is uw auto, motor of scooter nu waard?"}
+                label={VRAAG.voertuig(i, f.voertuigen.length)}
                 hint="Wat krijgt u ervoor als u hem nu verkoopt?"
                 voorbeeld="bijv. 3.000"
                 voorvoegsel="€"
@@ -562,7 +496,7 @@ function StapGeld({ f, zet, fouten }: StapProps) {
       {f.bezit.includes("beleggingen") && (
         <Veld
           id="beleggingen"
-          label={paar ? "Hoeveel contant geld en beleggingen hebben u en uw partner samen?" : "Hoeveel contant geld en beleggingen heeft u?"}
+          label={VRAAG.beleggingen(paar)}
           voorbeeld="bijv. 500"
           voorvoegsel="€"
           waarde={f.beleggingen}
@@ -573,7 +507,7 @@ function StapGeld({ f, zet, fouten }: StapProps) {
       {f.bezit.includes("spullen") && (
         <Veld
           id="spullen"
-          label="Hoeveel zijn deze spullen samen waard?"
+          label={VRAAG.spullen}
           voorbeeld="bijv. 1.000"
           voorvoegsel="€"
           waarde={f.spullen}
@@ -584,7 +518,7 @@ function StapGeld({ f, zet, fouten }: StapProps) {
       {f.bezit.includes("schuld") && (
         <Veld
           id="schulden"
-          label={paar ? "Hoeveel schulden hebben u en uw partner samen?" : "Hoeveel schulden heeft u?"}
+          label={VRAAG.schulden(paar)}
           hint="Tel alle schulden bij elkaar op."
           voorbeeld="bijv. 2.000"
           voorvoegsel="€"

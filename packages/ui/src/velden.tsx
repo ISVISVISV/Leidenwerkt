@@ -233,11 +233,14 @@ export function Vinkjes<T extends string>(props: {
   opties: [T, string][];
   waarde: T[];
   alleen?: T;
+  /** Korte uitleg die altijd zichtbaar onder de vraag staat, bijvoorbeeld "U kunt meer antwoorden kiezen." */
+  toelichting?: string;
   onChange: (v: T[]) => void;
 }) {
   const [uitleg, setUitleg] = useState(false);
   const hintId = `${props.naam}-hint`;
   const foutId = `${props.naam}-fout`;
+  const toelichtingId = `${props.naam}-toelichting`;
   const wissel = (w: T, aan: boolean) => {
     if (!aan) return props.onChange(props.waarde.filter((x) => x !== w));
     if (w === props.alleen) return props.onChange([w]);
@@ -246,7 +249,7 @@ export function Vinkjes<T extends string>(props: {
   return (
     <fieldset
       className={`keuze${props.fout ? " fout" : ""}`}
-      aria-describedby={[props.hint && uitleg ? hintId : "", props.fout ? foutId : ""].filter(Boolean).join(" ") || undefined}
+      aria-describedby={[props.toelichting ? toelichtingId : "", props.hint && uitleg ? hintId : "", props.fout ? foutId : ""].filter(Boolean).join(" ") || undefined}
     >
       {props.hint ? (
         <>
@@ -270,6 +273,11 @@ export function Vinkjes<T extends string>(props: {
         <div className="hint" id={hintId} hidden={!uitleg} onKeyDown={sluitMetEscape(hintId, () => setUitleg(false))}>
           {props.hint}
         </div>
+      )}
+      {props.toelichting && (
+        <p className="vraag-toelichting" id={toelichtingId}>
+          {props.toelichting}
+        </p>
       )}
       {props.fout && (
         <p className="foutmelding" id={foutId}>
