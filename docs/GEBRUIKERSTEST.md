@@ -20,7 +20,7 @@ De rekentests controleren of de berekening klopt met de regels. Ze zien niet wat
 
 Vervang [personen] door de zes gekozen personen, elk met leeftijd, huishouden, woning en het werk dat ze overwegen.
 
-> Je bent testgebruiker van "Leidenwerkt", een gratis rekenhulp voor inwoners van Leiden met bijstand: https://isvisvisv.github.io/Leidenwerkt/leidenwerkt/
+> Je bent testgebruiker van "Leidenwerkt", een gratis rekenhulp voor inwoners van Leiden met bijstand: https://isvisvisv.github.io/Rekenhulp/leidenwerkt/
 >
 > **Doel.** Vind plekken waar een gewone gebruiker vastloopt, iets verkeerd begrijpt, of twee dingen ziet die elkaar tegenspreken. Je hoeft bedragen niet zelf na te rekenen, maar meld het wel als een bedrag niet te geloven is of als twee bedragen of teksten elkaar tegenspreken.
 >

@@ -60,7 +60,7 @@ const CVDR = "https://zoekservice.overheid.nl/sru/Search?operation=searchRetriev
 const REPO = "https://repository.overheid.nl/sru?";
 
 async function haal(url: string): Promise<string> {
-  const r = await fetch(url, { headers: { "User-Agent": "Leidenwerkt-bewaking (github.com/ISVISVISV/Leidenwerkt)" } });
+  const r = await fetch(url, { headers: { "User-Agent": "Leidenwerkt-bewaking (github.com/ISVISVISV/Rekenhulp)" } });
   if (!r.ok) throw new Error(`${r.status} bij ${url}`);
   return r.text();
 }

@@ -30,7 +30,7 @@ Een tester kan deze tekstbestanden lezen. Klikken door de site is dan niet nodig
 
 ## Zelf de audit doen
 
-1. Installeer [Node.js](https://nodejs.org) 22 en download dit project (`git clone https://github.com/ISVISVISV/Leidenwerkt.git`).
+1. Installeer [Node.js](https://nodejs.org) 22 en download dit project (`git clone https://github.com/ISVISVISV/Rekenhulp.git`).
 2. Draai `npm ci` en daarna `npm run audit:leidengeldwijzer`.
 
 De audit rekent met een vaste datum (`REKENDATUM` in [personen.ts](personen.ts)). Iedereen krijgt dan op elke dag dezelfde uitvoer. Een andere datum kan met `npm run audit:leidengeldwijzer -- --datum 2026-12-01`.

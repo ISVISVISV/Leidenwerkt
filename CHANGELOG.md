@@ -13,7 +13,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Tekst onderaan de pagina: wat u invult blijft op uw eigen telefoon of computer, Leidenwerkt geeft een schatting, en een link naar de broncode.
 - Lettertype Open Sans in plaats van Atkinson Hyperlegible. Het zit in de bundel, de site laadt niets van buiten.
 - Sleutelpas bij verblijf in een instelling: "Woont u in een instelling? Dan kunt u de Sleutelpas niet krijgen." Zo staat het in de Beleidsregels Sleutelpas 2026, art. 2.2 a. Eerder gaf de rekenhulp hier een inkomensgrens.
-- Nieuw adres: Leidenwerkt staat nu op isvisvisv.github.io/Leidenwerkt/leidenwerkt/. Op isvisvisv.github.io/Leidenwerkt/ staat een startpagina met beide rekenhulpen.
+- Nieuw adres: Leidenwerkt staat nu op isvisvisv.github.io/Rekenhulp/leidenwerkt/. Op isvisvisv.github.io/Rekenhulp/ staat een startpagina met beide rekenhulpen.
 - Uitleg bij een vraag: korte uitleg staat nu altijd onder de vraag. Langere uitleg en bronnen staan achter de knop "Meer uitleg", in plaats van achter een klein i-knopje.
 - Rustigere kleuren, geïnspireerd op gemeente.leiden.nl: tekst bijna zwart met een vleugje blauw, een koele grijze achtergrond. De donkere modus is donkerblauw. Het rood blijft.
 - De melding over de toeslagen heet nu "Geef uw nieuwe inkomen door aan Dienst Toeslagen". Wie een toeslag krijgt, ziet die melding nu altijd, ook als de toeslag niet verandert: een nieuw inkomen moet u dan toch doorgeven (Belastingdienst, "Mijn inkomen verandert – moet ik dat doorgeven?").
