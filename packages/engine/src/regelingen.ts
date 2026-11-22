@@ -504,14 +504,14 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       bronnen: [CITATEN.goedeBuur],
     },
     // Heeft iemand schulden ingevuld? Dan staat de hulp bij schulden bij wat u waarschijnlijk kunt krijgen:
-    // de Stadsbank helpt alle inwoners van Leiden, zonder voorwaarden.
+    // de Stadsbank helpt inwoners van Leiden met schulden.
     invoer.vermogen.schulden > 0
       ? {
           id: "stadsbank",
           naam: "Hulp bij schulden",
           groep: "gemeente",
           kans: "ja",
-          waarom: "U heeft schulden. De Stadsbank Leiden helpt alle inwoners van Leiden. Er zijn geen voorwaarden. Bel 14 071 en kies 1.",
+          waarom: "U heeft schulden. De Stadsbank Leiden helpt inwoners van Leiden met schulden. Bel 14 071 en kies 1.",
           aanvragen: { tekst: "Meer informatie", url: CITATEN.stadsbank.url },
           bronnen: [CITATEN.stadsbank],
         }

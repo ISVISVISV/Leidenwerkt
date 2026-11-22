@@ -1,0 +1,62 @@
+/* Startpagina: twee grote tegels, een per rekenhulp. De huisstijl staat in packages/ui/src/stijl.css. */
+
+.start .keuzes {
+  list-style: none;
+  margin: 1.5rem 0 2rem;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.keuze-tegel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.2rem 3rem 1.2rem 1.2rem;
+  border: 1px solid var(--lijn);
+  border-top: 4px solid var(--leiden);
+  border-radius: 6px;
+  background: var(--veld);
+  color: var(--inkt);
+  text-decoration: none;
+  position: relative;
+}
+
+.keuze-tegel::after {
+  content: "";
+  position: absolute;
+  right: 1.3rem;
+  top: 50%;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-right: 2.5px solid var(--inkt-zacht);
+  border-top: 2.5px solid var(--inkt-zacht);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.keuze-tegel:hover {
+  background: var(--vlak);
+}
+
+.keuze-tegel:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.keuze-naam {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--leiden-tekst);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.keuze-vraag {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.keuze-uitleg {
+  color: var(--inkt-zacht);
+}
