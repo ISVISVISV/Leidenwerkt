@@ -3,7 +3,8 @@
  * De voorwaarden staan in docs/recht/VOORWAARDEN.md.
  */
 import { describe, expect, it } from "vitest";
-import { bereken, CITATEN, checkRegelingen, type CheckInvoer, type Invoer, type Kans, type Uitslag, type Vermogen } from "../src/index.js";
+import { bijstandsnorm } from "../src/modules/bijstand.js";
+import { bereken, CITATEN, checkRegelingen, D, Lezer, standaardRegels, type CheckInvoer, type Invoer, type Kans, type Uitslag, type Vermogen } from "../src/index.js";
 
 const DATUM = "2026-11-21";
 const geld = (spaarrekening: number, over: Partial<Vermogen> = {}): Vermogen => ({ betaalrekening: 0, spaarrekening, voertuigen: [], beleggingen: 0, spullen: 0, schulden: 0, ...over });
@@ -337,5 +338,25 @@ describe("kinderopvangtoeslag", () => {
   it("zonder werk of studie: misschien (bijvoorbeeld met inburgering)", () => {
     const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { uwv: 1200 } }, kinderen: [{ leeftijd: 3, opvang }] })), "kot")!;
     expect(u.kans).toBe("misschien");
+  });
+});
+
+describe("kostendelersnorm (art. 22a Pw)", () => {
+  it("met een huisgenoot van 27+ is de grens voor de bijstand de kostendelersnorm, zonder vakantiegeld", () => {
+    const l = new Lezer(standaardRegels, DATUM);
+    const verwacht = bijstandsnorm(l, {
+      datum: DATUM, gemeente: "leiden", leefvorm: "alleenstaande", leeftijd: 40, kinderen: [], kostendelers: 1,
+      wonen: { soort: "huur", kaleHuurPerMaand: 750 }, nieuwWerk: { brutoMaandloon: 0, urenPerWeek: 0 }, vrijlatingFase: "start",
+    }).norm.times(D(1).minus(l.breuk("pw.vakantietoeslag")));
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 1100 } }, andereBewoners: true, kostendelers: 1 })), "bijstand")!;
+    expect(u.kans).toBe("nee");
+    expect(u.waarom).toContain(`ongeveer € ${Math.round(Number(verwacht)).toLocaleString("nl-NL")} netto per maand`.replace("€ ", "€ "));
+    expect(u.waarom).toContain("Er wonen meer volwassenen bij u. Daarom is deze grens lager.");
+    expect(u.bronnen).toContainEqual(CITATEN.kostendelerUitzonderingen);
+  });
+  it("een eigen kind van 27 jaar telt ook mee. De grenzen van 120% en meer blijven gelijk.", () => {
+    const met = checkRegelingen(invoer({ aanvrager: { leeftijd: 55, inkomen: { loon: 1100 } }, kinderen: [{ leeftijd: 28 }] }));
+    expect(uitslag(met, "bijstand")!.kans).toBe("nee");
+    expect(uitslag(met, "volwassenenfonds")!.waarom).toContain("ongeveer €\u00a01.618 netto per maand");
   });
 });

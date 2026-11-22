@@ -83,6 +83,7 @@ export const VRAAG = {
   kaleHuur: "Kale huur per maand",
   andereBewoners: "Woont er nog iemand anders bij u?",
   andereAantal: "Hoeveel mensen zijn dat?",
+  andereOuder: "Hoeveel van hen zijn 27 jaar of ouder?",
   andereInkomen: "Hoeveel bruto inkomen hebben deze mensen samen per jaar?",
   opvang: "Gaat dit kind naar de opvang?",
   soortOpvang: "Soort opvang",

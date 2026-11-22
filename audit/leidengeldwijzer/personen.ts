@@ -211,6 +211,7 @@ export const PERSONEN: Persoon[] = [
       kinderbijslag: "ja",
       andereBewoners: "ja",
       andereAantal: "1",
+      andereOuder: "1",
       andereInkomen: "18000",
       kindInfo: [
         { ...leegKind, inkomen: "5000" },
@@ -239,6 +240,6 @@ export const PERSONEN: Persoon[] = [
   },
   {
     naam: "Bram: huisgenoot met inkomen, inkomen onbekend",
-    f: formulier({ geboren: "01-03-1985", andereBewoners: "ja", andereAantal: "1", andereOnbekend: true, inkomen: inkomen({ loon: "1400" }) }),
+    f: formulier({ geboren: "01-03-1985", andereBewoners: "ja", andereAantal: "1", andereOuder: "1", andereOnbekend: true, inkomen: inkomen({ loon: "1400" }) }),
   },
 ];

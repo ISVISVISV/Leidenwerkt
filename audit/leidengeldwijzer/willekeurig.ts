@@ -32,6 +32,7 @@ export function willekeurigePersonen(aantal: number, zaad: number): Persoon[] {
     const kinderen = t.kans(0.4) ? Array.from({ length: t.tussen(1, 3) }, () => datum(t.tussen(0, 22), t)) : [];
     const woont = t.kies(["huur", "huur", "huur", "kamer", "koop", "kostgeld", "inwonend", "dakloos", "instelling"] as const);
     const bijstand = t.kans(0.3);
+    const aantalAnderen = t.tussen(1, 3);
     const bezit: Bezit[] = t.kans(0.25) ? ["niets"] : [...new Set(Array.from({ length: t.tussen(1, 3) }, () => t.kies(["betaal", "spaar", "voertuig", "beleggingen", "spullen", "schuld"] as const)))];
     const bedrag = (max: number) => String(t.tussen(0, max / 100) * 100);
     const f: Formulier = formulier({
@@ -52,7 +53,8 @@ export function willekeurigePersonen(aantal: number, zaad: number): Persoon[] {
         inkomenOnbekend: t.kans(0.2),
       })),
       andereBewoners: t.kans(0.15) ? "ja" : "nee",
-      andereAantal: String(t.tussen(1, 3)),
+      andereAantal: String(aantalAnderen),
+      andereOuder: String(t.tussen(0, aantalAnderen)),
       andereInkomen: String(t.tussen(0, 400) * 100),
       andereOnbekend: t.kans(0.2),
       bijstand: bijstand ? "ja" : "nee",

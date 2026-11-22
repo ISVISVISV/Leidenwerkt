@@ -159,14 +159,21 @@ test("huisgenoten met een bekend inkomen: Leidengeldwijzer rekent de huurtoeslag
   await page.getByLabel("Kale huur per maand").fill("750");
   await kies(page, "Woont er nog iemand anders bij u?", "Ja");
   await page.getByLabel("Hoeveel mensen zijn dat?").fill("1");
+  await page.getByLabel("Hoeveel van hen zijn 27 jaar of ouder?").fill("1");
   await page.getByLabel("Hoeveel bruto inkomen hebben deze mensen samen per jaar?").fill("6000");
   await geenToegankelijkheidsfouten(page);
   await page.getByRole("button", { name: "Volgende stap" }).click();
-  await kies(page, "Krijgt u bijstand van de gemeente?", "Ja");
+  await kies(page, "Krijgt u bijstand van de gemeente?", "Nee");
+  await page.getByRole("group", { name: "Wat voor inkomen heeft u?" }).getByLabel("Loon uit werk").check();
+  await page.getByLabel("Hoeveel loon krijgt u netto per maand?").fill("1100");
   await expect(page.getByRole("group", { name: "Heeft u al 5 jaar of langer een laag inkomen?" })).toContainText("netto per maand of minder");
   await kies(page, "Heeft u al 5 jaar of langer een laag inkomen?", "Nee");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("group", { name: "Wat heeft u?" }).getByLabel("Niets van dit").check();
   await page.getByRole("button", { name: "Bekijk het overzicht" }).click();
   await expect(page.locator('.groep.ja .regeling[data-id="huurtoeslag"] .bedrag')).toContainText("per maand");
+  // Een huisgenoot van 27 jaar of ouder: de kostendelersnorm. De grens voor de bijstand is lager.
+  await page.locator("details.groep.nee > summary").click();
+  await page.getByRole("button", { name: /^Bijstand/ }).click();
+  await expect(page.getByRole("dialog", { name: "Bijstand" })).toContainText("Daarom is deze grens lager.");
 });

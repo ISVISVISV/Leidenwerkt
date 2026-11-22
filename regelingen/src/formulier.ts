@@ -46,6 +46,8 @@ export interface Formulier {
   andereBewoners: JaNee;
   /** Hoeveel andere mensen er wonen, en hun bruto inkomen per jaar samen. Voor de huurtoeslag. */
   andereAantal: string;
+  /** Hoeveel van hen 27 jaar of ouder zijn (kostendelersnorm, art. 22a Pw). */
+  andereOuder: string;
   andereInkomen: string;
   andereOnbekend: boolean;
   bijstand: JaNee;
@@ -93,6 +95,7 @@ export const leegFormulier: Formulier = {
   kaleHuur: "",
   andereBewoners: "",
   andereAantal: "",
+  andereOuder: "",
   andereInkomen: "",
   andereOnbekend: false,
   bijstand: "",
@@ -144,6 +147,8 @@ export const vraagLangLaag = (f: Formulier) => (leeftijd(f.geboren) ?? 0) >= 23 
 export const vraagStudie = studeert;
 export const vraagHuur = (f: Formulier) => f.woont === "huur";
 /** Voor de huurtoeslag: hoeveel andere mensen en hun inkomen. Alleen bij een huurwoning. */
+/** Hoeveel andere mensen er wonen, en hoeveel van hen 27 jaar of ouder zijn. Voor de bijstand en de huurtoeslag. */
+export const vraagAantal = (f: Formulier) => f.andereBewoners === "ja" && f.woont !== "instelling";
 export const vraagAnderen = (f: Formulier) => vraagHuur(f) && f.andereBewoners === "ja";
 /** Voor de huurtoeslag: het inkomen van een kind van 18 jaar of ouder. */
 export const vraagInkomenKind = (f: Formulier, k: Geboortedatum) => vraagHuur(f) && (leeftijd(k) ?? 0) >= 18;
@@ -203,10 +208,15 @@ export function controleer(f: Formulier, stap: number): Fouten {
       else if (Number.isNaN(n) || n < 1 || n > 3000) fouten.kaleHuur = "Vul de kale huur per maand in, bijvoorbeeld 750.";
     }
     if (!f.andereBewoners) fouten.andereBewoners = kies;
-    if (vraagAnderen(f)) {
+    if (vraagAantal(f)) {
       const n = getal(f.andereAantal);
       if (n === undefined) fouten.andereAantal = "Vul dit in.";
       else if (Number.isNaN(n) || !Number.isInteger(n) || n < 1 || n > 20) fouten.andereAantal = "Vul een aantal in, bijvoorbeeld 1.";
+      const o = getal(f.andereOuder);
+      if (o === undefined) fouten.andereOuder = "Vul dit in. Is niemand 27 jaar of ouder? Vul dan 0 in.";
+      else if (Number.isNaN(o) || !Number.isInteger(o) || o < 0 || (n !== undefined && o > n)) fouten.andereOuder = "Vul een aantal in. Dat is niet meer dan het aantal mensen.";
+    }
+    if (vraagAnderen(f)) {
       if (!f.andereOnbekend) bedrag("andereInkomen", f.andereInkomen, 10_000_000, "Vul een bedrag per jaar in, bijvoorbeeld 25.000.");
     }
   }
@@ -269,7 +279,8 @@ export function naarInvoer(f: Formulier): CheckInvoer {
     wonen: f.woont || "huur",
     kaleHuurPerMaand: vraagHuur(f) ? getal(f.kaleHuur) : undefined,
     andereBewoners: f.andereBewoners === "ja",
-    andereBewonersAantal: vraagAnderen(f) ? getal(f.andereAantal) : undefined,
+    andereBewonersAantal: vraagAantal(f) ? getal(f.andereAantal) : undefined,
+    kostendelers: vraagAantal(f) ? getal(f.andereOuder) : undefined,
     andereBewonersInkomenJaar: vraagAnderen(f) && !f.andereOnbekend ? getal(f.andereInkomen) : undefined,
     vermogen: {
       betaalrekening: som("betaal", f.betaalrekening),
@@ -324,8 +335,8 @@ export function ingevuld(f: Formulier): { kop: string; regels: [string, string][
     "Andere bewoners",
     f.andereBewoners !== "ja"
       ? "nee"
-      : vraagAnderen(f)
-        ? `${f.andereAantal}, samen ${f.andereOnbekend ? "inkomen onbekend" : `${euroTekst(f.andereInkomen)} bruto per jaar`}`
+      : vraagAantal(f)
+        ? `${f.andereAantal}, van wie ${f.andereOuder} van 27 jaar of ouder${vraagAnderen(f) ? `. Samen ${f.andereOnbekend ? "inkomen onbekend" : `${euroTekst(f.andereInkomen)} bruto per jaar`}` : ""}`
         : "ja",
   ]);
 

@@ -63,6 +63,11 @@ export interface CheckInvoer {
   andereBewonersAantal?: number;
   /** Hun bruto inkomen per jaar, samen. Voor de huurtoeslag. Leeg: onbekend. */
   andereBewonersInkomenJaar?: number;
+  /**
+   * Hoeveel van de andere bewoners 27 jaar of ouder zijn en meetellen als kostendeler (art. 22a Pw).
+   * Eigen kinderen van 27 jaar of ouder telt de rekenkern zelf mee.
+   */
+  kostendelers?: number;
   /** Geld en bezit, per onderdeel. De eigen woning zit er niet in. */
   vermogen: Vermogen;
 }
@@ -138,9 +143,16 @@ const VOLWASSEN = 21;
  * Het sociaal minimum per maand zonder vakantiegeld, voor iemand van 21 jaar of ouder: de bijstandsnorm van het huishouden.
  * Zoals in de tabellen van de gemeente. Leeg als Leidengeldwijzer het niet weet (een stel in een instelling).
  */
-export function sociaalMinimum(l: Lezer, paar: boolean, wonen: Woonsoort): Bedrag | undefined {
+export function sociaalMinimum(l: Lezer, paar: boolean, wonen: Woonsoort, kostendelers = 0): Bedrag | undefined {
   const zonderVakantiegeld = (norm: Bedrag) => norm.times(D(1).minus(l.breuk("pw.vakantietoeslag")));
   if (wonen === "instelling") return paar ? undefined : zonderVakantiegeld(l.bedrag("pw.norm.inrichting.alleenstaande"));
+  if (kostendelers > 0) {
+    // Kostendelersnorm (art. 22a Pw): per persoon (40% + A × 30%) / A van de gehuwdennorm.
+    const a = D(kostendelers + (paar ? 2 : 1));
+    const factor = l.breuk("pw.kostendeler.basis").plus(a.times(l.breuk("pw.kostendeler.per_persoon"))).div(a);
+    const perPersoon = zonderVakantiegeld(factor.times(l.bedrag("pw.norm.gehuwden")));
+    return paar ? perPersoon.times(2) : perPersoon;
+  }
   return zonderVakantiegeld(l.bedrag(paar ? "pw.norm.gehuwden" : "pw.norm.alleenstaande"));
 }
 
@@ -165,29 +177,44 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
     if (jong) return jongAlleen ? zonderVakantiegeld(l.bedrag("pw.norm.jong.alleenstaande")) : undefined;
     return sociaalMinimum(l, paar, invoer.wonen);
   };
+  // De toepasselijke bijstandsnorm (100%): met andere volwassenen van 27 jaar of ouder in huis de kostendelersnorm (art. 22a Pw).
+  // Die geldt voor de bijstand, de inkomenstoeslag ("toepasselijke bijstandsnorm") en de vergelijking met de bijstand.
+  // De tabellen van de gemeente voor 120%, 130% en 140% noemen geen kostendelersnorm. Daar blijft de norm van het huishouden.
+  const kostendelers =
+    jong || invoer.wonen === "instelling" ? 0 : (invoer.kostendelers ?? 0) + invoer.kinderen.filter((k) => l.aantal("pw.kostendeler.minimumleeftijd").lte(k.leeftijd)).length;
+  const bijstandsnorm = (): Bedrag | undefined => {
+    const min = minimum();
+    if (!min || kostendelers === 0) return min;
+    return sociaalMinimum(l, paar, invoer.wonen, kostendelers);
+  };
   // Met bijstand telt de norm als inkomen: de bijstand vult aan tot de norm (praktijk van de gemeente, 13 november 2026).
   const inkomen = invoer.bijstand ? undefined : personen.reduce((s, p) => s.plus(D(totaalVan(p))), NUL);
 
   /** Grens van een Leidse regeling: deel van het sociaal minimum. Zonder id: het sociaal minimum zelf (100%). */
-  type Toets = { kans: Kans; grens?: Bedrag; boven?: boolean };
+  type Toets = { kans: Kans; grens?: Bedrag; boven?: boolean; kd?: boolean };
   const toets = (pctId?: string): Toets => {
-    const min = minimum();
+    const min = pctId ? minimum() : bijstandsnorm();
     if (!min) return { kans: "misschien" };
     const grens = pctId ? min.times(l.breuk(pctId)) : min;
-    if (!inkomen) return { kans: "ja", grens };
+    const kd = !pctId && kostendelers > 0;
+    if (!inkomen) return { kans: "ja", grens, kd };
     const boven = inkomen.gt(grens);
-    return { kans: boven ? (jongAlleen ? "misschien" : "nee") : "ja", grens, boven };
+    return { kans: boven ? (jongAlleen ? "misschien" : "nee") : "ja", grens, boven, kd };
   };
-  const grensZin = (grens?: Bedrag) =>
-    grens ? ` De grens voor uw huishouden is ongeveer ${heel(grens)} netto per maand. Vakantiegeld telt niet mee.` : "";
-  const waaromInkomen = ({ grens, boven }: Toets): string => {
+  const grensZin = (grens?: Bedrag, metKostendelers = false) =>
+    grens
+      ? ` De grens voor uw huishouden is ongeveer ${heel(grens)} netto per maand. Vakantiegeld telt niet mee.${
+          metKostendelers && kostendelers > 0 ? " Er wonen meer volwassenen bij u. Daarom is deze grens lager." : ""
+        }`
+      : "";
+  const waaromInkomen = ({ grens, boven, kd }: Toets): string => {
     if (!grens) return jong
       ? "Leidengeldwijzer kan de grens voor jongeren van 18, 19 en 20 jaar nog niet uitrekenen. Vraag het de gemeente."
       : "Leidengeldwijzer kan de grens voor uw woonsituatie niet uitrekenen. Vraag het de gemeente.";
-    if (invoer.bijstand) return `Met bijstand is uw inkomen niet hoger dan de grens.${grensZin(grens)}`;
+    if (invoer.bijstand) return `Met bijstand is uw inkomen niet hoger dan de grens.${grensZin(grens, kd)}`;
     if (boven && jongAlleen)
-      return `Uw inkomen is hoger dan de grens.${grensZin(grens)} Krijgt u geen geld van uw ouders? Dan kan de grens voor uw inkomen hoger zijn. Vraag de gemeente of u de regeling toch kunt krijgen. Bel 14 071 en kies 1.`;
-    return `${boven ? "Uw inkomen is hoger dan de grens." : "Uw inkomen is niet hoger dan de grens."}${grensZin(grens)}`;
+      return `Uw inkomen is hoger dan de grens.${grensZin(grens, kd)} Krijgt u geen geld van uw ouders? Dan kan de grens voor uw inkomen hoger zijn. Vraag de gemeente of u de regeling toch kunt krijgen. Bel 14 071 en kies 1.`;
+    return `${boven ? "Uw inkomen is hoger dan de grens." : "Uw inkomen is niet hoger dan de grens."}${grensZin(grens, kd)}`;
   };
   const bedrijfZin = " Heeft u een eigen bedrijf? Dan kijkt de gemeente naar de winst in uw belastingaangifte.";
 
@@ -348,7 +375,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       if (studeert) return { ...basis, kans: "nee", waarom: `Met studiefinanciering in de afgelopen ${jaren} jaar kunt u deze toeslag niet krijgen.` };
       const v = vermogenToets(l, invoer, paar ? "pw.vermogensgrens.gehuwden" : metKinderen ? "pw.vermogensgrens.alleenstaande_ouder" : "pw.vermogensgrens.alleenstaande");
       const t = toets();
-      if (t.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw inkomen is hoger dan de bijstand.${grensZin(t.grens)}` };
+      if (t.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw inkomen is hoger dan de bijstand.${grensZin(t.grens, t.kd)}` };
       if (invoer.langLaagInkomen === "nee") return { ...basis, kans: "nee", waarom: `U krijgt deze toeslag alleen als u al ${jaren} jaar of langer een laag inkomen heeft.` };
       if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit zijn meer dan ${heel(v.grens)}.` };
       const open = invoer.langLaagInkomen !== "ja" || v.kans === "misschien" || t.kans === "misschien" || bedrijf;
@@ -378,13 +405,13 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         };
         if (!uwv) return { ...basis, kans: "nee", waarom: "Deze tegemoetkoming is alleen voor stellen. Het grootste inkomen moet een uitkering van UWV zijn. Bijvoorbeeld Wajong." };
         const t = toets();
-        if (t.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw netto inkomen samen is niet lager dan de bijstand voor stellen.${grensZin(t.grens)}` };
+        if (t.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw netto inkomen samen is niet lager dan de bijstand voor stellen.${grensZin(t.grens, t.kd)}` };
         const v = vermogenToets(l, invoer, "zt.vermogen.met_partner");
         if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit samen zijn meer dan ${heel(v.grens)}.` };
         return {
           ...basis,
           kans: t.kans === "misschien" || v.kans === "misschien" ? "misschien" : "ja",
-          waarom: `Dit is voor stellen met een uitkering van UWV en weinig ander inkomen. ${t.grens ? `Uw inkomen samen is lager dan de bijstand voor stellen.${grensZin(t.grens)}` : waaromInkomen(t)} De gemeente kijkt ook: zou u met alleen bijstand meer overhouden?`,
+          waarom: `Dit is voor stellen met een uitkering van UWV en weinig ander inkomen. ${t.grens ? `Uw inkomen samen is lager dan de bijstand voor stellen.${grensZin(t.grens, t.kd)}` : waaromInkomen(t)} De gemeente kijkt ook: zou u met alleen bijstand meer overhouden?`,
         };
       }),
     );
@@ -510,13 +537,13 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         if (studeert && invoer.aanvrager.leeftijd < 27)
           return { ...basis, kans: "nee", waarom: "Bent u jonger dan 27 jaar en krijgt u studiefinanciering? Dan kunt u geen bijstand krijgen." };
         const t = toets();
-        if (t.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw inkomen is hoger dan de bijstand.${grensZin(t.grens)}` };
+        if (t.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw inkomen is hoger dan de bijstand.${grensZin(t.grens, t.kd)}` };
         const v = vermogenToets(l, invoer, paar ? "pw.vermogensgrens.gehuwden" : metKinderen ? "pw.vermogensgrens.alleenstaande_ouder" : "pw.vermogensgrens.alleenstaande");
         if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit zijn meer dan ${heel(v.grens)}. Dan moet u eerst dat geld gebruiken.` };
         return {
           ...basis,
           kans: "misschien",
-          waarom: `${t.grens && !t.boven ? `Uw inkomen is lager dan de bijstand.${grensZin(t.grens)}` : waaromInkomen(t)} ${v.zin} De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.`,
+          waarom: `${t.grens && !t.boven ? `Uw inkomen is lager dan de bijstand.${grensZin(t.grens, t.kd)}` : waaromInkomen(t)} ${v.zin} De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.`,
         };
       }),
     );
@@ -529,6 +556,11 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
   if (jongAlleen) {
     const jongBron = bron(l, "pw.norm.jong.alleenstaande");
     for (const u of lijst) if (/De grens voor uw huishouden/.test(u.waarom) && !u.bronnen.some((b) => b.titel === jongBron[0]?.titel)) u.bronnen.push(...jongBron);
+  }
+  // Met de kostendelersnorm: de regel (art. 22a Pw) en wie niet meetelt.
+  if (kostendelers > 0) {
+    const kdBron = [...bron(l, "pw.kostendeler.basis"), CITATEN.kostendelerUitzonderingen];
+    for (const u of lijst) if (/Daarom is deze grens lager\./.test(u.waarom)) u.bronnen.push(...kdBron);
   }
   return lijst;
 }

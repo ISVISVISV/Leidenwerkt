@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CITATEN, Lezer, euro, sociaalMinimum, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron, Datum, Keuze, Veld, Vinkjes } from "@leidenwerkt/ui";
-import { bedragId, bedragSoorten, controleer, infoVan, vandaag, vraagAnderen, vraagInkomenKind, vraagOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
+import { bedragId, bedragSoorten, controleer, naarInvoer, infoVan, vandaag, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Overzicht } from "./Overzicht.tsx";
 import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANGSOORTEN, SOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
 
@@ -333,9 +333,33 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
         fout={fouten.andereBewoners}
         opties={JA_NEE}
       />
-      {vraagAnderen(f) && (
+      {vraagAantal(f) && (
         <>
           <Veld id="andereAantal" label={VRAAG.andereAantal} voorbeeld="bijv. 1" waarde={f.andereAantal} onChange={(v) => zet("andereAantal", v)} fout={fouten.andereAantal} />
+          <Veld
+            id="andereOuder"
+            label={VRAAG.andereOuder}
+            hint={
+              <>
+                <p>
+                  Niet iedereen telt mee. De meeste studenten tellen niet mee. Ook niet: iemand die met een contract en tegen een gewone prijs een
+                  kamer van u huurt of bij u in de kost is, en die geen familie van u is. Huurt u zelf een kamer? Dan tellen andere kamerhuurders met
+                  een eigen contract en een gewone huurprijs ook niet mee. Twijfelt u? Vraag het de gemeente.
+                </p>
+                <p className="bron-blok">
+                  Bron: <Bron citaat={CITATEN.kostendelerUitzonderingen} />
+                </p>
+              </>
+            }
+            voorbeeld="bijv. 1"
+            waarde={f.andereOuder}
+            onChange={(v) => zet("andereOuder", v)}
+            fout={fouten.andereOuder}
+          />
+        </>
+      )}
+      {vraagAnderen(f) && (
+        <>
           {!f.andereOnbekend ? (
             <Veld
               id="andereInkomen"
@@ -456,7 +480,10 @@ const maxPrijsTekst = (soort: Opvangsoort) => {
  * De gemeente kijkt naar 5 jaar. De bijstand was toen iets lager. Daarom "ongeveer".
  */
 function laagUitleg(f: Formulier): string {
-  const grens = sociaalMinimum(new Lezer(standaardRegels, vandaag()), f.partner === "ja", f.woont || "huur");
+  const invoer = naarInvoer(f);
+  const l = new Lezer(standaardRegels, vandaag());
+  const kostendelers = (invoer.kostendelers ?? 0) + invoer.kinderen.filter((k) => l.aantal("pw.kostendeler.minimumleeftijd").lte(k.leeftijd)).length;
+  const grens = sociaalMinimum(l, f.partner === "ja", f.woont || "huur", kostendelers);
   if (!grens) return "Laag betekent: niet hoger dan de bijstand.";
   return `Laag betekent: ongeveer ${euro(grens, true)} netto per maand of minder. Vakantiegeld telt niet mee. Dit is ongeveer de bijstand voor uw huishouden.`;
 }
