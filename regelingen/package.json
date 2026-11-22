@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "license": "EUPL-1.2",
   "type": "module",
-  "description": "Leidengeldfit: welke regelingen kunt u krijgen in Leiden? Nog niet gepubliceerd.",
+  "description": "Leidengeldwijzer: welke regelingen kunt u krijgen in Leiden? Nog niet gepubliceerd.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

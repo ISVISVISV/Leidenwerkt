@@ -3,7 +3,7 @@
  * De voorwaarden staan in docs/recht/VOORWAARDEN.md.
  */
 import { describe, expect, it } from "vitest";
-import { bereken, checkRegelingen, type CheckInvoer, type Invoer, type Kans, type Uitslag, type Vermogen } from "../src/index.js";
+import { bereken, CITATEN, checkRegelingen, type CheckInvoer, type Invoer, type Kans, type Uitslag, type Vermogen } from "../src/index.js";
 
 const DATUM = "2026-11-21";
 const geld = (spaarrekening: number, over: Partial<Vermogen> = {}): Vermogen => ({ betaalrekening: 0, spaarrekening, voertuigen: [], beleggingen: 0, spullen: 0, schulden: 0, ...over });
@@ -54,7 +54,7 @@ describe("grenzen van de gemeente", () => {
     expect(u.kans).toBe("misschien");
     expect(u.waarom).toContain("Krijgt u geen geld van uw ouders?");
   });
-  it("jongeren met een partner of kinderen: Leidengeldfit rekent de grens nog niet uit en zegt dat", () => {
+  it("jongeren met een partner of kinderen: Leidengeldwijzer rekent de grens nog niet uit en zegt dat", () => {
     const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 19, inkomen: { loon: 600 } }, partner: { leeftijd: 25, inkomen: {} } })), "gemeentepolis")!;
     expect(u.kans).toBe("misschien");
     expect(u.waarom).toContain("18, 19 en 20 jaar");
@@ -79,10 +79,14 @@ describe("Sleutelpas, Kindtegoed, laptop en zwemles", () => {
     expect(kans(invoer({ aanvrager: student }), "sleutelpas")).toBe("nee");
     expect(kans(invoer({ aanvrager: student, kinderen: [{ leeftijd: 2 }], kinderbijslag: true }), "sleutelpas")).toBe("ja");
   });
-  it("met een schuldregeling de Sleutelpas, ook boven 130% (art. 2.3 b en c)", () => {
+  it("boven 130% noemt de Sleutelpas de schuldregeling (art. 2.3 b en c)", () => {
     const hoog = { leeftijd: 40, inkomen: { loon: 2500 } };
-    expect(kans(invoer({ aanvrager: hoog }), "sleutelpas")).toBe("nee");
-    expect(kans(invoer({ aanvrager: hoog, schuldregeling: true }), "sleutelpas")).toBe("ja");
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: hoog })), "sleutelpas")!;
+    expect(u.kans).toBe("nee");
+    expect(u.waarom).toContain("Heeft u een schuldregeling? Dan kunt u de Sleutelpas misschien toch krijgen.");
+    expect(u.bronnen).toContainEqual(CITATEN.sleutelpasSchuld);
+    const laag = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 1200 } } })), "sleutelpas")!;
+    expect(laag.waarom).not.toContain("schuldregeling");
   });
   it("Kindtegoed per leeftijd: € 150 + € 350 + € 550 = € 1.050", () => {
     const u = uitslag(checkRegelingen(invoer({ kinderen: [{ leeftijd: 2 }, { leeftijd: 8 }, { leeftijd: 15 }], kinderbijslag: true })), "kindtegoed")!;

@@ -37,17 +37,17 @@ jobs:
           status=0; npx tsx scripts/audit.ts --willekeurig 60 --zaad ${{ github.run_number }} || status=$?
           cat audit/rapport-willekeurig.md >> "$GITHUB_STEP_SUMMARY"
           exit $status
-      # Leidengeldfit: dezelfde opzet (audit/leidengeldfit/README.md), met vaste en willekeurige personen.
-      - name: Audit Leidengeldfit
+      # Leidengeldwijzer: dezelfde opzet (audit/leidengeldwijzer/README.md), met vaste en willekeurige personen.
+      - name: Audit Leidengeldwijzer
         run: |
-          status=0; npm run audit:leidengeldfit || status=$?
-          cat audit/leidengeldfit/rapport.md >> "$GITHUB_STEP_SUMMARY"
-          git diff --exit-code -- audit/leidengeldfit/ || { echo "::error::audit/leidengeldfit is niet bijgewerkt. Draai npm run audit:leidengeldfit en commit de uitvoer."; exit 1; }
+          status=0; npm run audit:leidengeldwijzer || status=$?
+          cat audit/leidengeldwijzer/rapport.md >> "$GITHUB_STEP_SUMMARY"
+          git diff --exit-code -- audit/leidengeldwijzer/ || { echo "::error::audit/leidengeldwijzer is niet bijgewerkt. Draai npm run audit:leidengeldwijzer en commit de uitvoer."; exit 1; }
           exit $status
-      - name: Audit Leidengeldfit met willekeurige personen
+      - name: Audit Leidengeldwijzer met willekeurige personen
         run: |
-          status=0; npx tsx scripts/audit-leidengeldfit.ts --willekeurig 60 --zaad ${{ github.run_number }} || status=$?
-          cat audit/leidengeldfit/rapport-willekeurig.md >> "$GITHUB_STEP_SUMMARY"
+          status=0; npx tsx scripts/audit-leidengeldwijzer.ts --willekeurig 60 --zaad ${{ github.run_number }} || status=$?
+          cat audit/leidengeldwijzer/rapport-willekeurig.md >> "$GITHUB_STEP_SUMMARY"
           exit $status
       - uses: actions/upload-artifact@v4
         if: always()
@@ -58,10 +58,10 @@ jobs:
             audit/uitvoer/
             audit/rapport-willekeurig.md
             audit/willekeurig-fouten.json
-            audit/leidengeldfit/rapport.md
-            audit/leidengeldfit/uitvoer/
-            audit/leidengeldfit/rapport-willekeurig.md
-            audit/leidengeldfit/willekeurig-fouten.json
+            audit/leidengeldwijzer/rapport.md
+            audit/leidengeldwijzer/uitvoer/
+            audit/leidengeldwijzer/rapport-willekeurig.md
+            audit/leidengeldwijzer/willekeurig-fouten.json
       - run: npm run build:los
       - uses: actions/upload-artifact@v4
         with:

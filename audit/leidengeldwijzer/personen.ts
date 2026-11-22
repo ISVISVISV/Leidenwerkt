@@ -1,10 +1,10 @@
 /**
- * Verzonnen personen voor `npm run audit:leidengeldfit`. Elke persoon is een ingevuld formulier van Leidengeldfit,
+ * Verzonnen personen voor `npm run audit:leidengeldwijzer`. Elke persoon is een ingevuld formulier van Leidengeldwijzer,
  * zoals het er na stap 3 uitziet. Alle gegevens zijn verzonnen.
  *
- * - `verwacht`: bedragen uit een officiële bron. De audit legt Leidengeldfit ernaast.
+ * - `verwacht`: bedragen uit een officiële bron. De audit legt Leidengeldwijzer ernaast.
  * - `omwegen`: een andere route naar hetzelfde formulier. `begin` is wat iemand eerst invulde, `wijzig` is wat
- *   iemand daarna veranderde. Oude velden blijven staan, net als in Leidengeldfit. De uitkomst moet gelijk zijn.
+ *   iemand daarna veranderde. Oude velden blijven staan, net als in Leidengeldwijzer. De uitkomst moet gelijk zijn.
  */
 import { leegFormulier, type Formulier, type InkomenVelden } from "../../regelingen/src/formulier.ts";
 
@@ -18,7 +18,7 @@ export interface Verwachting {
   grens?: number;
   /** Het bedrag per maand, zoals een officiële rekenhulp het geeft. */
   bedrag?: number;
-  /** Toegestaan verschil in euro's. Standaard 1 (Leidengeldfit rondt af op hele euro's). */
+  /** Toegestaan verschil in euro's. Standaard 1 (Leidengeldwijzer rondt af op hele euro's). */
   tolerantie?: number;
   bron: { titel: string; url: string; datum: string };
 }
@@ -40,7 +40,6 @@ export const formulier = (over: Partial<Formulier>): Formulier => ({
   kaleHuur: "750",
   andereBewoners: "nee",
   bijstand: "nee",
-  schuldregeling: "nee",
   langLaag: "nee",
   bezit: ["niets"],
   ...over,
@@ -172,8 +171,8 @@ export const PERSONEN: Persoon[] = [
     f: formulier({ geboren: "01-03-1975", woont: "dakloos", kaleHuur: "", inkomen: geen, langLaag: "ja" }),
   },
   {
-    naam: "Esra: schuldregeling bij de Stadsbank, loon boven 130%",
-    f: formulier({ geboren: "01-03-1991", kaleHuur: "900", schuldregeling: "ja", inkomen: inkomen({ loon: "1900" }), bezit: ["schuld"], schulden: "18000" }),
+    naam: "Esra: met schulden, loon boven 130%",
+    f: formulier({ geboren: "01-03-1991", kaleHuur: "900", inkomen: inkomen({ loon: "1900" }), bezit: ["schuld"], schulden: "18000" }),
   },
   {
     naam: "Willem: veel spaargeld",

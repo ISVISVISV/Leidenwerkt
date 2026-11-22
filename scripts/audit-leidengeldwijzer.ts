@@ -1,11 +1,11 @@
 /**
- * `npm run audit:leidengeldfit`: rekent de verzonnen personen uit audit/leidengeldfit/personen.ts door met de echte
- * overzichtspagina van Leidengeldfit, schrijft per persoon het overzicht als platte tekst weg en controleert
- * automatisch wat er mis kan gaan. Geen AI en geen internet nodig. Zie audit/leidengeldfit/README.md.
+ * `npm run audit:leidengeldwijzer`: rekent de verzonnen personen uit audit/leidengeldwijzer/personen.ts door met de echte
+ * overzichtspagina van Leidengeldwijzer, schrijft per persoon het overzicht als platte tekst weg en controleert
+ * automatisch wat er mis kan gaan. Geen AI en geen internet nodig. Zie audit/leidengeldwijzer/README.md.
  *
  * Uitvoer:
- * - audit/leidengeldfit/uitvoer/<persoon>.txt: wat de persoon invulde en het overzicht als tekst.
- * - audit/leidengeldfit/rapport.md: de controles en alles wat niet klopt.
+ * - audit/leidengeldwijzer/uitvoer/<persoon>.txt: wat de persoon invulde en het overzicht als tekst.
+ * - audit/leidengeldwijzer/rapport.md: de controles en alles wat niet klopt.
  */
 import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -14,13 +14,13 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { parse } from "yaml";
 import { Controles, bestandsnaam, browserMetPaginas, optie, overlapIn, pagina, rekendatumUit, viteVoor } from "./audit-kern.ts";
-import { PERSONEN, REKENDATUM, formulier, type Persoon, type Verwachting } from "../audit/leidengeldfit/personen.ts";
-import { willekeurigePersonen } from "../audit/leidengeldfit/willekeurig.ts";
+import { PERSONEN, REKENDATUM, formulier, type Persoon, type Verwachting } from "../audit/leidengeldwijzer/personen.ts";
+import { willekeurigePersonen } from "../audit/leidengeldwijzer/willekeurig.ts";
 import type { Formulier } from "../regelingen/src/formulier.ts";
 import type { CheckInvoer } from "../packages/engine/src/index.ts";
 
 const wortel = join(dirname(fileURLToPath(import.meta.url)), "..");
-const map = join(wortel, "audit", "leidengeldfit");
+const map = join(wortel, "audit", "leidengeldwijzer");
 const uitvoerMap = join(map, "uitvoer");
 const aantalWillekeurig = optie("willekeurig");
 const zaad = optie("zaad") ?? Date.now() % 100000;
@@ -121,12 +121,12 @@ async function main() {
       if (v.grens !== undefined) {
         const g = k && /grens voor uw huishouden is ongeveer €\s([\d.]+)/.exec(k.waarom);
         const app = g ? getal(g[1]) : NaN;
-        c.controle("Gelijk aan de officiële bron", p.naam, waar, Math.abs(app - v.grens) <= tol, `${v.regeling}, grens: Leidengeldfit € ${app}, ${v.bron.titel}: € ${v.grens}`);
+        c.controle("Gelijk aan de officiële bron", p.naam, waar, Math.abs(app - v.grens) <= tol, `${v.regeling}, grens: Leidengeldwijzer € ${app}, ${v.bron.titel}: € ${v.grens}`);
       }
       if (v.bedrag !== undefined) {
         const b = k && /€\s([\d.]+)/.exec(k.bedrag);
         const app = b ? getal(b[1]) : NaN;
-        c.controle("Gelijk aan de officiële bron", p.naam, waar, Math.abs(app - v.bedrag) <= tol, `${v.regeling}, bedrag: Leidengeldfit € ${app}, ${v.bron.titel}: € ${v.bedrag}`);
+        c.controle("Gelijk aan de officiële bron", p.naam, waar, Math.abs(app - v.bedrag) <= tol, `${v.regeling}, bedrag: Leidengeldwijzer € ${app}, ${v.bron.titel}: € ${v.bedrag}`);
       }
     }
   }
@@ -164,10 +164,10 @@ async function main() {
   await vite.close();
 
   const regels = c.rapport(
-    "Auditrapport Leidengeldfit",
+    "Auditrapport Leidengeldwijzer",
     aantalWillekeurig
-      ? `Gemaakt met \`npm run audit:leidengeldfit -- --willekeurig ${aantalWillekeurig} --zaad ${zaad}\` met rekendatum ${rekendatum}. ${personen.length} willekeurige personen. De formulieren van personen met een melding staan in audit/leidengeldfit/willekeurig-fouten.json.`
-      : `Gemaakt met \`npm run audit:leidengeldfit\` met rekendatum ${rekendatum}. ${personen.length} personen uit audit/leidengeldfit/personen.ts en extern/. De overzichten staan in audit/leidengeldfit/uitvoer/.`,
+      ? `Gemaakt met \`npm run audit:leidengeldwijzer -- --willekeurig ${aantalWillekeurig} --zaad ${zaad}\` met rekendatum ${rekendatum}. ${personen.length} willekeurige personen. De formulieren van personen met een melding staan in audit/leidengeldwijzer/willekeurig-fouten.json.`
+      : `Gemaakt met \`npm run audit:leidengeldwijzer\` met rekendatum ${rekendatum}. ${personen.length} personen uit audit/leidengeldwijzer/personen.ts en extern/. De overzichten staan in audit/leidengeldwijzer/uitvoer/.`,
   );
   writeFileSync(join(map, aantalWillekeurig ? "rapport-willekeurig.md" : "rapport.md"), regels.join("\n"));
   if (aantalWillekeurig) writeFileSync(join(map, "willekeurig-fouten.json"), JSON.stringify(mislukt, null, 1));
@@ -188,14 +188,14 @@ function ingevuld(i: CheckInvoer): string {
     i.partner ? persoon("Partner", i.partner) : "Geen partner.",
     i.kinderen.length ? `Kinderen: ${i.kinderen.map((k) => `${k.leeftijd} jaar`).join(", ")}. Kinderbijslag: ${i.kinderbijslag ? "ja" : "nee"}.` : "Geen kinderen.",
     `Wonen: ${i.wonen}${i.kaleHuurPerMaand !== undefined ? `, kale huur ${euro(i.kaleHuurPerMaand)}` : ""}. Andere mensen in huis: ${i.andereBewoners ? "ja" : "nee"}.`,
-    `Bijstand: ${i.bijstand ? "ja" : "nee"}. Schuldregeling: ${i.schuldregeling ? "ja" : "nee"}. 5 jaar laag inkomen: ${i.langLaagInkomen ?? "niet gevraagd"}.`,
+    `Bijstand: ${i.bijstand ? "ja" : "nee"}. 5 jaar laag inkomen: ${i.langLaagInkomen ?? "niet gevraagd"}.`,
     `Geld en bezit: betaalrekening ${euro(v.betaalrekening)}, spaarrekening ${euro(v.spaarrekening)}, voertuigen ${v.voertuigen.map(euro).join(" en ") || "geen"}, beleggingen ${euro(v.beleggingen)}, spullen ${euro(v.spullen)}, schulden ${euro(v.schulden)}.`,
   ].join("\n");
 }
 
 /**
  * Personen die een ander (bijvoorbeeld een klantmanager) heeft ingevuld, met bedragen uit een officiële bron.
- * Elk bestand in audit/leidengeldfit/extern/*.yaml is één persoon. Zie audit/leidengeldfit/README.md.
+ * Elk bestand in audit/leidengeldwijzer/extern/*.yaml is één persoon. Zie audit/leidengeldwijzer/README.md.
  */
 function externePersonen(): Persoon[] {
   const extern = join(map, "extern");

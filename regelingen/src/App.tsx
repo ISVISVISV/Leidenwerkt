@@ -51,7 +51,7 @@ export function App() {
   return (
     <div className="pagina">
       <header className="kopregel">
-        <p className="merk">Leidengeldfit</p>
+        <p className="merk">Leidengeldwijzer</p>
         <p className="kopregel-tekst">Welke regelingen kunt u krijgen in Leiden?</p>
       </header>
 
@@ -133,11 +133,11 @@ export function App() {
           is alles weg.
         </p>
         <p>
-          Leidengeldfit geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden en Dienst Toeslagen. Leidengeldfit
+          Leidengeldwijzer geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden en Dienst Toeslagen. Leidengeldwijzer
           is geen product van de gemeente.
         </p>
         <p>
-          Leidengeldfit is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
+          Leidengeldwijzer is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
           <a href="https://github.com/ISVISVISV/Leidenwerkt" rel="noopener noreferrer">
             broncode
           </a>{" "}
@@ -154,7 +154,7 @@ function Start({ onStart }: { onStart: () => void }) {
       <h1>Welke regelingen kunt u krijgen?</h1>
       <p className="inleiding">
         Heeft u een laag inkomen? Dan kunt u misschien hulp krijgen van de gemeente Leiden. U kunt misschien ook geld krijgen van Dienst
-        Toeslagen. Leidengeldfit laat zien welke regelingen er voor u zijn. Dit duurt ongeveer 5 minuten.
+        Toeslagen. Leidengeldwijzer laat zien welke regelingen er voor u zijn. Dit duurt ongeveer 5 minuten.
       </p>
       <p>U heeft nodig:</p>
       <ul>
@@ -163,7 +163,7 @@ function Start({ onStart }: { onStart: () => void }) {
         <li>uw kale huur per maand, als u huurt</li>
         <li>hoeveel geld en bezit u ongeveer heeft</li>
       </ul>
-      <p>Leidengeldfit is voor inwoners van Leiden van 18 jaar tot de AOW-leeftijd.</p>
+      <p>Leidengeldwijzer is voor inwoners van Leiden van 18 jaar tot de AOW-leeftijd.</p>
       <button type="button" className="hoofdknop" onClick={onStart}>
         Begin de check
       </button>
@@ -267,7 +267,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
               requestAnimationFrame(() => document.getElementById(`kind${nieuw}`)?.focus());
             }}
           >
-            Nog een kind toevoegen
+            Kind toevoegen
           </button>
           {minderjarigen(f) > 0 && (
             <Keuze
@@ -275,7 +275,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
               legend={minderjarigen(f) > 1 ? "Krijgt u kinderbijslag voor deze kinderen?" : "Krijgt u kinderbijslag voor dit kind?"}
               hint={
                 <>
-                  <p>Kinderbijslag krijgt u van de SVB voor kinderen jonger dan 18 jaar. Kies ook Ja als u een pleegkindvergoeding krijgt.</p>
+                  <p>Kinderbijslag krijgt u van de SVB voor kinderen jonger dan 18 jaar.</p>
                   <p className="bron-blok">
                     Bron: <Bron citaat={CITATEN.kinderbijslagWie} />
                   </p>
@@ -435,22 +435,6 @@ function StapInkomen({ f, zet, fouten }: StapProps) {
       />
       {vraagInkomen(f) && (
         <>
-          <Keuze
-            naam="schuldregeling"
-            legend="Heeft u een schuldregeling?"
-            hint={
-              <>
-                <p>U lost uw schulden af volgens een plan. De Stadsbank Leiden helpt u daarbij. Of de rechter heeft u toegelaten tot de Wsnp.</p>
-                <p className="bron-blok">
-                  Bron: <Bron citaat={CITATEN.stadsbankSchuldregeling} />
-                </p>
-              </>
-            }
-            waarde={f.schuldregeling}
-            onChange={(v) => zet("schuldregeling", v)}
-            fout={fouten.schuldregeling}
-            opties={JA_NEE}
-          />
           <InkomenBlok v={f.inkomen} partner={false} onChange={(v) => zet("inkomen", v)} fouten={fouten} />
           {paar && <InkomenBlok v={f.partnerInkomen} partner onChange={(v) => zet("partnerInkomen", v)} fouten={fouten} />}
         </>
@@ -572,7 +556,7 @@ function StapGeld({ f, zet, fouten }: StapProps) {
               requestAnimationFrame(() => document.getElementById(`voertuig${nieuw}`)?.focus());
             }}
           >
-            Nog een auto, motor of scooter toevoegen
+            Auto, motor of scooter toevoegen
           </button>
         </>
       )}

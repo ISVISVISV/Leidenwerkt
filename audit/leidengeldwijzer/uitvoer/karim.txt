@@ -6,16 +6,16 @@ Aanvrager: 38 jaar. Inkomen per maand: bedrijf € 1.200.
 Geen partner.
 Geen kinderen.
 Wonen: huur, kale huur € 820. Andere mensen in huis: nee.
-Bijstand: nee. Schuldregeling: nee. 5 jaar laag inkomen: nee.
+Bijstand: nee. 5 jaar laag inkomen: nee.
 Geld en bezit: betaalrekening € 1.500, spaarrekening € 0, voertuigen geen, beleggingen € 0, spullen € 0, schulden € 0.
 
 ## Overzicht
 
-Dit overzicht is een schatting. Leidengeldfit gebruikt alleen wat u heeft ingevuld. Leidengeldfit bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
+Dit overzicht is een schatting. Leidengeldwijzer gebruikt alleen wat u heeft ingevuld. Leidengeldwijzer bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
 
 Dit kunt u misschien krijgen (9)
 
-Leidengeldfit weet het niet zeker. Bij elke regeling staat waarom.
+Leidengeldwijzer weet het niet zeker. Bij elke regeling staat waarom.
 
 Sleutelpas
 
@@ -95,7 +95,7 @@ Participatiewet, art. 34
 
 Zorgtoeslag
 
-Leidengeldfit kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.
+Leidengeldwijzer kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.
 
 Proefberekening van Dienst Toeslagen
 (opent in een nieuw venster)
@@ -105,7 +105,7 @@ Dienst Toeslagen, maximaal vermogen zorgtoeslag
 
 Huurtoeslag
 
-Leidengeldfit kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.
+Leidengeldwijzer kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.
 
 Proefberekening van Dienst Toeslagen
 (opent in een nieuw venster)

@@ -8,14 +8,14 @@ Gratis, open rekenhulp voor inwoners van Leiden met bijstand. De vraag die de ap
 - Elke regel en elk bedrag heeft een officiële bron en een status (`geverifieerd`, `onbevestigd`, `ontbrekend`). Ontbreekt een gegeven, dan rekent de app dat onderdeel niet uit in plaats van te gokken.
 - De uitkomst is een inschatting, geen advies of beslissing.
 
-In deze repository zit ook **Leidengeldfit**: een check voor alle Leidenaren van 18 jaar tot de AOW-leeftijd. Welke regelingen van de gemeente en welke toeslagen kunt u krijgen? Leidengeldfit is nog in ontwikkeling. Het valt onder dezelfde open licentie (EUPL-1.2) en volgt dezelfde regels: alles in de browser, alleen officiële bronnen.
+In deze repository zit ook **Leidengeldwijzer**: een check voor alle Leidenaren van 18 jaar tot de AOW-leeftijd. Welke regelingen van de gemeente en welke toeslagen kunt u krijgen? Leidengeldwijzer is nog in ontwikkeling. Het valt onder dezelfde open licentie (EUPL-1.2) en volgt dezelfde regels: alles in de browser, alleen officiële bronnen.
 
 ## Snel starten
 
 ```bash
 npm install
 npm run dev        # ontwikkelserver
-npm run dev:regelingen  # ontwikkelserver van Leidengeldfit
+npm run dev:regelingen  # ontwikkelserver van Leidengeldwijzer
 npm test           # regeldata controleren + unit-, eigenschaps- en proefpersonentests
 npm run docs       # PROEFPERSONEN.md en de statustabel in REKENREGELS.md opnieuw maken
 npm run test:e2e   # bouwen + browsertest met toegankelijkheidscontrole (axe)
@@ -32,7 +32,7 @@ Voor `test:e2e` is Chromium nodig (`npx playwright install chromium`) of een bes
 | `regels/` | Normbedragen en parameters als YAML, per onderwerp en periode, met bron |
 | `packages/engine/` | Rekenengine in TypeScript, los van de app, met uitlegspoor |
 | `app/` | React-app Leidenwerkt (Vite) |
-| `regelingen/` | Leidengeldfit, de tweede app: welke regelingen kunt u krijgen in Leiden? Nog in ontwikkeling en nog niet gepubliceerd |
+| `regelingen/` | Leidengeldwijzer, de tweede app: welke regelingen kunt u krijgen in Leiden? Nog in ontwikkeling en nog niet gepubliceerd |
 | `packages/ui/` | Formuliervelden, bronvermelding en huisstijl, gedeeld door beide apps |
 | `testgevallen/` | Proefpersonen: verzonnen huishoudens met officiële vergelijkingswaarden |
 | `scripts/` | Regeldata bouwen en controleren, documentatie genereren, overzicht bij pull requests, bewaking van wetten |

@@ -1,12 +1,12 @@
 /**
- * Welke regelingen kan iemand in Leiden krijgen? Rekenkern van Leidengeldfit, de tweede app.
+ * Welke regelingen kan iemand in Leiden krijgen? Rekenkern van Leidengeldwijzer, de tweede app.
  *
  * Elke regeling geeft een uitslag: waarschijnlijk wel ("ja"), misschien, of waarschijnlijk niet ("nee"), met de reden
  * in gewone taal en de letterlijke bron. De voorwaarden staan in docs/recht/VOORWAARDEN.md, de bedragen en grenzen in
  * regels/**\/*.yaml.
  *
- * "Misschien" betekent: Leidengeldfit weet het niet zeker. Bijvoorbeeld omdat iemand "Weet ik niet" antwoordde, of omdat
- * Leidengeldfit een situatie niet uitrekent (andere mensen in huis, inkomen uit een eigen bedrijf). Leidengeldfit zegt dan wat
+ * "Misschien" betekent: Leidengeldwijzer weet het niet zeker. Bijvoorbeeld omdat iemand "Weet ik niet" antwoordde, of omdat
+ * Leidengeldwijzer een situatie niet uitrekent (andere mensen in huis, inkomen uit een eigen bedrijf). Leidengeldwijzer zegt dan wat
  * er nog open is.
  */
 import { CITATEN, naarCitaat, type Citaat } from "./citaten.ts";
@@ -48,8 +48,6 @@ export interface CheckInvoer {
   kinderbijslag?: boolean;
   /** Bijstand van de gemeente (voor het huishouden). */
   bijstand: boolean;
-  /** Een schuldregeling via de Stadsbank Leiden, of toegelaten tot de Wsnp (art. 2.3 b en c Beleidsregels Sleutelpas). */
-  schuldregeling?: boolean;
   /** 5 jaar of langer een inkomen tot de bijstandsnorm. Alleen nodig vanaf 23 jaar. */
   langLaagInkomen?: JaNeeOnbekend;
   /** Studiefinanciering, en door ziekte of handicap niet kunnen werken naast de studie. */
@@ -62,7 +60,7 @@ export interface CheckInvoer {
   vermogen: Vermogen;
 }
 
-/** Geld en bezit van het huishouden, in euro's. Leidengeldfit telt per regeling wat meetelt. */
+/** Geld en bezit van het huishouden, in euro's. Leidengeldwijzer telt per regeling wat meetelt. */
 export interface Vermogen {
   betaalrekening: number;
   spaarrekening: number;
@@ -125,7 +123,7 @@ const bron = (l: Lezer, id: string): Citaat[] => {
 
 const heel = (b: Bedrag) => euro(b, true);
 
-/** Leeftijd vanaf wanneer de gewone normen gelden. Voor 18, 19 en 20 jaar rekent Leidengeldfit nog niet. */
+/** Leeftijd vanaf wanneer de gewone normen gelden. Voor 18, 19 en 20 jaar rekent Leidengeldwijzer nog niet. */
 const VOLWASSEN = 21;
 
 export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaardRegels): Uitslag[] {
@@ -167,8 +165,8 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
     grens ? ` De grens voor uw huishouden is ongeveer ${heel(grens)} netto per maand. Vakantiegeld telt niet mee.` : "";
   const waaromInkomen = ({ grens, boven }: Toets): string => {
     if (!grens) return jong
-      ? "Leidengeldfit kan de grens voor jongeren van 18, 19 en 20 jaar nog niet uitrekenen. Vraag het de gemeente."
-      : "Leidengeldfit kan de grens voor uw woonsituatie niet uitrekenen. Vraag het de gemeente.";
+      ? "Leidengeldwijzer kan de grens voor jongeren van 18, 19 en 20 jaar nog niet uitrekenen. Vraag het de gemeente."
+      : "Leidengeldwijzer kan de grens voor uw woonsituatie niet uitrekenen. Vraag het de gemeente.";
     if (invoer.bijstand) return `Met bijstand is uw inkomen niet hoger dan de grens.${grensZin(grens)}`;
     if (boven && jongAlleen)
       return `Uw inkomen is hoger dan de grens.${grensZin(grens)} Krijgt u geen geld van uw ouders? Dan kan de grens voor uw inkomen hoger zijn. Vraag de gemeente of u de regeling toch kunt krijgen. Bel 14 071 en kies 1.`;
@@ -182,7 +180,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
   uit.push(
     probeer(() => {
       const t = toets("leiden.sleutelpas.inkomensgrens");
-      const bronnen = [...bron(l, "leiden.sleutelpas.inkomensgrens"), CITATEN.sleutelpasWie, ...(invoer.schuldregeling ? [CITATEN.sleutelpasSchuld] : [])];
+      const bronnen = [...bron(l, "leiden.sleutelpas.inkomensgrens"), CITATEN.sleutelpasWie];
       const basis = { id: "sleutelpas", naam: "Sleutelpas", groep: "gemeente" as const, bronnen, aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.sleutelpas } };
       if (invoer.wonen === "instelling")
         return { ...basis, kans: "nee", waarom: "Woont u in een instelling? Dan kunt u de Sleutelpas niet krijgen." };
@@ -190,11 +188,17 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         return { ...basis, kans: "nee", waarom: "Met studiefinanciering kunt u de Sleutelpas niet krijgen. Dat kan wel als u ook voor een kind zorgt." };
       if (invoer.bijstand)
         return { ...basis, kans: "ja", waarom: "Met bijstand krijgt u de Sleutelpas vanzelf. U hoeft hem niet aan te vragen." };
-      // Art. 2.3: met een schuldregeling (MSNP) of in de Wsnp heeft iemand geen draagkracht, ook boven 130%.
-      if (invoer.schuldregeling)
-        return { ...basis, kans: "ja", waarom: "Met een schuldregeling of in de Wsnp kunt u de Sleutelpas krijgen. Dat kan zolang u zich aan de afspraken houdt." };
       const kans = bedrijf && t.kans !== "nee" ? "misschien" : t.kans;
-      return { ...basis, kans, waarom: `Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. ${waaromInkomen(t)}${bedrijf ? bedrijfZin : ""}` };
+      const waarom = `Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. ${waaromInkomen(t)}${bedrijf ? bedrijfZin : ""}`;
+      // Art. 2.3 b en c: met een schuldregeling (MSNP) of in de Wsnp heeft iemand geen draagkracht, ook boven 130%.
+      if (t.boven)
+        return {
+          ...basis,
+          kans,
+          bronnen: [...bronnen, CITATEN.sleutelpasSchuld],
+          waarom: `${waarom} Heeft u een schuldregeling? Dan kunt u de Sleutelpas misschien toch krijgen.`,
+        };
+      return { ...basis, kans, waarom };
     }),
   );
 
@@ -209,7 +213,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         const bronnen = [...bron(l, "leiden.kindtegoed.0_3"), CITATEN.kindtegoedKind];
         const basis = { id: "kindtegoed", naam: "Kindtegoed", groep: "gemeente" as const, bedrag: `${heel(totaal)} per jaar`, bronnen, aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.sleutelpas } };
         if (invoer.kinderbijslag === false)
-          return { ...basis, kans: "nee", waarom: "Het Kindtegoed is alleen voor kinderen voor wie u kinderbijslag krijgt." };
+          return { ...basis, kans: "nee", waarom: "Het Kindtegoed is alleen voor kinderen voor wie u kinderbijslag of een pleegkindvergoeding krijgt." };
         const kans = bedrijf && t.kans !== "nee" ? "misschien" : t.kans;
         return { ...basis, kans, waarom: `U krijgt geld op de Sleutelpas. Daarmee betaalt u schoolspullen, sport en cultuur voor uw kinderen. ${waaromInkomen(t)}` };
       }),
@@ -277,7 +281,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
     }),
   );
 
-  // Gemeentepolis: tot 120%. Ondernemers: een jaargrens die Leidengeldfit niet uitrekent.
+  // Gemeentepolis: tot 120%. Ondernemers: een jaargrens die Leidengeldwijzer niet uitrekent.
   uit.push(
     probeer(() => {
       const t = toets("leiden.gemeentepolis.inkomensgrens");
@@ -444,7 +448,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
     }),
   );
 
-  // Goed om te weten: hulp voor iedereen, zonder voorwaarden van Leidengeldfit.
+  // Goed om te weten: hulp voor iedereen, zonder voorwaarden van Leidengeldwijzer.
   uit.push(
     {
       id: "goede_buur",
@@ -538,7 +542,7 @@ function vermogenToets(l: Lezer, invoer: CheckInvoer, grensId: string): { kans: 
   return { kans: "ja", grens, zin: `Uw geld en bezit zijn niet meer dan ${heel(grens)}.` };
 }
 
-/** Toetsingsinkomen per jaar (bruto), afgeleid uit het netto inkomen. Undefined als Leidengeldfit het niet kan afleiden. */
+/** Toetsingsinkomen per jaar (bruto), afgeleid uit het netto inkomen. Undefined als Leidengeldwijzer het niet kan afleiden. */
 function toetsingsinkomen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): Bedrag | undefined {
   if (invoer.bijstand) {
     // Zoals Leidenwerkt: de bijstand (met vakantietoeslag) als uitkering, bij een paar half om half.
@@ -547,7 +551,7 @@ function toetsingsinkomen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[
   }
   // Per persoon. Loon en uitkering: bruto terugrekenen uit netto, met vakantiegeld. Partneralimentatie komt bruto
   // binnen en telt zo mee. Kinderalimentatie en studiefinanciering tellen niet mee voor de toeslagen.
-  // Twee soorten met loonheffing (loon en uitkering), een eigen bedrijf of ander inkomen: dat rekent Leidengeldfit niet uit.
+  // Twee soorten met loonheffing (loon en uitkering), een eigen bedrijf of ander inkomen: dat rekent Leidengeldwijzer niet uit.
   const vg = l.breuk("wml.vakantiebijslag");
   let totaal = NUL;
   for (const p of personen) {
@@ -564,15 +568,15 @@ function toetsingsinkomen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[
 
 function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Uitslag | undefined)[] {
   const paar = personen.length > 1;
-  // Boven deze grens telt inkomen uit vermogen mee in het toetsingsinkomen. Dat rekent Leidengeldfit niet uit.
+  // Boven deze grens telt inkomen uit vermogen mee in het toetsingsinkomen. Dat rekent Leidengeldwijzer niet uit.
   const vermogenTeHoog = probeer2(() =>
     telbaarVermogen(l, invoer.vermogen, "toeslagen").gt(l.bedrag(paar ? "toeslagen.vermogen.inkomen.met_partner" : "toeslagen.vermogen.inkomen.zonder_partner")),
   );
   const ti = vermogenTeHoog === false ? probeer2(() => toetsingsinkomen(l, invoer, personen)) : undefined;
   const proef = { tekst: "Proefberekening van Dienst Toeslagen", url: URL.toeslagen };
   const geenBedrag = vermogenTeHoog
-    ? "Een deel van uw geld en bezit telt mee als inkomen. Leidengeldfit rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen."
-    : "Leidengeldfit kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.";
+    ? "Een deel van uw geld en bezit telt mee als inkomen. Leidengeldwijzer rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen."
+    : "Leidengeldwijzer kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.";
   const kinderen: Kind[] = invoer.kinderen.map((k) => ({ leeftijd: k.leeftijd }));
   const uit: (Uitslag | undefined)[] = [];
 
@@ -611,9 +615,9 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
       if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit op 1 januari waren meer dan ${heel(v.grens)}.` };
       const volwassenKind = invoer.kinderen.some((k) => k.leeftijd >= 18);
       if (invoer.andereBewoners || volwassenKind)
-        return { ...basis, kans: "misschien", waarom: "Er wonen nog andere volwassenen bij u. Hun inkomen en hun geld en bezit tellen mee. Leidengeldfit rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen." };
+        return { ...basis, kans: "misschien", waarom: "Er wonen nog andere volwassenen bij u. Hun inkomen en hun geld en bezit tellen mee. Leidengeldwijzer rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen." };
       if (personen.every((p) => p.leeftijd < 21))
-        return { ...basis, kans: "misschien", waarom: "Leidengeldfit rekent de huurtoeslag voor jongeren onder de 21 jaar niet uit. Doe de proefberekening van Dienst Toeslagen." };
+        return { ...basis, kans: "misschien", waarom: "Leidengeldwijzer rekent de huurtoeslag voor jongeren onder de 21 jaar niet uit. Doe de proefberekening van Dienst Toeslagen." };
       if (!ti || invoer.kaleHuurPerMaand === undefined) return { ...basis, kans: "misschien", waarom: geenBedrag };
       const personenAantal = personen.length + invoer.kinderen.length;
       const r = huurtoeslag(l, D(invoer.kaleHuurPerMaand), ti, personenAantal);

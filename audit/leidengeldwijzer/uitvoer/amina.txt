@@ -1,19 +1,19 @@
-# Basis: alleenstaand, loon, huurwoning
+# Amina: net in Nederland, nog geen kinderbijslag
 
 ## Wat is ingevuld
 
-Aanvrager: 36 jaar. Inkomen per maand: loon € 1.300.
+Aanvrager: 30 jaar. Inkomen per maand: loon € 1.100.
 Geen partner.
-Geen kinderen.
-Wonen: huur, kale huur € 750. Andere mensen in huis: nee.
-Bijstand: nee. Schuldregeling: nee. 5 jaar laag inkomen: nee.
-Geld en bezit: betaalrekening € 0, spaarrekening € 2.000, voertuigen geen, beleggingen € 0, spullen € 0, schulden € 0.
+Kinderen: 2 jaar, 6 jaar. Kinderbijslag: nee.
+Wonen: huur, kale huur € 650. Andere mensen in huis: nee.
+Bijstand: nee. 5 jaar laag inkomen: nee.
+Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleggingen € 0, spullen € 0, schulden € 0.
 
 ## Overzicht
 
-Dit overzicht is een schatting. Leidengeldfit gebruikt alleen wat u heeft ingevuld. Leidengeldfit bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
+Dit overzicht is een schatting. Leidengeldwijzer gebruikt alleen wat u heeft ingevuld. Leidengeldwijzer bewaart niets. Wilt u het overzicht houden? Druk het dan af. Of sla het op als pdf.
 
-Dit kunt u waarschijnlijk krijgen (6)
+Dit kunt u waarschijnlijk krijgen (10)
 
 Vraag het aan. Daarna beslist de gemeente of Dienst Toeslagen.
 
@@ -27,6 +27,30 @@ Bronnen
 
 Leiden, beleidsregels Kindtegoed en Sleutelpas 2026
 Leiden, Beleidsregels Sleutelpas 2026, art. 2.2 en 3.1
+
+Laptop voor school
+
+1 laptop per 5 jaar
+
+Op de Sleutelpas staat een bon voor een laptop. Kinderen van 4 tot en met 11 jaar krijgen samen 1 laptop. Kinderen van 12 tot en met 17 jaar krijgen elk een laptop.
+
+Meer informatie
+(opent in een nieuw venster)
+Bron
+
+Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.1 en 3.2
+
+Zwemles
+
+Diploma A: alles betaald. Diploma B of C: € 250.
+
+Dit is voor kinderen vanaf 5 jaar. U vraagt het aan bij het Jeugdfonds Sport & Cultuur. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.888 netto per maand. Vakantiegeld telt niet mee.
+
+Meer informatie
+(opent in een nieuw venster)
+Bron
+
+Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 3.3
 
 Sport en cultuur voor volwassenen
 
@@ -73,9 +97,21 @@ Bron
 
 Dienst Toeslagen, maximaal vermogen zorgtoeslag
 
+Kindgebonden budget
+
+ongeveer € 714 per maand
+
+Dit is extra geld voor ouders met kinderen jonger dan 18 jaar. Uw geld en bezit zijn niet meer dan € 146.011.
+
+Proefberekening van Dienst Toeslagen
+(opent in een nieuw venster)
+Bron
+
+Dienst Toeslagen, maximaal vermogen kindgebonden budget
+
 Huurtoeslag
 
-ongeveer € 450 per maand
+ongeveer € 396 per maand
 
 Dit is geld voor uw huur. Uw geld en bezit zijn niet meer dan € 38.479.
 
@@ -86,9 +122,33 @@ Bronnen
 Dienst Toeslagen, Kan ik huurtoeslag krijgen?
 Dienst Toeslagen, maximaal vermogen huurtoeslag
 
-Dit kunt u misschien krijgen (3)
+Kinderbijslag
 
-Leidengeldfit weet het niet zeker. Bij elke regeling staat waarom.
+€ 660,75 per kwartaal
+
+Kinderbijslag is geld voor uw kinderen tot 18 jaar. Uw inkomen maakt niet uit. U vraagt dit aan bij de Sociale Verzekeringsbank.
+
+Meer informatie en aanvragen
+(opent in een nieuw venster)
+Bronnen
+
+SVB, Wat is kinderbijslag
+SVB, Bedragen kinderbijslag
+
+Dit kunt u misschien krijgen (5)
+
+Leidengeldwijzer weet het niet zeker. Bij elke regeling staat waarom.
+
+Kinderopvang bij sociale of medische problemen
+
+Heeft u of uw partner last van lichamelijke, psychische of sociale klachten? Kan niemand anders voor uw kind zorgen? Dan kan de gemeente helpen met de kosten van kinderopvang. U betaalt zelf ook een deel.
+
+Meer informatie en aanvragen
+(opent in een nieuw venster)
+Bronnen
+
+Gemeente Leiden, Kinderopvang bij sociale of medische problemen
+Gemeente Leiden, Geldzaken: Kinderopvang bij sociale of medische problemen
 
 Kwijtschelding van gemeentelijke belastingen
 
@@ -113,7 +173,7 @@ Gemeente Leiden, Geldzaken: Bijzondere bijstand
 
 Bijstand
 
-Uw inkomen is lager dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee. Uw geld en bezit zijn niet meer dan € 8.000. De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.
+Uw inkomen is lager dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee. Uw geld en bezit zijn niet meer dan € 16.000. De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.
 
 Meer informatie en aanvragen
 (opent in een nieuw venster)
@@ -121,6 +181,16 @@ Bronnen
 
 Participatiewet, art. 21
 Participatiewet, art. 34
+
+Kinderopvangtoeslag
+
+Gaat uw kind naar de kinderopvang of een gastouder? Dan kunt u misschien kinderopvangtoeslag krijgen. Dat kan als u werkt of studeert. Het kan ook als u inburgert of een traject naar werk volgt. Heeft u een partner? Dan geldt dit voor u allebei.
+
+Proefberekening van Dienst Toeslagen
+(opent in een nieuw venster)
+Bron
+
+Wet kinderopvang, art. 1.6 lid 1
 
 Goed om te weten (3)
 
@@ -156,13 +226,24 @@ Bron
 
 Gemeente Leiden, Geldzaken: De Voedselbank
 
-Dit kunt u waarschijnlijk niet krijgen (1)
+Dit kunt u waarschijnlijk niet krijgen (2)
 
 Bij elke regeling staat waarom niet.
 
+Kindtegoed
+
+€ 500 per jaar
+
+Het Kindtegoed is alleen voor kinderen voor wie u kinderbijslag of een pleegkindvergoeding krijgt.
+
+Bronnen
+
+Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 2.2 en 4.1
+Leiden, Beleidsregels Kindtegoed en armoederegelingen Sleutelpas 2026, art. 1.1 d
+
 Individuele inkomenstoeslag
 
-€ 462, één keer per 12 maanden
+€ 577, één keer per 12 maanden
 
 U krijgt deze toeslag alleen als u al 5 jaar of langer een laag inkomen heeft.
 

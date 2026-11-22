@@ -1,13 +1,13 @@
-# Audit van Leidengeldfit
+# Audit van Leidengeldwijzer
 
-`npm run audit:leidengeldfit` rekent de verzonnen personen uit [personen.ts](personen.ts) en [extern/](extern/) door met de echte overzichtspagina van Leidengeldfit. Daarna controleert het script alles automatisch. Er is geen AI en geen internet voor nodig. Het duurt ongeveer een halve minuut.
+`npm run audit:leidengeldwijzer` rekent de verzonnen personen uit [personen.ts](personen.ts) en [extern/](extern/) door met de echte overzichtspagina van Leidengeldwijzer. Daarna controleert het script alles automatisch. Er is geen AI en geen internet voor nodig. Het duurt ongeveer een halve minuut.
 
 Het werkt net als de audit van Leidenwerkt ([../README.md](../README.md)). De gedeelde onderdelen staan in [scripts/audit-kern.ts](../../scripts/audit-kern.ts).
 
 ## Wat eruit komt
 
 - **[rapport.md](rapport.md)**: per controle hoe vaak die is gedaan en wat niet klopt.
-- **[uitvoer/](uitvoer/)**: per persoon wat is ingevuld en het hele overzicht als platte tekst. Met `git diff audit/leidengeldfit/uitvoer` ziet u wat er sinds de vorige keer is veranderd.
+- **[uitvoer/](uitvoer/)**: per persoon wat is ingevuld en het hele overzicht als platte tekst. Met `git diff audit/leidengeldwijzer/uitvoer` ziet u wat er sinds de vorige keer is veranderd.
 
 Een tester kan deze tekstbestanden lezen. Klikken door de site is dan niet nodig.
 
@@ -31,15 +31,15 @@ Een tester kan deze tekstbestanden lezen. Klikken door de site is dan niet nodig
 ## Zelf de audit doen
 
 1. Installeer [Node.js](https://nodejs.org) 22 en download dit project (`git clone https://github.com/ISVISVISV/Leidenwerkt.git`).
-2. Draai `npm ci` en daarna `npm run audit:leidengeldfit`.
+2. Draai `npm ci` en daarna `npm run audit:leidengeldwijzer`.
 
-De audit rekent met een vaste datum (`REKENDATUM` in [personen.ts](personen.ts)). Iedereen krijgt dan op elke dag dezelfde uitvoer. Een andere datum kan met `npm run audit:leidengeldfit -- --datum 2026-12-01`.
+De audit rekent met een vaste datum (`REKENDATUM` in [personen.ts](personen.ts)). Iedereen krijgt dan op elke dag dezelfde uitvoer. Een andere datum kan met `npm run audit:leidengeldwijzer -- --datum 2026-12-01`.
 
 De audit draait ook bij elke wijziging op GitHub. Verandert een uitkomst, dan ziet u dat in de pull request.
 
 ## Willekeurige personen
 
-`npm run audit:leidengeldfit -- --willekeurig 200 --zaad 7` maakt 200 willekeurige, verzonnen personen en doet dezelfde controles (behalve de omwegen). Hetzelfde zaad geeft dezelfde personen. Het rapport staat in `rapport-willekeurig.md`, de formulieren met een melding in `willekeurig-fouten.json`.
+`npm run audit:leidengeldwijzer -- --willekeurig 200 --zaad 7` maakt 200 willekeurige, verzonnen personen en doet dezelfde controles (behalve de omwegen). Hetzelfde zaad geeft dezelfde personen. Het rapport staat in `rapport-willekeurig.md`, de formulieren met een melding in `willekeurig-fouten.json`.
 
 ## Zelf een persoon met officiële bedragen toevoegen
 

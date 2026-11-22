@@ -1,5 +1,5 @@
 /**
- * Willekeurige, verzonnen personen voor `npm run audit:leidengeldfit -- --willekeurig 200 --zaad 7`.
+ * Willekeurige, verzonnen personen voor `npm run audit:leidengeldwijzer -- --willekeurig 200 --zaad 7`.
  * Hetzelfde zaad geeft dezelfde personen, zodat een gevonden fout na te doen is. Alleen personen die het
  * formulier in alle drie de stappen goedkeurt, doen mee.
  */
@@ -45,7 +45,6 @@ export function willekeurigePersonen(aantal: number, zaad: number): Persoon[] {
       kaleHuur: woont === "huur" ? String(t.tussen(300, 1200)) : "",
       andereBewoners: t.kans(0.15) ? "ja" : "nee",
       bijstand: bijstand ? "ja" : "nee",
-      schuldregeling: t.kans(0.1) ? "ja" : "nee",
       inkomen: inkomen(t),
       partnerInkomen: inkomen(t),
       langLaag: t.kies(["ja", "nee", "onbekend"] as const),

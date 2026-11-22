@@ -122,10 +122,10 @@ Kan nu niet worden aangevraagd (13 april tot en met 31 juli). De grens van 120% 
 
 ### Toegevoegd op 22 november 2026
 
-| Regeling | Wat Leidengeldfit doet | Bron |
+| Regeling | Wat Leidengeldwijzer doet | Bron |
 | --- | --- | --- |
 | Kinderbijslag | Alleen bij kinderen jonger dan 18 voor wie iemand nog geen kinderbijslag krijgt. Bedrag per kwartaal uit de tabel van de SVB. Hangt niet af van het inkomen | [SVB, Wat is kinderbijslag](https://www.svb.nl/nl/kinderbijslag/wat-is-kinderbijslag/wat-is-kinderbijslag) |
-| Kinderopvang bij sociale of medische problemen | "Misschien" bij een kind jonger dan 13. Leidengeldfit vraagt niet naar klachten | [Gemeente Leiden](https://gemeente.leiden.nl/inwoners-en-ondernemers/zorg-en-onderwijs/kinderopvang/kinderopvang-bij-sociale-of-medische-problemen/), [Geldzaken](https://geldzaken.leiden.nl/regeling/kinderopvang-bij-sociale-of-medische-problemen/) |
+| Kinderopvang bij sociale of medische problemen | "Misschien" bij een kind jonger dan 13. Leidengeldwijzer vraagt niet naar klachten | [Gemeente Leiden](https://gemeente.leiden.nl/inwoners-en-ondernemers/zorg-en-onderwijs/kinderopvang/kinderopvang-bij-sociale-of-medische-problemen/), [Geldzaken](https://geldzaken.leiden.nl/regeling/kinderopvang-bij-sociale-of-medische-problemen/) |
 | Kwijtschelding | "Misschien" tot het sociaal minimum. BSGR rekent het zelf uit | [Geldzaken](https://geldzaken.leiden.nl/regeling/kwijtschelding-of-geld-terugkrijgen/) |
 | Bijzondere bijstand | "Misschien" tot 150% van de bijstandsnorm. Maatwerk | [Geldzaken](https://geldzaken.leiden.nl/regeling/bijzondere-bijstand-als-het-echt-nodig-is/) |
 | Goed om te weten | Goede Buur Spreekuur, Stadsbank, Voedselbank. Voor iedereen | [Geldzaken](https://geldzaken.leiden.nl/) |
@@ -133,9 +133,10 @@ Kan nu niet worden aangevraagd (13 april tot en met 31 juli). De grens van 120% 
 ### Nog uitzoeken
 
 - **Huurtoeslag:** vermogensgrens 2027. Op 21 november 2026 nog niet gevonden. Het bericht van Dienst Toeslagen over 2027 noemt alleen zorgtoeslag en kindgebonden budget. Opnieuw kijken in december, samen met de andere bedragen van 2027.
+- **Stichting Babyspullen:** misschien later toevoegen onder "Goed om te weten". Berekenjerecht.nl noemt deze stichting. Eerst nagaan of de gemeente Leiden of geldzaken.leiden.nl de stichting zelf noemt, en welke voorwaarden zij stelt.
 
 ## Vragen voor de praktijk
 
 1. **Studietoeslag:** gelden de bedragen van 2024 nog? Zelf nagezocht: het wettelijke minimum is sinds 1 juli 2026 hoger (€ 390,07 voor 21 jaar en ouder). De pagina van de gemeente noemt nog € 352,80. Vraag: past de gemeente de pagina aan?
-2. **Sleutelpas met een schuldregeling (art. 2.3):** de tekst is "a. inkomen tot 130% …, en; b. toegelaten tot de Wsnp. c. schuldregeling (MSNP)". Leidengeldfit leest a, b en c als drie losse mogelijkheden. Wie een schuldregeling bij de Stadsbank Leiden heeft of in de Wsnp zit, krijgt de Sleutelpas dan ook met een inkomen boven 130%. Vraag: klopt deze lezing in de praktijk? Zo niet, dan past Leidengeldfit de uitkomst aan.
-3. **Jongeren van 18, 19 en 20 jaar:** de gemeente noemt alleen bij 120% een bedrag voor een alleenstaande van 18 tot 21 jaar (€ 399,48, de jongerennorm van art. 20 Pw). Leidengeldfit gebruikt dezelfde norm ook voor de Sleutelpas (130%) en de OV-pas (100%). Vraag: rekent de gemeente zo? En welke norm geldt voor jongeren zonder steun van hun ouders (de pagina van de Gemeentepolis noemt € 1.057,08)?
+2. **Sleutelpas met een schuldregeling (art. 2.3):** de tekst is "a. inkomen tot 130% …, en; b. toegelaten tot de Wsnp. c. schuldregeling (MSNP)". Leidengeldwijzer leest a, b en c als drie losse mogelijkheden. Wie een schuldregeling bij de Stadsbank Leiden heeft of in de Wsnp zit, krijgt de Sleutelpas dan ook met een inkomen boven 130%. Leidengeldwijzer vraagt sinds 22 november niet meer naar een schuldregeling. Bij een inkomen boven de grens staat nu: "Heeft u een schuldregeling? Dan kunt u de Sleutelpas misschien toch krijgen." Vraag: klopt deze lezing in de praktijk? Zo niet, dan past Leidengeldwijzer de uitkomst aan.
+3. **Jongeren van 18, 19 en 20 jaar:** de gemeente noemt alleen bij 120% een bedrag voor een alleenstaande van 18 tot 21 jaar (€ 399,48, de jongerennorm van art. 20 Pw). Leidengeldwijzer gebruikt dezelfde norm ook voor de Sleutelpas (130%) en de OV-pas (100%). Vraag: rekent de gemeente zo? En welke norm geldt voor jongeren zonder steun van hun ouders (de pagina van de Gemeentepolis noemt € 1.057,08)?
