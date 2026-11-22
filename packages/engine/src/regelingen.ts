@@ -484,7 +484,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
           naam: "Bijstand",
           groep: "inkomen" as const,
           aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.bijstand },
-          bronnen: [CITATEN.pw13studie, ...bron(l, "pw.norm.alleenstaande"), ...bron(l, "pw.vermogensgrens.alleenstaande")],
+          bronnen: [...(studeert ? [CITATEN.pw13studie] : []), ...bron(l, jong ? "pw.norm.jong.alleenstaande" : "pw.norm.alleenstaande"), ...bron(l, "pw.vermogensgrens.alleenstaande")],
         };
         if (studeert && invoer.aanvrager.leeftijd < 27)
           return { ...basis, kans: "nee", waarom: "Bent u jonger dan 27 jaar en krijgt u studiefinanciering? Dan kunt u geen bijstand krijgen." };
@@ -503,7 +503,13 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
   // Landelijke toeslagen, met de rekenkern van Leidenwerkt.
   uit.push(...toeslagen(l, invoer, personen));
 
-  return uit.filter((u): u is Uitslag => !!u);
+  const lijst = uit.filter((u): u is Uitslag => !!u);
+  // Bij jongeren komt de grens uit de jongerennorm: die bron hoort er dan bij.
+  if (jongAlleen) {
+    const jongBron = bron(l, "pw.norm.jong.alleenstaande");
+    for (const u of lijst) if (/De grens voor uw huishouden/.test(u.waarom) && !u.bronnen.some((b) => b.titel === jongBron[0]?.titel)) u.bronnen.push(...jongBron);
+  }
+  return lijst;
 }
 
 /**

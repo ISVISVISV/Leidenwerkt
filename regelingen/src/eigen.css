@@ -28,8 +28,8 @@
   border: 1px solid var(--lijn);
   border-left: 4px solid var(--lijn);
   border-radius: 4px;
-  padding: 0.8rem 1rem;
-  margin: 0 0 0.8rem;
+  padding: 0.6rem 0.9rem;
+  margin: 0 0 0.6rem;
   break-inside: avoid;
 }
 
@@ -43,7 +43,34 @@
 
 .regeling h3 {
   font-size: 1.05rem;
-  margin: 0 0 0.3rem;
+  margin: 0;
+}
+
+/* Naam en bedrag op één regel als het past. */
+.regeling-kop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0 1rem;
+}
+
+.regeling-kop .bedrag {
+  margin: 0;
+}
+
+/* Aanvragen en bronnen naast elkaar. Open bronnen krijgen een eigen regel. */
+.regeling-voet {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.75rem;
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.regeling-voet details[open] {
+  flex-basis: 100%;
 }
 
 .regeling p {
@@ -66,15 +93,30 @@
   border-left-color: var(--inkt-zacht);
 }
 
-.regeling details.bronnen summary {
+.regeling details.regeling-bronnen summary {
   cursor: pointer;
   color: var(--leiden-tekst);
   text-decoration: underline;
-  width: fit-content;
-  margin: 0;
-  padding: 0;
+  list-style: none;
+  display: inline-block;
 }
 
-.regeling details.bronnen .bron-blok {
+.regeling details.regeling-bronnen summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Een eigen pijltje, zodat "Bronnen" netjes naast de link staat. */
+.regeling details.regeling-bronnen summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 0.2em;
+  text-decoration: none;
+}
+
+.regeling details.regeling-bronnen[open] summary::before {
+  content: "▾";
+}
+
+.regeling details.regeling-bronnen .bron-blok {
   margin: 0.3rem 0 0;
 }

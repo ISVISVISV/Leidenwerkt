@@ -257,7 +257,16 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
               )}
             </div>
           ))}
-          <button type="button" className="tweedeknop" onClick={() => zet("kinderen", [...f.kinderen, ""])}>
+          <button
+            type="button"
+            className="tweedeknop toevoegknop"
+            onClick={() => {
+              const nieuw = f.kinderen.length;
+              zet("kinderen", [...f.kinderen, ""]);
+              // De focus gaat naar de geboortedatum van het nieuwe kind, net als in Leidenwerkt.
+              requestAnimationFrame(() => document.getElementById(`kind${nieuw}`)?.focus());
+            }}
+          >
             Nog een kind toevoegen
           </button>
           {minderjarigen(f) > 0 && (
@@ -268,7 +277,7 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
                 <>
                   <p>Kinderbijslag krijgt u van de SVB voor kinderen jonger dan 18 jaar. Kies ook Ja als u een pleegkindvergoeding krijgt.</p>
                   <p className="bron-blok">
-                    Bron: <Bron citaat={CITATEN.kindtegoedKind} />
+                    Bron: <Bron citaat={CITATEN.kinderbijslagWie} />
                   </p>
                 </>
               }
@@ -433,7 +442,7 @@ function StapInkomen({ f, zet, fouten }: StapProps) {
               <>
                 <p>U lost uw schulden af volgens een plan. De Stadsbank Leiden helpt u daarbij. Of de rechter heeft u toegelaten tot de Wsnp.</p>
                 <p className="bron-blok">
-                  Bronnen: <Bron citaat={CITATEN.sleutelpasSchuld} /> <Bron citaat={CITATEN.stadsbankSchuldregeling} />
+                  Bron: <Bron citaat={CITATEN.stadsbankSchuldregeling} />
                 </p>
               </>
             }
@@ -554,7 +563,15 @@ function StapGeld({ f, zet, fouten }: StapProps) {
               )}
             </div>
           ))}
-          <button type="button" className="tweedeknop" onClick={() => zet("voertuigen", [...f.voertuigen, ""])}>
+          <button
+            type="button"
+            className="tweedeknop toevoegknop"
+            onClick={() => {
+              const nieuw = f.voertuigen.length;
+              zet("voertuigen", [...f.voertuigen, ""]);
+              requestAnimationFrame(() => document.getElementById(`voertuig${nieuw}`)?.focus());
+            }}
+          >
             Nog een auto, motor of scooter toevoegen
           </button>
         </>

@@ -37,7 +37,8 @@ export function Overzicht({ f }: { f: Formulier }) {
             </ul>
           </>
         );
-        return g.kans === "nee" ? (
+        // "Goed om te weten" en "waarschijnlijk niet" staan dichtgeklapt: het overzicht blijft kort.
+        return g.kans === "nee" || g.kans === "info" ? (
           <details key={g.kans} className={`groep ${g.kans}`}>
             <summary>
               <h2>
@@ -62,28 +63,30 @@ export function Overzicht({ f }: { f: Formulier }) {
 function Regeling({ u }: { u: Uitslag }) {
   return (
     <li className={`regeling ${u.kans}`} data-id={u.id}>
-      <h3>{u.naam}</h3>
-      {u.bedrag && <p className="bedrag">{u.bedrag}</p>}
+      <div className="regeling-kop">
+        <h3>{u.naam}</h3>
+        {u.bedrag && <p className="bedrag">{u.bedrag}</p>}
+      </div>
       <p className="waarom">{u.waarom}</p>
-      {u.aanvragen && u.kans !== "nee" && (
-        <p>
+      {/* Aanvragen en bronnen op één regel. De bronnen staan achter een knop. Op papier gaan ze open. */}
+      <div className="regeling-voet">
+        {u.aanvragen && u.kans !== "nee" && (
           <a className="aanvraag" href={u.aanvragen.url} target="_blank" rel="noopener noreferrer">
             {u.aanvragen.tekst}
             <span className="sr"> (opent in een nieuw venster)</span>
           </a>
-        </p>
-      )}
-      {/* De bronnen achter één knop: het overzicht blijft korter. Op papier gaan ze open. */}
-      <details className="bronnen">
-        <summary>{u.bronnen.length > 1 ? "Bronnen" : "Bron"}</summary>
-        <p className="bron-blok">
-          {u.bronnen.map((b) => (
-            <span key={b.titel} className="bron-regel">
-              <Bron citaat={b} />
-            </span>
-          ))}
-        </p>
-      </details>
+        )}
+        <details className="regeling-bronnen">
+          <summary>{u.bronnen.length > 1 ? "Bronnen" : "Bron"}</summary>
+          <p className="bron-blok">
+            {u.bronnen.map((b) => (
+              <span key={b.titel} className="bron-regel">
+                <Bron citaat={b} />
+              </span>
+            ))}
+          </p>
+        </details>
+      </div>
     </li>
   );
 }

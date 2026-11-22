@@ -165,6 +165,22 @@ a {
   font-weight: 700;
 }
 
+/* Laatste woord en i-knop samen: nooit een i-knop alleen op een nieuwe regel. */
+.samen {
+  white-space: nowrap;
+}
+
+/* In een label: het laatste woord houdt plaats vrij, en de i-knop schuift daarin terug (netto geen eigen breedte). */
+.ruimte-i {
+  white-space: nowrap;
+  padding-right: calc(28px + 0.3rem);
+}
+
+
+.label-rij > label + .info-knop {
+  margin-left: calc(-28px);
+}
+
 /* Knop "i": een getekend icoon, zodat de i precies in het midden staat. Klikvlak minstens 24 × 24 pixels (WCAG 2.5.8). */
 .info-knop {
   display: inline-flex;
@@ -173,13 +189,16 @@ a {
   width: 28px;
   height: 28px;
   margin-left: 0.3rem;
+  /* Midden op de hoofdletters van de vraag. De negatieve marges houden de regelhoogte gelijk. */
+  vertical-align: -0.28em;
+  margin-top: -6px;
+  margin-bottom: -4px;
   padding: 0;
   border: 0;
   border-radius: 50%;
   background: none;
   color: var(--inkt-zacht);
   cursor: pointer;
-  vertical-align: -0.4em;
 }
 
 .info-knop:hover {
@@ -356,7 +375,8 @@ h2.deel {
 }
 
 /* "Kind toevoegen" staat niet tegen de vraag eronder aan. */
-.groep > .tweedeknop {
+.groep > .tweedeknop,
+.toevoegknop {
   margin-bottom: 1.4rem;
 }
 

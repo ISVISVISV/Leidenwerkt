@@ -5,6 +5,12 @@
 import { useState, type ReactNode } from "react";
 import { alleenCijfers, datumInvoer, type Geboortedatum } from "./invoer.ts";
 
+/** Een tekst gesplitst in alles behalve het laatste woord, en het laatste woord. */
+const laatsteWoord = (t: string): [string, string] => {
+  const i = t.lastIndexOf(" ");
+  return i < 0 ? ["", t] : [t.slice(0, i + 1), t.slice(i + 1)];
+};
+
 /**
  * Escape in een geopende uitleg sluit die uitleg en zet de focus terug op het i-knopje.
  * Staat er in de uitleg een bron open, dan sluit Escape eerst alleen die bron.
@@ -60,7 +66,17 @@ export function Veld(props: {
   return (
     <div className={`veld${props.fout ? " fout" : ""}`}>
       <div className="label-rij">
-        <label htmlFor={props.id}>{props.label}</label>
+        {/* Het laatste woord houdt ruimte vrij voor de i-knop (zie .ruimte-i): de knop valt nooit alleen op een nieuwe regel. */}
+        <label htmlFor={props.id}>
+          {props.hint ? (
+            <>
+              {laatsteWoord(props.label)[0]}
+              <span className="ruimte-i">{laatsteWoord(props.label)[1]}</span>
+            </>
+          ) : (
+            props.label
+          )}
+        </label>
         {props.hint && <InfoKnop open={uitleg} onToggle={() => setUitleg(!uitleg)} controls={hintId!} onderwerp={props.label} />}
       </div>
       {props.hint && (
@@ -169,9 +185,14 @@ export function Keuze<T extends string>(props: {
           <legend className="visueel-verborgen">{props.legend}</legend>
           <div className="vraag-rij">
             <span className="vraag-tekst" aria-hidden="true">
-              {props.legend}
+              {laatsteWoord(props.legend)[0]}
             </span>
-            <InfoKnop open={uitleg} onToggle={() => setUitleg(!uitleg)} controls={hintId} onderwerp={props.legend} />
+            <span className="samen">
+              <span className="vraag-tekst" aria-hidden="true">
+                {laatsteWoord(props.legend)[1]}
+              </span>
+              <InfoKnop open={uitleg} onToggle={() => setUitleg(!uitleg)} controls={hintId} onderwerp={props.legend} />
+            </span>
           </div>
         </>
       ) : (
@@ -232,9 +253,14 @@ export function Vinkjes<T extends string>(props: {
           <legend className="visueel-verborgen">{props.legend}</legend>
           <div className="vraag-rij">
             <span className="vraag-tekst" aria-hidden="true">
-              {props.legend}
+              {laatsteWoord(props.legend)[0]}
             </span>
-            <InfoKnop open={uitleg} onToggle={() => setUitleg(!uitleg)} controls={hintId} onderwerp={props.legend} />
+            <span className="samen">
+              <span className="vraag-tekst" aria-hidden="true">
+                {laatsteWoord(props.legend)[1]}
+              </span>
+              <InfoKnop open={uitleg} onToggle={() => setUitleg(!uitleg)} controls={hintId} onderwerp={props.legend} />
+            </span>
           </div>
         </>
       ) : (

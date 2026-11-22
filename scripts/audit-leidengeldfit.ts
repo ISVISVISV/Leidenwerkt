@@ -62,7 +62,7 @@ async function main() {
       return { tekst: tekst(document.querySelector("main")), kaarten };
     });
     await papier.setContent(inhoud);
-    const overlap = await overlapIn(papier, ".inleiding, .groep > h2, .groep summary, .regeling");
+    const overlap = await overlapIn(papier, ".inleiding, .groep > h2, .groep > summary, .regeling");
     const afdruk = await papier.evaluate(() => {
       // Zoals bij afdrukken (beforeprint): alle groepen open.
       document.querySelectorAll("details").forEach((d) => ((d as HTMLDetailsElement).open = true));
