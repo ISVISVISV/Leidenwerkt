@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { CITATEN, Lezer, euro, sociaalMinimum, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
-import { Bron, Datum, Keuze, ThemaKnop, Veld, Vinkjes } from "@leidenwerkt/ui";
+import { Bron, Datum, Keuze, Kopvlak, Veld, Vinkjes } from "@leidenwerkt/ui";
 import { bedragId, bedragSoorten, controleer, naarInvoer, infoVan, vandaag, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
+import { Icoon } from "./iconen.tsx";
 import { Overzicht } from "./Overzicht.tsx";
 import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANGSOORTEN, SOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
 
@@ -46,108 +47,127 @@ export function App() {
   };
 
   return (
-    <div className={stap === 4 ? "pagina lgw breed" : "pagina lgw"}>
-      <header className="kopregel">
-        <p className="merk">Leidengeldwijzer</p>
-        <p className="kopregel-tekst">Welke regelingen kunt u krijgen in Leiden?</p>
-        <ThemaKnop />
-      </header>
-
-      <main>
-        {stap === 0 && <Start onStart={() => naarStap(1)} />}
-
-        {stap > 0 && (
+    <>
+      {/* De eerste pagina en het overzicht hebben een groot rood vlak met de kop. Bij de vragen is het vlak laag. */}
+      <Kopvlak tool="Leidengeldwijzer" groot={stap === 0 || stap === 4} breed={stap === 4}>
+        {stap === 0 && (
           <>
-            <ol className="voortgang" aria-label="Voortgang">
-              {STAPPEN.map((naam, i) => (
-                <li key={naam} aria-current={i + 1 === stap ? "step" : undefined} className={i + 1 < stap || stap === STAPPEN.length ? "klaar" : undefined}>
-                  <span className="nummer">{i + 1}</span>
-                  <span className="naam">{naam}</span>
-                  {i + 1 < stap && <span className="sr"> (klaar)</span>}
-                </li>
-              ))}
-            </ol>
-            <h1 ref={kop} tabIndex={-1}>
-              {STAPPEN[stap - 1]}
-            </h1>
-            {stap < STAPPEN.length && Object.keys(zichtbareFouten).length > 0 && (
-              <div className="melding waarschuwing foutsamenvatting" role="alert" tabIndex={-1}>
-                <p>{Object.keys(zichtbareFouten).length === 1 ? "Eén vraag is nog niet goed ingevuld:" : `${Object.keys(zichtbareFouten).length} vragen zijn nog niet goed ingevuld:`}</p>
-                <ul>
-                  {Object.entries(zichtbareFouten).map(([id, melding]) => (
-                    <li key={id}>
-                      <a
-                        href={`#${id}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          naarVraag(id);
-                        }}
-                      >
-                        {vraagVan(id) ? `${vraagVan(id)}: ` : ""}
-                        {melding}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <h1>Welke regelingen kunt u krijgen?</h1>
+            <p className="kopvlak-tekst">Dit duurt ongeveer 5 minuten.</p>
           </>
         )}
-
-        {stap === 1 && <StapHuishouden f={f} zet={zet} fouten={zichtbareFouten} />}
-        {stap === 2 && <StapInkomen f={f} zet={zet} fouten={zichtbareFouten} />}
-        {stap === 3 && <StapGeld f={f} zet={zet} fouten={zichtbareFouten} />}
-        {stap === 4 && <Overzicht f={f} />}
-
-        {stap > 0 && (
-          <div className="knoppen">
-            {stap < 4 && (
-              <button type="button" className="hoofdknop" onClick={verder}>
-                {stap === 3 ? "Bekijk het overzicht" : "Volgende stap"}
-              </button>
-            )}
-            <button
-              type="button"
-              className="tweedeknop"
-              onClick={() => {
-                setFouten({});
-                naarStap(stap - 1);
-              }}
-            >
-              {stap === 4 ? "Gegevens aanpassen" : "Vorige stap"}
+        {stap === 4 && (
+          <>
+            <h1 ref={kop} tabIndex={-1}>
+              {STAPPEN[3]}
+            </h1>
+            <p className="kopvlak-tekst">
+              Dit overzicht is een schatting. Leidengeldwijzer gebruikt alleen wat u heeft ingevuld. Leidengeldwijzer bewaart niets. Wilt u het
+              overzicht houden? Druk het dan af. Of sla het op als pdf.
+            </p>
+            <button type="button" className="tweedeknop printknop" onClick={() => window.print()}>
+              <Icoon naam="print" /> Afdrukken of opslaan als pdf
             </button>
-          </div>
+          </>
         )}
-      </main>
+      </Kopvlak>
 
-      <footer className="voet">
-        <p>
-          Wat u op deze website invult, blijft op uw eigen telefoon of computer. Het wordt niet verstuurd en niet bewaard. Sluit u de pagina, dan
-          is alles weg.
-        </p>
-        <p>
-          Leidengeldwijzer geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden en Dienst Toeslagen. Leidengeldwijzer
-          is geen product van de gemeente.
-        </p>
-        <p>
-          Leidengeldwijzer is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
-          <a href="https://github.com/ISVISVISV/Rekenhulp" rel="noopener noreferrer">
-            broncode
-          </a>{" "}
-          bekijken en gebruiken (licentie EUPL-1.2). Versie {__VERSIE__}.
-        </p>
-      </footer>
-    </div>
+      <div className={stap === 4 ? "pagina lgw breed" : "pagina lgw"}>
+        <main className={stap === 4 ? "over-rand" : stap === 0 ? "kaart over-rand" : "kaart"}>
+          {stap === 0 && <Start onStart={() => naarStap(1)} />}
+
+          {stap > 0 && stap < 4 && (
+            <>
+              <ol className="voortgang" aria-label="Voortgang">
+                {STAPPEN.map((naam, i) => (
+                  <li key={naam} aria-current={i + 1 === stap ? "step" : undefined} className={i + 1 < stap || stap === STAPPEN.length ? "klaar" : undefined}>
+                    <span className="nummer">{i + 1}</span>
+                    <span className="naam">{naam}</span>
+                    {i + 1 < stap && <span className="sr"> (klaar)</span>}
+                  </li>
+                ))}
+              </ol>
+              <h1 ref={kop} tabIndex={-1}>
+                {STAPPEN[stap - 1]}
+              </h1>
+              {stap < STAPPEN.length && Object.keys(zichtbareFouten).length > 0 && (
+                <div className="melding waarschuwing foutsamenvatting" role="alert" tabIndex={-1}>
+                  <p>{Object.keys(zichtbareFouten).length === 1 ? "Eén vraag is nog niet goed ingevuld:" : `${Object.keys(zichtbareFouten).length} vragen zijn nog niet goed ingevuld:`}</p>
+                  <ul>
+                    {Object.entries(zichtbareFouten).map(([id, melding]) => (
+                      <li key={id}>
+                        <a
+                          href={`#${id}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            naarVraag(id);
+                          }}
+                        >
+                          {vraagVan(id) ? `${vraagVan(id)}: ` : ""}
+                          {melding}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </>
+          )}
+
+          {stap === 1 && <StapHuishouden f={f} zet={zet} fouten={zichtbareFouten} />}
+          {stap === 2 && <StapInkomen f={f} zet={zet} fouten={zichtbareFouten} />}
+          {stap === 3 && <StapGeld f={f} zet={zet} fouten={zichtbareFouten} />}
+          {stap === 4 && <Overzicht f={f} />}
+
+          {stap > 0 && (
+            <div className="knoppen">
+              {stap < 4 && (
+                <button type="button" className="hoofdknop" onClick={verder}>
+                  {stap === 3 ? "Bekijk het overzicht" : "Volgende stap"}
+                </button>
+              )}
+              <button
+                type="button"
+                className="tweedeknop"
+                onClick={() => {
+                  setFouten({});
+                  naarStap(stap - 1);
+                }}
+              >
+                {stap === 4 ? "Gegevens aanpassen" : "Vorige stap"}
+              </button>
+            </div>
+          )}
+        </main>
+
+        <footer className="voet">
+          <p>
+            Wat u op deze website invult, blijft op uw eigen telefoon of computer. Het wordt niet verstuurd en niet bewaard. Sluit u de pagina, dan
+            is alles weg.
+          </p>
+          <p>
+            Leidengeldwijzer geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden en Dienst Toeslagen. Leidengeldwijzer
+            is geen product van de gemeente.
+          </p>
+          <p>
+            Leidengeldwijzer is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
+            <a href="https://github.com/ISVISVISV/Rekenhulp" rel="noopener noreferrer">
+              broncode
+            </a>{" "}
+            bekijken en gebruiken (licentie EUPL-1.2). Versie {__VERSIE__}.
+          </p>
+        </footer>
+      </div>
+    </>
   );
 }
 
 function Start({ onStart }: { onStart: () => void }) {
   return (
     <section className="start">
-      <h1>Welke regelingen kunt u krijgen?</h1>
       <p className="inleiding">
         Heeft u een laag inkomen? Dan kunt u misschien hulp krijgen van de gemeente Leiden. U kunt misschien ook geld krijgen van Dienst
-        Toeslagen. Leidengeldwijzer laat zien welke regelingen er voor u zijn. Dit duurt ongeveer 5 minuten.
+        Toeslagen. Leidengeldwijzer laat zien welke regelingen er voor u zijn.
       </p>
       <p>U heeft nodig:</p>
       <ul>

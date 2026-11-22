@@ -8,6 +8,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Gewijzigd
 
+- Nieuwe stijl, net als de startpagina. Bovenaan staat een rood vlak met "Rekenhulp voor Leidenaren". Daarmee gaat u terug naar de startpagina. Op de eerste pagina en bij de uitkomst staat in het rode vlak de kop met een lijntekening van Leiden. Bij de vragen is het rode vlak laag. De vragen en de uitkomst staan in een witte kaart.
+- Leidengeldwijzer: elke groep in het overzicht is een witte kaart. Op de telefoon staat "Hulp nodig?" nu onderaan, na de regelingen.
 - "t/m" (bijvoorbeeld "maand 1 t/m 6") breekt niet meer af na de schuine streep. Dat gebeurde in sommige browsers op een smal scherm.
 - Kinderopvang: bij elk kind jonger dan 13 de vraag "Als u gaat werken, gaat dit kind dan naar de opvang?" (Nee / Ja), in plaats van een vinkje. Op de startpagina: "Gaat uw kind naar de opvang terwijl u werkt? Vul dan in hoeveel uur per week dit is. Weet u de prijs per uur? Vul die dan ook in."
 - Tekst onderaan de pagina: wat u invult blijft op uw eigen telefoon of computer, Leidenwerkt geeft een schatting, en een link naar de broncode.

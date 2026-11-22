@@ -5,8 +5,6 @@
  */
 
 :root {
-  --held-boven: #c8200f;
-  --held-onder: #a8190c;
   --tas: #035989;
   --tas-vlak: #e2eef6;
   --stijgt: #1f6b45;
@@ -14,8 +12,6 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-thema="licht"]) {
-    --held-boven: #8f1a10;
-    --held-onder: #66120b;
     --tas: #8ccbf0;
     --tas-vlak: #16303f;
     --stijgt: #7fd3a2;
@@ -24,8 +20,6 @@
 
 /* De knop voor licht en donker zet data-thema op <html>. Die keuze gaat voor de instelling van het apparaat. */
 :root[data-thema="donker"] {
-  --held-boven: #8f1a10;
-  --held-onder: #66120b;
   --tas: #8ccbf0;
   --tas-vlak: #16303f;
   --stijgt: #7fd3a2;
@@ -50,7 +44,6 @@ body {
   position: relative;
   overflow: hidden;
   padding: 1.25rem 0 19rem;
-  background: linear-gradient(160deg, var(--held-boven) 0%, var(--held-onder) 100%);
   color: #fff;
 }
 
@@ -130,33 +123,6 @@ body {
   }
 }
 
-/* Donkere modus: een avondlucht boven de stad, met een paar sterren. */
-:root[data-thema="donker"] .held {
-  background:
-    radial-gradient(1.5px 1.5px at 12% 18%, rgb(255 255 255 / 0.8), transparent),
-    radial-gradient(1.5px 1.5px at 27% 9%, rgb(255 255 255 / 0.6), transparent),
-    radial-gradient(1px 1px at 41% 24%, rgb(255 255 255 / 0.7), transparent),
-    radial-gradient(1.5px 1.5px at 58% 12%, rgb(255 255 255 / 0.8), transparent),
-    radial-gradient(1px 1px at 73% 20%, rgb(255 255 255 / 0.6), transparent),
-    radial-gradient(1.5px 1.5px at 86% 8%, rgb(255 255 255 / 0.7), transparent),
-    radial-gradient(1px 1px at 94% 28%, rgb(255 255 255 / 0.5), transparent),
-    linear-gradient(180deg, #1b1f3a 0%, #3a1f3f 45%, #7a1a14 100%);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-thema="licht"]) .held {
-    background:
-      radial-gradient(1.5px 1.5px at 12% 18%, rgb(255 255 255 / 0.8), transparent),
-      radial-gradient(1.5px 1.5px at 27% 9%, rgb(255 255 255 / 0.6), transparent),
-      radial-gradient(1px 1px at 41% 24%, rgb(255 255 255 / 0.7), transparent),
-      radial-gradient(1.5px 1.5px at 58% 12%, rgb(255 255 255 / 0.8), transparent),
-      radial-gradient(1px 1px at 73% 20%, rgb(255 255 255 / 0.6), transparent),
-      radial-gradient(1.5px 1.5px at 86% 8%, rgb(255 255 255 / 0.7), transparent),
-      radial-gradient(1px 1px at 94% 28%, rgb(255 255 255 / 0.5), transparent),
-      linear-gradient(180deg, #1b1f3a 0%, #3a1f3f 45%, #7a1a14 100%);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .wieken,
   .water,
@@ -228,7 +194,9 @@ body {
   color: var(--inkt);
   text-decoration: none;
   box-shadow: 0 10px 30px rgb(16 25 32 / 0.14);
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
 .kaart:hover {
@@ -258,6 +226,12 @@ body {
 .beeld img {
   width: 7rem;
   height: auto;
+}
+
+/* De werktas met de stijgende lijn: ongeveer even groot als de Sleutelpas ernaast. */
+.beeld svg {
+  width: auto;
+  height: 5rem;
 }
 
 .tas {

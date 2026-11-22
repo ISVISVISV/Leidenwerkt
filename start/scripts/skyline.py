@@ -1,5 +1,6 @@
 # Maakt de lijntekening van Leiden voor de startpagina (start/index.html). Draai: python3 start/scripts/skyline.py
 # Het script schrijft skyline.svg en los.html (een grote versie om te bekijken). Plak de inhoud van skyline.svg in start/index.html.
+# Het script schrijft ook packages/ui/src/skyline.ts: dezelfde tekening voor het rode vlak in de tools.
 # Bouwt de skyline als losse onderdelen met nette maten. Basislijn (straat/water) op y=240.
 B=240
 def ramen(x,w,boven,rijen=2,kol=2,rw=10,rh=15):
@@ -129,4 +130,9 @@ if __name__=="__main__":
     svg=f'<svg class="skyline" viewBox="0 80 1440 179" preserveAspectRatio="xMidYMax slice" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">{inhoud}</svg>'
     open("skyline.svg","w").write(svg)
     groot=svg.replace('class="skyline"','style="width:2880px;display:block"')
+    import os
+    ts=os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..","packages","ui","src","skyline.ts")
+    open(ts,"w").write("// Gemaakt door start/scripts/skyline.py. Niet met de hand aanpassen.\n"
+        "// De lijntekening van Leiden onder in het rode vlak (Kopvlak). Zelfde tekening als op de startpagina.\n"
+        f"export const SKYLINE = {json.dumps(svg, ensure_ascii=False)};\n")
     open("los.html","w").write('<html><body style="margin:0;background:#c8200f;color:#fff">'+groot+'</body></html>')

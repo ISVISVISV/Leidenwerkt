@@ -81,16 +81,6 @@ export function Overzicht({ f }: { f: Formulier }) {
 
   return (
     <section className="overzicht">
-      <div className="overzicht-begin">
-        <p className="inleiding">
-          Dit overzicht is een schatting. Leidengeldwijzer gebruikt alleen wat u heeft ingevuld. Leidengeldwijzer bewaart niets. Wilt u het overzicht
-          houden? Druk het dan af. Of sla het op als pdf.
-        </p>
-        <button type="button" className="tweedeknop printknop niet-print" onClick={() => window.print()}>
-          <Icoon naam="print" /> Afdrukken of opslaan als pdf
-        </button>
-      </div>
-
       <div className="overzicht-raster">
         {GROEPEN.map((g) => {
           const lijst = uitslagen.filter((u) => u.kans === g.kans);

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
-import { Bron, Datum, Keuze, ThemaKnop, Veld } from "@leidenwerkt/ui";
+import { Bron, Datum, Keuze, Kopvlak, Veld } from "@leidenwerkt/ui";
 import { controleer, heeftOpvang, leeftijdOp, leegFormulier, maxUurprijs, nieuwKind, schuifSleutel, vandaag, vraagBewoners, vraagInkomenAnderen, vraagInkomenKind, bijIemandAnders, vraagWoonlasten, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 
@@ -61,146 +61,153 @@ export function App() {
   };
 
   return (
-    <div className="pagina">
-      <header className="kopregel">
-        <p className="merk">Leidenwerkt</p>
-        <p className="kopregel-tekst">Gratis rekenhulp voor Leidenaren met bijstand</p>
-        <ThemaKnop />
-      </header>
-
-      <main>
-        {stap === 0 && <Start onStart={() => naarStap(1)} />}
-
-        {stap > 0 && (
+    <>
+      {/* De eerste pagina en de uitkomst hebben een groot rood vlak met de kop. Bij de vragen is het vlak laag. */}
+      <Kopvlak tool="Leidenwerkt" groot={stap === 0 || stap === 4}>
+        {stap === 0 && (
           <>
-            <ol className="voortgang" aria-label="Voortgang">
-              {STAPPEN.map((naam, i) => (
-                <li
-                  key={naam}
-                  aria-current={i + 1 === stap ? "step" : undefined}
-                  className={i + 1 < stap || stap === STAPPEN.length ? "klaar" : undefined}
-                >
-                  <span className="nummer">{i + 1}</span>
-                  <span className="naam">{naam}</span>
-                  {i + 1 < stap && <span className="sr"> (klaar)</span>}
-                </li>
-              ))}
-            </ol>
-            <h1 ref={kop} tabIndex={-1}>
-              {STAPPEN[stap - 1]}
-            </h1>
-            {stap < STAPPEN.length && Object.keys(zichtbareFouten).length > 0 && (
-              <div className="melding waarschuwing foutsamenvatting" role="alert" tabIndex={-1}>
-                <p>
-                  {Object.keys(zichtbareFouten).length === 1 ? "Eén vraag is nog niet goed ingevuld:" : `${Object.keys(zichtbareFouten).length} vragen zijn nog niet goed ingevuld:`}
-                </p>
-                <ul>
-                  {Object.entries(zichtbareFouten).map(([id, melding]) => (
-                    <li key={id}>
-                      <a
-                        href={`#${id}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          naarVraag(id);
-                        }}
-                      >
-                        {vraagVan(id) ? `${vraagVan(id)}: ` : ""}
-                        {melding}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <h1>Hoeveel houdt u over als u gaat werken?</h1>
+            <p className="kopvlak-tekst">Het duurt ongeveer vijf minuten.</p>
           </>
         )}
-
-        {stap === 1 && <StapHuishouden f={f} zet={zet} fouten={zichtbareFouten} />}
-        {stap === 2 && <StapWoning f={f} zet={zet} fouten={zichtbareFouten} />}
-        {stap === 3 && <StapWerk f={f} zet={zet} fouten={zichtbareFouten} />}
         {stap === 4 && (
-          <Uitkomst
-            f={f}
-            bewaardeUren={schuif?.sleutel === schuifSleutel(f) ? schuif.uren : undefined}
-            onUren={(uren) => setSchuif({ sleutel: schuifSleutel(f), uren })}
-          />
+          <h1 ref={kop} tabIndex={-1}>
+            {STAPPEN[3]}
+          </h1>
         )}
+      </Kopvlak>
 
-        {stap > 0 && (
-          <div className="knoppen">
-            {stap < 4 && (
-              <button type="button" className="hoofdknop" onClick={verder}>
-                {stap === 3 ? "Bereken wat ik overhoud" : "Volgende stap"}
-              </button>
-            )}
-            <button type="button" className="tweedeknop" onClick={() => { setFouten({}); naarStap(stap - 1); }}>
-              {stap === 4 ? "Gegevens aanpassen" : "Vorige stap"}
-            </button>
-            {stap === 4 && (
-              <button type="button" className="tweedeknop" onClick={() => window.print()}>
-                Afdrukken
-              </button>
-            )}
-            {!wissen ? (
-              <button type="button" className="stilleknop" onClick={() => setWissen(true)}>
-                Opnieuw beginnen
-              </button>
-            ) : (
-              <div className="wissen" role="group" aria-label="Opnieuw beginnen">
-                <p>Alles wat u heeft ingevuld wordt gewist. Weet u het zeker?</p>
-                <button
-                  type="button"
-                  className="hoofdknop"
-                  onClick={() => {
-                    setF(leegFormulier);
-                    setFouten({});
-                    setWissen(false);
-                    naarStap(0);
-                  }}
-                >
-                  Ja, alles wissen
-                </button>
-                <button type="button" className="tweedeknop" onClick={() => setWissen(false)}>
-                  Nee, ga terug
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-      </main>
+      <div className="pagina">
+        <main className={stap === 0 || stap === 4 ? "kaart over-rand" : "kaart"}>
+          {stap === 0 && <Start onStart={() => naarStap(1)} />}
 
-      <footer className="voet">
-        {stap === 0 && (
-          <p>Deze rekenhulp is voor inwoners van Leiden van 21 jaar tot de AOW-leeftijd met algemene bijstand, ook als u geen vast adres heeft.</p>
-        )}
-        <p>
-          Wat u op deze website invult, blijft op uw eigen telefoon of computer. Het wordt niet verstuurd en niet bewaard. Sluit u de pagina,
-          dan is alles weg.
-        </p>
-        <p>
-          Leidenwerkt biedt een schatting om u inzicht te geven. Wat u echt krijgt, bepalen de gemeente Leiden en Dienst Toeslagen.
-          Leidenwerkt is geen product van de gemeente.
-        </p>
-        <p>
-          Leidenwerkt is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
-          <a href="https://github.com/ISVISVISV/Rekenhulp" rel="noopener noreferrer">
-            broncode
-          </a>{" "}
-          bekijken en gebruiken (licentie EUPL-1.2). Versie {__VERSIE__}.
-        </p>
-      </footer>
-    </div>
+          {stap > 0 && stap < 4 && (
+            <>
+              <ol className="voortgang" aria-label="Voortgang">
+                {STAPPEN.map((naam, i) => (
+                  <li
+                    key={naam}
+                    aria-current={i + 1 === stap ? "step" : undefined}
+                    className={i + 1 < stap || stap === STAPPEN.length ? "klaar" : undefined}
+                  >
+                    <span className="nummer">{i + 1}</span>
+                    <span className="naam">{naam}</span>
+                    {i + 1 < stap && <span className="sr"> (klaar)</span>}
+                  </li>
+                ))}
+              </ol>
+              <h1 ref={kop} tabIndex={-1}>
+                {STAPPEN[stap - 1]}
+              </h1>
+              {stap < STAPPEN.length && Object.keys(zichtbareFouten).length > 0 && (
+                <div className="melding waarschuwing foutsamenvatting" role="alert" tabIndex={-1}>
+                  <p>
+                    {Object.keys(zichtbareFouten).length === 1 ? "Eén vraag is nog niet goed ingevuld:" : `${Object.keys(zichtbareFouten).length} vragen zijn nog niet goed ingevuld:`}
+                  </p>
+                  <ul>
+                    {Object.entries(zichtbareFouten).map(([id, melding]) => (
+                      <li key={id}>
+                        <a
+                          href={`#${id}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            naarVraag(id);
+                          }}
+                        >
+                          {vraagVan(id) ? `${vraagVan(id)}: ` : ""}
+                          {melding}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </>
+          )}
+
+          {stap === 1 && <StapHuishouden f={f} zet={zet} fouten={zichtbareFouten} />}
+          {stap === 2 && <StapWoning f={f} zet={zet} fouten={zichtbareFouten} />}
+          {stap === 3 && <StapWerk f={f} zet={zet} fouten={zichtbareFouten} />}
+          {stap === 4 && (
+            <Uitkomst
+              f={f}
+              bewaardeUren={schuif?.sleutel === schuifSleutel(f) ? schuif.uren : undefined}
+              onUren={(uren) => setSchuif({ sleutel: schuifSleutel(f), uren })}
+            />
+          )}
+
+          {stap > 0 && (
+            <div className="knoppen">
+              {stap < 4 && (
+                <button type="button" className="hoofdknop" onClick={verder}>
+                  {stap === 3 ? "Bereken wat ik overhoud" : "Volgende stap"}
+                </button>
+              )}
+              <button type="button" className="tweedeknop" onClick={() => { setFouten({}); naarStap(stap - 1); }}>
+                {stap === 4 ? "Gegevens aanpassen" : "Vorige stap"}
+              </button>
+              {stap === 4 && (
+                <button type="button" className="tweedeknop" onClick={() => window.print()}>
+                  Afdrukken
+                </button>
+              )}
+              {!wissen ? (
+                <button type="button" className="stilleknop" onClick={() => setWissen(true)}>
+                  Opnieuw beginnen
+                </button>
+              ) : (
+                <div className="wissen" role="group" aria-label="Opnieuw beginnen">
+                  <p>Alles wat u heeft ingevuld wordt gewist. Weet u het zeker?</p>
+                  <button
+                    type="button"
+                    className="hoofdknop"
+                    onClick={() => {
+                      setF(leegFormulier);
+                      setFouten({});
+                      setWissen(false);
+                      naarStap(0);
+                    }}
+                  >
+                    Ja, alles wissen
+                  </button>
+                  <button type="button" className="tweedeknop" onClick={() => setWissen(false)}>
+                    Nee, ga terug
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </main>
+
+        <footer className="voet">
+          {stap === 0 && (
+            <p>Deze rekenhulp is voor inwoners van Leiden van 21 jaar tot de AOW-leeftijd met algemene bijstand, ook als u geen vast adres heeft.</p>
+          )}
+          <p>
+            Wat u op deze website invult, blijft op uw eigen telefoon of computer. Het wordt niet verstuurd en niet bewaard. Sluit u de pagina,
+            dan is alles weg.
+          </p>
+          <p>
+            Leidenwerkt biedt een schatting om u inzicht te geven. Wat u echt krijgt, bepalen de gemeente Leiden en Dienst Toeslagen.
+            Leidenwerkt is geen product van de gemeente.
+          </p>
+          <p>
+            Leidenwerkt is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
+            <a href="https://github.com/ISVISVISV/Rekenhulp" rel="noopener noreferrer">
+              broncode
+            </a>{" "}
+            bekijken en gebruiken (licentie EUPL-1.2). Versie {__VERSIE__}.
+          </p>
+        </footer>
+      </div>
+    </>
   );
 }
 
 function Start({ onStart }: { onStart: () => void }) {
   return (
     <section className="start">
-      <h1>Hoeveel houdt u over als u gaat werken?</h1>
-      <p className="inleiding">
-        Met deze rekenhulp ziet u wat werk betekent voor uw bijstand, uw toeslagen en wat u per maand overhoudt. Het duurt ongeveer vijf
-        minuten.
-      </p>
+      <p className="inleiding">Met deze rekenhulp ziet u wat werk betekent voor uw bijstand, uw toeslagen en wat u per maand overhoudt.</p>
       <p>U heeft nodig:</p>
       <ul>
         <li>het loon en het aantal uren van het werk dat u overweegt</li>
