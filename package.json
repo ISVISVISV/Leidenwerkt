@@ -2,7 +2,7 @@
   "name": "leidenwerkt",
   "private": true,
   "version": "0.5.0",
-  "description": "Gratis, open rekenhulp: wat betekent werken financieel voor inwoners van Leiden in de bijstand?",
+  "description": "Gratis, open rekenhulpen voor inwoners van Leiden: Leidengeldwijzer en Leidenwerkt.",
   "license": "EUPL-1.2",
   "type": "module",
   "workspaces": [
