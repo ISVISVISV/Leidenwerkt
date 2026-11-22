@@ -1,0 +1,27 @@
+gebied: AOW-leeftijd
+geldig_van: 2026-01-01
+geldig_tot: null
+parameters:
+  - id: aow.leeftijd.geboren_tot_1961
+    omschrijving: AOW-leeftijd in maanden voor wie geboren is van 1 maart 1957 tot en met 31 december 1960 (67 jaar). Wie eerder geboren is, heeft in 2026 de AOW-leeftijd al.
+    eenheid: maanden
+    waarde: { soort: aantal, aantal: "804" }
+    status: geverifieerd
+    bron: &svb
+      titel: SVB — Your AOW pension age
+      url: https://www.svb.nl/en/aow-pension/aow-pension-age/your-aow-pension-age
+      geraadpleegd_op: 2026-11-22
+    citaat: &tabel
+      kop: "SVB, Your AOW pension age"
+      tekst: "The AOW pension ages for everyone who was born before 1 October 1964 have been established. Date of birth as from 1 June 1956 up to and including 28 February 1957: 66 years and 10 months. 1 March 1957 up to and including 31 December 1960: 67 years. 1 January 1961 up to and including 30 September 1964: 67 years and 3 months."
+      url: https://www.svb.nl/en/aow-pension/aow-pension-age/your-aow-pension-age
+      versie: "geraadpleegd op 22 november 2026"
+    notitie: "804 maanden = 67 jaar. In de tabel: 1 March 1957 up to and including 31 December 1960: 67 years. Rijksoverheid noemt dezelfde leeftijden per jaar: 2026 en 2027 67 jaar, 2028 tot en met 2032 67 jaar en 3 maanden (https://www.rijksoverheid.nl/themas/belastingen-uitkeringen-en-toeslagen/algemene-ouderdomswet-aow/aow-leeftijd, gewijzigd 13 november 2026)."
+  - id: aow.leeftijd.geboren_1961_tot_okt_1964
+    omschrijving: AOW-leeftijd in maanden voor wie geboren is van 1 januari 1961 tot en met 30 september 1964 (67 jaar en 3 maanden)
+    eenheid: maanden
+    waarde: { soort: aantal, aantal: "807" }
+    status: geverifieerd
+    bron: *svb
+    citaat: *tabel
+    notitie: "807 maanden = 67 years and 3 months (geboren van 1 januari 1961 tot en met 30 september 1964)."

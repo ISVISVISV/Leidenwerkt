@@ -8,6 +8,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Gewijzigd
 
+- Leidengeldwijzer werkt nu ook voor mensen met de AOW-leeftijd. De grenzen komen dan uit de normen voor mensen met AOW (art. 22 Participatiewet). In plaats van de bijstand noemt Leidengeldwijzer de AIO-aanvulling van de SVB. Bij de soorten inkomen staat "AOW van de SVB". De toeslagen rekent Leidengeldwijzer voor hen nog niet uit.
 - Nieuwe stijl, net als de startpagina. Bovenaan staat een rood vlak met "Rekenhulp voor Leidenaren". Daarmee gaat u terug naar de startpagina. Op de eerste pagina en bij de uitkomst staat in het rode vlak de kop met een lijntekening van Leiden. Bij de vragen is het rode vlak laag. De vragen en de uitkomst staan in een witte kaart.
 - Leidengeldwijzer: elke groep in het overzicht is een witte kaart. Op de telefoon staat "Hulp nodig?" nu onderaan, na de regelingen.
 - "t/m" (bijvoorbeeld "maand 1 t/m 6") breekt niet meer af na de schuine streep. Dat gebeurde in sommige browsers op een smal scherm.

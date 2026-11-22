@@ -53,6 +53,19 @@ export const CITATEN = {
     tekst:
       "Het gaat om de datum waarop een persoon langdurig een laag inkomen heeft, geen in aanmerking te nemen vermogen heeft als bedoeld in artikel 34 van de Participatiewet en, gelet op de omstandigheden van die persoon, geen uitzicht op inkomensverbetering heeft.",
   },
+  iitLeeftijd: {
+    titel: "Gemeente Leiden, Individuele inkomenstoeslag",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/individuele-inkomenstoeslag/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst: "U bent 23 jaar of ouder, maar u hebt nog niet de AOW-leeftijd bereikt.",
+  },
+  aioWie: {
+    titel: "SVB, Kijk of u een AIO-aanvulling krijgt",
+    url: "https://www.svb.nl/nl/aio/kijk-of-u-een-aio-aanvulling-krijgt",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "U krijgt een AIO-aanvulling als u: de AOW-leeftijd heeft in Nederland woont geen AOW of geen volledige AOW krijgt geen of weinig andere inkomsten heeft niet te veel vermogen heeft […] U kunt dan misschien AIO-aanvulling krijgen als: uw partner nog geen AOW heeft u en uw partner naast uw AOW geen of weinig andere inkomsten hebben u en uw partner niet te veel vermogen hebben",
+  },
   sleutelpasSchuld: {
     titel: "Leiden, Beleidsregels Sleutelpas 2026, art. 2.3",
     url: "https://zoek.officielebekendmakingen.nl/gmb-2025-429670.html",

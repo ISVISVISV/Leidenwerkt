@@ -16,6 +16,8 @@ const TELWOORDEN: Record<string, string> = { "6": "zes", "12": "twaalf" };
 /** Waarden die niet letterlijk in de bron staan maar eruit volgen. De notitie moet de afleiding laten zien. */
 const AFGELEID: Record<string, string> = {
   "kgb.alleenstaande_ouderkop": "5.996",
+  "aow.leeftijd.geboren_tot_1961": "31 December 1960: 67 years.",
+  "aow.leeftijd.geboren_1961_tot_okt_1964": "67 years and 3 months",
 };
 
 function schrijfwijzen(waarde: string): string[] {

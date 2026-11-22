@@ -11,7 +11,7 @@ type Toeval = ReturnType<typeof toeval>;
 const datum = (leeftijd: number, t: Toeval) =>
   `${String(t.tussen(1, 28)).padStart(2, "0")}-${String(t.tussen(1, 12)).padStart(2, "0")}-${Number(REKENDATUM.slice(0, 4)) - leeftijd - 1}`;
 
-const SOORTEN: Bedragsoort[] = ["loon", "uwv", "bedrijf", "studiefinanciering", "partneralimentatie", "kinderalimentatie", "ander"];
+const SOORTEN: Bedragsoort[] = ["loon", "uwv", "aow", "bedrijf", "studiefinanciering", "partneralimentatie", "kinderalimentatie", "ander"];
 
 function inkomen(t: Toeval): InkomenVelden {
   if (t.kans(0.15)) return { soorten: ["geen"], bedragen: {}, uitkering: "" };
@@ -36,9 +36,9 @@ export function willekeurigePersonen(aantal: number, zaad: number): Persoon[] {
     const bezit: Bezit[] = t.kans(0.25) ? ["niets"] : [...new Set(Array.from({ length: t.tussen(1, 3) }, () => t.kies(["betaal", "spaar", "voertuig", "beleggingen", "spullen", "schuld"] as const)))];
     const bedrag = (max: number) => String(t.tussen(0, max / 100) * 100);
     const f: Formulier = formulier({
-      geboren: datum(t.tussen(18, 66), t),
+      geboren: datum(t.tussen(18, 85), t),
       partner: paar ? "ja" : "nee",
-      partnerGeboren: paar ? datum(t.tussen(18, 66), t) : "",
+      partnerGeboren: paar ? datum(t.tussen(18, 85), t) : "",
       heeftKinderen: kinderen.length ? "ja" : "nee",
       kinderen: kinderen.length ? kinderen : [""],
       kinderbijslag: t.kans(0.9) ? "ja" : "nee",

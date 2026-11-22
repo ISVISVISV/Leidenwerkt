@@ -4,7 +4,7 @@
  */
 import { describe, expect, it } from "vitest";
 import { bijstandsnorm } from "../src/modules/bijstand.js";
-import { bereken, CITATEN, checkRegelingen, D, Lezer, standaardRegels, type CheckInvoer, type Invoer, type Kans, type Uitslag, type Vermogen } from "../src/index.js";
+import { bereken, CITATEN, checkRegelingen, D, heeftAowLeeftijd, Lezer, standaardRegels, type CheckInvoer, type Invoer, type Kans, type Uitslag, type Vermogen } from "../src/index.js";
 
 const DATUM = "2026-11-21";
 const geld = (spaarrekening: number, over: Partial<Vermogen> = {}): Vermogen => ({ betaalrekening: 0, spaarrekening, voertuigen: [], beleggingen: 0, spullen: 0, schulden: 0, ...over });
@@ -364,5 +364,77 @@ describe("kostendelersnorm (art. 22a Pw)", () => {
     const met = checkRegelingen(invoer({ aanvrager: { leeftijd: 55, inkomen: { loon: 1100 } }, kinderen: [{ leeftijd: 28 }] }));
     expect(uitslag(met, "bijstand")!.kans).toBe("nee");
     expect(uitslag(met, "volwassenenfonds")!.waarom).toContain("ongeveer €\u00a01.618 netto per maand");
+  });
+});
+
+describe("AOW-leeftijd", () => {
+  const aow = (inkomen: Record<string, number> = { aow: 1450 }) => ({ leeftijd: 70, aow: true, inkomen });
+  it("AOW-leeftijd uit de tabel van de SVB: 67 jaar tot en met geboren in 1960, daarna 67 jaar en 3 maanden", () => {
+    expect(heeftAowLeeftijd(standaardRegels, "1959-11-21", DATUM)).toBe(true); // vandaag 67
+    expect(heeftAowLeeftijd(standaardRegels, "1959-11-22", DATUM)).toBe(false); // morgen 67
+    expect(heeftAowLeeftijd(standaardRegels, "1950-05-01", DATUM)).toBe(true);
+    expect(heeftAowLeeftijd(standaardRegels, "1960-12-31", "2027-12-31")).toBe(true);
+    expect(heeftAowLeeftijd(standaardRegels, "1961-01-15", "2028-01-15")).toBe(false); // 67, maar nog niet 67 en 3 maanden
+    expect(heeftAowLeeftijd(standaardRegels, "1961-01-15", "2028-04-15")).toBe(true);
+    expect(heeftAowLeeftijd(standaardRegels, "1965-01-01", DATUM)).toBeUndefined(); // nog niet vastgesteld
+  });
+  it("120% voor een alleenstaande met AOW is ongeveer €\u00a01.810, zoals de tabel op gemeente.leiden.nl (€ 1.809,57)", () => {
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: aow({ aow: 1700 }) })), "volwassenenfonds")!;
+    expect(u.kans).toBe("ja");
+    expect(u.waarom).toContain("ongeveer €\u00a01.810 netto per maand");
+    expect(u.bronnen.some((b) => b.titel.includes("art. 22"))).toBe(true);
+  });
+  it("120% voor een stel met AOW is ongeveer €\u00a02.481 (tabel: € 2.480,75), ook als maar één de AOW-leeftijd heeft (art. 22 c)", () => {
+    const beide = invoer({ aanvrager: aow({ aow: 1000 }), partner: aow({ aow: 1000 }) });
+    const een = invoer({ aanvrager: aow({ aow: 1000 }), partner: { leeftijd: 60, inkomen: { loon: 1000 } } });
+    expect(uitslag(checkRegelingen(beide), "gemeentepolis")!.waarom).toContain("ongeveer €\u00a02.481 netto per maand");
+    expect(uitslag(checkRegelingen(een), "gemeentepolis")!.waarom).toContain("ongeveer €\u00a02.481 netto per maand");
+  });
+  it("130% voor een alleenstaande met AOW is ongeveer €\u00a01.960 (tabel gemeente eenoudergezin AOW: € 1.960,36)", () => {
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: aow({ aow: 1900 }) })), "sleutelpas")!;
+    expect(u.kans).toBe("ja");
+    expect(u.waarom).toContain("ongeveer €\u00a01.960 netto per maand");
+  });
+  it("geen bijstand van de gemeente, wel de AIO-aanvulling van de SVB onder het sociaal minimum", () => {
+    const u = checkRegelingen(invoer({ aanvrager: aow({ aow: 1200 }) }));
+    expect(uitslag(u, "bijstand")).toBeUndefined();
+    const aio = uitslag(u, "aio")!;
+    expect(aio.kans).toBe("ja");
+    expect(aio.groep).toBe("svb");
+    expect(aio.waarom).toContain("AIO-aanvulling");
+    expect(aio.bronnen).toContain(CITATEN.aioWie);
+  });
+  it("AIO-aanvulling: boven het sociaal minimum of te veel geld: nee", () => {
+    expect(kans(invoer({ aanvrager: aow({ aow: 1550 }) }), "aio")).toBe("nee");
+    expect(kans(invoer({ aanvrager: aow({ aow: 1200 }), vermogen: geld(9000) }), "aio")).toBe("nee");
+  });
+  it("met een AIO-aanvulling: onder elke grens, maar de Sleutelpas komt niet vanzelf", () => {
+    const u = checkRegelingen(invoer({ bijstand: true, aanvrager: aow({}) }));
+    for (const id of ["sleutelpas", "volwassenenfonds", "gemeentepolis", "ovpas"]) expect(uitslag(u, id)!.kans, id).toBe("ja");
+    expect(uitslag(u, "sleutelpas")!.waarom).not.toContain("vanzelf");
+    expect(uitslag(u, "sleutelpas")!.waarom).toContain("Met een AIO-aanvulling");
+    expect(uitslag(u, "aio")).toBeUndefined();
+  });
+  it("individuele inkomenstoeslag: niet met de AOW-leeftijd", () => {
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: aow({ aow: 1200 }) })), "iit")!;
+    expect(u.kans).toBe("nee");
+    expect(u.bronnen).toContain(CITATEN.iitLeeftijd);
+  });
+  it("toeslagen met AOW: nog geen bedrag, wel de proefberekening", () => {
+    const u = checkRegelingen(invoer({ aanvrager: aow({ aow: 1200 }) }));
+    for (const id of ["zorgtoeslag", "huurtoeslag"]) {
+      expect(uitslag(u, id)!.kans, id).toBe("misschien");
+      expect(uitslag(u, id)!.bedrag, id).toBeUndefined();
+      expect(uitslag(u, id)!.waarom, id).toContain("AOW-leeftijd");
+    }
+  });
+  it("kostendelersnorm met AOW: de norm van art. 22 b als B (art. 22a lid 1)", () => {
+    // Twee volwassenen (de aanvrager en één kostendeler): (40% + 2 × 30%) / 2 = 50% van € 2.176,10, zonder vakantiegeld.
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: aow({ aow: 1000 }), andereBewoners: true, andereBewonersAantal: 1, kostendelers: 1 })), "aio")!;
+    expect(u.kans).toBe("ja");
+    expect(u.waarom).toContain("ongeveer €\u00a01.034 netto per maand");
+  });
+  it("in een instelling met AOW: de grens is niet bekend, dus misschien", () => {
+    expect(kans(invoer({ aanvrager: aow({ aow: 1000 }), wonen: "instelling" }), "volwassenenfonds")).toBe("misschien");
   });
 });

@@ -25,6 +25,7 @@ export const OPVANGSOORTEN: [Opvangsoort, string][] = [
 export const SOORTEN: [Inkomenssoort, string][] = [
   ["loon", "Loon uit werk"],
   ["uwv", "Een uitkering van UWV"],
+  ["aow", "AOW van de SVB"],
   ["bedrijf", "Inkomen uit een eigen bedrijf"],
   ["studiefinanciering", "Studiefinanciering"],
   ["partneralimentatie", "Partneralimentatie"],
@@ -45,6 +46,7 @@ export const UITKERINGEN: [Uitkeringssoort, string][] = [
 export const BEDRAGVRAAG: Record<Bedragsoort, { u: string; partner: string; netto: boolean }> = {
   loon: { u: "Hoeveel loon krijgt u netto per maand?", partner: "Hoeveel loon krijgt uw partner netto per maand?", netto: true },
   uwv: { u: "Hoeveel uitkering krijgt u netto per maand?", partner: "Hoeveel uitkering krijgt uw partner netto per maand?", netto: true },
+  aow: { u: "Hoeveel AOW krijgt u netto per maand?", partner: "Hoeveel AOW krijgt uw partner netto per maand?", netto: true },
   bedrijf: { u: "Hoeveel verdient u netto per maand met uw eigen bedrijf?", partner: "Hoeveel verdient uw partner netto per maand met het eigen bedrijf?", netto: true },
   studiefinanciering: { u: "Hoeveel studiefinanciering krijgt u per maand?", partner: "Hoeveel studiefinanciering krijgt uw partner per maand?", netto: false },
   partneralimentatie: { u: "Hoeveel partneralimentatie krijgt u per maand?", partner: "Hoeveel partneralimentatie krijgt uw partner per maand?", netto: false },
@@ -90,7 +92,14 @@ export const VRAAG = {
   uren: "Hoeveel uur per week gaat dit kind naar de opvang?",
   prijs: "Prijs per uur",
   inkomenKind: (welke: string) => `Hoeveel bruto inkomen heeft ${welke} per jaar?`,
-  bijstand: (paar: boolean) => (paar ? "Krijgt u samen bijstand van de gemeente?" : "Krijgt u bijstand van de gemeente?"),
+  bijstand: (paar: boolean, aow = false) =>
+    aow
+      ? paar
+        ? "Krijgt u samen een AIO-aanvulling van de SVB?"
+        : "Krijgt u een AIO-aanvulling van de SVB?"
+      : paar
+        ? "Krijgt u samen bijstand van de gemeente?"
+        : "Krijgt u bijstand van de gemeente?",
   soorten: (partner: boolean) => (partner ? "Wat voor inkomen heeft uw partner?" : "Wat voor inkomen heeft u?"),
   uitkering: (partner: boolean) => (partner ? "Welke uitkering krijgt uw partner?" : "Welke uitkering krijgt u?"),
   studieMedisch: "Kunt u door ziekte of een handicap niet werken naast uw studie?",

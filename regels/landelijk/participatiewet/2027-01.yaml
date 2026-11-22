@@ -12,6 +12,16 @@ parameters:
     eenheid: euro_per_maand
     status: ontbrekend
     notitie: Normenbrief en Staatscourant-mededeling per 1 januari 2027 verwacht begin december 2026.
+  - id: pw.norm.aow.alleenstaande
+    omschrijving: Bijstandsnorm alleenstaande (ouder) met de AOW-leeftijd, netto incl. vakantietoeslag (art. 22 a Pw)
+    eenheid: euro_per_maand
+    status: ontbrekend
+    notitie: Normenbrief en Staatscourant-mededeling per 1 januari 2027 verwacht begin december 2026.
+  - id: pw.norm.aow.gehuwden
+    omschrijving: Bijstandsnorm gehuwden/samenwonenden van wie een of beiden de AOW-leeftijd hebben, netto incl. vakantietoeslag (art. 22 b en c Pw)
+    eenheid: euro_per_maand
+    status: ontbrekend
+    notitie: Normenbrief en Staatscourant-mededeling per 1 januari 2027 verwacht begin december 2026.
   - id: pw.bijverdien.percentage
     omschrijving: Bijverdienregeling art. 34a lid 1 onder a Pw, onder de AOW-leeftijd (deel van de inkomsten uit arbeid per maand)
     eenheid: breuk

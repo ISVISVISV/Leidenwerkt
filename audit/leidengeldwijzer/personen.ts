@@ -242,4 +242,22 @@ export const PERSONEN: Persoon[] = [
     naam: "Bram: huisgenoot met inkomen, inkomen onbekend",
     f: formulier({ geboren: "01-03-1985", andereBewoners: "ja", andereAantal: "1", andereOuder: "1", andereOnbekend: true, inkomen: inkomen({ loon: "1400" }) }),
   },
+  {
+    naam: "Riet: alleenstaand met AOW en een klein pensioen",
+    f: formulier({ geboren: "01-03-1952", inkomen: inkomen({ aow: "1100", ander: "150" }), kaleHuur: "650", bezit: ["spaar"], spaarrekening: "3000" }),
+    verwacht: [
+      { regeling: "gemeentepolis", grens: 1809.57, bron: TABEL_120 },
+      { regeling: "volwassenenfonds", grens: 1809.57, bron: TABEL_120 },
+    ],
+  },
+  {
+    naam: "Henk en Truus: stel, allebei met AOW",
+    f: formulier({ geboren: "01-06-1950", partner: "ja", partnerGeboren: "15-09-1955", inkomen: inkomen({ aow: "850" }), partnerInkomen: inkomen({ aow: "850" }), kaleHuur: "700" }),
+    verwacht: [{ regeling: "gemeentepolis", grens: 2480.75, bron: TABEL_120 }],
+  },
+  {
+    naam: "Jan en Anja: Jan heeft AOW, Anja nog niet",
+    f: formulier({ geboren: "01-02-1956", partner: "ja", partnerGeboren: "01-02-1970", inkomen: inkomen({ aow: "850" }), partnerInkomen: inkomen({ loon: "600" }), kaleHuur: "700" }),
+    verwacht: [{ regeling: "gemeentepolis", grens: 2480.75, bron: TABEL_120 }],
+  },
 ];
