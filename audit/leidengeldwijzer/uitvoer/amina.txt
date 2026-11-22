@@ -13,7 +13,7 @@ Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleg
 
 Overzicht van 21 november 2026. Leidengeldwijzer versie 0.1.0.
 
-Dit kunt u waarschijnlijk krijgen (10)
+Dit kunt u waarschijnlijk krijgen (11)
 GEMEENTE LEIDEN
 Sleutelpas
 Laptop voor school
@@ -24,6 +24,7 @@ Sport en cultuur voor volwassenen
 tot € 250 per jaar
 Zorgverzekering van de gemeente
 Gratis OV-pas
+Bijstand
 SOCIALE VERZEKERINGSBANK
 Kinderbijslag
 € 660,75 per kwartaal
@@ -34,12 +35,11 @@ Kindgebonden budget
 ongeveer € 714 per maand
 Huurtoeslag
 ongeveer € 396 per maand
-Dit kunt u misschien krijgen (4)
+Dit kunt u misschien krijgen (3)
 GEMEENTE LEIDEN
 Kinderopvang bij sociale of medische problemen
 Kwijtschelding van gemeentelijke belastingen
 Bijzondere bijstand
-Bijstand
 Dit kunt u waarschijnlijk niet krijgen (2)
 
 Kindtegoed, Individuele inkomenstoeslag.
@@ -126,6 +126,9 @@ De Gemeentepolis is de zorgverzekering van de gemeente. Er zit een aanvullende v
 Gratis OV-pas
 U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. Uw inkomen is niet hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee.
 
+Bijstand
+Uw inkomen is lager dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee. Uw geld en bezit zijn niet meer dan € 16.000. Dan vult de gemeente uw inkomen aan tot de bijstand.
+
 Kinderbijslag
 € 660,75 per kwartaal
 Kinderbijslag is geld voor uw kinderen tot 18 jaar. Uw inkomen maakt niet uit. U vraagt dit aan bij de Sociale Verzekeringsbank.
@@ -150,9 +153,6 @@ Heeft u moeite met het betalen van de gemeentelijke belastingen? Dan hoeft u ze 
 
 Bijzondere bijstand
 Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rechtshulp. Dan kan de gemeente u misschien helpen. Dit heet bijzondere bijstand. U krijgt dan een vergoeding of een lening. Vraag het aan voordat u de kosten maakt.
-
-Bijstand
-Uw inkomen is lager dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee. Uw geld en bezit zijn niet meer dan € 16.000. De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.
 
 Kindtegoed
 € 500 per jaar

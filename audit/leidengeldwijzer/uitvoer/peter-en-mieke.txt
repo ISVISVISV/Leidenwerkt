@@ -13,7 +13,7 @@ Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleg
 
 Overzicht van 21 november 2026. Leidengeldwijzer versie 0.1.0.
 
-Dit kunt u waarschijnlijk krijgen (7)
+Dit kunt u waarschijnlijk krijgen (8)
 GEMEENTE LEIDEN
 Sleutelpas
 Sport en cultuur voor volwassenen
@@ -24,14 +24,14 @@ Individuele inkomenstoeslag
 € 635, één keer per 12 maanden
 Tegemoetkoming voor alleenverdieners
 € 1.100 per jaar
+Bijstand
 DIENST TOESLAGEN
 Zorgtoeslag
 ongeveer € 246 per maand
-Dit kunt u misschien krijgen (3)
+Dit kunt u misschien krijgen (2)
 GEMEENTE LEIDEN
 Kwijtschelding van gemeentelijke belastingen
 Bijzondere bijstand
-Bijstand
 Dit kunt u waarschijnlijk niet krijgen (1)
 
 Huurtoeslag.
@@ -116,6 +116,9 @@ Tegemoetkoming voor alleenverdieners
 € 1.100 per jaar
 Dit is voor stellen met een uitkering van UWV en weinig ander inkomen. Uw inkomen samen is lager dan de bijstand voor stellen. De grens voor uw huishouden is ongeveer € 1.926 netto per maand. Vakantiegeld telt niet mee. De gemeente kijkt ook: zou u met alleen bijstand meer overhouden?
 
+Bijstand
+Uw inkomen is lager dan de bijstand. De grens voor uw huishouden is ongeveer € 1.926 netto per maand. Vakantiegeld telt niet mee. Uw geld en bezit zijn niet meer dan € 16.000. Dan vult de gemeente uw inkomen aan tot de bijstand.
+
 Zorgtoeslag
 ongeveer € 246 per maand
 Dit is geld voor de kosten van uw zorgverzekering. Uw geld en bezit zijn niet meer dan € 184.633.
@@ -125,9 +128,6 @@ Heeft u moeite met het betalen van de gemeentelijke belastingen? Dan hoeft u ze 
 
 Bijzondere bijstand
 Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rechtshulp. Dan kan de gemeente u misschien helpen. Dit heet bijzondere bijstand. U krijgt dan een vergoeding of een lening. Vraag het aan voordat u de kosten maakt.
-
-Bijstand
-Uw inkomen is lager dan de bijstand. De grens voor uw huishouden is ongeveer € 1.926 netto per maand. Vakantiegeld telt niet mee. Uw geld en bezit zijn niet meer dan € 16.000. De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.
 
 Huurtoeslag
 Huurtoeslag is er meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche.

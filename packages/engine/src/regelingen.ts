@@ -503,15 +503,27 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       aanvragen: { tekst: "Waar en wanneer", url: CITATEN.goedeBuur.url },
       bronnen: [CITATEN.goedeBuur],
     },
-    {
-      id: "stadsbank",
-      naam: "Hulp bij schulden",
-      groep: "hulp",
-      kans: "info",
-      waarom: "Heeft u schulden? Of maakt u zich zorgen over geld? Dan kan de Stadsbank u helpen. Bel 14 071 en kies 1.",
-      aanvragen: { tekst: "Meer informatie", url: CITATEN.stadsbank.url },
-      bronnen: [CITATEN.stadsbank],
-    },
+    // Heeft iemand schulden ingevuld? Dan staat de hulp bij schulden bij wat u waarschijnlijk kunt krijgen:
+    // de Stadsbank helpt alle inwoners van Leiden, zonder voorwaarden.
+    invoer.vermogen.schulden > 0
+      ? {
+          id: "stadsbank",
+          naam: "Hulp bij schulden",
+          groep: "gemeente",
+          kans: "ja",
+          waarom: "U heeft schulden. De Stadsbank Leiden helpt alle inwoners van Leiden. Er zijn geen voorwaarden. Bel 14 071 en kies 1.",
+          aanvragen: { tekst: "Meer informatie", url: CITATEN.stadsbank.url },
+          bronnen: [CITATEN.stadsbank],
+        }
+      : {
+          id: "stadsbank",
+          naam: "Hulp bij schulden",
+          groep: "hulp",
+          kans: "info",
+          waarom: "Heeft u schulden? Of maakt u zich zorgen over geld? Dan kan de Stadsbank u helpen. Bel 14 071 en kies 1.",
+          aanvragen: { tekst: "Meer informatie", url: CITATEN.stadsbank.url },
+          bronnen: [CITATEN.stadsbank],
+        },
     {
       id: "voedselbank",
       naam: "Voedselbank",
@@ -540,6 +552,16 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         if (t.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw inkomen is hoger dan de bijstand.${grensZin(t.grens, t.kd)}` };
         const v = vermogenToets(l, invoer, paar ? "pw.vermogensgrens.gehuwden" : metKinderen ? "pw.vermogensgrens.alleenstaande_ouder" : "pw.vermogensgrens.alleenstaande");
         if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit zijn meer dan ${heel(v.grens)}. Dan moet u eerst dat geld gebruiken.` };
+        // Waarschijnlijk wel: inkomen onder de bijstand, geld en bezit onder de grens, en een woonsituatie waarvan
+        // Leidengeldwijzer de norm kent (huurwoning of kamer, 21 jaar of ouder, geen eigen bedrijf).
+        // Bij een koopwoning (overwaarde), bij iemand in huis, zonder vaste woonplek of met een eigen bedrijf: misschien.
+        const zeker = t.grens && !t.boven && v.kans === "ja" && !jong && !bedrijf && (invoer.wonen === "huur" || invoer.wonen === "kamer");
+        if (zeker)
+          return {
+            ...basis,
+            kans: "ja",
+            waarom: `Uw inkomen is lager dan de bijstand.${grensZin(t.grens, t.kd)} ${v.zin} Dan vult de gemeente uw inkomen aan tot de bijstand.`,
+          };
         return {
           ...basis,
           kans: "misschien",

@@ -98,3 +98,8 @@ Deze vragen blijven wel, omdat ze de uitslag concreet maken: kinderbijslag (Kind
 - **Kinderen van 18 jaar of ouder**, in een huurwoning: hun bruto inkomen per jaar, met "Ik weet dit inkomen niet". Jonger dan 23 op 1 januari: de vrijstelling van de huurtoeslag. Zelfde vragen als Leidenwerkt.
 - **Kinderen jonger dan 13**: gaat dit kind naar de opvang? Zo ja: soort, uren per week en prijs per uur (leeg: de hoogste prijs waarover u toeslag krijgt). Zelfde vragen als Leidenwerkt. Werken of studeren alle ouders? Dan rekent Leidengeldwijzer de kinderopvangtoeslag uit. Anders: misschien (bijvoorbeeld met inburgering of een traject naar werk).
 - **Heeft u al 5 jaar of langer een laag inkomen?** De uitleg noemt nu het bedrag van de bijstand voor het huishouden (sociaal minimum zonder vakantiegeld), niet "de bijstand". "Minimuminkomen" is bewust niet gebruikt: veel mensen denken dan aan het minimumloon, en dat is hoger.
+
+## Bijstand en schulden (22 november 2026)
+
+- **Bijstand**: "waarschijnlijk wel" als het inkomen onder de bijstand ligt, het geld en bezit onder de grens, en Leidengeldwijzer de norm kent: een huurwoning of een kamer, 21 jaar of ouder, geen eigen bedrijf. Bij een koopwoning (de overwaarde telt mee), bij iemand in huis, zonder vaste woonplek of met een eigen bedrijf: "misschien".
+- **Schulden ingevuld**: de kaart "Hulp bij schulden" staat dan bij wat u waarschijnlijk kunt krijgen, in het blok van de gemeente. De Stadsbank helpt alle inwoners van Leiden, zonder voorwaarden.

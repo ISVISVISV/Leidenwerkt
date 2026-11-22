@@ -175,9 +175,15 @@ describe("studietoeslag en bijstand", () => {
   it("studiefinanciering en jonger dan 27: geen bijstand (art. 13 lid 2 c)", () => {
     expect(kans(invoer({ aanvrager: student(24) }), "bijstand")).toBe("nee");
   });
-  it("inkomen onder de norm: misschien bijstand, nooit zeker", () => {
-    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: {} } }), "bijstand")).toBe("misschien");
+  it("inkomen onder de norm in een huurwoning: waarschijnlijk wel bijstand. Bij een koopwoning of eigen bedrijf: misschien", () => {
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: {} } }), "bijstand")).toBe("ja");
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: {} }, wonen: "koop" }), "bijstand")).toBe("misschien");
+    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { bedrijf: 500 } } }), "bijstand")).toBe("misschien");
     expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: {} }, vermogen: geld(9000) }), "bijstand")).toBe("nee");
+  });
+  it("met schulden staat de hulp van de Stadsbank bij wat u waarschijnlijk kunt krijgen", () => {
+    expect(kans(invoer({ vermogen: geld(0, { schulden: 50000 }) }), "stadsbank")).toBe("ja");
+    expect(kans(invoer(), "stadsbank")).toBe("info");
   });
 });
 

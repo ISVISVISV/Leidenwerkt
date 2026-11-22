@@ -147,18 +147,23 @@ export function Pasje() {
   return <img className="pasje" src={sleutelpas} alt="" width="240" height="183" />;
 }
 
-/** Twee gekruiste sleutels, zoals in het wapen van Leiden. Eigen tekening, in het rood van de gemeente. */
+/**
+ * Twee gekruiste sleutels, zoals in het wapen van Leiden: de ringen onder, de baarden boven en naar buiten.
+ * Eigen tekening, in het rood van de gemeente.
+ */
 export function Sleutels() {
+  // Eén sleutel rechtop: ring onder, baard boven naar links. Gedraaid zodat de baard linksboven komt.
   const sleutel = (
     <>
-      <circle cx="0" cy="-15" r="5" fill="none" strokeWidth="3" />
-      <path d="M0-10V15M0 9h5M0 14h5" strokeWidth="3" strokeLinecap="round" fill="none" />
+      <circle cx="0" cy="13" r="5.5" fill="none" strokeWidth="3.2" />
+      <path d="M0 7.5V-17" strokeWidth="3.2" strokeLinecap="round" fill="none" />
+      <path d="M0-16.5h-6v4h3M0-10.5h-5" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </>
   );
   return (
-    <svg className="sleutels" viewBox="-20 -22 40 42" width="28" height="29" aria-hidden="true" focusable="false" stroke="currentColor">
-      <g transform="rotate(-35)">{sleutel}</g>
-      <g transform="rotate(35) scale(-1 1)">{sleutel}</g>
+    <svg className="sleutels" viewBox="-21 -22 42 44" width="28" height="29" aria-hidden="true" focusable="false" stroke="currentColor">
+      <g transform="rotate(-40)">{sleutel}</g>
+      <g transform="scale(-1 1) rotate(-40)">{sleutel}</g>
     </svg>
   );
 }
