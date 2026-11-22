@@ -41,7 +41,7 @@ def spitsboog(x,onder,w,h):
 def boog(x,onder,span,pijl):
     """Een rondboog over het water: van links onder via de top naar rechts onder."""
     r=(span*span/4+pijl*pijl)/(2*pijl)
-    return f"M{x} {onder}V{onder-6}A{r:.1f} {r:.1f} 0 0 1 {x+span} {onder-6}V{onder}"
+    return f"M{x} {onder}A{r:.1f} {r:.1f} 0 0 1 {x+span} {onder}"
 
 def koornbrug(x,w=290):
     # stenen brug met drie bogen (de middelste het grootst), het dek met landhoofden,
@@ -49,7 +49,7 @@ def koornbrug(x,w=290):
     dek=B-44
     brug=f"M{x} {B}V{dek}h{w}V{B}M{x} {dek+7}h{w}"
     m=x+w/2
-    bogen=boog(x+22,B,62,30)+boog(m-42,B,84,38)+boog(x+w-84,B,62,30)
+    bogen=boog(x+22,B,62,24)+boog(m-42,B,84,30)+boog(x+w-84,B,62,24)
     kz=[x+30,x+52,x+100,x+122,x+w-122,x+w-100,x+w-52,x+w-30]
     zuilen="".join(f"M{z} {dek}V{dek-42}" for z in kz)
     balk=f"M{x+20} {dek-42}h{w-40}M{x+20} {dek-48}h{w-40}"
@@ -100,27 +100,34 @@ def water(x0=-120,n=15):
     d=f"M{x0} 254c40-6 80 6 120 0s80-6 120 0"+"".join(" 80 6 120 0" if i%2==0 else " 80-6 120 0" for i in range(n))
     return f'<path class="water" d="{d}"/>'
 
+SCHAAL=0.75  # de gebouwen zijn kleiner dan de breedte van de pagina; het water blijft even breed
+BREED=1440/SCHAAL  # breedte van de tekening voor het schalen
+
 def skyline():
     p=[]
-    # links: panden
-    p.append(trapgevel(30,64,80)); p.append(tuitgevel(108,56,90)); p.append(halsgevel(178,52,84)); p.append(trapgevel(244,58,70,2))
-    # Koornbrug
-    p.append(koornbrug(340))
-    # panden midden
-    p.append(halsgevel(660,54,92)); p.append(trapgevel(728,60,78))
-    # Hooglandse Kerk
-    p.append(hooglandsekerk(840))
-    # molen
-    m,hub=molen(1238); p.append(m); p.append(wieken(hub))
-    # rechts
-    p.append(tuitgevel(1330,50,84)); p.append(trapgevel(1390,46,72,2))
-    lijn='<path d="M0 240h340M630 240h810"/>'
-    return lijn+water()+"".join(p), hub
-
+    # links: een pand, molen De Valk, en panden tot aan de brug
+    p.append(trapgevel(20,64,80))
+    m,hub=molen(210); p.append(m); p.append(wieken(hub))
+    p.append(tuitgevel(338,56,90)); p.append(halsgevel(408,52,84)); p.append(trapgevel(474,64,80))
+    p.append(tuitgevel(552,50,84)); p.append(halsgevel(616,54,92)); p.append(trapgevel(684,58,70,2)); p.append(tuitgevel(756,46,80))
+    # midden: de Koornbrug
+    bx=BREED/2-145
+    p.append(koornbrug(bx))
+    # rechts: panden, de Hooglandse Kerk, en weer panden
+    p.append(halsgevel(1120,54,92)); p.append(trapgevel(1188,60,78))
+    p.append(hooglandsekerk(1268))
+    p.append(tuitgevel(1530,50,84)); p.append(trapgevel(1594,64,80)); p.append(halsgevel(1672,52,84))
+    p.append(trapgevel(1738,58,70,2)); p.append(tuitgevel(1810,56,90)); p.append(trapgevel(1876,40,72,2))
+    lijn=f'<path d="M0 {B}H{bx}M{bx+290} {B}H{BREED}"/>'
+    import re
+    # lijnen even dik als zonder schalen
+    binnen=re.sub(r'stroke-width="([0-9.]+)"',lambda m:f'stroke-width="{float(m.group(1))/SCHAAL:.2f}"',lijn+"".join(p))
+    groep=f'<g transform="translate(0 {B}) scale({SCHAAL}) translate(0 -{B})" stroke-width="{3/SCHAAL:.0f}">{binnen}</g>'
+    return water()+groep, hub
 if __name__=="__main__":
     inhoud,hub=skyline()
     import json; print(json.dumps({"hub":hub}))
-    svg=f'<svg class="skyline" viewBox="0 -60 1440 320" preserveAspectRatio="xMidYMax slice" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">{inhoud}</svg>'
+    svg=f'<svg class="skyline" viewBox="0 30 1440 229" preserveAspectRatio="xMidYMax slice" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">{inhoud}</svg>'
     open("skyline.svg","w").write(svg)
     groot=svg.replace('class="skyline"','style="width:2880px;display:block"')
     open("los.html","w").write('<html><body style="margin:0;background:#c8200f;color:#fff">'+groot+'</body></html>')
