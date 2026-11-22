@@ -74,20 +74,6 @@
 
 /* ---------- Overzicht ---------- */
 
-.overzicht-begin {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.75rem 2rem;
-}
-
-.overzicht-begin .inleiding {
-  margin: 0;
-  max-width: 38rem;
-  color: var(--inkt-zacht);
-}
-
 .printknop {
   display: inline-flex;
   align-items: center;
@@ -109,7 +95,33 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 19rem;
   column-gap: 2rem;
-  margin-top: 1.75rem;
+}
+
+/*
+ * Het overzicht ligt half over het rode vlak. Elke groep is een witte kaart, net als de kaarten op de startpagina.
+ * Bij "ja" en "Hulp nodig?" zijn de kop en de inhoud losse vakken in het raster: samen vormen ze één kaart.
+ */
+.groep.ja > .groep-kop,
+.groep.info > .groep-kop {
+  padding: 1rem 1.25rem 0.25rem;
+  border-radius: 14px 14px 0 0;
+  background: var(--veld);
+}
+
+.groep.ja > .groep-inhoud,
+.groep.info > .groep-inhoud {
+  padding: 0 1.25rem 1.25rem;
+  border-radius: 0 0 14px 14px;
+  background: var(--veld);
+  box-shadow: 0 10px 30px rgb(16 25 32 / 0.1);
+}
+
+.groep.misschien,
+.groep.nee {
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  background: var(--veld);
+  box-shadow: 0 10px 30px rgb(16 25 32 / 0.1);
 }
 
 .groep.ja,
@@ -532,7 +544,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* Op de telefoon staat "Hulp nodig?" bovenaan: dat is snel te vinden. */
+  /* Op de telefoon staat "Hulp nodig?" onderaan, na de regelingen. */
   .groep.info > .groep-kop,
   .groep.info > .groep-inhoud,
   .groep.ja > .groep-kop,
@@ -543,28 +555,28 @@
     grid-row: auto;
   }
 
-  .groep.info > .groep-kop {
+  .groep.ja > .groep-kop {
     order: 1;
   }
 
-  .groep.info > .groep-inhoud {
-    order: 2;
-    margin-bottom: 1rem;
-  }
-
-  .groep.ja > .groep-kop {
-    order: 3;
-  }
-
   .groep.ja > .groep-inhoud {
-    order: 4;
+    order: 2;
   }
 
   .groep.misschien {
-    order: 5;
+    order: 3;
   }
 
   .groep.nee {
+    order: 4;
+  }
+
+  .groep.info > .groep-kop {
+    order: 5;
+    margin-top: 1.5rem;
+  }
+
+  .groep.info > .groep-inhoud {
     order: 6;
   }
 }
@@ -596,7 +608,6 @@
   }
 
   /* Op papier alleen de afdruk: niet het scherm-overzicht, niet de uitleg onderaan de pagina. */
-  .overzicht-begin,
   .overzicht-raster,
   .venster,
   .lgw .voet {
