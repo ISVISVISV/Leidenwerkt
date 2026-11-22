@@ -7,6 +7,13 @@
     <meta name="theme-color" content="#b3101c" />
     <meta name="description" content="Gratis rekenhulp voor inwoners van Leiden: hoeveel houdt u over als u (meer) gaat werken?" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; connect-src 'none'" />
+    <!-- Licht of donker, als iemand dat eerder koos. Vóór het tekenen van de pagina, zodat er niets verspringt. -->
+    <script>
+      try {
+        var t = localStorage.getItem("thema");
+        if (t === "licht" || t === "donker") document.documentElement.dataset.thema = t;
+      } catch (e) {}
+    </script>
     <title>Leidenwerkt — wat houdt u over als u gaat werken?</title>
   </head>
   <body>

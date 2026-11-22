@@ -32,7 +32,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-thema="licht"]) {
     --papier: #0f161c;
     --vlak: #1b242c;
     --veld: #151e25;
@@ -51,6 +51,32 @@
     --voorbeeld: #8e9096;
     --klaar: #4fae7c;
   }
+}
+
+/* De knop voor licht en donker zet data-thema op <html>. Die keuze gaat voor de instelling van het apparaat. */
+:root[data-thema="licht"] {
+  color-scheme: light;
+}
+
+:root[data-thema="donker"] {
+  color-scheme: dark;
+  --papier: #0f161c;
+  --vlak: #1b242c;
+  --veld: #151e25;
+  --inkt: #eceef0;
+  --inkt-zacht: #a8b0b8;
+  --lijn: #36424d;
+  --leiden: #d5313a;
+  --leiden-tekst: #ff8a8f;
+  --op-leiden: #ffffff;
+  --leiden-zacht: #3a1d20;
+  --positief: #7fd3a2;
+  --positief-zacht: #1b3226;
+  --let-op: #f3b866;
+  --let-op-zacht: #382a15;
+  --focus: #8fb2ff;
+  --voorbeeld: #8e9096;
+  --klaar: #4fae7c;
 }
 
 * {
@@ -1177,4 +1203,45 @@ input[type="text"].datum {
 .hint ul {
   margin: 0.2rem 0 0.6rem;
   padding-left: 1.2rem;
+}
+
+/* Knop voor licht en donker: klein, rechts in de kopregel. Klikvlak 40 × 40 pixels. */
+.kopregel {
+  position: relative;
+  padding-right: 52px;
+}
+
+.kopregel .thema-knop {
+  position: absolute;
+  right: 0;
+  top: 1.1rem;
+}
+
+.thema-knop {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-left: auto;
+  padding: 0;
+  border: 1px solid var(--lijn);
+  border-radius: 50%;
+  background: none;
+  color: var(--inkt-zacht);
+  cursor: pointer;
+}
+
+.thema-knop:hover {
+  color: var(--inkt);
+}
+
+.thema-knop svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media print {
+  .thema-knop {
+    display: none;
+  }
 }

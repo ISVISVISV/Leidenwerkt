@@ -13,13 +13,22 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-thema="licht"]) {
     --held-boven: #8f1a10;
     --held-onder: #66120b;
     --tas: #8ccbf0;
     --tas-vlak: #16303f;
     --stijgt: #7fd3a2;
   }
+}
+
+/* De knop voor licht en donker zet data-thema op <html>. Die keuze gaat voor de instelling van het apparaat. */
+:root[data-thema="donker"] {
+  --held-boven: #8f1a10;
+  --held-onder: #66120b;
+  --tas: #8ccbf0;
+  --tas-vlak: #16303f;
+  --stijgt: #7fd3a2;
 }
 
 body {
@@ -52,6 +61,63 @@ body {
 
 .held .merk {
   color: #fff;
+}
+
+.bovenrij {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* De knop voor licht en donker, wit op het rode vlak. */
+.held .thema-knop {
+  margin-left: 0;
+  border-color: rgb(255 255 255 / 0.5);
+  color: #fff;
+}
+
+.held .thema-knop:hover {
+  background: rgb(255 255 255 / 0.12);
+}
+
+.thema-knop .zon,
+.thema-knop[aria-pressed="true"] .maan {
+  display: none;
+}
+
+.thema-knop[aria-pressed="true"] .zon {
+  display: block;
+}
+
+/* De wieken van molen De Valk draaien langzaam. Het water golft zacht. Niet bij "minder beweging". */
+.wieken {
+  transform-box: view-box;
+  transform-origin: 365px 96px;
+  animation: draai 40s linear infinite;
+}
+
+.water {
+  animation: golf 6s ease-in-out infinite alternate;
+}
+
+@keyframes draai {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes golf {
+  to {
+    transform: translateX(60px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wieken,
+  .water {
+    animation: none;
+  }
 }
 
 .merk {
