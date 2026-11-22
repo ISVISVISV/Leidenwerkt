@@ -102,4 +102,4 @@ Deze vragen blijven wel, omdat ze de uitslag concreet maken: kinderbijslag (Kind
 ## Bijstand en schulden (22 november 2026)
 
 - **Bijstand**: "waarschijnlijk wel" als het inkomen onder de bijstand ligt, het geld en bezit onder de grens, en Leidengeldwijzer de norm kent: een huurwoning of een kamer, 21 jaar of ouder, geen eigen bedrijf. Bij een koopwoning (de overwaarde telt mee), bij iemand in huis, zonder vaste woonplek of met een eigen bedrijf: "misschien".
-- **Schulden ingevuld**: de kaart "Hulp bij schulden" staat dan bij wat u waarschijnlijk kunt krijgen, in het blok van de gemeente. De Stadsbank helpt alle inwoners van Leiden, zonder voorwaarden.
+- **Schulden ingevuld**: de kaart "Hulp bij schulden" staat dan bij wat u waarschijnlijk kunt krijgen, in het blok van de gemeente. De Stadsbank helpt inwoners van Leiden met schulden. De zin "Er zijn geen voorwaarden" staat er bewust niet: in de praktijk zijn er wel voorwaarden.

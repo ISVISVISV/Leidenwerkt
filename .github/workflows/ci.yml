@@ -67,17 +67,20 @@ jobs:
         with:
           name: leidenwerkt-los
           path: app/dist-los/index.html
-      # Leidengeldwijzer (proefversie, niet in zoekmachines) staat naast Leidenwerkt: /Leidenwerkt/leidengeldwijzer/.
-      - name: Leidengeldwijzer bij de site zetten
+      # De site: de startpagina, met Leidenwerkt op /leidenwerkt/ en Leidengeldwijzer (proefversie, niet in zoekmachines)
+      # op /leidengeldwijzer/.
+      - name: Site samenstellen
         if: github.ref == 'refs/heads/main'
         run: |
           npm run build:regelingen
-          rm -rf app/dist/leidengeldwijzer
-          cp -r regelingen/dist app/dist/leidengeldwijzer
+          npm run build:start
+          rm -rf site && cp -r start/dist site
+          cp -r app/dist site/leidenwerkt
+          cp -r regelingen/dist site/leidengeldwijzer
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main'
         with:
-          path: app/dist
+          path: site
 
   overzicht:
     # Overzicht van gewijzigde parameters en het effect op de proefpersonen, bij elke pull request.
