@@ -38,32 +38,44 @@ def spitsboog(x,onder,w,h):
     r=w*0.9
     return f"M{x} {onder}V{onder-h}A{r:.1f} {r:.1f} 0 0 1 {x+w/2:.1f} {onder-h-w*0.75:.1f}A{r:.1f} {r:.1f} 0 0 1 {x+w} {onder-h}V{onder}z"
 
-def koornbrug(x,w):
-    # stenen boog over het water, het dek met een rand, en daarop een zuilengang met een schilddak
-    dek=B-30
-    # lage boog: koorde w-40, pijl 22 (straal = (koorde²/4 + pijl²) / (2 × pijl))
-    k=w-40; h=22; r=(k*k/4+h*h)/(2*h)
-    boog=f"M{x+20} {B}A{r:.1f} {r:.1f} 0 0 1 {x+w-20} {B}"
-    rand=f"M{x} {B}V{dek}h{w}V{B}M{x} {dek+6}h{w}"
-    n=7; m=34; zx=[x+m+i*(w-2*m)/(n-1) for i in range(n)]
-    zuilen="".join(f"M{z:.1f} {dek}V{dek-34}" for z in zx)
-    balk=f"M{x+m-8} {dek-34}h{w-2*m+16}"
-    dak=f"M{x+m-16} {dek-34}L{x+m+22} {dek-54}H{x+w-m-22}L{x+w-m+16} {dek-34}z"
-    return f'<path d="{boog}"/><path d="{rand}"/><path d="{zuilen}"/><path d="{balk}"/><path d="{dak}"/>'
+def boog(x,onder,span,pijl):
+    """Een rondboog over het water: van links onder via de top naar rechts onder."""
+    r=(span*span/4+pijl*pijl)/(2*pijl)
+    return f"M{x} {onder}V{onder-6}A{r:.1f} {r:.1f} 0 0 1 {x+span} {onder-6}V{onder}"
 
-def pieterskerk(x):
-    # lang schip met een steil dak, steunberen, hoge spitsboogvensters, een kleine dakruiter,
-    # en de gevel van het dwarsschip met een groot spitsboograam
-    w=230; muur=B-70; nok=B-150
-    schip=f"M{x} {B}V{muur}h{w}V{B}"
-    dak=f"M{x-6} {muur}L{x+26} {nok}h{w-52}L{x+w+6} {muur}"
-    ramen="".join(spitsboog(x+20+i*42,B-12,16,30) for i in range(5))
-    steun="".join(f"M{x+42*i+5} {B}v-40" for i in range(1,6))
-    dx=x+w*0.62; ruiter=f"M{dx-6} {nok}v-16l6-28l6 28v16"
-    gx=x+w+18; gw=86
-    gevel=f"M{gx} {B}V{B-96}L{gx+gw/2} {B-170}L{gx+gw} {B-96}V{B}"
-    groot=spitsboog(gx+25,B-16,36,58)
-    return f'<path d="{schip}"/><path d="{dak}"/><path d="{steun}" stroke-width="2.2"/><path d="{ramen}" stroke-width="2.2"/><path d="{ruiter}"/><path d="{gevel}"/><path d="{groot}" stroke-width="2.5"/>'
+def koornbrug(x,w=290):
+    # stenen brug met drie bogen (de middelste het grootst), het dek met landhoofden,
+    # en daarop de zuilengang: zuilen, een balk, een fronton in het midden en een schilddak erachter
+    dek=B-44
+    brug=f"M{x} {B}V{dek}h{w}V{B}M{x} {dek+7}h{w}"
+    m=x+w/2
+    bogen=boog(x+22,B,62,30)+boog(m-42,B,84,38)+boog(x+w-84,B,62,30)
+    kz=[x+30,x+52,x+100,x+122,x+w-122,x+w-100,x+w-52,x+w-30]
+    zuilen="".join(f"M{z} {dek}V{dek-42}" for z in kz)
+    balk=f"M{x+20} {dek-42}h{w-40}M{x+20} {dek-48}h{w-40}"
+    fronton=f"M{m-58} {dek-48}L{m} {dek-88}L{m+58} {dek-48}"
+    krans=f'<circle cx="{m}" cy="{dek-62}" r="7" stroke-width="2.2"/>'
+    dak=f"M{x+20} {dek-48}L{x+56} {dek-72}H{m-23}M{m+23} {dek-72}H{x+w-56}L{x+w-20} {dek-48}"
+    return f'<path d="{brug}"/><path d="{bogen}"/><path d="{zuilen}"/><path d="{balk}"/><path d="{dak}"/><path d="{fronton}"/>{krans}'
+
+def hooglandsekerk(x):
+    # de gevel van de Hooglandse Kerk: een hoog middendeel met een groot spitsboograam en een dubbele deur,
+    # twee slanke torentjes ernaast met spitse punten, een sierlijke top, en lagere zijbeuken met een spitsboograam
+    mw=104; mx=x+70; top=B-200
+    zij_l=f"M{x} {B}V{B-110}L{x+24} {B-138}H{mx-18}"
+    zij_r=f"M{mx+mw+18} {B-138}H{mx+mw+46}L{mx+mw+70} {B-110}V{B}"
+    raam_l=spitsboog(x+18,B-30,30,52); raam_r=spitsboog(mx+mw+22,B-30,30,52)
+    toren_l=f"M{mx-18} {B}V{top+20}h18M{mx-18} {top+20}l9-34l9 34"
+    toren_r=f"M{mx+mw} {top+20}h18V{B}M{mx+mw} {top+20}l9-34l9 34"
+    midden=f"M{mx} {B}V{top+20}"+f"M{mx+mw} {B}V{top+20}"
+    gevel=f"M{mx} {top+20}L{mx+mw/2} {top-22}L{mx+mw} {top+20}"
+    pinakels="".join(f"M{mx+mw*f:.1f} {top+20-44*min(f,1-f)*2+2:.1f}v-12" for f in (0.25,0.5,0.75))
+    raam=spitsboog(mx+24,B-56,56,96)
+    stijl=f"M{mx+52} {B-56}V{B-152}"
+    deur=f"M{mx+30} {B}V{B-26}a11 11 0 0 1 22 0V{B}M{mx+52} {B}V{B-26}a11 11 0 0 1 22 0V{B}"
+    return (f'<path d="{zij_l}"/><path d="{zij_r}"/><path d="{raam_l}{raam_r}" stroke-width="2.2"/>'
+            f'<path d="{toren_l}"/><path d="{toren_r}"/><path d="{midden}"/><path d="{gevel}"/><path d="{pinakels}" stroke-width="2.2"/>'
+            f'<path d="{raam}" stroke-width="2.5"/><path d="{stijl}" stroke-width="2"/><path d="{deur}" stroke-width="2.2"/>')
 
 def molen(cx):
     # De Valk: hoog, taps, stelling op ongeveer 40%, kap, vier wieken
@@ -93,22 +105,22 @@ def skyline():
     # links: panden
     p.append(trapgevel(30,64,80)); p.append(tuitgevel(108,56,90)); p.append(halsgevel(178,52,84)); p.append(trapgevel(244,58,70,2))
     # Koornbrug
-    p.append(koornbrug(340,280))
+    p.append(koornbrug(340))
     # panden midden
     p.append(halsgevel(660,54,92)); p.append(trapgevel(728,60,78))
-    # Pieterskerk
-    p.append(pieterskerk(820))
+    # Hooglandse Kerk
+    p.append(hooglandsekerk(840))
     # molen
     m,hub=molen(1238); p.append(m); p.append(wieken(hub))
     # rechts
     p.append(tuitgevel(1330,50,84)); p.append(trapgevel(1390,46,72,2))
-    lijn='<path d="M0 240h340M620 240h820"/>'
+    lijn='<path d="M0 240h340M630 240h810"/>'
     return lijn+water()+"".join(p), hub
 
 if __name__=="__main__":
     inhoud,hub=skyline()
     import json; print(json.dumps({"hub":hub}))
-    svg=f'<svg class="skyline" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">{inhoud}</svg>'
+    svg=f'<svg class="skyline" viewBox="0 -60 1440 320" preserveAspectRatio="xMidYMax slice" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">{inhoud}</svg>'
     open("skyline.svg","w").write(svg)
     groot=svg.replace('class="skyline"','style="width:2880px;display:block"')
     open("los.html","w").write('<html><body style="margin:0;background:#c8200f;color:#fff">'+groot+'</body></html>')
