@@ -182,7 +182,7 @@ export function App() {
         </p>
         <p>
           Leidenwerkt is gemaakt door Ian Vriend, met hulp van AI. Iedereen kan de{" "}
-          <a href="https://github.com/ISVISVISV/rekenhulp" rel="noopener noreferrer">
+          <a href="https://github.com/ISVISVISV/Rekenhulp" rel="noopener noreferrer">
             broncode
           </a>{" "}
           bekijken en gebruiken (licentie EUPL-1.2). Versie {__VERSIE__}.

@@ -14,7 +14,7 @@ Deze pagina is voor wie wil nagaan of de rekenhulp te vertrouwen is, zonder eers
 
 Elk bedrag in de uitkomst is terug te volgen tot de letterlijke tekst van de bron.
 
-1. Open [de rekenhulp](https://isvisvisv.github.io/rekenhulp/leidenwerkt/) en vul een verzonnen huishouden in.
+1. Open [de rekenhulp](https://isvisvisv.github.io/Rekenhulp/leidenwerkt/) en vul een verzonnen huishouden in.
 2. Klap onder de uitkomst **Hoe is dit berekend?** open en kies een post, bijvoorbeeld Bijstand.
 3. Je ziet de rekenstappen met tussenbedragen. Onder **Gebruikte regels** staat elke parameter met zijn waarde en zijn bron.
 4. Klik op een bron. Je ziet de letterlijke tekst uit de wet of de publicatie, met een link naar de officiële pagina.
@@ -74,7 +74,7 @@ Dit is het patroon dat de app zichtbaar wil maken: onder de bijstandsnorm levert
 ## 3. De technische controle (een half uur)
 
 ```sh
-git clone https://github.com/ISVISVISV/rekenhulp.git
+git clone https://github.com/ISVISVISV/Rekenhulp.git
 cd Leidenwerkt
 npm ci
 npm test          # rekenkern, regeldata en documentatie

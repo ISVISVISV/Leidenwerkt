@@ -32,7 +32,7 @@ Een AI-tester die moet beoordelen of de uitkomst begrijpelijk is, kan deze tekst
 
 Iedereen kan de audit draaien, zonder ons:
 
-1. Installeer [Node.js](https://nodejs.org) 22 en download dit project (`git clone https://github.com/ISVISVISV/rekenhulp.git`).
+1. Installeer [Node.js](https://nodejs.org) 22 en download dit project (`git clone https://github.com/ISVISVISV/Rekenhulp.git`).
 2. Draai `npm ci` en daarna `npm run audit`.
 
 De audit rekent met een vaste datum (`REKENDATUM` in [personen.ts](personen.ts)). Daardoor krijgt iedereen, op elke dag, precies dezelfde uitvoer als in deze repository staat. Een andere datum kan met `npm run audit -- --datum 2026-12-01`.
