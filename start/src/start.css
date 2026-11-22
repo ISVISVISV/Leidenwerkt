@@ -93,7 +93,7 @@ body {
 /* De wieken van molen De Valk draaien langzaam. Het water golft zacht. Niet bij "minder beweging". */
 .wieken {
   transform-box: view-box;
-  transform-origin: 1210px 60px;
+  transform-origin: 1238px 76px;
   animation: draai 40s linear infinite;
 }
 
