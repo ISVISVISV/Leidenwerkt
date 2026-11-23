@@ -18,6 +18,11 @@
   --icoon-hulp-vlak: #ece8f5;
   --tegel: #ffffff;
   --tegel-hover: #eef0f2;
+  /* Het vlak van een blok: een rustige kleur van de aanbieder. De tegels erin zijn wit. */
+  --blok-gemeente: #f8e8e8;
+  --blok-rijk: #d9e8f3;
+  --blok-svb: #e3f2ea;
+  --blok-uwv: #f8eddf;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,6 +40,10 @@
     --pas-vlak: #2a2516;
     --tegel: #29323a;
     --tegel-hover: #36414b;
+    --blok-gemeente: #2c1d21;
+    --blok-rijk: #13293a;
+    --blok-svb: #142923;
+    --blok-uwv: #2c2418;
   }
 }
 
@@ -53,6 +62,10 @@
   --pas-vlak: #2a2516;
   --tegel: #29323a;
   --tegel-hover: #36414b;
+  --blok-gemeente: #2c1d21;
+  --blok-rijk: #13293a;
+  --blok-svb: #142923;
+  --blok-uwv: #2c2418;
 }
 
 /* Het formulier blijft smal (goed te lezen). Het overzicht mag op een groot scherm breed. */
@@ -360,21 +373,40 @@
   color: var(--icoon-uwv);
 }
 
-/* Elke aanbieder een eigen kleur: rood voor de gemeente Leiden, blauw voor Dienst Toeslagen, groen voor de SVB, bruin voor UWV. */
+/* Elke aanbieder een eigen kleur: rood voor de gemeente Leiden, blauw voor Dienst Toeslagen, groen voor de SVB, bruin voor UWV.
+   Het hele blok krijgt een rustige tint. De tegels erin blijven wit, zodat ze goed opvallen. */
 .blok.gemeente {
   border-top: 4px solid var(--icoon-gemeente);
+  background: var(--blok-gemeente);
 }
 
 .blok.toeslagen {
   border-top: 4px solid var(--icoon-rijk);
+  background: var(--blok-rijk);
 }
 
 .blok.svb {
   border-top: 4px solid var(--icoon-svb);
+  background: var(--blok-svb);
 }
 
 .blok.uwv {
   border-top: 4px solid var(--icoon-uwv);
+  background: var(--blok-uwv);
+}
+
+.blok.gemeente .tegel,
+.blok.toeslagen .tegel,
+.blok.svb .tegel,
+.blok.uwv .tegel {
+  background: var(--tegel);
+}
+
+.blok.gemeente .tegel:hover,
+.blok.toeslagen .tegel:hover,
+.blok.svb .tegel:hover,
+.blok.uwv .tegel:hover {
+  background: var(--tegel-hover);
 }
 
 .sleutels {
