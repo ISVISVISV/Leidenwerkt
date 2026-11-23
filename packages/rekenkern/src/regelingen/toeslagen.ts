@@ -58,7 +58,7 @@ export function huurtoeslag(c: Context, z: ToeslagContext): MogelijkeUitslag {
   const { l, invoer, paar, personen } = c;
   const basis = { id: "huurtoeslag", naam: "Huurtoeslag", groep: "toeslagen" as const, wat: "Dit is geld voor uw huur.", aanvragen: z.proef, bronnen: [CITATEN.htZelfstandig, ...bron(l, "ht.vermogen.zonder_partner")] };
   if (invoer.wonen !== "huur" && invoer.wonen !== "kamer") return undefined;
-  if (invoer.wonen === "kamer") return { ...basis, kans: "nee", waarom: "Huurtoeslag is er meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche." };
+  if (invoer.wonen === "kamer") return { ...basis, kans: "nee", waarom: "U woont op een kamer. Huurtoeslag is er meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche." };
   const v = vermogenToets(l, invoer, paar ? "ht.vermogen.met_partner" : "ht.vermogen.zonder_partner");
   if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit op 1 januari waren meer dan ${heel(v.grens)}.` };
   // Andere volwassenen in huis (huisgenoten en kinderen van 18 of ouder): hun inkomen telt mee (art. 7 Wet op de huurtoeslag).

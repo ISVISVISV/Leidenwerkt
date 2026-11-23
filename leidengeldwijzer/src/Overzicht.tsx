@@ -336,6 +336,19 @@ function Afdruk({ f, uitslagen }: { f: Formulier; uitslagen: Uitslag[] }) {
               </section>
             );
           })}
+          {/* Als u het nodig heeft: de hulp die niet al bij "Hulp en contact" staat (het Goede Buur Spreekuur en de Stadsbank). */}
+          {(() => {
+            const nodig = uitslagen.filter((u) => u.kans === "info" && u.id !== "goede_buur" && u.id !== "stadsbank");
+            if (nodig.length === 0) return null;
+            return (
+              <section className="afdruk-groep info">
+                <h2 className="kans-kop">
+                  <span>{HULP.kop}</span>
+                </h2>
+                <p>{nodig.map((u) => u.naam).join(", ")}.</p>
+              </section>
+            );
+          })()}
         </div>
 
         <section className="afdruk-contact">
