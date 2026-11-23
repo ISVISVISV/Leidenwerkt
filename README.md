@@ -24,7 +24,7 @@ npm run dev        # ontwikkelserver
 npm run dev:leidengeldwijzer  # ontwikkelserver van Leidengeldwijzer
 npm run build:start     # de startpagina in start/dist
 npm test           # regeldata controleren + unit-, eigenschaps- en proefpersonentests
-npm run docs       # PROEFPERSONEN.md en de statustabel in REKENREGELS.md opnieuw maken
+npm run docs       # PROEFPERSONEN.md en de statustabel in RECHT.md opnieuw maken
 npm run test:e2e   # bouwen + browsertest met toegankelijkheidscontrole (axe)
 npm run build      # statische site in leidenwerkt/dist
 npm run build:los  # één zelfstandig HTML-bestand in leidenwerkt/dist-los
@@ -53,26 +53,24 @@ Wijzigingen gaan via pull requests; zie [CONTRIBUTING.md](CONTRIBUTING.md).
 
 | Document | Voor wie | Inhoud |
 | --- | --- | --- |
-| [CONTROLE.md](docs/CONTROLE.md) | Wie de rekenhulp wil beoordelen | Steekproef, een met de hand nagerekend voorbeeld, wat wel en niet is gecontroleerd |
-| [REKENREGELS.md](docs/REKENREGELS.md) | Inhoudelijke lezers | Elke rekenregel met grondslag, bron en status |
-| [OPEN_VRAGEN.md](docs/OPEN_VRAGEN.md) | Inhoudelijke lezers | Wat nog niet zeker is en waar het antwoord te vinden is |
+| [CONTROLE.md](docs/CONTROLE.md) | Wie de rekenhulp wil beoordelen | Steekproef, een met de hand nagerekend voorbeeld, wat wel en niet is gecontroleerd, de gebruikerstest, de risico's en de verklaring van gewijzigde snapshots |
+| [RECHT.md](docs/RECHT.md) | Inhoudelijke lezers | Elke rekenregel en voorwaarde met grondslag, bron en status, en de open vragen |
 | [PROEFPERSONEN.md](docs/PROEFPERSONEN.md) | Inhoudelijke lezers | Verzonnen huishoudens met de vergelijking met officiële waarden (gegenereerd) |
-| [ARCHITECTUUR.md](docs/ARCHITECTUUR.md) | Ontwikkelaars | Opbouw van regeldata, rekenkern en app |
-| [ONDERHOUD.md](docs/ONDERHOUD.md) | Beheerders | Bedragen bijwerken, bewaking van wetten, werkwijze |
-| [GEBRUIKERSTEST.md](docs/GEBRUIKERSTEST.md) | Beheerders | Testen met verzonnen gebruikers: wanneer, hoe, en de opdracht |
-| [BESLUITEN.md](docs/BESLUITEN.md) | Ontwikkelaars | De keuzes die de rekenhulp vormen, met de reden |
-| [SNAPSHOTS.md](docs/SNAPSHOTS.md) | Ontwikkelaars | Waarom een vastgelegde uitkomst is gewijzigd |
-| [RISICOS.md](docs/RISICOS.md) | Beheerders | Risico's en de maatregel per risico |
+| [ARCHITECTUUR.md](docs/ARCHITECTUUR.md) | Ontwikkelaars | Opbouw van regeldata, rekenkern en apps |
+| [BESLUITEN.md](docs/BESLUITEN.md) | Iedereen die iets wil veranderen | De keuzes die de rekenhulp vormen, met de reden |
+| [ONDERHOUD.md](docs/ONDERHOUD.md) | Beheerders | Bedragen bijwerken, bewaking van wetten, werkwijze, teksten schrijven |
 | [PLANNING.md](docs/PLANNING.md) | Iedereen | Wat nog op de lijst staat |
 | [CHANGELOG.md](CHANGELOG.md) | Iedereen | Wat er per versie is veranderd |
 
+Eigenaar van de documentatie is Ian Vriend.
+
 ## Status
 
-Leidenwerkt versie 0.7.0, Leidengeldwijzer versie 0.3.0 (proefversie). Leidenwerkt werkt en is getest met verzonnen huishoudens waarvan de uitkomsten zijn vergeleken met officiële rekenhulpen ([docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md)), met elf rondes gebruikerstests ([docs/GEBRUIKERSTEST.md](docs/GEBRUIKERSTEST.md)) en met een automatische audit die bij elke wijziging draait ([audit/README.md](audit/README.md)). Leidengeldwijzer heeft een eigen audit met verzonnen personen, ook met AOW en met een uitkering van UWV ([audit/leidengeldwijzer/README.md](audit/leidengeldwijzer/README.md)). De uitkomsten zijn nog niet nagelopen door een klantmanager of sociaal raadsman. De bedragen voor 2027 komen erin zodra ze gepubliceerd zijn.
+Leidenwerkt versie 0.7.0, Leidengeldwijzer versie 0.3.0 (proefversie). Leidenwerkt werkt en is getest met verzonnen huishoudens waarvan de uitkomsten zijn vergeleken met officiële rekenhulpen ([docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md)), met elf rondes gebruikerstests ([docs/CONTROLE.md](docs/CONTROLE.md), hoofdstuk 6) en met een automatische audit die bij elke wijziging draait ([audit/README.md](audit/README.md)). Leidengeldwijzer heeft een eigen audit met verzonnen personen, ook met AOW en met een uitkering van UWV ([audit/leidengeldwijzer/README.md](audit/leidengeldwijzer/README.md)). De uitkomsten zijn nog niet nagelopen door een klantmanager of sociaal raadsman. De bedragen voor 2027 komen erin zodra ze gepubliceerd zijn.
 
 Wil je nagaan of de rekenhulp te vertrouwen is? Begin bij [docs/CONTROLE.md](docs/CONTROLE.md): een steekproef in de app, één voorbeeld met de hand nagerekend, en wat wel en niet is gecontroleerd.
 
-Wat wel en niet berekend wordt staat in [docs/REKENREGELS.md](docs/REKENREGELS.md); wat nog op de lijst staat in [docs/PLANNING.md](docs/PLANNING.md).
+Wat wel en niet berekend wordt staat in [docs/RECHT.md](docs/RECHT.md); wat nog op de lijst staat in [docs/PLANNING.md](docs/PLANNING.md).
 
 ## Makers
 

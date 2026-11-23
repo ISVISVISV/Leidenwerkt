@@ -21,7 +21,7 @@ function zoekYaml(map: string): string[] {
   });
 }
 
-/** Alleen officiële bronnen tellen (zie docs/REKENREGELS.md). Subdomeinen zijn toegestaan. */
+/** Alleen officiële bronnen tellen (zie docs/RECHT.md en besluit 3). Subdomeinen zijn toegestaan. */
 const TOEGESTANE_DOMEINEN = [
   "wetten.overheid.nl",
   "officielebekendmakingen.nl",

@@ -1,7 +1,7 @@
 /**
  * Genereert de delen van de documentatie die uit data volgen:
  * - docs/PROEFPERSONEN.md uit testgevallen/*.yaml (met invulbladen)
- * - de statustabel in docs/REKENREGELS.md uit regels/**.yaml
+ * - de statustabel in docs/RECHT.md uit regels/**.yaml
  *
  * npm run docs           schrijft de bestanden
  * npm run docs -- --check faalt als de bestanden niet bijgewerkt zijn (CI)
@@ -176,17 +176,17 @@ function schrijf(pad: string, inhoud: string): boolean {
 const gewijzigd: string[] = [];
 if (schrijf(`${wortel}docs/PROEFPERSONEN.md`, proefpersonenDoc())) gewijzigd.push("docs/PROEFPERSONEN.md");
 
-const rekenregels = readFileSync(`${wortel}docs/REKENREGELS.md`, "utf8");
+const rekenregels = readFileSync(`${wortel}docs/RECHT.md`, "utf8");
 const begin = "<!-- statustabel:begin -->";
 const eind = "<!-- statustabel:eind -->";
-if (!rekenregels.includes(begin) || !rekenregels.includes(eind)) throw new Error("REKENREGELS.md mist de markeringen voor de statustabel");
+if (!rekenregels.includes(begin) || !rekenregels.includes(eind)) throw new Error("RECHT.md mist de markeringen voor de statustabel");
 const nieuw =
   rekenregels.slice(0, rekenregels.indexOf(begin) + begin.length) +
   "\n<!-- Gegenereerd met `npm run docs` uit regels/**.yaml. Niet met de hand aanpassen. -->\n\n" +
   statustabel(ruweParameters) +
   "\n\n" +
   rekenregels.slice(rekenregels.indexOf(eind));
-if (schrijf(`${wortel}docs/REKENREGELS.md`, nieuw)) gewijzigd.push("docs/REKENREGELS.md");
+if (schrijf(`${wortel}docs/RECHT.md`, nieuw)) gewijzigd.push("docs/RECHT.md");
 
 if (check && gewijzigd.length) {
   console.error(`Niet bijgewerkt: ${gewijzigd.join(", ")}. Draai 'npm run docs' en commit het resultaat.`);

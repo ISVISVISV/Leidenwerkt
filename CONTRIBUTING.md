@@ -12,7 +12,7 @@ Iedereen mag een wijziging voorstellen. Alleen wat de beheerder heeft gecontrole
 
 1. Maak een fork of een branch en breng de wijziging aan.
 2. Draai `npm test` (regeldata, unit-, eigenschaps- en proefpersonentests, en controle dat `docs/PROEFPERSONEN.md` en de statustabel bijgewerkt zijn; anders eerst `npm run docs`). Bij wijzigingen in de app ook `npm run test:e2e`.
-3. Veranderen er snapshots? Verklaar elke wijziging in [docs/SNAPSHOTS.md](docs/SNAPSHOTS.md).
+3. Veranderen er snapshots? Verklaar elke wijziging in [docs/CONTROLE.md](docs/CONTROLE.md), hoofdstuk 8.
 4. Open een pull request. De CI plaatst een overzicht van de gewijzigde parameters en het effect op de proefpersonen.
 
 ## Wat de beheerder controleert

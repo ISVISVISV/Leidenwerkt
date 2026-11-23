@@ -25,7 +25,7 @@ export function maakContext(l: Lezer, invoer: CheckInvoer) {
   const metAow = personen.some((p) => p.aow);
   const aanvragerAow = !!invoer.aanvrager.aow;
 
-  // Het sociaal minimum zonder vakantiegeld, zoals in de tabellen van de gemeente (zie VOORWAARDEN.md).
+  // Het sociaal minimum zonder vakantiegeld, zoals in de tabellen van de gemeente (zie docs/RECHT.md, deel 2).
   // Controle: 120% × 95% × € 1.419,46 = € 1.618,18, het bedrag voor een alleenstaande op gemeente.leiden.nl.
   const zonderVakantiegeld = (norm: Bedrag) => norm.times(D(1).minus(l.breuk("pw.vakantietoeslag")));
   // Jongeren: alleen voor een alleenstaande van 18, 19 of 20 jaar zonder kinderen noemt de gemeente een bedrag

@@ -52,7 +52,7 @@ Leidenwerkt 0.6.0 en Leidengeldwijzer 0.2.0.
 
 ### Gewijzigd
 
-- Toets van de belastingberekening aan de witte en groene maandtabel loonheffing 2026 van de Belastingdienst (`packages/engine/test/loonheffingstabellen.test.ts`): verschil hoogstens € 0,18 per maand.
+- Toets van de belastingberekening aan de witte en groene maandtabel loonheffing 2026 van de Belastingdienst (`packages/rekenkern/test/loonheffingstabellen.test.ts`): verschil hoogstens € 0,18 per maand.
 - Werkt uw partner al? Dan vraagt de rekenhulp hoe lang. Bij korter dan 6 maanden mag ook uw partner een deel van het loon houden (art. 31 lid 2 onder n en art. 45 lid 4 Pw).
 - Gemeentepolis bij verblijf in een instelling: de grens volgt de tabel van de gemeente (€ 512,36 zonder vakantiegeld).
 - Startpagina: een vollediger lijst van wat u nodig heeft, met het inkomen per jaar van volwassenen en kinderen van 18 jaar of ouder die bij u wonen; voor wie de rekenhulp is, staat onderaan.
@@ -96,13 +96,13 @@ Leidenwerkt 0.6.0 en Leidengeldwijzer 0.2.0.
 
 ### Toegevoegd
 
-- Werkwijze voor een gebruikerstest met personages (`docs/GEBRUIKERSTEST.md`).
+- Werkwijze voor een gebruikerstest met personages (nu in `docs/CONTROLE.md`, hoofdstuk 6).
 - Netto loon per 4 weken als keuze bij het loon.
 - Bij het inkomen van huisgenoten: "Ik weet het niet". De rekenhulp rekent de huurtoeslag dan niet uit en zegt waarom.
 - Vaste stap "Meld uw werk bij de gemeente" voor iedereen met bijstand, met de tekst van art. 17 Participatiewet.
 - Stap "Vraag kinderopvangtoeslag aan", met de termijn van 3 maanden (bron: Belastingdienst).
 - Knop "Sluiten" in het venster met de wettekst.
-- Toets van de toeslagformules aan dertien proefberekeningen van Dienst Toeslagen (`packages/engine/test/proefberekening.test.ts`).
+- Toets van de toeslagformules aan dertien proefberekeningen van Dienst Toeslagen (`packages/rekenkern/test/proefberekening.test.ts`).
 
 ### Gewijzigd
 

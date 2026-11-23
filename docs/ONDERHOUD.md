@@ -19,7 +19,7 @@ Bedragen veranderen meestal op **1 januari** en **1 juli**, maar niet altijd. De
 2. **Maak een nieuw bestand** naast het oude, bijvoorbeeld `regels/landelijk/participatiewet/2027-07.yaml`. Kopieer het vorige bestand en pas aan: `geldig_van`, `geldig_tot` (laatste dag of leeg), per parameter de `waarde`, `bron` en `status`. Heeft een parameter een `citaat` (de letterlijke tekst die de app in de pop-up bij de bron toont), neem dan de tekst over uit de nieuwe versie, woord voor woord, met de nieuwe bedragen. Zet in het vorige bestand `geldig_tot` op de dag ervoor.
 3. **Status:** `geverifieerd` alleen als u de officiële bron zelf hebt geopend en de waarde letterlijk hebt overgenomen. Anders `onbevestigd`. Onbekend: `ontbrekend` zonder waarde.
 4. **Sprong van meer dan 10%?** Zet in `notitie` waarom (bijvoorbeeld een wetswijziging). Zonder notitie weigert de CI het.
-5. **Controleer:** `npm test`. Daarna `npm run docs` (statustabel en proefpersonen bijwerken) en, als snapshots veranderen, een verklaring in `docs/SNAPSHOTS.md`.
+5. **Controleer:** `npm test`. Daarna `npm run docs` (statustabel en proefpersonen bijwerken) en, als snapshots veranderen, een verklaring in `docs/CONTROLE.md` (hoofdstuk 8).
 6. **Pull request** openen; na goedkeuring zet de CI de nieuwe versie online.
 
 Gewijzigde **regel** in plaats van bedrag (nieuwe voorwaarde, uitzondering, rekenvolgorde)? Dan hoort de wijziging in de engine, met tests. Voor de bijstand: een nieuw regime in `packages/rekenkern/src/regimes.ts` met een ingangsdatum en de regels in `packages/rekenkern/src/modules/vrijlating.ts`.
@@ -40,7 +40,7 @@ Elke vondst wordt een issue met het label `bewaking`. Er komt nooit twee keer ee
 1. Open de link in het issue en lees wat er verandert, en per wanneer.
 2. Raakt het de app niet (bijvoorbeeld een wijziging over BES-eilanden of jongeren onder 21)? Sluit het issue met een korte reden.
 3. Verandert een **bedrag**: werk de regeldata bij (stappen in hoofdstuk 2) en verwijs in de pull request naar het issue ("Sluit #12").
-4. Verandert een **regel**: noteer het in `docs/OPEN_VRAGEN.md`, bouw het in de engine met tests, en leg de bron vast in `docs/REKENREGELS.md`.
+4. Verandert een **regel**: noteer het in `docs/RECHT.md` (deel 4, open vragen), bouw het in de rekenkern met tests, en leg de bron vast in `docs/RECHT.md` (deel 1 of 2).
 5. Twijfel over de betekenis? Zet het issue op "vraag" en vraag het na bij de gemeente of een sociaal raadsman.
 6. Meldt de bewaking een **fout van de zoekdienst**: controleer de bronnen met de hand; is de zoekdienst veranderd, pas dan `regels/bewaking.yaml` of `scripts/bewaking.ts` aan.
 
@@ -52,4 +52,16 @@ Bedragen gelden altijd per datum. Een oud bestand blijft staan; zo kan de app oo
 
 ## 5. Gebruikerstest
 
-De rekentests zien niet wat een gebruiker niet begrijpt. Doe daarom bij elke nieuwe versie met wijzigingen in vragen, teksten of de uitkomst een gebruikerstest met personages, en na het bijwerken van de bedragen voor een nieuw jaar. De werkwijze en de opdracht staan in [GEBRUIKERSTEST.md](GEBRUIKERSTEST.md).
+De rekentests zien niet wat een gebruiker niet begrijpt. Doe daarom bij elke nieuwe versie met wijzigingen in vragen, teksten of de uitkomst een gebruikerstest met personages, en na het bijwerken van de bedragen voor een nieuw jaar. De werkwijze en de opdracht staan in [CONTROLE.md](CONTROLE.md), hoofdstuk 6.
+
+## 6. Teksten schrijven
+
+Alle teksten in de rekenhulp zijn in A2-Nederlands, in de stijl van ASD-STE100 (besluit 7 in [BESLUITEN.md](BESLUITEN.md)):
+
+- Korte zinnen. Eén boodschap per zin.
+- Gewone woorden. Eén woord per begrip (besluit 8).
+- "U" en de actieve vorm.
+- Geen bijzinnen als het zonder kan. Geen puntkomma.
+- Een stuk zin zonder werkwoord ("Hulp bij de kosten van …") wordt een hele zin.
+
+De audit controleert een deel hiervan, zoals de puntkomma ([audit/README.md](../audit/README.md)). Een tekst die in Leidenwerkt en Leidengeldwijzer hetzelfde is, pas je in beide apps tegelijk aan.

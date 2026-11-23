@@ -7,7 +7,7 @@
  * De uitkomsten worden twee keer berekend met de engine uit deze versie:
  * met de regeldata van de basis en met de regeldata van deze versie. Zo is
  * het effect van alleen de datawijziging zichtbaar. Wijzigingen in de engine
- * zelf staan apart vermeld; die zie je in de snapshots (docs/SNAPSHOTS.md).
+ * zelf staan apart vermeld; die zie je in de snapshots (docs/CONTROLE.md, hoofdstuk 8).
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
@@ -119,6 +119,6 @@ try {
   engine = [];
 }
 uit.push("", "### Gewijzigde code die uitkomsten kan beïnvloeden", "");
-uit.push(engine.length ? engine.map((f) => `- \`${f}\``).join("\n") + "\n\nControleer de snapshots en de verklaring in `docs/SNAPSHOTS.md`." : "Geen.");
+uit.push(engine.length ? engine.map((f) => `- \`${f}\``).join("\n") + "\n\nControleer de snapshots en de verklaring in `docs/CONTROLE.md` (hoofdstuk 8)." : "Geen.");
 
 console.log(uit.join("\n"));
