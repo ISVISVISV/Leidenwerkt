@@ -1,5 +1,5 @@
 {
-  "name": "@leidenwerkt/start",
+  "name": "@rekenhulp/start",
   "private": true,
   "version": "0.1.0",
   "license": "EUPL-1.2",
@@ -12,6 +12,6 @@
   },
   "dependencies": {
     "@fontsource/open-sans": "^5.3.0",
-    "@leidenwerkt/ui": "*"
+    "@rekenhulp/ui": "*"
   }
 }

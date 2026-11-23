@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
-import { Bron, Datum, Keuze, Kopvlak, Veld } from "@leidenwerkt/ui";
+import { CITATEN, Lezer, euro, standaardRegels, type Opvangsoort } from "@rekenhulp/rekenkern";
+import { Bron, Datum, Keuze, Kopvlak, Veld } from "@rekenhulp/ui";
 import { controleer, heeftOpvang, leeftijdOp, leegFormulier, maxUurprijs, nieuwKind, schuifSleutel, vandaag, vraagBewoners, vraagInkomenAnderen, vraagInkomenKind, bijIemandAnders, vraagWoonlasten, vraagJongeHuisgenoten, type Fouten, type Formulier, type JaNeeVraag } from "./formulier.ts";
 import { Uitkomst } from "./Uitkomst.tsx";
 

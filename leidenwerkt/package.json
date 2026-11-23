@@ -1,5 +1,5 @@
 {
-  "name": "@leidenwerkt/app",
+  "name": "@rekenhulp/leidenwerkt",
   "private": true,
   "version": "0.7.0",
   "license": "EUPL-1.2",
@@ -14,7 +14,7 @@
     "@fontsource/open-sans": "^5.3.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "@leidenwerkt/ui": "*",
-    "@leidenwerkt/engine": "*"
+    "@rekenhulp/ui": "*",
+    "@rekenhulp/rekenkern": "*"
   }
 }

@@ -5,7 +5,7 @@
  * De personen zijn geldig zoals het formulier ze toelaat: elk veld dat de rekenhulp vraagt, is ingevuld met een
  * waarde die de controle in het formulier goedkeurt.
  */
-import { controleer, leegFormulier, zetVandaag, nieuwKind, type Formulier, type JaNeeVraag, type KindVeld } from "../app/src/formulier.ts";
+import { controleer, leegFormulier, zetVandaag, nieuwKind, type Formulier, type JaNeeVraag, type KindVeld } from "../leidenwerkt/src/formulier.ts";
 import { REKENDATUM, type Persoon } from "./personen.ts";
 import { toeval } from "../scripts/audit-kern.ts";
 

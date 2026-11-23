@@ -10,13 +10,13 @@ export default defineConfig({
   },
   webServer: [
     {
-      command: "npm run preview -w app -- --port 4173 --strictPort",
+      command: "npm run preview -w leidenwerkt -- --port 4173 --strictPort",
       url: "http://localhost:4173",
       reuseExistingServer: true,
     },
-    // De tweede app (Leidengeldwijzer, nog niet gepubliceerd): e2e/regelingen.spec.ts.
+    // De tweede app (Leidengeldwijzer, nog niet gepubliceerd): e2e/leidengeldwijzer.spec.ts.
     {
-      command: "npm run preview -w regelingen -- --port 4174 --strictPort",
+      command: "npm run preview -w leidengeldwijzer -- --port 4174 --strictPort",
       url: "http://localhost:4174",
       reuseExistingServer: true,
     },

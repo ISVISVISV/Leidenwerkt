@@ -1,6 +1,6 @@
 /**
  * Leest alle regelbestanden (regels/**\/*.yaml), controleert ze en schrijft
- * packages/engine/src/generated/regels.json. De build faalt bij fouten.
+ * packages/rekenkern/src/generated/regels.json. De build faalt bij fouten.
  */
 import { readFileSync, readdirSync, statSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
@@ -10,7 +10,7 @@ import { RegelBestand } from "../regels/schema.ts";
 const wortel = new URL("..", import.meta.url).pathname;
 // REGELS_MAP en REGELS_UITVOER zijn er alleen voor tests van deze controles.
 const regelMap = process.env.REGELS_MAP ?? join(wortel, "regels");
-const uitvoer = process.env.REGELS_UITVOER ?? join(wortel, "packages/engine/src/generated/regels.json");
+const uitvoer = process.env.REGELS_UITVOER ?? join(wortel, "packages/rekenkern/src/generated/regels.json");
 
 function zoekYaml(map: string): string[] {
   return readdirSync(map).flatMap((naam) => {

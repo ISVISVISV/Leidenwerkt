@@ -3,7 +3,7 @@
  * Hetzelfde zaad geeft dezelfde personen, zodat een gevonden fout na te doen is. Alleen personen die het
  * formulier in alle drie de stappen goedkeurt, doen mee.
  */
-import { controleer, zetVandaag, type Bedragsoort, type Bezit, type Formulier, type InkomenVelden } from "../../regelingen/src/formulier.ts";
+import { controleer, zetVandaag, type Bedragsoort, type Bezit, type Formulier, type InkomenVelden } from "../../leidengeldwijzer/src/formulier.ts";
 import { toeval } from "../../scripts/audit-kern.ts";
 import { REKENDATUM, formulier, type Persoon } from "./personen.ts";
 

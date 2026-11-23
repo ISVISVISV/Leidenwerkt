@@ -7,7 +7,7 @@ Wat er nog op de lijst staat.
 Elke stap is een eigen pull request. De uitkomst voor de gebruiker blijft gelijk; de vastgelegde uitvoer van de audit bewaakt dat. Verandert er toch iets voor de gebruiker, dan eerst akkoord van Ian.
 
 - [x] Stap 0: versie 0.7.0 uitbrengen.
-- [ ] Stap 1: namen opschonen. Map `app` wordt `leidenwerkt`, map `regelingen` wordt `leidengeldwijzer`, `@leidenwerkt/engine` en `@leidenwerkt/ui` worden `@rekenhulp/rekenkern` en `@rekenhulp/ui`. De adressen van de site blijven gelijk.
+- [x] Stap 1: namen opschonen. Map `leidenwerkt` wordt `leidenwerkt`, map `leidengeldwijzer` wordt `leidengeldwijzer`, `@rekenhulp/rekenkern` en `@rekenhulp/ui` worden `@rekenhulp/rekenkern` en `@rekenhulp/ui`. De adressen van de site blijven gelijk.
 - [ ] Stap 2: de rekenkern van Leidengeldwijzer opdelen. Eén bestand per aanbieder (gemeente, Sleutelpas, SVB, UWV, toeslagen, hulp) en een gedeeld deel voor grenzen en vermogen. De teksten per regeling op één plek. Geen code meer die in teksten zoekt om een bron toe te voegen.
 - [ ] Stap 3: documentatie stroomlijnen naar ongeveer 7 documenten (README, ARCHITECTUUR, BESLUITEN met de ADR's, RECHT, ONDERHOUD, CONTROLE, PLANNING). Een automatische controle op hetzelfde versienummer overal en op oude woorden. Eigenaar: Ian Vriend.
 - [ ] Stap 4: ongeveer 8 personen van de audit van Leidengeldwijzer door de proefberekening van Dienst Toeslagen. De bedragen vastleggen in `audit/leidengeldwijzer/extern/` en vergelijken in de audit.

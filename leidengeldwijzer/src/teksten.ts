@@ -2,7 +2,7 @@
  * De vragen en antwoorden van het formulier op één plek. Het formulier (App.tsx) en de lijst
  * "Wat u heeft ingevuld" op de afdruk (Overzicht.tsx) gebruiken dezelfde tekst.
  */
-import type { Inkomenssoort, Opvangsoort, Uitkeringssoort, Woonsoort } from "@leidenwerkt/engine";
+import type { Inkomenssoort, Opvangsoort, Uitkeringssoort, Woonsoort } from "@rekenhulp/rekenkern";
 import type { Bedragsoort, Bezit } from "./formulier.ts";
 
 export const JA_NEE: ["ja" | "nee", string][] = [

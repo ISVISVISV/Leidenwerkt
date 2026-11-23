@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { CITATEN, Lezer, euro, sociaalMinimum, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
-import { Bron, Datum, Keuze, Kopvlak, Veld, Vinkjes } from "@leidenwerkt/ui";
+import { CITATEN, Lezer, euro, sociaalMinimum, standaardRegels, type Opvangsoort } from "@rekenhulp/rekenkern";
+import { Bron, Datum, Keuze, Kopvlak, Veld, Vinkjes } from "@rekenhulp/ui";
 import { aowVan, bedragId, bedragSoorten, metAow, soortOpties, controleer, naarInvoer, infoVan, vandaag, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Icoon } from "./iconen.tsx";
 import { Overzicht } from "./Overzicht.tsx";

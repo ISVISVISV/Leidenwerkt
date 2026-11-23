@@ -14,20 +14,20 @@ Voor beide geldt:
 - De uitkomst is een schatting, geen advies of beslissing.
 - Alle tekst is in eenvoudig Nederlands (taalniveau A2) en de apps voldoen aan WCAG 2.2 AA.
 
-De code valt onder de open licentie EUPL-1.2. Het logo van de Sleutelpas (`regelingen/src/afbeeldingen/sleutelpas.png`) is van de gemeente Leiden en is rechtenvrij te gebruiken. Het valt niet onder de EUPL.
+De code valt onder de open licentie EUPL-1.2. Het logo van de Sleutelpas (`leidengeldwijzer/src/afbeeldingen/sleutelpas.png`) is van de gemeente Leiden en is rechtenvrij te gebruiken. Het valt niet onder de EUPL.
 
 ## Snel starten
 
 ```bash
 npm install
 npm run dev        # ontwikkelserver
-npm run dev:regelingen  # ontwikkelserver van Leidengeldwijzer
+npm run dev:leidengeldwijzer  # ontwikkelserver van Leidengeldwijzer
 npm run build:start     # de startpagina in start/dist
 npm test           # regeldata controleren + unit-, eigenschaps- en proefpersonentests
 npm run docs       # PROEFPERSONEN.md en de statustabel in REKENREGELS.md opnieuw maken
 npm run test:e2e   # bouwen + browsertest met toegankelijkheidscontrole (axe)
-npm run build      # statische site in app/dist
-npm run build:los  # één zelfstandig HTML-bestand in app/dist-los
+npm run build      # statische site in leidenwerkt/dist
+npm run build:los  # één zelfstandig HTML-bestand in leidenwerkt/dist-los
 ```
 
 Voor `test:e2e` is Chromium nodig (`npx playwright install chromium`) of een bestaande Chrome via `CHROME_PATH=/pad/naar/chrome`.
@@ -37,9 +37,9 @@ Voor `test:e2e` is Chromium nodig (`npx playwright install chromium`) of een bes
 | Map | Inhoud |
 | --- | --- |
 | `regels/` | Normbedragen en parameters als YAML, per onderwerp en periode, met bron |
-| `packages/engine/` | Rekenengine in TypeScript, los van de app, met uitlegspoor |
-| `app/` | React-app Leidenwerkt (Vite) |
-| `regelingen/` | Leidengeldwijzer: welke regelingen kunt u krijgen in Leiden? Proefversie |
+| `packages/rekenkern/` | Rekenengine in TypeScript, los van de app, met uitlegspoor |
+| `leidenwerkt/` | React-app Leidenwerkt (Vite) |
+| `leidengeldwijzer/` | Leidengeldwijzer: welke regelingen kunt u krijgen in Leiden? Proefversie |
 | `start/` | De startpagina met beide rekenhulpen |
 | `packages/ui/` | Formuliervelden, bronvermelding en huisstijl, gedeeld door beide apps |
 | `testgevallen/` | Proefpersonen: verzonnen huishoudens met officiële vergelijkingswaarden |

@@ -8,7 +8,7 @@
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { draai, laadProefpersonen, type Uitkomst } from "./proefpersonen.ts";
-import { ruweParameters, type RuweParameter } from "../packages/engine/src/index.ts";
+import { ruweParameters, type RuweParameter } from "../packages/rekenkern/src/index.ts";
 
 const wortel = new URL("..", import.meta.url).pathname;
 const check = process.argv.includes("--check");

@@ -37,12 +37,12 @@ Alleen officiële bronnen tellen: wetten.overheid.nl, officielebekendmakingen.nl
 
 ## Bronvermelding in de app
 
-Bij de vrijlating, de gebruikte regels en elke melding toont de app de naam van de bron. Aanwijzen, Tab of tikken toont de letterlijke tekst, met een link naar de officiële bron. Teksten met bedragen staan bij de parameter in de regeldata (`citaat`), zodat ze per periode kloppen; teksten zonder bedragen staan in `packages/engine/src/citaten.ts`.
+Bij de vrijlating, de gebruikte regels en elke melding toont de app de naam van de bron. Aanwijzen, Tab of tikken toont de letterlijke tekst, met een link naar de officiële bron. Teksten met bedragen staan bij de parameter in de regeldata (`citaat`), zodat ze per periode kloppen; teksten zonder bedragen staan in `packages/rekenkern/src/citaten.ts`.
 
 ## Data tegenover mechanisme
 
 - Een **gewijzigd bedrag** is regeldata: een nieuw YAML-bestand met een nieuwe `geldig_van`.
-- Een **gewijzigd mechanisme** (voorwaarden, uitzonderingen, rekenvolgorde) is code. Voor de verrekening van inkomsten met de bijstand staat dat in `packages/engine/src/regimes.ts` (welk regime geldt op welke datum) en `packages/engine/src/modules/vrijlating.ts` (de regels per regime, inclusief overgangsrecht). De regimekeuze hangt alleen af van de rekendatum.
+- Een **gewijzigd mechanisme** (voorwaarden, uitzonderingen, rekenvolgorde) is code. Voor de verrekening van inkomsten met de bijstand staat dat in `packages/rekenkern/src/regimes.ts` (welk regime geldt op welke datum) en `packages/rekenkern/src/modules/vrijlating.ts` (de regels per regime, inclusief overgangsrecht). De regimekeuze hangt alleen af van de rekendatum.
 
 ## Afronding
 
@@ -182,7 +182,7 @@ Grondslag: Wet op de huurtoeslag (versie 1 januari 2026), Besluit op de huurtoes
 6. Correctie: (rekeninkomen − minimum-inkomensijkpunt) × 27% (één persoon) of 22% (meer personen) / 12. Ijkpunt 2026: € 23.425 / € 31.500.
 7. A + B + C − correctie, naar beneden afgerond.
 
-Getoetst aan de rekenvoorbeelden 2 en 3 uit de brochure (zie `packages/engine/test/officieel.test.ts`) en aan vijf proefberekeningen.
+Getoetst aan de rekenvoorbeelden 2 en 3 uit de brochure (zie `packages/rekenkern/test/officieel.test.ts`) en aan vijf proefberekeningen.
 
 **Zelfstandige woning:** huurtoeslag is er alleen voor een zelfstandige woonruimte: een eigen toegangsdeur die op slot kan, een eigen keuken en wc, en sinds 1 maart 2024 een eigen douche of bad ([Dienst Toeslagen, Kan ik huurtoeslag krijgen?](https://www.belastingdienst.nl/wps/wcm/connect/nl/huurtoeslag/content/kan-ik-huurtoeslag-krijgen)). Antwoordt de gebruiker dat de woning dat niet heeft, dan rekent de app zonder huurtoeslag en zegt dat erbij. Voor sommige onzelfstandige woningen kan wel huurtoeslag gelden; die uitzondering rekent de app niet.
 
@@ -241,6 +241,6 @@ Toeslagen zijn een voorschot op het verwachte jaarinkomen. Wie gaat werken en zi
 
 ## 12. Onafhankelijke toetsing
 
-- `packages/engine/test/officieel.test.ts`: de rekenvoorbeelden van Dienst Toeslagen voor huurtoeslag, zorgtoeslag, kindgebonden budget en kinderopvangtoeslag 2026.
+- `packages/rekenkern/test/officieel.test.ts`: de rekenvoorbeelden van Dienst Toeslagen voor huurtoeslag, zorgtoeslag, kindgebonden budget en kinderopvangtoeslag 2026.
 - `testgevallen/` en [PROEFPERSONEN.md](PROEFPERSONEN.md): fictieve huishoudens met officiële vergelijkingswaarden waar die er zijn, waaronder drie ingevulde proefberekeningen van Dienst Toeslagen (8 november 2026: Fatima en Youssef, Bram, Sanne 24 uur). Alle negen bedragen kwamen tot op de euro overeen.
-- `packages/engine/test/eigenschappen.test.ts`: de vorm van de wet (geen sprongen, dalend waar het moet).
+- `packages/rekenkern/test/eigenschappen.test.ts`: de vorm van de wet (geen sprongen, dalend waar het moet).

@@ -66,17 +66,17 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: leidenwerkt-los
-          path: app/dist-los/index.html
+          path: leidenwerkt/dist-los/index.html
       # De site: de startpagina, met Leidenwerkt op /leidenwerkt/ en Leidengeldwijzer (proefversie, niet in zoekmachines)
       # op /leidengeldwijzer/.
       - name: Site samenstellen
         if: github.ref == 'refs/heads/main'
         run: |
-          npm run build:regelingen
+          npm run build:leidengeldwijzer
           npm run build:start
           rm -rf site && cp -r start/dist site
-          cp -r app/dist site/leidenwerkt
-          cp -r regelingen/dist site/leidengeldwijzer
+          cp -r leidenwerkt/dist site/leidenwerkt
+          cp -r leidengeldwijzer/dist site/leidengeldwijzer
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main'
         with:

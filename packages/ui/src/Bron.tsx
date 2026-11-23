@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
-import type { Citaat } from "@leidenwerkt/engine";
+import type { Citaat } from "@rekenhulp/rekenkern";
 
 /**
  * Bronvermelding met de letterlijke tekst in een pop-up.

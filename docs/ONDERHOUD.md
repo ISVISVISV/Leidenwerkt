@@ -22,7 +22,7 @@ Bedragen veranderen meestal op **1 januari** en **1 juli**, maar niet altijd. De
 5. **Controleer:** `npm test`. Daarna `npm run docs` (statustabel en proefpersonen bijwerken) en, als snapshots veranderen, een verklaring in `docs/SNAPSHOTS.md`.
 6. **Pull request** openen; na goedkeuring zet de CI de nieuwe versie online.
 
-Gewijzigde **regel** in plaats van bedrag (nieuwe voorwaarde, uitzondering, rekenvolgorde)? Dan hoort de wijziging in de engine, met tests. Voor de bijstand: een nieuw regime in `packages/engine/src/regimes.ts` met een ingangsdatum en de regels in `packages/engine/src/modules/vrijlating.ts`.
+Gewijzigde **regel** in plaats van bedrag (nieuwe voorwaarde, uitzondering, rekenvolgorde)? Dan hoort de wijziging in de engine, met tests. Voor de bijstand: een nieuw regime in `packages/rekenkern/src/regimes.ts` met een ingangsdatum en de regels in `packages/rekenkern/src/modules/vrijlating.ts`.
 
 ## 3. Bewaking van wet- en regelgeving
 

@@ -1,6 +1,6 @@
 # Snapshots: verklaring van wijzigingen
 
-De snapshots in `packages/engine/test/__snapshots__/` zetten de uitkomsten voor 2026 vast voor de huishoudens in `packages/engine/test/huishoudens.ts`. Verandert een snapshot, dan staat hier waarom. Bijwerken: `npx vitest run -u`, daarna het verschil nalopen en hier verklaren.
+De snapshots in `packages/rekenkern/test/__snapshots__/` zetten de uitkomsten voor 2026 vast voor de huishoudens in `packages/rekenkern/test/huishoudens.ts`. Verandert een snapshot, dan staat hier waarom. Bijwerken: `npx vitest run -u`, daarna het verschil nalopen en hier verklaren.
 
 ## 8 november 2026: eerste vastlegging en eerste wijziging
 

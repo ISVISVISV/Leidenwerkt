@@ -6,7 +6,7 @@
  * - `omwegen`: een andere route naar hetzelfde formulier. `begin` is wat iemand eerst invulde, `wijzig` is wat
  *   iemand daarna veranderde. Oude velden blijven staan, net als in Leidengeldwijzer. De uitkomst moet gelijk zijn.
  */
-import { leegFormulier, leegKind, type Formulier, type InkomenVelden, type KindInfo } from "../../regelingen/src/formulier.ts";
+import { leegFormulier, leegKind, type Formulier, type InkomenVelden, type KindInfo } from "../../leidengeldwijzer/src/formulier.ts";
 
 /** De datum waarop de audit rekent. Vast, zodat iedereen dezelfde uitkomst krijgt. */
 export const REKENDATUM = "2026-11-21";

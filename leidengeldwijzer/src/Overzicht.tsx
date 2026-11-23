@@ -6,8 +6,8 @@
  * Op papier is er geen venster: dan staat bij elke regeling de hele uitleg, met wat iemand heeft ingevuld.
  */
 import { useEffect, useRef, useState } from "react";
-import { checkRegelingen, type Kans, type Uitslag } from "@leidenwerkt/engine";
-import { Bron } from "@leidenwerkt/ui";
+import { checkRegelingen, type Kans, type Uitslag } from "@rekenhulp/rekenkern";
+import { Bron } from "@rekenhulp/ui";
 import { ingevuld, naarInvoer, vandaag, type Formulier } from "./formulier.ts";
 import { CONTACT, GOEDE_BUUR } from "./contact.ts";
 import { Icoon, Pasje, Sleutels } from "./iconen.tsx";

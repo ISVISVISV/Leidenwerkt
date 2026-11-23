@@ -56,4 +56,4 @@ verwacht:
     bron: { titel: "Gemeente Leiden, collectieve zorgverzekering", url: "https://gemeente.leiden.nl/…", datum: "2026-11-21" }
 ```
 
-De velden van het formulier staan in `regelingen/src/formulier.ts` (`Formulier`). Wat u niet invult, staat op "nee" of leeg. Gebruik alleen verzonnen gegevens.
+De velden van het formulier staan in `leidengeldwijzer/src/formulier.ts` (`Formulier`). Wat u niet invult, staat op "nee" of leeg. Gebruik alleen verzonnen gegevens.

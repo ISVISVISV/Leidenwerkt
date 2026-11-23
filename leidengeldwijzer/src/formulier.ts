@@ -17,8 +17,8 @@ import {
   type Opvangsoort,
   type Uitkeringssoort,
   type Woonsoort,
-} from "@leidenwerkt/engine";
-import { getal, isoDatum, leeftijdOp, type Geboortedatum } from "@leidenwerkt/ui/invoer";
+} from "@rekenhulp/rekenkern";
+import { getal, isoDatum, leeftijdOp, type Geboortedatum } from "@rekenhulp/ui/invoer";
 import { SOORTEN, UITKERINGEN, woonOpties } from "./teksten.ts";
 
 export type JaNee = "" | "ja" | "nee";
