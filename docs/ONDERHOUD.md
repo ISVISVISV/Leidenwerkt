@@ -2,9 +2,11 @@
 
 ## 1. Werken via pull requests
 
-Niemand pusht rechtstreeks naar `main`. Elke wijziging gaat via een pull request; de CI draait de tests en plaatst een overzicht van de gewijzigde parameters en het effect op de proefpersonen. Een beheerder keurt goed (zie [CONTRIBUTING.md](../CONTRIBUTING.md) voor wat er gecontroleerd wordt).
+Niemand pusht rechtstreeks naar `main`. Elke wijziging gaat via een pull request. De CI draait de tests en de audit, en plaatst een overzicht van de gewijzigde parameters en het effect op de proefpersonen.
 
-`main` is beschermd: samenvoegen kan alleen via een pull request waarvan de CI-check `test` slaagt, met een review volgens `.github/CODEOWNERS`. Rechtstreeks pushen, force-pushen en verwijderen van `main` zijn geblokkeerd.
+Er is één beheerder: Ian Vriend. Een voorstel van iemand anders controleert hij voordat het online komt (zie [CONTRIBUTING.md](../CONTRIBUTING.md) voor wat er gecontroleerd wordt). Zijn eigen wijzigingen voegt hij samen als de CI slaagt. Een tweede beoordelaar is er nog niet. Daarom leunt de controle op de tests, de audit en de vergelijking met officiële bronnen (zie [CONTROLE.md](CONTROLE.md)).
+
+`main` is beschermd met een regel op GitHub (ruleset "main beschermen"): samenvoegen kan alleen via een pull request waarvan de CI-check `test` slaagt. Rechtstreeks pushen, force-pushen en verwijderen van `main` zijn geblokkeerd. `.github/CODEOWNERS` noemt de beheerder als eigenaar van de regeldata, de rekenkern, de proefpersonen, de scripts en de CI. Komt er een tweede beheerder? Zet dan in de regel het aantal verplichte goedkeuringen op 1.
 
 ## 2. Bedragen bijwerken
 
