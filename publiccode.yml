@@ -1,8 +1,8 @@
 publiccodeYmlVersion: "0.4"
-name: Leidenwerkt
+name: Rekenhulp voor Leidenaren
 url: https://github.com/ISVISVISV/Rekenhulp
-softwareVersion: 0.4.0
-releaseDate: "2026-11-12"
+softwareVersion: 0.6.0
+releaseDate: "2026-11-23"
 platforms:
   - web
 categories:
@@ -11,12 +11,16 @@ developmentStatus: development
 softwareType: standalone/web
 description:
   nl:
-    shortDescription: Rekenhulp voor inwoners van Leiden met bijstand die willen weten wat werken financieel oplevert.
+    shortDescription: Twee rekenhulpen voor inwoners van Leiden. Welke regelingen kunt u krijgen? En wat levert werken op?
     longDescription: >
+      Leidengeldwijzer (proefversie) laat zien welke regelingen een inwoner van Leiden waarschijnlijk kan krijgen:
+      de Sleutelpas en andere regelingen van de gemeente, de toeslagen, de bijstand of de AIO-aanvulling, de
+      kinderbijslag en de toeslag van UWV, met de bron bij elke regel.
       Leidenwerkt vergelijkt de huidige situatie van een inwoner met bijstand met de situatie na (meer) werken:
       netto loon, bijstand, zorgtoeslag, huurtoeslag, kindgebonden budget, kinderopvangtoeslag en werkkosten.
       Alle berekeningen gebeuren in de browser en zijn herleidbaar tot officiële bronnen.
     features:
+      - Overzicht van regelingen in Leiden, met de kans per regeling
       - Vergelijking bijstand en werk per maand en per jaar
       - Uitleg per bedrag met officiële bron
       - Werkt zonder server, ook als één los HTML-bestand

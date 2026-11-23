@@ -36,6 +36,18 @@ Modules:
 | `bereken.ts` | Twee situaties (nu en met werk), verschil, invloed per post, betrouwbaarheid, terugbetaalrisico toeslagen, signalen |
 | `periodes.ts` | Vrijlatingsperioden in gewone taal, per regime |
 
+## Leidengeldwijzer (`regelingen`) en de rekenkern van de regelingen
+
+- `packages/engine/src/regelingen.ts`, functie `checkRegelingen`: per regeling een uitslag met een kans (ja, misschien, nee, info), een uitleg in gewone taal, een groep (gemeente, SVB, UWV, toeslagen, hulp) en de bronnen. Dezelfde regeldata en dezelfde belastingmodule als Leidenwerkt.
+- Met de AOW-leeftijd gelden de normen van art. 22 Pw, de AIO-aanvulling van de SVB in plaats van de bijstand, en de belasting voor AOW-gerechtigden (`nettoMetAow`, `brutoJaarMetAow` in `belasting.ts`). Zie BESLUITEN.md, 19 tot en met 25.
+- `regelingen/src/formulier.ts`: het formulier, de controle en de vertaling naar de invoer van de rekenkern. `Overzicht.tsx`: het overzicht in tegels en de korte afdruk.
+- `scripts/audit-leidengeldwijzer.ts`: vaste en willekeurige verzonnen personen door de echte app, met controles op grenzen, bronnen en teksten.
+
+## Gedeeld (`packages/ui`) en de startpagina (`start`)
+
+- `packages/ui`: formuliervelden, bronvermelding, de knop voor licht en donker, het rode vlak bovenaan (`Kopvlak`) met de lijntekening van Leiden, en de huisstijl.
+- `start`: een statische pagina. De lijntekening komt uit `start/scripts/skyline.py`. Dat script schrijft ook `packages/ui/src/skyline.ts`.
+
 ## App (`app`)
 
 - React + Vite, eigen componenten, geen state- of CSS-framework.

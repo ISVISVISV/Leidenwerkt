@@ -4,7 +4,7 @@ Twee gratis, open rekenhulpen voor inwoners van Leiden. **[isvisvisv.github.io/R
 
 | Rekenhulp | Vraag | Voor wie | Adres |
 | --- | --- | --- | --- |
-| **Leidengeldwijzer** | Welke regelingen kunt u krijgen? Bijvoorbeeld de Sleutelpas, de toeslagen en de bijstand. | Inwoners van Leiden van 18 jaar of ouder | [/leidengeldwijzer](https://isvisvisv.github.io/Rekenhulp/leidengeldwijzer/) (proefversie) |
+| **Leidengeldwijzer** | Welke regelingen kunt u krijgen? Bijvoorbeeld de Sleutelpas, de toeslagen en de bijstand. | Inwoners van Leiden van 18 jaar of ouder, ook met AOW | [/leidengeldwijzer](https://isvisvisv.github.io/Rekenhulp/leidengeldwijzer/) (proefversie) |
 | **Leidenwerkt** | Hoeveel houdt u per maand meer of minder over als u (meer) gaat werken? | Inwoners van Leiden met bijstand | [/leidenwerkt](https://isvisvisv.github.io/Rekenhulp/leidenwerkt/) |
 
 Voor beide geldt:
@@ -68,7 +68,7 @@ Wijzigingen gaan via pull requests; zie [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Status
 
-Leidenwerkt versie 0.6.0, Leidengeldwijzer versie 0.2.0 (proefversie). Leidenwerkt werkt en is getest met verzonnen huishoudens waarvan de uitkomsten zijn vergeleken met officiële rekenhulpen ([docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md)), met elf rondes gebruikerstests ([docs/GEBRUIKERSTEST.md](docs/GEBRUIKERSTEST.md)) en met een automatische audit die bij elke wijziging draait ([audit/README.md](audit/README.md)). De uitkomsten zijn nog niet nagelopen door een klantmanager of sociaal raadsman. De bedragen voor 2027 komen erin zodra ze gepubliceerd zijn.
+Leidenwerkt versie 0.6.0, Leidengeldwijzer versie 0.2.0 (proefversie). Leidenwerkt werkt en is getest met verzonnen huishoudens waarvan de uitkomsten zijn vergeleken met officiële rekenhulpen ([docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md)), met elf rondes gebruikerstests ([docs/GEBRUIKERSTEST.md](docs/GEBRUIKERSTEST.md)) en met een automatische audit die bij elke wijziging draait ([audit/README.md](audit/README.md)). Leidengeldwijzer heeft een eigen audit met verzonnen personen, ook met AOW en met een uitkering van UWV ([audit/leidengeldwijzer/README.md](audit/leidengeldwijzer/README.md)). De uitkomsten zijn nog niet nagelopen door een klantmanager of sociaal raadsman. De bedragen voor 2027 komen erin zodra ze gepubliceerd zijn.
 
 Wil je nagaan of de rekenhulp te vertrouwen is? Begin bij [docs/CONTROLE.md](docs/CONTROLE.md): een steekproef in de app, één voorbeeld met de hand nagerekend, en wat wel en niet is gecontroleerd.
 

@@ -325,7 +325,8 @@ export const euroTekst = (t: string) => {
   return Number.isInteger(n) ? euro(String(n), true) : euro(n.toFixed(2));
 };
 
-const kleineLetter = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
+/** Eerste letter klein, behalve bij een afkorting zoals "AOW" of "UWV". */
+const kleineLetter = (t: string) => (/^[A-Z]{2}/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1));
 
 /**
  * Wat iemand heeft ingevuld, als korte regels per stap. Voor de afdruk, net als in Leidenwerkt:

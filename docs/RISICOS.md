@@ -13,7 +13,7 @@ Stand: 10 november 2026.
 | R6 | **Leidse regelingen onvolledig** omdat ze deels alleen op de gemeentesite staan. | Hoog | Middel | Leidse plug-ins zijn optioneel; wat ontbreekt meldt de app. Validatie met een praktijkdeskundige. |
 | R7 | **Gemeentelijke beleidsvrijheid** (bijvoorbeeld wel of geen vrijlating, verlenging na 12 maanden) maakt uitkomst onzeker. | Hoog | Middel | De app toont de uitkomst per periode, met en na de vrijlating, en zegt erbij dat de gemeente beslist. |
 | R8 | **Netto loon wijkt af** van de loonstrook door loonheffingstabellen, pensioen en cao-regelingen. | Hoog | Laag | Uitleg in de app; gebruiker kan eigen netto loon invullen als dat bekend is. |
-| R9 | **Toegankelijkheid** onvoldoende voor mensen met beperkte digitale vaardigheden. | Middel | Hoog | B1-taal, axe-tests in CI, test met iemand uit de doelgroep. |
+| R9 | **Toegankelijkheid** onvoldoende voor mensen met beperkte digitale vaardigheden. | Middel | Hoog | A2-taal, axe-tests in CI, test met iemand uit de doelgroep. |
 | R10 | **Privacy**: per ongeluk een externe bron (font, CDN, analytics) die verkeer genereert. | Laag | Middel | Playwright-test die faalt bij elk netwerkverzoek na het laden. |
 | R11 | **Naamverwarring** met een gemeentelijk programma. | Laag | Laag | Zoektocht naar "Leidenwerkt" / "Leiden Werkt"leverde op 4-11-2026 geen bestaand gebruik op. |
 | R12 | **Eén onderhouder.** Als die stopt, veroudert de app. | Middel | Hoog | Documentatie voor opvolgers, open licentie (EUPL-1.2), duidelijke bijdrageregels; app toont de datum van de laatst gecontroleerde regels. |
