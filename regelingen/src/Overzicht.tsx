@@ -159,6 +159,8 @@ export function Overzicht({ f }: { f: Formulier }) {
         )}
       </div>
 
+      <p className="opnieuw niet-print">Verandert uw situatie? Doe de check dan opnieuw.</p>
+
       <Afdruk f={f} uitslagen={uitslagen} />
 
       <dialog ref={venster} className="venster" aria-labelledby="venster-kop" onClose={gesloten}>
