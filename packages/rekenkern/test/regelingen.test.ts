@@ -343,9 +343,20 @@ describe("kinderopvangtoeslag", () => {
     expect(u.bedrag).toMatch(/^ongeveer €\s\d+ per maand$/);
     expect(u.waarom).toContain("U betaalt zelf ook een deel.");
   });
-  it("zonder werk of studie: misschien (bijvoorbeeld met inburgering)", () => {
+  it("zonder werk of studie: waarschijnlijk niet, en de uitzondering (inburgering of traject naar werk) staat erbij", () => {
     const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { uwv: 1200 } }, kinderen: [{ leeftijd: 3, opvang }] })), "kot")!;
-    expect(u.kans).toBe("misschien");
+    expect(u.kans).toBe("nee");
+    expect(u.waarom).toBe("U werkt niet en u studeert niet. Dan krijgt u meestal geen kinderopvangtoeslag. Het kan wel als u inburgert of een traject naar werk volgt.");
+  });
+
+  it("met een partner die niet werkt: de tekst noemt de partner, en de bron art. 1.6 lid 3 en 8", () => {
+    const u = uitslag(
+      checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 2000 } }, partner: { leeftijd: 38, inkomen: {} }, kinderen: [{ leeftijd: 3, opvang }] })),
+      "kot",
+    )!;
+    expect(u.kans).toBe("nee");
+    expect(u.waarom).toMatch(/^Uw partner werkt niet en studeert niet\..*Of als uw partner zorg krijgt uit de Wet langdurige zorg\.$/);
+    expect(u.bronnen.map((b) => b.titel)).toContain("Wet kinderopvang, art. 1.6 lid 3 en lid 8");
   });
 });
 

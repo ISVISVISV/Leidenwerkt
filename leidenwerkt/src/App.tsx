@@ -66,7 +66,7 @@ export function App() {
       <Kopvlak tool="Leidenwerkt" groot={stap === 0 || stap === 4}>
         {stap === 0 && (
           <>
-            <h1>Hoeveel houdt u over als u gaat werken?</h1>
+            <h1>Wat houdt u over als u gaat werken?</h1>
             <p className="kopvlak-tekst">Het duurt ongeveer vijf minuten.</p>
           </>
         )}

@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { NieuwTabblad, websiteVan } from "./nieuwtabblad.tsx";
 import type { Citaat } from "@rekenhulp/rekenkern";
 
 /**
@@ -32,13 +33,7 @@ export function Bron({ citaat, label }: { citaat: Citaat; label?: string }) {
     };
   }, [open]);
 
-  const domein = (() => {
-    try {
-      return new URL(citaat.url).hostname.replace(/^www\./, "");
-    } catch {
-      return "de officiële bron";
-    }
-  })();
+  const domein = websiteVan(citaat.url) ?? "de officiële bron";
 
   return (
     <span className={`bron${open ? " open" : ""}`} ref={ref}>
@@ -50,6 +45,7 @@ export function Bron({ citaat, label }: { citaat: Citaat; label?: string }) {
         <span className="bron-citaat">“{citaat.tekst}”</span>
         <a className="bron-link" href={citaat.url} target="_blank" rel="noreferrer noopener">
           Lees verder op {domein}
+          <NieuwTabblad />
         </a>
         <button
           type="button"

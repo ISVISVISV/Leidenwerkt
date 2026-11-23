@@ -3,6 +3,7 @@ import { CITATEN } from "../citaten.ts";
 import { D, NUL, max, type Bedrag } from "../geld.ts";
 import { huurtoeslag as huurtoeslagBerekenen, kindgebondenBudget, kinderopvangtoeslag, maandbedragToeslag, zorgtoeslag as zorgtoeslagBerekenen } from "../modules/toeslagen.ts";
 import type { Kind } from "../types.ts";
+import type { CheckPersoon } from "./types.ts";
 import { URL, bron, heeft, heel, probeer, telbaarVermogen, toetsingsinkomen, vermogenToets, type MogelijkeUitslag } from "./basis.ts";
 import type { Context } from "./context.ts";
 
@@ -99,15 +100,23 @@ export function kot(c: Context, z: ToeslagContext): MogelijkeUitslag {
   const { l, invoer } = c;
   const opvang = invoer.kinderen.filter((k) => k.leeftijd < 13 && k.opvang && k.opvang.urenPerMaand > 0);
   if (opvang.length === 0) return undefined;
-  const werkenOfStuderen = c.personen.every((p) => heeft(p, "loon") || heeft(p, "bedrijf") || heeft(p, "studiefinanciering"));
+  // Werken of studeren: loon, een eigen bedrijf of studiefinanciering. Met een partner moeten het allebei (art. 1.6 lid 3).
+  const werkt = (p: CheckPersoon) => heeft(p, "loon") || heeft(p, "bedrijf") || heeft(p, "studiefinanciering");
   const basis = { id: "kot", naam: "Kinderopvangtoeslag", groep: "toeslagen" as const, aanvragen: z.proef, bronnen: [CITATEN.kotWie] };
-  if (!werkenOfStuderen)
-    return {
-      ...basis,
-      kans: "misschien",
-      waarom:
-        "Gaat uw kind naar de kinderopvang of een gastouder? Dan kunt u misschien kinderopvangtoeslag krijgen. Dat kan als u werkt of studeert. Het kan ook als u inburgert of een traject naar werk volgt. Heeft u een partner? Dan geldt dit voor u allebei.",
-    };
+  const aanvragerWerkt = werkt(invoer.aanvrager);
+  const partnerWerkt = !invoer.partner || werkt(invoer.partner);
+  if (!aanvragerWerkt || !partnerWerkt) {
+    // Wie niet werkt en niet studeert, kan de toeslag soms toch krijgen: met inburgering of een traject naar werk (lid 1 en 3).
+    // Met een partner ook als die zorg krijgt uit de Wet langdurige zorg (lid 8). Daar vraagt Leidengeldwijzer niet naar.
+    const wie = !invoer.partner ? "u" : !aanvragerWerkt && !partnerWerkt ? "beiden" : !aanvragerWerkt ? "u" : "partner";
+    const waarom = {
+      u: "U werkt niet en u studeert niet. Dan krijgt u meestal geen kinderopvangtoeslag. Het kan wel als u inburgert of een traject naar werk volgt.",
+      partner: "Uw partner werkt niet en studeert niet. Dan krijgt u meestal geen kinderopvangtoeslag. Het kan wel als uw partner inburgert of een traject naar werk volgt.",
+      beiden: "U en uw partner werken niet en studeren niet. Dan krijgt u meestal geen kinderopvangtoeslag. Het kan wel als u allebei inburgert of een traject naar werk volgt.",
+    }[wie];
+    const wlz = invoer.partner && wie !== "beiden" ? ` Of als ${wie === "u" ? "u" : "uw partner"} zorg krijgt uit de Wet langdurige zorg.` : "";
+    return { ...basis, kans: "nee", waarom: waarom + wlz, bronnen: invoer.partner ? [CITATEN.kotWie, CITATEN.kotPartner] : basis.bronnen };
+  }
   if (!z.ti) return { ...basis, kans: "misschien", waarom: z.geenBedrag };
   const r = kinderopvangtoeslag(l, z.ti, opvang as Kind[]);
   const bedrag = maandbedragToeslag(r.toeslagPerMaand);

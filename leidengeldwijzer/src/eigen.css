@@ -564,6 +564,12 @@
   text-decoration: none;
 }
 
+.aanvraag-website {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  color: var(--inkt-zacht);
+}
+
 .regeling-bronnen {
   margin-top: 1rem;
   font-size: 0.9rem;
