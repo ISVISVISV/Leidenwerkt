@@ -10,6 +10,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 - Leidengeldwijzer: bij elke regeling staat nu apart wat het is, en waarom u het waarschijnlijk wel, misschien of waarschijnlijk niet krijgt. Met een eigen bedrijf staat het bedrijf als reden erbij.
 - Leidengeldwijzer: "Hulp nodig?" heet nu "Als u het nodig heeft". Daarin staan hulp bij uw aanvraag, bijzondere bijstand (met voorbeelden), hulp bij schulden en de Voedselbank. De Voedselbank noemt de grens voor uw huishouden.
+- Leidengeldwijzer: op de afdruk staat nu ook wat u kunt krijgen als u het nodig heeft: bijzondere bijstand en de Voedselbank.
 - Leidengeldwijzer: de koppen op de uitkomst zeggen wat u moet doen. Bijvoorbeeld: "U moet deze regelingen zelf aanvragen. Kies een regeling. Dan ziet u hoe dat gaat."
 
 - Leidengeldwijzer: bij de kinderopvangtoeslag staat nu concreet wie niet werkt of studeert. U of uw partner. Dan krijgt u de toeslag meestal niet. De uitzonderingen staan erbij: inburgering, een traject naar werk, of zorg uit de Wet langdurige zorg.
