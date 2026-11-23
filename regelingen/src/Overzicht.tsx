@@ -13,7 +13,7 @@ import { CONTACT, GOEDE_BUUR } from "./contact.ts";
 import { Icoon, Pasje, Sleutels } from "./iconen.tsx";
 
 const GROEPEN: { kans: Kans; kop: string; uitleg: string }[] = [
-  { kans: "ja", kop: "Dit kunt u waarschijnlijk krijgen", uitleg: "Vraag het aan. Daarna beslist de gemeente of Dienst Toeslagen." },
+  { kans: "ja", kop: "Dit kunt u waarschijnlijk krijgen", uitleg: "Vraag het aan. Daarna beslist de organisatie die de regeling geeft." },
   { kans: "misschien", kop: "Dit kunt u misschien krijgen", uitleg: "Leidengeldwijzer weet het niet zeker. Bij elke regeling staat waarom." },
   { kans: "nee", kop: "Dit kunt u waarschijnlijk niet krijgen", uitleg: "Bij elke regeling staat waarom niet." },
 ];
@@ -26,11 +26,12 @@ const HULP = { kop: "Hulp nodig?" };
  */
 const OP_DE_PAS = ["kindtegoed", "laptop", "zwemles"];
 
-type Blok = "sleutelpas" | "gemeente" | "svb" | "toeslagen";
+type Blok = "sleutelpas" | "gemeente" | "svb" | "uwv" | "toeslagen";
 /** De volgorde van de blokken: eerst Leiden (met de Sleutelpas erin), dan het Rijk. */
 const BLOKKEN: { blok: Exclude<Blok, "sleutelpas">; kop: string }[] = [
   { blok: "gemeente", kop: "Gemeente Leiden" },
   { blok: "svb", kop: "Sociale Verzekeringsbank" },
+  { blok: "uwv", kop: "UWV" },
   { blok: "toeslagen", kop: "Dienst Toeslagen" },
 ];
 
@@ -38,6 +39,7 @@ function blokVan(u: Uitslag, pasInGroep: boolean): Blok {
   if (u.id === "sleutelpas" || (pasInGroep && OP_DE_PAS.includes(u.id))) return "sleutelpas";
   if (u.groep === "toeslagen") return "toeslagen";
   if (u.groep === "svb") return "svb";
+  if (u.groep === "uwv") return "uwv";
   return "gemeente";
 }
 

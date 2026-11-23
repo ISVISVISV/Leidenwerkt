@@ -35,9 +35,9 @@ ongeveer € 335 per maand
 Dit kunt u misschien krijgen (1)
 GEMEENTE LEIDEN
 Bijzondere bijstand
-Dit kunt u waarschijnlijk niet krijgen (3)
+Dit kunt u waarschijnlijk niet krijgen (4)
 
-Gratis OV-pas, Individuele inkomenstoeslag, Bijstand.
+Gratis OV-pas, Individuele inkomenstoeslag, Toeslag van UWV, Bijstand.
 
 Hulp en contact
 GOEDE BUUR SPREEKUUR
@@ -144,6 +144,9 @@ U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. 
 Individuele inkomenstoeslag
 € 577, één keer per 12 maanden
 Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 963 netto per maand. Vakantiegeld telt niet mee. Er wonen meer volwassenen bij u. Daarom is deze grens lager.
+
+Toeslag van UWV
+Uw bruto inkomen is ongeveer € 1.569 per maand. Dat is meer dan het sociaal minimum van UWV. Het sociaal minimum is € 1.086 bruto per maand.
 
 Bijstand
 Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 963 netto per maand. Vakantiegeld telt niet mee. Er wonen meer volwassenen bij u. Daarom is deze grens lager.

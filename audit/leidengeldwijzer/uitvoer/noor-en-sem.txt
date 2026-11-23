@@ -25,9 +25,9 @@ Bijzondere bijstand
 DIENST TOESLAGEN
 Zorgtoeslag
 Huurtoeslag
-Dit kunt u waarschijnlijk niet krijgen (4)
+Dit kunt u waarschijnlijk niet krijgen (5)
 
-Gratis OV-pas, Individuele inkomenstoeslag, Tegemoetkoming voor alleenverdieners, Bijstand.
+Gratis OV-pas, Individuele inkomenstoeslag, Tegemoetkoming voor alleenverdieners, Toeslag van UWV, Bijstand.
 
 Hulp en contact
 GOEDE BUUR SPREEKUUR
@@ -118,6 +118,9 @@ Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer €
 Tegemoetkoming voor alleenverdieners
 € 1.100 per jaar
 Deze tegemoetkoming is alleen voor stellen. Het grootste inkomen moet een uitkering van UWV zijn. Bijvoorbeeld Wajong.
+
+Toeslag van UWV
+U woont samen met een partner die na 1971 is geboren. En er wonen geen kinderen jonger dan 12 jaar bij u. Dan kunt u geen toeslag van UWV krijgen.
 
 Bijstand
 Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 1.926 netto per maand. Vakantiegeld telt niet mee.

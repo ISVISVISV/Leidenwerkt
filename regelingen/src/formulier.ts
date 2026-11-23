@@ -134,8 +134,11 @@ export const aowVan = (g: Geboortedatum) => {
 };
 /** Heeft de aanvrager of de partner de AOW-leeftijd? Dan komt de aanvulling tot het sociaal minimum van de SVB (AIO). */
 export const metAow = (f: Formulier) => aowVan(f.geboren) || (metPartner(f) && aowVan(f.partnerGeboren));
-/** De soorten inkomen om uit te kiezen. AOW alleen voor wie de AOW-leeftijd heeft. */
-export const soortOpties = (aow: boolean) => SOORTEN.filter(([s]) => aow || s !== "aow");
+/** Soorten inkomen alleen voor wie de AOW-leeftijd heeft. */
+const ALLEEN_AOW: Inkomenssoort[] = ["aow", "pensioen"];
+/** De soorten inkomen om uit te kiezen. AOW en pensioen alleen voor wie de AOW-leeftijd heeft. Dan heet "ander" gewoon "Ander inkomen". */
+export const soortOpties = (aow: boolean): [Inkomenssoort, string][] =>
+  aow ? SOORTEN.map(([s, t]) => [s, s === "ander" ? "Ander inkomen" : t]) : SOORTEN.filter(([s]) => !ALLEEN_AOW.includes(s));
 const kinderen = (f: Formulier) => (f.heeftKinderen === "ja" ? f.kinderen : []);
 export const minderjarigen = (f: Formulier) => kinderen(f).filter((k) => (leeftijd(k) ?? 99) < 18).length;
 
@@ -151,7 +154,8 @@ export const vraagInkomen = (f: Formulier) => f.bijstand === "nee";
  * Daarom komt de vraag alleen bij de aanvrager, met studiefinanciering en een uitkering van UWV.
  */
 export const vraagUitkering = (v: InkomenVelden, partner: boolean) => !partner && v.soorten.includes("uwv") && v.soorten.includes("studiefinanciering");
-export const bedragSoorten = (v: InkomenVelden, aow = true): Bedragsoort[] => v.soorten.filter((s): s is Bedragsoort => s !== "geen" && (aow || s !== "aow"));
+export const bedragSoorten = (v: InkomenVelden, aow = true): Bedragsoort[] =>
+  v.soorten.filter((s): s is Bedragsoort => s !== "geen" && (aow || !ALLEEN_AOW.includes(s)));
 const studeert = (f: Formulier) => vraagInkomen(f) && f.inkomen.soorten.includes("studiefinanciering");
 /** Alleen voor de individuele inkomenstoeslag: vanaf 23 jaar, en de aanvrager en de partner hebben nog niet de AOW-leeftijd. */
 export const vraagLangLaag = (f: Formulier) => (leeftijd(f.geboren) ?? 0) >= 23 && !metAow(f) && !studeert(f);
@@ -190,7 +194,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
   };
   const inkomen = (v: InkomenVelden, partner: boolean) => {
     const aow = aowVan(partner ? f.partnerGeboren : f.geboren);
-    if (v.soorten.filter((s) => aow || s !== "aow").length === 0) fouten[soortenId(partner)] = "Kies minstens één antwoord.";
+    if (v.soorten.filter((s) => aow || !ALLEEN_AOW.includes(s)).length === 0) fouten[soortenId(partner)] = "Kies minstens één antwoord.";
     if (vraagUitkering(v, partner) && !v.uitkering) fouten[uitkeringId(partner)] = kies;
     for (const s of bedragSoorten(v, aow)) bedrag(bedragId(partner, s), v.bedragen[s], 20000, "Vul een bedrag per maand in, bijvoorbeeld 1.400.");
   };
@@ -257,6 +261,8 @@ export function controleer(f: Formulier, stap: number): Fouten {
 const persoon = (geboren: Geboortedatum, v: InkomenVelden | undefined, partner = false): CheckPersoon => ({
   leeftijd: leeftijd(geboren) ?? 0,
   aow: aowVan(geboren),
+  geborenVoor1946: (isoDatum(geboren) ?? "9999") < "1946-01-01",
+  geborenNa1971: (isoDatum(geboren) ?? "") > "1971-12-31",
   inkomen: v ? Object.fromEntries(bedragSoorten(v, aowVan(geboren)).map((s) => [s, getal(v.bedragen[s] ?? "") ?? 0])) : {},
   uitkering: v && vraagUitkering(v, partner) && v.uitkering ? v.uitkering : undefined,
 });

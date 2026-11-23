@@ -1,0 +1,39 @@
+gebied: AOW-bedragen vanaf 1 juli 2026
+geldig_van: 2026-07-01
+geldig_tot: 2026-12-31
+parameters:
+  - id: aow.bruto.alleenstaand
+    omschrijving: Volledige AOW bruto per maand, alleenstaande (zonder vakantiegeld)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "1662.16" }
+    status: geverifieerd
+    bron: &svb
+      titel: SVB — Bedragen AOW
+      url: https://www.svb.nl/nl/aow/bedragen-aow/aow-bedragen
+      geraadpleegd_op: 2026-11-23
+    citaat: &bedragen
+      kop: "SVB, Bedragen AOW vanaf 1 juli 2026"
+      tekst: "U woont alleen. Bedrag per maand vanaf 1 juli 2026 met loonheffingskorting Brutobedrag AOW € 1.662,16 Af: loonheffing € 0,00 Af: bijdrage Zvw (4,85%) € 80,61 Nettobedrag AOW € 1.581,55 […] Voor elke maand AOW bouwt u vakantiegeld op. Het vakantiegeld is € 104,78 bruto per maand. U krijgt uw vakantiegeld in mei. U bent getrouwd of woont samen. Bedrag per maand per persoon vanaf 1 juli 2026 met loonheffingskorting Brutobedrag AOW € 1.139,39 Af: loonheffing € 0,00 Af: bijdrage Zvw (4,85%) € 55,26 Nettobedrag AOW € 1.084,13 […] Het vakantiegeld is € 74,85 bruto per maand."
+      versie: "geraadpleegd op 23 november 2026"
+    notitie: "Het bruto bedrag staat ook in de mededeling van SZW van 1 juni 2026 over per 1 juli 2026 gewijzigde bedragen (Staatscourant 2026, 20221), onderdeel C."
+  - id: aow.bruto.gehuwd
+    omschrijving: Volledige AOW bruto per maand per persoon, getrouwd of samenwonend (zonder vakantiegeld)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "1139.39" }
+    status: geverifieerd
+    bron: *svb
+    citaat: *bedragen
+  - id: aow.vakantiegeld.alleenstaand
+    omschrijving: Vakantiegeld bij de volledige AOW, bruto per maand, alleenstaande. Een vast bedrag, geen percentage.
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "104.78" }
+    status: geverifieerd
+    bron: *svb
+    citaat: *bedragen
+  - id: aow.vakantiegeld.gehuwd
+    omschrijving: Vakantiegeld bij de volledige AOW, bruto per maand per persoon, getrouwd of samenwonend
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "74.85" }
+    status: geverifieerd
+    bron: *svb
+    citaat: *bedragen

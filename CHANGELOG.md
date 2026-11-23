@@ -8,7 +8,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Toegevoegd
 
-- Leidengeldwijzer werkt nu ook voor mensen met de AOW-leeftijd. De grenzen komen dan uit de normen voor mensen met AOW (art. 22 Participatiewet). In plaats van de bijstand noemt Leidengeldwijzer de AIO-aanvulling van de SVB. Bij de soorten inkomen staat "AOW van de SVB". De toeslagen rekent Leidengeldwijzer voor hen nog niet uit.
+- Leidengeldwijzer: de toeslag van UWV (Toeslagenwet). Wie een uitkering van UWV heeft en een inkomen onder het sociaal minimum van UWV, ziet een tegel in een nieuw blok "UWV".
+- Leidengeldwijzer werkt nu ook voor mensen met de AOW-leeftijd. De grenzen komen dan uit de normen voor mensen met AOW (art. 22 Participatiewet). In plaats van de bijstand noemt Leidengeldwijzer de AIO-aanvulling van de SVB. Bij de soorten inkomen staan dan "AOW van de SVB" en "Pensioen". Met AOW en pensioen rekent Leidengeldwijzer ook de toeslagen uit, met de belasting en de bijdrage Zvw voor mensen met de AOW-leeftijd.
 
 ## 0.6.0 – 23 november 2026
 

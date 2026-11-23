@@ -30,6 +30,7 @@ const TOEGESTANE_DOMEINEN = [
   "rijksoverheid.nl",
   "belastingdienst.nl",
   "svb.nl",
+  "uwv.nl",
   "leiden.nl",
 ];
 

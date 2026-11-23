@@ -4,6 +4,8 @@
  */
 import { describe, expect, it } from "vitest";
 import { bijstandsnorm } from "../src/modules/bijstand.js";
+import { brutoJaarMetAow, nettoMetAow } from "../src/modules/belasting.js";
+import { NUL } from "../src/geld.js";
 import { bereken, CITATEN, checkRegelingen, D, heeftAowLeeftijd, Lezer, standaardRegels, type CheckInvoer, type Invoer, type Kans, type Uitslag, type Vermogen } from "../src/index.js";
 
 const DATUM = "2026-11-21";
@@ -431,13 +433,34 @@ describe("AOW-leeftijd", () => {
     expect(u.kans).toBe("nee");
     expect(u.bronnen).toContain(CITATEN.iitLeeftijd);
   });
-  it("toeslagen met AOW: nog geen bedrag, wel de proefberekening", () => {
-    const u = checkRegelingen(invoer({ aanvrager: aow({ aow: 1200 }) }));
+  it("bruto uit netto met de AOW-leeftijd klopt met de bedragen van de SVB (1 juli 2026)", () => {
+    const l = new Lezer(standaardRegels, DATUM);
+    // Alleenstaand: netto € 1.581,55 met loonheffingskorting, bruto € 1.662,16 plus € 104,78 vakantiegeld per maand.
+    const alleen = brutoJaarMetAow(l, D("1581.55"), NUL, true, false);
+    expect(alleen.minus(D("1662.16").plus("104.78").times(12)).abs().toNumber()).toBeLessThan(1);
+    // Getrouwd of samenwonend, per persoon: netto € 1.084,13, bruto € 1.139,39 plus € 74,85.
+    const samen = brutoJaarMetAow(l, D("1084.13"), NUL, false, false);
+    expect(samen.minus(D("1139.39").plus("74.85").times(12)).abs().toNumber()).toBeLessThan(1);
+    // Zonder loonheffingskorting (pensioen zonder korting komt hier niet voor): netto per jaar terug naar bruto.
+    expect(nettoMetAow(l, D("1662.16").times(12), true, false).gt(D("1581.55").times(12).minus(1))).toBe(true);
+  });
+  it("toeslagen met AOW en pensioen: met een bedrag", () => {
+    const u = checkRegelingen(invoer({ aanvrager: aow({ aow: 1450, pensioen: 300 }) }));
     for (const id of ["zorgtoeslag", "huurtoeslag"]) {
-      expect(uitslag(u, id)!.kans, id).toBe("misschien");
-      expect(uitslag(u, id)!.bedrag, id).toBeUndefined();
-      expect(uitslag(u, id)!.waarom, id).toContain("AOW-leeftijd");
+      expect(uitslag(u, id)!.kans, id).toBe("ja");
+      expect(uitslag(u, id)!.bedrag, id).toBeDefined();
     }
+  });
+  it("toeslagen met AOW en ander inkomen of loon: geen bedrag, wel de proefberekening", () => {
+    const u = checkRegelingen(invoer({ aanvrager: aow({ aow: 1200, loon: 400 }) }));
+    expect(uitslag(u, "zorgtoeslag")!.kans).toBe("misschien");
+    expect(uitslag(u, "zorgtoeslag")!.bedrag).toBeUndefined();
+    expect(uitslag(u, "zorgtoeslag")!.waarom).toContain("AOW-leeftijd");
+  });
+  it("toeslagen met een AIO-aanvulling: dezelfde zorgtoeslag als met precies het sociaal minimum aan AOW", () => {
+    const aio = uitslag(checkRegelingen(invoer({ bijstand: true, aanvrager: aow({}) })), "zorgtoeslag")!;
+    expect(aio.kans).toBe("ja");
+    expect(aio.bedrag).toBeDefined();
   });
   it("kostendelersnorm met AOW: de norm van art. 22 b als B (art. 22a lid 1)", () => {
     // Twee volwassenen (de aanvrager en één kostendeler): (40% + 2 × 30%) / 2 = 50% van € 2.176,10, zonder vakantiegeld.
@@ -447,5 +470,32 @@ describe("AOW-leeftijd", () => {
   });
   it("in een instelling met AOW: de grens is niet bekend, dus misschien", () => {
     expect(kans(invoer({ aanvrager: aow({ aow: 1000 }), wonen: "instelling" }), "volwassenenfonds")).toBe("misschien");
+  });
+});
+
+describe("toeslag van UWV (Toeslagenwet)", () => {
+  const uwv = (bedrag: number, over: Partial<CheckInvoer> = {}) => invoer({ aanvrager: { leeftijd: 45, inkomen: { uwv: bedrag } }, ...over });
+  it("een uitkering van UWV onder het sociaal minimum: misschien, met het bedrag van UWV (€ 1.669 bruto, alleenstaand)", () => {
+    const u = uitslag(checkRegelingen(uwv(1100)), "tw")!;
+    expect(u.kans).toBe("misschien");
+    expect(u.groep).toBe("uwv");
+    expect(u.waarom).toContain("€ 1.669 bruto per maand");
+    expect(u.bronnen).toContain(CITATEN.twWie);
+  });
+  it("boven het sociaal minimum: nee", () => {
+    expect(kans(uwv(2000), "tw")).toBe("nee");
+  });
+  it("zonder uitkering van UWV: geen tegel", () => {
+    expect(uitslag(checkRegelingen(invoer()), "tw")).toBeUndefined();
+  });
+  it("partner geboren na 1971 en geen kind jonger dan 12: nee", () => {
+    const i = uwv(900, { partner: { leeftijd: 40, geborenNa1971: true, inkomen: {} } });
+    expect(kans(i, "tw")).toBe("nee");
+    const metKind = uwv(900, { partner: { leeftijd: 40, geborenNa1971: true, inkomen: {} }, kinderen: [{ leeftijd: 6 }], kinderbijslag: true });
+    expect(kans(metKind, "tw")).toBe("misschien");
+  });
+  it("een stel: het sociaal minimum voor 2 personen (€ 2.337)", () => {
+    const u = uitslag(checkRegelingen(uwv(900, { partner: { leeftijd: 58, geborenNa1971: false, inkomen: {} } })), "tw")!;
+    expect(u.waarom).toContain("€ 2.337 bruto per maand voor u samen");
   });
 });

@@ -78,6 +78,13 @@ export const CITATEN = {
     versie: "Gemeenteblad 2025, 429670",
     tekst: "Bij een aantal soorten inkomen kan hiervan afgeweken worden […] is het voldoende om de meest recente maandspecificatie aan te leveren. Dit is het geval bij de volgende inkomenssoorten: […] AIO (Aanvullende Inkomensvoorziening Ouderen)",
   },
+  twWie: {
+    titel: "UWV, Wanneer heeft u recht op toeslag van UWV?",
+    url: "https://www.uwv.nl/nl/toeslag/wanneer-recht-op-toeslag",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst:
+      "U bent 18 jaar of ouder. En u heeft nog niet de AOW-leeftijd. […] Uw totale bruto-inkomen is lager dan het sociaal minimum. […] U ontvangt een uitkering van UWV. […] In de volgende situaties kunt u geen toeslag van UWV krijgen: U bent jonger dan 21 jaar en woont bij uw ouders. […] U bent getrouwd of woont samen met een partner die is geboren na 31 december 1971. En er wonen geen kinderen bij u die jonger zijn dan 12 jaar.",
+  },
   aioWie: {
     titel: "SVB, Kijk of u een AIO-aanvulling krijgt",
     url: "https://www.svb.nl/nl/aio/kijk-of-u-een-aio-aanvulling-krijgt",

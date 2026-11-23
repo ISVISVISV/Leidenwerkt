@@ -12,18 +12,22 @@
 import { CITATEN, naarCitaat, type Citaat } from "./citaten.ts";
 import { D, NUL, euro, max, type Bedrag } from "./geld.ts";
 import { Lezer, OntbrekendeParameter, standaardRegels, type RegelSet } from "./regels.ts";
-import { brutoMaandUitNetto, brutoUitNetto } from "./modules/belasting.ts";
+import { brutoJaarMetAow, brutoMaandUitNetto, brutoUitNetto, brutoUitNettoMetAow } from "./modules/belasting.ts";
 import { huurtoeslag, kindgebondenBudget, kinderopvangtoeslag, maandbedragToeslag, zorgtoeslag } from "./modules/toeslagen.ts";
 import type { Kind } from "./types.ts";
 
 /** Soort inkomen. "geen" sluit de andere uit. */
-export type Inkomenssoort = "loon" | "uwv" | "aow" | "bedrijf" | "studiefinanciering" | "partneralimentatie" | "kinderalimentatie" | "ander" | "geen";
+export type Inkomenssoort = "loon" | "uwv" | "aow" | "pensioen" | "bedrijf" | "studiefinanciering" | "partneralimentatie" | "kinderalimentatie" | "ander" | "geen";
 export type Uitkeringssoort = "ww" | "wajong" | "wia" | "ziektewet" | "anders";
 
 export interface CheckPersoon {
   leeftijd: number;
   /** Heeft deze persoon op de rekendatum de AOW-leeftijd? Zie heeftAowLeeftijd. */
   aow?: boolean;
+  /** Geboren vóór 1 januari 1946: dan is de eerste belastingschijf langer. */
+  geborenVoor1946?: boolean;
+  /** Geboren na 31 december 1971: dan krijgt de partner geen toeslag van UWV, tenzij er een kind jonger dan 12 is. */
+  geborenNa1971?: boolean;
   /**
    * Inkomen per soort, per maand, zonder vakantiegeld. Loon, uitkering, bedrijf en ander inkomen: netto.
    * Alimentatie en studiefinanciering: het bedrag dat binnenkomt. Leeg bij bijstand of geen inkomen.
@@ -90,7 +94,7 @@ export interface Vermogen {
 /** "info": goed om te weten, voor iedereen (hulp en voorzieningen zonder rekensom). */
 export type Kans = "ja" | "misschien" | "nee" | "info";
 /** Wie de regeling geeft: de gemeente Leiden, Dienst Toeslagen, de Sociale Verzekeringsbank, de bijstand, of hulp voor iedereen. */
-export type Groep = "gemeente" | "toeslagen" | "svb" | "inkomen" | "hulp";
+export type Groep = "gemeente" | "toeslagen" | "svb" | "uwv" | "inkomen" | "hulp";
 
 export interface Uitslag {
   id: string;
@@ -619,6 +623,51 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       }),
     );
 
+  // Toeslag van UWV (Toeslagenwet): vult een uitkering van UWV aan tot het sociaal minimum, bruto. Nooit "ja": UWV kijkt
+  // naar het bruto inkomen per dag, en Leidengeldwijzer rekent het bruto inkomen terug uit het netto inkomen.
+  const metUwv = personen.filter((p) => !p.aow && (p.inkomen.uwv ?? 0) > 0);
+  if (metUwv.length > 0)
+    uit.push(
+      probeer(() => {
+        const leeftijd = Math.min(...metUwv.map((p) => p.leeftijd));
+        const minimumId = paar
+          ? "tw.sociaal_minimum.gehuwd"
+          : leeftijd < 21
+            ? `tw.sociaal_minimum.alleenstaand_${Math.max(18, leeftijd)}`
+            : kostendelers > 0
+              ? "tw.sociaal_minimum.woningdeler"
+              : "tw.sociaal_minimum.alleenstaand";
+        const basis = {
+          id: "tw",
+          naam: "Toeslag van UWV",
+          groep: "uwv" as const,
+          aanvragen: { tekst: "Meer informatie en aanvragen", url: CITATEN.twWie.url },
+          bronnen: [CITATEN.twWie, ...bron(l, minimumId)],
+        };
+        // Geen toeslag met een partner die na 1971 is geboren, als er geen kind jonger dan 12 bij u woont.
+        const kindOnder12 = invoer.kinderen.some((k) => k.leeftijd < 12);
+        const partnerVan = (p: CheckPersoon) => (p === invoer.aanvrager ? invoer.partner : invoer.aanvrager);
+        if (paar && !kindOnder12 && metUwv.every((p) => partnerVan(p)?.geborenNa1971))
+          return {
+            ...basis,
+            kans: "nee",
+            waarom: "U woont samen met een partner die na 1971 is geboren. En er wonen geen kinderen jonger dan 12 jaar bij u. Dan kunt u geen toeslag van UWV krijgen.",
+          };
+        const minimum = l.bedrag(minimumId);
+        const grens = ` Het sociaal minimum is ${heel(minimum)} bruto per maand${paar ? " voor u samen" : ""}.`;
+        // Het bruto inkomen per maand zonder vakantiegeld (8%), uit hetzelfde bruto inkomen als voor de toeslagen.
+        const ti = probeer2(() => toetsingsinkomen(l, invoer, personen));
+        const brutoMaand = ti?.div(12).div(D("1.08"));
+        if (brutoMaand && brutoMaand.gt(minimum))
+          return { ...basis, kans: "nee", waarom: `Uw bruto inkomen is ongeveer ${heel(brutoMaand)} per maand. Dat is meer dan het sociaal minimum van UWV.${grens}` };
+        return {
+          ...basis,
+          kans: "misschien",
+          waarom: `U krijgt een uitkering van UWV. Is uw bruto inkomen lager dan het sociaal minimum? Dan vult UWV uw uitkering misschien aan. Dit heet een toeslag.${grens} UWV rekent uit of u de toeslag krijgt.`,
+        };
+      }),
+    );
+
   // Bijstand: alleen een melding. Onder de norm en onder de vermogensgrens: misschien recht op bijstand.
   if (!invoer.bijstand && !metAow)
     uit.push(
@@ -704,6 +753,14 @@ function vermogenToets(l: Lezer, invoer: CheckInvoer, grensId: string): { kans: 
 
 /** Toetsingsinkomen per jaar (bruto), afgeleid uit het netto inkomen. Undefined als Leidengeldwijzer het niet kan afleiden. */
 function toetsingsinkomen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): Bedrag | undefined {
+  const paar = personen.length > 1;
+  if (invoer.bijstand && personen.some((p) => p.aow)) {
+    // AIO-aanvulling: samen met de AOW komt het inkomen op de norm van art. 22 Pw (met vakantietoeslag).
+    // Bij een paar half om half. Wie de AOW-leeftijd heeft, betaalt belasting volgens de tarieven voor AOW-gerechtigden.
+    const norm = l.bedrag(paar ? "pw.norm.aow.gehuwden" : "pw.norm.aow.alleenstaande").times(12);
+    const deel = paar ? norm.div(2) : norm;
+    return personen.reduce((t, p) => t.plus(p.aow ? brutoUitNettoMetAow(l, deel, !paar, !!p.geborenVoor1946) : brutoUitNetto(l, deel)), NUL);
+  }
   if (invoer.bijstand) {
     // Zoals Leidenwerkt: de bijstand (met vakantietoeslag) als uitkering, bij een paar half om half.
     const norm = l.bedrag(personen.length > 1 ? "pw.norm.gehuwden" : "pw.norm.alleenstaande").times(12);
@@ -715,7 +772,15 @@ function toetsingsinkomen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[
   const vg = l.breuk("wml.vakantiebijslag");
   let totaal = NUL;
   for (const p of personen) {
-    if (heeft(p, "bedrijf") || heeft(p, "ander") || heeft(p, "aow")) return undefined;
+    if (p.aow) {
+      // Met de AOW-leeftijd: AOW en pensioen, met de belasting en de bijdrage Zvw voor AOW-gerechtigden.
+      // Loon, een uitkering van UWV, een eigen bedrijf of ander inkomen daarnaast: dat rekent Leidengeldwijzer niet uit.
+      if ((["loon", "uwv", "bedrijf", "ander", "studiefinanciering"] as const).some((s) => heeft(p, s))) return undefined;
+      totaal = totaal.plus(brutoJaarMetAow(l, D(p.inkomen.aow ?? 0), D(p.inkomen.pensioen ?? 0), !paar, !!p.geborenVoor1946));
+      totaal = totaal.plus(D(p.inkomen.partneralimentatie ?? 0).times(12));
+      continue;
+    }
+    if (heeft(p, "bedrijf") || heeft(p, "ander") || heeft(p, "aow") || heeft(p, "pensioen")) return undefined;
     if (heeft(p, "loon") && heeft(p, "uwv")) return undefined;
     const loon = p.inkomen.loon ?? 0;
     const uwv = p.inkomen.uwv ?? 0;
@@ -732,14 +797,13 @@ function toeslagen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): (Ui
   const vermogenTeHoog = probeer2(() =>
     telbaarVermogen(l, invoer.vermogen, "toeslagen").gt(l.bedrag(paar ? "toeslagen.vermogen.inkomen.met_partner" : "toeslagen.vermogen.inkomen.zonder_partner")),
   );
-  // Met de AOW-leeftijd is de belasting anders. Leidengeldwijzer rekent het bruto inkomen dan niet terug uit het netto inkomen.
   const metAow = personen.some((p) => p.aow);
-  const ti = vermogenTeHoog === false && !metAow ? probeer2(() => toetsingsinkomen(l, invoer, personen)) : undefined;
+  const ti = vermogenTeHoog === false ? probeer2(() => toetsingsinkomen(l, invoer, personen)) : undefined;
   const proef = { tekst: "Proefberekening van Dienst Toeslagen", url: URL.toeslagen };
   const geenBedrag = vermogenTeHoog
     ? "Een deel van uw geld en bezit telt mee als inkomen. Leidengeldwijzer rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen."
     : metAow
-      ? "Leidengeldwijzer rekent de toeslagen voor mensen met de AOW-leeftijd nog niet uit. Doe de proefberekening van Dienst Toeslagen."
+      ? "Met de AOW-leeftijd rekent Leidengeldwijzer alleen met AOW en pensioen. Met ander inkomen erbij kan Leidengeldwijzer uw toeslag niet uitrekenen. Doe de proefberekening van Dienst Toeslagen."
       : "Leidengeldwijzer kan uw toeslag niet uitrekenen met dit soort inkomen. Doe de proefberekening van Dienst Toeslagen.";
   const kinderen: Kind[] = invoer.kinderen.map((k) => ({ leeftijd: k.leeftijd }));
   const werkenOfStuderen = personen.every((p) => heeft(p, "loon") || heeft(p, "bedrijf") || heeft(p, "studiefinanciering"));

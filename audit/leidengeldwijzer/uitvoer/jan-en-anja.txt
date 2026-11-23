@@ -13,7 +13,7 @@ Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleg
 
 Overzicht van 21 november 2026. Leidengeldwijzer versie 0.2.0.
 
-Dit kunt u waarschijnlijk krijgen (5)
+Dit kunt u waarschijnlijk krijgen (7)
 GEMEENTE LEIDEN
 Sleutelpas
 Sport en cultuur voor volwassenen
@@ -22,13 +22,15 @@ Zorgverzekering van de gemeente
 Gratis OV-pas
 SOCIALE VERZEKERINGSBANK
 AIO-aanvulling
-Dit kunt u misschien krijgen (4)
+DIENST TOESLAGEN
+Zorgtoeslag
+ongeveer € 246 per maand
+Huurtoeslag
+ongeveer € 428 per maand
+Dit kunt u misschien krijgen (2)
 GEMEENTE LEIDEN
 Kwijtschelding van gemeentelijke belastingen
 Bijzondere bijstand
-DIENST TOESLAGEN
-Zorgtoeslag
-Huurtoeslag
 Dit kunt u waarschijnlijk niet krijgen (2)
 
 Individuele inkomenstoeslag, Tegemoetkoming voor alleenverdieners.
@@ -108,17 +110,19 @@ U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. 
 AIO-aanvulling
 Heeft u geen volledige AOW? En heeft u weinig ander inkomen? Dan vult de SVB uw inkomen aan. Dit heet de AIO-aanvulling. Uw inkomen is lager dan het sociaal minimum. De grens voor uw huishouden is ongeveer € 2.067 netto per maand. Vakantiegeld telt niet mee. Uw geld en bezit zijn niet meer dan € 16.000.
 
+Zorgtoeslag
+ongeveer € 246 per maand
+Dit is geld voor de kosten van uw zorgverzekering. Uw geld en bezit zijn niet meer dan € 184.633.
+
+Huurtoeslag
+ongeveer € 428 per maand
+Dit is geld voor uw huur. Uw geld en bezit zijn niet meer dan € 76.958.
+
 Kwijtschelding van gemeentelijke belastingen
 Heeft u moeite met het betalen van de gemeentelijke belastingen? Dan hoeft u ze misschien niet te betalen. Dit heet kwijtschelding. Uw inkomen mag niet hoger zijn dan de bijstand. Uw geld en bezit en het inkomen van uw huisgenoten tellen ook mee.
 
 Bijzondere bijstand
 Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rechtshulp. Dan kan de gemeente u misschien helpen. Dit heet bijzondere bijstand. U krijgt dan een vergoeding of een lening. Vraag het aan voordat u de kosten maakt.
-
-Zorgtoeslag
-Leidengeldwijzer rekent de toeslagen voor mensen met de AOW-leeftijd nog niet uit. Doe de proefberekening van Dienst Toeslagen.
-
-Huurtoeslag
-Leidengeldwijzer rekent de toeslagen voor mensen met de AOW-leeftijd nog niet uit. Doe de proefberekening van Dienst Toeslagen.
 
 Individuele inkomenstoeslag
 € 635, één keer per 12 maanden

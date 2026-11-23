@@ -95,3 +95,58 @@ export function brutoMaandUitNetto(l: Lezer, nettoMaand: Bedrag, vakantiegeld: B
   }
   return hoog.toDecimalPlaces(2);
 }
+
+/**
+ * Netto per jaar met de AOW-leeftijd: de tarieven en heffingskortingen voor wie de AOW-leeftijd heeft
+ * (algemene heffingskorting voor AOW-gerechtigden, ouderenkorting, alleenstaande-ouderenkorting) en de
+ * ingehouden bijdrage Zvw. Die bijdrage gaat ook van de AOW en van een pensioen af (SVB, Bedragen AOW).
+ */
+export function nettoMetAow(l: Lezer, brutoJaar: Bedrag, alleenstaand: boolean, geborenVoor1946: boolean): Bedrag {
+  if (brutoJaar.lte(0)) return NUL;
+  const schijven = l.schijven(geborenVoor1946 ? "ib.box1.schijven.aow_voor_1946" : "ib.box1.schijven.aow");
+  const kortingen = stuksgewijs(l.schijven("ib.ahk.aow"), brutoJaar)
+    .plus(stuksgewijs(l.schijven("ib.ouderenkorting"), brutoJaar))
+    .plus(alleenstaand ? l.bedrag("ib.alleenstaande_ouderenkorting") : NUL);
+  const heffing = max(NUL, progressief(schijven, brutoJaar).minus(kortingen));
+  const zvw = min(brutoJaar, l.bedrag("zvw.maximum_bijdrage_inkomen")).times(l.breuk("zvw.ingehouden_bijdrage"));
+  return brutoJaar.minus(heffing).minus(zvw);
+}
+
+/** Bruto jaarbedrag met de AOW-leeftijd bij een netto jaarbedrag (zonder AOW-vakantiegeld), bijvoorbeeld de AIO-norm. */
+export function brutoUitNettoMetAow(l: Lezer, nettoJaar: Bedrag, alleenstaand: boolean, geborenVoor1946: boolean): Bedrag {
+  if (nettoJaar.lte(0)) return NUL;
+  let laag = nettoJaar;
+  let hoog = nettoJaar.times(3);
+  for (let i = 0; i < 80 && hoog.minus(laag).gt(D("0.001")); i++) {
+    const midden = laag.plus(hoog).div(2);
+    if (nettoMetAow(l, midden, alleenstaand, geborenVoor1946).lt(nettoJaar)) laag = midden;
+    else hoog = midden;
+  }
+  return hoog.toDecimalPlaces(2);
+}
+
+/**
+ * Bruto jaarinkomen met de AOW-leeftijd, uit de netto AOW en het netto pensioen per maand (zoals op het
+ * betaaloverzicht, zonder vakantiegeld). Het vakantiegeld van de AOW is een vast bedrag per maand (SVB). Bij een
+ * deel van de AOW telt Leidengeldwijzer hetzelfde deel van het vakantiegeld. Aanname, net als bij loon: per maand
+ * gaat hetzelfde deel af als over het hele jaar.
+ */
+export function brutoJaarMetAow(l: Lezer, aowNettoMaand: Bedrag, pensioenNettoMaand: Bedrag, alleenstaand: boolean, geborenVoor1946: boolean): Bedrag {
+  if (aowNettoMaand.plus(pensioenNettoMaand).lte(0)) return NUL;
+  const vol = l.bedrag(alleenstaand ? "aow.bruto.alleenstaand" : "aow.bruto.gehuwd");
+  const vakantiegeldVol = l.bedrag(alleenstaand ? "aow.vakantiegeld.alleenstaand" : "aow.vakantiegeld.gehuwd");
+  const jaar = (k: Bedrag) => {
+    const aow = aowNettoMaand.times(k);
+    const vakantiegeld = vakantiegeldVol.times(min(D(1), aow.div(vol)));
+    return aow.plus(vakantiegeld).plus(pensioenNettoMaand.times(k)).times(12);
+  };
+  // k = bruto / netto. Het netto bedrag per maand is het bruto bedrag maal netto/bruto over het jaar.
+  let k = D(1);
+  for (let i = 0; i < 100; i++) {
+    const g = jaar(k);
+    const nieuw = g.div(nettoMetAow(l, g, alleenstaand, geborenVoor1946));
+    if (nieuw.minus(k).abs().lt(D("0.0000001"))) break;
+    k = nieuw;
+  }
+  return jaar(k).toDecimalPlaces(2);
+}

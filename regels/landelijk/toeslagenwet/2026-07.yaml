@@ -1,0 +1,52 @@
+gebied: Toeslagenwet, sociaal minimum vanaf 1 juli 2026
+geldig_van: 2026-07-01
+geldig_tot: 2026-12-31
+parameters:
+  - id: tw.sociaal_minimum.gehuwd
+    omschrijving: Sociaal minimum voor de toeslag van UWV, getrouwd of samenwonend, bruto per maand voor 2 personen (zonder vakantiegeld)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "2337.00" }
+    status: geverifieerd
+    bron: &uwv
+      titel: UWV — Sociaal minimum
+      url: https://www.uwv.nl/nl/toeslag/sociaal-minimum
+      geraadpleegd_op: 2026-11-23
+    citaat: &tabel
+      kop: "UWV, Sociaal minimum"
+      tekst: "In het overzicht ziet u de bedragen van het sociaal minimum vanaf 1 juli 2026. […] Getrouwd of daarmee gelijkgesteld vanaf 18 jaar tot AOW € 107,45 voor 2 personen € 2.337,00 voor 2 personen Alleenstaand-woning/kostendeler vanaf 21 jaar tot AOW € 49,94 voor 1 persoon € 1.086,20 voor 1 persoon Alleenstaande vanaf 21 jaar tot AOW € 76,75 € 1.669,31 Alleenstaande van 20 jaar € 60,15 € 1.308,26 Alleenstaande van 19 jaar € 44,02 € 957,44 Alleenstaande van 18 jaar € 35,95 € 781,91 […] Dit zijn brutobedragen."
+      versie: "geraadpleegd op 23 november 2026"
+  - id: tw.sociaal_minimum.woningdeler
+    omschrijving: Sociaal minimum voor de toeslag van UWV, alleenstaande woningdeler of kostendeler vanaf 21 jaar, bruto per maand
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "1086.20" }
+    status: geverifieerd
+    bron: *uwv
+    citaat: *tabel
+  - id: tw.sociaal_minimum.alleenstaand
+    omschrijving: Sociaal minimum voor de toeslag van UWV, alleenstaande vanaf 21 jaar, bruto per maand
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "1669.31" }
+    status: geverifieerd
+    bron: *uwv
+    citaat: *tabel
+  - id: tw.sociaal_minimum.alleenstaand_20
+    omschrijving: Sociaal minimum voor de toeslag van UWV, alleenstaande van 20 jaar, bruto per maand
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "1308.26" }
+    status: geverifieerd
+    bron: *uwv
+    citaat: *tabel
+  - id: tw.sociaal_minimum.alleenstaand_19
+    omschrijving: Sociaal minimum voor de toeslag van UWV, alleenstaande van 19 jaar, bruto per maand
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "957.44" }
+    status: geverifieerd
+    bron: *uwv
+    citaat: *tabel
+  - id: tw.sociaal_minimum.alleenstaand_18
+    omschrijving: Sociaal minimum voor de toeslag van UWV, alleenstaande van 18 jaar, bruto per maand
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "781.91" }
+    status: geverifieerd
+    bron: *uwv
+    citaat: *tabel

@@ -20,10 +20,12 @@ Sport en cultuur voor volwassenen
 tot € 250 per jaar
 Zorgverzekering van de gemeente
 Gratis OV-pas
-Dit kunt u misschien krijgen (3)
+Dit kunt u misschien krijgen (4)
 GEMEENTE LEIDEN
 Kwijtschelding van gemeentelijke belastingen
 Bijzondere bijstand
+UWV
+Toeslag van UWV
 DIENST TOESLAGEN
 Zorgtoeslag
 Dit kunt u waarschijnlijk niet krijgen (3)
@@ -107,6 +109,9 @@ Heeft u moeite met het betalen van de gemeentelijke belastingen? Dan hoeft u ze 
 
 Bijzondere bijstand
 Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rechtshulp. Dan kan de gemeente u misschien helpen. Dit heet bijzondere bijstand. U krijgt dan een vergoeding of een lening. Vraag het aan voordat u de kosten maakt.
+
+Toeslag van UWV
+U krijgt een uitkering van UWV. Is uw bruto inkomen lager dan het sociaal minimum? Dan vult UWV uw uitkering misschien aan. Dit heet een toeslag. Het sociaal minimum is € 1.669 bruto per maand. UWV rekent uit of u de toeslag krijgt.
 
 Zorgtoeslag
 Een deel van uw geld en bezit telt mee als inkomen. Leidengeldwijzer rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen.
