@@ -419,6 +419,7 @@ describe("AOW-leeftijd", () => {
     const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 60, inkomen: { loon: 500 } }, partner: aow({ aow: 800 }) })), "iit")!;
     expect(u.kans).toBe("nee");
     expect(u.bronnen).toContain(CITATEN.iitAow);
+    expect(u.bronnen).toContain(CITATEN.iitGehuwden);
   });
   it("Sleutelpas met een AIO-aanvulling: aanvragen met de maandspecificatie", () => {
     const u = uitslag(checkRegelingen(invoer({ bijstand: true, aanvrager: aow({}) })), "sleutelpas")!;

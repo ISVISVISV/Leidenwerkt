@@ -416,7 +416,8 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       };
       if (minLeeftijd.gt(invoer.aanvrager.leeftijd))
         return { ...basis, kans: "nee", waarom: `Deze toeslag is voor mensen van ${minLeeftijd.toString()} jaar of ouder.` };
-      // Een stel telt als één geheel: heeft een van beiden de AOW-leeftijd, dan geldt de hogere norm van art. 22 Pw en geen toeslag.
+      // Een stel telt als één geheel: beiden moeten aan art. 36 lid 1 Pw voldoen, dus jonger zijn dan de AOW-leeftijd
+      // (toelichting bij art. 4 van de verordening van Leiden).
       if (metAow)
         return {
           ...basis,
@@ -424,7 +425,7 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
           waarom: aanvragerAow
             ? "Deze toeslag is voor mensen die de AOW-leeftijd nog niet hebben."
             : "Deze toeslag is voor mensen die de AOW-leeftijd nog niet hebben. Uw partner heeft de AOW-leeftijd. Daarom kunt u deze toeslag ook niet krijgen.",
-          bronnen: [CITATEN.iitLeeftijd, CITATEN.iitAow],
+          bronnen: aanvragerAow ? [CITATEN.iitLeeftijd, CITATEN.iitAow] : [CITATEN.iitLeeftijd, CITATEN.iitAow, CITATEN.iitGehuwden],
         };
       if (studeert) return { ...basis, kans: "nee", waarom: `Met studiefinanciering in de afgelopen ${jaren} jaar kunt u deze toeslag niet krijgen.` };
       const v = vermogenToets(l, invoer, paar ? "pw.vermogensgrens.gehuwden" : metKinderen ? "pw.vermogensgrens.alleenstaande_ouder" : "pw.vermogensgrens.alleenstaande");

@@ -59,6 +59,13 @@ export const CITATEN = {
     versie: "geraadpleegd op 22 november 2026",
     tekst: "U bent 23 jaar of ouder, maar u hebt nog niet de AOW-leeftijd bereikt.",
   },
+  iitGehuwden: {
+    titel: "Verordening individuele inkomenstoeslag Leiden 2020, toelichting bij artikel 4",
+    url: "https://lokaleregelgeving.overheid.nl/CVDR634399/1",
+    versie: "geldend vanaf 1 januari 2020",
+    tekst:
+      "Bij gehuwden moet in het oog worden gehouden dat het recht op individuele inkomenstoeslag de gehuwden gezamenlijk toekomt. […] Voldoet één van hen niet aan deze voorwaarden, dan bestaat voor beiden geen recht op individuele inkomenstoeslag.",
+  },
   iitAow: {
     titel: "Rijksoverheid, Wat is de individuele inkomenstoeslag?",
     url: "https://www.rijksoverheid.nl/themas/werk/pensioen/vraag-en-antwoord/participatiewet/individuele-inkomenstoeslag",
