@@ -8,6 +8,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Veranderd
 
+- Leidengeldwijzer: de knop bij bijzondere bijstand gaat nu direct naar de aanvraagpagina van de gemeente Leiden.
+- Onderaan staat nu: "Dat beslist de organisatie die de regeling geeft." Zo klopt het ook voor de Voedselbank, het Jeugdfonds en de Stadsbank.
 - Leidengeldwijzer: bij elke regeling staat nu apart wat het is, en waarom u het waarschijnlijk wel, misschien of waarschijnlijk niet krijgt. Met een eigen bedrijf staat het bedrijf als reden erbij.
 - Leidengeldwijzer: "Hulp nodig?" heet nu "Als u het nodig heeft". Daarin staan hulp bij uw aanvraag, bijzondere bijstand (met voorbeelden), hulp bij schulden en de Voedselbank. De Voedselbank noemt de grens voor uw huishouden.
 - Leidengeldwijzer: op de afdruk staat nu ook wat u kunt krijgen als u het nodig heeft: bijzondere bijstand en de Voedselbank.
