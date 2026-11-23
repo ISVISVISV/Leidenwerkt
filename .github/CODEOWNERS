@@ -1,5 +1,5 @@
-# Wijzigingen in regeldata, rekenengine, proefpersonen en CI vragen review van de beheerder.
-# Werkt alleen samen met branch protection ("Require review from Code Owners"); zie docs/ONDERHOUD.md.
+# De beheerder is eigenaar van de regeldata, de rekenkern, de proefpersonen, de scripts en de CI.
+# Er is nu één beheerder. Zie docs/ONDERHOUD.md, hoofdstuk 1.
 /regels/            @ISVISVISV
 /packages/rekenkern/   @ISVISVISV
 /testgevallen/      @ISVISVISV

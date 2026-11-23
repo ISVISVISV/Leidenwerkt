@@ -6,6 +6,10 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ## Nog niet uitgebracht
 
+### Veranderd
+
+- De documentatie zegt nu eerlijk hoe er wordt gecontroleerd: er is één beheerder en nog geen tweede beoordelaar.
+
 ## 0.8.0 – 23 november 2026
 
 Leidenwerkt 0.8.0 en Leidengeldwijzer 0.4.0. Leidenwerkt zelf is niet veranderd.
