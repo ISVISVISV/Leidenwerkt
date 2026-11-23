@@ -32,9 +32,9 @@ Dit kunt u misschien krijgen (2)
 GEMEENTE LEIDEN
 Kwijtschelding van gemeentelijke belastingen
 Bijzondere bijstand
-Dit kunt u waarschijnlijk niet krijgen (1)
+Dit kunt u waarschijnlijk niet krijgen (2)
 
-Huurtoeslag.
+Toeslag van UWV, Huurtoeslag.
 
 Hulp en contact
 GOEDE BUUR SPREEKUUR
@@ -128,6 +128,9 @@ Heeft u moeite met het betalen van de gemeentelijke belastingen? Dan hoeft u ze 
 
 Bijzondere bijstand
 Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rechtshulp. Dan kan de gemeente u misschien helpen. Dit heet bijzondere bijstand. U krijgt dan een vergoeding of een lening. Vraag het aan voordat u de kosten maakt.
+
+Toeslag van UWV
+U woont samen met een partner die na 1971 is geboren. En er wonen geen kinderen jonger dan 12 jaar bij u. Dan kunt u geen toeslag van UWV krijgen.
 
 Huurtoeslag
 Huurtoeslag is er meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche.

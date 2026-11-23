@@ -12,6 +12,8 @@
   --icoon-rijk-vlak: #e2eef6;
   --icoon-svb: #1d6b52;
   --icoon-svb-vlak: #dff1e9;
+  --icoon-uwv: #8a4b08;
+  --icoon-uwv-vlak: #f8ecdd;
   --icoon-hulp: #4a3a7a;
   --icoon-hulp-vlak: #ece8f5;
   --tegel: #ffffff;
@@ -26,6 +28,8 @@
     --icoon-rijk-vlak: #16303f;
     --icoon-svb: #8fd8bb;
     --icoon-svb-vlak: #13302a;
+    --icoon-uwv: #f3b874;
+    --icoon-uwv-vlak: #3a2a14;
     --icoon-hulp: #c7b8f0;
     --icoon-hulp-vlak: #2a2440;
     --pas-vlak: #2a2516;
@@ -42,6 +46,8 @@
   --icoon-rijk-vlak: #16303f;
   --icoon-svb: #8fd8bb;
   --icoon-svb-vlak: #13302a;
+  --icoon-uwv: #f3b874;
+  --icoon-uwv-vlak: #3a2a14;
   --icoon-hulp: #c7b8f0;
   --icoon-hulp-vlak: #2a2440;
   --pas-vlak: #2a2516;
@@ -349,7 +355,12 @@
   color: var(--icoon-svb);
 }
 
-/* Elke aanbieder een eigen kleur: rood voor de gemeente Leiden, blauw voor Dienst Toeslagen, groen voor de SVB. */
+.tegel-icoon.uwv {
+  background: var(--icoon-uwv-vlak);
+  color: var(--icoon-uwv);
+}
+
+/* Elke aanbieder een eigen kleur: rood voor de gemeente Leiden, blauw voor Dienst Toeslagen, groen voor de SVB, bruin voor UWV. */
 .blok.gemeente {
   border-top: 4px solid var(--icoon-gemeente);
 }
@@ -360,6 +371,10 @@
 
 .blok.svb {
   border-top: 4px solid var(--icoon-svb);
+}
+
+.blok.uwv {
+  border-top: 4px solid var(--icoon-uwv);
 }
 
 .sleutels {
@@ -376,6 +391,10 @@
 
 .blok.svb > .blok-kop {
   color: var(--icoon-svb);
+}
+
+.blok.uwv > .blok-kop {
+  color: var(--icoon-uwv);
 }
 
 .tegel-icoon.hulp {
@@ -702,6 +721,10 @@
 
   .afdruk-blok.svb h3 {
     color: #1d6b52;
+  }
+
+  .afdruk-blok.uwv h3 {
+    color: #8a4b08;
   }
 
   .afdruk-blok li.op-pas {

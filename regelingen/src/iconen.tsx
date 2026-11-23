@@ -130,6 +130,7 @@ const BIJ: Record<string, keyof typeof PADEN> = {
   kinderbijslag: "kind",
   goede_buur: "vraag",
   stadsbank: "euro",
+  tw: "euro",
   voedselbank: "tas",
 };
 

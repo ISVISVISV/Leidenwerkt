@@ -23,6 +23,28 @@ parameters:
     status: geverifieerd
     bron: *rijksoverheid_normen
     citaat: *c21
+  - id: pw.norm.aow.alleenstaande
+    omschrijving: Bijstandsnorm alleenstaande (ouder) met de AOW-leeftijd, netto incl. vakantietoeslag (art. 22 a Pw). De AIO-aanvulling van de SVB vult aan tot deze norm.
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "1587.34" }
+    status: geverifieerd
+    bron: &pw22
+      titel: Participatiewet art. 22 (wetten.overheid.nl, versie 1 juli 2026)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01/0
+      geraadpleegd_op: 2026-11-22
+    notitie: "Controle met de tabel van de gemeente Leiden (hulp bij kosten sport en cultuur): 120% × 95% × € 1.587,34 = € 1.809,57 (alleenstaand, AOW-leeftijd) en 120% × 95% × € 2.176,10 = € 2.480,75 (getrouwd of samenwonend, AOW-leeftijd)."
+    citaat: &c22
+      kop: "Participatiewet, art. 22"
+      tekst: "Voor belanghebbenden die de pensioengerechtigde leeftijd hebben bereikt is de norm per kalendermaand, indien het betreft: a. een alleenstaande of een alleenstaande ouder zonder kostendelende medebewoners: € 1.587,34; b. gehuwden waarvan beide echtgenoten de pensioengerechtigde leeftijd hebben bereikt, zonder kostendelende medebewoners: € 2.176,10; c. gehuwden waarvan een echtgenoot de pensioengerechtigde leeftijd heeft bereikt en de andere echtgenoot 21 jaar of ouder, doch de pensioengerechtigde leeftijd nog niet heeft bereikt, zonder kostendelende medebewoners: € 2.176,10;"
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel22
+      versie: "geldend vanaf 1 juli 2026"
+  - id: pw.norm.aow.gehuwden
+    omschrijving: Bijstandsnorm gehuwden/samenwonenden van wie een of beiden de AOW-leeftijd hebben, de ander 21 jaar of ouder, netto incl. vakantietoeslag (art. 22 b en c Pw). B en c zijn even hoog.
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "2176.10" }
+    status: geverifieerd
+    bron: *pw22
+    citaat: *c22
   - id: pw.vrijlating_n.percentage
     omschrijving: Inkomstenvrijlating art. 31 lid 2 onder n Pw (deel van de netto inkomsten uit arbeid)
     eenheid: breuk

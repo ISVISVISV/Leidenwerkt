@@ -21,10 +21,12 @@ Zorgverzekering van de gemeente
 DIENST TOESLAGEN
 Zorgtoeslag
 ongeveer € 129 per maand
-Dit kunt u misschien krijgen (2)
+Dit kunt u misschien krijgen (3)
 GEMEENTE LEIDEN
 Kwijtschelding van gemeentelijke belastingen
 Bijzondere bijstand
+UWV
+Toeslag van UWV
 Dit kunt u waarschijnlijk niet krijgen (6)
 
 Sleutelpas, Gratis OV-pas, Individuele inkomenstoeslag, Studietoeslag, Bijstand, Huurtoeslag.
@@ -104,6 +106,9 @@ Heeft u moeite met het betalen van de gemeentelijke belastingen? Dan hoeft u ze 
 
 Bijzondere bijstand
 Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rechtshulp. Dan kan de gemeente u misschien helpen. Dit heet bijzondere bijstand. U krijgt dan een vergoeding of een lening. Vraag het aan voordat u de kosten maakt.
+
+Toeslag van UWV
+U krijgt een uitkering van UWV. Is uw bruto inkomen lager dan het sociaal minimum? Dan vult UWV uw uitkering misschien aan. Dit heet een toeslag. Het sociaal minimum is € 1.669 bruto per maand. UWV rekent uit of u de toeslag krijgt.
 
 Sleutelpas
 Met studiefinanciering kunt u de Sleutelpas niet krijgen. Dat kan wel als u ook voor een kind zorgt.

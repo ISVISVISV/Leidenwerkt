@@ -1,0 +1,97 @@
+gebied: Inkomstenbelasting en bijdrage Zvw 2026, met de AOW-leeftijd
+geldig_van: 2026-01-01
+geldig_tot: 2026-12-31
+parameters:
+  - id: ib.box1.schijven.aow
+    omschrijving: Tarieven box 1 met de AOW-leeftijd, geboren op of na 1 januari 1946 (geen AOW-premie in schijf 1)
+    eenheid: tabel
+    waarde:
+      soort: schijven
+      schijven:
+        - { vanaf: "0", tot: "38883", percentage: "0.1785" }
+        - { vanaf: "38883", tot: "78426", percentage: "0.3756" }
+        - { vanaf: "78426", tot: null, percentage: "0.4950" }
+    status: geverifieerd
+    bron: &bd2026
+      titel: Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen
+      url: https://www.belastingdienst.nl/wps/wcm/connect/nl/voorlopige-aanslag/content/voorlopige-aanslag-tarieven-en-heffingskortingen
+      geraadpleegd_op: 2026-11-23
+    citaat: &tarieven
+      kop: "Belastingdienst, Voorlopige aanslag 2026: gebruikte tarieven en heffingskortingen"
+      tekst: "Als u in 2026 de AOW-leeftijd hebt, betaalt u in box 1 (werk en woning) een lager tarief over de 1e belastingschijf. Dat komt omdat u dan geen AOW-premie meer betaalt. Tabel tarieven box 1: als u bent geboren op of na 1 januari 1946 Schijf Belastbaar inkomen Percentage 1 tot en met € 38.883 17,85% 2 meer dan € 38.883 tot en met € 78.426 37,56% 3 meer dan € 78.426 49,50% Tabel tarieven box 1: als u bent geboren vóór 1 januari 1946 Schijf Belastbaar inkomen Percentage 1 tot en met € 41.123 17,85% 2 vanaf € 41.123 tot en met € 78.426 37,56% 3 vanaf € 78.426 49,50%"
+      versie: "geraadpleegd op 23 november 2026"
+  - id: ib.box1.schijven.aow_voor_1946
+    omschrijving: Tarieven box 1 met de AOW-leeftijd, geboren vóór 1 januari 1946
+    eenheid: tabel
+    waarde:
+      soort: schijven
+      schijven:
+        - { vanaf: "0", tot: "41123", percentage: "0.1785" }
+        - { vanaf: "41123", tot: "78426", percentage: "0.3756" }
+        - { vanaf: "78426", tot: null, percentage: "0.4950" }
+    status: geverifieerd
+    bron: *bd2026
+    citaat: *tarieven
+  - id: ib.ahk.aow
+    omschrijving: Algemene heffingskorting als iemand het hele jaar de AOW-leeftijd heeft (bedrag = basis + percentage × (inkomen − vanaf))
+    eenheid: tabel
+    waarde:
+      soort: schijven
+      schijven:
+        - { vanaf: "0", tot: "29736", basis: "1556", percentage: "0" }
+        - { vanaf: "29736", tot: "78426", basis: "1556", percentage: "-0.03195" }
+        - { vanaf: "78426", tot: null, basis: "0", percentage: "0" }
+    status: geverifieerd
+    bron:
+      titel: Belastingdienst — Tabel algemene heffingskorting 2026
+      url: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/algemene_heffingskorting/tabel-algemene-heffingskorting-2026
+      geraadpleegd_op: 2026-11-23
+    citaat:
+      kop: "Belastingdienst, Tabel algemene heffingskorting 2026"
+      tekst: "U hebt in 2026 het hele jaar de AOW-leeftijd Tabel: algemene heffingskorting: in 2026 het hele jaar de AOW-leeftijd Verzamelinkomen Algemene heffingskorting * tot en met € 29.736 € 1.556 vanaf € 29.737 tot en met € 78.426 € 1.556 - 3,195% x (verzamelinkomen - € 29.736) vanaf € 78.427 € 0"
+      versie: "geraadpleegd op 23 november 2026"
+  - id: ib.ouderenkorting
+    omschrijving: Ouderenkorting (bedrag = basis + percentage × (verzamelinkomen − vanaf))
+    eenheid: tabel
+    waarde:
+      soort: schijven
+      schijven:
+        - { vanaf: "0", tot: "46002", basis: "2067", percentage: "0" }
+        - { vanaf: "46002", tot: "59782", basis: "2067", percentage: "-0.15" }
+        - { vanaf: "59782", tot: null, basis: "0", percentage: "0" }
+    status: geverifieerd
+    bron: &aowkort
+      titel: Belastingdienst — Heffingskortingen voor AOW-gerechtigden
+      url: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/heffingskortingen_voor_aow_gerechtigden
+      geraadpleegd_op: 2026-11-23
+    citaat: &ok
+      kop: "Belastingdienst, Heffingskortingen voor AOW-gerechtigden"
+      tekst: "U krijgt de ouderenkorting als u uiterlijk op 31 december van het kalenderjaar de AOW-leeftijd hebt. Tabel ouderenkorting 2026 Verzamelinkomen Ouderenkorting tot en met € 46.002 € 2.067 vanaf € 46.003 tot en met € 59.782 € 2.067 - 15% x (verzamelinkomen - € 46.002) vanaf € 59.783 € 0 […] U krijgt deze kortingen via de AOW-uitkering van de Sociale Verzekeringsbank (SVB). […] U krijgt de alleenstaandeouderenkorting als u: het hele kalenderjaar of een deel daarvan een AOW-uitkering voor een alleenstaande krijgt of daar recht op hebt […] Tabel alleenstaandeouderenkorting Jaar Alleenstaandeouderenkorting 2026 € 540"
+      versie: "geraadpleegd op 23 november 2026"
+  - id: ib.alleenstaande_ouderenkorting
+    omschrijving: Alleenstaande-ouderenkorting, voor wie AOW voor een alleenstaande krijgt
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "540" }
+    status: geverifieerd
+    bron: *aowkort
+    citaat: *ok
+  - id: zvw.ingehouden_bijdrage
+    omschrijving: Inkomensafhankelijke bijdrage Zvw die de uitkeringsinstantie inhoudt, ook op AOW en pensioen
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.0485" }
+    status: geverifieerd
+    bron: &zvw
+      titel: Belastingdienst — Percentages inkomensafhankelijke bijdrage Zvw
+      url: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/werk_en_inkomen/zorgverzekeringswet/veranderingen-bijdrage-zvw/percentages-zvw
+      geraadpleegd_op: 2026-11-23
+    citaat: &zvwc
+      kop: "Belastingdienst, Percentages inkomensafhankelijke bijdrage Zvw"
+      tekst: "bijdrage Zvw die uw werkgever of uitkeringsinstantie inhoudt op uw loon of uitkering: 4,85% (was 5,26% in 2025) […] Het maximumbijdrage-inkomen in 2026 is € 79.409 (was € 75.864 in 2025)"
+      versie: "geraadpleegd op 23 november 2026"
+  - id: zvw.maximum_bijdrage_inkomen
+    omschrijving: Maximumbijdrage-inkomen Zvw per jaar
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "79409" }
+    status: geverifieerd
+    bron: *zvw
+    citaat: *zvwc

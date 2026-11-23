@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { CITATEN, Lezer, euro, sociaalMinimum, standaardRegels, type Opvangsoort } from "@leidenwerkt/engine";
 import { Bron, Datum, Keuze, Kopvlak, Veld, Vinkjes } from "@leidenwerkt/ui";
-import { bedragId, bedragSoorten, controleer, naarInvoer, infoVan, vandaag, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
+import { aowVan, bedragId, bedragSoorten, metAow, soortOpties, controleer, naarInvoer, infoVan, vandaag, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Icoon } from "./iconen.tsx";
 import { Overzicht } from "./Overzicht.tsx";
-import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANGSOORTEN, SOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
+import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANGSOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
 
 const STAPPEN = ["Uw huishouden", "Uw inkomen", "Geld en bezit", "Overzicht"];
 
@@ -146,7 +146,7 @@ export function App() {
             is alles weg.
           </p>
           <p>
-            Leidengeldwijzer geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden en Dienst Toeslagen. Leidengeldwijzer
+            Leidengeldwijzer geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden, Dienst Toeslagen, de SVB en UWV. Leidengeldwijzer
             is geen product van de gemeente.
           </p>
           <p>
@@ -176,7 +176,7 @@ function Start({ onStart }: { onStart: () => void }) {
         <li>uw kale huur per maand, als u huurt</li>
         <li>hoeveel geld en bezit u ongeveer heeft</li>
       </ul>
-      <p>Leidengeldwijzer is voor inwoners van Leiden van 18 jaar tot de AOW-leeftijd.</p>
+      <p>Leidengeldwijzer is voor inwoners van Leiden van 18 jaar of ouder.</p>
       <button type="button" className="hoofdknop" onClick={onStart}>
         Begin de check
       </button>
@@ -512,7 +512,7 @@ function laagUitleg(f: Formulier): string {
 const nettoHint =
   "Netto is het bedrag dat u op uw bankrekening krijgt. Vul het bedrag in zonder vakantiegeld. Krijgt u elke maand een ander bedrag? Tel dan de laatste 3 maanden bij elkaar op. Deel dat door 3.";
 
-function InkomenBlok({ v, partner, onChange, fouten }: { v: InkomenVelden; partner: boolean; onChange: (v: InkomenVelden) => void; fouten: Fouten }) {
+function InkomenBlok({ v, partner, aow, onChange, fouten }: { v: InkomenVelden; partner: boolean; aow: boolean; onChange: (v: InkomenVelden) => void; fouten: Fouten }) {
   return (
     <>
       {partner && <h2 className="deel">Inkomen van uw partner</h2>}
@@ -520,7 +520,7 @@ function InkomenBlok({ v, partner, onChange, fouten }: { v: InkomenVelden; partn
         naam={soortenId(partner)}
         legend={VRAAG.soorten(partner)}
         toelichting="U kunt meer antwoorden kiezen."
-        opties={SOORTEN}
+        opties={soortOpties(aow)}
         alleen="geen"
         waarde={v.soorten}
         onChange={(soorten) => onChange({ ...v, soorten })}
@@ -536,7 +536,7 @@ function InkomenBlok({ v, partner, onChange, fouten }: { v: InkomenVelden; partn
           fout={fouten[uitkeringId(partner)]}
         />
       )}
-      {bedragSoorten(v).map((s) => (
+      {bedragSoorten(v, aow).map((s) => (
         <Veld
           key={s}
           id={bedragId(partner, s)}
@@ -559,7 +559,7 @@ function StapInkomen({ f, zet, fouten }: StapProps) {
     <section>
       <Keuze
         naam="bijstand"
-        legend={VRAAG.bijstand(paar)}
+        legend={VRAAG.bijstand(paar, metAow(f))}
         waarde={f.bijstand}
         onChange={(v) => zet("bijstand", v)}
         fout={fouten.bijstand}
@@ -567,8 +567,8 @@ function StapInkomen({ f, zet, fouten }: StapProps) {
       />
       {vraagInkomen(f) && (
         <>
-          <InkomenBlok v={f.inkomen} partner={false} onChange={(v) => zet("inkomen", v)} fouten={fouten} />
-          {paar && <InkomenBlok v={f.partnerInkomen} partner onChange={(v) => zet("partnerInkomen", v)} fouten={fouten} />}
+          <InkomenBlok v={f.inkomen} partner={false} aow={aowVan(f.geboren)} onChange={(v) => zet("inkomen", v)} fouten={fouten} />
+          {paar && <InkomenBlok v={f.partnerInkomen} partner aow={aowVan(f.partnerGeboren)} onChange={(v) => zet("partnerInkomen", v)} fouten={fouten} />}
         </>
       )}
       {vraagStudie(f) && (

@@ -53,6 +53,45 @@ export const CITATEN = {
     tekst:
       "Het gaat om de datum waarop een persoon langdurig een laag inkomen heeft, geen in aanmerking te nemen vermogen heeft als bedoeld in artikel 34 van de Participatiewet en, gelet op de omstandigheden van die persoon, geen uitzicht op inkomensverbetering heeft.",
   },
+  iitLeeftijd: {
+    titel: "Gemeente Leiden, Individuele inkomenstoeslag",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/individuele-inkomenstoeslag/",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst: "U bent 23 jaar of ouder, maar u hebt nog niet de AOW-leeftijd bereikt.",
+  },
+  iitGehuwden: {
+    titel: "Verordening individuele inkomenstoeslag Leiden 2020, toelichting bij artikel 4",
+    url: "https://lokaleregelgeving.overheid.nl/CVDR634399/1",
+    versie: "geldend vanaf 1 januari 2020",
+    tekst:
+      "Bij gehuwden moet in het oog worden gehouden dat het recht op individuele inkomenstoeslag de gehuwden gezamenlijk toekomt. […] Voldoet één van hen niet aan deze voorwaarden, dan bestaat voor beiden geen recht op individuele inkomenstoeslag.",
+  },
+  iitAow: {
+    titel: "Rijksoverheid, Wat is de individuele inkomenstoeslag?",
+    url: "https://www.rijksoverheid.nl/themas/werk/pensioen/vraag-en-antwoord/participatiewet/individuele-inkomenstoeslag",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst: "Bent u AOW-gerechtigd? Dan geldt voor u een hogere bijstandsnorm […] komt u niet in aanmerking voor de individuele inkomenstoeslag.",
+  },
+  sleutelpasSpecificatie: {
+    titel: "Beleidsregels Sleutelpas Leiden 2026, toelichting bij artikel 4.3",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2025-429670.html",
+    versie: "Gemeenteblad 2025, 429670",
+    tekst: "Bij een aantal soorten inkomen kan hiervan afgeweken worden […] is het voldoende om de meest recente maandspecificatie aan te leveren. Dit is het geval bij de volgende inkomenssoorten: […] AIO (Aanvullende Inkomensvoorziening Ouderen)",
+  },
+  twWie: {
+    titel: "UWV, Wanneer heeft u recht op toeslag van UWV?",
+    url: "https://www.uwv.nl/nl/toeslag/wanneer-recht-op-toeslag",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst:
+      "U bent 18 jaar of ouder. En u heeft nog niet de AOW-leeftijd. […] Uw totale bruto-inkomen is lager dan het sociaal minimum. […] U ontvangt een uitkering van UWV. […] In de volgende situaties kunt u geen toeslag van UWV krijgen: U bent jonger dan 21 jaar en woont bij uw ouders. […] U bent getrouwd of woont samen met een partner die is geboren na 31 december 1971. En er wonen geen kinderen bij u die jonger zijn dan 12 jaar.",
+  },
+  aioWie: {
+    titel: "SVB, Kijk of u een AIO-aanvulling krijgt",
+    url: "https://www.svb.nl/nl/aio/kijk-of-u-een-aio-aanvulling-krijgt",
+    versie: "geraadpleegd op 22 november 2026",
+    tekst:
+      "U krijgt een AIO-aanvulling als u: de AOW-leeftijd heeft in Nederland woont geen AOW of geen volledige AOW krijgt geen of weinig andere inkomsten heeft niet te veel vermogen heeft […] U kunt dan misschien AIO-aanvulling krijgen als: uw partner nog geen AOW heeft u en uw partner naast uw AOW geen of weinig andere inkomsten hebben u en uw partner niet te veel vermogen hebben",
+  },
   sleutelpasSchuld: {
     titel: "Leiden, Beleidsregels Sleutelpas 2026, art. 2.3",
     url: "https://zoek.officielebekendmakingen.nl/gmb-2025-429670.html",

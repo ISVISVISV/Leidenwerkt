@@ -4,7 +4,7 @@ Twee gratis, open rekenhulpen voor inwoners van Leiden. **[isvisvisv.github.io/R
 
 | Rekenhulp | Vraag | Voor wie | Adres |
 | --- | --- | --- | --- |
-| **Leidengeldwijzer** | Welke regelingen kunt u krijgen? Bijvoorbeeld de Sleutelpas, de toeslagen en de bijstand. | Inwoners van Leiden van 18 jaar tot de AOW-leeftijd | [/leidengeldwijzer](https://isvisvisv.github.io/Rekenhulp/leidengeldwijzer/) (proefversie) |
+| **Leidengeldwijzer** | Welke regelingen kunt u krijgen? Bijvoorbeeld de Sleutelpas, de toeslagen en de bijstand. | Inwoners van Leiden van 18 jaar of ouder | [/leidengeldwijzer](https://isvisvisv.github.io/Rekenhulp/leidengeldwijzer/) (proefversie) |
 | **Leidenwerkt** | Hoeveel houdt u per maand meer of minder over als u (meer) gaat werken? | Inwoners van Leiden met bijstand | [/leidenwerkt](https://isvisvisv.github.io/Rekenhulp/leidenwerkt/) |
 
 Voor beide geldt:
