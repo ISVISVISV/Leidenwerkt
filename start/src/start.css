@@ -83,29 +83,7 @@ body {
   display: block;
 }
 
-/* De wieken van molen De Valk draaien langzaam. Het water golft zacht. Niet bij "minder beweging". */
-.wieken {
-  /* Draai om de as van de molen: het midden van de wieken. */
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: draai 40s linear infinite;
-}
-
-.water {
-  animation: golf 6s ease-in-out infinite alternate;
-}
-
-@keyframes draai {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes golf {
-  to {
-    transform: translateX(60px);
-  }
-}
+/* De molen en het water bewegen: zie packages/ui/src/stijl.css (.wieken, .water). Ook in de tools. */
 
 /* De kaarten verschijnen zacht bij het laden, de tweede iets later. */
 .keuzes li {
@@ -124,8 +102,6 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wieken,
-  .water,
   .keuzes li {
     animation: none;
   }

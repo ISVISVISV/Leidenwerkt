@@ -12,8 +12,8 @@
   --icoon-rijk-vlak: #e2eef6;
   --icoon-svb: #1d6b52;
   --icoon-svb-vlak: #dff1e9;
-  --icoon-uwv: #8a4b08;
-  --icoon-uwv-vlak: #f8ecdd;
+  --icoon-uwv: #2a6a99;
+  --icoon-uwv-vlak: #e3eef7;
   --icoon-hulp: #4a3a7a;
   --icoon-hulp-vlak: #ece8f5;
   --tegel: #ffffff;
@@ -22,7 +22,7 @@
   --blok-gemeente: #f8e8e8;
   --blok-rijk: #d9e8f3;
   --blok-svb: #e3f2ea;
-  --blok-uwv: #f8eddf;
+  --blok-uwv: #ecf4fa;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,8 +33,8 @@
     --icoon-rijk-vlak: #16303f;
     --icoon-svb: #8fd8bb;
     --icoon-svb-vlak: #13302a;
-    --icoon-uwv: #f3b874;
-    --icoon-uwv-vlak: #3a2a14;
+    --icoon-uwv: #a9d2f2;
+    --icoon-uwv-vlak: #172a38;
     --icoon-hulp: #c7b8f0;
     --icoon-hulp-vlak: #2a2440;
     --pas-vlak: #2a2516;
@@ -43,7 +43,7 @@
     --blok-gemeente: #2c1d21;
     --blok-rijk: #13293a;
     --blok-svb: #142923;
-    --blok-uwv: #2c2418;
+    --blok-uwv: #18252f;
   }
 }
 
@@ -55,8 +55,8 @@
   --icoon-rijk-vlak: #16303f;
   --icoon-svb: #8fd8bb;
   --icoon-svb-vlak: #13302a;
-  --icoon-uwv: #f3b874;
-  --icoon-uwv-vlak: #3a2a14;
+  --icoon-uwv: #a9d2f2;
+  --icoon-uwv-vlak: #172a38;
   --icoon-hulp: #c7b8f0;
   --icoon-hulp-vlak: #2a2440;
   --pas-vlak: #2a2516;
@@ -65,7 +65,7 @@
   --blok-gemeente: #2c1d21;
   --blok-rijk: #13293a;
   --blok-svb: #142923;
-  --blok-uwv: #2c2418;
+  --blok-uwv: #18252f;
 }
 
 /* Het formulier blijft smal (goed te lezen). Het overzicht mag op een groot scherm breed. */
@@ -373,7 +373,7 @@
   color: var(--icoon-uwv);
 }
 
-/* Elke aanbieder een eigen kleur: rood voor de gemeente Leiden, blauw voor Dienst Toeslagen, groen voor de SVB, bruin voor UWV.
+/* Elke aanbieder een eigen kleur: rood voor de gemeente Leiden, blauw voor Dienst Toeslagen, groen voor de SVB, lichter blauw voor UWV.
    Het hele blok krijgt een rustige tint. De tegels erin blijven wit, zodat ze goed opvallen. */
 .blok.gemeente {
   border-top: 4px solid var(--icoon-gemeente);
@@ -821,7 +821,7 @@
   }
 
   .afdruk-blok.uwv h3 {
-    color: #8a4b08;
+    color: #2a6a99;
   }
 
   .afdruk-blok li.op-pas {
