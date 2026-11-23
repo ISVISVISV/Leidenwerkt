@@ -141,8 +141,7 @@ export const PERSONEN: Persoon[] = [
       betaalrekening: "400",
       voertuigen: ["2500"],
     }),
-    verwacht: proef({ zorgtoeslag: 239, kgb: 430, huurtoeslag: 516 }),
-    verwacht: [{ regeling: "sleutelpas", grens: 2504.32, bron: TABEL_130 }],
+    verwacht: [{ regeling: "sleutelpas", grens: 2504.32, bron: TABEL_130 }, ...proef({ zorgtoeslag: 239, kgb: 430, huurtoeslag: 516 })],
   },
   {
     naam: "Peter en Mieke: Wajong is het grootste inkomen, kamer",
