@@ -39,6 +39,9 @@ Modules:
 ## Leidengeldwijzer (`leidengeldwijzer`) en de rekenkern van de regelingen
 
 - `packages/rekenkern/src/regelingen.ts`, functie `checkRegelingen`: per regeling een uitslag met een kans (ja, misschien, nee, info), een uitleg in gewone taal, een groep (gemeente, SVB, UWV, toeslagen, hulp) en de bronnen. Dezelfde regeldata en dezelfde belastingmodule als Leidenwerkt.
+- Per organisatie een bestand in `packages/rekenkern/src/regelingen/`: `sleutelpas.ts` (Sleutelpas, Kindtegoed, laptop, zwemles, Volwassenenfonds), `gemeente.ts` (de andere Leidse regelingen en de bijstand), `svb.ts` (AIO-aanvulling, kinderbijslag), `uwv.ts` (toeslag van UWV), `toeslagen.ts` (Dienst Toeslagen) en `hulp.ts`. Elke regeling is één functie, met haar voorwaarden, teksten en bronnen bij elkaar. `regelingen.ts` bepaalt alleen de volgorde.
+- `regelingen/context.ts`: wat alle regelingen delen. Het huishouden, het inkomen, de grens (`toets`), de zin over de grens en de bronnen die bij die zin horen (`metGrensBronnen`). `regelingen/basis.ts`: de normen, het vermogen en het bruto inkomen voor de toeslagen.
+- `scripts/vergelijk-regelingen.ts`: legt de uitslagen van 4000 willekeurige huishoudens vast en vergelijkt ze later. Gebruik dit bij het ombouwen van de rekenkern: de uitslagen moeten gelijk blijven.
 - Met de AOW-leeftijd gelden de normen van art. 22 Pw, de AIO-aanvulling van de SVB in plaats van de bijstand, en de belasting voor AOW-gerechtigden (`nettoMetAow`, `brutoJaarMetAow` in `belasting.ts`). Zie BESLUITEN.md, 19 tot en met 25.
 - `leidengeldwijzer/src/formulier.ts`: het formulier, de controle en de vertaling naar de invoer van de rekenkern. `Overzicht.tsx`: het overzicht in tegels en de korte afdruk.
 - `scripts/audit-leidengeldwijzer.ts`: vaste en willekeurige verzonnen personen door de echte app, met controles op grenzen, bronnen en teksten.
