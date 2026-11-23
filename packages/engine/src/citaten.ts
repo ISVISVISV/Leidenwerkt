@@ -59,6 +59,18 @@ export const CITATEN = {
     versie: "geraadpleegd op 22 november 2026",
     tekst: "U bent 23 jaar of ouder, maar u hebt nog niet de AOW-leeftijd bereikt.",
   },
+  iitAow: {
+    titel: "Rijksoverheid, Wat is de individuele inkomenstoeslag?",
+    url: "https://www.rijksoverheid.nl/themas/werk/pensioen/vraag-en-antwoord/participatiewet/individuele-inkomenstoeslag",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst: "Bent u AOW-gerechtigd? Dan geldt voor u een hogere bijstandsnorm […] komt u niet in aanmerking voor de individuele inkomenstoeslag.",
+  },
+  sleutelpasSpecificatie: {
+    titel: "Beleidsregels Sleutelpas Leiden 2026, toelichting bij artikel 4.3",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2025-429670.html",
+    versie: "Gemeenteblad 2025, 429670",
+    tekst: "Bij een aantal soorten inkomen kan hiervan afgeweken worden […] is het voldoende om de meest recente maandspecificatie aan te leveren. Dit is het geval bij de volgende inkomenssoorten: […] AIO (Aanvullende Inkomensvoorziening Ouderen)",
+  },
   aioWie: {
     titel: "SVB, Kijk of u een AIO-aanvulling krijgt",
     url: "https://www.svb.nl/nl/aio/kijk-of-u-een-aio-aanvulling-krijgt",

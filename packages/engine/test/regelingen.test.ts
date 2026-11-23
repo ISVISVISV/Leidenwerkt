@@ -415,6 +415,16 @@ describe("AOW-leeftijd", () => {
     expect(uitslag(u, "sleutelpas")!.waarom).toContain("Met een AIO-aanvulling");
     expect(uitslag(u, "aio")).toBeUndefined();
   });
+  it("individuele inkomenstoeslag: ook nee als alleen de partner de AOW-leeftijd heeft (een stel telt als één geheel)", () => {
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 60, inkomen: { loon: 500 } }, partner: aow({ aow: 800 }) })), "iit")!;
+    expect(u.kans).toBe("nee");
+    expect(u.bronnen).toContain(CITATEN.iitAow);
+  });
+  it("Sleutelpas met een AIO-aanvulling: aanvragen met de maandspecificatie", () => {
+    const u = uitslag(checkRegelingen(invoer({ bijstand: true, aanvrager: aow({}) })), "sleutelpas")!;
+    expect(u.waarom).toContain("maandspecificatie");
+    expect(u.bronnen).toContain(CITATEN.sleutelpasSpecificatie);
+  });
   it("individuele inkomenstoeslag: niet met de AOW-leeftijd", () => {
     const u = uitslag(checkRegelingen(invoer({ aanvrager: aow({ aow: 1200 }) })), "iit")!;
     expect(u.kans).toBe("nee");

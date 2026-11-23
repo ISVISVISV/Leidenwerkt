@@ -267,6 +267,15 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
         return { ...basis, kans: "nee", waarom: "Met studiefinanciering kunt u de Sleutelpas niet krijgen. Dat kan wel als u ook voor een kind zorgt." };
       if (invoer.bijstand && !metAow)
         return { ...basis, kans: "ja", waarom: "Met bijstand krijgt u de Sleutelpas vanzelf. U hoeft hem niet aan te vragen." };
+      // De AIO-aanvulling komt van de SVB. Art. 3.1 noemt die niet bij wie de pas vanzelf krijgt. Bij de aanvraag is de
+      // laatste maandspecificatie genoeg (toelichting bij art. 4.3).
+      if (invoer.bijstand && metAow)
+        return {
+          ...basis,
+          kans: "ja",
+          bronnen: [...bronnen, CITATEN.sleutelpasSpecificatie],
+          waarom: `Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. ${waaromInkomen(t)} Vraag de pas aan. Stuur de laatste maandspecificatie van uw AIO-aanvulling mee.`,
+        };
       const kans = bedrijf && t.kans !== "nee" ? "misschien" : t.kans;
       const waarom = `Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. ${waaromInkomen(t)}${bedrijf ? bedrijfZin : ""}`;
       // Art. 2.3 b en c: met een schuldregeling (MSNP) of in de Wsnp heeft iemand geen draagkracht, ook boven 130%.
@@ -407,22 +416,27 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
       };
       if (minLeeftijd.gt(invoer.aanvrager.leeftijd))
         return { ...basis, kans: "nee", waarom: `Deze toeslag is voor mensen van ${minLeeftijd.toString()} jaar of ouder.` };
-      if (aanvragerAow)
-        return { ...basis, kans: "nee", waarom: "Deze toeslag is voor mensen die de AOW-leeftijd nog niet hebben.", bronnen: [CITATEN.iitLeeftijd] };
+      // Een stel telt als één geheel: heeft een van beiden de AOW-leeftijd, dan geldt de hogere norm van art. 22 Pw en geen toeslag.
+      if (metAow)
+        return {
+          ...basis,
+          kans: "nee",
+          waarom: aanvragerAow
+            ? "Deze toeslag is voor mensen die de AOW-leeftijd nog niet hebben."
+            : "Deze toeslag is voor mensen die de AOW-leeftijd nog niet hebben. Uw partner heeft de AOW-leeftijd. Daarom kunt u deze toeslag ook niet krijgen.",
+          bronnen: [CITATEN.iitLeeftijd, CITATEN.iitAow],
+        };
       if (studeert) return { ...basis, kans: "nee", waarom: `Met studiefinanciering in de afgelopen ${jaren} jaar kunt u deze toeslag niet krijgen.` };
       const v = vermogenToets(l, invoer, paar ? "pw.vermogensgrens.gehuwden" : metKinderen ? "pw.vermogensgrens.alleenstaande_ouder" : "pw.vermogensgrens.alleenstaande");
       const t = toets();
       if (t.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw inkomen is hoger dan de bijstand.${grensZin(t.grens, t.kd)}` };
       if (invoer.langLaagInkomen === "nee") return { ...basis, kans: "nee", waarom: `U krijgt deze toeslag alleen als u al ${jaren} jaar of langer een laag inkomen heeft.` };
       if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit zijn meer dan ${heel(v.grens)}.` };
-      const open = invoer.langLaagInkomen !== "ja" || v.kans === "misschien" || t.kans === "misschien" || bedrijf || metAow;
+      const open = invoer.langLaagInkomen !== "ja" || v.kans === "misschien" || t.kans === "misschien" || bedrijf;
       return {
         ...basis,
         kans: open ? "misschien" : "ja",
-        waarom: `Dit is extra geld. U krijgt het als u al ${jaren} jaar of langer een laag inkomen heeft, en geen kans op meer inkomen. ${v.zin}${
-          metAow ? " Uw partner heeft de AOW-leeftijd. Vraag de gemeente of u deze toeslag kunt krijgen." : ""
-        }`,
-        ...(metAow ? { bronnen: [...basis.bronnen, CITATEN.iitLeeftijd] } : {}),
+        waarom: `Dit is extra geld. U krijgt het als u al ${jaren} jaar of langer een laag inkomen heeft, en geen kans op meer inkomen. ${v.zin}`,
       };
     }),
   );

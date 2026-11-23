@@ -153,8 +153,8 @@ export const vraagInkomen = (f: Formulier) => f.bijstand === "nee";
 export const vraagUitkering = (v: InkomenVelden, partner: boolean) => !partner && v.soorten.includes("uwv") && v.soorten.includes("studiefinanciering");
 export const bedragSoorten = (v: InkomenVelden, aow = true): Bedragsoort[] => v.soorten.filter((s): s is Bedragsoort => s !== "geen" && (aow || s !== "aow"));
 const studeert = (f: Formulier) => vraagInkomen(f) && f.inkomen.soorten.includes("studiefinanciering");
-/** Alleen voor de individuele inkomenstoeslag: vanaf 23 jaar en nog niet de AOW-leeftijd. */
-export const vraagLangLaag = (f: Formulier) => (leeftijd(f.geboren) ?? 0) >= 23 && !aowVan(f.geboren) && !studeert(f);
+/** Alleen voor de individuele inkomenstoeslag: vanaf 23 jaar, en de aanvrager en de partner hebben nog niet de AOW-leeftijd. */
+export const vraagLangLaag = (f: Formulier) => (leeftijd(f.geboren) ?? 0) >= 23 && !metAow(f) && !studeert(f);
 export const vraagStudie = studeert;
 export const vraagHuur = (f: Formulier) => f.woont === "huur";
 /** Voor de huurtoeslag: hoeveel andere mensen en hun inkomen. Alleen bij een huurwoning. */
