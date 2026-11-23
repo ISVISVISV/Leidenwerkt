@@ -6,6 +6,16 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ## Nog niet uitgebracht
 
+## 0.6.0 – 23 november 2026
+
+Leidenwerkt 0.6.0 en Leidengeldwijzer 0.2.0.
+
+### Toegevoegd
+
+- Leidengeldwijzer (proefversie): welke regelingen kunt u krijgen in Leiden? Bijvoorbeeld de Sleutelpas, de toeslagen en de bijstand. U vult een paar vragen in en ziet een overzicht in tegels, per gemeente, Dienst Toeslagen en SVB. Het overzicht kunt u afdrukken. Op isvisvisv.github.io/Rekenhulp/leidengeldwijzer/.
+- Startpagina "Rekenhulp voor Leidenaren" op isvisvisv.github.io/Rekenhulp/, met beide rekenhulpen. Bovenaan een rood vlak met een eigen lijntekening van Leiden: molen De Valk, de Koornbrug en de gevel van de Hooglandse Kerk. In de donkere modus is het een avondlucht.
+- Leidengeldwijzer: bij schulden staat de hulp van de Stadsbank Leiden bij wat u waarschijnlijk kunt krijgen. Met een inkomen onder de bijstand en een huurwoning: waarschijnlijk wel bijstand.
+
 ### Gewijzigd
 
 - Leidengeldwijzer werkt nu ook voor mensen met de AOW-leeftijd. De grenzen komen dan uit de normen voor mensen met AOW (art. 22 Participatiewet). In plaats van de bijstand noemt Leidengeldwijzer de AIO-aanvulling van de SVB. Bij de soorten inkomen staat "AOW van de SVB". De toeslagen rekent Leidengeldwijzer voor hen nog niet uit.
