@@ -91,4 +91,6 @@ export interface Uitslag {
   /** Hoe en waar aanvragen. */
   aanvragen?: { tekst: string; url: string };
   bronnen: Citaat[];
+  /** Wat u nodig heeft voor de aanvraag: een korte zin en een lijst. De bron staat in bronnen. Zie meenemen.ts. */
+  meenemen?: { kop: string; lijst: string[] };
 }

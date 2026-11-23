@@ -411,6 +411,24 @@ Kan nu niet worden aangevraagd (13 april tot en met 31 juli). De grens van 120% 
 | Partner na 1971 | Nee, behalve met een kind jonger dan 12 | "U bent getrouwd of woont samen met een partner die is geboren na 31 december 1971. En er wonen geen kinderen bij u die jonger zijn dan 12 jaar." | [UWV, Wanneer recht op toeslag](https://www.uwv.nl/nl/toeslag/wanneer-recht-op-toeslag) |
 | Niet gevraagd | Jonger dan 21 en bij de ouders wonen, vrijwillig verzekerd, Ziektewet via de werkgever, minder loon bij ziekte. Leidengeldwijzer vraagt dit niet. Besluit 24 in docs/BESLUITEN.md zegt waarom | Bewuste keuze | |
 
+#### Wat u nodig heeft voor de aanvraag (toegevoegd op 23 november 2026)
+
+Per regeling een korte lijst, alleen uit de bron van de organisatie die de regeling geeft (geraadpleegd op 23 november 2026). De citaten staan in `packages/rekenkern/src/citaten.ts` (`meenemen…`), de teksten in `packages/rekenkern/src/regelingen/meenemen.ts`. Zie ook besluit 33.
+
+| Regeling | Bron |
+| --- | --- |
+| Sleutelpas | Beleidsregels Sleutelpas 2026, art. 4.3 en toelichting: drie maandspecificaties, of één bij onder meer bijstand, AIO, AOW, WIA en Wajong; ondernemers de aangifte van vorig jaar |
+| Laptop | gemeente.leiden.nl, Hulp bij kosten schoolgaande kinderen: de voucher op de Sleutelpas, via het Goede Buur Spreekuur |
+| Gratis OV-pas | gemeente.leiden.nl, Gratis openbaar vervoer: brief met vouchercode, of DigiD |
+| Individuele inkomenstoeslag, tegemoetkoming alleenverdieners | gemeente.leiden.nl: de documenten bij een aanvraag per post. Online met DigiD |
+| Studietoeslag | gemeente.leiden.nl, Studietoeslag: bewijsstukken |
+| Kinderopvang bij sociale of medische problemen | gemeente.leiden.nl: documenten bij de aanvraag |
+| Kwijtschelding | gemeente.leiden.nl, Kwijtschelding van belastingen: "Meesturen" |
+| Bijstand | gemeente.leiden.nl, Bijstandsaanvraag voorbereiden: "Dit hebt u altijd nodig" |
+| Zorgtoeslag, kindgebonden budget, huurtoeslag, kinderopvangtoeslag | belastingdienst.nl, "Hoe moet ik … aanvragen?": aanvraag voorbereiden |
+
+Geen lijst bij de AIO-aanvulling, de toeslag van UWV, de Gemeentepolis, het Volwassenenfonds, zwemles, bijzondere bijstand en kinderbijslag: de bronnen noemen geen papieren.
+
 #### Nog uitzoeken
 
 - **Huurtoeslag:** vermogensgrens 2027. Op 21 november 2026 nog niet gevonden. Het bericht van Dienst Toeslagen over 2027 noemt alleen zorgtoeslag en kindgebonden budget. Opnieuw kijken in december, samen met de andere bedragen van 2027.

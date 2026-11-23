@@ -533,6 +533,32 @@
   margin: 0.6rem 0 1rem;
 }
 
+.meenemen {
+  margin: 0 0 1.1rem;
+  padding: 0.75rem 0.9rem;
+  border-left: 4px solid var(--inkt-zacht);
+  background: var(--tegel-hover);
+  border-radius: 0 4px 4px 0;
+}
+
+.meenemen h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+}
+
+.meenemen p {
+  margin: 0 0 0.3rem;
+}
+
+.meenemen ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.meenemen li + li {
+  margin-top: 0.2rem;
+}
+
 .uitleg .aanvraag {
   display: inline-block;
   text-decoration: none;
