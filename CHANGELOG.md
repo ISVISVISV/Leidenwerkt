@@ -6,6 +6,15 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ## Nog niet uitgebracht
 
+### Veranderd
+
+- De rekenkern van Leidengeldwijzer is opgedeeld: één bestand per organisatie. De uitslagen zijn gelijk gebleven.
+- De documentatie is teruggebracht van zeventien naar zeven documenten. Een nieuwe controle in `npm test` bewaakt de links, het versienummer en oude namen.
+
+### Gecontroleerd
+
+- Acht personen van Leidengeldwijzer zijn vergeleken met de proefberekening van Dienst Toeslagen. Alle 21 bedragen waren gelijk. De audit controleert ze voortaan bij elke wijziging.
+
 ## 0.7.0 – 23 november 2026
 
 Leidenwerkt 0.7.0 en Leidengeldwijzer 0.3.0.

@@ -59,6 +59,18 @@ const TABEL_120 = {
   url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/hulp-bij-kosten-sport-en-cultuur/",
   datum: "2026-11-21",
 };
+/**
+ * Proefberekening van Dienst Toeslagen, ingevuld op 23 november 2026 met dezelfde gegevens. Als inkomen staat het
+ * toetsingsinkomen dat Leidengeldwijzer zelf schat uit het netto inkomen, per persoon, in hele euro's. Zo toetst dit de
+ * berekening van de toeslagen, niet de schatting van het bruto inkomen. Zie docs/CONTROLE.md, hoofdstuk 4.
+ */
+const PROEF = {
+  titel: "Dienst Toeslagen, proefberekening toeslagen 2026",
+  url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen",
+  datum: "2026-11-23",
+};
+const proef = (bedragen: Record<string, number>): Verwachting[] => Object.entries(bedragen).map(([regeling, bedrag]) => ({ regeling, bedrag, bron: PROEF }));
+
 const TABEL_130 = {
   titel: "Gemeente Leiden, Hulp bij kosten schoolgaande kinderen (tabel 130% van het sociaal minimum)",
   url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/hulp-bij-kosten-schoolgaande-kinderen/",
@@ -93,7 +105,7 @@ export const PERSONEN: Persoon[] = [
       betaalrekening: "300",
       spaarrekening: "800",
     }),
-    verwacht: [{ regeling: "sleutelpas", grens: 1753.04, bron: TABEL_130 }],
+    verwacht: [{ regeling: "sleutelpas", grens: 1753.04, bron: TABEL_130 }, ...proef({ zorgtoeslag: 129, kgb: 990, huurtoeslag: 422 })],
   },
   {
     naam: "Ahmed en Leila: stel met bijstand en twee kinderen",
@@ -129,7 +141,7 @@ export const PERSONEN: Persoon[] = [
       betaalrekening: "400",
       voertuigen: ["2500"],
     }),
-    verwacht: [{ regeling: "sleutelpas", grens: 2504.32, bron: TABEL_130 }],
+    verwacht: [{ regeling: "sleutelpas", grens: 2504.32, bron: TABEL_130 }, ...proef({ zorgtoeslag: 239, kgb: 430, huurtoeslag: 516 })],
   },
   {
     naam: "Peter en Mieke: Wajong is het grootste inkomen, kamer",
@@ -222,6 +234,7 @@ export const PERSONEN: Persoon[] = [
       beleggingen: "4000",
       spullen: "6000",
     }),
+    verwacht: proef({ zorgtoeslag: 129, kgb: 560, huurtoeslag: 335 }),
   },
   {
     naam: "Mila: moeder met loon, twee kinderen naar de opvang",
@@ -230,13 +243,15 @@ export const PERSONEN: Persoon[] = [
       heeftKinderen: "ja",
       kinderen: ["01-03-2023", "01-03-2019"],
       kindInfo: [
-        { ...leegKind, opvang: "ja", soort: "dagopvang", uren: "20", prijs: "10,50" },
-        { ...leegKind, opvang: "ja", soort: "bso", uren: "8", prijs: "" },
+        { ...leegKind, opvang: "ja", soort: "dagopvang", uren: "18", prijs: "10,50" },
+        { ...leegKind, opvang: "ja", soort: "bso", uren: "6", prijs: "" },
       ],
       kinderbijslag: "ja",
       kaleHuur: "800",
       inkomen: inkomen({ loon: "1900" }),
     }),
+    // Uren per week die een heel aantal uren per maand geven (78 en 26): de proefberekening vraagt hele uren.
+    verwacht: proef({ zorgtoeslag: 129, kgb: 714, huurtoeslag: 484, kot: 1035 }),
   },
   {
     naam: "Bram: huisgenoot met inkomen, inkomen onbekend",
@@ -245,6 +260,7 @@ export const PERSONEN: Persoon[] = [
   {
     naam: "Karin: alleenstaand met een kleine WW-uitkering",
     f: formulier({ geboren: "15-04-1980", inkomen: inkomen({ uwv: "1050" }, "ww"), kaleHuur: "700" }),
+    verwacht: proef({ zorgtoeslag: 129, huurtoeslag: 426 }),
   },
   {
     naam: "Riet: alleenstaand met AOW en een klein pensioen",
@@ -252,16 +268,17 @@ export const PERSONEN: Persoon[] = [
     verwacht: [
       { regeling: "gemeentepolis", grens: 1809.57, bron: TABEL_120 },
       { regeling: "volwassenenfonds", grens: 1809.57, bron: TABEL_120 },
+      ...proef({ zorgtoeslag: 129, huurtoeslag: 394 }),
     ],
   },
   {
     naam: "Henk en Truus: stel, allebei met AOW",
     f: formulier({ geboren: "01-06-1950", partner: "ja", partnerGeboren: "15-09-1955", inkomen: inkomen({ aow: "850" }), partnerInkomen: inkomen({ aow: "850" }), kaleHuur: "700" }),
-    verwacht: [{ regeling: "gemeentepolis", grens: 2480.75, bron: TABEL_120 }],
+    verwacht: [{ regeling: "gemeentepolis", grens: 2480.75, bron: TABEL_120 }, ...proef({ zorgtoeslag: 246, huurtoeslag: 428 })],
   },
   {
     naam: "Jan en Anja: Jan heeft AOW, Anja nog niet",
     f: formulier({ geboren: "01-02-1956", partner: "ja", partnerGeboren: "01-02-1970", inkomen: inkomen({ aow: "850" }), partnerInkomen: inkomen({ loon: "600" }), kaleHuur: "700" }),
-    verwacht: [{ regeling: "gemeentepolis", grens: 2480.75, bron: TABEL_120 }],
+    verwacht: [{ regeling: "gemeentepolis", grens: 2480.75, bron: TABEL_120 }, ...proef({ zorgtoeslag: 246, huurtoeslag: 428 })],
   },
 ];

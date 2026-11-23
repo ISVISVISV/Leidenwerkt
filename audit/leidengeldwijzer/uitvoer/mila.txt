@@ -4,7 +4,7 @@
 
 Aanvrager: 34 jaar. Inkomen per maand: loon € 1.900.
 Geen partner.
-Kinderen: 3 jaar (opvang dagopvang, 86.67 uur per maand, € 10,5 per uur), 7 jaar (opvang bso, 34.67 uur per maand, € 9,98 per uur, prijs geschat). Kinderbijslag: ja.
+Kinderen: 3 jaar (opvang dagopvang, 78 uur per maand, € 10,5 per uur), 7 jaar (opvang bso, 26 uur per maand, € 9,98 per uur, prijs geschat). Kinderbijslag: ja.
 Wonen: huur, kale huur € 800. Andere mensen in huis: nee.
 Bijstand: nee. 5 jaar laag inkomen: nee.
 Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleggingen € 0, spullen € 0, schulden € 0.
@@ -22,7 +22,7 @@ ongeveer € 714 per maand
 Huurtoeslag
 ongeveer € 484 per maand
 Kinderopvangtoeslag
-ongeveer € 1.205 per maand
+ongeveer € 1.035 per maand
 Dit kunt u misschien krijgen (2)
 GEMEENTE LEIDEN
 Kinderopvang bij sociale of medische problemen
@@ -77,8 +77,8 @@ Wat u heeft ingevuld
 UW HUISHOUDEN
 Geboren01-03-1992
 Partnernee
-Kind 1geboren 01-03-2023. Kinderdagverblijf, 20 uur per week × € 10,50
-Kind 2geboren 01-03-2019. Buitenschoolse opvang, 8 uur per week, prijs onbekend
+Kind 1geboren 01-03-2023. Kinderdagverblijf, 18 uur per week × € 10,50
+Kind 2geboren 01-03-2019. Buitenschoolse opvang, 6 uur per week, prijs onbekend
 Kinderbijslagja
 Woningin een huurwoning met een eigen voordeur, keuken, wc en douche
 Kale huur€ 800 per maand
@@ -105,7 +105,7 @@ ongeveer € 484 per maand
 Dit is geld voor uw huur. Uw geld en bezit zijn niet meer dan € 38.479.
 
 Kinderopvangtoeslag
-ongeveer € 1.205 per maand
+ongeveer € 1.035 per maand
 Dit is geld voor de kosten van de kinderopvang. U betaalt zelf ook een deel. U weet de prijs per uur niet. Leidengeldwijzer rekent daarom met de hoogste prijs voor de toeslag.
 
 Kinderopvang bij sociale of medische problemen
