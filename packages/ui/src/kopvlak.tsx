@@ -2,7 +2,7 @@
  * Het rode vlak boven aan de tools, in dezelfde stijl als de startpagina.
  * Laag: alleen een balk met de naam en de knop voor licht en donker. Dat is voor de vragen, zodat er weinig afleiding is.
  * Groot: ook een kop, een korte tekst en de lijntekening van Leiden. Dat is voor de eerste pagina en de uitkomst.
- * In de tools staat de tekening stil: de molen draait alleen op de startpagina.
+ * De molen draait en het water golft, net als op de startpagina (stijl.css). Niet bij "minder beweging".
  */
 import type { ReactNode } from "react";
 import { SKYLINE } from "./skyline.ts";

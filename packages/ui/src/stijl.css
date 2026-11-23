@@ -1378,6 +1378,38 @@ input[type="text"].datum {
   height: auto;
 }
 
+/* De wieken van molen De Valk draaien langzaam. Het water golft zacht. Op de startpagina en in de tools.
+   Niet bij "minder beweging" en niet op papier. */
+.wieken {
+  /* Draai om de as van de molen: het midden van de wieken. */
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: draai 40s linear infinite;
+}
+
+.water {
+  animation: golf 6s ease-in-out infinite alternate;
+}
+
+@keyframes draai {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes golf {
+  to {
+    transform: translateX(60px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wieken,
+  .water {
+    animation: none;
+  }
+}
+
 /* De inhoud staat in een witte kaart. Op de eerste pagina en bij de uitkomst valt die over het rode vlak. */
 main.kaart {
   position: relative;

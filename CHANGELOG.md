@@ -8,7 +8,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Veranderd
 
-- Leidengeldwijzer: elk blok op de uitkomst heeft nu de rustige kleur van de organisatie. Rood voor de gemeente Leiden (met de gele Sleutelpas erin), blauw voor Dienst Toeslagen, groen voor de SVB en bruin voor UWV. De tegels erin zijn wit.
+- Leidengeldwijzer: elk blok op de uitkomst heeft nu de rustige kleur van de organisatie. Rood voor de gemeente Leiden (met de gele Sleutelpas erin), blauw voor Dienst Toeslagen, groen voor de SVB en lichter blauw voor UWV. De tegels erin zijn wit.
+- De molen en het water in de tekening bewegen nu ook in Leidenwerkt en Leidengeldwijzer, net als op de startpagina. Niet bij "minder beweging".
 - Leidengeldwijzer: de knop bij bijzondere bijstand gaat nu direct naar de aanvraagpagina van de gemeente Leiden.
 - Onderaan staat nu: "Dat beslist de organisatie die de regeling geeft." Zo klopt het ook voor de Voedselbank, het Jeugdfonds en de Stadsbank.
 - Leidengeldwijzer: bij elke regeling staat nu apart wat het is, en waarom u het waarschijnlijk wel, misschien of waarschijnlijk niet krijgt. Met een eigen bedrijf staat het bedrijf als reden erbij.
