@@ -66,7 +66,7 @@ Eigenaar van de documentatie is Ian Vriend.
 
 ## Status
 
-Leidenwerkt versie 0.7.0, Leidengeldwijzer versie 0.3.0 (proefversie). Leidenwerkt werkt en is getest met verzonnen huishoudens waarvan de uitkomsten zijn vergeleken met officiële rekenhulpen ([docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md)), met elf rondes gebruikerstests ([docs/CONTROLE.md](docs/CONTROLE.md), hoofdstuk 6) en met een automatische audit die bij elke wijziging draait ([audit/README.md](audit/README.md)). Leidengeldwijzer heeft een eigen audit met verzonnen personen, ook met AOW en met een uitkering van UWV ([audit/leidengeldwijzer/README.md](audit/leidengeldwijzer/README.md)). De uitkomsten zijn nog niet nagelopen door een klantmanager of sociaal raadsman. De bedragen voor 2027 komen erin zodra ze gepubliceerd zijn.
+Leidenwerkt versie 0.8.0, Leidengeldwijzer versie 0.4.0 (proefversie). Leidenwerkt werkt en is getest met verzonnen huishoudens waarvan de uitkomsten zijn vergeleken met officiële rekenhulpen ([docs/PROEFPERSONEN.md](docs/PROEFPERSONEN.md)), met elf rondes gebruikerstests ([docs/CONTROLE.md](docs/CONTROLE.md), hoofdstuk 6) en met een automatische audit die bij elke wijziging draait ([audit/README.md](audit/README.md)). Leidengeldwijzer heeft een eigen audit met verzonnen personen, ook met AOW en met een uitkering van UWV ([audit/leidengeldwijzer/README.md](audit/leidengeldwijzer/README.md)). De uitkomsten zijn nog niet nagelopen door een klantmanager of sociaal raadsman. De bedragen voor 2027 komen erin zodra ze gepubliceerd zijn.
 
 Wil je nagaan of de rekenhulp te vertrouwen is? Begin bij [docs/CONTROLE.md](docs/CONTROLE.md): een steekproef in de app, één voorbeeld met de hand nagerekend, en wat wel en niet is gecontroleerd.
 

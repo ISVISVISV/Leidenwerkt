@@ -1,7 +1,7 @@
 {
   "name": "@rekenhulp/leidengeldwijzer",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "license": "EUPL-1.2",
   "type": "module",
   "description": "Leidengeldwijzer: welke regelingen kunt u krijgen in Leiden? Nog niet gepubliceerd.",
