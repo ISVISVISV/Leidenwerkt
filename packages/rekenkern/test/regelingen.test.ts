@@ -183,8 +183,10 @@ describe("studietoeslag en bijstand", () => {
     expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { bedrijf: 500 } } }), "bijstand")).toBe("misschien");
     expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: {} }, vermogen: geld(9000) }), "bijstand")).toBe("nee");
   });
-  it("met schulden staat de hulp van de Stadsbank bij wat u waarschijnlijk kunt krijgen", () => {
-    expect(kans(invoer({ vermogen: geld(0, { schulden: 50000 }) }), "stadsbank")).toBe("ja");
+  it("de Stadsbank staat altijd bij 'Als u het nodig heeft'. Met schulden zegt de tekst dat", () => {
+    const met = uitslag(checkRegelingen(invoer({ vermogen: geld(0, { schulden: 50000 }) })), "stadsbank")!;
+    expect(met.kans).toBe("info");
+    expect(met.waarom).toMatch(/^U heeft schulden\./);
     expect(kans(invoer(), "stadsbank")).toBe("info");
   });
 });
@@ -303,13 +305,20 @@ describe("kwijtschelding, bijzondere bijstand en goed om te weten", () => {
     expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { uwv: 1300 } } }), "kwijtschelding")).toBe("misschien");
     expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { uwv: 1400 } } }), "kwijtschelding")).toBeUndefined();
   });
-  it("bijzondere bijstand: misschien tot 150%, daarboven geen melding", () => {
-    expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 2000 } } }), "bijzondere_bijstand")).toBe("misschien");
+  it("bijzondere bijstand: bij 'Als u het nodig heeft' tot 150%, met twee voorbeelden. Daarboven geen melding", () => {
+    const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 2000 } } })), "bijzondere_bijstand")!;
+    expect([u.kans, u.groep]).toEqual(["info", "hulp"]);
+    expect(u.waarom).toContain("Bijvoorbeeld kosten voor rechtshulp of voor een bewindvoerder.");
     expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 2100 } } }), "bijzondere_bijstand")).toBeUndefined();
   });
   it("goed om te weten staat er altijd, ook bij een hoog inkomen", () => {
     const u = checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { loon: 5000 } } }));
     expect(u.filter((x) => x.kans === "info").map((x) => x.id)).toEqual(["goede_buur", "stadsbank", "voedselbank"]);
+  });
+  it("de Voedselbank noemt de grens voor het huishouden: € 210 plus € 125 per persoon", () => {
+    expect(uitslag(checkRegelingen(invoer()), "voedselbank")!.waarom).toContain("niet meer dan €\u00a0335 per maand overhouden. Dat is de grens voor 1 persoon.");
+    const gezin = uitslag(checkRegelingen(invoer({ partner: { leeftijd: 40, inkomen: {} }, kinderen: [{ leeftijd: 4 }, { leeftijd: 9 }] })), "voedselbank")!;
+    expect(gezin.waarom).toContain("€\u00a0710 per maand overhouden. Dat is de grens voor uw huishouden van 4 personen.");
   });
 });
 
@@ -341,7 +350,7 @@ describe("kinderopvangtoeslag", () => {
     const u = uitslag(checkRegelingen(invoer({ kinderen: [{ leeftijd: 3, opvang }], kinderbijslag: true })), "kot")!;
     expect(u.kans).toBe("ja");
     expect(u.bedrag).toMatch(/^ongeveer €\s\d+ per maand$/);
-    expect(u.waarom).toContain("U betaalt zelf ook een deel.");
+    expect(u.wat).toContain("U betaalt zelf ook een deel.");
   });
   it("zonder werk of studie: waarschijnlijk niet, en de uitzondering (inburgering of traject naar werk) staat erbij", () => {
     const u = uitslag(checkRegelingen(invoer({ aanvrager: { leeftijd: 40, inkomen: { uwv: 1200 } }, kinderen: [{ leeftijd: 3, opvang }] })), "kot")!;
@@ -414,7 +423,7 @@ describe("AOW-leeftijd", () => {
     const aio = uitslag(u, "aio")!;
     expect(aio.kans).toBe("ja");
     expect(aio.groep).toBe("svb");
-    expect(aio.waarom).toContain("AIO-aanvulling");
+    expect(aio.wat).toContain("AIO-aanvulling");
     expect(aio.bronnen).toContain(CITATEN.aioWie);
   });
   it("AIO-aanvulling: boven het sociaal minimum of te veel geld: nee", () => {
@@ -539,5 +548,41 @@ describe("wat u nodig heeft voor de aanvraag", () => {
         expect(zin, u.id).not.toContain(";");
         expect(/[.:]$/.test(zin), zin).toBe(true);
       }
+  });
+});
+
+describe("bij elke uitslag staat waarom", () => {
+  // Willekeurige huishoudens, zoals in scripts/vergelijk-regelingen.ts, maar minder.
+  const voorbeelden: CheckInvoer[] = [
+    invoer({ aanvrager: { leeftijd: 35, inkomen: { bedrijf: 900 } }, kinderen: [{ leeftijd: 6 }, { leeftijd: 13 }], kinderbijslag: true }),
+    invoer({ aanvrager: { leeftijd: 40, inkomen: { bedrijf: 800 } }, partner: { leeftijd: 38, inkomen: { loon: 600 } } }),
+    invoer({ aanvrager: { leeftijd: 19, inkomen: { loon: 600 } } }),
+    invoer({ aanvrager: { leeftijd: 45, inkomen: { loon: 3500 } }, kinderen: [{ leeftijd: 8 }], kinderbijslag: true }),
+    invoer({ aanvrager: { leeftijd: 30, inkomen: { loon: 900 } }, wonen: "instelling" }),
+    invoer({ aanvrager: { leeftijd: 50, inkomen: { uwv: 1000 } }, wonen: "koop" }),
+  ];
+  const alle = voorbeelden.flatMap((i) => checkRegelingen(i));
+
+  it("misschien en waarschijnlijk niet: er staat een reden, geen beschrijving van de regeling", () => {
+    for (const u of alle.filter((x) => x.kans === "misschien" || x.kans === "nee")) {
+      expect(u.waarom.length, u.id).toBeGreaterThan(20);
+      if (u.wat) expect(u.waarom, u.id).not.toContain(u.wat);
+    }
+  });
+
+  it("met een eigen bedrijf staat het bedrijf als reden bij elke Leidse regeling die daardoor misschien is", () => {
+    const zzp = checkRegelingen(voorbeelden[0]);
+    for (const id of ["sleutelpas", "kindtegoed", "laptop", "zwemles", "volwassenenfonds", "gemeentepolis", "ovpas"]) {
+      const u = uitslag(zzp, id)!;
+      expect(u.kans, id).toBe("misschien");
+      expect(u.waarom, id).toContain("U heeft een eigen bedrijf.");
+    }
+  });
+
+  it("'Uw inkomen is niet hoger dan de grens' bij misschien: er staat altijd een tweede reden", () => {
+    for (const u of alle.filter((x) => x.kans === "misschien" && /Uw inkomen is niet hoger dan de grens/.test(x.waarom))) {
+      const rest = u.waarom.replace(/Uw inkomen is niet hoger dan de grens\.( De grens voor uw huishouden is ongeveer € [\d.]+ netto per maand\. Vakantiegeld telt niet mee\.)?/, "").trim();
+      expect(rest.length, `${u.id}: ${u.waarom}`).toBeGreaterThan(20);
+    }
   });
 });

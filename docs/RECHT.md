@@ -431,6 +431,12 @@ Per regeling een korte lijst, alleen uit de bron van de organisatie die de regel
 
 Geen lijst bij de AIO-aanvulling, de toeslag van UWV, de Gemeentepolis, het Volwassenenfonds, zwemles, bijzondere bijstand en kinderbijslag: de bronnen noemen geen papieren.
 
+#### Als u het nodig heeft (24 november 2026)
+
+- **Bijzondere bijstand:** tot 150% van de bijstandsnorm (gemeente.leiden.nl, geldzaken.leiden.nl). Voorbeelden uit de bron: "kosten voor bewindvoering, rechtshulp, kinderopvang, verhuizing of woninginrichting". Geen bedragen in de tekst. Besluit 36.
+- **Voedselbank Leiden:** het geld dat overblijft na de vaste lasten mag niet hoger zijn dan € 210 plus € 125 per persoon in het huishouden (voedselbankleiden.nl, Waaraan moet je voldoen?). Bezit telt niet. Leidengeldwijzer telt u, uw partner en uw kinderen. Andere bewoners: dat bepaalt de Voedselbank. Parameters `leiden.voedselbank.*`.
+- **Stadsbank:** voor iedereen in Leiden, zonder voorwaarden.
+
 #### Nog uitzoeken
 
 - **Huurtoeslag:** vermogensgrens 2027. Op 21 november 2026 nog niet gevonden. Het bericht van Dienst Toeslagen over 2027 noemt alleen zorgtoeslag en kindgebonden budget. Opnieuw kijken in december, samen met de andere bedragen van 2027.

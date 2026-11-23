@@ -32,6 +32,8 @@ const TOEGESTANE_DOMEINEN = [
   "svb.nl",
   "uwv.nl",
   "leiden.nl",
+  // De voorwaarden van de Voedselbank Leiden staan alleen op haar eigen site. De gemeente verwijst ernaar (besluit 36).
+  "voedselbankleiden.nl",
 ];
 
 function officieelDomein(url: string): boolean {

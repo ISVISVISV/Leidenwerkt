@@ -15,6 +15,7 @@ export function aio(c: Context): MogelijkeUitslag {
     id: "aio",
     naam: "AIO-aanvulling",
     groep: "svb" as const,
+    wat: "Heeft u geen volledige AOW? En heeft u weinig ander inkomen? Dan vult de SVB uw inkomen aan. Dit heet de AIO-aanvulling.",
     aanvragen: { tekst: "Meer informatie en aanvragen", url: CITATEN.aioWie.url },
     bronnen: [
       CITATEN.aioWie,
@@ -28,14 +29,13 @@ export function aio(c: Context): MogelijkeUitslag {
   if (t.kans === "nee") return { ...basis, bronnen, kans: "nee", waarom: `Uw inkomen is hoger dan het sociaal minimum voor mensen met AOW.${c.grensZin(t)}` };
   const v = vermogenToets(l, invoer, c.vermogensgrensBijstand);
   if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit zijn meer dan ${heel(v.grens)}. Dan moet u eerst dat geld gebruiken.` };
-  const uitleg = "Heeft u geen volledige AOW? En heeft u weinig ander inkomen? Dan vult de SVB uw inkomen aan. Dit heet de AIO-aanvulling.";
   const zeker = t.grens && !t.boven && v.kans === "ja" && !c.bedrijf && (invoer.wonen === "huur" || invoer.wonen === "kamer");
-  if (zeker) return { ...basis, bronnen, kans: "ja", waarom: `${uitleg} Uw inkomen is lager dan het sociaal minimum.${c.grensZin(t)} ${v.zin}` };
+  if (zeker) return { ...basis, bronnen, kans: "ja", waarom: `Uw inkomen is lager dan het sociaal minimum.${c.grensZin(t)} ${v.zin}` };
   return {
     ...basis,
     bronnen,
     kans: "misschien",
-    waarom: `${uitleg} ${t.grens && !t.boven ? `Uw inkomen is lager dan het sociaal minimum.${c.grensZin(t)}` : c.waaromInkomen(t)} ${v.zin} De SVB kijkt ook naar hoe u woont en wie er bij u wonen.`,
+    waarom: `${t.grens && !t.boven ? `Uw inkomen is lager dan het sociaal minimum.${c.grensZin(t)}` : c.waaromInkomen(t)} ${v.zin} De SVB kijkt ook naar hoe u woont en wie er bij u wonen.`,
   };
 }
 
@@ -51,7 +51,8 @@ export function kinderbijslag(c: Context): MogelijkeUitslag {
     groep: "svb",
     kans: "ja",
     bedrag: `${euro(perKwartaal)} per kwartaal`,
-    waarom: "Kinderbijslag is geld voor uw kinderen tot 18 jaar. Uw inkomen maakt niet uit. U vraagt dit aan bij de Sociale Verzekeringsbank.",
+    wat: "Kinderbijslag is geld voor uw kinderen tot 18 jaar. U vraagt het aan bij de Sociale Verzekeringsbank.",
+    waarom: "U heeft kinderen jonger dan 18 jaar. U krijgt nog geen kinderbijslag. Uw inkomen maakt niet uit.",
     aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.kinderbijslag },
     bronnen: [CITATEN.kinderbijslagWie, ...bron(l, "akw.kwartaal.0_5")],
   };

@@ -28,7 +28,7 @@ export type * from "./regelingen/types.ts";
  * Elke regeling staat in een bestand van de organisatie die haar geeft. Daar staan ook de voorwaarden en de teksten.
  * - regelingen/sleutelpas.ts: de Sleutelpas, het Kindtegoed, de laptop, zwemles en het Volwassenenfonds.
  * - regelingen/gemeente.ts: de andere regelingen van de gemeente Leiden, en de bijstand.
- * - regelingen/hulp.ts: hulp voor iedereen.
+ * - regelingen/hulp.ts: hulp als u het nodig heeft. Bijzondere bijstand staat ook in die groep, maar in gemeente.ts.
  * - regelingen/svb.ts: de AIO-aanvulling en de kinderbijslag.
  * - regelingen/uwv.ts: de toeslag van UWV.
  * - regelingen/toeslagen.ts: de toeslagen van Dienst Toeslagen.
@@ -50,8 +50,8 @@ const REGELINGEN: ((c: Context) => MogelijkeUitslag)[] = [
   studietoeslag,
   smi,
   kwijtschelding,
-  bijzondereBijstand,
   goedeBuur,
+  bijzondereBijstand,
   stadsbank,
   voedselbank,
   aio,

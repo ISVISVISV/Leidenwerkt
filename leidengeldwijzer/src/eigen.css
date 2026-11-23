@@ -529,8 +529,21 @@
   margin: 0.9rem 0 0.2rem;
 }
 
+.uitleg .wat {
+  margin: 0.6rem 0 0;
+}
+
+.uitleg .waarom-kop {
+  margin: 0.9rem 0 0.2rem;
+  font-size: 1rem;
+}
+
 .uitleg .waarom {
   margin: 0.6rem 0 1rem;
+}
+
+.uitleg .waarom-kop + .waarom {
+  margin-top: 0;
 }
 
 .meenemen {

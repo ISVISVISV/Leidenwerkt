@@ -86,7 +86,9 @@ export interface Uitslag {
   kans: Kans;
   /** Wat het oplevert, bijvoorbeeld "€ 1.100 per jaar". */
   bedrag?: string;
-  /** Eén tot drie korte zinnen: waarom deze uitslag. */
+  /** Wat de regeling is, in één of twee korte zinnen. Staat boven de reden. */
+  wat?: string;
+  /** Waarom deze uitslag: waarom waarschijnlijk wel, misschien of waarschijnlijk niet. Bij hulp (kans info): wanneer het helpt. */
   waarom: string;
   /** Hoe en waar aanvragen. */
   aanvragen?: { tekst: string; url: string };

@@ -13,11 +13,13 @@ import { CONTACT, GOEDE_BUUR } from "./contact.ts";
 import { Icoon, Pasje, Sleutels } from "./iconen.tsx";
 
 const GROEPEN: { kans: Kans; kop: string; uitleg: string }[] = [
-  { kans: "ja", kop: "Dit kunt u waarschijnlijk krijgen", uitleg: "Vraag het aan. Daarna beslist de organisatie die de regeling geeft." },
-  { kans: "misschien", kop: "Dit kunt u misschien krijgen", uitleg: "Leidengeldwijzer weet het niet zeker. Bij elke regeling staat waarom." },
-  { kans: "nee", kop: "Dit kunt u waarschijnlijk niet krijgen", uitleg: "Bij elke regeling staat waarom niet." },
+  { kans: "ja", kop: "Dit kunt u waarschijnlijk krijgen", uitleg: "U moet deze regelingen zelf aanvragen. Kies een regeling. Dan ziet u hoe dat gaat." },
+  { kans: "misschien", kop: "Dit kunt u misschien krijgen", uitleg: "Leidengeldwijzer weet het niet zeker. Kies een regeling. Dan ziet u waarom." },
+  { kans: "nee", kop: "Dit kunt u waarschijnlijk niet krijgen", uitleg: "Kies een regeling. Dan ziet u waarom niet." },
 ];
-const HULP = { kop: "Hulp nodig?" };
+const HULP = { kop: "Als u het nodig heeft", uitleg: "Dit hangt af van uw situatie. Kies een onderwerp. Dan ziet u meer." };
+/** De kop boven de reden in het venster. Bij hulp (info) staat er geen kop: daar is de tekst de uitleg. */
+const REDEN: Partial<Record<Kans, string>> = { ja: "Waarom waarschijnlijk wel?", misschien: "Waarom misschien?", nee: "Waarom waarschijnlijk niet?" };
 
 /**
  * De regelingen die u via de Sleutelpas krijgt: Kindtegoed, laptop en zwemles (Beleidsregels Sleutelpas 2026, hoofdstuk 2 en art. 3.2 en 3.3).
@@ -149,6 +151,7 @@ export function Overzicht({ f }: { f: Formulier }) {
           <div className="groep info">
             <div className="groep-kop">
               <h2>{HULP.kop}</h2>
+              <p className="groep-uitleg">{HULP.uitleg}</p>
             </div>
             <div className="groep-inhoud">
               <div className="blok">
@@ -232,6 +235,8 @@ function Uitleg({ u }: { u: Uitslag }) {
   return (
     <div className="uitleg">
       {u.bedrag && <p className="uitleg-bedrag">{u.bedrag}</p>}
+      {u.wat && <p className="wat">{u.wat}</p>}
+      {REDEN[u.kans] && <h3 className="waarom-kop">{REDEN[u.kans]}</h3>}
       <p className="waarom">{u.waarom}</p>
       {u.meenemen && u.kans !== "nee" && (
         <div className="meenemen">

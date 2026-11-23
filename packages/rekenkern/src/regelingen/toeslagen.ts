@@ -33,30 +33,30 @@ export function maakToeslagContext(c: Context): ToeslagContext {
 export function zorgtoeslag(c: Context, z: ToeslagContext): MogelijkeUitslag {
   const { l, invoer, paar } = c;
   const v = vermogenToets(l, invoer, paar ? "zt.vermogen.met_partner" : "zt.vermogen.zonder_partner");
-  const basis = { id: "zorgtoeslag", naam: "Zorgtoeslag", groep: "toeslagen" as const, aanvragen: z.proef, bronnen: bron(l, "zt.vermogen.zonder_partner") };
+  const basis = { id: "zorgtoeslag", naam: "Zorgtoeslag", groep: "toeslagen" as const, wat: "Dit is geld voor de kosten van uw zorgverzekering.", aanvragen: z.proef, bronnen: bron(l, "zt.vermogen.zonder_partner") };
   if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit op 1 januari waren meer dan ${heel(v.grens)}.` };
   if (!z.ti) return { ...basis, kans: "misschien", waarom: z.geenBedrag };
   const bedrag = maandbedragToeslag(zorgtoeslagBerekenen(l, z.ti, paar).div(12));
   if (bedrag.lte(0)) return { ...basis, kans: "nee", waarom: "Met dit inkomen krijgt u waarschijnlijk geen zorgtoeslag." };
-  return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Dit is geld voor de kosten van uw zorgverzekering. ${v.zin}` };
+  return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Leidengeldwijzer heeft de toeslag uitgerekend met uw inkomen. ${v.zin}` };
 }
 
 export function kgb(c: Context, z: ToeslagContext): MogelijkeUitslag {
   const { l, invoer, paar } = c;
   if (!invoer.kinderen.some((k) => k.leeftijd < 18)) return undefined;
   const v = vermogenToets(l, invoer, paar ? "kgb.vermogen.met_partner" : "kgb.vermogen.zonder_partner");
-  const basis = { id: "kgb", naam: "Kindgebonden budget", groep: "toeslagen" as const, aanvragen: z.proef, bronnen: bron(l, "kgb.vermogen.zonder_partner") };
+  const basis = { id: "kgb", naam: "Kindgebonden budget", groep: "toeslagen" as const, wat: "Dit is extra geld voor ouders met kinderen jonger dan 18 jaar.", aanvragen: z.proef, bronnen: bron(l, "kgb.vermogen.zonder_partner") };
   if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit waren meer dan ${heel(v.grens)}.` };
   if (!z.ti) return { ...basis, kans: "misschien", waarom: z.geenBedrag };
   const kinderen: Kind[] = invoer.kinderen.map((k) => ({ leeftijd: k.leeftijd }));
   const bedrag = maandbedragToeslag(kindgebondenBudget(l, z.ti, kinderen, paar).div(12));
   if (bedrag.lte(0)) return { ...basis, kans: "nee", waarom: "Met dit inkomen krijgt u waarschijnlijk geen kindgebonden budget." };
-  return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Dit is extra geld voor ouders met kinderen jonger dan 18 jaar. ${v.zin}` };
+  return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Leidengeldwijzer heeft de toeslag uitgerekend met uw inkomen. ${v.zin}` };
 }
 
 export function huurtoeslag(c: Context, z: ToeslagContext): MogelijkeUitslag {
   const { l, invoer, paar, personen } = c;
-  const basis = { id: "huurtoeslag", naam: "Huurtoeslag", groep: "toeslagen" as const, aanvragen: z.proef, bronnen: [CITATEN.htZelfstandig, ...bron(l, "ht.vermogen.zonder_partner")] };
+  const basis = { id: "huurtoeslag", naam: "Huurtoeslag", groep: "toeslagen" as const, wat: "Dit is geld voor uw huur.", aanvragen: z.proef, bronnen: [CITATEN.htZelfstandig, ...bron(l, "ht.vermogen.zonder_partner")] };
   if (invoer.wonen !== "huur" && invoer.wonen !== "kamer") return undefined;
   if (invoer.wonen === "kamer") return { ...basis, kans: "nee", waarom: "Huurtoeslag is er meestal alleen voor een woning met een eigen voordeur, keuken, wc en douche." };
   const v = vermogenToets(l, invoer, paar ? "ht.vermogen.met_partner" : "ht.vermogen.zonder_partner");
@@ -89,7 +89,7 @@ export function huurtoeslag(c: Context, z: ToeslagContext): MogelijkeUitslag {
   const r = huurtoeslagBerekenen(l, D(invoer.kaleHuurPerMaand), z.ti.plus(inkomenAnderen), personenAantal);
   const bedrag = maandbedragToeslag(r.perMaand);
   if (bedrag.lte(0)) return { ...basis, kans: "nee", waarom: `Met deze huur en dit inkomen krijgt u waarschijnlijk geen huurtoeslag.${anderenZin}` };
-  return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Dit is geld voor uw huur. ${v.zin}${anderenZin}` };
+  return { ...basis, kans: v.kans, bedrag: `ongeveer ${heel(bedrag)} per maand`, waarom: `Leidengeldwijzer heeft de toeslag uitgerekend met uw inkomen. ${v.zin}${anderenZin}` };
 }
 
 /**
@@ -102,7 +102,14 @@ export function kot(c: Context, z: ToeslagContext): MogelijkeUitslag {
   if (opvang.length === 0) return undefined;
   // Werken of studeren: loon, een eigen bedrijf of studiefinanciering. Met een partner moeten het allebei (art. 1.6 lid 3).
   const werkt = (p: CheckPersoon) => heeft(p, "loon") || heeft(p, "bedrijf") || heeft(p, "studiefinanciering");
-  const basis = { id: "kot", naam: "Kinderopvangtoeslag", groep: "toeslagen" as const, aanvragen: z.proef, bronnen: [CITATEN.kotWie] };
+  const basis = {
+    id: "kot",
+    naam: "Kinderopvangtoeslag",
+    groep: "toeslagen" as const,
+    wat: "Dit is geld voor de kosten van de kinderopvang. U betaalt zelf ook een deel.",
+    aanvragen: z.proef,
+    bronnen: [CITATEN.kotWie],
+  };
   const aanvragerWerkt = werkt(invoer.aanvrager);
   const partnerWerkt = !invoer.partner || werkt(invoer.partner);
   if (!aanvragerWerkt || !partnerWerkt) {
@@ -126,6 +133,6 @@ export function kot(c: Context, z: ToeslagContext): MogelijkeUitslag {
     ...basis,
     kans: "ja",
     bedrag: `ongeveer ${heel(bedrag)} per maand`,
-    waarom: `Dit is geld voor de kosten van de kinderopvang. U betaalt zelf ook een deel.${geschat ? " U weet de prijs per uur niet. Leidengeldwijzer rekent daarom met de hoogste prijs voor de toeslag." : ""}`,
+    waarom: `${invoer.partner ? "U en uw partner werken of studeren." : "U werkt of studeert."} Leidengeldwijzer heeft de toeslag uitgerekend met uw inkomen.${geschat ? " U weet de prijs per uur niet. Leidengeldwijzer rekent daarom met de hoogste prijs voor de toeslag." : ""}`,
   };
 }
