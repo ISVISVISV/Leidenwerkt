@@ -219,7 +219,7 @@ Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer 
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
 Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.
 
-Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.6.0.
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.7.0.
 
 ### Wat u heeft ingevuld (afdruk)
 
@@ -452,7 +452,7 @@ Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer 
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
 Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.
 
-Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.6.0.
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.7.0.
 
 ### Wat u heeft ingevuld (afdruk)
 
@@ -689,7 +689,7 @@ Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer 
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
 Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.
 
-Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.6.0.
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.7.0.
 
 ### Wat u heeft ingevuld (afdruk)
 
@@ -922,7 +922,7 @@ Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer 
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
 Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.
 
-Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.6.0.
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.7.0.
 
 ### Wat u heeft ingevuld (afdruk)
 
@@ -1159,7 +1159,7 @@ Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer 
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
 Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.
 
-Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.6.0.
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.7.0.
 
 ### Wat u heeft ingevuld (afdruk)
 
@@ -1390,7 +1390,7 @@ De rekenhulp neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaa
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
 Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.
 
-Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.6.0.
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.7.0.
 
 ### Wat u heeft ingevuld (afdruk)
 
@@ -1619,7 +1619,7 @@ De rekenhulp neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaa
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
 Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.
 
-Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.6.0.
+Berekend met de regels die gelden op 13 november 2026. Leidenwerkt versie 0.7.0.
 
 ### Wat u heeft ingevuld (afdruk)
 

@@ -631,6 +631,10 @@
   }
 }
 
+.opnieuw {
+  margin: 1.5rem 0 0;
+}
+
 /* ---------- Afdruk: kort, op één A4 als het kan ---------- */
 
 .afdruk {
