@@ -6,6 +6,10 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ## Nog niet uitgebracht
 
+## 0.8.0 – 23 november 2026
+
+Leidenwerkt 0.8.0 en Leidengeldwijzer 0.4.0. Leidenwerkt zelf is niet veranderd.
+
 ### Toegevoegd
 
 - Leidengeldwijzer: "Wat heeft u nodig?" in het venster van 13 regelingen. Welke papieren of gegevens u nodig heeft voor de aanvraag, uit de officiële bron.

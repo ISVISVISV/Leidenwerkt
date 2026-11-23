@@ -11,7 +11,7 @@ Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleg
 
 ## Afdruk
 
-Overzicht van 21 november 2026. Leidengeldwijzer versie 0.3.0.
+Overzicht van 21 november 2026. Leidengeldwijzer versie 0.4.0.
 
 Dit kunt u waarschijnlijk krijgen (1)
 DIENST TOESLAGEN
