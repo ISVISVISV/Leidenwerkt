@@ -71,9 +71,18 @@ export function App() {
           </>
         )}
         {stap === 4 && (
-          <h1 ref={kop} tabIndex={-1}>
-            {STAPPEN[3]}
-          </h1>
+          <>
+            <h1 ref={kop} tabIndex={-1}>
+              {STAPPEN[3]}
+            </h1>
+            <p className="kopvlak-tekst">
+              Dit is een schatting. Leidenwerkt gebruikt alleen wat u heeft ingevuld. Leidenwerkt bewaart niets. Wilt u de uitkomst houden? Druk hem
+              dan af. Of sla hem op als pdf.
+            </p>
+            <button type="button" className="tweedeknop" onClick={() => window.print()}>
+              Afdrukken of opslaan als pdf
+            </button>
+          </>
         )}
       </Kopvlak>
 
@@ -146,11 +155,6 @@ export function App() {
               <button type="button" className="tweedeknop" onClick={() => { setFouten({}); naarStap(stap - 1); }}>
                 {stap === 4 ? "Gegevens aanpassen" : "Vorige stap"}
               </button>
-              {stap === 4 && (
-                <button type="button" className="tweedeknop" onClick={() => window.print()}>
-                  Afdrukken
-                </button>
-              )}
               {!wissen ? (
                 <button type="button" className="stilleknop" onClick={() => setWissen(true)}>
                   Opnieuw beginnen

@@ -6,6 +6,10 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ## Nog niet uitgebracht
 
+### Gewijzigd
+
+- Leidenwerkt: in het rode vlak van de uitkomst staat nu een korte tekst en de knop "Afdrukken of opslaan als pdf", zoals bij Leidengeldwijzer.
+
 ### Toegevoegd
 
 - Leidengeldwijzer: de toeslag van UWV (Toeslagenwet). Wie een uitkering van UWV heeft en een inkomen onder het sociaal minimum van UWV, ziet een tegel in een nieuw blok "UWV".
