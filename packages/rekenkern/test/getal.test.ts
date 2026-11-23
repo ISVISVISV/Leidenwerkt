@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { getal } from "../../../app/src/formulier.ts";
+import { getal } from "../../../leidenwerkt/src/formulier.ts";
 
 it("leest Nederlandse en internationale getallen", () => {
   expect(getal("1.200")).toBe(1200);

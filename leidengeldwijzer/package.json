@@ -1,5 +1,5 @@
 {
-  "name": "@leidenwerkt/regelingen",
+  "name": "@rekenhulp/leidengeldwijzer",
   "private": true,
   "version": "0.3.0",
   "license": "EUPL-1.2",
@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@fontsource/open-sans": "^5.3.0",
-    "@leidenwerkt/engine": "*",
-    "@leidenwerkt/ui": "*",
+    "@rekenhulp/rekenkern": "*",
+    "@rekenhulp/ui": "*",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   }

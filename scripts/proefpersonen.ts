@@ -2,7 +2,7 @@
  * Proefpersonen: fictieve huishoudens in testgevallen/*.yaml, met per
  * onderdeel een officiële vergelijkingswaarde (of 'onbekend').
  *
- * Gebruikt door de test (packages/engine/test/proefpersonen.test.ts), door
+ * Gebruikt door de test (packages/rekenkern/test/proefpersonen.test.ts), door
  * docs/PROEFPERSONEN.md (npm run proefpersonen) en door het overzicht bij
  * pull requests (scripts/pr-overzicht.ts).
  */
@@ -10,7 +10,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { parse } from "yaml";
 import { z } from "zod";
-import { bereken, standaardRegels, type Invoer, type RegelSet, type Resultaat } from "../packages/engine/src/index.ts";
+import { bereken, standaardRegels, type Invoer, type RegelSet, type Resultaat } from "../packages/rekenkern/src/index.ts";
 
 export const ONDERDELEN = {
   netto_loon: { post: "loon", label: "Netto loon" },

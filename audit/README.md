@@ -43,7 +43,7 @@ De audit draait ook bij elke wijziging automatisch op GitHub. Het rapport staat 
 
 Een onafhankelijke partij, zoals een klantmanager of de sociaal raadslieden, kan zelf personen toevoegen met bedragen uit een officiële bron. Maak in [extern/](extern/) een bestand `naam.yaml`, zoals [extern/priya.yaml](extern/priya.yaml):
 
-- `formulier`: wat er in de rekenhulp is ingevuld. De namen van de velden staan in `app/src/formulier.ts` (`Formulier`). Bedragen en uren als tekst, zoals in het formulier ("790", "16,50").
+- `formulier`: wat er in de rekenhulp is ingevuld. De namen van de velden staan in `leidenwerkt/src/formulier.ts` (`Formulier`). Bedragen en uren als tekst, zoals in het formulier ("790", "16,50").
 - `verwacht`: per regel in de tabel het bedrag per maand uit de officiële bron. Met `onderdeel` (de naam van de regel, bijvoorbeeld "Huurtoeslag"), `situatie` (`nu` of `met_werk`), `waarde`, eventueel `periode` ("Maand 1 t/m 6") en `tolerantie` in euro's, en de `bron` (titel, adres, datum).
 
 Gebruik alleen verzonnen gegevens. De audit legt de rekenhulp naast elk bedrag en meldt elk verschil.

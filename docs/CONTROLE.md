@@ -23,7 +23,7 @@ Hetzelfde geldt voor de meldingen onder **Goed om te weten** en voor de uitleg a
 
 ## 2. Eén voorbeeld met de hand nagerekend
 
-Een alleenstaande van 40 jaar met een koopwoning en volledige bijstand gaat 16 uur per week werken voor € 900 bruto per maand. Regels zoals ze gelden op 10 november 2026. Een test bewaakt dat de app precies deze bedragen geeft (`packages/engine/test/controle.test.ts`).
+Een alleenstaande van 40 jaar met een koopwoning en volledige bijstand gaat 16 uur per week werken voor € 900 bruto per maand. Regels zoals ze gelden op 10 november 2026. Een test bewaakt dat de app precies deze bedragen geeft (`packages/rekenkern/test/controle.test.ts`).
 
 **Netto loon**
 
@@ -85,13 +85,13 @@ Wat de tests bewijzen:
 
 | Test | Wat het aantoont |
 | --- | --- |
-| `packages/engine/test/officieel.test.ts` | De rekenvoorbeelden uit de brochures van Dienst Toeslagen komen er exact uit |
-| `packages/engine/test/bronnen.test.ts` | Elke geverifieerde parameter heeft een letterlijk citaat uit de bron, en de waarde staat in dat citaat |
+| `packages/rekenkern/test/officieel.test.ts` | De rekenvoorbeelden uit de brochures van Dienst Toeslagen komen er exact uit |
+| `packages/rekenkern/test/bronnen.test.ts` | Elke geverifieerde parameter heeft een letterlijk citaat uit de bron, en de waarde staat in dat citaat |
 | `testgevallen/*.yaml` en [PROEFPERSONEN.md](PROEFPERSONEN.md) | Verzonnen huishoudens, per bedrag vergeleken met een officiële waarde waar die er is, waaronder ingevulde proefberekeningen van Dienst Toeslagen |
-| `packages/engine/test/grenzen.test.ts` | Grenzen en onderdelen met de hand nagerekend: leeftijdsgrenzen, kostendelersnorm bij een paar, belastingschijven, vergoeding kinderopvang, opbouw van de kinderopvangtabel |
-| `packages/engine/test/snapshot.test.ts` | Vastgelegde uitkomsten en uitleg (rekenstappen, meldingen, aannames); elke wijziging valt op |
-| `packages/engine/test/eigenschappen.test.ts` | Bij willekeurige invoer gedraagt de uitkomst zich zoals de wet voorschrijft: geen sprongen, dalend waar het moet |
-| `e2e/rekenhulp.spec.ts` | De app doet wat de rekenkern uitrekent, voldoet aan WCAG 2.2 AA en doet geen verzoeken naar buiten |
+| `packages/rekenkern/test/grenzen.test.ts` | Grenzen en onderdelen met de hand nagerekend: leeftijdsgrenzen, kostendelersnorm bij een paar, belastingschijven, vergoeding kinderopvang, opbouw van de kinderopvangtabel |
+| `packages/rekenkern/test/snapshot.test.ts` | Vastgelegde uitkomsten en uitleg (rekenstappen, meldingen, aannames); elke wijziging valt op |
+| `packages/rekenkern/test/eigenschappen.test.ts` | Bij willekeurige invoer gedraagt de uitkomst zich zoals de wet voorschrijft: geen sprongen, dalend waar het moet |
+| `e2e/leidenwerkt.spec.ts` | De app doet wat de rekenkern uitrekent, voldoet aan WCAG 2.2 AA en doet geen verzoeken naar buiten |
 
 **Deugen de tests zelf?** Op 11 november 2026 is een mutatietest gedaan: 1.031 keer is één ding veranderd in de rekenkern of in een bedrag van 2026 (een vergelijking, een plus of min, een grens, een bedrag) en is gekeken of een test faalde. In 900 gevallen faalde een test, waaronder alle 426 veranderde bedragen op 22 na; veranderde bedragen vangt vooral de bronnencontrole (`bronnen.test.ts`), die eist dat elk bedrag letterlijk in het citaat uit de bron staat. Van de 131 overige veranderde in 85 gevallen niets aan de uitkomst (gelijkwaardige code, of een grens die een euro opschuift), in 42 gevallen alleen een tekst of rekenstap buiten de vastgelegde huishoudens, en in 4 gevallen een bedrag. Voor één daarvan, de leeftijdsgrens van 27 jaar bij een medische urenbeperking, is daarna een test toegevoegd. De andere 3 gaan over invoer die de app niet toelaat: een loon van precies € 0, opvang van 0 uur en een vergoeding van precies € 0. Eerdere metingen: 441 van 1.010 (eerste meting) en 871 van 1.020 (10 november).
 
@@ -102,14 +102,14 @@ Waar je moet kijken:
 | Vraag | Plek |
 | --- | --- |
 | Waar staan de bedragen? | `regels/**/*.yaml`: elke parameter met bron, geldigheid en status, vaak met het letterlijke citaat. De rekenkern leest de bedragen daaruit |
-| Waar staat de berekening? | `packages/engine/src/`, los van de app; elke post levert zijn eigen rekenstappen |
+| Waar staat de berekening? | `packages/rekenkern/src/`, los van de app; elke post levert zijn eigen rekenstappen |
 | Hoe weet ik dat de bronnen nog kloppen? | Een wekelijkse controle vergelijkt de versies van de gebruikte wetten en opent een melding bij een wijziging ([ONDERHOUD.md](ONDERHOUD.md)) |
 | Wat gebeurt er als een bedrag ontbreekt? | De app rekent het onderdeel niet uit en zegt dat, in plaats van te schatten |
 
 ## 4. Hoe het gecontroleerd is, en waar dat ophoudt
 
 - **Bronnen.** Elke parameter is overgenomen uit een officiële bron (wetten.overheid.nl, lokaleregelgeving.overheid.nl, rijksoverheid.nl, belastingdienst.nl, svb.nl, leiden.nl). Parameters met de status `onbevestigd` zijn in de app zichtbaar gemarkeerd.
-- **Officiële rekenhulpen.** De toeslagen zijn vergeleken met de proefberekening van Dienst Toeslagen, met verzonnen gegevens. De bedragen kwamen tot op de euro overeen. Dertien van die proefberekeningen (november 2026: stellen, medebewoners, een kind van 20 met inkomen, kinderopvang) staan als toets in `packages/engine/test/proefberekening.test.ts`.
+- **Officiële rekenhulpen.** De toeslagen zijn vergeleken met de proefberekening van Dienst Toeslagen, met verzonnen gegevens. De bedragen kwamen tot op de euro overeen. Dertien van die proefberekeningen (november 2026: stellen, medebewoners, een kind van 20 met inkomen, kinderopvang) staan als toets in `packages/rekenkern/test/proefberekening.test.ts`.
 - **Tweede narekening.** In november 2026 zijn 22 verzonnen casussen opnieuw nagerekend zonder vooraf de code te lezen. De bijstand kwam in alle casussen overeen; de toeslagen in de zes casussen die bij Dienst Toeslagen zijn nagelopen ook. Beperking: bij die narekening konden de wetteksten zelf niet worden geopend en is deels op niet-officiële overzichten geleund. Het is een bevestiging van de formules, geen tweede controle van elk bedrag.
 - **Nog niet gedaan.** De uitkomsten zijn niet nagelopen door een klantmanager of sociaal raadsman, en de app is niet getest met mensen uit de doelgroep.
 

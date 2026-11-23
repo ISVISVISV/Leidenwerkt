@@ -7,7 +7,7 @@
  *   wat de gebruiker daarna verandert, zoals de rekenhulp dat doet (oude velden blijven staan). De uitkomst moet
  *   gelijk zijn aan die van het formulier zelf.
  */
-import { leegFormulier, nieuwKind, type Formulier, type JaNeeVraag, type KindVeld } from "../app/src/formulier.ts";
+import { leegFormulier, nieuwKind, type Formulier, type JaNeeVraag, type KindVeld } from "../leidenwerkt/src/formulier.ts";
 
 /**
  * De datum waarop de audit rekent. Vast, zodat iedereen die de audit draait precies dezelfde uitkomst krijgt.

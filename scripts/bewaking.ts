@@ -14,7 +14,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse } from "yaml";
-import { ruweParameters, type RuweParameter } from "../packages/engine/src/index.ts";
+import { ruweParameters, type RuweParameter } from "../packages/rekenkern/src/index.ts";
 
 export interface Melding {
   /** Unieke sleutel; staat als markering in het issue zodat er geen dubbele issues komen. */

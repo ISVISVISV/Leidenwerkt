@@ -15,7 +15,7 @@ Invoer (formulier) ──► engine: bereken(invoer) ──► Resultaat (posten
 - `scripts/bouw-regels.ts` controleert het schema (Zod), verplichte bronnen, alleen officiële domeinen, overlappende perioden en sprongen van meer dan 10% zonder notitie. Bij een fout stopt de build.
 - `regels/bewaking.yaml` beschrijft welke wetten, publicaties en Leidse regelingen wekelijks worden nagelopen (`scripts/bewaking.ts`).
 
-## Rekenengine (`packages/engine`)
+## Rekenengine (`packages/rekenkern`)
 
 - Pure functies; dezelfde invoer geeft altijd dezelfde uitkomst.
 - Bedragen met `decimal.js`. Afronden gebeurt bij weergave, behalve waar de uitvoerder dat voorschrijft: toeslagen per maand naar beneden op hele euro's (zie REKENREGELS.md, Afronding).
@@ -36,11 +36,11 @@ Modules:
 | `bereken.ts` | Twee situaties (nu en met werk), verschil, invloed per post, betrouwbaarheid, terugbetaalrisico toeslagen, signalen |
 | `periodes.ts` | Vrijlatingsperioden in gewone taal, per regime |
 
-## Leidengeldwijzer (`regelingen`) en de rekenkern van de regelingen
+## Leidengeldwijzer (`leidengeldwijzer`) en de rekenkern van de regelingen
 
-- `packages/engine/src/regelingen.ts`, functie `checkRegelingen`: per regeling een uitslag met een kans (ja, misschien, nee, info), een uitleg in gewone taal, een groep (gemeente, SVB, UWV, toeslagen, hulp) en de bronnen. Dezelfde regeldata en dezelfde belastingmodule als Leidenwerkt.
+- `packages/rekenkern/src/regelingen.ts`, functie `checkRegelingen`: per regeling een uitslag met een kans (ja, misschien, nee, info), een uitleg in gewone taal, een groep (gemeente, SVB, UWV, toeslagen, hulp) en de bronnen. Dezelfde regeldata en dezelfde belastingmodule als Leidenwerkt.
 - Met de AOW-leeftijd gelden de normen van art. 22 Pw, de AIO-aanvulling van de SVB in plaats van de bijstand, en de belasting voor AOW-gerechtigden (`nettoMetAow`, `brutoJaarMetAow` in `belasting.ts`). Zie BESLUITEN.md, 19 tot en met 25.
-- `regelingen/src/formulier.ts`: het formulier, de controle en de vertaling naar de invoer van de rekenkern. `Overzicht.tsx`: het overzicht in tegels en de korte afdruk.
+- `leidengeldwijzer/src/formulier.ts`: het formulier, de controle en de vertaling naar de invoer van de rekenkern. `Overzicht.tsx`: het overzicht in tegels en de korte afdruk.
 - `scripts/audit-leidengeldwijzer.ts`: vaste en willekeurige verzonnen personen door de echte app, met controles op grenzen, bronnen en teksten.
 
 ## Gedeeld (`packages/ui`) en de startpagina (`start`)
@@ -48,12 +48,12 @@ Modules:
 - `packages/ui`: formuliervelden, bronvermelding, de knop voor licht en donker, het rode vlak bovenaan (`Kopvlak`) met de lijntekening van Leiden, en de huisstijl.
 - `start`: een statische pagina. De lijntekening komt uit `start/scripts/skyline.py`. Dat script schrijft ook `packages/ui/src/skyline.ts`.
 
-## App (`app`)
+## App (`leidenwerkt`)
 
 - React + Vite, eigen componenten, geen state- of CSS-framework.
 - Vier stappen: huishouden, woning, werk, uitkomst. De uitkomst heeft een urenschuif en een keuze tussen "de eerste maanden" en "daarna".
 - Lettertype Open Sans (SIL Open Font License 1.1) zit in de bundel. De CSP verbiedt netwerkverbindingen.
-- Twee builds: statische site (`app/dist`) en één los HTML-bestand (`app/dist-los`).
+- Twee builds: statische site (`leidenwerkt/dist`) en één los HTML-bestand (`leidenwerkt/dist-los`).
 
 ## Kwaliteit
 

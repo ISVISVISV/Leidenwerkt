@@ -13,7 +13,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { parse } from "yaml";
-import { RegelSet, type RuweParameter } from "../packages/engine/src/index.ts";
+import { RegelSet, type RuweParameter } from "../packages/rekenkern/src/index.ts";
 import { draai, laadProefpersonen, samenvatting } from "./proefpersonen.ts";
 
 const wortel = new URL("..", import.meta.url).pathname;
@@ -109,7 +109,7 @@ if (buitenTolerantie.length) {
 
 let engine: string[] = [];
 try {
-  engine = execFileSync("git", ["diff", "--name-only", `${process.env.BASIS_SHA ?? "origin/main"}...HEAD`, "--", "packages/engine/src", "scripts", "regels/schema.ts"], {
+  engine = execFileSync("git", ["diff", "--name-only", `${process.env.BASIS_SHA ?? "origin/main"}...HEAD`, "--", "packages/rekenkern/src", "scripts", "regels/schema.ts"], {
     cwd: wortel,
     encoding: "utf8",
   })

@@ -1,4 +1,4 @@
-import { Lezer, standaardRegels, euro, type Invoer, type Kind, type Leefvorm, type Opvangsoort } from "@leidenwerkt/engine";
+import { Lezer, standaardRegels, euro, type Invoer, type Kind, type Leefvorm, type Opvangsoort } from "@rekenhulp/rekenkern";
 
 /** Hoogste uurprijs waarover kinderopvangtoeslag wordt gegeven, voor de rekendatum. */
 export function maxUurprijs(l: Lezer, soort: Opvangsoort): number {
@@ -18,8 +18,8 @@ export type AllIn = "" | "nee" | "ja" | "onbekend";
 export type Woonsituatie = "huur" | "koop" | "inwonend" | "kostgeld" | "dakloos" | "instelling";
 
 /** Geboortedatum zoals ingevuld, als tekst: dag-maand-jaar, bijvoorbeeld "14-03-1990". */
-export { alleenCijfers, datumInvoer, getal, isoDatum, leeftijdOp, legeDatum, type Geboortedatum } from "@leidenwerkt/ui/invoer";
-import { getal, isoDatum, leeftijdOp, legeDatum, type Geboortedatum } from "@leidenwerkt/ui/invoer";
+export { alleenCijfers, datumInvoer, getal, isoDatum, leeftijdOp, legeDatum, type Geboortedatum } from "@rekenhulp/ui/invoer";
+import { getal, isoDatum, leeftijdOp, legeDatum, type Geboortedatum } from "@rekenhulp/ui/invoer";
 
 export interface KindVeld {
   geboren: Geboortedatum;

@@ -15,7 +15,7 @@ it("weigert bronnen van niet-officiële domeinen en onverklaarde sprongen", () =
   try {
     execFileSync("npx", ["tsx", "scripts/bouw-regels.ts"], {
       cwd: wortel,
-      env: { ...process.env, REGELS_MAP: join(wortel, "packages/engine/test/fixtures/regels-fout"), REGELS_UITVOER: join(mkdtempSync(join(tmpdir(), "lw-")), "r.json") },
+      env: { ...process.env, REGELS_MAP: join(wortel, "packages/rekenkern/test/fixtures/regels-fout"), REGELS_UITVOER: join(mkdtempSync(join(tmpdir(), "lw-")), "r.json") },
       stdio: "pipe",
     });
   } catch (e: any) {

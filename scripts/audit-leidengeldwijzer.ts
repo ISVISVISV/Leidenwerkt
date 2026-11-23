@@ -16,8 +16,8 @@ import { parse } from "yaml";
 import { Controles, bestandsnaam, browserMetPaginas, optie, overlapIn, pagina, rekendatumUit, viteVoor } from "./audit-kern.ts";
 import { PERSONEN, REKENDATUM, formulier, type Persoon, type Verwachting } from "../audit/leidengeldwijzer/personen.ts";
 import { willekeurigePersonen } from "../audit/leidengeldwijzer/willekeurig.ts";
-import type { Formulier } from "../regelingen/src/formulier.ts";
-import type { CheckInvoer } from "../packages/engine/src/index.ts";
+import type { Formulier } from "../leidengeldwijzer/src/formulier.ts";
+import type { CheckInvoer } from "../packages/rekenkern/src/index.ts";
 
 const wortel = join(dirname(fileURLToPath(import.meta.url)), "..");
 const map = join(wortel, "audit", "leidengeldwijzer");
@@ -29,7 +29,7 @@ const zaad = optie("zaad") ?? Date.now() % 100000;
 const OFFICIEEL = ["leiden.nl", "belastingdienst.nl", "rijksoverheid.nl", "overheid.nl", "svb.nl", "uwv.nl"];
 
 async function main() {
-  const vite = await viteVoor(join(wortel, "regelingen"));
+  const vite = await viteVoor(join(wortel, "leidengeldwijzer"));
   const rekendatum = rekendatumUit(REKENDATUM);
   const form = (await vite.ssrLoadModule("/src/formulier.ts")) as {
     zetVandaag: (d: string) => void;
@@ -38,8 +38,8 @@ async function main() {
   };
   form.zetVandaag(rekendatum);
   const { Overzicht } = (await vite.ssrLoadModule("/src/Overzicht.tsx")) as { Overzicht: (p: object) => unknown };
-  const { checkRegelingen } = (await vite.ssrLoadModule("@leidenwerkt/engine")) as { checkRegelingen: (i: CheckInvoer) => { id: string; kans: string }[] };
-  const css = ["packages/ui/src/stijl.css", "regelingen/src/eigen.css"].map((b) => readFileSync(join(wortel, b), "utf8")).join("\n");
+  const { checkRegelingen } = (await vite.ssrLoadModule("@rekenhulp/rekenkern")) as { checkRegelingen: (i: CheckInvoer) => { id: string; kans: string }[] };
+  const css = ["packages/ui/src/stijl.css", "leidengeldwijzer/src/eigen.css"].map((b) => readFileSync(join(wortel, b), "utf8")).join("\n");
   const { browser, scherm, papier } = await browserMetPaginas();
   const c = new Controles();
 

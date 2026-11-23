@@ -73,6 +73,6 @@ Nog niet gebruikt, als idee: iemand die in 2027 rekent.
 Naast de test met personages zijn twee andere tests nuttig gebleken (ronde 6):
 
 - **Omwegen.** De tester vult elk scenario twee keer in: één keer meteen goed, en één keer met een omweg (eerst iets anders invullen, dan wijzigen via "Gegevens aanpassen", "Vorige stap", de terugknop van de browser of "Opnieuw beginnen"). Elk verschil in de uitkomst is een fout. Zo vond ronde 6 dat de urenschuif terugsprong en dat oude bedragen bleven staan in een veld met een andere betekenis.
-- **Toeslagen tegen de proefberekening.** De tester neemt het geschatte jaarinkomen over uit "Hoe is dit berekend?" en vult het met dezelfde situatie in bij de proefberekening van Dienst Toeslagen. Zet de uitkomsten daarna als toets in `packages/engine/test/proefberekening.test.ts` (de formules), of met het hele formulier als `verwacht` in de audit (zie audit/README.md). Dat laatste toetst ook de schatting van het inkomen.
+- **Toeslagen tegen de proefberekening.** De tester neemt het geschatte jaarinkomen over uit "Hoe is dit berekend?" en vult het met dezelfde situatie in bij de proefberekening van Dienst Toeslagen. Zet de uitkomsten daarna als toets in `packages/rekenkern/test/proefberekening.test.ts` (de formules), of met het hele formulier als `verwacht` in de audit (zie audit/README.md). Dat laatste toetst ook de schatting van het inkomen.
 
 Doe ook deze tests na grote wijzigingen in de vragen of in de berekening van de toeslagen. Laat de tester ook hier geen voorstellen doen, alleen beschrijven wat er gebeurt.

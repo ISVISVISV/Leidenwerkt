@@ -21,8 +21,8 @@ import { Controles, bestandsnaam, browserMetPaginas, optie, overlapIn, pagina, r
 import { parse } from "yaml";
 import { PERSONEN, REKENDATUM, formulier, kind, type Persoon, type Verwachting } from "../audit/personen.ts";
 import { willekeurigePersonen } from "../audit/willekeurig.ts";
-import type { Formulier } from "../app/src/formulier.ts";
-import { bereken, type Invoer } from "../packages/engine/src/index.ts";
+import type { Formulier } from "../leidenwerkt/src/formulier.ts";
+import { bereken, type Invoer } from "../packages/rekenkern/src/index.ts";
 
 const wortel = join(dirname(fileURLToPath(import.meta.url)), "..");
 // `npm run audit -- --willekeurig 200 --zaad 7`: willekeurige personen in plaats van de vaste.
@@ -58,7 +58,7 @@ function bedrag(t: string): number | null {
 }
 
 async function main() {
-  const vite = await viteVoor(join(wortel, "app"));
+  const vite = await viteVoor(join(wortel, "leidenwerkt"));
   // Vaste rekendatum (audit/personen.ts of --datum JJJJ-MM-DD): dezelfde uitkomst voor iedereen, elke dag.
   const rekendatum = rekendatumUit(REKENDATUM);
   ((await vite.ssrLoadModule("/src/formulier.ts")) as { zetVandaag: (d: string) => void }).zetVandaag(rekendatum);
