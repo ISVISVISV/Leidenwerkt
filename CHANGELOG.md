@@ -8,6 +8,9 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Veranderd
 
+- Leidengeldwijzer: bij de kinderopvangtoeslag staat nu concreet wie niet werkt of studeert. U of uw partner. Dan krijgt u de toeslag meestal niet. De uitzonderingen staan erbij: inburgering, een traject naar werk, of zorg uit de Wet langdurige zorg.
+- Links naar andere websites hebben een klein pijltje ↗. Een schermlezer leest "opent in een nieuw tabblad". Onder de knop om aan te vragen staat de website.
+- Startpagina: nieuwe teksten. "Wat houdt u over als u gaat werken?", en duidelijker over privacy en bronnen. UWV staat nu bij wie er beslist.
 - De documentatie zegt nu eerlijk hoe er wordt gecontroleerd: er is één beheerder en nog geen tweede beoordelaar.
 
 ## 0.8.0 – 23 november 2026

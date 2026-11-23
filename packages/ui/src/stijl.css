@@ -1101,6 +1101,14 @@ details.uitleg summary {
   color: var(--inkt-zacht);
 }
 
+/* Pijltje bij een link die een nieuw tabblad opent. */
+.nieuw-tabblad {
+  display: inline-block;
+  margin-left: 0.25em;
+  font-size: 0.85em;
+  text-decoration: none;
+}
+
 /* Alleen voor schermlezers. */
 .visueel-verborgen {
   position: absolute;

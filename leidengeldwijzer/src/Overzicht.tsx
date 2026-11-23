@@ -7,7 +7,7 @@
  */
 import { useEffect, useRef, useState } from "react";
 import { checkRegelingen, type Kans, type Uitslag } from "@rekenhulp/rekenkern";
-import { Bron } from "@rekenhulp/ui";
+import { Bron, NieuwTabblad, websiteVan } from "@rekenhulp/ui";
 import { ingevuld, naarInvoer, vandaag, type Formulier } from "./formulier.ts";
 import { CONTACT, GOEDE_BUUR } from "./contact.ts";
 import { Icoon, Pasje, Sleutels } from "./iconen.tsx";
@@ -247,9 +247,10 @@ function Uitleg({ u }: { u: Uitslag }) {
       {u.aanvragen && u.kans !== "nee" && (
         <a className="aanvraag hoofdknop" href={u.aanvragen.url} target="_blank" rel="noopener noreferrer">
           {u.aanvragen.tekst}
-          <span className="sr"> (opent in een nieuw venster)</span>
+          <NieuwTabblad />
         </a>
       )}
+      {u.aanvragen && u.kans !== "nee" && websiteVan(u.aanvragen.url) && <p className="aanvraag-website">Op {websiteVan(u.aanvragen.url)}</p>}
       <details className="regeling-bronnen">
         <summary>{u.bronnen.length > 1 ? "Bronnen" : "Bron"}</summary>
         <p className="bron-blok">

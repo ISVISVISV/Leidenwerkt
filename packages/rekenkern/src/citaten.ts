@@ -190,6 +190,13 @@ export const CITATEN = {
     tekst:
       "Geen recht op algemene bijstand heeft degene: […] c. die jonger is dan 27 jaar en uit ’s Rijks kas bekostigd onderwijs kan volgen en: 1°. in verband daarmee aanspraak heeft op studiefinanciering op grond van de Wet studiefinanciering 2000, dan wel 2°. in verband daarmee geen aanspraak heeft op studiefinanciering en dit onderwijs niet volgt;",
   },
+  kotPartner: {
+    titel: "Wet kinderopvang, art. 1.6 lid 3 en lid 8",
+    url: "https://wetten.overheid.nl/BWBR0017017/2026-01-01",
+    versie: "geldend vanaf 1 januari 2026",
+    tekst:
+      "Een ouder met een partner heeft slechts aanspraak op een kinderopvangtoeslag, indien de partner […] Een ouder als bedoeld in het eerste en tweede lid, met een partner, heeft voor een berekeningsjaar aanspraak op een kinderopvangtoeslag, indien de partner een verzekerde is die recht op zorg heeft op grond van artikel 3.2.1, eerste lid, 3.2.1, derde lid, of 3.2.2, van de Wet langdurige zorg […]",
+  },
   kotWie: {
     titel: "Wet kinderopvang, art. 1.6 lid 1",
     url: "https://wetten.overheid.nl/BWBR0017017/2026-01-01",

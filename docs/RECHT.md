@@ -372,6 +372,8 @@ De gemeente noemt op [Hulp bij laag inkomen](https://gemeente.leiden.nl/inwoners
 
 Gevolg voor de app: de vraag naar opvang hoort bij werk, studie, traject naar werk en inburgering. Leidenwerkt rekent alleen met werk. De nieuwe app kan de andere situaties noemen als reden om kinderopvangtoeslag te bekijken.
 
+Leidengeldwijzer (24 november 2026): werkt of studeert iemand niet (geen loon, geen eigen bedrijf, geen studiefinanciering), dan staat de kinderopvangtoeslag bij "waarschijnlijk niet". De tekst noemt wie het is: u, uw partner of allebei. En de uitzonderingen: inburgering of een traject naar werk (art. 1.6 lid 1 en 3), en met een partner ook zorg uit de Wet langdurige zorg (art. 1.6 lid 8). Daar vraagt Leidengeldwijzer niet naar. Besluit 35.
+
 #### Zwemabonnement voor de zomer
 
 Kan nu niet worden aangevraagd (13 april tot en met 31 juli). De grens van 120% van de bijstandsnorm staat al in de regels van Leidenwerkt (Beleidsregels bijzondere bijstand 2022, art. 12). [Gemeente Leiden, zwemabonnement](https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/zwemabonnement-voor-de-zomer/)
