@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "regels": "tsx scripts/bouw-regels.ts",
-    "test": "npm run regels && vitest run && tsx scripts/documenten.ts --check",
+    "test": "npm run regels && vitest run && tsx scripts/documenten.ts --check && tsx scripts/samenhang.ts",
     "typecheck": "npm run regels && tsc -b",
     "dev": "npm run regels && npm run dev -w leidenwerkt",
     "build": "npm run regels && npm run build -w leidenwerkt",

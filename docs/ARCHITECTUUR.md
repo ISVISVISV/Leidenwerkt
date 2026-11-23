@@ -18,7 +18,7 @@ Invoer (formulier) ──► engine: bereken(invoer) ──► Resultaat (posten
 ## Rekenengine (`packages/rekenkern`)
 
 - Pure functies; dezelfde invoer geeft altijd dezelfde uitkomst.
-- Bedragen met `decimal.js`. Afronden gebeurt bij weergave, behalve waar de uitvoerder dat voorschrijft: toeslagen per maand naar beneden op hele euro's (zie REKENREGELS.md, Afronding).
+- Bedragen met `decimal.js`. Afronden gebeurt bij weergave, behalve waar de uitvoerder dat voorschrijft: toeslagen per maand naar beneden op hele euro's (zie RECHT.md, deel 1, Afronding).
 - `Lezer` haalt parameters op voor de rekendatum en legt vast welke gebruikt zijn. Elke post in de uitkomst draagt zijn eigen stappen, gebruikte parameters, aannames en status.
 - Ontbreekt een parameter (status `ontbrekend` of geen regel voor de datum), dan wordt die post niet berekend. Zulke posten vallen in beide situaties buiten het verschil en worden apart genoemd.
 - Elke post heeft een `invloed` (ja, nee, onbekend) en een `richting` (daalt of stijgt als het inkomen uit werk stijgt). Daarmee zegt de uitkomst hoe betrouwbaar het kopgetal is en welke kant een fout op gaat (`betrouwbaarheid`), bijvoorbeeld "te gunstig" als de huurtoeslag ontbreekt.
@@ -60,11 +60,11 @@ Modules:
 
 ## Kwaliteit
 
-- `npm test`: regeldata, unit-, grens- en eigenschapstests (fast-check), rekenvoorbeelden van Dienst Toeslagen (`officieel.test.ts`), regimes en overgangsrecht, snapshots 2026 (`snapshot.test.ts`, verklaard in SNAPSHOTS.md), proefpersonen (`testgevallen/`), en controle dat de gegenereerde documentatie bijgewerkt is.
-- `npm run docs`: genereert `docs/PROEFPERSONEN.md` en de statustabel in `docs/REKENREGELS.md`.
+- `npm test`: regeldata, unit-, grens- en eigenschapstests (fast-check), rekenvoorbeelden van Dienst Toeslagen (`officieel.test.ts`), regimes en overgangsrecht, snapshots 2026 (`snapshot.test.ts`, verklaard in CONTROLE.md, hoofdstuk 8), proefpersonen (`testgevallen/`), en controle dat de gegenereerde documentatie bijgewerkt is.
+- `npm run docs`: genereert `docs/PROEFPERSONEN.md` en de statustabel in `docs/RECHT.md`.
 - Bij een pull request plaatst de CI een overzicht van gewijzigde parameters en het effect op de proefpersonen (`scripts/pr-overzicht.ts`).
 - Elke week zoekt `.github/workflows/bewaking.yml` naar nieuwe versies en publicaties en opent issues (`scripts/bewaking.ts`).
 - `npm run test:e2e`: Playwright op een mobiel scherm, axe-toegankelijkheidscontrole per stap, en controle dat er geen extern netwerkverzoek is.
 - CI draait beide bij elke wijziging; bij een push naar `main` wordt de site op GitHub Pages gezet.
 
-Besluiten staan in [adr/](adr/). Wat nog op de lijst staat, staat in [PLANNING.md](PLANNING.md).
+Besluiten staan in [BESLUITEN.md](BESLUITEN.md). Wat nog op de lijst staat, staat in [PLANNING.md](PLANNING.md).

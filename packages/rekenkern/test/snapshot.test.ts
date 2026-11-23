@@ -1,6 +1,6 @@
 /**
  * Snapshots van de uitkomsten voor 2026. Verandert een snapshot, dan moet
- * de wijziging verklaard zijn in docs/SNAPSHOTS.md (met de reden).
+ * de wijziging verklaard zijn in docs/CONTROLE.md, hoofdstuk 8 (met de reden).
  * Bijwerken: npx vitest run -u, daarna het verschil nalopen.
  */
 import { describe, expect, it } from "vitest";
@@ -18,7 +18,7 @@ describe("snapshots 2026", () => {
 /**
  * De uitleg bij de uitkomst: rekenstappen, meldingen en aannames. Een
  * gewijzigde tekst of een gewijzigd tussenbedrag wordt hier zichtbaar.
- * Tekstwijzigingen hoeven niet in docs/SNAPSHOTS.md; gewijzigde bedragen wel.
+ * Tekstwijzigingen hoeven niet in docs/CONTROLE.md; gewijzigde bedragen wel.
  */
 describe("snapshots van de uitleg", () => {
   for (const [naam, invoer] of Object.entries({ ...huishoudens, ...extraVoorUitleg })) {

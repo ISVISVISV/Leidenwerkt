@@ -1,6 +1,6 @@
 /**
  * Rekenkern van de tweede app: welke regelingen iemand in Leiden kan krijgen (src/regelingen.ts).
- * De voorwaarden staan in docs/recht/VOORWAARDEN.md.
+ * De voorwaarden staan in docs/RECHT.md (deel 2).
  */
 import { describe, expect, it } from "vitest";
 import { bijstandsnorm } from "../src/modules/bijstand.js";

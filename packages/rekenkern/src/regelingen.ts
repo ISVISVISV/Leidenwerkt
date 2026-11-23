@@ -2,7 +2,7 @@
  * Welke regelingen kan iemand in Leiden krijgen? Rekenkern van Leidengeldwijzer, de tweede app.
  *
  * Elke regeling geeft een uitslag: waarschijnlijk wel ("ja"), misschien, of waarschijnlijk niet ("nee"), met de reden
- * in gewone taal en de letterlijke bron. De voorwaarden staan in docs/recht/VOORWAARDEN.md, de bedragen en grenzen in
+ * in gewone taal en de letterlijke bron. De voorwaarden staan in docs/RECHT.md (deel 2), de bedragen en grenzen in
  * regels/**\/*.yaml.
  *
  * "Misschien" betekent: Leidengeldwijzer weet het niet zeker. Bijvoorbeeld omdat iemand "Weet ik niet" antwoordde, of omdat
