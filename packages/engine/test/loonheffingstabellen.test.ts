@@ -15,6 +15,7 @@ import { describe, expect, it } from "vitest";
 import { Lezer, standaardRegels } from "../src/regels.ts";
 import { D } from "../src/geld.ts";
 import { nettoLoon, progressief, stuksgewijs, brutoUitNetto } from "../src/modules/belasting.ts";
+import type { Lezer as LezerType } from "../src/regels.ts";
 
 const l = () => new Lezer(standaardRegels, "2026-09-01");
 const MARGE = 0.25;
@@ -59,5 +60,36 @@ describe("Groene maandtabel loonheffing 2026 (uitkeringen): bruto bijstand terug
     const netto = D(loon).minus(tabel).times(12);
     const bruto = brutoUitNetto(l(), netto).div(12);
     expect(Math.abs(Number(bruto.minus(loon)))).toBeLessThanOrEqual(MARGE);
+  });
+});
+
+describe("Groene maandtabel loonheffing 2026, AOW-leeftijd en ouder (geboren in 1946 of later): AOW en pensioen", () => {
+  // Bron: dezelfde groene maandtabel, kolommen "AOW-leeftijd en ouder / Geboren in 1946 of later".
+  // [tabelloon, zonder loonheffingskorting, met korting excl. alleenstaandeouderenkorting, met korting incl. alleenstaandeouderenkorting]
+  // Geraadpleegd op 23 november 2026. Zonder de bijdrage Zvw: die staat niet in de tabel.
+  const aow: [number, number, number, number][] = [
+    [1503, 268.25, 0, 0],
+    [1660.5, 296.33, 0, 0],
+    [1764, 314.83, 12.92, 0],
+    [1836, 327.67, 25.75, 0],
+    [2002.5, 357.42, 55.5, 10.5],
+    [2502, 446.58, 145.42, 100.42],
+    [3001.5, 535.75, 250.5, 205.5],
+  ];
+  const heffing = (lz: LezerType, jaar: ReturnType<typeof D>, korting: "geen" | "zonder_ao" | "met_ao") => {
+    const bruto = progressief(lz.schijven("ib.box1.schijven.aow"), jaar);
+    if (korting === "geen") return bruto;
+    const k = stuksgewijs(lz.schijven("ib.ahk.aow"), jaar)
+      .plus(stuksgewijs(lz.schijven("ib.ouderenkorting"), jaar))
+      .plus(korting === "met_ao" ? lz.bedrag("ib.alleenstaande_ouderenkorting") : D(0));
+    const h = bruto.minus(k);
+    return h.lt(0) ? D(0) : h;
+  };
+  it.each(aow)("tabelloon € %d: inhouding gelijk aan de drie kolommen voor de AOW-leeftijd", (loon, zonder, metExcl, metIncl) => {
+    const jaar = D(loon).times(12);
+    const lz = l();
+    expect(Math.abs(Number(heffing(lz, jaar, "geen").div(12).minus(zonder)))).toBeLessThanOrEqual(MARGE);
+    expect(Math.abs(Number(heffing(lz, jaar, "zonder_ao").div(12).minus(metExcl)))).toBeLessThanOrEqual(MARGE);
+    expect(Math.abs(Number(heffing(lz, jaar, "met_ao").div(12).minus(metIncl)))).toBeLessThanOrEqual(MARGE);
   });
 });

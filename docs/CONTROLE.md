@@ -19,7 +19,7 @@ Elk bedrag in de uitkomst is terug te volgen tot de letterlijke tekst van de bro
 3. Je ziet de rekenstappen met tussenbedragen. Onder **Gebruikte regels** staat elke parameter met zijn waarde en zijn bron.
 4. Klik op een bron. Je ziet de letterlijke tekst uit de wet of de publicatie, met een link naar de officiële pagina.
 
-Hetzelfde geldt voor de meldingen onder **Goed om te weten** en voor de uitleg achter de i-knopjes: bij elke bewering over een regel staat de bron.
+Hetzelfde geldt voor de meldingen onder **Goed om te weten** en voor de uitleg achter "Meer uitleg": bij elke bewering over een regel staat de bron.
 
 ## 2. Eén voorbeeld met de hand nagerekend
 

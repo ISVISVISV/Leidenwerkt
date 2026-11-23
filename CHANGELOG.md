@@ -9,6 +9,9 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 ### Gewijzigd
 
 - Leidenwerkt: in het rode vlak van de uitkomst staat nu een korte tekst en de knop "Afdrukken of opslaan als pdf", zoals bij Leidengeldwijzer.
+- Leidengeldwijzer: op de telefoon is er minder ruimte rond de kaarten in het overzicht. Zo blijven de tegels breed genoeg.
+- Leidengeldwijzer: op de afdruk staat "AOW van de SVB" weer met hoofdletters.
+- De belasting voor mensen met de AOW-leeftijd is getoetst aan de groene maandtabel loonheffing 2026.
 
 ### Toegevoegd
 

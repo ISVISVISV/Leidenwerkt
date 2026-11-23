@@ -611,7 +611,23 @@
   }
 
   .pasje {
-    width: 4.5rem;
+    width: 3.5rem;
+  }
+
+  /* Op een smal scherm minder ruimte rond de kaarten, zodat de tegels breed genoeg blijven. */
+  .groep.ja > .groep-kop,
+  .groep.info > .groep-kop {
+    padding: 0.9rem 0.75rem 0.25rem;
+  }
+
+  .groep.ja > .groep-inhoud,
+  .groep.info > .groep-inhoud {
+    padding: 0 0.5rem 0.75rem;
+  }
+
+  .groep.misschien,
+  .groep.nee {
+    padding: 0.9rem 0.5rem;
   }
 }
 

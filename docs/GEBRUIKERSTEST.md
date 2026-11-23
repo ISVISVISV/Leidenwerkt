@@ -24,7 +24,7 @@ Vervang [personen] door de zes gekozen personen, elk met leeftijd, huishouden, w
 >
 > **Doel.** Vind plekken waar een gewone gebruiker vastloopt, iets verkeerd begrijpt, of twee dingen ziet die elkaar tegenspreken. Je hoeft bedragen niet zelf na te rekenen, maar meld het wel als een bedrag niet te geloven is of als twee bedragen of teksten elkaar tegenspreken.
 >
-> **Werkwijze.** Gebruik alleen de rekenhulp zelf, zoals een bezoeker: geen broncode, geen documentatie, alleen verzonnen gegevens. Gebruik een venster zo smal als een telefoon (ongeveer 390 pixels) als dat kan. Vul alles met de hand in, niet met een script. Open bij elke vraag het i-knopje. Klik op de uitkomst op de koppen onder "Goed om te weten" en op de links onder "Wat u nu kunt doen".
+> **Werkwijze.** Gebruik alleen de rekenhulp zelf, zoals een bezoeker: geen broncode, geen documentatie, alleen verzonnen gegevens. Gebruik een venster zo smal als een telefoon (ongeveer 390 pixels) als dat kan. Vul alles met de hand in, niet met een script. Open bij elke vraag "Meer uitleg", als die knop er staat. Klik op de uitkomst op de koppen onder "Goed om te weten" en op de links onder "Wat u nu kunt doen".
 >
 > **Personen.** Vul de rekenhulp voor elk volledig in, met hun eigen kennis en woorden: [personen]
 >
@@ -44,7 +44,7 @@ Vervang [personen] door de zes gekozen personen, elk met leeftijd, huishouden, w
 >
 > **Voorstellen.** Hoogstens één zin, en alleen om iets bestaands korter, duidelijker of juister te maken. Weet je geen goed voorstel, schrijf dan "–". Een nieuwe vraag, een nieuw blok of meer tekst op de uitkomst mag je alleen voorstellen bij ernst "blokkeert".
 >
-> **Rapport.** Eén tabel per persoon: Scherm | Vraag of tekst (citaat) | Wat ging mis | Ernst | Voorstel. Ernst is "blokkeert" (je kunt niet verder, of de uitkomst klopt voor deze persoon niet), "verwarrend" (je kunt verder maar twijfelt of begrijpt het verkeerd) of "klein" (storend, maar je begrijpt het). Niets mis? Schrijf "geen opmerkingen"; verzin geen problemen. Sluit af met de vijf ergste punten, de controlevragen bij de herhaalde personen, en eerlijk welke schermen, i-knopjes of uitklapblokken je niet hebt geopend en wat je niet met de hand hebt gedaan.
+> **Rapport.** Eén tabel per persoon: Scherm | Vraag of tekst (citaat) | Wat ging mis | Ernst | Voorstel. Ernst is "blokkeert" (je kunt niet verder, of de uitkomst klopt voor deze persoon niet), "verwarrend" (je kunt verder maar twijfelt of begrijpt het verkeerd) of "klein" (storend, maar je begrijpt het). Niets mis? Schrijf "geen opmerkingen"; verzin geen problemen. Sluit af met de vijf ergste punten, de controlevragen bij de herhaalde personen, en eerlijk welke schermen, knoppen "Meer uitleg" of uitklapblokken je niet hebt geopend en wat je niet met de hand hebt gedaan.
 
 Werk de lijst "Wat je niet meldt" bij als er een nieuwe bewuste keuze bij komt; de redenen staan in [BESLUITEN.md](BESLUITEN.md) of in de pull request.
 
