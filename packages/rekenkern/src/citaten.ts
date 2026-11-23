@@ -326,6 +326,93 @@ export const CITATEN = {
     tekst:
       "Art. 7 lid 1: Voor bijzondere bijstandsverlening komen in ieder geval de volgende kosten in aanmerking, indien zij noodzakelijk zijn op grond van bijzondere omstandigheden en er geen sprake is van een voorliggende voorziening: […] f. de eigen bijdrage in de kosten van formele kinderopvang, wanneer deze kosten noodzakelijk zijn voor werk, scholing of deelname aan een participatietraject. Toelichting: Voor de eigen bijdrage in de kosten van kinderopvang kan bijzondere bijstand worden verleend in die gevallen waarin de kosten van kinderopvang een belemmering vormen voor werk, scholing of voor deelname aan een participatietraject. Onder eigen bijdrage verstaan we hier de werkelijk gemaakte kosten voor formele kinderopvang minus de ontvangen tegemoetkomingen voor de kosten van kinderopvang (kinderopvangtoeslag).",
   },
+
+  // Wat u nodig heeft voor de aanvraag (Leidengeldwijzer, "Wat heeft u nodig?").
+  meenemenSleutelpas: {
+    titel: "Beleidsregels Sleutelpas Leiden 2026, artikel 4.3 en de toelichting",
+    url: "https://zoek.officielebekendmakingen.nl/gmb-2025-429670.html",
+    versie: "Gemeenteblad 2025, 429670",
+    tekst:
+      "Bij de aanvraag moeten de in het aanvraagformulier gevraagde bewijsstukken over inkomen worden meegestuurd. […] Inkomen van ondernemers (inclusief ZZP’ers): Dit wordt getoetst op basis van de volledige aangifte inkomstenbelasting of vennootschapsbelasting onderneming over het voorafgaande jaar. […] Voor het inkomen wordt gekeken naar de drie meest recente maandspecificaties. Bij een aantal soorten inkomen kan hiervan afgeweken worden en is het voldoende om de meest recente maandspecificatie aan te leveren. Dit is het geval bij de volgende inkomenssoorten: Een algemene bijstandsuitkering op grond van de Participatiewet […] AIO (Aanvullende Inkomensvoorziening Ouderen) WIA (Wet werk en inkomen naar arbeidsvermogen) […] Wajong (Wet arbeidsongeschiktheidsverzekering jonggehandicapten) AOW (Algemene Ouderdomswet)",
+  },
+  meenemenLaptop: {
+    titel: "Gemeente Leiden, Hulp bij kosten schoolgaande kinderen: laptop",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/hulp-bij-kosten-schoolgaande-kinderen/",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst: "Heeft uw kind een laptop nodig voor school? Er staat een voucher voor een laptop op de Sleutelpas van uw kind. Met die voucher kunt u een laptop aanvragen bij Incluzio. Ga daarvoor naar het Goede Buur Spreekuur.",
+  },
+  meenemenOv: {
+    titel: "Gemeente Leiden, Gratis openbaar vervoer: aanvragen",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/gratis-openbaar-vervoer/",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst: "Hebt u een brief met een vouchercode ontvangen? Dan vraagt u de OV pas aan via Wij-mobiel. Dit is de snelste manier. […] Hebt u geen brief met een vouchercode ontvangen? Dan kunt u de OV-pas aanvragen met DigiD.",
+  },
+  meenemenIit: {
+    titel: "Gemeente Leiden, Individuele inkomenstoeslag: aanvragen",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/individuele-inkomenstoeslag/",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst:
+      "Vraag online individuele inkomenstoeslag aan. U hebt hiervoor DigiD nodig. […] Wilt of kunt u dit niet online regelen? Stuur dan onderstaande documenten per post op. Ingevuld aanvraagformulier individuele inkomenstoeslag […] Kopieën van afschriften van alle bank- en spaarrekeningen van de afgelopen 2 maanden. […] Kopieën van sollicitatiebrieven of andere bewijzen van sollicitaties. […] Een kopie van het laatste overzicht van salaris, uitkering, pensioen of overige inkomsten. Bent u getrouwd of woont u samen? Stuur dan ook van uw partner deze bewijsstukken op.",
+  },
+  meenemenAlleenverdieners: {
+    titel: "Gemeente Leiden, Tegemoetkoming voor alleenverdieners: aanvragen",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/tegemoetkoming-voor-alleenverdieners/",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst:
+      "Vraag de tegemoetkoming alleenverdieners online aan. U hebt hiervoor DigiD nodig. […] Wilt of kunt u dit niet online regelen? Stuur dan onderstaande documenten per post op. Ingevuld formulier. Kopieën van afschriften van alle bank- en spaarrekeningen van de afgelopen 2 maanden. […] Een kopie van het laatste overzicht van salaris, uitkering, pensioen of overige inkomsten. Stuur ook van uw partner deze bewijsstukken op.",
+  },
+  meenemenStudietoeslag: {
+    titel: "Gemeente Leiden, Studietoeslag: bewijsstukken",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/studietoeslag/",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst:
+      "Stuur een kopie van de volgende bewijsstukken mee met jouw aanvraag: Certificaat of inschrijfbewijs praktijkonderwijs of voortgezet onderwijs (speciaal of regulier). Brief van DUO waarin staat dat u studiefinanciering ontvangt. […] Bij stage: stageovereenkomst waarin staat hoe hoog de stagevergoeding is. Bankpas van de bankrekening waarop je de studietoeslag wil ontvangen. Als je dit hebt: een verklaring van een specialist. […] Vraag online de studietoeslag aan. Je hebt hiervoor DigiD nodig.",
+  },
+  meenemenSmi: {
+    titel: "Gemeente Leiden, Kinderopvang bij sociale of medische problemen: aanvragen",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/zorg-en-onderwijs/kinderopvang/kinderopvang-bij-sociale-of-medische-problemen/",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst:
+      "Voeg ook de volgende documenten toe: Kopieën van alle bewijzen van inkomsten van de laatste maand. Hebt u wisselende inkomsten? Stuur dan kopieën van bewijzen van inkomsten van de laatste 3 maanden mee. […] Bent u zelfstandige? Stuur dan ook kopieën van de jaarstukken en de belastingaangifte van het laatste jaar mee. […] Een schriftelijke verklaring over uw situatie van uw hulpverlener of van een andere begeleider. Hebt u een tijdelijke of permanente indicatie Wet langdurige zorg? Stuur dan een kopie van de indicatie Wet langdurige zorg mee. Stuur een plan van aanpak mee waarin staat hoe u de problemen gaat verminderen of oplossen. Hebt u een partner? Stuur dan ook van uw partner alle gevraagde bewijsstukken mee.",
+  },
+  meenemenKwijtschelding: {
+    titel: "Gemeente Leiden, Kwijtschelding van belastingen: aanvragen",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/hulp-bij-laag-inkomen/kwijtschelding-van-belastingen/",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst:
+      "U kunt kwijtschelding aanvragen via MijnBSGR. U hebt hiervoor DigiD nodig. […] Wilt u kwijtschelding van gemeentelijke belastingen aanvragen? Geef dan de volgende gegevens door: De hoogte van uw inkomen. Het saldo van uw lopende rekening. Het saldo van uw spaarrekening. De hoogte van de premie van uw zorgverzekering. Huur- en zorgtoeslag, als u dat krijgt. Leningen en schulden. Woonkosten, zoals uw hypotheek of huur. Kosten van uw auto.",
+  },
+  meenemenBijstand: {
+    titel: "Gemeente Leiden, Bijstandsaanvraag voorbereiden",
+    url: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/bijstandsuitkering/bijstandsaanvraag-voorbereiden",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst:
+      "Dit hebt u altijd nodig: Een geldig identiteitsbewijs. Gegevens over uw inkomen. Bijvoorbeeld uw loonstrook of een uitkeringsspecificatie. Informatie over uw vermogen. Zoals bankafschriften van de laatste 3 maanden en een overzicht van uw spaargeld. Gegevens over uw woon- en leefsituatie. Bijvoorbeeld uw huurcontract en gegevens van huisgenoten. […] U hebt een DigiD nodig om een online aanvraag te doen.",
+  },
+  meenemenZorgtoeslag: {
+    titel: "Dienst Toeslagen, Hoe moet ik zorgtoeslag aanvragen?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/zorgtoeslag/content/hoe-moet-ik-zorgtoeslag-aanvragen",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst: "Die vraagt u zelf aan met Mijn toeslagen, uw persoonlijke omgeving op onze website. […] Ik heb gegevens over mijn inkomen bij de hand. U moet uw jaarinkomen aan ons opgeven. Hebt u een toeslagpartner? Dan hebt u ook het jaarinkomen van uw partner nodig.",
+  },
+  meenemenKgb: {
+    titel: "Dienst Toeslagen, Hoe moet ik kindgebonden budget aanvragen?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/kindgebonden-budget/content/hoe-moet-ik-kindgebonden-budget-aanvragen",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst: "Vraag kindgebonden budget aan met Mijn toeslagen: uw persoonlijke omgeving op onze website. […] Ik heb gegevens over mijn inkomen bij de hand. U moet uw jaarinkomen aan ons opgeven. Hebt u een toeslagpartner? Dan hebt u ook het jaarinkomen van uw partner nodig.",
+  },
+  meenemenHuurtoeslag: {
+    titel: "Dienst Toeslagen, Hoe moet ik huurtoeslag aanvragen?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/huurtoeslag/content/hoe-moet-ik-huurtoeslag-aanvragen",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst: "Die vraagt u zelf aan met Mijn toeslagen, uw persoonlijke omgeving op onze website. […] De kale huurprijs moet u invullen bij uw aanvraag. Pak daarom uw huurcontract erbij en brieven die u van uw verhuurder hebt gekregen. Ik heb gegevens over mijn inkomen bij de hand. U moet uw jaarinkomen aan ons opgeven. Hebt u een toeslagpartner? Dan hebt u ook het jaarinkomen van uw partner nodig.",
+  },
+  meenemenKot: {
+    titel: "Dienst Toeslagen, Hoe vraag ik kinderopvangtoeslag aan?",
+    url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/kinderopvangtoeslag/content/hoe-moet-ik-kinderopvangtoeslag-aanvragen",
+    versie: "geraadpleegd op 23 november 2026",
+    tekst: "Die vraagt u zelf aan met Mijn toeslagen, uw persoonlijke omgeving op onze website. […] Ik heb het opvangcontract in huis. Of pak bijvoorbeeld een factuur erbij. Het gaat erom dat u deze gegevens weet: naam en adres van de opvang, registratienummer uit het Landelijk Register Kinderopvang (LRK), opvanguren per maand, kosten van de opvang (uurtarief). Ik heb gegevens over mijn inkomen bij de hand. U moet uw jaarinkomen aan ons opgeven. Hebt u een toeslagpartner? Dan hebt u ook het jaarinkomen van uw partner nodig.",
+  },
 } satisfies Record<string, Citaat>;
 
 export type CitaatId = keyof typeof CITATEN;

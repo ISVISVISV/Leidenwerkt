@@ -21,7 +21,7 @@ export const URL = {
   studietoeslag: `${LEIDEN}/studietoeslag`,
   smi: "https://gemeente.leiden.nl/inwoners-en-ondernemers/zorg-en-onderwijs/kinderopvang/kinderopvang-bij-sociale-of-medische-problemen/",
   kinderbijslag: "https://www.svb.nl/nl/kinderbijslag/wat-is-kinderbijslag/wat-is-kinderbijslag",
-  bijstand: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/bijstand/",
+  bijstand: "https://gemeente.leiden.nl/inwoners-en-ondernemers/uitkering-en-inkomen/bijstandsuitkering/bijstand-aanvragen",
   toeslagen: "https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen",
 };
 

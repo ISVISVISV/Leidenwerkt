@@ -227,12 +227,23 @@ function PasTegel({ u, onOpen }: { u: Uitslag; onOpen: () => void }) {
   );
 }
 
-/** Wat er over een regeling te weten is: bedrag, waarom, aanvragen en bronnen. In het venster en op papier. */
+/** Wat er over een regeling te weten is: bedrag, waarom, wat u nodig heeft, aanvragen en bronnen. In het venster en op papier. */
 function Uitleg({ u }: { u: Uitslag }) {
   return (
     <div className="uitleg">
       {u.bedrag && <p className="uitleg-bedrag">{u.bedrag}</p>}
       <p className="waarom">{u.waarom}</p>
+      {u.meenemen && u.kans !== "nee" && (
+        <div className="meenemen">
+          <h3>Wat heeft u nodig?</h3>
+          <p>{u.meenemen.kop}</p>
+          <ul>
+            {u.meenemen.lijst.map((x) => (
+              <li key={x}>{x}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       {u.aanvragen && u.kans !== "nee" && (
         <a className="aanvraag hoofdknop" href={u.aanvragen.url} target="_blank" rel="noopener noreferrer">
           {u.aanvragen.tekst}

@@ -6,6 +6,14 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ## Nog niet uitgebracht
 
+### Toegevoegd
+
+- Leidengeldwijzer: "Wat heeft u nodig?" in het venster van 13 regelingen. Welke papieren of gegevens u nodig heeft voor de aanvraag, uit de officiële bron.
+
+### Opgelost
+
+- Leidengeldwijzer: de link bij Bijstand ging naar een pagina die niet meer bestaat. Hij gaat nu naar "Bijstand aanvragen" van de gemeente Leiden.
+
 ### Veranderd
 
 - De rekenkern van Leidengeldwijzer is opgedeeld: één bestand per organisatie. De uitslagen zijn gelijk gebleven.

@@ -12,6 +12,7 @@
 import { Lezer, standaardRegels, type RegelSet } from "./regels.ts";
 import { probeer, type MogelijkeUitslag } from "./regelingen/basis.ts";
 import { maakContext, type Context } from "./regelingen/context.ts";
+import { metMeenemen } from "./regelingen/meenemen.ts";
 import { bijstand, bijzondereBijstand, alleenverdieners, gemeentepolis, iit, kwijtschelding, ovpas, smi, studietoeslag } from "./regelingen/gemeente.ts";
 import { goedeBuur, stadsbank, voedselbank } from "./regelingen/hulp.ts";
 import { kindtegoed, laptop, sleutelpas, volwassenenfonds, zwemles } from "./regelingen/sleutelpas.ts";
@@ -31,6 +32,7 @@ export type * from "./regelingen/types.ts";
  * - regelingen/svb.ts: de AIO-aanvulling en de kinderbijslag.
  * - regelingen/uwv.ts: de toeslag van UWV.
  * - regelingen/toeslagen.ts: de toeslagen van Dienst Toeslagen.
+ * - regelingen/meenemen.ts: wat u nodig heeft voor de aanvraag, per regeling.
  * Wat alle regelingen delen (het huishouden, het inkomen, de grens) staat in regelingen/context.ts en regelingen/basis.ts.
  */
 
@@ -61,5 +63,8 @@ export function checkRegelingen(invoer: CheckInvoer, regels: RegelSet = standaar
   const c = maakContext(new Lezer(regels, invoer.datum), invoer);
   const z = maakToeslagContext(c);
   const toeslagen = [zorgtoeslag, kgb, huurtoeslag, kinderbijslag, kot].map((r) => (ctx: Context) => r(ctx, z));
-  return [...REGELINGEN, ...toeslagen].map((r) => probeer(() => r(c))).filter((u): u is Uitslag => !!u);
+  return [...REGELINGEN, ...toeslagen]
+    .map((r) => probeer(() => r(c)))
+    .filter((u): u is Uitslag => !!u)
+    .map((u) => metMeenemen(u, c));
 }

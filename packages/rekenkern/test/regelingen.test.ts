@@ -499,3 +499,34 @@ describe("toeslag van UWV (Toeslagenwet)", () => {
     expect(u.waarom).toContain("€ 2.337 bruto per maand voor u samen");
   });
 });
+
+describe("wat u nodig heeft voor de aanvraag", () => {
+  const voorbeelden: CheckInvoer[] = [
+    invoer({ aanvrager: { leeftijd: 35, inkomen: { loon: 900 } }, kinderen: [{ leeftijd: 3, opvang: { soort: "dagopvang", urenPerMaand: 80, uurprijs: 10 } }, { leeftijd: 9 }], kinderbijslag: true }),
+    invoer({ aanvrager: { leeftijd: 40, inkomen: {} }, vermogen: geld(500, { schulden: 2000 }) }),
+    invoer({ aanvrager: { leeftijd: 22, inkomen: { studiefinanciering: 400 } }, studieMedisch: "ja", wonen: "kamer" }),
+    invoer({ aanvrager: { leeftijd: 45, inkomen: { uwv: 1100 } }, partner: { leeftijd: 44, inkomen: {} } }),
+    invoer({ bijstand: true }),
+  ];
+  const alle = voorbeelden.flatMap((i) => checkRegelingen(i));
+
+  it("staat bij een deel van de regelingen, met de bron erbij", () => {
+    const met = alle.filter((u) => u.meenemen);
+    const ids = new Set(met.map((u) => u.id));
+    for (const id of ["sleutelpas", "laptop", "ovpas", "iit", "alleenverdieners", "studietoeslag", "smi", "kwijtschelding", "bijstand", "zorgtoeslag", "kgb", "huurtoeslag", "kot"]) expect(ids.has(id), id).toBe(true);
+    for (const u of met) expect(u.bronnen.some((b) => /aanvra|vraag ik|bewijsstukken|artikel 4\.3|laptop|voorbereiden/i.test(b.titel)), u.id).toBe(true);
+  });
+
+  it("niet bij waarschijnlijk niet, en niet bij de Sleutelpas die u met bijstand vanzelf krijgt", () => {
+    for (const u of alle) if (u.kans === "nee") expect(u.meenemen, u.id).toBeUndefined();
+    expect(uitslag(checkRegelingen(invoer({ bijstand: true })), "sleutelpas")!.meenemen).toBeUndefined();
+  });
+
+  it("korte zinnen in A2: geen puntkomma, een punt aan het eind", () => {
+    for (const u of alle.filter((x) => x.meenemen))
+      for (const zin of [u.meenemen!.kop, ...u.meenemen!.lijst]) {
+        expect(zin, u.id).not.toContain(";");
+        expect(/[.:]$/.test(zin), zin).toBe(true);
+      }
+  });
+});
