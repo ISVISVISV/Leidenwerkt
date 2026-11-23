@@ -24,6 +24,7 @@ export function tw(c: Context): MogelijkeUitslag {
     id: "tw",
     naam: "Toeslag van UWV",
     groep: "uwv" as const,
+    wat: "Is uw bruto inkomen lager dan het sociaal minimum? Dan vult UWV uw uitkering misschien aan. Dit heet een toeslag.",
     aanvragen: { tekst: "Meer informatie en aanvragen", url: CITATEN.twWie.url },
     bronnen: [CITATEN.twWie, ...bron(l, minimumId)],
   };
@@ -46,6 +47,8 @@ export function tw(c: Context): MogelijkeUitslag {
   return {
     ...basis,
     kans: "misschien",
-    waarom: `U krijgt een uitkering van UWV. Is uw bruto inkomen lager dan het sociaal minimum? Dan vult UWV uw uitkering misschien aan. Dit heet een toeslag.${grens} UWV rekent uit of u de toeslag krijgt.`,
+    waarom: brutoMaand
+      ? `U krijgt een uitkering van UWV. Uw bruto inkomen is ongeveer ${heel(brutoMaand)} per maand. Dat is niet meer dan het sociaal minimum.${grens} UWV kijkt naar uw bruto inkomen per dag. Leidengeldwijzer schat het bruto inkomen uit het netto inkomen. Daarom weet Leidengeldwijzer het niet zeker.`
+      : `U krijgt een uitkering van UWV.${grens} Leidengeldwijzer kan uw bruto inkomen niet uitrekenen. UWV rekent uit of u de toeslag krijgt.`,
   };
 }

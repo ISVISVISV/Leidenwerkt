@@ -98,7 +98,9 @@ export function maakContext(l: Lezer, invoer: CheckInvoer) {
 
   /** Met een eigen bedrijf kijkt de gemeente naar de winst. Dat rekent Leidengeldwijzer niet uit: dan misschien. */
   const kansMetBedrijf = (t: Toets): Kans => (bedrijf && t.kans !== "nee" ? "misschien" : t.kans);
-  const bedrijfZin = " Heeft u een eigen bedrijf? Dan kijkt de gemeente naar de winst in uw belastingaangifte.";
+  const bedrijfReden = " U heeft een eigen bedrijf. Dan kijkt de gemeente naar de winst in uw belastingaangifte. Leidengeldwijzer rekent dat niet uit.";
+  /** De reden bij een grens van de gemeente, met het eigen bedrijf als dat de uitslag "misschien" maakt. */
+  const waaromMetBedrijf = (t: Toets, bedrijfTekst = bedrijfReden): string => `${waaromInkomen(t)}${bedrijf && t.kans !== "nee" ? bedrijfTekst : ""}`;
 
   /** De vermogensgrens van de bijstand (art. 34 Pw) voor dit huishouden. */
   const vermogensgrensBijstand = paar ? "pw.vermogensgrens.gehuwden" : metKinderen ? "pw.vermogensgrens.alleenstaande_ouder" : "pw.vermogensgrens.alleenstaande";
@@ -122,7 +124,7 @@ export function maakContext(l: Lezer, invoer: CheckInvoer) {
     waaromInkomen,
     metGrensBronnen,
     kansMetBedrijf,
-    bedrijfZin,
+    waaromMetBedrijf,
     vermogensgrensBijstand,
   };
 }

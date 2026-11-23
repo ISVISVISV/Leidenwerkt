@@ -13,17 +13,12 @@ Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleg
 
 Overzicht van 21 november 2026. Leidengeldwijzer versie 0.4.0.
 
-Dit kunt u waarschijnlijk krijgen (3)
-GEMEENTE LEIDEN
-Hulp bij schulden
+Dit kunt u waarschijnlijk krijgen (2)
 DIENST TOESLAGEN
 Zorgtoeslag
 ongeveer € 129 per maand
 Huurtoeslag
 ongeveer € 465 per maand
-Dit kunt u misschien krijgen (1)
-GEMEENTE LEIDEN
-Bijzondere bijstand
 Dit kunt u waarschijnlijk niet krijgen (6)
 
 Sleutelpas, Sport en cultuur voor volwassenen, Zorgverzekering van de gemeente, Gratis OV-pas, Individuele inkomenstoeslag, Bijstand.
@@ -87,42 +82,58 @@ Schulden€ 18.000
 
 ## Uitleg per regeling (op het scherm, in het venster)
 
-Hulp bij schulden
-U heeft schulden. De Stadsbank Leiden helpt inwoners van Leiden met schulden. Bel 14 071 en kies 1.
-
 Zorgtoeslag
 ongeveer € 129 per maand
-Dit is geld voor de kosten van uw zorgverzekering. Uw geld en bezit zijn niet meer dan € 146.011.
+Dit is geld voor de kosten van uw zorgverzekering.
+Waarom waarschijnlijk wel?
+Leidengeldwijzer heeft de toeslag uitgerekend met uw inkomen. Uw geld en bezit zijn niet meer dan € 146.011.
 
 Huurtoeslag
 ongeveer € 465 per maand
-Dit is geld voor uw huur. Uw geld en bezit zijn niet meer dan € 38.479.
-
-Bijzondere bijstand
-Heeft u kosten die u niet kunt betalen? Bijvoorbeeld voor een verhuizing of rechtshulp. Dan kan de gemeente u misschien helpen. Dit heet bijzondere bijstand. U krijgt dan een vergoeding of een lening. Vraag het aan voordat u de kosten maakt.
+Dit is geld voor uw huur.
+Waarom waarschijnlijk wel?
+Leidengeldwijzer heeft de toeslag uitgerekend met uw inkomen. Uw geld en bezit zijn niet meer dan € 38.479.
 
 Sleutelpas
-Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.753 netto per maand. Vakantiegeld telt niet mee. Heeft u een schuldregeling? Dan kunt u de Sleutelpas misschien toch krijgen.
+Met de Sleutelpas krijgt u korting op sport, cultuur en uitjes.
+Waarom waarschijnlijk niet?
+Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.753 netto per maand. Vakantiegeld telt niet mee. Heeft u een schuldregeling? Dan kunt u de Sleutelpas misschien toch krijgen.
 
 Sport en cultuur voor volwassenen
 tot € 250 per jaar
-Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. U vraagt het aan via een tussenpersoon. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
+Het Volwassenenfonds Sport & Cultuur betaalt een sport of activiteit voor u. U vraagt het aan via een tussenpersoon.
+Waarom waarschijnlijk niet?
+Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
 
 Zorgverzekering van de gemeente
-De Gemeentepolis is de zorgverzekering van de gemeente. Er zit een aanvullende verzekering bij. Nieuwe klanten melden zich aan tussen 12 november en 31 december. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
+De Gemeentepolis is de zorgverzekering van de gemeente. Er zit een aanvullende verzekering bij. Nieuwe klanten melden zich aan tussen 12 november en 31 december.
+Waarom waarschijnlijk niet?
+Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.618 netto per maand. Vakantiegeld telt niet mee.
 
 Gratis OV-pas
-U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt. Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee.
+U reist gratis met de streekbus, buiten de spits. Het aantal passen is beperkt.
+Waarom waarschijnlijk niet?
+Uw inkomen is hoger dan de grens. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee.
 
 Individuele inkomenstoeslag
 € 462, één keer per 12 maanden
+Dit is extra geld voor mensen die al 5 jaar of langer een laag inkomen hebben. En die geen kans hebben op meer inkomen.
+Waarom waarschijnlijk niet?
 Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee.
 
 Bijstand
+Heeft u te weinig inkomen? Dan vult de gemeente uw inkomen aan tot de bijstand.
+Waarom waarschijnlijk niet?
 Uw inkomen is hoger dan de bijstand. De grens voor uw huishouden is ongeveer € 1.348 netto per maand. Vakantiegeld telt niet mee.
 
 Hulp bij uw aanvraag
 Wilt u hulp bij een aanvraag of bij uw geldzaken? Ga dan naar het Goede Buur Spreekuur. U hoeft geen afspraak te maken. De hulp is gratis.
 
+Bijzondere bijstand
+Heeft u kosten die echt nodig zijn? En kunt u die niet betalen? Bijvoorbeeld kosten voor rechtshulp of voor een bewindvoerder. Dan kan de gemeente misschien helpen. Vraag het aan voordat u de kosten maakt.
+
+Hulp bij schulden
+U heeft schulden. De Stadsbank Leiden helpt inwoners van Leiden met schulden. Bel 14 071 en kies 1.
+
 Voedselbank
-Zijn boodschappen te duur? Dan kunt u misschien naar de Voedselbank. De Voedselbank bepaalt zelf de voorwaarden.
+De Voedselbank geeft een pakket met eten als u weinig geld overhoudt. Na het betalen van uw vaste lasten mag u niet meer dan € 335 per maand overhouden. Dat is de grens voor 1 persoon. Vaste lasten zijn bijvoorbeeld huur, energie, water, verzekeringen en aflossingen. De Voedselbank rekent het met u uit.

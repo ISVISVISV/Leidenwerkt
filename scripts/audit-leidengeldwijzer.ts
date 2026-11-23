@@ -26,7 +26,7 @@ const aantalWillekeurig = optie("willekeurig");
 const zaad = optie("zaad") ?? Date.now() % 100000;
 
 /** Officiële sites waar een aanvraaglink naartoe mag wijzen. */
-const OFFICIEEL = ["leiden.nl", "belastingdienst.nl", "rijksoverheid.nl", "overheid.nl", "svb.nl", "uwv.nl"];
+const OFFICIEEL = ["leiden.nl", "belastingdienst.nl", "rijksoverheid.nl", "overheid.nl", "svb.nl", "uwv.nl", "voedselbankleiden.nl"];
 
 async function main() {
   const vite = await viteVoor(join(wortel, "leidengeldwijzer"));
@@ -55,11 +55,13 @@ async function main() {
         groep: ["ja", "misschien", "info", "nee"].find((g) => li.closest(".groep")?.classList.contains(g)) ?? "",
         naam: tekst(li.querySelector(".regeling-naam")),
         bedrag: tekst(li.querySelector(".uitleg-bedrag")),
+        wat: tekst(li.querySelector(".wat")),
+        redenKop: tekst(li.querySelector(".waarom-kop")),
         waarom: tekst(li.querySelector(".waarom")),
         links: [...li.querySelectorAll("a.aanvraag")].map((a) => (a as HTMLAnchorElement).href),
         bronnen: li.querySelectorAll(".bron-knop").length,
       }));
-      const uitleg = kaarten.map((k) => [k.naam, k.bedrag, k.waarom].filter(Boolean).join("\n")).join("\n\n");
+      const uitleg = kaarten.map((k) => [k.naam, k.bedrag, k.wat, k.redenKop, k.waarom].filter(Boolean).join("\n")).join("\n\n");
       return { schermTekst: (document.querySelector("main") as HTMLElement).innerText.trim(), uitleg, kaarten };
     });
     // Papier: de korte afdruk. Elke regeling staat erop met haar naam.

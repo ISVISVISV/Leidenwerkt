@@ -361,3 +361,24 @@ parameters:
       tekst: "Uw inkomen is maximaal 110% van de bijstandsnorm en uw vermogen is niet te hoog. Hebt u een hoger inkomen, tot 150% van de bijstandsnorm? Dan kunt u ook nog in aanmerking komen. Maar u krijgt dan een lagere vergoeding."
       versie: "geraadpleegd op 22 november 2026"
     notitie: Leidengeldwijzer toont bijzondere bijstand als "misschien" tot deze grens. Het is maatwerk. De norm is hier het sociaal minimum zonder kostendelers, net als bij de andere Leidse regelingen.
+  - id: leiden.voedselbank.basis
+    omschrijving: Voedselbank Leiden, normbedrag per maand voor het huishouden (basis). Het geld dat iemand overhoudt na de vaste lasten mag niet hoger zijn dan basis plus het bedrag per persoon.
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "210" }
+    status: geverifieerd
+    bron: &voedselbank
+      titel: Voedselbank Leiden, Waaraan moet je voldoen?
+      url: https://voedselbankleiden.nl/ik-zoek-hulp/waaraan-moet-je-voldoen/
+      geraadpleegd_op: 2026-11-24
+    citaat: &cvoedselbank
+      kop: "Voedselbank Leiden, Waaraan moet je voldoen?"
+      tekst: "Er wordt gekeken naar het besteedbare bedrag per maand, na betaling van vaste lasten. Wij kijken niet naar bezittingen als een auto of een eigen huis. […] Per 1 januari 2026 wordt het normbedrag als volgt berekend: € 210,- (basis) plus € 125,- per persoon in uw huishouden. […] Het gaat hier dus om het bedrag dat overblijft om van te kunnen leven, nadat de vaste kosten zoals huur, energie, gas, water, verzekeringen, aflossing en schulden, zijn betaald."
+      versie: "geraadpleegd op 24 november 2026"
+    notitie: De Voedselbank is geen overheid. Zij beslist zelf over haar voorwaarden. De gemeente verwijst naar deze pagina (geldzaken.leiden.nl, De Voedselbank). Besluit 36.
+  - id: leiden.voedselbank.per_persoon
+    omschrijving: Voedselbank Leiden, normbedrag per maand per persoon in het huishouden
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "125" }
+    status: geverifieerd
+    bron: *voedselbank
+    citaat: *cvoedselbank

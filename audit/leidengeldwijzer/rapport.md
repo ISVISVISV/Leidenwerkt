@@ -8,8 +8,8 @@ Gemaakt met `npm run audit:leidengeldwijzer` met rekendatum 2026-11-21. 23 perso
 | Elke uitslag staat op de pagina | 353 | 0 |
 | Reden en bron bij elke regeling | 330 | 0 |
 | Links naar officiële sites | 266 | 0 |
-| Grens past bij de groep | 85 | 0 |
-| Grens past bij het inkomen | 85 | 0 |
+| Grens past bij de groep | 93 | 0 |
+| Grens past bij het inkomen | 93 | 0 |
 | Geen ; in teksten | 23 | 0 |
 | Bedragen met een punt | 23 | 0 |
 | Geen kapotte tekst | 23 | 0 |
