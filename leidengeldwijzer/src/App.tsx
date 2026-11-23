@@ -146,7 +146,7 @@ export function App() {
             is alles weg.
           </p>
           <p>
-            Leidengeldwijzer geeft een schatting. Krijgt u een regeling echt? Dat beslissen de gemeente Leiden, Dienst Toeslagen, de SVB en UWV. Leidengeldwijzer
+            Leidengeldwijzer geeft een schatting. Krijgt u een regeling echt? Dat beslist de organisatie die de regeling geeft. Bijvoorbeeld de gemeente Leiden of Dienst Toeslagen. Leidengeldwijzer
             is geen product van de gemeente.
           </p>
           <p>

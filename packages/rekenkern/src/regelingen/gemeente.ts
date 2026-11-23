@@ -204,7 +204,7 @@ export function bijzondereBijstand(c: Context): MogelijkeUitslag {
     kans: "info",
     waarom:
       "Heeft u kosten die echt nodig zijn? En kunt u die niet betalen? Bijvoorbeeld kosten voor rechtshulp of voor een bewindvoerder. Dan kan de gemeente misschien helpen. Vraag het aan voordat u de kosten maakt.",
-    aanvragen: { tekst: "Meer informatie en aanvragen", url: CITATEN.bijzondereBijstand.url },
+    aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.bijzondereBijstand },
     bronnen: [CITATEN.bijzondereBijstand, ...bron(c.l, "leiden.bb.inkomensgrens")],
   };
 }
