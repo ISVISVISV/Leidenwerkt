@@ -1,6 +1,6 @@
 # Wijzigingen
 
-Wat er per versie is veranderd. De opzet volgt [Keep a Changelog](https://keepachangelog.com/nl/1.1.0/); de versienummers volgen [Semantic Versioning](https://semver.org/lang/nl/). Zolang de versie met 0 begint, is de rekenhulp nog niet nagelopen door iemand uit de praktijk.
+Wat er per versie is veranderd. De opzet volgt [Keep a Changelog](https://keepachangelog.com/nl/1.1.0/); de versienummers volgen [Semantic Versioning](https://semver.org/lang/nl/). In november 2026 zijn beide rekenhulpen inhoudelijk nagelopen. Versie 1.0.0 komt als de bedragen en regels van 2027 erin staan.
 
 Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op de afdruk.
 
@@ -8,6 +8,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Veranderd
 
+- Leidengeldwijzer is geen proefversie meer. Beide rekenhulpen zijn inhoudelijk nagelopen. Leidengeldwijzer staat nog niet in zoekmachines.
 - Leidengeldwijzer: bij de opvang kunt u nu ook kiezen "Nog niet, maar dat wil ik". De prijs per uur is niet verplicht. Weet u die nog niet? Dan rekent Leidengeldwijzer met de hoogste prijs waarvoor u toeslag krijgt.
 - Leidengeldwijzer: de vraag "Heeft u al 5 jaar of langer een laag inkomen?" is nu "… een inkomen op bijstandsniveau?". Dat is het woord van de gemeente, en het klinkt niet als een oordeel. Ook de teksten bij de inkomenstoeslag.
 - Leidengeldwijzer: zwemles staat niet meer bij "Deze regelingen horen bij de Sleutelpas". U vraagt het aan bij het Jeugdfonds Sport & Cultuur, zoals de gemeente het beschrijft.
