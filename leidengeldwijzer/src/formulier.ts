@@ -372,7 +372,7 @@ export function ingevuld(f: Formulier): { kop: string; regels: [string, string][
     persoon(f.inkomen, false);
     if (paar) persoon(f.partnerInkomen, true);
   }
-  if (vraagLangLaag(f) && f.langLaag) inkomen.push(["5 jaar of langer laag inkomen", f.langLaag === "onbekend" ? "weet ik niet" : f.langLaag]);
+  if (vraagLangLaag(f) && f.langLaag) inkomen.push(["5 jaar of langer inkomen op bijstandsniveau", f.langLaag === "onbekend" ? "weet ik niet" : f.langLaag]);
   if (vraagStudie(f) && f.studieMedisch) inkomen.push(["Door ziekte of handicap niet werken naast de studie", f.studieMedisch]);
 
   const geld: [string, string][] = [];

@@ -36,7 +36,7 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
   await kies(page, "Soort opvang", "Buitenschoolse opvang");
   await page.getByLabel("Hoeveel uur per week gaat dit kind naar de opvang?").fill("10");
   await kies(page, "Krijgt u kinderbijslag voor uw kinderen jonger dan 18 jaar?", "Ja");
-  // De uitleg bij "5 jaar laag inkomen" noemt het bedrag van de bijstand voor dit huishouden (zie stap 2).
+  // De uitleg bij "5 jaar inkomen op bijstandsniveau" noemt het bedrag van de bijstand voor dit huishouden (zie stap 2).
   await kies(page, "Waar woont u?", "In een huurwoning met een eigen voordeur, keuken, wc en douche");
   await page.getByLabel("Kale huur per maand").fill("750");
   await kies(page, "Woont er nog iemand anders bij u?", "Nee");
@@ -49,7 +49,7 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
   await soorten.getByLabel("Kinderalimentatie").check();
   await page.getByLabel("Hoeveel loon krijgt u netto per maand?").fill("1300");
   await page.getByLabel("Hoeveel kinderalimentatie krijgt u per maand?").fill("200");
-  await kies(page, "Heeft u al 5 jaar of langer een laag inkomen?", "Nee");
+  await kies(page, "Heeft u al 5 jaar of langer een inkomen op bijstandsniveau?", "Nee");
   await geenToegankelijkheidsfouten(page);
   await page.getByRole("button", { name: "Volgende stap" }).click();
 
@@ -120,7 +120,7 @@ test("stel: per persoon een bedrag per soort inkomen. Welke uitkering alleen bij
   await expect(page.getByRole("group", { name: "Welke uitkering krijgt u?" })).toHaveCount(0);
   await page.getByLabel("Hoeveel uitkering krijgt u netto per maand?").fill("1500");
   await page.getByRole("group", { name: "Wat voor inkomen heeft uw partner?" }).getByLabel("Geen inkomen").check();
-  await kies(page, "Heeft u al 5 jaar of langer een laag inkomen?", "Ja");
+  await kies(page, "Heeft u al 5 jaar of langer een inkomen op bijstandsniveau?", "Ja");
   await geenToegankelijkheidsfouten(page);
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("group", { name: "Wat hebben u en uw partner samen?" }).getByLabel("Niets van dit").check();
@@ -139,7 +139,7 @@ test("met bijstand: geen vragen over het inkomen, wel de Sleutelpas vanzelf", as
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await kies(page, "Krijgt u bijstand van de gemeente?", "Ja");
   await expect(page.getByRole("group", { name: "Wat voor inkomen heeft u?" })).toHaveCount(0);
-  await kies(page, "Heeft u al 5 jaar of langer een laag inkomen?", "Weet ik niet");
+  await kies(page, "Heeft u al 5 jaar of langer een inkomen op bijstandsniveau?", "Weet ik niet");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("group", { name: "Wat heeft u?" }).getByLabel("Niets van dit").check();
   await page.getByRole("button", { name: "Bekijk het overzicht" }).click();
@@ -166,8 +166,8 @@ test("huisgenoten met een bekend inkomen: Leidengeldwijzer rekent de huurtoeslag
   await kies(page, "Krijgt u bijstand van de gemeente?", "Nee");
   await page.getByRole("group", { name: "Wat voor inkomen heeft u?" }).getByLabel("Loon uit werk").check();
   await page.getByLabel("Hoeveel loon krijgt u netto per maand?").fill("1100");
-  await expect(page.getByRole("group", { name: "Heeft u al 5 jaar of langer een laag inkomen?" })).toContainText("netto per maand of minder");
-  await kies(page, "Heeft u al 5 jaar of langer een laag inkomen?", "Nee");
+  await expect(page.getByRole("group", { name: "Heeft u al 5 jaar of langer een inkomen op bijstandsniveau?" })).toContainText("netto per maand. Vakantiegeld telt niet mee.");
+  await kies(page, "Heeft u al 5 jaar of langer een inkomen op bijstandsniveau?", "Nee");
   await page.getByRole("button", { name: "Volgende stap" }).click();
   await page.getByRole("group", { name: "Wat heeft u?" }).getByLabel("Niets van dit").check();
   await page.getByRole("button", { name: "Bekijk het overzicht" }).click();
