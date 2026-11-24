@@ -1,0 +1,12 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "workspaces": {
+    ".": {
+      "entry": ["scripts/*.ts", "audit/**/*.ts", "e2e/**/*.ts"],
+      "project": ["scripts/**/*.ts", "audit/**/*.ts", "regels/**/*.ts", "e2e/**/*.ts"]
+    },
+    "start": {
+      "entry": ["public/thema.js"]
+    }
+  }
+}

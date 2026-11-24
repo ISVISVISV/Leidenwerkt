@@ -24,7 +24,8 @@
     "dev:leidengeldwijzer": "npm run regels && npm run dev -w leidengeldwijzer",
     "build:leidengeldwijzer": "npm run regels && npm run build -w leidengeldwijzer",
     "audit:leidengeldwijzer": "npm run regels && tsx scripts/audit-leidengeldwijzer.ts",
-    "build:start": "npm run build -w start"
+    "build:start": "npm run build -w start",
+    "opruimen": "knip"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
@@ -34,6 +35,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.2.1",
     "fast-check": "^4.10.2",
+    "knip": "^5.88.1",
     "tsx": "^4.23.15",
     "typescript": "^5.9.3",
     "vite": "^8.3.5",

@@ -6,7 +6,7 @@ import { D, NUL, euro, max, type Bedrag } from "../geld.ts";
 import type { Lezer } from "../regels.ts";
 import type { Invoer } from "../types.ts";
 
-export interface NormUitkomst {
+interface NormUitkomst {
   norm: Bedrag;
   uitleg: string;
 }
@@ -45,7 +45,7 @@ export function aanvulling(norm: Bedrag, inkomen: Bedrag, vrijgelaten: Bedrag): 
   return max(NUL, norm.minus(inkomen.minus(vrijgelaten)));
 }
 
-export interface Woonkorting {
+interface Woonkorting {
   bedrag: Bedrag;
   /** Rekenstap, met de grondslag. */
   tekst: string;

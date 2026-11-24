@@ -8,11 +8,9 @@ import {
   euro,
   heeftAowLeeftijd,
   Lezer,
-  naarCitaat,
   standaardRegels,
   type CheckInvoer,
   type CheckPersoon,
-  type Citaat,
   type Inkomenssoort,
   type Opvangsoort,
   type Uitkeringssoort,
@@ -315,14 +313,8 @@ export function naarInvoer(f: Formulier): CheckInvoer {
   };
 }
 
-/** De letterlijke brontekst bij een parameter uit de regeldata, voor vandaag. */
-export function bronVan(id: string): Citaat | undefined {
-  const b = new Lezer(standaardRegels, vandaag()).brontekst(id);
-  return b ? naarCitaat(b.citaat, b.bron, b.geldigVan) : undefined;
-}
-
 /** Een ingevuld bedrag als euro, zoals in Leidenwerkt: "€ 1.250" of "€ 14,50". */
-export const euroTekst = (t: string) => {
+const euroTekst = (t: string) => {
   const n = getal(t);
   if (n === undefined || Number.isNaN(n)) return `€ ${t}`;
   return Number.isInteger(n) ? euro(String(n), true) : euro(n.toFixed(2));

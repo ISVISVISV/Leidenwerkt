@@ -14,10 +14,10 @@ const getal = z
   .transform((v) => String(v))
   .refine((v) => /^-?\d+(\.\d+)?$/.test(v), "ongeldig getal");
 
-export const Status = z.enum(["geverifieerd", "onbevestigd", "ontbrekend"]);
-export type Status = z.infer<typeof Status>;
+const Status = z.enum(["geverifieerd", "onbevestigd", "ontbrekend"]);
+type Status = z.infer<typeof Status>;
 
-export const Bron = z.object({
+const Bron = z.object({
   titel: z.string().min(3),
   url: z.string().url(),
   geraadpleegd_op: datum,
@@ -27,7 +27,7 @@ export const Bron = z.object({
  * Letterlijke tekst uit de bron, voor de pop-up in de app. Alleen tekst die
  * woord voor woord in de officiële bron staat. 'url' kan naar een artikel wijzen.
  */
-export const Citaat = z.object({
+const Citaat = z.object({
   kop: z.string().min(3),
   tekst: z.string().min(10),
   url: z.string().url().optional(),
@@ -59,7 +59,7 @@ const Waarde = z.union([
   z.object({ soort: z.literal("kot_tabel"), rijen: z.array(KotRij).min(1) }),
 ]);
 
-export const Parameter = z
+const Parameter = z
   .object({
     id: z.string().regex(/^[a-z0-9_.]+$/, "id: kleine letters, cijfers, punt, underscore"),
     omschrijving: z.string().min(5),
@@ -99,4 +99,3 @@ export const RegelBestand = z.object({
 });
 
 export type RegelBestand = z.infer<typeof RegelBestand>;
-export type ParameterDef = z.infer<typeof Parameter>;
