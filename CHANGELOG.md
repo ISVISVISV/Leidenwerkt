@@ -8,6 +8,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Veranderd
 
+- Leidengeldwijzer: zwemles staat niet meer bij "Deze regelingen horen bij de Sleutelpas". U vraagt het aan bij het Jeugdfonds Sport & Cultuur, zoals de gemeente het beschrijft.
 - Leidengeldwijzer: elk blok op de uitkomst heeft nu de rustige kleur van de organisatie. Rood voor de gemeente Leiden (met de gele Sleutelpas erin), blauw voor Dienst Toeslagen, groen voor de SVB en lichter blauw voor UWV. De tegels erin zijn wit.
 - De molen en het water in de tekening bewegen nu ook in Leidenwerkt en Leidengeldwijzer, net als op de startpagina. Niet bij "minder beweging".
 - Leidengeldwijzer: de knop bij bijzondere bijstand gaat nu direct naar de aanvraagpagina van de gemeente Leiden.

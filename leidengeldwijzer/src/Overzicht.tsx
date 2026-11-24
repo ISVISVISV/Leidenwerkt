@@ -22,11 +22,12 @@ const HULP = { kop: "Als u het nodig heeft", uitleg: "Dit hangt af van uw situat
 const REDEN: Partial<Record<Kans, string>> = { ja: "Waarom waarschijnlijk wel?", misschien: "Waarom misschien?", nee: "Waarom waarschijnlijk niet?" };
 
 /**
- * De regelingen die u via de Sleutelpas krijgt: Kindtegoed, laptop en zwemles (Beleidsregels Sleutelpas 2026, hoofdstuk 2 en art. 3.2 en 3.3).
- * Het Volwassenenfonds staat er bewust niet bij. De beleidsregels zetten het tegoed wel op de Sleutelpas (art. 3.4 d),
- * maar u vraagt het aan via een tussenpersoon. De pagina van de gemeente noemt de Sleutelpas daarbij niet.
+ * De regelingen die u via de Sleutelpas krijgt: het Kindtegoed en de laptop (Beleidsregels Sleutelpas 2026, hoofdstuk 2 en art. 3.2).
+ * Zwemles en het Volwassenenfonds staan er bewust niet bij. Ze staan wel in dezelfde beleidsregels (art. 3.3 en 3.4),
+ * maar u vraagt ze aan bij het Jeugdfonds Sport & Cultuur of via een tussenpersoon. Zo staat het op de pagina van de gemeente
+ * (Hulp bij kosten sport en cultuur). Zwemles heeft ook een andere grens (140%) dan de Sleutelpas (130%).
  */
-const OP_DE_PAS = ["kindtegoed", "laptop", "zwemles"];
+const OP_DE_PAS = ["kindtegoed", "laptop"];
 
 type Blok = "sleutelpas" | "gemeente" | "svb" | "uwv" | "toeslagen";
 /** De volgorde van de blokken: eerst Leiden (met de Sleutelpas erin), dan het Rijk. */
