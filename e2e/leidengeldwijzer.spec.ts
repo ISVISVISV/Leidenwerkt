@@ -31,10 +31,12 @@ test("alleenstaande ouder met loon doorloopt de check en ziet een overzicht", as
   await kies(page, "Woont u samen met een partner?", "Nee");
   await kies(page, "Heeft u kinderen die bij u wonen?", "Ja");
   await page.getByLabel("Geboortedatum van uw kind", { exact: true }).fill(jaar(8));
-  // Een kind jonger dan 13: gaat het naar de opvang? Dan rekent Leidengeldwijzer de kinderopvangtoeslag uit.
-  await kies(page, "Gaat dit kind naar de opvang?", "Ja");
+  // Een kind jonger dan 13: gaat het naar de opvang, nu of straks? Dan rekent Leidengeldwijzer de kinderopvangtoeslag uit.
+  // Wie de opvang nog moet regelen, kiest "Nog niet". De prijs mag leeg blijven.
+  await kies(page, "Gaat dit kind naar de opvang?", "Nog niet, maar dat wil ik");
   await kies(page, "Soort opvang", "Buitenschoolse opvang");
-  await page.getByLabel("Hoeveel uur per week gaat dit kind naar de opvang?").fill("10");
+  await page.getByLabel("Hoeveel uur per week wilt u opvang voor dit kind?").fill("10");
+  await expect(page.getByText("Weet u de prijs nog niet? Laat het vak dan leeg.")).toBeVisible();
   await kies(page, "Krijgt u kinderbijslag voor uw kinderen jonger dan 18 jaar?", "Ja");
   // De uitleg bij "5 jaar inkomen op bijstandsniveau" noemt het bedrag van de bijstand voor dit huishouden (zie stap 2).
   await kies(page, "Waar woont u?", "In een huurwoning met een eigen voordeur, keuken, wc en douche");
