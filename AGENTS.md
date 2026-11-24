@@ -37,6 +37,7 @@ Een wegwijzer voor wie hier werk overneemt, vooral een geautomatiseerde assisten
 ```bash
 npm test                      # regeldata, tests, documenten en samenhang
 npm run typecheck
+npm run opruimen              # geen ongebruikte code of afhankelijkheden
 npm run audit                 # Leidenwerkt; de uitvoer hoort in de commit
 npm run audit:leidengeldwijzer
 npm run test:e2e              # bij wijzigingen in een app

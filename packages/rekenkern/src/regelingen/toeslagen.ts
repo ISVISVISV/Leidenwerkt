@@ -8,7 +8,7 @@ import { URL, bron, heeft, heel, probeer, telbaarVermogen, toetsingsinkomen, ver
 import type { Context } from "./context.ts";
 
 /** Wat alle toeslagen nodig hebben: het bruto inkomen per jaar, of de reden dat Leidengeldwijzer het niet weet. */
-export interface ToeslagContext {
+interface ToeslagContext {
   /** Het toetsingsinkomen. Leeg als Leidengeldwijzer het niet uitrekent. */
   ti?: Bedrag;
   geenBedrag: string;

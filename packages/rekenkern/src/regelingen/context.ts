@@ -8,7 +8,7 @@ import { VOLWASSEN, bron, heeft, heel, sociaalMinimum, totaalVan } from "./basis
 import type { CheckInvoer, CheckPersoon, Kans } from "./types.ts";
 
 /** Grens van een Leidse regeling tegen het inkomen. kd: de grens is de kostendelersnorm. */
-export type Toets = { kans: Kans; grens?: Bedrag; boven?: boolean; kd?: boolean };
+type Toets = { kans: Kans; grens?: Bedrag; boven?: boolean; kd?: boolean };
 
 export type Context = ReturnType<typeof maakContext>;
 

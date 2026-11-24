@@ -28,7 +28,7 @@ export interface Schijf {
   percentage: Bedrag;
 }
 
-export interface KotRij {
+interface KotRij {
   vanaf: Bedrag;
   tot: Bedrag | null;
   eersteKind: Bedrag;

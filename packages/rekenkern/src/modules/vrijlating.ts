@@ -18,7 +18,7 @@ import type { Lezer } from "../regels.ts";
 import { REGIMES, dagVoor, plusMaanden, regimeOp } from "../regimes.ts";
 import type { Fase, Overgang2027 } from "../types.ts";
 
-export interface VrijlatingVraag {
+interface VrijlatingVraag {
   fase: Fase;
   nettoArbeid: Bedrag;
   leeftijd: number;
@@ -31,7 +31,7 @@ export interface VrijlatingVraag {
   norm?: Bedrag;
 }
 
-export interface VrijlatingUitkomst {
+interface VrijlatingUitkomst {
   bedrag: Bedrag;
   uitleg: string;
   aannames: string[];

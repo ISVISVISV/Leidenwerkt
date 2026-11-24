@@ -108,7 +108,7 @@ function vgVan(w: Werk | undefined): Bedrag {
  * Vult bij elke baan het vakantiegeld in met het wettelijke minimum uit de
  * regeldata (art. 15 Wml), als de invoer het niet zelf noemt.
  */
-export function metVakantiegeld(invoer: Invoer, regels: RegelSet = standaardRegels): Invoer {
+function metVakantiegeld(invoer: Invoer, regels: RegelSet = standaardRegels): Invoer {
   let standaard: number | undefined;
   try {
     standaard = Number(new Lezer(regels, invoer.datum).breuk("wml.vakantiebijslag").toString());

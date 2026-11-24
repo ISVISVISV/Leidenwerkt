@@ -13,5 +13,8 @@
   },
   "peerDependencies": {
     "react": "^19.3.1"
+  },
+  "dependencies": {
+    "@rekenhulp/rekenkern": "*"
   }
 }

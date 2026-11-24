@@ -46,7 +46,7 @@ Deze afspraken gelden voor iedereen, ook voor een geautomatiseerde assistent die
 - **Vooraf vragen.** Verandert wat een gebruiker ziet (een vraag, een tekst, een uitkomst of de vormgeving)? Vraag de beheerder eerst. Laat bij een verandering in de vormgeving eerst een afbeelding zien.
 - **Besluiten vastleggen.** Een keuze die de rekenhulp vormt, komt in [docs/BESLUITEN.md](docs/BESLUITEN.md), met een nieuw nummer, de datum en de reden.
 - **Bronnen.** Alleen officiële bronnen voor wet- en regelgeving, met de letterlijke tekst. Geen aannames. Organisaties buiten de overheid (zoals de Voedselbank) alleen als de gemeente Leiden ze noemt, met de eigen bron van die organisatie.
-- **Voor het samenvoegen.** `npm test`, `npm run typecheck`, `npm run audit`, `npm run audit:leidengeldwijzer` en bij wijzigingen in de app `npm run test:e2e`. De uitvoer van de audit hoort in dezelfde commit.
+- **Voor het samenvoegen.** `npm test`, `npm run typecheck`, `npm run opruimen`, `npm run audit`, `npm run audit:leidengeldwijzer` en bij wijzigingen in de app `npm run test:e2e`. De uitvoer van de audit hoort in dezelfde commit.
 
 ## Een nieuwe versie
 

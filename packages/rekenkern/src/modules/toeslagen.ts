@@ -17,7 +17,7 @@ export function maandbedragToeslag(perMaand: Bedrag): Bedrag {
 }
 
 /** Toetsingsinkomen in hele euro's (de tabellen van Toeslagen gaan per hele euro). */
-export function heleEuros(b: Bedrag): Bedrag {
+function heleEuros(b: Bedrag): Bedrag {
   return b.toDecimalPlaces(0, Decimal.ROUND_DOWN);
 }
 
@@ -48,7 +48,7 @@ export function kindgebondenBudget(l: Lezer, toetsingsinkomen: Bedrag, kinderen:
   return max(NUL, maximum.minus(afbouw));
 }
 
-export interface HuurtoeslagUitkomst {
+interface HuurtoeslagUitkomst {
   rekenhuur: Bedrag;
   basishuur: Bedrag;
   deelA: Bedrag;
@@ -87,7 +87,7 @@ export function huurtoeslag(l: Lezer, kaleHuurPerMaand: Bedrag, rekeninkomenJaar
   return { rekenhuur: rh, basishuur, deelA, deelB, deelC, correctie, perMaand: max(NUL, deelA.plus(deelB).plus(deelC).minus(correctie)) };
 }
 
-export interface KotUitkomst {
+interface KotUitkomst {
   toeslagPerMaand: Bedrag;
   kostenPerMaand: Bedrag;
   perKind: { leeftijd: number; uren: number; percentage: Bedrag; toeslag: Bedrag; kosten: Bedrag }[];

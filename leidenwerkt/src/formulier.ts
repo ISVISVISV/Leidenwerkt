@@ -9,7 +9,7 @@ export function maxUurprijs(l: Lezer, soort: Opvangsoort): number {
   }
 }
 
-export type LoonPer = "maand" | "netto" | "week" | "nettoweek" | "vierweken" | "nettovierweken" | "uur";
+type LoonPer = "maand" | "netto" | "week" | "nettoweek" | "vierweken" | "nettovierweken" | "uur";
 /** Leeg: nog niet gekozen. */
 export type LoonPerKeuze = LoonPer | "";
 /** Leeg: nog niet gekozen. */
@@ -18,7 +18,7 @@ export type AllIn = "" | "nee" | "ja" | "onbekend";
 export type Woonsituatie = "huur" | "koop" | "inwonend" | "kostgeld" | "dakloos" | "instelling";
 
 /** Geboortedatum zoals ingevuld, als tekst: dag-maand-jaar, bijvoorbeeld "14-03-1990". */
-export { alleenCijfers, datumInvoer, getal, isoDatum, leeftijdOp, legeDatum, type Geboortedatum } from "@rekenhulp/ui/invoer";
+export { getal, leeftijdOp, type Geboortedatum } from "@rekenhulp/ui/invoer";
 import { getal, isoDatum, leeftijdOp, legeDatum, type Geboortedatum } from "@rekenhulp/ui/invoer";
 
 export interface KindVeld {
@@ -187,11 +187,11 @@ export function vraagJongeHuisgenoten(f: Formulier): boolean {
   return metAnderen(f) && f.woont === "huur" && f.zelfstandig;
 }
 
-export function aantalKostendelers(f: Formulier): number {
+function aantalKostendelers(f: Formulier): number {
   return metAnderen(f) ? (getal(f.kostendelers) ?? 0) : 0;
 }
 
-export function aantalJongeHuisgenoten(f: Formulier): number {
+function aantalJongeHuisgenoten(f: Formulier): number {
   return vraagJongeHuisgenoten(f) ? (getal(f.jongeHuisgenoten) ?? 0) : 0;
 }
 
@@ -345,7 +345,7 @@ export function ingevuldLoon(f: Formulier): { bedrag: string; per: LoonPer; allI
 }
 
 /** Uren opvang per week omgerekend naar een maand: 52 weken verdeeld over 12 maanden, op twee decimalen. */
-export const urenPerMaand = (perWeek: number) => Math.round(((perWeek * 52) / 12) * 100) / 100;
+const urenPerMaand = (perWeek: number) => Math.round(((perWeek * 52) / 12) * 100) / 100;
 
 /** Er is minstens één kind met opvang ingevuld. */
 export function heeftOpvang(f: Formulier): boolean {

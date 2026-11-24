@@ -19,6 +19,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run typecheck
+      # Geen ongebruikte bestanden, exports of afhankelijkheden (knip.json).
+      - run: npm run opruimen
       # Regeldata (bronnen, sprongen), unit-, eigenschaps- en proefpersonentests, en of de gegenereerde docs bijgewerkt zijn.
       - run: npm test
       - run: npx playwright install --with-deps chromium
