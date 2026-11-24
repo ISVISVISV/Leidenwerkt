@@ -47,7 +47,7 @@ Voor `test:e2e` is Chromium nodig (`npx playwright install chromium`) of een bes
 | `e2e/` | Browsertests |
 | `docs/` | Documentatie, zie hieronder |
 
-Wijzigingen gaan via pull requests; zie [CONTRIBUTING.md](CONTRIBUTING.md).
+Wijzigingen gaan via pull requests; zie [CONTRIBUTING.md](CONTRIBUTING.md). Neemt u werk over, ook als geautomatiseerde assistent? Begin bij [AGENTS.md](AGENTS.md).
 
 ## Documentatie
 
@@ -59,6 +59,7 @@ Wijzigingen gaan via pull requests; zie [CONTRIBUTING.md](CONTRIBUTING.md).
 | [ARCHITECTUUR.md](docs/ARCHITECTUUR.md) | Ontwikkelaars | Opbouw van regeldata, rekenkern en apps |
 | [BESLUITEN.md](docs/BESLUITEN.md) | Iedereen die iets wil veranderen | De keuzes die de rekenhulp vormen, met de reden |
 | [ONDERHOUD.md](docs/ONDERHOUD.md) | Beheerders | Bedragen bijwerken, bewaking van wetten, werkwijze, teksten schrijven |
+| [JAARWISSEL.md](docs/JAARWISSEL.md) | Beheerders | Draaiboek voor de bedragen van een nieuw jaar |
 | [PLANNING.md](docs/PLANNING.md) | Iedereen | Wat nog op de lijst staat |
 | [CHANGELOG.md](CHANGELOG.md) | Iedereen | Wat er per versie is veranderd |
 

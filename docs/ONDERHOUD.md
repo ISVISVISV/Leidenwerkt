@@ -10,7 +10,7 @@ Er is één beheerder: Ian Vriend. Een voorstel van iemand anders controleert hi
 
 ## 2. Bedragen bijwerken
 
-Bedragen veranderen meestal op **1 januari** en **1 juli**, maar niet altijd. De wekelijkse bewaking (hieronder) meldt nieuwe publicaties.
+Bedragen veranderen meestal op **1 januari** en **1 juli**, maar niet altijd. De wekelijkse bewaking (hieronder) meldt nieuwe publicaties. Voor de jaarwissel is er een draaiboek met de volgorde, de bronnen per onderwerp en de audit: [JAARWISSEL.md](JAARWISSEL.md).
 
 1. **Zoek de officiële publicatie.**
    - Bijstandsnormen en vrijlatingen: de mededeling in de Staatscourant "gewijzigde bedragen per 1 januari/1 juli" en de wettekst op wetten.overheid.nl (de redactie zet nieuwe bedragen tussen haken: "[Red: per 1 juli 2026: € 289,00]").

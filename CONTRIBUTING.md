@@ -23,7 +23,7 @@ Iedereen mag een wijziging voorstellen. Alleen wat de beheerder heeft gecontrole
 - **Sprongen**: een bedrag dat meer dan 10% afwijkt van de vorige periode heeft een `notitie` met de reden (de CI weigert het anders).
 - **Effect**: het overzicht bij de pull request laat zien wat de wijziging met de proefpersonen doet. Grote of onverwachte verschuivingen worden nagevraagd.
 - **Mechanisme of data**: een gewijzigd bedrag hoort alleen in `regels/`. Een gewijzigde voorwaarde of rekenvolgorde hoort in de engine, met tests (zie `packages/rekenkern/src/regimes.ts`).
-- **Teksten**: begrijpelijk Nederlands (B1), concreet, met bedragen en periodes, geen ambtelijke termen.
+- **Teksten**: eenvoudig Nederlands (taalniveau A2), concreet, met bedragen en periodes, geen ambtelijke termen. Zie [docs/ONDERHOUD.md](docs/ONDERHOUD.md), hoofdstuk 6.
 - **Toegankelijkheid en privacy**: de axe-tests slagen in licht en donker; de app doet geen externe verzoeken.
 
 ## Regels voor code
@@ -32,4 +32,34 @@ Iedereen mag een wijziging voorstellen. Alleen wat de beheerder heeft gecontrole
 2. Geen floats voor geld; gebruik de helpers in `packages/rekenkern/src/geld.ts`.
 3. Elke wijziging in de engine heeft tests. `npm test` en `npm run test:e2e` moeten slagen.
 4. Geen externe verzoeken vanuit de app (geen analytics, CDN's of externe fonts).
-5. Teksten in de app in begrijpelijk Nederlands (taalniveau B1).
+5. Teksten in de app in eenvoudig Nederlands (taalniveau A2).
+
+## Afspraken voor commits en pull requests
+
+Deze afspraken gelden voor iedereen, ook voor een geautomatiseerde assistent die namens de beheerder werkt.
+
+- **Privacy.** Zet nooit paden van een computer, gebruikersnamen, e-mailadressen of andere persoonlijke gegevens in de repository, in commits, in issues of in pull requests.
+- **Naam bij commits.** Een assistent die namens de beheerder werkt, commit als `Ian Vriend <ISVISVISV@users.noreply.github.com>`. Geen andere naam en geen privé-e-mailadres.
+- **Geen extra regels in commitberichten.** Geen `Co-Authored-By`, geen links naar sessies en geen vermelding van een AI-model of AI-hulpmiddel. Dat geldt ook voor pull requests en de repository. De enige vermelding is de zin in README.md: "Leidenwerkt is gemaakt door Ian Vriend, met hulp van AI."
+- **Eén eigenaar.** Alleen Ian Vriend wordt als eigenaar of maker genoemd.
+- **Werkwijze.** Elke wijziging gaat via een eigen branch en een pull request. De beheerder voegt samen (squash) als de CI slaagt.
+- **Vooraf vragen.** Verandert wat een gebruiker ziet (een vraag, een tekst, een uitkomst of de vormgeving)? Vraag de beheerder eerst. Laat bij een verandering in de vormgeving eerst een afbeelding zien.
+- **Besluiten vastleggen.** Een keuze die de rekenhulp vormt, komt in [docs/BESLUITEN.md](docs/BESLUITEN.md), met een nieuw nummer, de datum en de reden.
+- **Bronnen.** Alleen officiële bronnen voor wet- en regelgeving, met de letterlijke tekst. Geen aannames. Organisaties buiten de overheid (zoals de Voedselbank) alleen als de gemeente Leiden ze noemt, met de eigen bron van die organisatie.
+- **Voor het samenvoegen.** `npm test`, `npm run typecheck`, `npm run audit`, `npm run audit:leidengeldwijzer` en bij wijzigingen in de app `npm run test:e2e`. De uitvoer van de audit hoort in dezelfde commit.
+
+## Een nieuwe versie
+
+De beheerder maakt de release op GitHub zelf. Wie de versie voorbereidt:
+
+1. verhoogt het versienummer:
+   - Leidenwerkt: in `package.json`, `leidenwerkt/package.json`, `packages/rekenkern/package.json` en `packages/ui/package.json`, in `publiccode.yml` (`softwareVersion` en `releaseDate`) en in README.md ("Status");
+   - Leidengeldwijzer: in `leidengeldwijzer/package.json` en in README.md ("Status");
+2. zet in CHANGELOG.md "Nog niet uitgebracht" om naar het nieuwe nummer, met de datum;
+3. levert de tekst voor de release aan de beheerder.
+
+`npm test` controleert dat de versienummers overal gelijk zijn.
+
+## Het nieuwe jaar
+
+De bedragen van een nieuw jaar invoeren? Volg [docs/JAARWISSEL.md](docs/JAARWISSEL.md).
