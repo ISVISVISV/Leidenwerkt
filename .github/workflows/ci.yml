@@ -67,7 +67,7 @@ jobs:
         with:
           name: leidenwerkt-los
           path: leidenwerkt/dist-los/index.html
-      # De site: de startpagina, met Leidenwerkt op /leidenwerkt/ en Leidengeldwijzer (proefversie, niet in zoekmachines)
+      # De site: de startpagina, met Leidenwerkt op /leidenwerkt/ en Leidengeldwijzer (nog niet in zoekmachines)
       # op /leidengeldwijzer/.
       - name: Site samenstellen
         if: github.ref == 'refs/heads/main'

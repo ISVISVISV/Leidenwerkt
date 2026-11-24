@@ -28,4 +28,4 @@ Niet doen (besloten op 23 november 2026): een melding over de jaarwissel (het is
 
 ## Toetsing
 
-- [ ] Uitkomsten laten nalopen door een klantmanager of sociaal raadsman aan de hand van [PROEFPERSONEN.md](PROEFPERSONEN.md) en de audit van Leidengeldwijzer. Ian regelt dit in de komende weken. Tot dan blijft Leidengeldwijzer een proefversie.
+- [ ] Versie 1.0.0 van beide rekenhulpen, als de bedragen en regels van 2027 erin staan (besluit van Ian, 24 november 2026). Leidengeldwijzer blijft tot dan niet vindbaar in zoekmachines.
