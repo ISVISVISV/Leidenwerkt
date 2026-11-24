@@ -3,9 +3,9 @@
 Leidenwerkt bestaat uit drie lagen: regeldata, rekenengine en app. Alles draait in de browser van de gebruiker; er is geen server.
 
 ```
-regels/**/*.yaml ──(scripts/bouw-regels.ts: valideren)──► engine/src/generated/regels.json
+regels/**/*.yaml ──(scripts/bouw-regels.ts: valideren)──► packages/rekenkern/src/generated/regels.json
                                                                    │
-Invoer (formulier) ──► engine: bereken(invoer) ──► Resultaat (posten + uitlegspoor) ──► app
+Invoer (formulier) ──► rekenkern: bereken(invoer) ──► Resultaat (posten + uitlegspoor) ──► app
 ```
 
 ## Regeldata
@@ -55,6 +55,7 @@ Modules:
 
 - React + Vite, eigen componenten, geen state- of CSS-framework.
 - Vier stappen: huishouden, woning, werk, uitkomst. De uitkomst heeft een urenschuif en een keuze tussen "de eerste maanden" en "daarna".
+- `App.tsx`: het begin, de stappen en de foutmeldingen. Elke stap heeft een eigen bestand (`StapHuishouden.tsx`, `StapWoning.tsx`, `StapWerk.tsx`), met `stap.ts` voor wat ze delen. `formulier.ts`: de velden, de controle en de vertaling naar de invoer van de rekenkern. `Uitkomst.tsx`: de uitkomst.
 - Lettertype Open Sans (SIL Open Font License 1.1) zit in de bundel. De CSP verbiedt netwerkverbindingen.
 - Twee builds: statische site (`leidenwerkt/dist`) en één los HTML-bestand (`leidenwerkt/dist-los`).
 
@@ -64,6 +65,7 @@ Modules:
 - `npm run docs`: genereert `docs/PROEFPERSONEN.md` en de statustabel in `docs/RECHT.md`.
 - Bij een pull request plaatst de CI een overzicht van gewijzigde parameters en het effect op de proefpersonen (`scripts/pr-overzicht.ts`).
 - Elke week zoekt `.github/workflows/bewaking.yml` naar nieuwe versies en publicaties en opent issues (`scripts/bewaking.ts`).
+- `npm run opruimen`: knip zoekt ongebruikte bestanden, exports en afhankelijkheden.
 - `npm run test:e2e`: Playwright op een mobiel scherm, axe-toegankelijkheidscontrole per stap, en controle dat er geen extern netwerkverzoek is.
 - CI draait beide bij elke wijziging; bij een push naar `main` wordt de site op GitHub Pages gezet.
 
