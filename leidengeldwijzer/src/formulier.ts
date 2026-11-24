@@ -68,7 +68,8 @@ export interface Formulier {
 }
 
 export interface KindInfo {
-  opvang: JaNee;
+  /** "straks": het kind gaat nog niet naar de opvang, maar de ouder wil dat wel. Dan rekent Leidengeldwijzer ook. */
+  opvang: "" | "ja" | "straks" | "nee";
   soort: "" | Opvangsoort;
   /** Uren per week. */
   uren: string;
@@ -79,6 +80,8 @@ export interface KindInfo {
   inkomenOnbekend: boolean;
 }
 export const leegKind: KindInfo = { opvang: "", soort: "", uren: "", prijs: "", inkomen: "", inkomenOnbekend: false };
+/** Gaat het kind naar de opvang, nu of straks? Dan vraagt Leidengeldwijzer de soort, de uren en de prijs, en rekent het de toeslag uit. */
+export const naarOpvang = (info: KindInfo) => info.opvang === "ja" || info.opvang === "straks";
 /** Wat er per kind is ingevuld. Ontbreekt het (nieuw kind), dan is alles leeg. */
 export const infoVan = (f: Formulier, i: number): KindInfo => f.kindInfo[i] ?? leegKind;
 
@@ -208,7 +211,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
       const info = infoVan(f, i);
       if (vraagOpvang(k)) {
         if (!info.opvang) fouten[`opvang${i}`] = kies;
-        if (info.opvang === "ja") {
+        if (naarOpvang(info)) {
           if (!info.soort) fouten[`soort${i}`] = kies;
           bedrag(`kind${i}uren`, info.uren, 60, "Vul het aantal uur per week in, bijvoorbeeld 16.");
           if (info.prijs.trim()) bedrag(`kind${i}prijs`, info.prijs, 50, "Vul de prijs per uur in, bijvoorbeeld 10,50.");
@@ -286,7 +289,7 @@ export function naarInvoer(f: Formulier): CheckInvoer {
         leeftijdBeginJaar: iso ? (leeftijdOp(k, `${vandaag().slice(0, 4)}-01-01`) ?? undefined) : undefined,
         inkomenJaar: vraagInkomenKind(f, k) && !info.inkomenOnbekend ? getal(info.inkomen) : undefined,
         opvang:
-          vraagOpvang(k) && info.opvang === "ja"
+          vraagOpvang(k) && naarOpvang(info)
             ? { soort, urenPerMaand: urenPerMaand(getal(info.uren) ?? 0), uurprijs: geschat ? maxUurprijs(new Lezer(standaardRegels, vandaag()), soort) : prijs, uurprijsGeschat: geschat || undefined }
             : undefined,
       };
@@ -341,8 +344,8 @@ export function ingevuld(f: Formulier): { kop: string; regels: [string, string][
   kinderen(f).forEach((k, i) => {
     const info = infoVan(f, i);
     const opvang =
-      vraagOpvang(k) && info.opvang === "ja"
-        ? `. ${info.soort ? OPVANG[info.soort].charAt(0).toUpperCase() + OPVANG[info.soort].slice(1) : "Opvang"}, ${info.uren} uur per week${info.prijs.trim() ? ` × ${euroTekst(info.prijs)}` : ", prijs onbekend"}`
+      vraagOpvang(k) && naarOpvang(info)
+        ? `. ${info.opvang === "straks" ? "Straks: " : ""}${info.soort ? OPVANG[info.soort].charAt(0).toUpperCase() + OPVANG[info.soort].slice(1) : "Opvang"}, ${info.uren} uur per week${info.prijs.trim() ? ` × ${euroTekst(info.prijs)}` : ", prijs onbekend"}`
         : "";
     const inkomen = vraagInkomenKind(f, k) ? `. Inkomen: ${info.inkomenOnbekend ? "onbekend" : `${euroTekst(info.inkomen)} bruto per jaar`}` : "";
     huishouden.push([`Kind ${i + 1}`, `geboren ${k.trim()}${opvang}${inkomen}`]);

@@ -5,6 +5,12 @@
 import type { Inkomenssoort, Opvangsoort, Uitkeringssoort, Woonsoort } from "@rekenhulp/rekenkern";
 import type { Bedragsoort, Bezit } from "./formulier.ts";
 
+/** Bij de opvang: ook "nog niet", voor wie de opvang nog moet regelen. Die weet de prijs vaak nog niet. */
+export const OPVANG_KEUZE: ["ja" | "straks" | "nee", string][] = [
+  ["ja", "Ja"],
+  ["straks", "Nog niet, maar dat wil ik"],
+  ["nee", "Nee"],
+];
 export const JA_NEE: ["ja" | "nee", string][] = [
   ["nee", "Nee"],
   ["ja", "Ja"],
@@ -92,7 +98,8 @@ export const VRAAG = {
   opvang: "Gaat dit kind naar de opvang?",
   soortOpvang: "Soort opvang",
   uren: "Hoeveel uur per week gaat dit kind naar de opvang?",
-  prijs: "Prijs per uur",
+  urenStraks: "Hoeveel uur per week wilt u opvang voor dit kind?",
+  prijs: "Prijs per uur (niet verplicht)",
   inkomenKind: (welke: string) => `Hoeveel bruto inkomen heeft ${welke} per jaar?`,
   bijstand: (paar: boolean, aow = false) =>
     aow

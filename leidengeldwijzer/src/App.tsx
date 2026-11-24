@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { CITATEN, Lezer, euro, sociaalMinimum, standaardRegels, type Opvangsoort } from "@rekenhulp/rekenkern";
 import { Bron, Datum, Keuze, Kopvlak, Veld, Vinkjes } from "@rekenhulp/ui";
-import { aowVan, bedragId, bedragSoorten, metAow, soortOpties, controleer, naarInvoer, infoVan, vandaag, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
+import { aowVan, bedragId, bedragSoorten, metAow, soortOpties, controleer, naarInvoer, infoVan, vandaag, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, naarOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Icoon } from "./iconen.tsx";
 import { Overzicht } from "./Overzicht.tsx";
-import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANGSOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
+import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANG_KEUZE, OPVANGSOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
 
 const STAPPEN = ["Uw huishouden", "Uw inkomen", "Geld en bezit", "Overzicht"];
 
@@ -429,19 +429,19 @@ function KindVragen({ f, i, zet, fouten }: StapProps & { i: number }) {
   return (
     <>
       {vraagOpvang(k) && (
-        <Keuze naam={`opvang${i}`} legend={VRAAG.opvang} waarde={info.opvang} onChange={(v) => zetInfo({ opvang: v })} fout={fouten[`opvang${i}`]} opties={JA_NEE} />
+        <Keuze naam={`opvang${i}`} legend={VRAAG.opvang} waarde={info.opvang} onChange={(v) => zetInfo({ opvang: v })} fout={fouten[`opvang${i}`]} opties={OPVANG_KEUZE} />
       )}
-      {vraagOpvang(k) && info.opvang === "ja" && (
+      {vraagOpvang(k) && naarOpvang(info) && (
         <div className="opvang">
           <Keuze naam={`soort${i}`} legend={VRAAG.soortOpvang} waarde={info.soort} onChange={(v) => zetInfo({ soort: v })} fout={fouten[`soort${i}`]} opties={OPVANGSOORTEN} />
-          <Veld id={`kind${i}uren`} label={VRAAG.uren} voorbeeld="bijv. 16" waarde={info.uren} onChange={(v) => zetInfo({ uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
+          <Veld id={`kind${i}uren`} label={info.opvang === "straks" ? VRAAG.urenStraks : VRAAG.uren} voorbeeld="bijv. 16" waarde={info.uren} onChange={(v) => zetInfo({ uren: v })} fout={fouten[`kind${i}uren`]} achtervoegsel="uur" />
           <Veld
             id={`kind${i}prijs`}
             label={VRAAG.prijs}
             hint={
               info.soort && maxPrijsTekst(info.soort)
-                ? `Vraag het aan de opvang. Weet u het niet? Laat het vak dan leeg. Leidengeldwijzer rekent dan met € ${maxPrijsTekst(info.soort)} per uur. Voor een hogere prijs krijgt u geen extra toeslag.`
-                : "Vraag dit na bij de opvang. Weet u het niet? Laat het vak dan leeg."
+                ? `Weet u de prijs nog niet? Laat het vak dan leeg. Leidengeldwijzer rekent dan met € ${maxPrijsTekst(info.soort)} per uur. Dat is de hoogste prijs waarvoor u toeslag krijgt.`
+                : "Weet u de prijs nog niet? Laat het vak dan leeg."
             }
             voorbeeld={`bijv. ${maxPrijsTekst(info.soort || "dagopvang") || "10,50"}`}
             voorvoegsel="€"
