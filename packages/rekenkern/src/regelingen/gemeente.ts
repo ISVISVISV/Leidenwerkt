@@ -55,7 +55,7 @@ export function iit(c: Context): MogelijkeUitslag {
     naam: "Individuele inkomenstoeslag",
     groep: "gemeente" as const,
     bedrag: `${heel(l.bedrag(id))}, één keer per 12 maanden`,
-    wat: `Dit is extra geld voor mensen die al ${jaren} jaar of langer een laag inkomen hebben. En die geen kans hebben op meer inkomen.`,
+    wat: `Dit is extra geld voor mensen die al ${jaren} jaar of langer een inkomen op bijstandsniveau hebben. En die geen kans hebben op meer inkomen.`,
     aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.iit },
     bronnen: [...bron(l, "leiden.iit.referteperiode"), CITATEN.iitPeildatum, ...bron(l, "pw.vermogensgrens.alleenstaande")],
   };
@@ -78,16 +78,16 @@ export function iit(c: Context): MogelijkeUitslag {
   if (t.kans === "nee")
     return { ...basis, kans: "nee", bronnen: c.metGrensBronnen(basis.bronnen, t), waarom: `Uw inkomen is hoger dan de bijstand.${c.grensZin(t)}` };
   if (invoer.langLaagInkomen === "nee")
-    return { ...basis, kans: "nee", waarom: `U heeft nog geen ${jaren} jaar een laag inkomen. U krijgt deze toeslag alleen als u al ${jaren} jaar of langer een laag inkomen heeft.` };
+    return { ...basis, kans: "nee", waarom: `U heeft nog geen ${jaren} jaar een inkomen op bijstandsniveau. U krijgt deze toeslag alleen als u al ${jaren} jaar of langer een inkomen op bijstandsniveau heeft.` };
   if (v.kans === "nee") return { ...basis, kans: "nee", waarom: `Uw geld en bezit zijn meer dan ${heel(v.grens)}.` };
   const open = invoer.langLaagInkomen !== "ja" || v.kans === "misschien" || t.kans === "misschien" || c.bedrijf;
   // De redenen, in de volgorde van de voorwaarden: inkomen, hoe lang al, geld en bezit, eigen bedrijf.
   const lang =
     invoer.langLaagInkomen === "ja"
-      ? `U heeft al ${jaren} jaar of langer een laag inkomen.`
+      ? `U heeft al ${jaren} jaar of langer een inkomen op bijstandsniveau.`
       : invoer.langLaagInkomen === "onbekend"
-        ? `U weet niet zeker of u al ${jaren} jaar of langer een laag inkomen heeft. De gemeente kijkt dat na.`
-        : `De gemeente kijkt of u al ${jaren} jaar of langer een laag inkomen heeft.`;
+        ? `U weet niet zeker of u al ${jaren} jaar of langer een inkomen op bijstandsniveau heeft. De gemeente kijkt dat na.`
+        : `De gemeente kijkt of u al ${jaren} jaar of langer een inkomen op bijstandsniveau heeft.`;
   return {
     ...basis,
     kans: open ? "misschien" : "ja",

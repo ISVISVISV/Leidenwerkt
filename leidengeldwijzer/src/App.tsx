@@ -497,7 +497,8 @@ const maxPrijsTekst = (soort: Opvangsoort) => {
 };
 
 /**
- * Wat "laag inkomen" betekent, met het bedrag voor dit huishouden: het sociaal minimum zonder vakantiegeld.
+ * Wat "inkomen op bijstandsniveau" betekent, met het bedrag voor dit huishouden: het sociaal minimum zonder vakantiegeld.
+ * "Bijstandsniveau" is het woord van de gemeente zelf. "Laag" klinkt als een oordeel.
  * De gemeente kijkt naar 5 jaar. De bijstand was toen iets lager. Daarom "ongeveer".
  */
 function laagUitleg(f: Formulier): string {
@@ -505,8 +506,9 @@ function laagUitleg(f: Formulier): string {
   const l = new Lezer(standaardRegels, vandaag());
   const kostendelers = (invoer.kostendelers ?? 0) + invoer.kinderen.filter((k) => l.aantal("pw.kostendeler.minimumleeftijd").lte(k.leeftijd)).length;
   const grens = sociaalMinimum(l, f.partner === "ja", f.woont || "huur", kostendelers);
-  if (!grens) return "Laag betekent: niet hoger dan de bijstand.";
-  return `Laag betekent: ongeveer ${euro(grens, true)} netto per maand of minder. Vakantiegeld telt niet mee. Dit is ongeveer de bijstand voor uw huishouden.`;
+  const basis = "Dat betekent: uw inkomen was niet hoger dan de bijstand. Ook als u geen bijstand kreeg.";
+  if (!grens) return basis;
+  return `${basis} Voor uw huishouden is dat nu ongeveer ${euro(grens, true)} netto per maand. Vakantiegeld telt niet mee.`;
 }
 
 const nettoHint =

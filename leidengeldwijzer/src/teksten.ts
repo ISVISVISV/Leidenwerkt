@@ -105,7 +105,7 @@ export const VRAAG = {
   soorten: (partner: boolean) => (partner ? "Wat voor inkomen heeft uw partner?" : "Wat voor inkomen heeft u?"),
   uitkering: (partner: boolean) => (partner ? "Welke uitkering krijgt uw partner?" : "Welke uitkering krijgt u?"),
   studieMedisch: "Kunt u door ziekte of een handicap niet werken naast uw studie?",
-  langLaag: "Heeft u al 5 jaar of langer een laag inkomen?",
+  langLaag: "Heeft u al 5 jaar of langer een inkomen op bijstandsniveau?",
   bezit: (paar: boolean) => (paar ? "Wat hebben u en uw partner samen?" : "Wat heeft u?"),
   betaal: (paar: boolean) => (paar ? "Hoeveel geld staat er op de betaalrekening van u en uw partner samen?" : "Hoeveel geld staat er op uw betaalrekening?"),
   spaar: (paar: boolean) => (paar ? "Hoeveel geld staat er op de spaarrekening van u en uw partner samen?" : "Hoeveel geld staat er op uw spaarrekening?"),
