@@ -43,7 +43,9 @@ body {
 .held {
   position: relative;
   overflow: hidden;
-  padding: 1.25rem 0 19rem;
+  /* Onder de tekst: ruimte voor de tekening. Op hoge schermen 19rem. Op lagere schermen (een laptop) minder,
+     zodat het begin van de kaarten zonder scrollen te zien is. Nooit minder dan de tekening zelf nodig heeft. */
+  padding: 1.25rem 0 clamp(min(calc(5.5rem + 11.5vw), 19rem), calc(19rem - (1100px - 100vh) * 0.35), 19rem);
   color: #fff;
 }
 
@@ -122,6 +124,13 @@ body {
   font-size: clamp(1.9rem, 4.6vw, 3rem);
   line-height: 1.12;
   color: #fff;
+}
+
+/* Op lagere schermen staat de kop iets dichter onder de naam. */
+@media (max-height: 820px) {
+  .held h1 {
+    margin-top: 1.25rem;
+  }
 }
 
 .held-tekst {
