@@ -13,6 +13,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Leidengeldwijzer: de vraag "Heeft u al 5 jaar of langer een laag inkomen?" is nu "… een inkomen op bijstandsniveau?". Dat is het woord van de gemeente, en het klinkt niet als een oordeel. Ook de teksten bij de inkomenstoeslag.
 - Leidengeldwijzer: zwemles staat niet meer bij "Deze regelingen horen bij de Sleutelpas". U vraagt het aan bij het Jeugdfonds Sport & Cultuur, zoals de gemeente het beschrijft.
 - Leidengeldwijzer: elk blok op de uitkomst heeft nu de rustige kleur van de organisatie. Rood voor de gemeente Leiden (met de gele Sleutelpas erin), blauw voor Dienst Toeslagen, groen voor de SVB en lichter blauw voor UWV. De tegels erin zijn wit.
+- Leidengeldwijzer: de uitleg bij de toeslag van UWV noemt nu ook de naam van de wet: de Toeslagenwet.
 - Een nieuwe stap begint nu altijd bovenaan de pagina, ook als u ver naar beneden stond. Ook bij terug met de knop van de browser.
 - Leidengeldwijzer: bij de kinderopvang heet het vak nu "Prijs per uur", zonder "(niet verplicht)". De uitleg eronder zegt al wat u doet als u de prijs nog niet weet.
 - Op een computer is de tekst nu 16 pixels in plaats van 18, de standaard van de browser. Op een telefoon blijft het 18. Op een laag scherm (een laptop) is het rode vlak in de rekenhulpen lager. Zo ziet u op een laptop de knop of de kaarten zonder te scrollen. Inzoomen werkt zoals altijd: bij 200% is de tekst 2 keer zo groot.
