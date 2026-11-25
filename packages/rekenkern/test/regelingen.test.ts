@@ -114,6 +114,16 @@ describe("individuele inkomenstoeslag", () => {
     expect(kans(invoer({ aanvrager: { ...laag, leeftijd: 22 } }), "iit")).toBe("nee");
     expect(kans(invoer({ aanvrager: laag }), "iit")).toBe("ja");
   });
+  it("een stel krijgt de toeslag samen: een partner jonger dan 23 of met studiefinanciering maakt het nee voor allebei", () => {
+    const partner = { leeftijd: 40, inkomen: {} };
+    expect(kans(invoer({ aanvrager: laag, partner }), "iit")).toBe("ja");
+    const jong = uitslag(checkRegelingen(invoer({ aanvrager: laag, partner: { ...partner, leeftijd: 22 } })), "iit")!;
+    expect(jong.kans).toBe("nee");
+    expect(jong.waarom).toMatch(/^Uw partner is jonger dan 23 jaar\./);
+    const student = uitslag(checkRegelingen(invoer({ aanvrager: laag, partner: { leeftijd: 30, inkomen: { studiefinanciering: 400 } } })), "iit")!;
+    expect(student.kans).toBe("nee");
+    expect(student.waarom).toMatch(/^Uw partner krijgt studiefinanciering\./);
+  });
   it("vermogen boven de grens van de bijstand (€ 8.000 voor een alleenstaande): nee", () => {
     expect(kans(invoer({ aanvrager: laag, vermogen: geld(8000) }), "iit")).toBe("ja");
     expect(kans(invoer({ aanvrager: laag, vermogen: geld(8001) }), "iit")).toBe("nee");
