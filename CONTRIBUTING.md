@@ -41,6 +41,7 @@ Deze afspraken gelden voor iedereen, ook voor een geautomatiseerde assistent die
 - **Privacy.** Zet nooit paden van een computer, gebruikersnamen, e-mailadressen of andere persoonlijke gegevens in de repository, in commits, in issues of in pull requests.
 - **Naam bij commits.** Een assistent die namens de beheerder werkt, commit als `Ian Vriend <ISVISVISV@users.noreply.github.com>`. Geen andere naam en geen privé-e-mailadres.
 - **Geen extra regels in commitberichten.** Geen `Co-Authored-By`, geen links naar sessies en geen vermelding van een AI-model of AI-hulpmiddel. Dat geldt ook voor pull requests en de repository. De enige vermelding is de zin in README.md: "Leidenwerkt is gemaakt door Ian Vriend, met hulp van AI."
+- **Geen andere rekenhulpen.** Noem geen andere rekenhulpen of tools van anderen bij naam, ook niet om te vergelijken. Schrijf wat onze rekenhulpen doen en waarom.
 - **Eén eigenaar.** Alleen Ian Vriend wordt als eigenaar of maker genoemd.
 - **Werkwijze.** Elke wijziging gaat via een eigen branch en een pull request. De beheerder voegt samen (squash) als de CI slaagt.
 - **Vooraf vragen.** Verandert wat een gebruiker ziet (een vraag, een tekst, een uitkomst of de vormgeving)? Vraag de beheerder eerst. Laat bij een verandering in de vormgeving eerst een afbeelding zien.

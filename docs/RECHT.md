@@ -461,12 +461,12 @@ Geen lijst bij de AIO-aanvulling, de toeslag van UWV, de Gemeentepolis, het Volw
 
 Uitgangspunt: zo weinig vragen als kan, maar een concrete uitslag gaat voor. "Misschien" is in beginsel geen wenselijke uitslag. Een vraag blijft dus als ze de uitslag van een regeling concreet maakt. Een vraag valt weg als ze alleen een tip of het moment van aanvragen bepaalt.
 
-Berekenjerecht.nl stelt deze vragen wel. Leidengeldwijzer niet:
+Deze vragen stelt Leidengeldwijzer bewust niet:
 
-| Vraag bij berekenjerecht.nl | Waarom zij die stellen | Wat Leidengeldwijzer doet |
+| Vraag | Waarvoor die vraag zou dienen | Wat Leidengeldwijzer doet |
 | --- | --- | --- |
-| Zorgpremie per maand, betaalde partneralimentatie, inkomen van medebewoners | Ze rekenen kwijtschelding en bijzondere bijstand helemaal uit. Daarvoor zijn de vaste lasten nodig | "Misschien" bij kwijtschelding en bijzondere bijstand. BSGR en de gemeente rekenen het zelf uit. Een eigen berekening kan later, als de regels in officiële bronnen te vinden zijn |
-| Bent u zwanger of heeft u een baby? Heeft u moeite met boodschappen? Wilt u hulp bij geldzaken? | Ze kiezen daarmee welke tips u ziet (Stichting Babyspullen, voedselbank, hulp bij geldzaken) | Geen vraag. De tips staan voor iedereen onder "Goed om te weten". Stichting Babyspullen staat er niet in (besluit 28) |
+| Zorgpremie per maand, betaalde partneralimentatie, inkomen van medebewoners | Kwijtschelding en bijzondere bijstand helemaal uitrekenen. Daarvoor zijn de vaste lasten nodig | "Misschien" bij kwijtschelding en bijzondere bijstand. BSGR en de gemeente rekenen het zelf uit. Een eigen berekening kan later, als de regels in officiële bronnen te vinden zijn |
+| Bent u zwanger of heeft u een baby? Heeft u moeite met boodschappen? Wilt u hulp bij geldzaken? | Kiezen welke tips u ziet (Stichting Babyspullen, voedselbank, hulp bij geldzaken) | Geen vraag. De tips staan voor iedereen onder "Goed om te weten". Stichting Babyspullen staat er niet in (besluit 28) |
 | Wilt u overstappen naar de Gemeentepolis? | Het gaat over de keuze van de inwoner, niet over het recht | De kaart noemt wanneer u zich kunt aanmelden |
 | Heeft u een aanslag ontvangen? | Kwijtschelding vraagt u aan na de aanslag. Dat gaat over het moment, niet over het recht | De kaart noemt hoe u het aanvraagt |
 | Maak je gebruik van een schuldhulptraject? | Met een schuldregeling of in de Wsnp kunt u de Sleutelpas krijgen, ook boven 130% | Geen vraag meer (weggehaald op 22 november). Bij een inkomen boven de grens zegt de Sleutelpas: "Heeft u een schuldregeling? Dan kunt u de Sleutelpas misschien toch krijgen." |
