@@ -118,10 +118,11 @@ const MEENEMEN: Record<string, Meenemen> = {
   },
 };
 
-/** Voegt toe wat u nodig heeft voor de aanvraag, met de bron. Niet bij "waarschijnlijk niet", en niet als u iets vanzelf krijgt. */
+/** Voegt toe wat u nodig heeft voor de aanvraag, met de bron. Niet bij "waarschijnlijk niet", en niet als u iets vanzelf krijgt.
+ * Wel bij hulp ("Als u het nodig heeft"): daar heeft alleen de kinderopvang bij sociale of medische problemen een lijst. */
 export function metMeenemen(u: Uitslag, c: Context): Uitslag {
   const m = MEENEMEN[u.id];
-  if (!m || u.kans === "nee" || u.kans === "info") return u;
+  if (!m || u.kans === "nee") return u;
   // Met bijstand krijgt u de Sleutelpas vanzelf (art. 3.1).
   if (u.id === "sleutelpas" && c.invoer.bijstand && !c.metAow) return u;
   return { ...u, meenemen: { kop: m.kop, lijst: m.lijst }, bronnen: [...u.bronnen, m.bron] };
