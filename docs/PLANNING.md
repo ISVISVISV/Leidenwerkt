@@ -24,6 +24,7 @@ Niet doen (besloten op 23 november 2026): een melding over de jaarwissel (het is
 
 ## Rekenhulp
 
+- [ ] Leidengeldwijzer: bijstand bij studiefinanciering vanaf 27 jaar en bij een stel waarvan één partner studeert. Wacht op de antwoorden van collega's (RECHT.md, deel 2, vraag 6). Daarna bouwen, en die vraag weer weghalen.
 - [ ] Leiden: de kwijtschelding van gemeentelijke belastingen als bedrag (nu alleen een melding); daarvoor zijn de tarieven en de rekenregels voor de betalingscapaciteit nodig.
 
 - [ ] Leidengeldwijzer: op de afdruk ook de contactgegevens van de SVB en UWV, als er een tegel van die organisatie op staat. UWV: "Voor de meeste vragen belt u UWV via 088 898 92 94." (uwv.nl/nl/contact/telefoonnummer). Het nummer van de SVB hangt af van de woonplaats; de pagina daarvoor laadt alleen met JavaScript.
