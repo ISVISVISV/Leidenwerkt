@@ -15,6 +15,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Leidengeldwijzer: elk blok op de uitkomst heeft nu de rustige kleur van de organisatie. Rood voor de gemeente Leiden (met de gele Sleutelpas erin), blauw voor Dienst Toeslagen, groen voor de SVB en lichter blauw voor UWV. De tegels erin zijn wit.
 - Een nieuwe stap begint nu altijd bovenaan de pagina, ook als u ver naar beneden stond. Ook bij terug met de knop van de browser.
 - Leidengeldwijzer: bij de kinderopvang heet het vak nu "Prijs per uur", zonder "(niet verplicht)". De uitleg eronder zegt al wat u doet als u de prijs nog niet weet.
+- Op een computer is de tekst nu 16 pixels in plaats van 18, de standaard van de browser. Op een telefoon blijft het 18. Op een laag scherm (een laptop) is het rode vlak in de rekenhulpen lager. Zo ziet u op een laptop de knop of de kaarten zonder te scrollen. Inzoomen werkt zoals altijd: bij 200% is de tekst 2 keer zo groot.
 - De molen en het water in de tekening bewegen nu ook in Leidenwerkt en Leidengeldwijzer, net als op de startpagina. Niet bij "minder beweging".
 - Leidengeldwijzer: de knop bij bijzondere bijstand gaat nu direct naar de aanvraagpagina van de gemeente Leiden.
 - Onderaan staat nu: "Dat beslist de organisatie die de regeling geeft." Zo klopt het ook voor de Voedselbank, het Jeugdfonds en de Stadsbank.

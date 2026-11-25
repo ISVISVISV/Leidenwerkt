@@ -31,6 +31,15 @@
   background: var(--papier);
 }
 
+/* Op een computer is de tekst 16 pixels: de standaard van de browser. Op een telefoon 18 (hierboven).
+   Zo wordt de tekst bij inzoomen tot 200% ook echt 2 keer zo groot (WCAG 1.4.4): bij inzoomen wordt het scherm
+   smaller, en bij een smal scherm wordt de tekst alleen groter, nooit kleiner. */
+@media (min-width: 44.01rem) {
+  :root {
+    font-size: 100%;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-thema="licht"]) {
     --papier: #20272d;
@@ -1269,9 +1278,11 @@ input[type="text"].datum {
   color: #fff;
 }
 
-/* Groot: ruimte voor de tekening. De kaart eronder valt 5rem over de rand. */
+/* Groot: ruimte voor de tekening. De kaart eronder valt 5rem over de rand.
+   Op een laag scherm (een laptop) minder ruimte, zodat de knop of de kaart zonder scrollen te zien is.
+   Nooit minder dan de tekening nodig heeft. Zoals .held op de startpagina. */
 .kopvlak.groot {
-  padding-bottom: 15rem;
+  padding-bottom: clamp(min(calc(3rem + 9vw), 15rem), calc(15rem - (1000px - 100vh) * 0.4), 15rem);
 }
 
 .kopvlak-binnen {
