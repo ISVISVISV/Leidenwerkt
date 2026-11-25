@@ -24,7 +24,7 @@ export function tw(c: Context): MogelijkeUitslag {
     id: "tw",
     naam: "Toeslag van UWV",
     groep: "uwv" as const,
-    wat: "Is uw bruto inkomen lager dan het sociaal minimum? Dan vult UWV uw uitkering misschien aan. Dit heet een toeslag.",
+    wat: "Is uw bruto inkomen lager dan het sociaal minimum? Dan vult UWV uw uitkering misschien aan. Dit heet een toeslag. De wet hiervoor is de Toeslagenwet.",
     aanvragen: { tekst: "Meer informatie en aanvragen", url: CITATEN.twWie.url },
     bronnen: [CITATEN.twWie, ...bron(l, minimumId)],
   };
