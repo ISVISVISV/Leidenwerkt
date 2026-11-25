@@ -33,6 +33,7 @@ Gewijzigde **regel** in plaats van bedrag (nieuwe voorwaarde, uitzondering, reke
 - **Wetten** (Basiswettenbestand, SRU van zoekservice.overheid.nl): Participatiewet, Regeling Participatiewet, Wet en Besluit op de huurtoeslag, Wet op de zorgtoeslag, Wet op het kindgebonden budget, Algemene Kinderbijslagwet, Wet kinderopvang, Besluit kinderopvangtoeslag, Wet IB 2001, Wet LB 1964, Awir.
 - **Publicaties** (SRU van repository.overheid.nl): bijstandsbedragen, Regeling huurtoeslaggrenzen, standaardpremie, Besluit kinderopvangtoeslag, kindgebonden budget, Belastingplan, Participatiewet in balans.
 - **Leiden** (CVDR): regelingen met woorden als bijstand, inkomenstoeslag, Sleutelpas, kwijtschelding.
+- **De bronnen zelf** (`scripts/bronnen.ts`): werkt elke link nog, uit de regeldata, `citaten.ts` en de broncode van de apps? En staat bij elke webpagina (geen pdf) onze letterlijke tekst er nog op? Zo valt het op als de gemeente of Dienst Toeslagen een bedrag of zin op een pagina verandert, ook zonder nieuwe regeling. Stukken korter dan 40 tekens slaat de controle over. Komt de tekst op een pagina pas met JavaScript, zet het adres dan in `bronnen_overslaan`: dan wordt alleen de link gecontroleerd.
 - **Zonder externe bron:** een issue 45 dagen vóór elke `geldig_tot` zonder opvolgend bestand, en in de eerste week van juni en december een lijst van alle parameters die `ontbrekend` of `onbevestigd` zijn.
 
 Elke vondst wordt een issue met het label `bewaking`. Er komt nooit twee keer een issue voor dezelfde vondst (de sleutel staat onzichtbaar in het issue).

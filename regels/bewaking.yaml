@@ -83,3 +83,7 @@ lokaal:
 waarschuw_dagen_voor_einde: 45
 # Begin december en begin juni: issue met alle parameters die ontbrekend of onbevestigd zijn.
 halfjaarlijkse_controle_maanden: [6, 12]
+
+# Bronnen: elke week werken alle links nog, en staat elke letterlijke tekst nog op de webpagina (scripts/bronnen.ts)?
+# Hier adressen (of een stuk ervan) waar de tekst pas met JavaScript op de pagina komt. Daar alleen de link controleren.
+bronnen_overslaan: []
