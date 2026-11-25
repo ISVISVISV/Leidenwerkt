@@ -24,14 +24,19 @@ export function App() {
   // De tekst blijft die van de laatste controle, zodat een schermlezer niet bij elke toetsaanslag iets nieuws voorleest.
   const zichtbareFouten: Fouten = Object.fromEntries(Object.entries(fouten).filter(([id]) => id in nuFout));
 
+  // Een nieuwe stap begint bovenaan de pagina, ook als u ver naar beneden stond. Daarna gaat de focus naar de kop,
+  // zonder te scrollen, zodat een schermlezer de nieuwe stap voorleest.
   useEffect(() => {
-    if (stap > 0) kop.current?.focus();
+    window.scrollTo(0, 0);
+    if (stap > 0) kop.current?.focus({ preventScroll: true });
   }, [stap]);
 
   // De terugknop van de browser gaat een stap terug in de rekenhulp, in plaats van de pagina te verlaten.
   const stand = useRef({ f, stap });
   stand.current = { f, stap };
   useEffect(() => {
+    // De browser zet de positie op de pagina niet terug bij een stap terug: elke stap begint bovenaan.
+    history.scrollRestoration = "manual";
     history.replaceState({ stap: 0 }, "");
     const bijTerug = (e: PopStateEvent) => {
       const doel = typeof e.state?.stap === "number" ? (e.state.stap as number) : 0;
