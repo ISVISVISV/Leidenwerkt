@@ -13,7 +13,9 @@ Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleg
 
 Overzicht van 21 november 2026. Leidengeldwijzer versie 0.4.0.
 
-Dit kunt u waarschijnlijk krijgen (2)
+Dit kunt u waarschijnlijk krijgen (3)
+GEMEENTE LEIDEN
+Hulp bij schulden
 DIENST TOESLAGEN
 Zorgtoeslag
 ongeveer € 129 per maand
@@ -86,6 +88,11 @@ Schulden€ 18.000
 
 ## Uitleg per regeling (op het scherm, in het venster)
 
+Hulp bij schulden
+De Stadsbank Leiden helpt inwoners van Leiden met schulden. Bel 14 071 en kies 1.
+Waarom waarschijnlijk wel?
+U heeft schulden.
+
 Zorgtoeslag
 ongeveer € 129 per maand
 Dit is geld voor de kosten van uw zorgverzekering.
@@ -135,9 +142,6 @@ Wilt u hulp bij een aanvraag of bij uw geldzaken? Ga dan naar het Goede Buur Spr
 
 Bijzondere bijstand
 Heeft u kosten die echt nodig zijn? En kunt u die niet betalen? Bijvoorbeeld kosten voor rechtshulp of voor een bewindvoerder. Dan kan de gemeente misschien helpen. Vraag het aan voordat u de kosten maakt.
-
-Hulp bij schulden
-U heeft schulden. De Stadsbank Leiden helpt inwoners van Leiden met schulden. Bel 14 071 en kies 1.
 
 Voedselbank
 De Voedselbank geeft een pakket met eten als u weinig geld overhoudt. Na het betalen van uw vaste lasten mag u niet meer dan € 335 per maand overhouden. Dat is de grens voor 1 persoon. Vaste lasten zijn bijvoorbeeld huur, energie, water, verzekeringen en aflossingen. De Voedselbank rekent het met u uit.

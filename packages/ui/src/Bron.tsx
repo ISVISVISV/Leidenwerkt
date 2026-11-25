@@ -8,6 +8,15 @@ import type { Citaat } from "@rekenhulp/rekenkern";
  * de knop Sluiten of klikken buiten de pop-up sluit hem; de focus gaat dan
  * terug naar de bronnaam. Onderaan staat de link naar de officiële bron.
  */
+/**
+ * De versie zoals de gebruiker die ziet. Bij een wet: "geldend vanaf …". De datum waarop wij een pagina hebben
+ * geraadpleegd, is voor het beheer en staat niet op het scherm (besluit 43). Leeg: geen versie tonen.
+ */
+export function versieVoorScherm(versie: string): string {
+  if (/^geraadpleegd/i.test(versie.trim())) return "";
+  return versie.replace(/,\s*geraadpleegd op [^,.]*/i, "").trim();
+}
+
 export function Bron({ citaat, label }: { citaat: Citaat; label?: string }) {
   const id = useId();
   const [open, setOpen] = useState(false);
@@ -41,7 +50,8 @@ export function Bron({ citaat, label }: { citaat: Citaat; label?: string }) {
         {label ?? citaat.titel}
       </button>
       <span className="bron-tekst" id={id}>
-        <strong>{citaat.titel}</strong> <span className="bron-versie">({citaat.versie})</span>
+        <strong>{citaat.titel}</strong>
+        {versieVoorScherm(citaat.versie) && <span className="bron-versie"> ({versieVoorScherm(citaat.versie)})</span>}
         <span className="bron-citaat">“{citaat.tekst}”</span>
         <a className="bron-link" href={citaat.url} target="_blank" rel="noreferrer noopener">
           Lees verder op {domein}

@@ -183,11 +183,14 @@ describe("studietoeslag en bijstand", () => {
     expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: { bedrijf: 500 } } }), "bijstand")).toBe("misschien");
     expect(kans(invoer({ aanvrager: { leeftijd: 40, inkomen: {} }, vermogen: geld(9000) }), "bijstand")).toBe("nee");
   });
-  it("de Stadsbank staat altijd bij 'Als u het nodig heeft'. Met schulden zegt de tekst dat", () => {
-    const met = uitslag(checkRegelingen(invoer({ vermogen: geld(0, { schulden: 50000 }) })), "stadsbank")!;
-    expect(met.kans).toBe("info");
-    expect(met.waarom).toMatch(/^U heeft schulden\./);
-    expect(kans(invoer(), "stadsbank")).toBe("info");
+  it("hulp bij schulden: met schulden bij de gemeente (waarschijnlijk wel), anders bij 'Als u het nodig heeft'. Nooit twee keer", () => {
+    const alle = checkRegelingen(invoer({ vermogen: geld(0, { schulden: 50000 }) }));
+    expect(alle.filter((u) => u.id === "stadsbank")).toHaveLength(1);
+    const met = uitslag(alle, "stadsbank")!;
+    expect([met.kans, met.groep]).toEqual(["ja", "gemeente"]);
+    expect(met.waarom).toBe("U heeft schulden.");
+    const zonder = uitslag(checkRegelingen(invoer()), "stadsbank")!;
+    expect([zonder.kans, zonder.groep]).toEqual(["info", "hulp"]);
   });
 });
 
