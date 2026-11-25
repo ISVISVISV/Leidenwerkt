@@ -36,7 +36,7 @@ Alleen officiële bronnen tellen: wetten.overheid.nl, officielebekendmakingen.nl
 | Overgangsrecht 2027 | – | geverifieerd |
 | Loonheffing en kortingen | geverifieerd | – |
 | Zorgtoeslag | geverifieerd | – |
-| Huurtoeslag | geverifieerd | – |
+| Huurtoeslag | geverifieerd | 11 geverifieerd, 5 ontbrekend |
 | Kindgebonden budget | geverifieerd | – |
 | Kinderbijslag | geverifieerd | – |
 | Kinderopvangtoeslag | geverifieerd | – |
