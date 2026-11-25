@@ -4,7 +4,7 @@
  */
 import { CITATEN } from "../citaten.ts";
 import { euro } from "../geld.ts";
-import { URL, bron, heel, vermogenToets, type MogelijkeUitslag } from "./basis.ts";
+import { URL, bron, heel, heeft, vermogenToets, type MogelijkeUitslag } from "./basis.ts";
 import type { Context } from "./context.ts";
 
 /** Gemeentepolis: tot 120%. Ondernemers: een jaargrens die Leidengeldwijzer niet uitrekent. */
@@ -61,6 +61,16 @@ export function iit(c: Context): MogelijkeUitslag {
   };
   if (minLeeftijd.gt(invoer.aanvrager.leeftijd))
     return { ...basis, kans: "nee", waarom: `U bent jonger dan ${minLeeftijd.toString()} jaar. Deze toeslag is voor mensen van ${minLeeftijd.toString()} jaar of ouder.` };
+  // Een stel krijgt de toeslag samen. Voldoet een van beiden niet aan de voorwaarden, dan geen toeslag voor allebei
+  // (toelichting bij art. 4 van de verordening van Leiden). Dat geldt ook voor de leeftijd en de studiefinanciering.
+  const partner = invoer.partner;
+  if (partner && minLeeftijd.gt(partner.leeftijd))
+    return {
+      ...basis,
+      kans: "nee",
+      waarom: `Uw partner is jonger dan ${minLeeftijd.toString()} jaar. Deze toeslag is voor mensen van ${minLeeftijd.toString()} jaar of ouder. Bij een stel moeten u en uw partner allebei aan de voorwaarden voldoen.`,
+      bronnen: [...basis.bronnen, CITATEN.iitLeeftijd, CITATEN.iitGehuwden],
+    };
   // Een stel telt als één geheel: beiden moeten aan art. 36 lid 1 Pw voldoen, dus jonger zijn dan de AOW-leeftijd
   // (toelichting bij art. 4 van de verordening van Leiden).
   if (c.metAow)
@@ -73,6 +83,13 @@ export function iit(c: Context): MogelijkeUitslag {
       bronnen: c.aanvragerAow ? [CITATEN.iitLeeftijd, CITATEN.iitAow] : [CITATEN.iitLeeftijd, CITATEN.iitAow, CITATEN.iitGehuwden],
     };
   if (c.studeert) return { ...basis, kans: "nee", waarom: `U krijgt studiefinanciering. Met studiefinanciering in de afgelopen ${jaren} jaar kunt u deze toeslag niet krijgen.` };
+  if (partner && heeft(partner, "studiefinanciering"))
+    return {
+      ...basis,
+      kans: "nee",
+      waarom: `Uw partner krijgt studiefinanciering. Met studiefinanciering in de afgelopen ${jaren} jaar kunt u deze toeslag niet krijgen. Bij een stel moeten u en uw partner allebei aan de voorwaarden voldoen.`,
+      bronnen: [...basis.bronnen, CITATEN.iitGehuwden],
+    };
   const v = vermogenToets(l, invoer, c.vermogensgrensBijstand);
   const t = c.toets();
   if (t.kans === "nee")
