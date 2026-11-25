@@ -37,7 +37,7 @@ export const SOORTEN: [Inkomenssoort, string][] = [
   ["studiefinanciering", "Studiefinanciering"],
   ["partneralimentatie", "Partneralimentatie"],
   ["kinderalimentatie", "Kinderalimentatie"],
-  ["ander", "Ander inkomen, zoals pensioen"],
+  ["ander", "Ander inkomen, zoals inkomsten uit verhuur"],
   ["geen", "Geen inkomen"],
 ];
 
