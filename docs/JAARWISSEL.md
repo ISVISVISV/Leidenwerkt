@@ -49,6 +49,7 @@ Regels:
 
 Lees bij elke nieuwe publicatie of er ook een voorwaarde, uitzondering of rekenvolgorde verandert. Voorbeelden: de Participatiewet in balans per 1 januari 2027, en de wijziging van de Wet op de huurtoeslag die BESLUITEN.md nummer 23 noemt.
 
+- Voor 2027 staat er al een punt klaar in [PLANNING.md](PLANNING.md): de toeslagpartner volgens art. 3 Awir verandert. Beslis met de beheerder of Leidengeldwijzer daar een vraag voor krijgt.
 - Een gewijzigde regel hoort in de rekenkern, met tests en met een ingangsdatum (zie `packages/rekenkern/src/regimes.ts`).
 - Leg de bron vast in [RECHT.md](RECHT.md).
 - Verandert daardoor wat gebruikers zien? Vraag dan eerst de beheerder (zie CONTRIBUTING.md).
