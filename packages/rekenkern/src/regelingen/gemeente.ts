@@ -165,10 +165,11 @@ export function smi(c: Context): MogelijkeUitslag {
   return {
     id: "smi",
     naam: "Kinderopvang bij sociale of medische problemen",
-    groep: "gemeente",
-    kans: "misschien",
+    // Bij "Als u het nodig heeft": het hangt af van klachten waar Leidengeldwijzer niet naar vraagt (besluit 41).
+    groep: "hulp",
+    kans: "info",
     wat: "Heeft u of uw partner last van lichamelijke, psychische of sociale klachten? Kan niemand anders voor uw kind zorgen? Dan kan de gemeente helpen met de kosten van kinderopvang. U betaalt zelf ook een deel.",
-    waarom: "Dit hangt af van uw situatie. Een onafhankelijk medisch adviesbureau kijkt of u de opvang nodig heeft. Daar vraagt Leidengeldwijzer niet naar.",
+    waarom: "Een onafhankelijk medisch adviesbureau kijkt of u de opvang nodig heeft.",
     aanvragen: { tekst: "Meer informatie en aanvragen", url: URL.smi },
     bronnen: [CITATEN.kinderopvangSmi, CITATEN.kinderopvangSmiGeldzaken],
   };

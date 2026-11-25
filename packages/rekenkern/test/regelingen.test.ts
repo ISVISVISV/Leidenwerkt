@@ -294,9 +294,11 @@ describe("kinderbijslag en kinderopvang bij problemen", () => {
   it("al kinderbijslag: niet tonen", () => {
     expect(kans(invoer({ kinderen: [{ leeftijd: 3 }], kinderbijslag: true }), "kinderbijslag")).toBeUndefined();
   });
-  it("kinderopvang bij sociale of medische problemen: alleen met een kind jonger dan 13", () => {
+  it("kinderopvang bij sociale of medische problemen: alleen met een kind jonger dan 13, bij 'Als u het nodig heeft'", () => {
     expect(kans(invoer({ kinderen: [{ leeftijd: 14 }], kinderbijslag: true }), "smi")).toBeUndefined();
-    expect(kans(invoer({ kinderen: [{ leeftijd: 2 }], kinderbijslag: true }), "smi")).toBe("misschien");
+    const u = uitslag(checkRegelingen(invoer({ kinderen: [{ leeftijd: 2 }], kinderbijslag: true })), "smi")!;
+    expect([u.kans, u.groep]).toEqual(["info", "hulp"]);
+    expect(u.meenemen?.lijst.length).toBeGreaterThan(0);
   });
 });
 

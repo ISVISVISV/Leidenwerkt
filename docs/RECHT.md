@@ -383,7 +383,7 @@ Kan nu niet worden aangevraagd (13 april tot en met 31 juli). De grens van 120% 
 | Regeling | Wat Leidengeldwijzer doet | Bron |
 | --- | --- | --- |
 | Kinderbijslag | Alleen bij kinderen jonger dan 18 voor wie iemand nog geen kinderbijslag krijgt. Bedrag per kwartaal uit de tabel van de SVB. Hangt niet af van het inkomen | [SVB, Wat is kinderbijslag](https://www.svb.nl/nl/kinderbijslag/wat-is-kinderbijslag/wat-is-kinderbijslag) |
-| Kinderopvang bij sociale of medische problemen | "Misschien" bij een kind jonger dan 13. Leidengeldwijzer vraagt niet naar klachten | [Gemeente Leiden](https://gemeente.leiden.nl/inwoners-en-ondernemers/zorg-en-onderwijs/kinderopvang/kinderopvang-bij-sociale-of-medische-problemen/), [Geldzaken](https://geldzaken.leiden.nl/regeling/kinderopvang-bij-sociale-of-medische-problemen/) |
+| Kinderopvang bij sociale of medische problemen | Bij "Als u het nodig heeft", alleen met een kind jonger dan 13. Leidengeldwijzer vraagt niet naar klachten (besluit 41) | [Gemeente Leiden](https://gemeente.leiden.nl/inwoners-en-ondernemers/zorg-en-onderwijs/kinderopvang/kinderopvang-bij-sociale-of-medische-problemen/), [Geldzaken](https://geldzaken.leiden.nl/regeling/kinderopvang-bij-sociale-of-medische-problemen/) |
 | Kwijtschelding | "Misschien" tot het sociaal minimum. BSGR rekent het zelf uit | [Geldzaken](https://geldzaken.leiden.nl/regeling/kwijtschelding-of-geld-terugkrijgen/) |
 | Bijzondere bijstand | "Misschien" tot 150% van de bijstandsnorm. Maatwerk | [Geldzaken](https://geldzaken.leiden.nl/regeling/bijzondere-bijstand-als-het-echt-nodig-is/) |
 | Goed om te weten | Goede Buur Spreekuur, Stadsbank, Voedselbank. Voor iedereen | [Geldzaken](https://geldzaken.leiden.nl/) |
