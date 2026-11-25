@@ -156,7 +156,8 @@ export async function controleerBronnen(bronnen: Bronvermelding[], overslaan: st
       const waar = [...new Set(vermeldingen.map((v) => v.waar))].slice(0, 5).join(", ");
       let pagina: { status: number; html?: string };
       try {
-        pagina = await haalPagina(url);
+        // Een netwerkfout komt soms één keer voor. Daarom proberen we het twee keer.
+        pagina = await haalPagina(url).catch(() => haalPagina(url));
       } catch (e) {
         verslag.push(`niet bereikbaar: ${url} (${(e as Error).message})`);
         meldingen.push({ sleutel: `link:${url}`, titel: `[bewaking] Link niet bereikbaar: ${url.slice(0, 80)}`, tekst: `De link ${url} gaf geen antwoord (${(e as Error).message}). Gebruikt in: ${waar}.\n\nControleer de link met de hand. Werkt hij niet meer? Zoek het nieuwe adres op de officiële site en pas het aan.` });
