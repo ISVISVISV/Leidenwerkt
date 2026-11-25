@@ -15,6 +15,8 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse } from "yaml";
 import { ruweParameters, type RuweParameter } from "../packages/rekenkern/src/index.ts";
+import { CITATEN } from "../packages/rekenkern/src/citaten.ts";
+import { controleerBronnen, linksInBroncode, type Bronvermelding } from "./bronnen.ts";
 
 export interface Melding {
   /** Unieke sleutel; staat als markering in het issue zodat er geen dubbele issues komen. */
@@ -29,6 +31,20 @@ interface Bewaking {
   lokaal: { gemeente: string; naam: string; titelwoorden: string; raakt: string[] }[];
   waarschuw_dagen_voor_einde: number;
   halfjaarlijkse_controle_maanden: number[];
+  /** Adressen (of een stuk ervan) waar de tekst pas met JavaScript op de pagina komt: geen controle op het citaat. */
+  bronnen_overslaan?: string[];
+}
+
+/** Alle bronnen die nu of later gelden: uit de regeldata, uit citaten.ts en uit de broncode. */
+export function alleBronnen(params: RuweParameter[], datum: string, broncode: Bronvermelding[]): Bronvermelding[] {
+  const uit: Bronvermelding[] = [];
+  for (const p of params) {
+    if (p.geldig_tot && p.geldig_tot < datum) continue;
+    if (p.bron?.url) uit.push({ url: p.bron.url, waar: `regeldata ${p.id}` });
+    if (p.citaat?.tekst && (p.citaat.url ?? p.bron?.url)) uit.push({ url: (p.citaat.url ?? p.bron!.url)!, waar: `regeldata ${p.id}`, tekst: p.citaat.tekst, kop: p.citaat.kop });
+  }
+  for (const [naam, c] of Object.entries(CITATEN)) uit.push({ url: c.url, waar: `citaten.ts ${naam}`, tekst: c.tekst, kop: c.titel });
+  return [...uit, ...broncode];
 }
 
 // ---------- XML (SRU) zonder externe bibliotheek ----------
@@ -196,6 +212,17 @@ async function main() {
   for (const l of cfg.lokaal) {
     const q = `dcterms.creator="${l.gemeente}" and dcterms.modified>=${sinds} and dcterms.title any "${l.titelwoorden}"`;
     await zoek(l.naam, `${CVDR}&maximumRecords=50&query=${encodeURIComponent(q)}`, (x) => lokaalMeldingen(x, l));
+  }
+  // De bronnen zelf: werken de links, en staat onze letterlijke tekst er nog?
+  const wortel = fileURLToPath(new URL("..", import.meta.url)).replace(/\/$/, "");
+  const broncode = linksInBroncode(["leidenwerkt/src", "leidengeldwijzer/src", "packages/ui/src", "packages/rekenkern/src/regelingen", "start"], wortel);
+  const bron = await controleerBronnen(alleBronnen(ruweParameters, datum, broncode), cfg.bronnen_overslaan ?? []);
+  meldingen.push(...bron.meldingen);
+  console.log(bron.verslag.join("\n"));
+  if (droog && process.env.GITHUB_ACTIONS) {
+    // In een droge run op GitHub: het verslag ook als notitie, zodat het via de API te lezen is.
+    const regels = bron.verslag;
+    for (let i = 0; i < regels.length && i < 400; i += 40) console.log(`::notice title=Bronnen ${i / 40 + 1}::${regels.slice(i, i + 40).join("%0A")}`);
   }
   meldingen.push(...aflopendeRegels(ruweParameters, datum, cfg.waarschuw_dagen_voor_einde));
   meldingen.push(...halfjaarlijks(ruweParameters, datum, cfg.halfjaarlijkse_controle_maanden));

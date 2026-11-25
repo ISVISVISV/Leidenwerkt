@@ -36,6 +36,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Toegevoegd
 
+- Bewaking: elke week controleert GitHub of alle links naar bronnen nog werken, en of onze letterlijke teksten nog op de webpagina's staan. Een verschil wordt een issue.
 - Regeldata: de huurtoeslag voor 2027 uit de Regeling huurtoeslaggrenzen 2027 (huurgrenzen, kwaliteitskortingsgrens, aftoppingsgrenzen en minimum-inkomensijkpunten). De basishuur, de vrijstelling voor kinderen en de vermogensgrenzen volgen als Dienst Toeslagen ze publiceert. Tot alle bedragen van 2027 bekend zijn, rekenen beide rekenhulpen met 2026.
 
 ## 0.8.0 – 23 november 2026
