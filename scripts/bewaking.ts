@@ -33,6 +33,7 @@ interface Bewaking {
   halfjaarlijkse_controle_maanden: number[];
   /** Adressen (of een stuk ervan) waar de tekst pas met JavaScript op de pagina komt: geen controle op het citaat. */
   bronnen_overslaan?: string[];
+  tekst_niet_op_pagina?: string[];
 }
 
 /** Alle bronnen die nu of later gelden: uit de regeldata, uit citaten.ts en uit de broncode. */
@@ -216,7 +217,7 @@ async function main() {
   // De bronnen zelf: werken de links, en staat onze letterlijke tekst er nog?
   const wortel = fileURLToPath(new URL("..", import.meta.url)).replace(/\/$/, "");
   const broncode = linksInBroncode(["leidenwerkt/src", "leidengeldwijzer/src", "packages/ui/src", "packages/rekenkern/src/regelingen", "start"], wortel);
-  const bron = await controleerBronnen(alleBronnen(ruweParameters, datum, broncode), cfg.bronnen_overslaan ?? []);
+  const bron = await controleerBronnen(alleBronnen(ruweParameters, datum, broncode), cfg.bronnen_overslaan ?? [], cfg.tekst_niet_op_pagina ?? []);
   meldingen.push(...bron.meldingen);
   console.log(bron.verslag.join("\n"));
   if (droog && process.env.GITHUB_ACTIONS) {

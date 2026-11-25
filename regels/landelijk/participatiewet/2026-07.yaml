@@ -35,7 +35,7 @@ parameters:
     notitie: "Controle met de tabel van de gemeente Leiden (hulp bij kosten sport en cultuur): 120% × 95% × € 1.587,34 = € 1.809,57 (alleenstaand, AOW-leeftijd) en 120% × 95% × € 2.176,10 = € 2.480,75 (getrouwd of samenwonend, AOW-leeftijd)."
     citaat: &c22
       kop: "Participatiewet, art. 22"
-      tekst: "Voor belanghebbenden die de pensioengerechtigde leeftijd hebben bereikt is de norm per kalendermaand, indien het betreft: a. een alleenstaande of een alleenstaande ouder zonder kostendelende medebewoners: € 1.587,34; b. gehuwden waarvan beide echtgenoten de pensioengerechtigde leeftijd hebben bereikt, zonder kostendelende medebewoners: € 2.176,10; c. gehuwden waarvan een echtgenoot de pensioengerechtigde leeftijd heeft bereikt en de andere echtgenoot 21 jaar of ouder, doch de pensioengerechtigde leeftijd nog niet heeft bereikt, zonder kostendelende medebewoners: € 2.176,10;"
+      tekst: "Voor belanghebbenden die de pensioengerechtigde leeftijd hebben bereikt is de norm per kalendermaand, indien het betreft: a. een alleenstaande of een alleenstaande ouder zonder kostendelende medebewoners: € 1.587,34; b. gehuwden waarvan beide echtgenoten de pensioengerechtigde leeftijd hebben bereikt, zonder kostendelende medebewoners: € 2.176,10; c. gehuwden waarvan een echtgenoot de pensioengerechtigde leeftijd heeft bereikt en de andere echtgenoot 21 jaar of ouder, doch de pensioengerechtigde leeftijd nog niet heeft bereikt, zonder kostendelende medebewoners: € 2.176,10."
       url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel22
       versie: "geldend vanaf 1 juli 2026"
   - id: pw.norm.aow.gehuwden

@@ -150,10 +150,20 @@ parameters:
   - id: ht.vermogen.zonder_partner
     omschrijving: Huurtoeslag 2027, hoogste vermogen op 1 januari 2027 zonder toeslagpartner (ook per medebewoner)
     eenheid: euro
-    status: ontbrekend
-    notitie: Staat op belastingdienst.nl (maximaal vermogen huurtoeslag). Voor 2027 nog niet gevonden op 25 november 2026.
+    waarde: { soort: bedrag, bedrag: "39480" }
+    status: geverifieerd
+    bron: &htvermogen
+      titel: Dienst Toeslagen, Hoeveel vermogen mag ik hebben om huurtoeslag te krijgen?
+      url: https://www.belastingdienst.nl/wps/wcm/connect/nl/huurtoeslag/content/maximaal-vermogen-huurtoeslag
+      geraadpleegd_op: 2026-11-25
+    citaat: &chtvermogen
+      kop: "Dienst Toeslagen, maximaal vermogen huurtoeslag"
+      tekst: "In 2027 kunt u huurtoeslag krijgen als uw vermogen op 1 januari 2027 niet hoger is dan € 39.480. In 2026 was dat € 38.479. Hebt u een toeslagpartner? In dat geval mag het vermogen van u samen op 1 januari 2027 maximaal € 78.960 zijn. In 2026 was dat € 76.958. […] Ook medebewoners mogen niet meer dan € 39.480 aan vermogen hebben."
+      versie: "geraadpleegd op 25 november 2026"
   - id: ht.vermogen.met_partner
     omschrijving: Huurtoeslag 2027, hoogste vermogen op 1 januari 2027 met toeslagpartner, samen
     eenheid: euro
-    status: ontbrekend
-    notitie: Staat op belastingdienst.nl (maximaal vermogen huurtoeslag). Voor 2027 nog niet gevonden op 25 november 2026.
+    waarde: { soort: bedrag, bedrag: "78960" }
+    status: geverifieerd
+    bron: *htvermogen
+    citaat: *chtvermogen
