@@ -1,0 +1,159 @@
+gebied: Huurtoeslag 2027
+geldig_van: 2027-01-01
+geldig_tot: 2027-12-31
+parameters:
+  - id: ht.basishuur.eenpersoons
+    omschrijving: Basishuur eenpersoonshuishouden (het deel van de huur dat u altijd zelf betaalt)
+    eenheid: euro_per_maand
+    status: ontbrekend
+    notitie: Staat in Dienst Toeslagen, Berekening huurtoeslag 2027. Nog niet gepubliceerd op 25 november 2026. De Regeling huurtoeslaggrenzen 2027 noemt alleen de normhuur bij het minimum-inkomensijkpunt (€ 262,09), niet de basishuur.
+  - id: ht.basishuur.meerpersoons
+    omschrijving: Basishuur meerpersoonshuishouden
+    eenheid: euro_per_maand
+    status: ontbrekend
+    notitie: Staat in Dienst Toeslagen, Berekening huurtoeslag 2027. Nog niet gepubliceerd op 25 november 2026.
+  - id: ht.kwaliteitskortingsgrens
+    omschrijving: Kwaliteitskortingsgrens (art. 20 lid 1 Wet op de huurtoeslag)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "517.14" }
+    status: geverifieerd
+    bron: &stcrt_ht
+      titel: Regeling huurtoeslaggrenzen 2027 (Staatscourant 2026, 39507)
+      url: https://zoek.officielebekendmakingen.nl/stcrt-2026-39507.html
+      geraadpleegd_op: 2026-11-25
+    citaat:
+      kop: "Regeling huurtoeslaggrenzen 2027, artikel 1 en 3"
+      url: "https://zoek.officielebekendmakingen.nl/stcrt-2026-39507.html"
+      tekst: "Artikel 13, eerste lid, wordt als volgt gewijzigd: 1. In onderdeel a wordt ‘€ 932,93’ vervangen door ‘€ 959,71’. 2. In onderdeel b wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. […] Artikel 20 wordt als volgt gewijzigd: 1. In het eerste lid wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. 2. In het tweede lid wordt ‘€ 713,02’ vervangen door ‘€ 740,12’ en wordt ‘€ 764,14’ vervangen door ‘€ 793,18’. […] Het minimum-inkomensijkpunt, bedoeld in artikel 17, eerste lid, van de Wet op de huurtoeslag, is: a. voor een eenpersoonshuishouden: € 24.150; b. voor een meerpersoonshuishouden: € 32.475;"
+      versie: "geldend vanaf 1 januari 2027"
+  - id: ht.aftoppingsgrens.laag
+    omschrijving: Aftoppingsgrens één- en tweepersoonshuishoudens (art. 20 lid 2 a Wht)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "740.12" }
+    status: geverifieerd
+    bron: *stcrt_ht
+    citaat:
+      kop: "Regeling huurtoeslaggrenzen 2027, artikel 1 en 3"
+      url: "https://zoek.officielebekendmakingen.nl/stcrt-2026-39507.html"
+      tekst: "Artikel 13, eerste lid, wordt als volgt gewijzigd: 1. In onderdeel a wordt ‘€ 932,93’ vervangen door ‘€ 959,71’. 2. In onderdeel b wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. […] Artikel 20 wordt als volgt gewijzigd: 1. In het eerste lid wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. 2. In het tweede lid wordt ‘€ 713,02’ vervangen door ‘€ 740,12’ en wordt ‘€ 764,14’ vervangen door ‘€ 793,18’. […] Het minimum-inkomensijkpunt, bedoeld in artikel 17, eerste lid, van de Wet op de huurtoeslag, is: a. voor een eenpersoonshuishouden: € 24.150; b. voor een meerpersoonshuishouden: € 32.475;"
+      versie: "geldend vanaf 1 januari 2027"
+  - id: ht.aftoppingsgrens.hoog
+    omschrijving: Aftoppingsgrens drie- of meerpersoonshuishoudens (art. 20 lid 2 b Wht)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "793.18" }
+    status: geverifieerd
+    bron: *stcrt_ht
+    citaat:
+      kop: "Regeling huurtoeslaggrenzen 2027, artikel 1 en 3"
+      url: "https://zoek.officielebekendmakingen.nl/stcrt-2026-39507.html"
+      tekst: "Artikel 13, eerste lid, wordt als volgt gewijzigd: 1. In onderdeel a wordt ‘€ 932,93’ vervangen door ‘€ 959,71’. 2. In onderdeel b wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. […] Artikel 20 wordt als volgt gewijzigd: 1. In het eerste lid wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. 2. In het tweede lid wordt ‘€ 713,02’ vervangen door ‘€ 740,12’ en wordt ‘€ 764,14’ vervangen door ‘€ 793,18’. […] Het minimum-inkomensijkpunt, bedoeld in artikel 17, eerste lid, van de Wet op de huurtoeslag, is: a. voor een eenpersoonshuishouden: € 24.150; b. voor een meerpersoonshuishouden: € 32.475;"
+      versie: "geldend vanaf 1 januari 2027"
+  - id: ht.maximale_huurgrens
+    omschrijving: Maximale huurgrens (rekengrens, 21 jaar en ouder, art. 13 lid 1 a Wht)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "959.71" }
+    status: geverifieerd
+    bron: *stcrt_ht
+    citaat:
+      kop: "Regeling huurtoeslaggrenzen 2027, artikel 1 en 3"
+      url: "https://zoek.officielebekendmakingen.nl/stcrt-2026-39507.html"
+      tekst: "Artikel 13, eerste lid, wordt als volgt gewijzigd: 1. In onderdeel a wordt ‘€ 932,93’ vervangen door ‘€ 959,71’. 2. In onderdeel b wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. […] Artikel 20 wordt als volgt gewijzigd: 1. In het eerste lid wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. 2. In het tweede lid wordt ‘€ 713,02’ vervangen door ‘€ 740,12’ en wordt ‘€ 764,14’ vervangen door ‘€ 793,18’. […] Het minimum-inkomensijkpunt, bedoeld in artikel 17, eerste lid, van de Wet op de huurtoeslag, is: a. voor een eenpersoonshuishouden: € 24.150; b. voor een meerpersoonshuishouden: € 32.475;"
+      versie: "geldend vanaf 1 januari 2027"
+  - id: ht.subsidie.tot_kkg
+    omschrijving: Vergoeding van het deel van de huur tussen basishuur en kwaliteitskortingsgrens (art. 21 lid 1 a Wht)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "1.00" }
+    status: geverifieerd
+    bron: &wht
+      titel: Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2027)
+      url: https://wetten.overheid.nl/BWBR0008659/2027-01-01
+      geraadpleegd_op: 2026-11-25
+    citaat:
+      kop: "Wet op de huurtoeslag, art. 21"
+      url: "https://wetten.overheid.nl/BWBR0008659/2027-01-01"
+      tekst: "1 De hoogte van de huurtoeslag wordt als volgt bepaald: a. het deel van de rekenhuur boven de basishuur tot aan de kwaliteitskortingsgrens wordt voor 100 procent gesubsidieerd; […] 2 […] afbouwpercentage: a. 27% voor eenpersoonshuishoudens, of b. 22% voor meerpersoonshuishoudens."
+      versie: "geldend vanaf 1 januari 2027"
+  - id: ht.subsidie.tot_aftopping
+    omschrijving: Vergoeding van het deel van de huur tussen kwaliteitskortingsgrens en aftoppingsgrens (art. 7 lid 1 Besluit op de huurtoeslag)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.65" }
+    status: geverifieerd
+    bron: &bht
+      titel: Besluit op de huurtoeslag art. 7 (wetten.overheid.nl, versie 1 januari 2027)
+      url: https://wetten.overheid.nl/BWBR0008763/2027-01-01
+      geraadpleegd_op: 2026-11-25
+    citaat:
+      kop: "Besluit op de huurtoeslag, art. 7"
+      url: "https://wetten.overheid.nl/BWBR0008763/2027-01-01"
+      tekst: "1 Het percentage, bedoeld in artikel 21, eerste lid, onder b, van de wet, is 65. 2 Het percentage, bedoeld in artikel 21, eerste lid, onder c, van de wet, is 40."
+      versie: "geldend vanaf 1 januari 2027"
+  - id: ht.subsidie.boven_aftopping
+    omschrijving: Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens (art. 7 lid 2 Besluit op de huurtoeslag)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.40" }
+    status: geverifieerd
+    bron: *bht
+    citaat:
+      kop: "Besluit op de huurtoeslag, art. 7"
+      url: "https://wetten.overheid.nl/BWBR0008763/2027-01-01"
+      tekst: "1 Het percentage, bedoeld in artikel 21, eerste lid, onder b, van de wet, is 65. 2 Het percentage, bedoeld in artikel 21, eerste lid, onder c, van de wet, is 40."
+      versie: "geldend vanaf 1 januari 2027"
+  - id: ht.afbouw.eenpersoons
+    omschrijving: Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons (art. 21 lid 2 Wht)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.27" }
+    status: geverifieerd
+    bron: *wht
+    citaat:
+      kop: "Wet op de huurtoeslag, art. 21"
+      url: "https://wetten.overheid.nl/BWBR0008659/2027-01-01"
+      tekst: "1 De hoogte van de huurtoeslag wordt als volgt bepaald: a. het deel van de rekenhuur boven de basishuur tot aan de kwaliteitskortingsgrens wordt voor 100 procent gesubsidieerd; […] 2 […] afbouwpercentage: a. 27% voor eenpersoonshuishoudens, of b. 22% voor meerpersoonshuishoudens."
+      versie: "geldend vanaf 1 januari 2027"
+  - id: ht.afbouw.meerpersoons
+    omschrijving: Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, meerpersoons (art. 21 lid 2 Wht)
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.22" }
+    status: geverifieerd
+    bron: *wht
+    citaat:
+      kop: "Wet op de huurtoeslag, art. 21"
+      url: "https://wetten.overheid.nl/BWBR0008659/2027-01-01"
+      tekst: "1 De hoogte van de huurtoeslag wordt als volgt bepaald: a. het deel van de rekenhuur boven de basishuur tot aan de kwaliteitskortingsgrens wordt voor 100 procent gesubsidieerd; […] 2 […] afbouwpercentage: a. 27% voor eenpersoonshuishoudens, of b. 22% voor meerpersoonshuishoudens."
+      versie: "geldend vanaf 1 januari 2027"
+  - id: ht.minimum_inkomensijkpunt.eenpersoons
+    omschrijving: Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2027)
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "24150" }
+    status: geverifieerd
+    bron: *stcrt_ht
+    citaat:
+      kop: "Regeling huurtoeslaggrenzen 2027, artikel 1 en 3"
+      url: "https://zoek.officielebekendmakingen.nl/stcrt-2026-39507.html"
+      tekst: "Artikel 13, eerste lid, wordt als volgt gewijzigd: 1. In onderdeel a wordt ‘€ 932,93’ vervangen door ‘€ 959,71’. 2. In onderdeel b wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. […] Artikel 20 wordt als volgt gewijzigd: 1. In het eerste lid wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. 2. In het tweede lid wordt ‘€ 713,02’ vervangen door ‘€ 740,12’ en wordt ‘€ 764,14’ vervangen door ‘€ 793,18’. […] Het minimum-inkomensijkpunt, bedoeld in artikel 17, eerste lid, van de Wet op de huurtoeslag, is: a. voor een eenpersoonshuishouden: € 24.150; b. voor een meerpersoonshuishouden: € 32.475;"
+      versie: "geldend vanaf 1 januari 2027"
+  - id: ht.minimum_inkomensijkpunt.meerpersoons
+    omschrijving: Minimum-inkomensijkpunt meerpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2027)
+    eenheid: euro_per_jaar
+    waarde: { soort: bedrag, bedrag: "32475" }
+    status: geverifieerd
+    bron: *stcrt_ht
+    citaat:
+      kop: "Regeling huurtoeslaggrenzen 2027, artikel 1 en 3"
+      url: "https://zoek.officielebekendmakingen.nl/stcrt-2026-39507.html"
+      tekst: "Artikel 13, eerste lid, wordt als volgt gewijzigd: 1. In onderdeel a wordt ‘€ 932,93’ vervangen door ‘€ 959,71’. 2. In onderdeel b wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. […] Artikel 20 wordt als volgt gewijzigd: 1. In het eerste lid wordt ‘€ 498,20’ vervangen door ‘€ 517,14’. 2. In het tweede lid wordt ‘€ 713,02’ vervangen door ‘€ 740,12’ en wordt ‘€ 764,14’ vervangen door ‘€ 793,18’. […] Het minimum-inkomensijkpunt, bedoeld in artikel 17, eerste lid, van de Wet op de huurtoeslag, is: a. voor een eenpersoonshuishouden: € 24.150; b. voor een meerpersoonshuishouden: € 32.475;"
+      versie: "geldend vanaf 1 januari 2027"
+  - id: ht.vrijstelling_kind_onder_23
+    omschrijving: Van inwonende kinderen die aan het begin van het jaar jonger zijn dan 23 telt alleen het inkomen boven dit bedrag per persoon per jaar mee (stap 5)
+    eenheid: euro_per_jaar
+    status: ontbrekend
+    notitie: Staat in Dienst Toeslagen, Berekening huurtoeslag 2027. Nog niet gepubliceerd op 25 november 2026.
+  - id: ht.vermogen.zonder_partner
+    omschrijving: Huurtoeslag 2027, hoogste vermogen op 1 januari 2027 zonder toeslagpartner (ook per medebewoner)
+    eenheid: euro
+    status: ontbrekend
+    notitie: Staat op belastingdienst.nl (maximaal vermogen huurtoeslag). Voor 2027 nog niet gevonden op 25 november 2026.
+  - id: ht.vermogen.met_partner
+    omschrijving: Huurtoeslag 2027, hoogste vermogen op 1 januari 2027 met toeslagpartner, samen
+    eenheid: euro
+    status: ontbrekend
+    notitie: Staat op belastingdienst.nl (maximaal vermogen huurtoeslag). Voor 2027 nog niet gevonden op 25 november 2026.

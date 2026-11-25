@@ -28,11 +28,14 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 - Leidengeldwijzer: "Hulp nodig?" heet nu "Als u het nodig heeft". Daarin staan hulp bij uw aanvraag, bijzondere bijstand (met voorbeelden), hulp bij schulden en de Voedselbank. De Voedselbank noemt de grens voor uw huishouden.
 - Leidengeldwijzer: op de afdruk staat nu ook wat u kunt krijgen als u het nodig heeft: bijzondere bijstand en de Voedselbank.
 - Leidengeldwijzer: de koppen op de uitkomst zeggen wat u moet doen. Bijvoorbeeld: "U moet deze regelingen zelf aanvragen. Kies een regeling. Dan ziet u hoe dat gaat."
-
 - Leidengeldwijzer: bij de kinderopvangtoeslag staat nu concreet wie niet werkt of studeert. U of uw partner. Dan krijgt u de toeslag meestal niet. De uitzonderingen staan erbij: inburgering, een traject naar werk, of zorg uit de Wet langdurige zorg.
 - Links naar andere websites hebben een klein pijltje ↗. Een schermlezer leest "opent in een nieuw tabblad". Onder de knop om aan te vragen staat de website.
 - Startpagina: nieuwe teksten. "Wat houdt u over als u gaat werken?", en duidelijker over privacy en bronnen. UWV staat nu bij wie er beslist.
 - De documentatie zegt nu eerlijk hoe er wordt gecontroleerd: er is één beheerder en nog geen tweede beoordelaar.
+
+### Toegevoegd
+
+- Regeldata: de huurtoeslag voor 2027 uit de Regeling huurtoeslaggrenzen 2027 (huurgrenzen, kwaliteitskortingsgrens, aftoppingsgrenzen en minimum-inkomensijkpunten). De basishuur, de vrijstelling voor kinderen en de vermogensgrenzen volgen als Dienst Toeslagen ze publiceert. Tot alle bedragen van 2027 bekend zijn, rekenen beide rekenhulpen met 2026.
 
 ## 0.8.0 – 23 november 2026
 
