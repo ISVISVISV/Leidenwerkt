@@ -41,7 +41,7 @@ Elke vondst wordt een issue met het label `bewaking`. Er komt nooit twee keer ee
 
 1. Open de link in het issue en lees wat er verandert, en per wanneer.
 2. Raakt het de app niet (bijvoorbeeld een wijziging over BES-eilanden of jongeren onder 21)? Sluit het issue met een korte reden.
-3. Verandert een **bedrag**: werk de regeldata bij (stappen in hoofdstuk 2) en verwijs in de pull request naar het issue ("Sluit #12").
+3. Verandert een **bedrag**: werk de regeldata bij (stappen in hoofdstuk 2) en verwijs in de pull request naar het issue met "Closes #12". GitHub sluit het issue dan vanzelf bij het samenvoegen. Een Nederlands woord als "Sluit" werkt daarvoor niet.
 4. Verandert een **regel**: noteer het in `docs/RECHT.md` (deel 4, open vragen), bouw het in de rekenkern met tests, en leg de bron vast in `docs/RECHT.md` (deel 1 of 2).
 5. Twijfel over de betekenis? Zet het issue op "vraag" en vraag het na bij de gemeente of een sociaal raadsman.
 6. Meldt de bewaking een **fout van de zoekdienst**: controleer de bronnen met de hand; is de zoekdienst veranderd, pas dan `regels/bewaking.yaml` of `scripts/bewaking.ts` aan.

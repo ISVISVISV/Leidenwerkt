@@ -42,7 +42,7 @@ Regels:
 - Alleen officiële bronnen. Open de bron zelf. Neem de waarde letterlijk over. Alleen dan is de status `geverifieerd`.
 - Een `citaat` neemt u woord voor woord over uit de nieuwe versie.
 - Is een bedrag nog niet gepubliceerd? Laat het `ontbrekend`. Raad nooit en neem nooit het oude bedrag over. De app rekent dan met de laatste datum waarvoor alles bekend is, en toont een waarschuwing (ONDERHOUD.md, hoofdstuk 4).
-- Komen de bedragen in delen binnen? Dat mag. Maak dan een pull request per onderwerp. Elke pull request noemt het issue dat hij sluit ("Sluit #87").
+- Komen de bedragen in delen binnen? Dat mag. Maak dan een pull request per onderwerp. Elke pull request noemt het issue dat hij sluit, met "Closes #87". Alleen dat Engelse woord sluit het issue vanzelf.
 - De Leidse regels komen vaak later dan de landelijke. Tot die er zijn, gelden de regels van het oude jaar niet vanzelf door. Staat op de site van de gemeente dat de regels gelijk blijven? Neem die zin dan als bron op.
 
 ## 3. Verandert er een regel, niet alleen een bedrag?
