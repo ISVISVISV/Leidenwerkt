@@ -24,6 +24,7 @@ Een wegwijzer voor wie hier werk overneemt, vooral een geautomatiseerde assisten
 
 - **Geen verzinsels, geen aannames.** Elk bedrag en elke regel komt uit een officiële bron, met de letterlijke tekst. Weet u iets niet? Laat het `ontbrekend` en zeg het.
 - **Geen persoonsgegevens.** Geen paden, gebruikersnamen of e-mailadressen in de repository, commits, issues of pull requests. Alleen verzonnen personen in tests.
+- **Geen andere rekenhulpen of tools bij naam** in de repository, commits, issues of pull requests. Schrijf wat Leidengeldwijzer of Leidenwerkt doet, niet wat een ander doet.
 - **Commits** als `Ian Vriend <ISVISVISV@users.noreply.github.com>`, zonder extra regels in het bericht (zie CONTRIBUTING.md).
 - **Eerst vragen** bij alles wat een gebruiker anders ziet. Laat bij vormgeving eerst een afbeelding zien.
 - **Teksten** in eenvoudig Nederlands (A2): korte zinnen, "u", geen bijzinnen, geen puntkomma.
