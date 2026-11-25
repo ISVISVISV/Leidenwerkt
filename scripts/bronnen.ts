@@ -6,6 +6,7 @@
  *   Een link die een fout geeft (404, 410, 500 …) of niet bereikbaar is, wordt een melding.
  * - Citaten: bij elke bron die een gewone webpagina is (geen pdf), moet elk stuk van de letterlijke tekst
  *   (de delen tussen "[…]") nog op de pagina staan. Zo valt het op als een bedrag of zin is veranderd.
+ *   We vergelijken zonder leestekens en in delen per zin (zie fragmenten). Zo geeft opmaak geen vals alarm.
  *   Korte stukken (minder dan MIN_LENGTE tekens) slaan we over: die geven te veel vals alarm.
  */
 import { readFileSync, readdirSync, statSync } from "node:fs";
@@ -63,10 +64,38 @@ export function stukken(tekst: string): string[] {
     .filter((s) => s.length >= MIN_LENGTE);
 }
 
-/** De stukken van het citaat die niet (meer) op de pagina staan. */
-export function ontbrekendeStukken(citaat: string, paginaTekst: string): string[] {
-  const pagina = normaliseer(paginaTekst);
-  return stukken(citaat).filter((s) => !pagina.includes(normaliseer(s)));
+/** Alleen letters, cijfers, € en enkele spaties. Zo maken leestekens en opmaak (";" of ".", "1." of "1") niets uit. */
+export function kaal(s: string): string {
+  return normaliseer(s)
+    .replace(/[^\p{L}\p{N}€]+/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Een stuk in kleinere delen: bij ";" en bij een punt aan het eind van een zin.
+ * Zonder ons eigen kopje ("Art. 19a lid 1:", "Toelichting:") en zonder nummers aan het begin ("1", "a.", "2°.").
+ * Een bedrag blijft bij zijn zin, want we knippen niet bij ":". Een kort deel met een bedrag houden we ook.
+ */
+// Een kopje knippen we weg en maken er een grens van. Staat het toch op de pagina, dan geeft dat geen vals alarm.
+const KOPJE = /(?:^|(?<=[\s;.]))(?:art\.|artikel|toelichting)[^:;.]{0,30}:\s*/gi;
+
+export function fragmenten(stuk: string): string[] {
+  return stuk
+    .replace(KOPJE, ". ")
+    .split(/;\s+|\.\s+(?=\S)/)
+    .map((f) => kaal(f).replace(/^((\d+|[a-z]) )+/, ""))
+    .filter((f) => f.length >= MIN_LENGTE || (f.includes("€") && /\d/.test(f)));
+}
+
+/** De stukken van het citaat die niet (meer) op de pagina staan. Een stuk mist als een van zijn delen mist. */
+export function ontbrekendeStukken(citaat: string, paginaTekst: string, nietOpPagina: string[] = []): string[] {
+  // Zonder spaties: soms plakt de pagina twee woorden aan elkaar ("UitvoeringsregelingInvorderingswet").
+  const zonderSpaties = (s: string) => s.replace(/ /g, "");
+  const pagina = zonderSpaties(kaal(paginaTekst));
+  // Tekst die wel in het citaat staat maar niet als tekst op de pagina (bijvoorbeeld een formule als plaatje): een grens.
+  for (const t of nietOpPagina) citaat = citaat.split(t).join(". ");
+  return stukken(citaat).filter((s) => fragmenten(s).some((f) => !pagina.includes(zonderSpaties(f))));
 }
 
 const zonderAnker = (url: string) => url.split("#")[0];
@@ -107,8 +136,9 @@ async function haalPagina(url: string): Promise<{ status: number; html?: string 
 /**
  * Loopt alle bronnen na. Geeft meldingen voor kapotte links en voor citaten die niet meer op de pagina staan.
  * overslaan: stukken van adressen waar de tekst pas met JavaScript op de pagina komt; die links worden wel gecontroleerd.
+ * nietOpPagina: stukjes citaat die op de pagina geen tekst zijn, zoals een formule die als plaatje op de pagina staat.
  */
-export async function controleerBronnen(bronnen: Bronvermelding[], overslaan: string[]): Promise<{ meldingen: Melding[]; verslag: string[] }> {
+export async function controleerBronnen(bronnen: Bronvermelding[], overslaan: string[], nietOpPagina: string[] = []): Promise<{ meldingen: Melding[]; verslag: string[] }> {
   const perUrl = new Map<string, Bronvermelding[]>();
   for (const b of bronnen) {
     if (GEEN_BRON.some((r) => r.test(b.url))) continue;
@@ -142,7 +172,7 @@ export async function controleerBronnen(bronnen: Bronvermelding[], overslaan: st
       const tekst = htmlNaarTekst(pagina.html);
       for (const v of vermeldingen) {
         if (!v.tekst) continue;
-        const mist = ontbrekendeStukken(v.tekst, tekst);
+        const mist = ontbrekendeStukken(v.tekst, tekst, nietOpPagina);
         if (!mist.length) continue;
         verslag.push(`tekst niet gevonden: ${v.kop ?? url} (${mist.length} van ${stukken(v.tekst).length} stukken)`);
         meldingen.push({

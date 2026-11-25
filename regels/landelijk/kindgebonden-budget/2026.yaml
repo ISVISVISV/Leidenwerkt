@@ -87,8 +87,8 @@ parameters:
       geraadpleegd_op: 2026-11-21
     citaat: &ckgbvermogen
       kop: "Dienst Toeslagen, maximaal vermogen kindgebonden budget"
-      tekst: "U mag in 2026 maximaal € 146.011 vermogen hebben als u geen toeslagpartner hebt. En € 184.633 als u wel een toeslagpartner hebt. Hebt u meer vermogen? Dan kunt u helaas geen kindgebonden budget krijgen."
-      versie: "geraadpleegd op 21 november 2026"
+      tekst: "U mag in 2027 maximaal € 119.122 vermogen hebben als u geen toeslagpartner hebt. En € 158.748 als u wel een toeslagpartner hebt. In 2026 was dat € 146.011 voor u alleen en € 184.633 samen met uw toeslagpartner. Hebt u meer vermogen? Dan kunt u helaas geen kindgebonden budget krijgen."
+      versie: "geraadpleegd op 25 november 2026"
   - id: kgb.vermogen.met_partner
     omschrijving: Kindgebonden budget 2026, hoogste vermogen met toeslagpartner, samen
     eenheid: euro

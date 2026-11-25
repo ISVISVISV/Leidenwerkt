@@ -9,7 +9,7 @@ parameters:
     status: geverifieerd
     bron: &ro_kot
       titel: Rijksoverheid — Bedragen kinderopvangtoeslag 2026
-      url: https://www.rijksoverheid.nl/onderwerpen/kinderopvangtoeslag/bedragen-kinderopvangtoeslag-2026
+      url: https://www.rijksoverheid.nl/themas/belastingen-uitkeringen-en-toeslagen/kinderopvangtoeslag/bedragen-kinderopvangtoeslag-2026
       geraadpleegd_op: 2026-11-04
     citaat:
       kop: "Dienst Toeslagen, Berekening kinderopvangtoeslag 2026, stap 1 en 2"

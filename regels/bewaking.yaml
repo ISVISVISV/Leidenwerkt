@@ -87,3 +87,6 @@ halfjaarlijkse_controle_maanden: [6, 12]
 # Bronnen: elke week werken alle links nog, en staat elke letterlijke tekst nog op de webpagina (scripts/bronnen.ts)?
 # Hier adressen (of een stuk ervan) waar de tekst pas met JavaScript op de pagina komt. Daar alleen de link controleren.
 bronnen_overslaan: []
+# Stukjes van een citaat die op de pagina geen tekst zijn. Voorbeeld: op wetten.overheid.nl staat de formule van art. 22a als plaatje.
+tekst_niet_op_pagina:
+  - "(40% + A x 30%) / A x B"

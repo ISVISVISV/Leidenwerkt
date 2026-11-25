@@ -1,6 +1,6 @@
 /** Bewaking van de bronnen (scripts/bronnen.ts): tekst van een webpagina vergelijken met een letterlijk citaat. */
 import { describe, expect, it } from "vitest";
-import { htmlNaarTekst, normaliseer, ontbrekendeStukken, stukken } from "../../../scripts/bronnen.ts";
+import { fragmenten, htmlNaarTekst, normaliseer, ontbrekendeStukken, stukken } from "../../../scripts/bronnen.ts";
 import { alleBronnen } from "../../../scripts/bewaking.ts";
 import { ruweParameters } from "../src/index.ts";
 
@@ -28,6 +28,27 @@ describe("citaat op een webpagina", () => {
   });
   it("geen tekst uit scripts", () => {
     expect(pagina).not.toContain("var x");
+  });
+});
+
+describe("opmaak geeft geen vals alarm", () => {
+  const wet = htmlNaarTekst(
+    `<p>1</p><p>Bij een verblijf in een inrichting is de norm per kalendermaand, indien het betreft:</p><ul><li>a.</li><li>een alleenstaande: € 449,44;</li><li>b.</li><li>gehuwden: € 699,11.</li></ul><p>Uitvoeringsregeling<a>Invorderingswet 1990</a> en <img alt=""> de norm voor de belanghebbende. Hierbij staat A voor het aantal.</p>`,
+  );
+  it("een punt of puntkomma, nummers en ons kopje maken niets uit", () => {
+    expect(ontbrekendeStukken("Art. 23 lid 1: 1. Bij een verblijf in een inrichting is de norm per kalendermaand, indien het betreft: a. een alleenstaande: € 449,44. b. gehuwden: € 699,11;", wet)).toEqual([]);
+  });
+  it("aan elkaar geplakte woorden op de pagina", () => {
+    expect(ontbrekendeStukken("Volgens de Uitvoeringsregeling Invorderingswet 1990 en nog wat tekst", "Volgens de UitvoeringsregelingInvorderingswet 1990 en nog wat tekst")).toEqual([]);
+  });
+  it("een formule als plaatje slaan we over, de rest controleren we wel", () => {
+    const c = "Dan is de norm voor de belanghebbende: (40% + A x 30%) / A x B. Hierbij staat A voor het aantal.";
+    expect(ontbrekendeStukken(c, wet)).toHaveLength(1);
+    expect(ontbrekendeStukken(c, wet, ["(40% + A x 30%) / A x B"])).toEqual([]);
+  });
+  it("een veranderd bedrag in een kort deel valt nog steeds op", () => {
+    expect(fragmenten("Een lange zin om te beginnen met genoeg woorden erin; b. gehuwden: € 699,11.")).toContain("gehuwden € 699 11");
+    expect(ontbrekendeStukken("Bij een verblijf in een inrichting is de norm per kalendermaand, indien het betreft: b. gehuwden: € 700,00.", wet)).toHaveLength(1);
   });
 });
 
