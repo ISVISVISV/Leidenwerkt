@@ -870,3 +870,24 @@ test("een nieuwe stap begint bovenaan de pagina", async ({ page }) => {
   await expect(page.getByRole("button", { name: "Begin met rekenen" })).toBeVisible();
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
 });
+
+test("na de jaarwissel zonder nieuwe bedragen: rekenen met de oude regels, met partneralimentatie, zonder witte pagina", async ({ page }) => {
+  // Een datum ver na de laatste regeldata. De rekenhulp valt terug op de laatste dag waarop alles bekend is.
+  await page.clock.setFixedTime(new Date("2030-01-02T10:00:00"));
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await page.getByRole("group", { name: "Woont u samen met een partner?" }).getByLabel("Nee").check();
+  await geboren(page, "Uw geboortedatum", 38);
+  await page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" }).getByLabel("Nee").check();
+  await page.getByRole("group", { name: "Heeft u ander inkomen dan bijstand en loon?" }).getByLabel("Ja").check();
+  await page.getByLabel("Partneralimentatie per maand (wat u ontvangt)").fill("300");
+  await verder(page);
+  await page.getByLabel("In een koopwoning").check();
+  await verder(page);
+  await kiesLoon(page, "Bruto loon per maand");
+  await page.getByRole("textbox", { name: "Bruto loon per maand" }).fill("800");
+  await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("12");
+  await verder(page, "Bereken wat ik overhoud");
+  await expect(page.locator(".melding.waarschuwing").first()).toContainText("Let op: deze berekening gebruikt de regels van");
+  await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ })).toBeVisible();
+});

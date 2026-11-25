@@ -51,6 +51,8 @@ Elke vondst wordt een issue met het label `bewaking`. Er komt nooit twee keer ee
 
 Ligt de datum van vandaag na de laatste geldige regeldata (of ontbreekt een bedrag voor vandaag), dan rekent de app met de meest recente datum waarvoor alles bekend is en toont een duidelijke waarschuwing: met welke datum is gerekend en voor welke onderdelen de bedragen van vandaag nog ontbreken.
 
+Dat geldt voor beide rekenhulpen. Leidengeldwijzer gebruikt `RegelSet.rekendatum` in de rekenkern: vandaag, of anders het laatste einde van een maand waarop alle bedragen bekend zijn. Leidenwerkt zoekt de laatste datum waarop de bijstand en het loon te berekenen zijn. Gaat er bij het rekenen toch iets mis, dan toont een vangnet (`Vangnet` in packages/ui) een melding in plaats van een witte pagina. De browsertests "na de jaarwissel zonder nieuwe bedragen" rekenen met een datum ver na de regeldata.
+
 Bedragen gelden altijd per datum. Een oud bestand blijft staan; zo kan de app ook voor een eerdere periode rekenen.
 
 ## 5. Gebruikerstest

@@ -3,7 +3,7 @@
  * Elke stap staat in een eigen bestand: StapHuishouden, StapWoning en StapWerk.
  */
 import { useEffect, useRef, useState } from "react";
-import { Kopvlak } from "@rekenhulp/ui";
+import { Kopvlak, Vangnet } from "@rekenhulp/ui";
 import { controleer, leegFormulier, schuifSleutel, type Fouten, type Formulier } from "./formulier.ts";
 import { StapHuishouden } from "./StapHuishouden.tsx";
 import { StapWerk } from "./StapWerk.tsx";
@@ -149,11 +149,13 @@ export function App() {
           {stap === 2 && <StapWoning f={f} zet={zet} fouten={zichtbareFouten} />}
           {stap === 3 && <StapWerk f={f} zet={zet} fouten={zichtbareFouten} />}
           {stap === 4 && (
-            <Uitkomst
-              f={f}
-              bewaardeUren={schuif?.sleutel === schuifSleutel(f) ? schuif.uren : undefined}
-              onUren={(uren) => setSchuif({ sleutel: schuifSleutel(f), uren })}
-            />
+            <Vangnet naam="Leidenwerkt">
+              <Uitkomst
+                f={f}
+                bewaardeUren={schuif?.sleutel === schuifSleutel(f) ? schuif.uren : undefined}
+                onUren={(uren) => setSchuif({ sleutel: schuifSleutel(f), uren })}
+              />
+            </Vangnet>
           )}
 
           {stap > 0 && (

@@ -7,11 +7,16 @@ import { LOON_PER, OPVANG, euroTekst, getal, ingevuld, ingevuldLoon, maxUurprijs
 function bruikbareDatum(f: Formulier): { datum: string; teruggevallen: boolean } {
   const start = vandaag();
   const d = new Date(`${start}T12:00:00`);
-  for (let i = 0; i < 24; i++) {
+  for (let i = 0; i < 120; i++) {
     const eind = new Date(d.getFullYear(), d.getMonth() - i + 1, 0);
     const datum = i === 0 ? start : `${eind.getFullYear()}-${String(eind.getMonth() + 1).padStart(2, "0")}-${String(eind.getDate()).padStart(2, "0")}`;
-    const r = bereken(naarInvoer(f, { fase: "geen", datum }));
-    if (!r.nietMeegenomen.some((n) => n.id === "bijstand" || n.id === "loon")) return { datum, teruggevallen: i > 0 };
+    // Een fout (bijvoorbeeld een ontbrekend bedrag dat de berekening stopt) betekent: deze datum is niet bruikbaar.
+    try {
+      const r = bereken(naarInvoer(f, { fase: "geen", datum }));
+      if (!r.nietMeegenomen.some((n) => n.id === "bijstand" || n.id === "loon")) return { datum, teruggevallen: i > 0 };
+    } catch {
+      continue;
+    }
   }
   return { datum: start, teruggevallen: false };
 }

@@ -214,3 +214,31 @@ test("inzoomen: bij 200% is de tekst minstens 2 keer zo groot, en bij elke stap 
     expect(groottes[3], `${breed}x${hoog}`).toBeGreaterThanOrEqual(2 * groottes[0]);
   }
 });
+
+test("na de jaarwissel zonder nieuwe bedragen: de oude regels, met een melding, en alle regelingen blijven", async ({ page }) => {
+  // Een datum ver na de laatste regeldata. Leidengeldwijzer valt terug op de laatste dag waarop alles bekend is.
+  await page.clock.setFixedTime(new Date("2030-01-02T10:00:00"));
+  await page.goto(ADRES);
+  await page.getByRole("button", { name: "Begin de check" }).click();
+  await page.getByLabel("Uw geboortedatum", { exact: true }).fill(jaar(36));
+  await kies(page, "Woont u samen met een partner?", "Nee");
+  await kies(page, "Heeft u kinderen die bij u wonen?", "Nee");
+  await kies(page, "Waar woont u?", "In een huurwoning met een eigen voordeur, keuken, wc en douche");
+  await page.getByLabel("Kale huur per maand").fill("750");
+  await kies(page, "Woont er nog iemand anders bij u?", "Nee");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "Uw inkomen" })).toBeFocused();
+  await kies(page, "Krijgt u bijstand van de gemeente?", "Nee");
+  await page.getByRole("group", { name: "Wat voor inkomen heeft u?" }).getByLabel("Loon uit werk").check();
+  await page.getByLabel("Hoeveel loon krijgt u netto per maand?").fill("1300");
+  await kies(page, "Heeft u al 5 jaar of langer een inkomen op bijstandsniveau?", "Nee");
+  await page.getByRole("button", { name: "Volgende stap" }).click();
+  await page.getByRole("group", { name: "Wat heeft u?" }).getByLabel("Geld op een betaalrekening").check();
+  await page.getByLabel("Hoeveel geld staat er op uw betaalrekening?").fill("500");
+  await page.getByRole("button", { name: "Bekijk het overzicht" }).click();
+  await expect(page.getByRole("heading", { level: 1, name: "Overzicht" })).toBeVisible();
+  await expect(page.locator(".melding.waarschuwing")).toContainText("Let op: Leidengeldwijzer gebruikt de regels van");
+  const ids = await page.locator(".regeling").evaluateAll((e) => e.map((x) => x.getAttribute("data-id")));
+  for (const id of ["sleutelpas", "huurtoeslag", "zorgtoeslag"]) expect(ids).toContain(id);
+  await geenToegankelijkheidsfouten(page);
+});

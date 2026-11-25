@@ -114,6 +114,22 @@ export class RegelSet {
    * of die op `datum` de status 'ontbrekend' hebben. Gebruikt voor de
    * waarschuwing dat de regels voor een datum nog niet (allemaal) bekend zijn.
    */
+  /**
+   * De datum waarmee een rekenhulp rekent: vandaag, of anders het laatste einde van een maand ervoor waarop alle
+   * bedragen bekend zijn. Zo rekent een rekenhulp na de jaarwissel met de oude bedragen tot de nieuwe er zijn
+   * (docs/ONDERHOUD.md, hoofdstuk 4). Teruggevallen: de datum is niet vandaag.
+   */
+  rekendatum(vandaag: string): { datum: string; teruggevallen: boolean } {
+    if (this.onbekendOp(vandaag).length === 0) return { datum: vandaag, teruggevallen: false };
+    const [j, m] = vandaag.split("-").map(Number);
+    for (let i = 0; i < 120; i++) {
+      const eind = new Date(Date.UTC(j, m - 1 - i, 0));
+      const datum = eind.toISOString().slice(0, 10);
+      if (this.onbekendOp(datum).length === 0) return { datum, teruggevallen: true };
+    }
+    return { datum: vandaag, teruggevallen: false };
+  }
+
   onbekendOp(datum: string): { id: string; omschrijving: string; laatsteDag: string | null }[] {
     const uit: { id: string; omschrijving: string; laatsteDag: string | null }[] = [];
     for (const [id, lijst] of this.perId) {
