@@ -193,3 +193,24 @@ test("een nieuwe stap begint bovenaan de pagina", async ({ page }) => {
   await expect(page.getByRole("button", { name: "Begin de check" })).toBeVisible();
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
 });
+
+test("inzoomen: bij 200% is de tekst minstens 2 keer zo groot, en bij elke stap groter (WCAG 1.4.4)", async ({ browser }) => {
+  // Inzoomen maakt het scherm in CSS-pixels kleiner. Dat bootsen we na met een kleiner venster.
+  for (const [breed, hoog] of [
+    [1920, 1080],
+    [1366, 768],
+    [390, 844],
+  ]) {
+    const groottes: number[] = [];
+    for (const zoom of [1, 1.25, 1.5, 2]) {
+      const context = await browser.newContext({ viewport: { width: Math.round(breed / zoom), height: Math.round(hoog / zoom) } });
+      const page = await context.newPage();
+      await page.goto(ADRES);
+      const px = await page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).fontSize));
+      groottes.push(px * zoom);
+      await context.close();
+    }
+    for (let i = 1; i < groottes.length; i++) expect(groottes[i], `${breed}x${hoog}`).toBeGreaterThan(groottes[i - 1]);
+    expect(groottes[3], `${breed}x${hoog}`).toBeGreaterThanOrEqual(2 * groottes[0]);
+  }
+});
