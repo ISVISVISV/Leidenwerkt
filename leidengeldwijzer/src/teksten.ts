@@ -99,7 +99,7 @@ export const VRAAG = {
   soortOpvang: "Soort opvang",
   uren: "Hoeveel uur per week gaat dit kind naar de opvang?",
   urenStraks: "Hoeveel uur per week wilt u opvang voor dit kind?",
-  prijs: "Prijs per uur (niet verplicht)",
+  prijs: "Prijs per uur",
   inkomenKind: (welke: string) => `Hoeveel bruto inkomen heeft ${welke} per jaar?`,
   bijstand: (paar: boolean, aow = false) =>
     aow

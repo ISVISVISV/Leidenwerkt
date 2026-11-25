@@ -857,3 +857,16 @@ test("loon per 4 weken: eigen keuze, met de melding over twee keer loon in één
   await expect(page.locator(".signalen")).toContainText("Loon per 4 weken");
   await expect(page.getByText(/U vulde €\s1\.100 netto per 4 weken in/)).toBeVisible();
 });
+
+test("een nieuwe stap begint bovenaan de pagina", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Begin met rekenen" }).scrollIntoViewIfNeeded();
+  await page.mouse.wheel(0, 2000);
+  await page.getByRole("button", { name: "Begin met rekenen" }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  await page.mouse.wheel(0, 2000);
+  await page.goBack();
+  await expect(page.getByRole("button", { name: "Begin met rekenen" })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+});

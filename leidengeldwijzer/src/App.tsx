@@ -18,12 +18,17 @@ export function App() {
   const nuFout = stap > 0 && stap < STAPPEN.length ? controleer(f, stap) : {};
   const zichtbareFouten: Fouten = Object.fromEntries(Object.entries(fouten).filter(([id]) => id in nuFout));
 
+  // Een nieuwe stap begint bovenaan de pagina, ook als u ver naar beneden stond. Daarna gaat de focus naar de kop,
+  // zonder te scrollen, zodat een schermlezer de nieuwe stap voorleest.
   useEffect(() => {
-    if (stap > 0) kop.current?.focus();
+    window.scrollTo(0, 0);
+    if (stap > 0) kop.current?.focus({ preventScroll: true });
   }, [stap]);
 
   // De terugknop van de browser gaat een stap terug.
   useEffect(() => {
+    // De browser zet de positie op de pagina niet terug bij een stap terug: elke stap begint bovenaan.
+    history.scrollRestoration = "manual";
     history.replaceState({ stap: 0 }, "");
     const bijTerug = (e: PopStateEvent) => {
       setFouten({});

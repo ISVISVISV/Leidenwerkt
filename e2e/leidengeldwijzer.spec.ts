@@ -179,3 +179,17 @@ test("huisgenoten met een bekend inkomen: Leidengeldwijzer rekent de huurtoeslag
   await page.getByRole("button", { name: /^Bijstand/ }).click();
   await expect(page.getByRole("dialog", { name: "Bijstand" })).toContainText("Daarom is deze grens lager.");
 });
+
+test("een nieuwe stap begint bovenaan de pagina", async ({ page }) => {
+  await page.goto(ADRES);
+  await page.getByRole("button", { name: "Begin de check" }).scrollIntoViewIfNeeded();
+  await page.mouse.wheel(0, 2000);
+  await page.getByRole("button", { name: "Begin de check" }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toBeFocused();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  // Terug met de knop van de browser: weer bovenaan.
+  await page.mouse.wheel(0, 2000);
+  await page.goBack();
+  await expect(page.getByRole("button", { name: "Begin de check" })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+});
