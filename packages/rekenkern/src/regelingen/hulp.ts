@@ -22,17 +22,27 @@ export function goedeBuur(): Uitslag {
 
 /** Hulp bij schulden van de Stadsbank Leiden. Voor iedereen in Leiden, zonder voorwaarden. */
 export function stadsbank(c: Context): Uitslag {
-  const schulden = c.invoer.vermogen.schulden > 0;
-  return {
+  const basis = {
     id: "stadsbank",
     naam: "Hulp bij schulden",
-    groep: "hulp",
-    kans: "info",
-    waarom: schulden
-      ? "U heeft schulden. De Stadsbank Leiden helpt inwoners van Leiden met schulden. Bel 14 071 en kies 1."
-      : "Heeft u schulden? Of maakt u zich zorgen over geld? Dan kan de Stadsbank u helpen. Bel 14 071 en kies 1.",
     aanvragen: { tekst: "Meer informatie", url: CITATEN.stadsbank.url },
     bronnen: [CITATEN.stadsbank],
+  };
+  // Met schulden: bij de gemeente, bij wat u waarschijnlijk kunt krijgen. Anders bij "Als u het nodig heeft".
+  // Nooit op twee plekken (besluit 42).
+  if (c.invoer.vermogen.schulden > 0)
+    return {
+      ...basis,
+      groep: "gemeente",
+      kans: "ja",
+      wat: "De Stadsbank Leiden helpt inwoners van Leiden met schulden. Bel 14 071 en kies 1.",
+      waarom: "U heeft schulden.",
+    };
+  return {
+    ...basis,
+    groep: "hulp",
+    kans: "info",
+    waarom: "Heeft u schulden? Of maakt u zich zorgen over geld? Dan kan de Stadsbank u helpen. Bel 14 071 en kies 1.",
   };
 }
 
