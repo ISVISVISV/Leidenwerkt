@@ -313,3 +313,16 @@ parameters:
       url: https://wetten.overheid.nl/BWBR0015703/2026-07-01#Hoofdstuk3_Paragraaf3.2_Artikel20
       versie: "geldend vanaf 1 juli 2026"
     notitie: "Controle: de gemeente Leiden noemt voor de Gemeentepolis (120%) bij alleenstaand van 18 tot 21 jaar € 399,48 zonder vakantiegeld. Dat is 120% × 95% × € 350,42."
+  - id: pw.niet_rechthebbende.deel
+    omschrijving: Norm voor een echtgenoot als de partner geen recht op bijstand heeft, als deel van de gehuwdennorm (art. 24 Pw, tot en met 2026). Alleen als de rechthebbende 21 jaar of ouder is en geen kostendelers heeft.
+    eenheid: breuk
+    waarde: { soort: percentage, breuk: "0.50" }
+    status: geverifieerd
+    bron:
+      titel: Participatiewet art. 24 (wetten.overheid.nl, versie 2026-07-01)
+      url: https://wetten.overheid.nl/BWBR0015703/2026-07-01
+      geraadpleegd_op: 2026-11-26
+    citaat:
+      kop: "Participatiewet, art. 24"
+      tekst: "Voor gehuwden waarvan een echtgenoot geen recht op algemene bijstand heeft is voor de rechthebbende echtgenoot de norm gelijk aan 50% van de norm die voor hem zou gelden als hij gehuwd zou zijn met een rechthebbende echtgenoot van zijn leeftijd, indien: a. de rechthebbende echtgenoot 21 jaar of ouder is en geen kostendelende medebewoners heeft; dan wel b. de rechthebbende echtgenoot jonger dan 21 jaar is."
+      versie: "geldend vanaf 1 juli 2026"

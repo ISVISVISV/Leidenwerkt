@@ -24,7 +24,6 @@ Niet doen (besloten op 23 november 2026): een koppeling tussen Leidengeldwijzer 
 
 ## Rekenhulp
 
-- [ ] Leidengeldwijzer: bijstand bij studiefinanciering vanaf 27 jaar en bij een stel waarvan één partner studeert. Wacht op de antwoorden van collega's (RECHT.md, deel 2, vraag 6). Daarna bouwen, en die vraag weer weghalen.
 - [ ] Leidengeldwijzer: toeslagpartner vanaf 2027. Opnieuw bekijken bij de jaarwissel (afgesproken op 25 november 2026). Nu besloten: niets bouwen.
   - **Het probleem.** Leidengeldwijzer vraagt alleen "Woont u samen met een partner?". Dat is de partner van de Participatiewet (art. 3). De toeslagen rekenen we met dezelfde partner. Maar de toeslagen kijken naar de partner van de Awir, art. 3. Dat is niet altijd dezelfde persoon.
   - **Awir art. 3, versie 2026.** Naast de fiscale partner (art. 5a AWR) ook wie op hetzelfde adres staat en: samen een kind heeft, een kind van de ander heeft erkend, als pensioenpartner is aangemeld, samen een eigen woning heeft, (beiden meerderjarig) met een minderjarig kind van een van beiden op het adres woont (lid 2, onderdeel e), of vorig jaar al partner was (lid 2, onderdeel f). Bijna elk stel dat samenwoont, is dan partner. De fout is nu klein.

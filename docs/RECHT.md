@@ -442,6 +442,23 @@ Geen lijst bij de AIO-aanvulling, de toeslag van UWV, de Gemeentepolis, het Volw
 - **Voedselbank Leiden:** het geld dat overblijft na de vaste lasten mag niet hoger zijn dan € 210 plus € 125 per persoon in het huishouden (voedselbankleiden.nl, Waaraan moet je voldoen?). Bezit telt niet. Leidengeldwijzer telt u, uw partner en uw kinderen. Andere bewoners: dat bepaalt de Voedselbank. Parameters `leiden.voedselbank.*`.
 - **Stadsbank:** voor iedereen in Leiden, zonder voorwaarden.
 
+#### Bijstand en studiefinanciering (26 november 2026)
+
+Antwoorden van de gemeente Leiden (Ian, na overleg met collega's). Er is geen werkinstructie of beleidsregel: Leiden volgt de wet.
+
+| Situatie | Wat Leiden doet | Wat Leidengeldwijzer zegt | Bron |
+| --- | --- | --- | --- |
+| Jonger dan 27, studiefinanciering of recht daarop | Geen bijstand | Waarschijnlijk niet | Art. 13 lid 2 c Pw. Het levenlanglerenkrediet is ook studiefinanciering (art. 3.1 lid 3 WSF 2000) |
+| 27 jaar of ouder, studiefinanciering of recht daarop | De aanvraag wordt afgewezen: de studiefinanciering is een voorliggende voorziening | Waarschijnlijk niet | Art. 15 lid 1 Pw: "Geen recht op bijstand bestaat voor zover een beroep kan worden gedaan op een voorliggende voorziening die, gezien haar aard en doel, wordt geacht voor de belanghebbende toereikend en passend te zijn." |
+| 27 jaar of ouder, studeert zonder recht op studiefinanciering | Mag met toestemming van de klantmanager, als de studie leidt tot werk | Leidengeldwijzer vraagt niet of iemand studeert. Alleen studiefinanciering telt | Praktijk van de gemeente |
+| Stel, één partner met studiefinanciering | Die partner is niet-rechthebbend. De ander krijgt 50% van de gehuwdennorm. De studiefinanciering telt mee in het inkomen van het stel, met het hoogste bedrag dat iemand kan krijgen | Grens: 50% van de gehuwdennorm, zonder vakantiegeld (2026). Inkomen: het ander inkomen van beiden plus het normbedrag van art. 3.18 WSF 2000. Hoger dan de grens: waarschijnlijk niet. Anders misschien | Art. 24 Pw (tot en met 2026) en art. 33 lid 2 Pw |
+| Stel, allebei studiefinanciering | Geen bijstand | Waarschijnlijk niet | Art. 13 en 15 Pw |
+
+- **Het normbedrag hangt af van de opleiding:** per 1 januari 2026 mbo € 928,58 uitwonend en € 657,49 thuiswonend, hbo en wo € 1.130,77 en € 936,46 (art. 3.18 WSF 2000). Leidengeldwijzer vraagt niet naar de opleiding (besluit van Ian, 25 november 2026). Het rekent met het laagste bedrag voor uitwonend, of voor thuiswonend als het stel bij iemand anders in huis woont. Is het inkomen daarmee al te hoog, dan is het altijd te hoog. Anders zegt Leidengeldwijzer "misschien".
+- **Art. 24 geldt alleen** als de partner met recht op bijstand 21 jaar of ouder is en geen kostendelers heeft. Anders: misschien.
+- **Vanaf 1 januari 2027** krijgt die partner de norm voor een alleenstaande (art. 24 lid a, versie 2027). Een ouder met een kind krijgt een verhoging (art. 24a). Leidengeldwijzer gebruikt de norm voor een alleenstaande, en zegt bij kinderen jonger dan 18 "misschien".
+- **Een partner van 27 jaar of ouder met studiefinanciering** telt Leidengeldwijzer ook als niet-rechthebbend, net als de aanvrager zelf (art. 15 Pw).
+
 #### Nog uitzoeken
 
 - **Huurtoeslag:** vermogensgrens 2027. Op 21 november 2026 nog niet gevonden. Het bericht van Dienst Toeslagen over 2027 noemt alleen zorgtoeslag en kindgebonden budget. Opnieuw kijken in december, samen met de andere bedragen van 2027.
@@ -453,12 +470,6 @@ Geen lijst bij de AIO-aanvulling, de toeslag van UWV, de Gemeentepolis, het Volw
 3. **Jongeren van 18, 19 en 20 jaar:** de gemeente noemt alleen bij 120% een bedrag voor een alleenstaande van 18 tot 21 jaar (€ 399,48, de jongerennorm van art. 20 Pw). Leidengeldwijzer gebruikt dezelfde norm ook voor de Sleutelpas (130%) en de OV-pas (100%). Vraag: rekent de gemeente zo? En welke norm geldt voor jongeren zonder steun van hun ouders (de pagina van de Gemeentepolis noemt € 1.057,08)?
 4. **Kindtegoed bij co-ouderschap:** de regel zegt "voor wie kinderbijslag wordt ontvangen" (art. 1.1 d). Er staat niet door wie. Bij co-ouderschap krijgt vaak één ouder de kinderbijslag. Leidengeldwijzer vraagt: "Krijgt u kinderbijslag?" Wie Nee kiest, ziet bij het Kindtegoed "waarschijnlijk niet". Vraag: kan de ouder zonder kinderbijslag het Kindtegoed krijgen, als het kind ook bij die ouder woont?
 5. **Kostendelersnorm bij de grenzen van 120%, 130% en 140%:** de bijstand en de inkomenstoeslag gaan uit van de "toepasselijke bijstandsnorm". Daar hoort de kostendelersnorm bij (art. 22a Pw). Leidengeldwijzer gebruikt die sinds 22 november. De tabellen van de gemeente voor de Sleutelpas, het Volwassenenfonds, de Gemeentepolis en de OV-pas noemen alleen alleenstaanden en stellen. Leidengeldwijzer gebruikt daar dus de norm van het huishouden. Vraag: rekent de gemeente bij deze regelingen met de kostendelersnorm, als er meer volwassenen in huis wonen?
-6. **Bijstand en studiefinanciering** (uitgezocht op 25 november 2026; tijdelijk, tot de antwoorden er zijn). Leidengeldwijzer zegt nu "waarschijnlijk niet" onder 27 jaar, maar "waarschijnlijk wel" vanaf 27 jaar en bij een stel waarvan alleen de partner studeert. Dat laatste is te stellig. Wat de bronnen zeggen:
-   - Jonger dan 27 met aanspraak op studiefinanciering: geen algemene bijstand (art. 13 lid 2 c Pw). Het levenlanglerenkrediet is ook studiefinanciering (art. 3.1 lid 3 WSF 2000).
-   - Vanaf 27 jaar: geen uitsluiting. Wel gaat studiefinanciering voor "voor zover" die toereikend en passend is (art. 15 lid 1 Pw), en telt als inkomen het normbedrag van art. 3.18 WSF 2000, niet het bedrag dat iemand krijgt (art. 33 lid 2 Pw). Per 1 januari 2026: hbo/wo € 1.130,77 uitwonend en € 936,46 thuiswonend, mbo € 928,58 en € 657,49, toeslag eenoudergezin € 327,15. De plicht om werk te zoeken blijft (art. 9 Pw). Gemeenten beoordelen dit zelf; Het Hogeland bijvoorbeeld met een meldingsplicht en toestemming om met behoud van uitkering te studeren (Beleidsregels Participatiewet Het Hogeland 2020, 2.5). Leiden heeft hiervoor geen werkinstructie of beleidsregel: de wet geldt letterlijk.
-   - Een stel: het recht op bijstand komt de echtgenoten gezamenlijk toe, tenzij een van hen geen recht heeft (art. 11 lid 4 Pw). Dan krijgt de ander in 2026 50% van de gehuwdennorm, vanaf 1 januari 2027 de norm voor een alleenstaande (art. 24 Pw), en voor een ouder met een niet-rechthebbende partner vanaf 2027 een verhoging (art. 24a Pw). Het inkomen van het gezin telt mee (art. 31 lid 1 Pw), dus ook het normbedrag van de studiefinanciering van de partner.
-   - Rechtspraak: CRvB 15 januari 2016 (ECLI:NL:CRVB:2016:44, jonger dan 27, lening niet gebruikt: geen bijstand), CRvB 21 maart 2017 (ECLI:NL:CRVB:2017:1253, normbedrag WSF als ondergrens bij schoolverlaters), CRvB 23 februari 2021 (ECLI:NL:CRVB:2021:381, waarom de grens van 27 jaar).
-   - Vragen aan collega's (Ian, 25 november 2026): hoe gaat Leiden om met een aanvraag van iemand van 27 jaar of ouder die voltijd studeert (art. 15 tegenover aanvullen tot de norm)? Mag studeren met behoud van bijstand, en waar kijkt Leiden naar? Hoe gaat Leiden om met een stel waarvan één partner jonger dan 27 is en studiefinanciering heeft?
 
 ## Deel 3. Leidengeldwijzer: welke vragen, en waarom
 

@@ -1,0 +1,40 @@
+gebied: Wet studiefinanciering 2000, normbedragen voor de kosten van levensonderhoud 2026
+geldig_van: 2026-01-01
+geldig_tot: 2026-12-31
+# Voor de bijstand telt studiefinanciering mee met het normbedrag, niet met wat iemand krijgt (art. 33 lid 2 Pw).
+# Praktijk van de gemeente Leiden (26 november 2026): wat iemand theoretisch maximaal kan ontvangen.
+parameters:
+  - id: wsf.normbedrag.mbo.uitwonend
+    omschrijving: Normbedrag voor de kosten van levensonderhoud per maand, beroepsonderwijs, uitwonend (art. 3.18 WSF 2000, overzicht 1)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "928.58" }
+    status: geverifieerd
+    bron: &wsf
+      titel: Wet studiefinanciering 2000, art. 3.18 (wetten.overheid.nl, versie 1 augustus 2026)
+      url: https://wetten.overheid.nl/BWBR0011453/2026-08-01
+      geraadpleegd_op: 2026-11-26
+    citaat: &cwsf
+      kop: "Wet studiefinanciering 2000, art. 3.18, overzicht 1"
+      tekst: "Overzicht 1. Normbedragen voor de kosten van levensonderhoud A. Beroepsonderwijs Normbedrag thuiswonend € 556,95 [Red: per 1 januari 2026: € 657,49] Normbedrag uitwonend € 786,59 [Red: per 1 januari 2026: € 928,58] B. Hoger onderwijs Normbedrag thuiswonend € 793,27 [Red: per 1 januari 2026: € 936,46] Normbedrag uitwonend € 957,87 [Red: per 1 januari 2026: € 1.130,77]"
+      versie: "geldend vanaf 1 augustus 2026, bedragen per 1 januari 2026"
+  - id: wsf.normbedrag.mbo.thuiswonend
+    omschrijving: Normbedrag voor de kosten van levensonderhoud per maand, beroepsonderwijs, thuiswonend (art. 3.18 WSF 2000, overzicht 1)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "657.49" }
+    status: geverifieerd
+    bron: *wsf
+    citaat: *cwsf
+  - id: wsf.normbedrag.ho.uitwonend
+    omschrijving: Normbedrag voor de kosten van levensonderhoud per maand, hoger onderwijs, uitwonend (art. 3.18 WSF 2000, overzicht 1)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "1130.77" }
+    status: geverifieerd
+    bron: *wsf
+    citaat: *cwsf
+  - id: wsf.normbedrag.ho.thuiswonend
+    omschrijving: Normbedrag voor de kosten van levensonderhoud per maand, hoger onderwijs, thuiswonend (art. 3.18 WSF 2000, overzicht 1)
+    eenheid: euro_per_maand
+    waarde: { soort: bedrag, bedrag: "936.46" }
+    status: geverifieerd
+    bron: *wsf
+    citaat: *cwsf

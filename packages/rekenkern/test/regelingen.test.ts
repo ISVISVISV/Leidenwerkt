@@ -636,3 +636,26 @@ describe("kinderopvangtoeslag met bijstand en werk (review 26 november 2026)", (
     expect(kans(metOpvang(false), "kot")).toBe("nee");
   });
 });
+
+describe("bijstand en studiefinanciering (praktijk Leiden, 26 november 2026)", () => {
+  const bijstandUit = (i: CheckInvoer) => uitslag(checkRegelingen(i), "bijstand")!;
+  it("27 jaar of ouder met studiefinanciering: waarschijnlijk niet, want die gaat voor", () => {
+    const u = bijstandUit(invoer({ aanvrager: { leeftijd: 30, inkomen: { studiefinanciering: 400 } } }));
+    expect(u.kans).toBe("nee");
+    expect(u.waarom).toContain("gaat voor de bijstand");
+  });
+  it("stel, partner met studiefinanciering, geen ander inkomen: misschien (het normbedrag is lager dan de halve gehuwdennorm)", () => {
+    const u = bijstandUit(invoer({ aanvrager: { leeftijd: 30, inkomen: {} }, partner: { leeftijd: 22, inkomen: { studiefinanciering: 300 } } }));
+    expect(u.kans).toBe("misschien");
+    expect(u.waarom).toContain("Uw partner krijgt studiefinanciering");
+  });
+  it("stel, partner met studiefinanciering en wat loon: waarschijnlijk niet, met de grens van art. 24", () => {
+    const u = bijstandUit(invoer({ aanvrager: { leeftijd: 30, inkomen: { loon: 100 } }, partner: { leeftijd: 22, inkomen: { studiefinanciering: 300 } } }));
+    expect(u.kans).toBe("nee");
+    expect(u.waarom).toContain("De grens is ongeveer €\u00a0963");
+  });
+  it("allebei studiefinanciering: waarschijnlijk niet", () => {
+    const u = bijstandUit(invoer({ aanvrager: { leeftijd: 30, inkomen: { studiefinanciering: 300 } }, partner: { leeftijd: 28, inkomen: { studiefinanciering: 300 } } }));
+    expect(u.kans).toBe("nee");
+  });
+});
