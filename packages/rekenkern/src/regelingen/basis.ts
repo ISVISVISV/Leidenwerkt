@@ -122,19 +122,28 @@ export function vermogenToets(l: Lezer, invoer: CheckInvoer, grensId: string): {
 }
 
 /** Toetsingsinkomen per jaar (bruto), afgeleid uit het netto inkomen. Undefined als Leidengeldwijzer het niet kan afleiden. */
-export function toetsingsinkomen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[]): Bedrag | undefined {
+export function toetsingsinkomen(l: Lezer, invoer: CheckInvoer, personen: CheckPersoon[], kostendelers = 0): Bedrag | undefined {
   const paar = personen.length > 1;
+  // De bijstand per persoon per jaar (met vakantietoeslag). Met kostendelers de kostendelersnorm (art. 22a Pw), net als in Leidenwerkt.
+  const normPerPersoon = (gehuwden: string, eigen: string): Bedrag => {
+    if (kostendelers > 0) {
+      const a = D(kostendelers + (paar ? 2 : 1));
+      const factor = l.breuk("pw.kostendeler.basis").plus(a.times(l.breuk("pw.kostendeler.per_persoon"))).div(a);
+      return factor.times(l.bedrag(gehuwden)).times(12);
+    }
+    const norm = l.bedrag(paar ? gehuwden : eigen).times(12);
+    return paar ? norm.div(2) : norm;
+  };
   if (invoer.bijstand && personen.some((p) => p.aow)) {
     // AIO-aanvulling: samen met de AOW komt het inkomen op de norm van art. 22 Pw (met vakantietoeslag).
     // Bij een paar half om half. Wie de AOW-leeftijd heeft, betaalt belasting volgens de tarieven voor AOW-gerechtigden.
-    const norm = l.bedrag(paar ? "pw.norm.aow.gehuwden" : "pw.norm.aow.alleenstaande").times(12);
-    const deel = paar ? norm.div(2) : norm;
+    const deel = normPerPersoon("pw.norm.aow.gehuwden", "pw.norm.aow.alleenstaande");
     return personen.reduce((t, p) => t.plus(p.aow ? brutoUitNettoMetAow(l, deel, !paar, !!p.geborenVoor1946) : brutoUitNetto(l, deel)), NUL);
   }
   if (invoer.bijstand) {
     // Zoals Leidenwerkt: de bijstand (met vakantietoeslag) als uitkering, bij een paar half om half.
-    const norm = l.bedrag(personen.length > 1 ? "pw.norm.gehuwden" : "pw.norm.alleenstaande").times(12);
-    return personen.length > 1 ? brutoUitNetto(l, norm.div(2)).times(2) : brutoUitNetto(l, norm);
+    const deel = normPerPersoon("pw.norm.gehuwden", "pw.norm.alleenstaande");
+    return paar ? brutoUitNetto(l, deel).times(2) : brutoUitNetto(l, deel);
   }
   // Per persoon. Loon en uitkering: bruto terugrekenen uit netto, met vakantiegeld. Partneralimentatie komt bruto
   // binnen en telt zo mee. Kinderalimentatie en studiefinanciering tellen niet mee voor de toeslagen.

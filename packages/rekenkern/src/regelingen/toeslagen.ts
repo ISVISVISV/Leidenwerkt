@@ -21,7 +21,7 @@ export function maakToeslagContext(c: Context): ToeslagContext {
   const vermogenTeHoog = probeer(() =>
     telbaarVermogen(l, invoer.vermogen, "toeslagen").gt(l.bedrag(paar ? "toeslagen.vermogen.inkomen.met_partner" : "toeslagen.vermogen.inkomen.zonder_partner")),
   );
-  const ti = vermogenTeHoog === false ? probeer(() => toetsingsinkomen(l, invoer, c.personen)) : undefined;
+  const ti = vermogenTeHoog === false ? probeer(() => toetsingsinkomen(l, invoer, c.personen, c.kostendelers)) : undefined;
   const geenBedrag = vermogenTeHoog
     ? "Een deel van uw geld en bezit telt mee als inkomen. Leidengeldwijzer rekent dat niet uit. Doe de proefberekening van Dienst Toeslagen."
     : c.metAow

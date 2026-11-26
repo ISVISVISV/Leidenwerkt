@@ -601,3 +601,22 @@ describe("bij elke uitslag staat waarom", () => {
     }
   });
 });
+
+describe("rekenfouten uit de review van 26 november 2026", () => {
+  it("met bijstand en een kostendeler: het inkomen voor de toeslagen gaat uit van de kostendelersnorm (lager inkomen)", async () => {
+    const { toetsingsinkomen } = await import("../src/regelingen/basis.js");
+    const l = new Lezer(standaardRegels, DATUM);
+    const i = invoer({ bijstand: true, aanvrager: { leeftijd: 40, inkomen: {} } });
+    const zonder = toetsingsinkomen(l, i, [i.aanvrager], 0)!;
+    const met = toetsingsinkomen(l, i, [i.aanvrager], 1)!;
+    // Kostendelersnorm met A = 2: 50% van de gehuwdennorm, lager dan de norm voor een alleenstaande.
+    expect(met.lt(zonder)).toBe(true);
+    expect(met.gt(0)).toBe(true);
+  });
+  it("een ouder met alleen een kind van 20 is geen alleenstaande ouder: vermogensgrens € 8.000 en de inkomenstoeslag voor een alleenstaande", () => {
+    const i = invoer({ aanvrager: { leeftijd: 50, inkomen: { loon: 900 } }, kinderen: [{ leeftijd: 20 }], vermogen: geld(12000) });
+    expect(kans(i, "bijstand")).toBe("nee");
+    const metJongKind = invoer({ aanvrager: { leeftijd: 50, inkomen: { loon: 900 } }, kinderen: [{ leeftijd: 12 }], kinderbijslag: true, vermogen: geld(12000) });
+    expect(kans(metJongKind, "bijstand")).not.toBe("nee");
+  });
+});

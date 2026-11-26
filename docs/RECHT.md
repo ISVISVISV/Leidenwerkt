@@ -262,6 +262,11 @@ Welke regelingen iemand in Leiden kan krijgen. Alleen officiële bronnen. Stand:
 
 Tekens in de kolom Status: ✓ uit de bron, ? nog uitzoeken, ! vraag voor de praktijk.
 
+**Twee rekenregels (26 november 2026, na een review):**
+
+- **Alleenstaande ouder** is wie zorgt voor een kind jonger dan 18. Art. 4 lid 1 Pw: "b. alleenstaande ouder: de ongehuwde die de volledige zorg heeft voor een of meer tot zijn last komende kinderen" en "e. ten laste komend kind: het kind jonger dan 18 jaar". Met alleen kinderen van 18 of ouder gelden de vermogensgrens en de inkomenstoeslag voor een alleenstaande. Dat geldt in beide rekenhulpen.
+- **Toetsingsinkomen met bijstand en kostendelers:** Leidengeldwijzer rekent de bijstand voor de toeslagen terug naar bruto met de kostendelersnorm (art. 22a Pw), net als Leidenwerkt. Eerst gebruikte Leidengeldwijzer de volle norm. Dan was het inkomen te hoog en de huurtoeslag te laag.
+
 ### Landelijke toeslagen
 
 | Regeling | Voorwaarde | Uit de bron | Status | Bron |

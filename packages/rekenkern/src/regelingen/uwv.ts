@@ -40,7 +40,7 @@ export function tw(c: Context): MogelijkeUitslag {
   const minimum = l.bedrag(minimumId);
   const grens = ` Het sociaal minimum is ${heel(minimum)} bruto per maand${paar ? " voor u samen" : ""}.`;
   // Het bruto inkomen per maand zonder vakantiegeld (8%), uit hetzelfde bruto inkomen als voor de toeslagen.
-  const ti = probeer(() => toetsingsinkomen(l, invoer, c.personen));
+  const ti = probeer(() => toetsingsinkomen(l, invoer, c.personen, c.kostendelers));
   const brutoMaand = ti?.div(12).div(D("1.08"));
   if (brutoMaand && brutoMaand.gt(minimum))
     return { ...basis, kans: "nee", waarom: `Uw bruto inkomen is ongeveer ${heel(brutoMaand)} per maand. Dat is meer dan het sociaal minimum van UWV.${grens}` };

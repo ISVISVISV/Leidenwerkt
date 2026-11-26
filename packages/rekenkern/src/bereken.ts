@@ -662,6 +662,9 @@ export function bereken(gegeven: Invoer, regels: RegelSet = standaardRegels): Re
   const oorspronkelijk = metVakantiegeld(gegeven, regels);
   const invoer: Invoer = {
     ...oorspronkelijk,
+    // Alleenstaande ouder is wie zorgt voor een kind jonger dan 18 (art. 4 lid 1 onder b en e Pw).
+    // Alleen kinderen van 18 of ouder: dan geldt de bijstand voor een alleenstaande.
+    leefvorm: oorspronkelijk.leefvorm === "alleenstaande_ouder" && !oorspronkelijk.kinderen.some((k) => k.leeftijd < 18) ? "alleenstaande" : oorspronkelijk.leefvorm,
     huidigWerk: metBruto(oorspronkelijk.huidigWerk, regels, oorspronkelijk.datum),
     nieuwWerk: metBruto(oorspronkelijk.nieuwWerk, regels, oorspronkelijk.datum)!,
   };

@@ -17,7 +17,8 @@ export function maakContext(l: Lezer, invoer: CheckInvoer) {
   const personen: CheckPersoon[] = paar ? [invoer.aanvrager, invoer.partner!] : [invoer.aanvrager];
   const minderjarig = invoer.kinderen.filter((k) => k.leeftijd < 18);
   const jong = personen.some((p) => p.leeftijd < VOLWASSEN);
-  const metKinderen = invoer.kinderen.length > 0;
+  // Alleenstaande ouder: met een kind jonger dan 18 (art. 4 lid 1 onder b en e Pw). Een kind van 18 of ouder telt daarvoor niet.
+  const metKinderen = minderjarig.length > 0;
   const studeert = heeft(invoer.aanvrager, "studiefinanciering");
   const bedrijf = personen.some((p) => heeft(p, "bedrijf"));
   // AOW-leeftijd: dan gelden de normen van art. 22 Pw. Ook als maar één van een stel de AOW-leeftijd heeft (art. 22 c).
