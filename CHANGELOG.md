@@ -41,6 +41,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Opgelost
 
+- Leidengeldwijzer: met bijstand en een huisgenoot van 27 jaar of ouder rekende de huurtoeslag met de volle bijstandsnorm. Nu met de kostendelersnorm, zoals Leidenwerkt. De huurtoeslag was te laag.
+- Een ouder met alleen kinderen van 18 jaar of ouder telde als alleenstaande ouder. Nu als alleenstaande: de vermogensgrens voor bijstand is € 8.000, en de inkomenstoeslag is het bedrag voor een alleenstaande (art. 4 Pw).
 - Na de jaarwissel, als nog niet alle bedragen van het nieuwe jaar bekend zijn: Leidengeldwijzer rekent dan met de regels van 31 december, met een melding bovenaan het overzicht. Eerst gaf Leidengeldwijzer een witte pagina, of verdwenen regelingen zonder uitleg. Leidenwerkt gaf een witte pagina bij partneralimentatie.
 - Gaat er bij het rekenen toch iets mis, dan ziet u een melding met het telefoonnummer van de gemeente, en geen witte pagina.
 - De link naar de bedragen van de kinderopvangtoeslag 2026 op rijksoverheid.nl werkte niet meer. Hij gaat nu naar het nieuwe adres.
