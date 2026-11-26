@@ -41,6 +41,8 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Opgelost
 
+- Bedragen met een komma voor de duizendtallen: "40,000" las de rekenhulp als € 40. Nu is een komma of punt met precies 3 cijfers erachter een scheiding tussen duizendtallen. "1.234,56" en "1,234.56" worden allebei € 1.234,56.
+- Leidengeldwijzer: een prijs per uur van 0 voor de opvang telt nu als "weet ik niet". Dan rekent Leidengeldwijzer met de hoogste prijs voor de toeslag.
 - Leidengeldwijzer: met bijstand stond de kinderopvangtoeslag altijd bij "waarschijnlijk niet", met de reden "U werkt niet". Gaat een kind naar de opvang, dan vraagt Leidengeldwijzer nu: "Werkt u naast de bijstand?"
 - Leidengeldwijzer: met bijstand en een huisgenoot van 27 jaar of ouder rekende de huurtoeslag met de volle bijstandsnorm. Nu met de kostendelersnorm, zoals Leidenwerkt. De huurtoeslag was te laag.
 - Een ouder met alleen kinderen van 18 jaar of ouder telde als alleenstaande ouder. Nu als alleenstaande: de vermogensgrens voor bijstand is € 8.000, en de inkomenstoeslag is het bedrag voor een alleenstaande (art. 4 Pw).

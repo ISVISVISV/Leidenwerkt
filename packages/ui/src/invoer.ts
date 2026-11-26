@@ -54,14 +54,22 @@ export function leeftijdOp(g: Geboortedatum, datum: string): number | undefined 
   return datum.slice(5) < geboren.slice(5) ? jaren - 1 : jaren;
 }
 
-/** Leest "15,50", "15.50" of "1.250,00" als getal; leeg geeft undefined. */
+/**
+ * Leest een bedrag of getal; leeg geeft undefined.
+ * - Een punt of komma met precies 3 cijfers erachter scheidt duizendtallen: "40,000", "40.000" en "1.250" worden 40000, 40000 en 1250.
+ *   Een bedrag in euro's heeft nooit 3 cijfers achter de komma.
+ * - Staan er punten én komma's, dan is het laatste teken de komma voor de centen: "1.234,56" en "1,234.56" worden 1234.56.
+ * - Anders is een punt of komma de komma voor de centen: "12,5" en "15.50" worden 12.5 en 15.5.
+ */
 export function getal(tekst: string): number | undefined {
   const schoon = tekst.trim().replace(/\s|€/g, "");
   if (schoon === "") return undefined;
   let genormaliseerd: string;
-  if (schoon.includes(",")) genormaliseerd = schoon.replace(/\./g, "").replace(",", "."); // 1.250,50
-  else if (/^\d{1,3}(\.\d{3})+$/.test(schoon)) genormaliseerd = schoon.replace(/\./g, ""); // 1.250
-  else genormaliseerd = schoon; // 15.50 of 1250
+  if (/^\d{1,3}([.,]\d{3})+$/.test(schoon)) genormaliseerd = schoon.replace(/[.,]/g, ""); // 1.250 of 40,000
+  else if (schoon.includes(",") && schoon.includes(".")) {
+    const decimaal = schoon.lastIndexOf(",") > schoon.lastIndexOf(".") ? "," : ".";
+    genormaliseerd = schoon.replace(decimaal === "," ? /\./g : /,/g, "").replace(decimaal, "."); // 1.234,56 of 1,234.56
+  } else genormaliseerd = schoon.replace(",", "."); // 12,5 of 15.50 of 1250
   const n = Number(genormaliseerd);
   return Number.isFinite(n) ? n : NaN;
 }
