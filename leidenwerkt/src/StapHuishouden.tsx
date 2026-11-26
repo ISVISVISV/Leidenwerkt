@@ -182,7 +182,9 @@ export function StapHuishouden({ f, zet, fouten }: StapProps) {
           <legend className="visueel-verborgen">Kinderen die bij u wonen</legend>
           {fouten.kinderen && <p className="foutmelding">{fouten.kinderen}</p>}
           {f.kinderen.map((k, i) => (
-            <div className="kind" key={i}>
+            <fieldset className="kind" key={i}>
+              {/* Bij twee of meer kinderen een zichtbaar kopje "Kind 1", "Kind 2": zo weet ook een schermlezer en de foutsamenvatting welk kind het is. */}
+              <legend className={f.kinderen.length > 1 ? "kind-kop" : "visueel-verborgen"}>{f.kinderen.length > 1 ? `Kind ${i + 1}` : "Uw kind"}</legend>
               <Datum
                 kind
                 id={`kind${i}`}
@@ -240,7 +242,7 @@ export function StapHuishouden({ f, zet, fouten }: StapProps) {
                   Kind {i + 1} verwijderen
                 </button>
               )}
-            </div>
+            </fieldset>
           ))}
           <button
             type="button"

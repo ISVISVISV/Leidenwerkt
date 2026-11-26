@@ -174,7 +174,7 @@ export const PERSONEN: Persoon[] = [
   },
   {
     naam: "Lars: 19, woont bij zijn ouders",
-    f: formulier({ geboren: "01-03-2007", woont: "inwonend", kaleHuur: "", inkomen: inkomen({ loon: "600" }) }),
+    f: formulier({ geboren: "01-03-2007", woont: "inwonend", kaleHuur: "", andereAantal: "2", andereOuder: "2", inkomen: inkomen({ loon: "600" }) }),
     verwacht: [{ regeling: "gemeentepolis", grens: 399.48, bron: TABEL_120 }],
   },
   {

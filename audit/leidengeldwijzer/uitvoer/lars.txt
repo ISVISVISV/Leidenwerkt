@@ -5,7 +5,7 @@
 Aanvrager: 19 jaar. Inkomen per maand: loon € 600.
 Geen partner.
 Geen kinderen.
-Wonen: inwonend. Andere mensen in huis: nee.
+Wonen: inwonend. Andere mensen in huis: ja, 2, inkomen onbekend.
 Bijstand: nee. 5 jaar laag inkomen: niet gevraagd.
 Geld en bezit: betaalrekening € 0, spaarrekening € 0, voertuigen geen, beleggingen € 0, spullen € 0, schulden € 0.
 
@@ -82,7 +82,7 @@ Geboren01-03-2007
 Partnernee
 Kinderennee
 Woningbij iemand anders in huis, en ik betaal niets voor mijn woonruimte
-Andere bewonersnee
+Andere bewoners2, van wie 2 van 27 jaar of ouder
 UW INKOMEN
 Bijstandnee
 Inkomenloon uit werk € 600 per maand
@@ -144,4 +144,4 @@ Hulp bij schulden
 Heeft u schulden? Of maakt u zich zorgen over geld? Dan kan de Stadsbank u helpen. Bel 14 071 en kies 1.
 
 Voedselbank
-De Voedselbank geeft een pakket met eten als u weinig geld overhoudt. Na het betalen van uw vaste lasten mag u niet meer dan € 335 per maand overhouden. Dat is de grens voor 1 persoon. Vaste lasten zijn bijvoorbeeld huur, energie, water, verzekeringen en aflossingen. De Voedselbank rekent het met u uit.
+De Voedselbank geeft een pakket met eten als u weinig geld overhoudt. Na het betalen van uw vaste lasten mag u niet meer dan € 335 per maand overhouden. Dat is de grens voor 1 persoon. Vaste lasten zijn bijvoorbeeld huur, energie, water, verzekeringen en aflossingen. Wonen er nog anderen bij u? Vraag de Voedselbank of zij meetellen. De Voedselbank rekent het met u uit.
