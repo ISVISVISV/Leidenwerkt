@@ -26,9 +26,10 @@ Maak per onderwerp een nieuw bestand naast het oude (ONDERHOUD.md, hoofdstuk 2, 
 | Map in `regels/` | Nieuw bestand | Bron | Wanneer verwacht |
 | --- | --- | --- | --- |
 | `landelijk/participatiewet/` | `2027-01.yaml` bestaat al, met `ontbrekend` | Staatscourant, "gewijzigde bedragen per 1 januari 2027", en de wettekst op wetten.overheid.nl | begin december |
-| `landelijk/wml/` | `2027.yaml` | Staatscourant, bedragen minimumloon per 1 januari | november of december |
-| `landelijk/belasting/` | `2027.yaml` en `2027-aow.yaml` | belastingdienst.nl, tarieven en heffingskortingen 2027 | december |
-| `landelijk/aow/` | `2027.yaml` | svb.nl, bedragen AOW per 1 januari | december |
+| `landelijk/wml/` | geen: `2026.yaml` heeft geen einddatum en bevat alleen het vakantiegeld (8%, art. 15 Wml) | wetten.overheid.nl, Wml art. 15 | alleen als de wet verandert |
+| `landelijk/belasting/` | `2027.yaml` en `2027-aow.yaml` (in `2027-aow.yaml` ook de bijdrage Zvw, `zvw.*`) | belastingdienst.nl, tarieven en heffingskortingen 2027 | december |
+| `landelijk/aow/` | `2027-01.yaml` (de bedragen; `2026-07.yaml` loopt af op 31 december). `2026.yaml` (AOW-leeftijd) heeft geen einddatum | svb.nl, bedragen AOW per 1 januari | december |
+| `landelijk/toeslagenwet/` | `2027-01.yaml` (`2026-07.yaml` loopt af op 31 december) | uwv.nl, sociaal minimum per 1 januari | december |
 | `landelijk/kinderbijslag/` | `2027-01.yaml` | svb.nl, bedragen kinderbijslag | december |
 | `landelijk/zorgtoeslag/` | `2027.yaml` | Dienst Toeslagen, "Berekening zorgtoeslag 2027", en de standaardpremie in de Staatscourant | december |
 | `landelijk/huurtoeslag/` | `2027.yaml` | Regeling huurtoeslaggrenzen 2027 (Staatscourant) en "Berekening huurtoeslag 2027" | november |
