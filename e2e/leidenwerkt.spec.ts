@@ -801,7 +801,7 @@ test("Escape in een geopende uitleg sluit die en zet de focus terug op de knop M
   await expect(knop).toBeFocused();
 });
 
-test("afronding: bij de maximale vrijlating verspringt het bedrag niet met € 1 per uur", async ({ page }) => {
+test("afronding: bij de maximale vrijlating gaat het bedrag niet heen en weer per uur", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Begin met rekenen" }).click();
   await geboren(page, "Uw geboortedatum", 36);
@@ -814,13 +814,16 @@ test("afronding: bij de maximale vrijlating verspringt het bedrag niet met € 1
   await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("20");
   await page.getByLabel("Nee, ik krijg het apart").check();
   await verder(page, "Bereken wat ik overhoud");
-  const zinnen = new Set<string>();
+  // Loon en bijstand zijn samen gelijk (de bijstand vult aan tot de norm plus de vrijlating). Wel stijgt de huurtoeslag iets
+  // bij meer uren: over de bijstand naast werk gaat geen loonheffingskorting, over het loon wel. Het bruto inkomen voor
+  // de toeslagen daalt dan iets (docs/RECHT.md, deel 1). Het bedrag mag dus stijgen, maar nooit heen en weer gaan.
+  const bedragen: number[] = [];
   for (let u = 17; u <= 24; u++) {
     await page.getByRole("slider").fill(String(u));
     const houdtOver = page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ }).locator("tfoot td").last();
-    zinnen.add(`${await page.locator(".antwoord-zin").innerText()}|${await houdtOver.innerText()}`);
+    bedragen.push(Number((await houdtOver.innerText()).replace(/[^0-9]/g, "")));
   }
-  expect(zinnen.size).toBe(1);
+  for (let i = 1; i < bedragen.length; i++) expect(bedragen[i], bedragen.join(", ")).toBeGreaterThanOrEqual(bedragen[i - 1]);
 });
 
 test("regelingen: met bijstand telt het vrijgelaten deel van het loon niet mee", async ({ page }) => {

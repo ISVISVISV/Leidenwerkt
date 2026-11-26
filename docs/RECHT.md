@@ -175,6 +175,8 @@ Ongewijzigd ten opzichte van de vorige stand; alle waarden 2026 `geverifieerd` (
 
 **Wie al werkt.** De app vraagt wat er verandert: meer uren bij het huidige werk (zelfde uurloon, nieuw totaal aantal uren), ander werk in plaats van het huidige, of werk erbij. Bij werk erbij telt het loon van beide banen op en wordt de belasting over het totaal berekend, zoals bij de aangifte; op de loonstroken kan het anders verdeeld zijn, omdat één werkgever de heffingskortingen toepast.
 
+**Bijstand naast werk (praktijk van de gemeente Leiden, 26 november 2026):** wie vanuit de bijstand gaat werken, vraagt de loonheffingskorting aan op het loon. Over de bijstand wordt dan geen loonheffingskorting berekend. Vraagt iemand die niet aan, dan rekent de gemeente de bijstand toch alsof hij die krijgt. Voor de toeslagen rekent Leidenwerkt de bijstand daarom terug naar bruto **zonder** heffingskorting als iemand werkt. Zonder werk past de gemeente de heffingskorting wel toe op de bijstand. Bij een stel per partner: de helft van wie werkt zonder, de helft van de ander met heffingskorting. Gecontroleerd met de proefberekening van Dienst Toeslagen (Tom en Ilse in de audit, 26 november 2026: € 220 zorgtoeslag en € 469 huurtoeslag bij € 32.049).
+
 ### 5. Zorgtoeslag
 
 Zorgtoeslag per jaar = standaardpremie (× 2 met toeslagpartner) − normpremie; normpremie = normpercentage × drempelinkomen + 13,73% × (toetsingsinkomen − drempelinkomen), het tweede deel niet negatief. 2026: standaardpremie € 2.119, drempelinkomen € 29.736, normpercentage 1,912% / 4,289%. Bron: [Dienst Toeslagen, Berekening zorgtoeslag 2026](https://download.belastingdienst.nl/toeslagen/docs/berekening_zorgtoeslag_tg0821z62fd.pdf). Vermogensgrens 2026: € 146.011 / € 184.633 (aanname in de app: eronder).

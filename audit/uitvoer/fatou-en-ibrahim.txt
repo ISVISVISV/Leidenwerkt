@@ -2,13 +2,13 @@
 
 ## 24 uur, Maand 1 t/⁠m 6
 
-Met dit werk houdt u in maand 1 t/⁠m 6 ongeveer € 289 per maand meer over.
+Met dit werk houdt u in maand 1 t/⁠m 6 ongeveer € 279 per maand meer over.
 
 Bij 24 uur per week:
 
-Maand 1 t/⁠m 6: € 289 per maand meer
+Maand 1 t/⁠m 6: € 279 per maand meer
 Vanaf maand 7: ongeveer evenveel als nu
-De eerste 12 maanden samen: € 1.734 meer
+De eerste 12 maanden samen: € 1.674 meer
 
 U houdt € 679 bijstand per maand naast uw loon.
 
@@ -34,14 +34,15 @@ Per maand	Nu	Met dit werk
 Wat er binnenkomt
 Netto loon (met vakantiegeld)	–	€ 1.638
 Bijstand	€ 2.028	€ 679
-Zorgtoeslag	€ 246	€ 246
+Zorgtoeslag	€ 246	€ 236
 Huurtoeslag	€ 516	€ 516
 Kindgebonden budget	€ 215	€ 215
 Kinderbijslag	€ 99	€ 99
-Totaal binnen	€ 3.104	€ 3.393
-U houdt over	€ 3.104	€ 3.393
+Totaal binnen	€ 3.104	€ 3.383
+U houdt over	€ 3.104	€ 3.383
 U vulde € 15 bruto per uur in. In de tabel staat het netto loon: na belasting en premies, omgerekend naar een maand, met vakantiegeld, verdeeld over 12 maanden.
-Zorgtoeslag, huurtoeslag en kindgebonden budget blijven gelijk, omdat uw inkomen onder de grens blijft waarboven ze dalen.
+Huurtoeslag en kindgebonden budget blijven gelijk, omdat uw inkomen onder de grens blijft waarboven ze dalen.
+Zorgtoeslag daalt, omdat uw inkomen stijgt.
 Vaste lasten zoals huur, kostgeld en zorgpremie staan niet in de tabel, want die betaalt u met en zonder werk.
 Goed om te weten in maand 1 t/⁠m 6
 
@@ -54,9 +55,9 @@ Gaat u werken? Geef dat zo snel mogelijk door aan de gemeente, net als elke vera
 Bron: Participatiewet, art. 17 lid 1
 Let op: Geef uw nieuwe inkomen door aan Dienst Toeslagen
 
-Krijgt u een toeslag? Geef uw nieuwe inkomen dan meteen door via Mijn toeslagen of de app Toeslagen, ook als uw toeslag niet verandert. Zo rekent Dienst Toeslagen met het juiste inkomen.
+Uw toeslagen gaan samen € 10 per maand omlaag (zorgtoeslag € 10). Die daling zit al in de bedragen hierboven. Geef uw nieuwe inkomen meteen door via Mijn toeslagen. Anders krijgt u elke maand € 10 te veel, en moet u na een jaar ongeveer € 120 terugbetalen.
 
-Bron: Belastingdienst, Mijn inkomen verandert – moet ik dat doorgeven?
+Bron: Algemene wet inkomensafhankelijke regelingen, art. 26 lid 1
 Goed: Sleutelpas
 
 Met dit inkomen kunt u de gratis Sleutelpas nog krijgen. De grens is ongeveer € 2.636 netto per maand, met vakantiegeld.
@@ -157,11 +158,11 @@ Met dit werk
 Bruto loon per jaar, met vakantiegeld
 € 20.217,60
 Bijstand per jaar, teruggerekend naar bruto
-€ 8.141,62
+€ 10.406,70
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
-€ 28.359,22
+€ 30.624,30
 Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet
-€ 246,00
+€ 236,00
 Gebruikte regels
 Tarieven box 1 (marginaal tarief per schijf, inclusief premies volksverzekeringen): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
 Algemene heffingskorting (bedrag = basis + percentage × (inkomen − vanaf)): zie de tabel in de bron (Belastingdienst — Voorlopige aanslag 2026, gebruikte tarieven en heffingskortingen)
@@ -191,9 +192,9 @@ Met dit werk
 Bruto loon per jaar, met vakantiegeld
 € 20.217,60
 Bijstand per jaar, teruggerekend naar bruto
-€ 8.141,62
+€ 10.406,70
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
-€ 28.359,22
+€ 30.624,30
 Plus het inkomen van uw kind boven € 6.218 per jaar (jonger dan 23 jaar: de rest telt niet mee)
 € 0,00
 Rekenhuur: de kale huur, tot de maximale huurgrens
@@ -232,9 +233,9 @@ Met dit werk
 Bruto loon per jaar, met vakantiegeld
 € 20.217,60
 Bijstand per jaar, teruggerekend naar bruto
-€ 8.141,62
+€ 10.406,70
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
-€ 28.359,22
+€ 30.624,30
 Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet
 € 215,00
 Het kindgebonden budget telt niet mee als inkomen voor de bijstand.
@@ -260,13 +261,14 @@ Kinderbijslag per maand, alle kinderen samen
 Gebruikte regels
 Kinderbijslag per kind per kwartaal, 0 tot en met 5 jaar: € 298,40 per kwartaal (SVB — Bedragen en betaaldagen kinderbijslag)
 Waar deze berekening van uitgaat
-Bekijk de 10 aannames
+Bekijk de 11 aannames
 De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.
 'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.
 Het vakantiegeld is over 12 maanden verdeeld. In werkelijkheid komt het meestal in mei of juni.
 Het netto loon is berekend over een heel jaar. Op uw loonstrook kan het een paar euro anders zijn.
 De bijstand is netto per maand gerekend, met de vakantietoeslag. De gemeente betaalt de vakantietoeslag één keer per jaar uit.
 De rekenhulp neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaargeld en bezit onder de grens voor bijstand en toeslagen blijven.
+Wie naast de bijstand werkt, krijgt de loonheffingskorting op het loon. Over de bijstand wordt dan geen loonheffingskorting berekend. Daarmee is de bijstand teruggerekend naar bruto.
 Bij partners betaalt de gemeente ieder de helft van de bijstand (Participatiewet, art. 45 lid 4). Daarom is de bijstand per partner teruggerekend naar bruto, ieder met een eigen heffingskorting. Krijgt één van u de hele bijstand, dan is het bruto bedrag hoger en de toeslag lager.
 Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
@@ -301,9 +303,9 @@ Met dit werk houdt u vanaf maand 7 per maand ongeveer evenveel over als nu.
 
 Bij 24 uur per week:
 
-Maand 1 t/⁠m 6: € 289 per maand meer
+Maand 1 t/⁠m 6: € 279 per maand meer
 Vanaf maand 7: ongeveer evenveel als nu
-De eerste 12 maanden samen: € 1.734 meer
+De eerste 12 maanden samen: € 1.674 meer
 
 U houdt € 390 bijstand per maand naast uw loon.
 
@@ -448,9 +450,9 @@ Met dit werk
 Bruto loon per jaar, met vakantiegeld
 € 20.217,60
 Bijstand per jaar, teruggerekend naar bruto
-€ 4.673,62
+€ 5.973,87
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
-€ 24.891,22
+€ 26.191,47
 Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet
 € 246,00
 Gebruikte regels
@@ -482,9 +484,9 @@ Met dit werk
 Bruto loon per jaar, met vakantiegeld
 € 20.217,60
 Bijstand per jaar, teruggerekend naar bruto
-€ 4.673,62
+€ 5.973,87
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
-€ 24.891,22
+€ 26.191,47
 Plus het inkomen van uw kind boven € 6.218 per jaar (jonger dan 23 jaar: de rest telt niet mee)
 € 0,00
 Rekenhuur: de kale huur, tot de maximale huurgrens
@@ -523,9 +525,9 @@ Met dit werk
 Bruto loon per jaar, met vakantiegeld
 € 20.217,60
 Bijstand per jaar, teruggerekend naar bruto
-€ 4.673,62
+€ 5.973,87
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
-€ 24.891,22
+€ 26.191,47
 Kindgebonden budget per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet
 € 215,00
 Het kindgebonden budget telt niet mee als inkomen voor de bijstand.
@@ -551,13 +553,14 @@ Kinderbijslag per maand, alle kinderen samen
 Gebruikte regels
 Kinderbijslag per kind per kwartaal, 0 tot en met 5 jaar: € 298,40 per kwartaal (SVB — Bedragen en betaaldagen kinderbijslag)
 Waar deze berekening van uitgaat
-Bekijk de 10 aannames
+Bekijk de 11 aannames
 De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.
 'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.
 Het vakantiegeld is over 12 maanden verdeeld. In werkelijkheid komt het meestal in mei of juni.
 Het netto loon is berekend over een heel jaar. Op uw loonstrook kan het een paar euro anders zijn.
 De bijstand is netto per maand gerekend, met de vakantietoeslag. De gemeente betaalt de vakantietoeslag één keer per jaar uit.
 De rekenhulp neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaargeld en bezit onder de grens voor bijstand en toeslagen blijven.
+Wie naast de bijstand werkt, krijgt de loonheffingskorting op het loon. Over de bijstand wordt dan geen loonheffingskorting berekend. Daarmee is de bijstand teruggerekend naar bruto.
 Bij partners betaalt de gemeente ieder de helft van de bijstand (Participatiewet, art. 45 lid 4). Daarom is de bijstand per partner teruggerekend naar bruto, ieder met een eigen heffingskorting. Krijgt één van u de hele bijstand, dan is het bruto bedrag hoger en de toeslag lager.
 Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.

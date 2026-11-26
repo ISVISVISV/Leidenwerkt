@@ -155,9 +155,9 @@ Met dit werk
 Bruto loon per jaar, met vakantiegeld
 € 17.265,83
 Bijstand per jaar, teruggerekend naar bruto
-€ 3.653,49
+€ 5.686,37
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
-€ 20.919,32
+€ 22.952,20
 Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet
 € 129,00
 Gebruikte regels
@@ -187,9 +187,9 @@ Met dit werk
 Bruto loon per jaar, met vakantiegeld
 € 17.265,83
 Bijstand per jaar, teruggerekend naar bruto
-€ 3.653,49
+€ 5.686,37
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
-€ 20.919,32
+€ 22.952,20
 Rekenhuur: de kale huur, tot de maximale huurgrens
 € 750,00
 Basishuur: dit deel betaalt u altijd zelf
@@ -215,7 +215,7 @@ Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens
 Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons (art. 21 lid 2 Wht): 27% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Waar deze berekening van uitgaat
-Bekijk de 11 aannames
+Bekijk de 12 aannames
 De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.
 'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.
 U vulde netto loon in. De rekenhulp rekent dat terug naar bruto. Uw echte bruto loon kan iets anders zijn.
@@ -224,6 +224,7 @@ Bij een weekloon krijgt u 52 keer per jaar loon. Het loon is hier omgerekend naa
 Het netto loon is berekend over een heel jaar. Op uw loonstrook kan het een paar euro anders zijn.
 De bijstand is netto per maand gerekend, met de vakantietoeslag. De gemeente betaalt de vakantietoeslag één keer per jaar uit.
 De rekenhulp neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaargeld en bezit onder de grens voor bijstand en toeslagen blijven.
+Wie naast de bijstand werkt, krijgt de loonheffingskorting op het loon. Over de bijstand wordt dan geen loonheffingskorting berekend. Daarmee is de bijstand teruggerekend naar bruto.
 Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
 Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.
@@ -397,9 +398,9 @@ Met dit werk
 Bruto loon per jaar, met vakantiegeld
 € 17.265,83
 Bijstand per jaar, teruggerekend naar bruto
-€ 185,49
+€ 288,70
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
-€ 17.451,32
+€ 17.554,53
 Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet
 € 129,00
 Gebruikte regels
@@ -429,9 +430,9 @@ Met dit werk
 Bruto loon per jaar, met vakantiegeld
 € 17.265,83
 Bijstand per jaar, teruggerekend naar bruto
-€ 185,49
+€ 288,70
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
-€ 17.451,32
+€ 17.554,53
 Rekenhuur: de kale huur, tot de maximale huurgrens
 € 750,00
 Basishuur: dit deel betaalt u altijd zelf
@@ -457,7 +458,7 @@ Vergoeding van het deel van de huur tussen aftoppingsgrens en maximale huurgrens
 Minimum-inkomensijkpunt eenpersoonshuishouden (jaarinkomen, art. 3 Regeling huurtoeslaggrenzen 2026): € 23.425 per jaar (Regeling huurtoeslaggrenzen 2026 (Staatscourant 2025, 39783))
 Afbouwpercentage (per jaar) van het rekeninkomen boven het minimum-inkomensijkpunt, eenpersoons (art. 21 lid 2 Wht): 27% (Wet op de huurtoeslag art. 21 (wetten.overheid.nl, versie 1 januari 2026))
 Waar deze berekening van uitgaat
-Bekijk de 11 aannames
+Bekijk de 12 aannames
 De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.
 'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.
 U vulde netto loon in. De rekenhulp rekent dat terug naar bruto. Uw echte bruto loon kan iets anders zijn.
@@ -466,6 +467,7 @@ Bij een weekloon krijgt u 52 keer per jaar loon. Het loon is hier omgerekend naa
 Het netto loon is berekend over een heel jaar. Op uw loonstrook kan het een paar euro anders zijn.
 De bijstand is netto per maand gerekend, met de vakantietoeslag. De gemeente betaalt de vakantietoeslag één keer per jaar uit.
 De rekenhulp neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaargeld en bezit onder de grens voor bijstand en toeslagen blijven.
+Wie naast de bijstand werkt, krijgt de loonheffingskorting op het loon. Over de bijstand wordt dan geen loonheffingskorting berekend. Daarmee is de bijstand teruggerekend naar bruto.
 Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
 Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.

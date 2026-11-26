@@ -14,7 +14,7 @@ Gemaakt met `npm run audit` met rekendatum 2026-11-13. 17 personen uit audit/per
 | Inkomen en grens kloppen met elkaar | 99 | 0 |
 | Urenschuif verspringt niet met € 1 | 17 | 0 |
 | Omweg geeft dezelfde uitkomst | 16 | 0 |
-| Gelijk aan de officiële bron | 22 | 0 |
+| Gelijk aan de officiële bron | 20 | 0 |
 | Netto loon in de zin past bij de tabel | 3 | 0 |
 | Opvang: delen samen het totaal | 1 | 0 |
 

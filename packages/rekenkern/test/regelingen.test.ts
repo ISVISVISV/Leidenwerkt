@@ -659,3 +659,24 @@ describe("bijstand en studiefinanciering (praktijk Leiden, 26 november 2026)", (
     expect(u.kans).toBe("nee");
   });
 });
+
+describe("heffingskorting bij bijstand naast werk (praktijk Leiden, 26 november 2026)", () => {
+  const l = new Lezer(standaardRegels, DATUM);
+  it("zonder heffingskorting is er meer bruto nodig voor hetzelfde netto bedrag", async () => {
+    const { brutoUitNetto } = await import("../src/modules/belasting.js");
+    expect(brutoUitNetto(l, D(6000), false).gt(brutoUitNetto(l, D(6000)))).toBe(true);
+  });
+  it("Leidenwerkt: met werk naast de bijstand noemt de uitleg dat er geen loonheffingskorting over de bijstand is", () => {
+    const r = bereken({
+      datum: DATUM,
+      leefvorm: "alleenstaande",
+      leeftijd: 40,
+      kinderen: [],
+      kostendelers: 0,
+      wonen: { soort: "huur", kaleHuurPerMaand: 700 },
+      nieuwWerk: { brutoUurloon: 14.5, urenPerWeek: 16 },
+      vrijlatingFase: "start",
+    } as unknown as Invoer);
+    expect(JSON.stringify(r)).toContain("Over de bijstand wordt dan geen loonheffingskorting berekend");
+  });
+});
