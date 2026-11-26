@@ -50,6 +50,8 @@ export interface Formulier {
   andereInkomen: string;
   andereOnbekend: boolean;
   bijstand: JaNee;
+  /** Werkt iemand met bijstand ook? Alleen gevraagd als een kind naar de opvang gaat (kinderopvangtoeslag). */
+  werktNaastBijstand: JaNee;
   inkomen: InkomenVelden;
   partnerInkomen: InkomenVelden;
   langLaag: "" | "ja" | "nee" | "onbekend";
@@ -101,6 +103,7 @@ export const leegFormulier: Formulier = {
   andereInkomen: "",
   andereOnbekend: false,
   bijstand: "",
+  werktNaastBijstand: "",
   inkomen: leegInkomen,
   partnerInkomen: leegInkomen,
   langLaag: "",
@@ -153,6 +156,9 @@ export const soortenId = (partner: boolean) => (partner ? "partnerSoorten" : "so
 
 /** Vragen die alleen in bepaalde situaties komen. */
 export const vraagInkomen = (f: Formulier) => f.bijstand === "nee";
+/** Met bijstand en een kind naar de opvang: werkt u ook? Dat is nodig voor de kinderopvangtoeslag (art. 1.6 Wko). */
+export const vraagWerkNaastBijstand = (f: Formulier) =>
+  f.bijstand === "ja" && kinderen(f).some((k, i) => vraagOpvang(k) && naarOpvang(infoVan(f, i)));
 /**
  * Welke uitkering iemand krijgt, telt alleen voor de studietoeslag: met Wajong krijgt u die niet (art. 36b Pw).
  * Daarom komt de vraag alleen bij de aanvrager, met studiefinanciering en een uitkering van UWV.
@@ -242,6 +248,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
   }
   if (stap === 2) {
     if (!f.bijstand) fouten.bijstand = kies;
+    if (vraagWerkNaastBijstand(f) && !f.werktNaastBijstand) fouten.werktNaastBijstand = kies;
     if (vraagInkomen(f)) {
       inkomen(f.inkomen, false);
       if (metPartner(f)) inkomen(f.partnerInkomen, true);
@@ -271,14 +278,21 @@ const persoon = (geboren: Geboortedatum, v: InkomenVelden | undefined, partner =
   uitkering: v && vraagUitkering(v, partner) && v.uitkering ? v.uitkering : undefined,
 });
 
+/**
+ * Met bijstand telt de norm als inkomen. Werkt iemand naast de bijstand, dan krijgt hij loon met een bedrag 0:
+ * dat telt niet als inkomen, maar wel als werk voor de kinderopvangtoeslag.
+ */
+const metWerk = (p: CheckPersoon, f: Formulier): CheckPersoon =>
+  f.bijstand === "ja" && vraagWerkNaastBijstand(f) && f.werktNaastBijstand === "ja" ? { ...p, inkomen: { ...p.inkomen, loon: 0 } } : p;
+
 /** Het ingevulde formulier als invoer voor de rekenkern. Alleen aanroepen als alle stappen goed zijn. */
 export function naarInvoer(f: Formulier): CheckInvoer {
   const bijstand = f.bijstand === "ja";
   const som = (b: Bezit, t: string) => (f.bezit.includes(b) ? (getal(t) ?? 0) : 0);
   return {
     datum: rekendatum().datum,
-    aanvrager: persoon(f.geboren, bijstand ? undefined : f.inkomen),
-    partner: metPartner(f) ? persoon(f.partnerGeboren, bijstand ? undefined : f.partnerInkomen, true) : undefined,
+    aanvrager: metWerk(persoon(f.geboren, bijstand ? undefined : f.inkomen), f),
+    partner: metPartner(f) ? metWerk(persoon(f.partnerGeboren, bijstand ? undefined : f.partnerInkomen, true), f) : undefined,
     kinderen: kinderen(f).map((k, i) => {
       const info = infoVan(f, i);
       const iso = isoDatum(k);
@@ -366,6 +380,7 @@ export function ingevuld(f: Formulier): { kop: string; regels: [string, string][
     inkomen.push([naam, `${delen.join(", ")} per maand`]);
     if (vraagUitkering(v, partner) && v.uitkering) inkomen.push(["Uitkering", UITKERINGEN.find(([w]) => w === v.uitkering)![1]]);
   };
+  if (vraagWerkNaastBijstand(f) && f.werktNaastBijstand) inkomen.push(["Werk naast de bijstand", f.werktNaastBijstand]);
   if (vraagInkomen(f)) {
     persoon(f.inkomen, false);
     if (paar) persoon(f.partnerInkomen, true);
