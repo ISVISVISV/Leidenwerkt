@@ -270,6 +270,9 @@ async function main() {
   console.log(`Bewaking ${datum} (wijzigingen sinds ${sinds}): ${uniek.length} meldingen${fouten.length ? `, ${fouten.length} fouten` : ""}.`);
   if (droog) {
     for (const m of uniek) console.log(`\n# ${m.titel}\n${m.tekst}`);
+    // Op GitHub ook als notitie bij de run, want de logbestanden zijn daar niet altijd te downloaden.
+    if (process.env.GITHUB_ACTIONS)
+      console.log(`::notice title=Samenvatting::${[`Wijzigingen sinds ${sinds}`, ...uniek.map((m) => m.titel), ...fouten].join("%0A").slice(0, 3800)}`);
     return;
   }
   const bestaand = bestaandeSleutels();
