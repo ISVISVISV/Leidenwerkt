@@ -57,6 +57,8 @@ const PROEF = {
   url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/hulpmiddel-proefberekening-toeslagen",
   datum: "2026-11-13",
 };
+/** Dezelfde proefberekening, opnieuw ingevuld met het inkomen zonder loonheffingskorting over de bijstand (€ 32.049). */
+const PROEF_HK = { ...PROEF, titel: "Dienst Toeslagen, proefberekening toeslagen 2026 (stel, kale huur € 820, samen € 32.049)", datum: "2026-11-26" };
 const proef = (onderdeel: string, nu: number, metWerk: number): Verwachting[] => [
   { onderdeel, situatie: "nu", waarde: nu, bron: PROEF },
   { onderdeel, situatie: "met_werk", waarde: metWerk, bron: PROEF },
@@ -81,7 +83,13 @@ export const PERSONEN: Persoon[] = [
     naam: "Tom en Ilse: stel, Ilse werkt kort, Tom 32 uur",
     f: formulier({ leefvorm: "paar", geboren: "01-06-1985", partnerGeboren: "01-06-1987", partnerWerkt: true, partnerBruto: "450", partnerWerktAl: "kort", ...huur("820"), per: "maand", loon: "2300", uren: "32" }),
     omwegen: [{ naam: "eerst partner werkt niet", begin: { partnerWerkt: false }, wijzig: { partnerWerkt: true } }],
-    verwacht: [...proef("Zorgtoeslag", 246, 179), ...proef("Huurtoeslag", 479, 404)],
+    // "Nu" opnieuw berekend op 26 november 2026: geen loonheffingskorting over de bijstand naast werk (docs/RECHT.md, deel 1, hoofdstuk 4).
+    verwacht: [
+      { onderdeel: "Zorgtoeslag", situatie: "nu", waarde: 220, bron: PROEF_HK },
+      { onderdeel: "Zorgtoeslag", situatie: "met_werk", waarde: 179, bron: PROEF },
+      { onderdeel: "Huurtoeslag", situatie: "nu", waarde: 469, bron: PROEF_HK },
+      { onderdeel: "Huurtoeslag", situatie: "met_werk", waarde: 404, bron: PROEF },
+    ],
   },
   {
     naam: "Sanne: alleenstaande moeder, opvang, kinderalimentatie, netto loon",

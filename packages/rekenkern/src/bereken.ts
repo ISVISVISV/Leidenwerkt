@@ -403,9 +403,18 @@ function situatie(invoer: Invoer, regels: RegelSet, naam: "huidig" | "werk", wer
     // Bij een stel krijgt ieder de helft (art. 45 lid 4 Pw), dus ieder met een eigen heffingskorting.
     // Het andere inkomen is bij één partner opgeteld.
     const paar = invoer.leefvorm === "paar" && bijstandJaar.gt(0);
+    // Wie naast de bijstand werkt, krijgt de loonheffingskorting op het loon. Over de bijstand wordt dan geen
+    // loonheffingskorting berekend (praktijk van de gemeente Leiden, 26 november 2026). De heffingskorting telt zo één keer.
+    const aanvragerWerkt = brutoJaarloon(werk).gt(0);
+    const partnerWerkt = brutoJaarloon(partnerWerk).gt(0);
     const brutoBijstand = paar
-      ? brutoUitNetto(l, bijstandJaar.div(2).plus(anderVoorToeslagen.times(12))).plus(brutoUitNetto(l, bijstandJaar.div(2)))
-      : brutoUitNetto(l, bijstandJaar.plus(anderVoorToeslagen.times(12)));
+      ? brutoUitNetto(l, bijstandJaar.div(2).plus(anderVoorToeslagen.times(12)), !aanvragerWerkt).plus(brutoUitNetto(l, bijstandJaar.div(2), !partnerWerkt))
+      : brutoUitNetto(l, bijstandJaar.plus(anderVoorToeslagen.times(12)), !aanvragerWerkt);
+    if (bijstandJaar.gt(0) && (aanvragerWerkt || partnerWerkt)) {
+      aanname(
+        "Wie naast de bijstand werkt, krijgt de loonheffingskorting op het loon. Over de bijstand wordt dan geen loonheffingskorting berekend. Daarmee is de bijstand teruggerekend naar bruto.",
+      );
+    }
     if (paar) {
       aanname(
         "Bij partners betaalt de gemeente ieder de helft van de bijstand (Participatiewet, art. 45 lid 4). Daarom is de bijstand per partner teruggerekend naar bruto, ieder met een eigen heffingskorting. Krijgt één van u de hele bijstand, dan is het bruto bedrag hoger en de toeslag lager.",

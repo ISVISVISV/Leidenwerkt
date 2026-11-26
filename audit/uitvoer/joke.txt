@@ -175,9 +175,9 @@ Partneralimentatie per jaar, zoals u die ontvangt (telt bruto mee)
 Bruto loon per jaar, met vakantiegeld
 € 12.579,84
 Bijstand per jaar, teruggerekend naar bruto
-€ 180,09
+€ 280,29
 Geschat bruto inkomen per jaar van uw huishouden (Dienst Toeslagen kijkt naar het hele jaar)
-€ 16.959,93
+€ 17.060,13
 Zorgtoeslag per maand. Afgerond naar beneden op hele euro's, zoals Dienst Toeslagen doet
 € 129,00
 Gebruikte regels
@@ -188,7 +188,7 @@ Drempelinkomen zorgtoeslag: € 29.736 per jaar (Dienst Toeslagen — Berekenin
 Normpercentage van het drempelinkomen, zonder toeslagpartner: 1,912% (Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026))
 Percentage van het toetsingsinkomen boven het drempelinkomen: 13,73% (Dienst Toeslagen — Berekening zorgtoeslag 2026 (TG 082-1Z62FD, januari 2026))
 Waar deze berekening van uitgaat
-Bekijk de 10 aannames
+Bekijk de 11 aannames
 De berekening gaat uit van een volledige maand in elke situatie, niet van de overgangsmaanden.
 'U houdt over' is wat binnenkomt, min de kosten van het werk en de kinderopvang. Vaste lasten zoals huur, zorgpremie en energie zijn er nog niet af. Die betaalt u met en zonder werk, dus voor het verschil maken ze niet uit.
 Het vakantiegeld is over 12 maanden verdeeld. In werkelijkheid komt het meestal in mei of juni.
@@ -196,6 +196,7 @@ Het netto loon is berekend over een heel jaar. Op uw loonstrook kan het een paar
 Over partneralimentatie betaalt u inkomstenbelasting. De bijstand telt het bedrag na belasting (Participatiewet, art. 31 lid 3). De rekenhulp rekent met het tarief van de eerste schijf, en neemt aan dat uw heffingskortingen al gebruikt worden voor uw bijstand of loon.
 De bijstand is netto per maand gerekend, met de vakantietoeslag. De gemeente betaalt de vakantietoeslag één keer per jaar uit.
 De rekenhulp neemt aan dat u aan de regels voor bijstand voldoet, en dat uw spaargeld en bezit onder de grens voor bijstand en toeslagen blijven.
+Wie naast de bijstand werkt, krijgt de loonheffingskorting op het loon. Over de bijstand wordt dan geen loonheffingskorting berekend. Daarmee is de bijstand teruggerekend naar bruto.
 Met werk kan het bruto inkomen lager zijn dan zonder werk, terwijl u netto meer overhoudt. Over loon betaalt u minder belasting dan over bijstand, door de arbeidskorting. Daarom hoort bij hetzelfde netto bedrag minder bruto loon.
 Het bruto bedrag van de bijstand is teruggerekend uit het netto bedrag. Dienst Toeslagen gebruikt het werkelijke bruto bedrag.
 Dit is het inkomen bij een heel jaar in deze situatie. Begint het werk halverwege het jaar, dan ligt het inkomen over dat jaar ertussenin.

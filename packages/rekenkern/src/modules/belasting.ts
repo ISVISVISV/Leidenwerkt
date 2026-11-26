@@ -59,11 +59,13 @@ export function nettoLoon(l: Lezer, brutoJaar: Bedrag, pensioenJaar: Bedrag = NU
  * de bruto G waarvoor G − max(0, belasting(G) − AHK(G)) = netto.
  * Gebruikt voor het toetsingsinkomen van toeslagen.
  */
-export function brutoUitNetto(l: Lezer, nettoJaar: Bedrag): Bedrag {
+export function brutoUitNetto(l: Lezer, nettoJaar: Bedrag, metHeffingskorting = true): Bedrag {
   if (nettoJaar.lte(0)) return NUL;
   const schijven = l.schijven("ib.box1.schijven");
   const ahk = l.schijven("ib.ahk");
-  const netto = (g: Bedrag) => g.minus(max(NUL, progressief(schijven, g).minus(stuksgewijs(ahk, g))));
+  // Zonder heffingskorting: als de loonheffingskorting al op het loon wordt toegepast (bijstand naast werk).
+  const korting = (g: Bedrag) => (metHeffingskorting ? stuksgewijs(ahk, g) : NUL);
+  const netto = (g: Bedrag) => g.minus(max(NUL, progressief(schijven, g).minus(korting(g))));
   let laag = nettoJaar;
   let hoog = nettoJaar.times(3);
   for (let i = 0; i < 80 && hoog.minus(laag).gt(D("0.001")); i++) {

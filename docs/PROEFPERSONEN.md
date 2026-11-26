@@ -27,7 +27,7 @@ Verzonnen mensen in verzonnen situaties. Per persoon staan de invoer, de uitkoms
 | [Sanne](#sanne-maand-1-6) | 2026-09-01 | € 368,36 | 7 van 7 |
 | [Sanne](#sanne-maand-7-36) | 2026-09-01 | € 227,98 | 7 van 7 |
 | [Sanne](#sanne-vanaf-maand-37) | 2026-09-01 | € 79,36 | 7 van 7 |
-| [Wim](#wim) | 2026-09-01 | € 238,91 | 2 van 2 |
+| [Wim](#wim) | 2026-09-01 | € 212,91 | 2 van 2 |
 
 <a id="ayse"></a>
 ## Ayşe (`ayse.yaml`)
@@ -69,7 +69,7 @@ Ayşe, 38, alleenstaande moeder van Mila (6), huurt voor € 700. Ze werkt al ee
 - Medebewoners (geen partner): geen
 - Huur: kale huur € 700,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 18.255,00; met werk: € 22.801,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 22.975,00; met werk: € 22.801,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/ayse.yaml`.
 
@@ -217,7 +217,7 @@ Daan, 41, alleenstaand, huurt voor € 640 kaal, heeft geen werk en overweegt 24
 - Medebewoners (geen partner): geen
 - Huur: kale huur € 640,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 21.091,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 21.202,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/daan.yaml`.
 
@@ -264,7 +264,7 @@ Fatima (38) en Youssef (40) zijn getrouwd en hebben twee kinderen: Sami (13) en 
 - Medebewoners (geen partner): geen
 - Huur: kale huur € 760,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 24.609,00; met werk: € 30.879,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 27.489,00; met werk: € 30.879,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/fatima-en-youssef.yaml`.
 
@@ -304,7 +304,7 @@ Henk, 58, alleenstaand, woont in zijn eigen huis samen met zijn zoon Bas (29), d
 - Medebewoners (geen partner): 1 van 27 jaar of ouder, samen € ? inkomen per jaar
 - Huurtoeslag: niet aanvragen
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 14.088,00; met werk: € 15.715,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 14.088,00; met werk: € 16.960,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/henk.yaml`.
 
@@ -423,7 +423,7 @@ Jesse, 24, alleenstaand, huurt een studio voor € 520 kaal. Hij overweegt 20 uu
 - Medebewoners (geen partner): geen
 - Huur: kale huur € 520,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 17.352,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 18.569,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/jesse.yaml`.
 
@@ -464,7 +464,7 @@ Kevin, 31, alleenstaand, huurt voor € 580, overweegt uitzendwerk van 32 uur pe
 - Medebewoners (geen partner): geen
 - Huur: kale huur € 580,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 21.046,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 21.663,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/kevin.yaml`.
 
@@ -546,7 +546,7 @@ Marloes, 45, alleenstaand, huurt voor € 610. Ze weet alleen dat ze netto € 1
 - Medebewoners (geen partner): geen
 - Huur: kale huur € 610,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 20.887,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 23.281,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/marloes.yaml`.
 
@@ -587,7 +587,7 @@ Peter, 52, alleenstaand, huurt een vrije-sectorwoning voor € 850 kaal (boven d
 - Medebewoners (geen partner): geen
 - Huur: kale huur € 850,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 20.900,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 23.154,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/peter.yaml`.
 
@@ -665,7 +665,7 @@ Rachid, 36, alleenstaand, woont bij een hospita (geen huurtoeslag). Hij werkt al
 - Medebewoners (geen partner): geen
 - Huurtoeslag: niet aanvragen
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 17.456,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 17.506,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/rachid-net-onder-norm.yaml`.
 
@@ -704,7 +704,7 @@ Rob, 50, alleenstaand, woont in bij zijn zus (geen huurtoeslag, zus is geen kost
 - Medebewoners (geen partner): geen
 - Huurtoeslag: niet aanvragen
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 18.616,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 23.464,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/rob.yaml`.
 
@@ -798,7 +798,7 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690. Ze begint met 
 - Medebewoners (geen partner): geen
 - Huur: kale huur € 690,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 20.791,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 24.260,00 (doe twee proefberekeningen)
 - Kinderopvang: dagopvang, 56 uur per maand, € 10.9 per uur
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/sanne-maand-1-6.yaml`.
@@ -845,7 +845,7 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690. Ze begint met 
 - Medebewoners (geen partner): geen
 - Huur: kale huur € 690,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 19.106,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 21.638,00 (doe twee proefberekeningen)
 - Kinderopvang: dagopvang, 56 uur per maand, € 10.9 per uur
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/sanne-maand-7-36.yaml`.
@@ -892,7 +892,7 @@ Sanne, 34, alleenstaande moeder van Noor (4), huurt voor € 690. Ze begint met 
 - Medebewoners (geen partner): geen
 - Huur: kale huur € 690,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 17.323,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 21.663,00; met werk: € 18.862,00 (doe twee proefberekeningen)
 - Kinderopvang: dagopvang, 56 uur per maand, € 10.9 per uur
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/sanne-vanaf-maand-37.yaml`.
@@ -914,7 +914,7 @@ Wim, 56, alleenstaand, huurt voor € 720 kaal. Zijn zoon Thijs (30) woont bij h
 - Werk straks: bruto € 14,50 per uur, 16 uur per week
 - Vrijlatingsperiode: eerste periode
 
-**Uitkomst:** nu € 1.424,90, met werk € 1.663,81 per maand; verschil € 238,91.
+**Uitkomst:** nu € 1.424,90, met werk € 1.637,81 per maand; verschil € 212,91.
 
 | Onderdeel | Situatie | Rekenhulp | Officieel | Verschil | Bron |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -930,7 +930,7 @@ Wim, 56, alleenstaand, huurt voor € 720 kaal. Zijn zoon Thijs (30) woont bij h
 - Medebewoners (geen partner): 1 van 27 jaar of ouder, samen € 26000 inkomen per jaar
 - Huur: kale huur € 720,00 per maand, servicekosten € 0
 - Vermogen: onder de grens
-- Inkomen 2026 (toetsingsinkomen) zonder werk: € 14.088,00; met werk: € 15.587,00 (doe twee proefberekeningen)
+- Inkomen 2026 (toetsingsinkomen) zonder werk: € 14.088,00; met werk: € 17.010,00 (doe twee proefberekeningen)
 
 Noteer per proefberekening de bedragen per maand voor zorgtoeslag, huurtoeslag, kindgebonden budget en kinderopvangtoeslag, en zet ze met bron en datum in `testgevallen/wim.yaml`.
 
