@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CITATEN, Lezer, euro, sociaalMinimum, standaardRegels, type Opvangsoort } from "@rekenhulp/rekenkern";
 import { Bron, Datum, Keuze, Kopvlak, Vangnet, Veld, Vinkjes } from "@rekenhulp/ui";
-import { aowVan, bedragId, bedragSoorten, metAow, soortOpties, controleer, naarInvoer, infoVan, rekendatum, vraagWerkNaastBijstand, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, naarOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
+import { aowVan, bedragId, bedragSoorten, metAow, soortOpties, bijIemandAnders, controleer, naarInvoer, infoVan, rekendatum, vraagWerkNaastBijstand, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, naarOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Icoon } from "./iconen.tsx";
 import { Overzicht } from "./Overzicht.tsx";
 import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANG_KEUZE, OPVANGSOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
@@ -354,18 +354,20 @@ function StapHuishouden({ f, zet, fouten }: StapProps) {
           fout={fouten.kaleHuur}
         />
       )}
-      <Keuze
-        naam="andereBewoners"
-        legend={VRAAG.andereBewoners}
-        hint="Bijvoorbeeld een vriend of familielid. Uw partner en uw kinderen tellen hier niet mee."
-        waarde={f.andereBewoners}
-        onChange={(v) => zet("andereBewoners", v)}
-        fout={fouten.andereBewoners}
-        opties={JA_NEE}
-      />
+      {!bijIemandAnders(f) && (
+        <Keuze
+          naam="andereBewoners"
+          legend={VRAAG.andereBewoners}
+          hint="Bijvoorbeeld een vriend of familielid. Uw partner en uw kinderen tellen hier niet mee."
+          waarde={f.andereBewoners}
+          onChange={(v) => zet("andereBewoners", v)}
+          fout={fouten.andereBewoners}
+          opties={JA_NEE}
+        />
+      )}
       {vraagAantal(f) && (
         <>
-          <Veld id="andereAantal" label={VRAAG.andereAantal} voorbeeld="bijv. 1" waarde={f.andereAantal} onChange={(v) => zet("andereAantal", v)} fout={fouten.andereAantal} />
+          <Veld id="andereAantal" label={bijIemandAnders(f) ? VRAAG.andereAantalBijIemand(paar, f.heeftKinderen === "ja") : VRAAG.andereAantal} voorbeeld="bijv. 1" waarde={f.andereAantal} onChange={(v) => zet("andereAantal", v)} fout={fouten.andereAantal} />
           <Veld
             id="andereOuder"
             label={VRAAG.andereOuder}

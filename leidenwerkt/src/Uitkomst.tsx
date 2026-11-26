@@ -309,12 +309,14 @@ export function Uitkomst({
       {r.signalen.length > 0 && (
         <section aria-labelledby="let-op">
           <h2 id="let-op">Goed om te weten{meerPeriodes ? ` ${tm(periodeInZin(gekozen.naam))}` : ""}</h2>
-          <p className="klein niet-print">Klik op een kop voor meer uitleg. Oranje: hier verandert iets of moet u iets doen. Groen: dit blijft of kan voor u.</p>
+          <p className="klein niet-print">Klik of tik op een kop voor meer uitleg. "Let op" (oranje): hier verandert iets of moet u iets doen. "Goed" (groen): dit blijft of kan voor u.</p>
           <ul className="signalen">
             {r.signalen.map((s, i) => (
               <li key={i} className={`${s.soort} bron-blok`}>
                 <details id={`signaal-${i}`} className="signaal">
-                  <summary className="signaal-kop">{s.kop}</summary>
+                  <summary className="signaal-kop">
+                    <span className="signaal-soort">{s.soort === "waarschuwing" ? "Let op:" : "Goed:"}</span> {s.kop}
+                  </summary>
                   <p>{metLinks(tm(s.tekst))}</p>
                   {s.tekst.includes("De grens is ongeveer") && (
                     <p>

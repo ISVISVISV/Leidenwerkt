@@ -8,6 +8,11 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Veranderd
 
+- Leidenwerkt, twee of meer kinderen: elk kind heeft een kopje ("Kind 1", "Kind 2"). De foutsamenvatting zegt welk kind het is.
+- Leidengeldwijzer: wie bij iemand anders in huis woont, krijgt meteen de vraag hoeveel mensen er in dat huis wonen: "Tel de persoon bij wie u woont mee." Zoals in Leidenwerkt.
+- Leidenwerkt, "Goed om te weten": elke kop begint met "Let op:" of "Goed:". Niet alleen de kleur zegt het. De uitleg zegt "Klik of tik".
+- Leidenwerkt: de tabel met de uitkomst past nu ook op een telefoon van 390 px breed.
+
 - Leidengeldwijzer is geen proefversie meer. Beide rekenhulpen zijn inhoudelijk nagelopen. Leidengeldwijzer staat nog niet in zoekmachines.
 - Leidengeldwijzer: bij de opvang kunt u nu ook kiezen "Nog niet, maar dat wil ik". De prijs per uur is niet verplicht. Weet u die nog niet? Dan rekent Leidengeldwijzer met de hoogste prijs waarvoor u toeslag krijgt.
 - Leidengeldwijzer: de vraag "Heeft u al 5 jaar of langer een laag inkomen?" is nu "… een inkomen op bijstandsniveau?". Dat is het woord van de gemeente, en het klinkt niet als een oordeel. Ook de teksten bij de inkomenstoeslag.

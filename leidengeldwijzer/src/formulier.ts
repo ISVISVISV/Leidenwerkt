@@ -173,8 +173,11 @@ export const vraagStudie = studeert;
 export const vraagHuur = (f: Formulier) => f.woont === "huur";
 /** Voor de huurtoeslag: hoeveel andere mensen en hun inkomen. Alleen bij een huurwoning. */
 /** Hoeveel andere mensen er wonen, en hoeveel van hen 27 jaar of ouder zijn. Voor de bijstand en de huurtoeslag. */
-export const vraagAantal = (f: Formulier) => f.andereBewoners === "ja" && f.woont !== "instelling";
-export const vraagAnderen = (f: Formulier) => vraagHuur(f) && f.andereBewoners === "ja";
+/** Bij iemand anders in huis wonen er altijd andere mensen. Dan vraagt Leidengeldwijzer meteen hoeveel, zoals Leidenwerkt. */
+export const bijIemandAnders = (f: Formulier) => f.woont === "kostgeld" || f.woont === "inwonend";
+const metAnderen = (f: Formulier) => bijIemandAnders(f) || f.andereBewoners === "ja";
+export const vraagAantal = (f: Formulier) => metAnderen(f) && f.woont !== "instelling";
+export const vraagAnderen = (f: Formulier) => vraagHuur(f) && metAnderen(f);
 /** Voor de huurtoeslag: het inkomen van een kind van 18 jaar of ouder. */
 export const vraagInkomenKind = (f: Formulier, k: Geboortedatum) => vraagHuur(f) && (leeftijd(k) ?? 0) >= 18;
 /** Voor de kinderopvangtoeslag: gaat een kind jonger dan 13 naar de opvang? */
@@ -233,7 +236,7 @@ export function controleer(f: Formulier, stap: number): Fouten {
       if (n === undefined) fouten.kaleHuur = "Vul dit in.";
       else if (Number.isNaN(n) || n < 1 || n > 3000) fouten.kaleHuur = "Vul de kale huur per maand in, bijvoorbeeld 750.";
     }
-    if (!f.andereBewoners) fouten.andereBewoners = kies;
+    if (!bijIemandAnders(f) && !f.andereBewoners) fouten.andereBewoners = kies;
     if (vraagAantal(f)) {
       const n = getal(f.andereAantal);
       if (n === undefined) fouten.andereAantal = "Vul dit in.";
@@ -316,7 +319,7 @@ export function naarInvoer(f: Formulier): CheckInvoer {
     studieMedisch: vraagStudie(f) ? f.studieMedisch || undefined : undefined,
     wonen: f.woont || "huur",
     kaleHuurPerMaand: vraagHuur(f) ? getal(f.kaleHuur) : undefined,
-    andereBewoners: f.andereBewoners === "ja",
+    andereBewoners: metAnderen(f),
     andereBewonersAantal: vraagAantal(f) ? getal(f.andereAantal) : undefined,
     kostendelers: vraagAantal(f) ? getal(f.andereOuder) : undefined,
     andereBewonersInkomenJaar: vraagAnderen(f) && !f.andereOnbekend ? getal(f.andereInkomen) : undefined,
@@ -366,7 +369,7 @@ export function ingevuld(f: Formulier): { kop: string; regels: [string, string][
   if (vraagHuur(f)) huishouden.push(["Kale huur", `${euroTekst(f.kaleHuur)} per maand`]);
   huishouden.push([
     "Andere bewoners",
-    f.andereBewoners !== "ja"
+    !metAnderen(f)
       ? "nee"
       : vraagAantal(f)
         ? `${f.andereAantal}, van wie ${f.andereOuder} van 27 jaar of ouder${vraagAnderen(f) ? `. Samen ${f.andereOnbekend ? "inkomen onbekend" : `${euroTekst(f.andereInkomen)} bruto per jaar`}` : ""}`

@@ -891,3 +891,42 @@ test("na de jaarwissel zonder nieuwe bedragen: rekenen met de oude regels, met p
   await expect(page.locator(".melding.waarschuwing").first()).toContainText("Let op: deze berekening gebruikt de regels van");
   await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ })).toBeVisible();
 });
+
+test.describe("telefoon van 390 px breed", () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test("de uitkomst past op het scherm, en bij twee kinderen zegt de foutsamenvatting welk kind", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Begin met rekenen" }).click();
+    await page.getByRole("group", { name: "Woont u samen met een partner?" }).getByLabel("Nee").check();
+    await geboren(page, "Uw geboortedatum", 34);
+    await page.getByRole("group", { name: "Heeft u kinderen die bij u wonen?" }).getByLabel("Ja").check();
+    await page.getByLabel("Geboortedatum kind 1", { exact: true }).fill(`01-01-${new Date().getFullYear() - 8}`);
+    await page.getByRole("button", { name: /kind toevoegen/i }).click();
+    await page.getByLabel("Geboortedatum kind 2", { exact: true }).fill(`01-01-${new Date().getFullYear() - 3}`);
+    await page.getByRole("button", { name: "Volgende stap" }).click();
+    const samenvatting = page.locator(".foutsamenvatting");
+    await expect(samenvatting).toContainText("Kind 1, als u gaat werken");
+    await expect(samenvatting).toContainText("Kind 2, als u gaat werken");
+    await page.getByRole("group", { name: "Als u gaat werken, gaat dit kind dan naar de opvang?" }).nth(0).getByLabel("Ja").check();
+    await page.getByRole("group", { name: "Soort opvang" }).nth(0).getByLabel("Buitenschoolse opvang").check();
+    await page.getByLabel("Hoeveel uur per week gaat dit kind naar de opvang?").nth(0).fill("10");
+    await page.getByRole("group", { name: "Als u gaat werken, gaat dit kind dan naar de opvang?" }).nth(1).getByLabel("Ja").check();
+    await page.getByRole("group", { name: "Soort opvang" }).nth(1).getByLabel("Kinderdagverblijf").check();
+    await page.getByLabel("Hoeveel uur per week gaat dit kind naar de opvang?").nth(1).fill("24");
+    await page.getByRole("group", { name: /kinderalimentatie/ }).getByLabel("Nee").check();
+    await page.getByRole("group", { name: "Heeft u ander inkomen dan bijstand en loon?" }).getByLabel("Nee").check();
+    await verder(page);
+    await page.getByLabel("In een huurwoning", { exact: false }).first().check();
+    await page.getByRole("textbox", { name: "Kale huur per maand" }).fill("750");
+    await page.getByRole("group", { name: /Wonen er nog andere mensen/ }).getByLabel("Nee").check();
+    await verder(page);
+    await page.getByLabel("Bruto loon per uur", { exact: true }).check();
+    await page.getByRole("textbox", { name: "Bedrag per uur" }).fill("14,50");
+    await page.getByLabel("Nee, ik krijg het apart").check();
+    await page.getByRole("textbox", { name: /Hoeveel uur per week gaat u werken/ }).fill("24");
+    await verder(page, "Bereken wat ik overhoud");
+    await expect(page.getByRole("table", { name: /Zo is het bedrag opgebouwd/ })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  });
+});

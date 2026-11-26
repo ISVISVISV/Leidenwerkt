@@ -394,6 +394,12 @@ h2.deel {
   margin-bottom: 1rem;
 }
 
+/* Kopje "Kind 1", "Kind 2" bij twee of meer kinderen. */
+.kind-kop {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
 .opvang {
   margin-top: 0.75rem;
 }
@@ -616,6 +622,15 @@ table.vergelijking {
   white-space: nowrap;
 }
 
+/* Op een smal scherm (390 px) paste de tabel net niet: minder ruimte tussen de kolommen. */
+@media (max-width: 26rem) {
+  .vergelijking th,
+  .vergelijking td {
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+  }
+}
+
 .vergelijking tr.leeg td {
   white-space: normal;
 }
@@ -693,6 +708,11 @@ table.vergelijking {
 .signalen summary {
   cursor: pointer;
   font-weight: 600;
+}
+
+/* Het soort staat er ook in woorden: niet alleen de kleur zegt het (WCAG 1.4.1). */
+.signaal-soort {
+  font-weight: 700;
 }
 
 .signalen details p {

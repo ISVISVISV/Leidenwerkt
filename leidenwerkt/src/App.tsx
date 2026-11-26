@@ -245,10 +245,14 @@ function Start({ onStart }: { onStart: () => void }) {
 /** De tekst van de vraag bij een veld of keuze, voor de foutensamenvatting. */
 function vraagVan(id: string): string {
   if (typeof document === "undefined") return "";
+  const veld = document.getElementById(id) ?? document.querySelector(`input[name="${id}"]`);
+  // Bij twee of meer kinderen: zeg welk kind ("Kind 2, soort opvang").
+  const kind = veld?.closest("fieldset.kind")?.querySelector(":scope > legend.kind-kop")?.textContent?.trim();
+  const metKind = (t: string) => (kind && !t.startsWith("Geboortedatum") ? `${kind}, ${t.charAt(0).toLowerCase()}${t.slice(1)}` : t);
   const label = document.querySelector(`label[for="${id}"]`)?.textContent;
-  if (label) return label.trim().replace(/[?:]$/, "");
+  if (label) return metKind(label.trim().replace(/[?:]$/, ""));
   const legend = document.querySelector(`input[name="${id}"]`)?.closest("fieldset")?.querySelector("legend")?.textContent;
-  return legend ? legend.trim().replace(/[?:]$/, "") : "";
+  return legend ? metKind(legend.trim().replace(/[?:]$/, "")) : "";
 }
 
 /** Brengt de focus naar de vraag bij een foutmelding: het veld, of de eerste keuze van de groep. */

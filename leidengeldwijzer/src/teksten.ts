@@ -93,6 +93,8 @@ export const VRAAG = {
   kaleHuur: "Kale huur per maand",
   andereBewoners: "Woont er nog iemand anders bij u?",
   andereAantal: "Hoeveel mensen zijn dat?",
+  andereAantalBijIemand: (paar: boolean, kinderen: boolean) =>
+    `Hoeveel mensen wonen er in dat huis, naast u? Tel de persoon bij wie u woont mee.${paar || kinderen ? ` Uw ${paar ? (kinderen ? "partner en kinderen" : "partner") : "kinderen"} telt u niet mee.` : ""}`,
   andereOuder: "Hoeveel van hen zijn 27 jaar of ouder?",
   andereInkomen: "Hoeveel bruto inkomen hebben deze mensen samen per jaar?",
   opvang: "Gaat dit kind naar de opvang?",
