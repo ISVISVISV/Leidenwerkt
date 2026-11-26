@@ -109,6 +109,7 @@ export const VRAAG = {
       : paar
         ? "Krijgt u samen bijstand van de gemeente?"
         : "Krijgt u bijstand van de gemeente?",
+  werktNaastBijstand: (paar: boolean) => (paar ? "Werken u en uw partner allebei naast de bijstand?" : "Werkt u naast de bijstand?"),
   soorten: (partner: boolean) => (partner ? "Wat voor inkomen heeft uw partner?" : "Wat voor inkomen heeft u?"),
   uitkering: (partner: boolean) => (partner ? "Welke uitkering krijgt uw partner?" : "Welke uitkering krijgt u?"),
   studieMedisch: "Kunt u door ziekte of een handicap niet werken naast uw studie?",

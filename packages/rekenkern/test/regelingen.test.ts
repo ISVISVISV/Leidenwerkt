@@ -620,3 +620,19 @@ describe("rekenfouten uit de review van 26 november 2026", () => {
     expect(kans(metJongKind, "bijstand")).not.toBe("nee");
   });
 });
+
+describe("kinderopvangtoeslag met bijstand en werk (review 26 november 2026)", () => {
+  const metOpvang = (werkt: boolean) =>
+    invoer({
+      bijstand: true,
+      aanvrager: { leeftijd: 34, inkomen: werkt ? { loon: 0 } : {} },
+      kinderen: [{ leeftijd: 3, opvang: { soort: "dagopvang", urenPerMaand: 86.67, uurprijs: 10 } }],
+      kinderbijslag: true,
+    });
+  it("werkt naast de bijstand: kinderopvangtoeslag waarschijnlijk wel", () => {
+    expect(kans(metOpvang(true), "kot")).toBe("ja");
+  });
+  it("werkt niet: waarschijnlijk niet, met de reden", () => {
+    expect(kans(metOpvang(false), "kot")).toBe("nee");
+  });
+});

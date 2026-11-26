@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CITATEN, Lezer, euro, sociaalMinimum, standaardRegels, type Opvangsoort } from "@rekenhulp/rekenkern";
 import { Bron, Datum, Keuze, Kopvlak, Vangnet, Veld, Vinkjes } from "@rekenhulp/ui";
-import { aowVan, bedragId, bedragSoorten, metAow, soortOpties, controleer, naarInvoer, infoVan, rekendatum, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, naarOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
+import { aowVan, bedragId, bedragSoorten, metAow, soortOpties, controleer, naarInvoer, infoVan, rekendatum, vraagWerkNaastBijstand, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, naarOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Icoon } from "./iconen.tsx";
 import { Overzicht } from "./Overzicht.tsx";
 import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANG_KEUZE, OPVANGSOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
@@ -584,6 +584,17 @@ function StapInkomen({ f, zet, fouten }: StapProps) {
         fout={fouten.bijstand}
         opties={JA_NEE}
       />
+      {vraagWerkNaastBijstand(f) && (
+        <Keuze
+          naam="werktNaastBijstand"
+          legend={VRAAG.werktNaastBijstand(paar)}
+          hint="Dit is nodig voor de kinderopvangtoeslag."
+          waarde={f.werktNaastBijstand}
+          onChange={(v) => zet("werktNaastBijstand", v)}
+          fout={fouten.werktNaastBijstand}
+          opties={JA_NEE}
+        />
+      )}
       {vraagInkomen(f) && (
         <>
           <InkomenBlok v={f.inkomen} partner={false} aow={aowVan(f.geboren)} onChange={(v) => zet("inkomen", v)} fouten={fouten} />
