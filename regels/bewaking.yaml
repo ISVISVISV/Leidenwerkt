@@ -48,7 +48,22 @@ wetten:
     raakt: [ib.]
   - id: BWBR0018472
     naam: Algemene wet inkomensafhankelijke regelingen
-    raakt: [zt., ht., kgb., kot.]
+    raakt: [zt., ht., kgb., kot., toeslagen.]
+  - id: BWBR0002221
+    naam: Algemene Ouderdomswet
+    raakt: [aow.]
+  - id: BWBR0004043
+    naam: Toeslagenwet
+    raakt: [tw.]
+  - id: BWBR0002638
+    naam: Wet minimumloon en minimumvakantiebijslag
+    raakt: [wml.]
+  - id: BWBR0018450
+    naam: Zorgverzekeringswet
+    raakt: [zvw.]
+  - id: BWBR0011453
+    naam: Wet studiefinanciering 2000
+    raakt: [wsf.]
 
 publicaties:
   - naam: Bijstandsnormen en bedragen Participatiewet (per 1 januari en 1 juli)
