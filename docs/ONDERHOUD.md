@@ -30,11 +30,15 @@ Gewijzigde **regel** in plaats van bedrag (nieuwe voorwaarde, uitzondering, reke
 
 `.github/workflows/bewaking.yml` draait elke maandag (en met de hand via **Actions → Bewaking wet- en regelgeving → Run workflow**). Wat er bewaakt wordt staat in `regels/bewaking.yaml`:
 
-- **Wetten** (Basiswettenbestand, SRU van zoekservice.overheid.nl): Participatiewet, Regeling Participatiewet, Wet en Besluit op de huurtoeslag, Wet op de zorgtoeslag, Wet op het kindgebonden budget, Algemene Kinderbijslagwet, Wet kinderopvang, Besluit kinderopvangtoeslag, Wet IB 2001, Wet LB 1964, Awir.
+- **Wetten** (Basiswettenbestand, SRU van zoekservice.overheid.nl): Participatiewet, Regeling Participatiewet, Wet en Besluit op de huurtoeslag, Wet op de zorgtoeslag, Wet op het kindgebonden budget, Algemene Kinderbijslagwet, Wet kinderopvang, Besluit kinderopvangtoeslag, Wet IB 2001, Wet LB 1964, Awir, Algemene Ouderdomswet, Toeslagenwet, Wet minimumloon, Zorgverzekeringswet en Wet studiefinanciering 2000. Een test controleert dat elke groep bedragen in `regels/` (het deel van de naam voor de eerste punt, zoals `pw.` of `wsf.`) een bron in de bewaking heeft.
 - **Publicaties** (SRU van repository.overheid.nl): bijstandsbedragen, Regeling huurtoeslaggrenzen, standaardpremie, Besluit kinderopvangtoeslag, kindgebonden budget, Belastingplan, Participatiewet in balans.
 - **Leiden** (CVDR): regelingen met woorden als bijstand, inkomenstoeslag, Sleutelpas, kwijtschelding.
 - **De bronnen zelf** (`scripts/bronnen.ts`): werkt elke link nog, uit de regeldata, `citaten.ts` en de broncode van de apps? En staat bij elke webpagina (geen pdf) onze letterlijke tekst er nog op? Zo valt het op als de gemeente of Dienst Toeslagen een bedrag of zin op een pagina verandert, ook zonder nieuwe regeling. De controle vergelijkt zonder leestekens en per zin. Zo maakt opmaak niets uit (een punt of puntkomma, "1." of "1", ons kopje "Art. 22 lid 1:"). Een bedrag blijft altijd bij zijn zin. Stukken korter dan 40 tekens zonder bedrag slaat de controle over. Komt de tekst op een pagina pas met JavaScript, zet het adres dan in `bronnen_overslaan`: dan wordt alleen de link gecontroleerd. Staat een stukje citaat op de pagina niet als tekst (bijvoorbeeld een formule als plaatje), zet het dan in `tekst_niet_op_pagina`.
 - **Zonder externe bron:** een issue 45 dagen vóór elke `geldig_tot` zonder opvolgend bestand, en in de eerste week van juni en december een lijst van alle parameters die `ontbrekend` of `onbevestigd` zijn.
+
+**Niet stil falen.** De bewaking zoekt vanaf de dag voor de laatste geslaagde geplande run, minstens 8 en hoogstens 90 dagen terug. Een gemiste week gaat zo niet verloren. Een antwoord van een zoekdienst zonder aantal resultaten, of met meer dan 50 resultaten, wordt een fout in het issue "[bewaking] Zoekdienst gaf een fout", en niet "niets nieuws".
+
+**Let op:** GitHub zet een geplande workflow uit als er 60 dagen niets in de repository gebeurt. Er komt dan geen melding. Is de repository een tijd stil? Kijk dan bij **Actions → Bewaking wet- en regelgeving** of de workflow nog aan staat, en zet hem zo nodig weer aan.
 
 Elke vondst wordt een issue met het label `bewaking`. Er komt nooit twee keer een issue voor dezelfde vondst (de sleutel staat onzichtbaar in het issue).
 

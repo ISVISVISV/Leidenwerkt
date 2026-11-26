@@ -8,6 +8,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Veranderd
 
+- Bewaking: zoekt vanaf de laatste geslaagde run, zodat een gemiste week niet verloren gaat. Een afwijkend antwoord van een zoekdienst wordt een fout in plaats van "niets nieuws". Ook de AOW-wet, de Toeslagenwet, de Wet minimumloon, de Zorgverzekeringswet en de Wet studiefinanciering worden nu bewaakt.
 - Leidenwerkt, twee of meer kinderen: elk kind heeft een kopje ("Kind 1", "Kind 2"). De foutsamenvatting zegt welk kind het is.
 - Leidengeldwijzer: wie bij iemand anders in huis woont, krijgt meteen de vraag hoeveel mensen er in dat huis wonen: "Tel de persoon bij wie u woont mee." Zoals in Leidenwerkt.
 - Leidenwerkt, "Goed om te weten": elke kop begint met "Let op:" of "Goed:". Niet alleen de kleur zegt het. De uitleg zegt "Klik of tik".

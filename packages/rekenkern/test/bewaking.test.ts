@@ -4,8 +4,10 @@
  * controles zonder externe bron.
  */
 import { describe, expect, it } from "vitest";
-import { aflopendeRegels, halfjaarlijks, lokaalMeldingen, publicatieMeldingen, records, velden, wetMeldingen } from "../../../scripts/bewaking.ts";
-import type { RuweParameter } from "../src/index.ts";
+import { readFileSync } from "node:fs";
+import { parse } from "yaml";
+import { aflopendeRegels, antwoordFouten, halfjaarlijks, lokaalMeldingen, publicatieMeldingen, records, velden, wetMeldingen, zoekVanaf } from "../../../scripts/bewaking.ts";
+import { ruweParameters, type RuweParameter } from "../src/index.ts";
 
 const BWB = `<searchRetrieveResponse xmlns="http://www.loc.gov/zing/srw/"><version>1.2</version><numberOfRecords>1</numberOfRecords><records><record>
 <recordData><gzd><originalData><overheidbwb:meta><owmskern><dcterms:identifier>BWBR0015703</dcterms:identifier><dcterms:title>Participatiewet</dcterms:title>
@@ -56,3 +58,26 @@ describe("controles zonder externe bron", () => {
     expect(halfjaarlijks(params, "2026-11-03", [6, 12])).toHaveLength(0);
   });
 });
+
+describe("de bewaking faalt niet stil", () => {
+  it("een antwoord zonder aantal resultaten is een fout, geen 'niets nieuws'", () => {
+    expect(antwoordFouten("Participatiewet", BWB)).toEqual([]);
+    expect(antwoordFouten("Participatiewet", "<html>Onderhoud</html>")[0]).toContain("geen aantal resultaten");
+  });
+  it("meer dan 50 resultaten is een fout", () => {
+    expect(antwoordFouten("X", BWB.replace("<numberOfRecords>1<", "<numberOfRecords>73<"))[0]).toContain("73 resultaten");
+  });
+  it("zoekt vanaf de laatste geslaagde run, minstens 8 en hoogstens 90 dagen terug", () => {
+    expect(zoekVanaf("2026-11-30")).toBe("2026-11-22");
+    expect(zoekVanaf("2026-11-30", "2026-11-23T06:12:00Z")).toBe("2026-11-22");
+    expect(zoekVanaf("2026-11-30", "2026-11-09T06:12:00Z")).toBe("2026-11-08");
+    expect(zoekVanaf("2026-11-30", "2026-01-01T06:12:00Z")).toBe("2026-09-01");
+  });
+  it("elke groep bedragen in regels/ heeft een bron in de bewaking", () => {
+    const cfg = parse(readFileSync(new URL("../../../regels/bewaking.yaml", import.meta.url), "utf8")) as { wetten: { raakt: string[] }[]; publicaties: { raakt: string[] }[]; lokaal: { raakt: string[] }[] };
+    const bewaakt = new Set([...cfg.wetten, ...cfg.publicaties, ...cfg.lokaal].flatMap((b) => b.raakt));
+    const groepen = new Set(ruweParameters.map((p) => `${p.id.split(".")[0]}.`));
+    expect([...groepen].filter((g) => !bewaakt.has(g))).toEqual([]);
+  });
+});
+

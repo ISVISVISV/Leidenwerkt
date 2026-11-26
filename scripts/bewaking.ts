@@ -66,6 +66,35 @@ export function aantal(xml: string): number {
   return Number(velden(xml, "numberOfRecords")[0] ?? 0);
 }
 
+/**
+ * Een antwoord dat er anders uitziet dan verwacht, is een fout en geen "niets nieuws". Zonder aantal resultaten is het
+ * antwoord niet te lezen (de zoekdienst is veranderd). Met meer dan 50 resultaten mist de bewaking er een paar.
+ */
+export function antwoordFouten(wat: string, xml: string): string[] {
+  if (velden(xml, "numberOfRecords").length === 0) return [`${wat}: het antwoord van de zoekdienst heeft geen aantal resultaten. Is de zoekdienst veranderd?`];
+  const n = aantal(xml);
+  return n > 50 ? [`${wat}: ${n} resultaten, de bewaking leest er maar 50. Lees de rest met de hand.`] : [];
+}
+
+/** Vanaf welke dag de bewaking zoekt: een dag voor de laatste geslaagde run, minstens 8 dagen terug en hoogstens 90. */
+export function zoekVanaf(datum: string, laatste?: string): string {
+  const acht = plusDagen(datum, -8);
+  if (!laatste) return acht;
+  const vanaf = plusDagen(laatste.slice(0, 10), -1);
+  return vanaf < acht ? (vanaf < plusDagen(datum, -90) ? plusDagen(datum, -90) : vanaf) : acht;
+}
+
+/** Datum van de laatste geslaagde geplande run (GitHub Actions). Buiten GitHub of bij een fout: onbekend. */
+function laatsteGeslaagdeRun(): string | undefined {
+  if (!process.env.GITHUB_ACTIONS) return undefined;
+  try {
+    const uit = execFileSync("gh", ["run", "list", "--workflow", "bewaking.yml", "--event", "schedule", "--status", "success", "--limit", "1", "--json", "createdAt"], { encoding: "utf8" });
+    return (JSON.parse(uit) as { createdAt: string }[])[0]?.createdAt;
+  } catch {
+    return undefined;
+  }
+}
+
 export function diagnose(xml: string): string | undefined {
   return velden(xml, "message")[0];
 }
@@ -189,7 +218,8 @@ async function main() {
   };
   const droog = process.argv.includes("--droog");
   const datum = arg("--datum") ?? new Date().toISOString().slice(0, 10);
-  const sinds = arg("--sinds") ?? plusDagen(datum, -8);
+  // Zoeken vanaf de laatste geslaagde geplande run. Zo gaat er niets verloren als een week is overgeslagen.
+  const sinds = arg("--sinds") ?? zoekVanaf(datum, laatsteGeslaagdeRun());
   const cfg = parse(readFileSync(new URL("../regels/bewaking.yaml", import.meta.url), "utf8")) as Bewaking;
 
   const meldingen: Melding[] = [];
@@ -199,6 +229,7 @@ async function main() {
       const xml = await haal(url);
       const d = diagnose(xml);
       if (d) fouten.push(`${wat}: ${d}`);
+      else fouten.push(...antwoordFouten(wat, xml));
       meldingen.push(...maak(xml));
     } catch (e) {
       fouten.push(`${wat}: ${(e as Error).message}`);
