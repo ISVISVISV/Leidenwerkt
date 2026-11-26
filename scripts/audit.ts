@@ -310,6 +310,7 @@ async function main() {
           if (uren === undefined)
             for (const v of p.verwacht ?? []) {
               if (v.periode && v.periode !== w.periode) continue;
+              if (v.fase && v.fase !== fase) continue;
               const rij = w.rijen.find((r) => r.label.replace(/\s*\*.*$/, "") === v.onderdeel);
               const app = rij ? ((v.situatie === "nu" ? rij.nu : rij.werk) ?? 0) : 0;
               controle(

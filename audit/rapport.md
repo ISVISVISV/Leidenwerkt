@@ -14,11 +14,8 @@ Gemaakt met `npm run audit` met rekendatum 2026-11-13. 17 personen uit audit/per
 | Inkomen en grens kloppen met elkaar | 99 | 0 |
 | Urenschuif verspringt niet met € 1 | 17 | 0 |
 | Omweg geeft dezelfde uitkomst | 16 | 0 |
-| Gelijk aan de officiële bron | 22 | 2 |
+| Gelijk aan de officiële bron | 20 | 0 |
 | Netto loon in de zin past bij de tabel | 3 | 0 |
 | Opvang: delen samen het totaal | 1 | 0 |
 
-## Wat niet klopt
-
-- **Gelijk aan de officiële bron**: Tom en Ilse: stel, Ilse werkt kort, Tom 32 uur · 32 uur: Zorgtoeslag (nu): rekenhulp € 246, Dienst Toeslagen, proefberekening toeslagen 2026 (stel, kale huur € 820, samen € 32.049): € 220
-- **Gelijk aan de officiële bron**: Tom en Ilse: stel, Ilse werkt kort, Tom 32 uur · 32 uur: Huurtoeslag (nu): rekenhulp € 479, Dienst Toeslagen, proefberekening toeslagen 2026 (stel, kale huur € 820, samen € 32.049): € 469
+Alles klopt.

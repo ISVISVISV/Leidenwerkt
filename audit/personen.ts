@@ -25,6 +25,8 @@ export interface Verwachting {
   situatie: "nu" | "met_werk";
   /** Alleen bij deze periode, bijvoorbeeld "Maand 1 t/m 6". Zonder periode: elke periode. */
   periode?: string;
+  /** Alleen in deze fase van de vrijlating (start = maand 1 tot en met 6). Zonder: in elke fase. */
+  fase?: "start" | "later" | "geen";
   /** Per maand, in euro's. */
   waarde: number;
   /** Toegestaan verschil in euro's. Standaard 0. */
@@ -84,10 +86,11 @@ export const PERSONEN: Persoon[] = [
     f: formulier({ leefvorm: "paar", geboren: "01-06-1985", partnerGeboren: "01-06-1987", partnerWerkt: true, partnerBruto: "450", partnerWerktAl: "kort", ...huur("820"), per: "maand", loon: "2300", uren: "32" }),
     omwegen: [{ naam: "eerst partner werkt niet", begin: { partnerWerkt: false }, wijzig: { partnerWerkt: true } }],
     // "Nu" opnieuw berekend op 26 november 2026: geen loonheffingskorting over de bijstand naast werk (docs/RECHT.md, deel 1, hoofdstuk 4).
+    // Alleen in maand 1 tot en met 6 (fase start): daarna is de bijstand lager en het inkomen anders (€ 29.780). Daarvoor is geen proefberekening.
     verwacht: [
-      { onderdeel: "Zorgtoeslag", situatie: "nu", waarde: 220, bron: PROEF_HK },
+      { onderdeel: "Zorgtoeslag", situatie: "nu", waarde: 220, bron: PROEF_HK, fase: "start" },
       { onderdeel: "Zorgtoeslag", situatie: "met_werk", waarde: 179, bron: PROEF },
-      { onderdeel: "Huurtoeslag", situatie: "nu", waarde: 469, bron: PROEF_HK },
+      { onderdeel: "Huurtoeslag", situatie: "nu", waarde: 469, bron: PROEF_HK, fase: "start" },
       { onderdeel: "Huurtoeslag", situatie: "met_werk", waarde: 404, bron: PROEF },
     ],
   },
