@@ -41,6 +41,7 @@ Het versienummer staat in `package.json`, in de voettekst van de rekenhulp en op
 
 ### Opgelost
 
+- Leidengeldwijzer, bijstand en studiefinanciering: vanaf 27 jaar met studiefinanciering nu "waarschijnlijk niet", want die gaat voor de bijstand. Bij een stel waarvan één partner studiefinanciering heeft, rekent Leidengeldwijzer met de lagere norm van art. 24 Pw en het normbedrag van de studiefinanciering. Eerst stond hier vaak "waarschijnlijk wel".
 - Bedragen met een komma voor de duizendtallen: "40,000" las de rekenhulp als € 40. Nu is een komma of punt met precies 3 cijfers erachter een scheiding tussen duizendtallen. "1.234,56" en "1,234.56" worden allebei € 1.234,56.
 - Leidengeldwijzer: een prijs per uur van 0 voor de opvang telt nu als "weet ik niet". Dan rekent Leidengeldwijzer met de hoogste prijs voor de toeslag.
 - Leidengeldwijzer: met bijstand stond de kinderopvangtoeslag altijd bij "waarschijnlijk niet", met de reden "U werkt niet". Gaat een kind naar de opvang, dan vraagt Leidengeldwijzer nu: "Werkt u naast de bijstand?"

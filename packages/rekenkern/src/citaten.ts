@@ -190,6 +190,27 @@ export const CITATEN = {
     tekst:
       "Geen recht op algemene bijstand heeft degene: […] c. die jonger is dan 27 jaar en uit ’s Rijks kas bekostigd onderwijs kan volgen en: 1°. in verband daarmee aanspraak heeft op studiefinanciering op grond van de Wet studiefinanciering 2000, dan wel 2°. in verband daarmee geen aanspraak heeft op studiefinanciering en dit onderwijs niet volgt;",
   },
+  pw15: {
+    titel: "Participatiewet, art. 15 lid 1",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
+    versie: "geldend vanaf 1 juli 2026",
+    tekst:
+      "Geen recht op bijstand bestaat voor zover een beroep kan worden gedaan op een voorliggende voorziening die, gezien haar aard en doel, wordt geacht voor de belanghebbende toereikend en passend te zijn.",
+  },
+  pw33studie: {
+    titel: "Participatiewet, art. 33 lid 2",
+    url: "https://wetten.overheid.nl/BWBR0015703/2026-07-01",
+    versie: "geldend vanaf 1 juli 2026",
+    tekst:
+      "Het inkomen uit studiefinanciering op grond van de Wet studiefinanciering 2000 wordt in aanmerking genomen naar het van toepassing zijnde normbedrag voor de kosten van levensonderhoud, genoemd in artikel 3.18 van de Wet studiefinanciering 2000 en, indien een toeslag als bedoeld in artikel 3.5 van die wet is toegekend, het bedrag aan toeslag, genoemd in artikel 3.18 van die wet.",
+  },
+  pw24vanaf2027: {
+    titel: "Participatiewet, art. 24 (vanaf 1 januari 2027)",
+    url: "https://wetten.overheid.nl/BWBR0015703/2027-01-01",
+    versie: "geldend vanaf 1 januari 2027",
+    tekst:
+      "Voor gehuwden waarvan een echtgenoot geen recht op algemene bijstand heeft is voor de rechthebbende echtgenoot de norm gelijk aan: a. de voor deze persoon overeenkomstige norm voor een alleenstaande, indien de rechthebbende echtgenoot 21 jaar of ouder is en geen kostendelende medebewoners heeft; dan wel b. 50% van de norm die voor hem zou gelden als hij gehuwd zou zijn met een rechthebbende echtgenoot van zijn leeftijd, indien de rechthebbende echtgenoot jonger dan 21 jaar is.",
+  },
   kotPartner: {
     titel: "Wet kinderopvang, art. 1.6 lid 3 en lid 8",
     url: "https://wetten.overheid.nl/BWBR0017017/2026-01-01",

@@ -35,6 +35,7 @@ Maak per onderwerp een nieuw bestand naast het oude (ONDERHOUD.md, hoofdstuk 2, 
 | `landelijk/huurtoeslag/` | `2027.yaml` | Regeling huurtoeslaggrenzen 2027 (Staatscourant) en "Berekening huurtoeslag 2027" | november |
 | `landelijk/kindgebonden-budget/` | `2027.yaml` | Dienst Toeslagen, "Berekening kindgebonden budget 2027" | december |
 | `landelijk/kinderopvang/` | `2027.yaml` | Besluit kinderopvangtoeslag in het Staatsblad (let op: soms meer dan één besluit per jaar) | november |
+| `landelijk/studiefinanciering/` | `2027.yaml` bestaat al, met `ontbrekend` | wetten.overheid.nl, Wet studiefinanciering 2000, art. 3.18 (de redactie zet de nieuwe bedragen tussen haken) | december of januari |
 | `landelijk/toeslagen/` | `2027.yaml` | belastingdienst.nl, vermogensgrenzen toeslagen 2027 | oktober tot december |
 | `gemeenten/leiden/` | `2027.yaml` | lokaleregelgeving.overheid.nl (zoeken op "Leiden") en gemeente.leiden.nl | december tot februari |
 

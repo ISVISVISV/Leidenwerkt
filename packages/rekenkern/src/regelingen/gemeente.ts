@@ -3,9 +3,11 @@
  * de tegemoetkoming voor alleenverdieners, de studietoeslag, kinderopvang (SMI), kwijtschelding, bijzondere bijstand en bijstand.
  */
 import { CITATEN } from "../citaten.ts";
-import { euro } from "../geld.ts";
-import { URL, bron, heel, heeft, vermogenToets, type MogelijkeUitslag } from "./basis.ts";
+import { D, euro, type Bedrag } from "../geld.ts";
+import { regimeOp } from "../regimes.ts";
+import { URL, bron, heel, heeft, totaalVan, vermogenToets, type MogelijkeUitslag } from "./basis.ts";
 import type { Context } from "./context.ts";
+import type { CheckPersoon } from "./types.ts";
 
 /** Gemeentepolis: tot 120%. Ondernemers: een jaargrens die Leidengeldwijzer niet uitrekent. */
 export function gemeentepolis(c: Context): MogelijkeUitslag {
@@ -244,8 +246,24 @@ export function bijstand(c: Context): MogelijkeUitslag {
       ...(invoer.vermogen.voertuigen.length > 0 ? bron(l, "leiden.vermogen.voertuig_vrij") : []),
     ],
   };
-  if (c.studeert && invoer.aanvrager.leeftijd < 27)
-    return { ...basis, kans: "nee", waarom: "U bent jonger dan 27 jaar en u krijgt studiefinanciering. Dan kunt u geen bijstand krijgen." };
+  // Studiefinanciering. Jonger dan 27: geen bijstand (art. 13 lid 2 c Pw). Vanaf 27 jaar: de studiefinanciering gaat voor
+  // (art. 15 Pw), en Leiden wijst de aanvraag af (praktijk van de gemeente, 26 november 2026). Zie docs/RECHT.md, deel 2.
+  const sf = (p?: CheckPersoon) => !!p && heeft(p, "studiefinanciering");
+  const studeert = sf(invoer.aanvrager);
+  const partnerStudeert = sf(invoer.partner);
+  if (!c.paar && studeert)
+    return {
+      ...basis,
+      bronnen: [CITATEN.pw13studie, CITATEN.pw15],
+      kans: "nee",
+      waarom:
+        invoer.aanvrager.leeftijd < 27
+          ? "U bent jonger dan 27 jaar en u krijgt studiefinanciering. Dan kunt u geen bijstand krijgen."
+          : "U krijgt studiefinanciering. Die gaat voor de bijstand. Dan kunt u geen bijstand krijgen.",
+    };
+  if (studeert && partnerStudeert)
+    return { ...basis, bronnen: [CITATEN.pw13studie, CITATEN.pw15], kans: "nee", waarom: "U en uw partner krijgen allebei studiefinanciering. Dan kunt u geen bijstand krijgen." };
+  if (studeert || partnerStudeert) return nietRechthebbendePartner(c, basis, studeert ? invoer.aanvrager : invoer.partner!, studeert ? invoer.partner! : invoer.aanvrager, studeert);
   const t = c.toets();
   const bronnen = c.metGrensBronnen(basis.bronnen, t);
   if (t.kans === "nee") return { ...basis, bronnen, kans: "nee", waarom: `Uw inkomen is hoger dan de bijstand.${c.grensZin(t)}` };
@@ -269,3 +287,59 @@ export function bijstand(c: Context): MogelijkeUitslag {
     waarom: `${t.grens && !t.boven ? `Uw inkomen is lager dan de bijstand.${c.grensZin(t)}` : c.waaromInkomen(t)} ${v.zin}${c.bedrijf ? " U heeft een eigen bedrijf. Dan gelden andere regels voor de bijstand." : ""} De gemeente kijkt ook naar hoe u woont en wie er bij u wonen.`,
   };
 }
+
+/**
+ * Een stel waarvan één partner studiefinanciering heeft. Die partner heeft zelf geen recht op bijstand (art. 13 en 15 Pw).
+ * De ander krijgt dan een eigen norm (art. 24 Pw): tot en met 2026 50% van de gehuwdennorm, vanaf 2027 de norm voor
+ * een alleenstaande. Dat geldt als hij 21 jaar of ouder is en geen kostendelers heeft. Het inkomen van het stel telt mee,
+ * en de studiefinanciering met het normbedrag (art. 33 lid 2 Pw): het hoogste bedrag dat iemand kan krijgen
+ * (praktijk van de gemeente Leiden, 26 november 2026). Dat bedrag hangt af van de opleiding. Leidengeldwijzer vraagt
+ * daar niet naar en rekent met het laagste bedrag: is het inkomen dan al te hoog, dan is het altijd te hoog.
+ */
+function nietRechthebbendePartner(c: Context, basis: Omit<NonNullable<MogelijkeUitslag>, "kans" | "waarom">, student: CheckPersoon, ander: CheckPersoon, aanvragerStudeert: boolean): MogelijkeUitslag {
+  const { l, invoer } = c;
+  const wie = aanvragerStudeert ? "U krijgt" : "Uw partner krijgt";
+  const zelf = aanvragerStudeert ? "u" : "uw partner";
+  const deAnderKan = aanvragerStudeert ? "Uw partner kan" : "U kunt";
+  const vanaf2027 = regimeOp(invoer.datum).id !== "pw31";
+  const zonderVakantiegeld = (b: Bedrag) => b.times(D(1).minus(l.breuk("pw.vakantietoeslag")));
+  // Art. 24 geldt alleen voor een rechthebbende van 21 jaar of ouder zonder kostendelers. Vanaf 2027 komt er voor een ouder
+  // een verhoging bij (art. 24a). In die gevallen rekent Leidengeldwijzer de grens niet uit.
+  const grens: Bedrag | undefined =
+    ander.leeftijd < 21 || c.kostendelers > 0 || (vanaf2027 && c.minderjarig.length > 0)
+      ? undefined
+      : vanaf2027
+        ? zonderVakantiegeld(l.bedrag("pw.norm.alleenstaande"))
+        : zonderVakantiegeld(l.bedrag("pw.norm.gehuwden").times(l.breuk("pw.niet_rechthebbende.deel")));
+  const normbedrag = l.bedrag(invoer.wonen === "inwonend" ? "wsf.normbedrag.mbo.thuiswonend" : "wsf.normbedrag.mbo.uitwonend");
+  const inkomen = D(totaalVan(ander))
+    .plus(D(totaalVan(student)))
+    .minus(D(student.inkomen.studiefinanciering ?? 0))
+    .plus(normbedrag);
+  const bronnen = [
+    CITATEN.pw13studie,
+    CITATEN.pw15,
+    ...(vanaf2027 ? [CITATEN.pw24vanaf2027] : bron(l, "pw.niet_rechthebbende.deel")),
+    CITATEN.pw33studie,
+    ...bron(l, "wsf.normbedrag.mbo.uitwonend"),
+    ...bron(l, c.vermogensgrensBijstand),
+  ];
+  const begin = `${wie} studiefinanciering. Dan heeft ${zelf} zelf geen recht op bijstand. ${deAnderKan} wel bijstand krijgen, maar minder dan een stel.`;
+  const telt = `De studiefinanciering telt mee als inkomen, met het hoogste bedrag dat ${zelf} kan krijgen.`;
+  if (grens && inkomen.gte(grens))
+    return {
+      ...basis,
+      bronnen,
+      kans: "nee",
+      waarom: `${begin} De grens is ongeveer ${heel(grens)} netto per maand. ${telt} Dan is uw inkomen samen hoger dan die grens.`,
+    };
+  const v = vermogenToets(l, invoer, c.vermogensgrensBijstand);
+  if (v.kans === "nee") return { ...basis, bronnen, kans: "nee", waarom: `${begin} Uw geld en bezit zijn meer dan ${heel(v.grens)}. Dan moet u eerst dat geld gebruiken.` };
+  return {
+    ...basis,
+    bronnen,
+    kans: "misschien",
+    waarom: `${begin} ${telt} Dat bedrag hangt af van de opleiding. Misschien blijft er bijstand over. De gemeente rekent het uit.`,
+  };
+}
+

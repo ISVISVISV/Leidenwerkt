@@ -1,0 +1,24 @@
+gebied: Wet studiefinanciering 2000, normbedragen voor de kosten van levensonderhoud 2027
+geldig_van: 2027-01-01
+geldig_tot: null
+parameters:
+  - id: wsf.normbedrag.mbo.uitwonend
+    omschrijving: Normbedrag voor de kosten van levensonderhoud per maand, beroepsonderwijs, uitwonend (art. 3.18 WSF 2000, overzicht 1)
+    eenheid: euro_per_maand
+    status: ontbrekend
+    notitie: De bedragen per 1 januari 2027 staan nog niet in art. 3.18 WSF 2000 op wetten.overheid.nl (26 november 2026).
+  - id: wsf.normbedrag.mbo.thuiswonend
+    omschrijving: Normbedrag voor de kosten van levensonderhoud per maand, beroepsonderwijs, thuiswonend (art. 3.18 WSF 2000, overzicht 1)
+    eenheid: euro_per_maand
+    status: ontbrekend
+    notitie: De bedragen per 1 januari 2027 staan nog niet in art. 3.18 WSF 2000 op wetten.overheid.nl (26 november 2026).
+  - id: wsf.normbedrag.ho.uitwonend
+    omschrijving: Normbedrag voor de kosten van levensonderhoud per maand, hoger onderwijs, uitwonend (art. 3.18 WSF 2000, overzicht 1)
+    eenheid: euro_per_maand
+    status: ontbrekend
+    notitie: De bedragen per 1 januari 2027 staan nog niet in art. 3.18 WSF 2000 op wetten.overheid.nl (26 november 2026).
+  - id: wsf.normbedrag.ho.thuiswonend
+    omschrijving: Normbedrag voor de kosten van levensonderhoud per maand, hoger onderwijs, thuiswonend (art. 3.18 WSF 2000, overzicht 1)
+    eenheid: euro_per_maand
+    status: ontbrekend
+    notitie: De bedragen per 1 januari 2027 staan nog niet in art. 3.18 WSF 2000 op wetten.overheid.nl (26 november 2026).
