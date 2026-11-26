@@ -126,6 +126,9 @@ export function vandaag(): string {
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
 }
 
+/** De datum van de regels: vandaag, of de laatste dag waarop alle bedragen bekend zijn (zie RegelSet.rekendatum). */
+export const rekendatum = () => standaardRegels.rekendatum(vandaag());
+
 const leeftijd = (g: Geboortedatum) => leeftijdOp(g, vandaag());
 const metPartner = (f: Formulier) => f.partner === "ja";
 /** Heeft iemand met deze geboortedatum vandaag de AOW-leeftijd? Onbekend telt als nee. */
@@ -273,7 +276,7 @@ export function naarInvoer(f: Formulier): CheckInvoer {
   const bijstand = f.bijstand === "ja";
   const som = (b: Bezit, t: string) => (f.bezit.includes(b) ? (getal(t) ?? 0) : 0);
   return {
-    datum: vandaag(),
+    datum: rekendatum().datum,
     aanvrager: persoon(f.geboren, bijstand ? undefined : f.inkomen),
     partner: metPartner(f) ? persoon(f.partnerGeboren, bijstand ? undefined : f.partnerInkomen, true) : undefined,
     kinderen: kinderen(f).map((k, i) => {
@@ -288,7 +291,7 @@ export function naarInvoer(f: Formulier): CheckInvoer {
         inkomenJaar: vraagInkomenKind(f, k) && !info.inkomenOnbekend ? getal(info.inkomen) : undefined,
         opvang:
           vraagOpvang(k) && naarOpvang(info)
-            ? { soort, urenPerMaand: urenPerMaand(getal(info.uren) ?? 0), uurprijs: geschat ? maxUurprijs(new Lezer(standaardRegels, vandaag()), soort) : prijs, uurprijsGeschat: geschat || undefined }
+            ? { soort, urenPerMaand: urenPerMaand(getal(info.uren) ?? 0), uurprijs: geschat ? maxUurprijs(new Lezer(standaardRegels, rekendatum().datum), soort) : prijs, uurprijsGeschat: geschat || undefined }
             : undefined,
       };
     }),

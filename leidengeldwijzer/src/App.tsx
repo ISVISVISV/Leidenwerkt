@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CITATEN, Lezer, euro, sociaalMinimum, standaardRegels, type Opvangsoort } from "@rekenhulp/rekenkern";
-import { Bron, Datum, Keuze, Kopvlak, Veld, Vinkjes } from "@rekenhulp/ui";
-import { aowVan, bedragId, bedragSoorten, metAow, soortOpties, controleer, naarInvoer, infoVan, vandaag, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, naarOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
+import { Bron, Datum, Keuze, Kopvlak, Vangnet, Veld, Vinkjes } from "@rekenhulp/ui";
+import { aowVan, bedragId, bedragSoorten, metAow, soortOpties, controleer, naarInvoer, infoVan, rekendatum, vraagAantal, vraagAnderen, vraagInkomenKind, vraagOpvang, naarOpvang, type KindInfo, leegFormulier, minderjarigen, soortenId, uitkeringId, vraagHuur, vraagUitkering, vraagInkomen, vraagLangLaag, vraagStudie, type Fouten, type Formulier, type InkomenVelden } from "./formulier.ts";
 import { Icoon } from "./iconen.tsx";
 import { Overzicht } from "./Overzicht.tsx";
 import { BEDRAGVRAAG, BEZIT, JA_NEE, LANG_LAAG, OPVANG_KEUZE, OPVANGSOORTEN, UITKERINGEN, VRAAG, woonOpties } from "./teksten.ts";
@@ -122,7 +122,11 @@ export function App() {
           {stap === 1 && <StapHuishouden f={f} zet={zet} fouten={zichtbareFouten} />}
           {stap === 2 && <StapInkomen f={f} zet={zet} fouten={zichtbareFouten} />}
           {stap === 3 && <StapGeld f={f} zet={zet} fouten={zichtbareFouten} />}
-          {stap === 4 && <Overzicht f={f} />}
+          {stap === 4 && (
+            <Vangnet naam="Leidengeldwijzer">
+              <Overzicht f={f} />
+            </Vangnet>
+          )}
 
           {stap > 0 && (
             <div className="knoppen">
@@ -495,7 +499,7 @@ function KindVragen({ f, i, zet, fouten }: StapProps & { i: number }) {
 /** Hoogste uurprijs voor de toeslag, als tekst ("11,23"), of leeg als die voor vandaag niet bekend is. Zoals in Leidenwerkt. */
 const maxPrijsTekst = (soort: Opvangsoort) => {
   try {
-    return new Lezer(standaardRegels, vandaag()).bedrag(`kot.max_uurprijs.${soort}`).toFixed(2).replace(".", ",");
+    return new Lezer(standaardRegels, rekendatum().datum).bedrag(`kot.max_uurprijs.${soort}`).toFixed(2).replace(".", ",");
   } catch {
     return "";
   }
@@ -507,8 +511,16 @@ const maxPrijsTekst = (soort: Opvangsoort) => {
  * De gemeente kijkt naar 5 jaar. De bijstand was toen iets lager. Daarom "ongeveer".
  */
 function laagUitleg(f: Formulier): string {
+  try {
+    return laagUitlegMetBedrag(f);
+  } catch {
+    return "Dat betekent: uw inkomen was niet hoger dan de bijstand. Ook als u geen bijstand kreeg.";
+  }
+}
+
+function laagUitlegMetBedrag(f: Formulier): string {
   const invoer = naarInvoer(f);
-  const l = new Lezer(standaardRegels, vandaag());
+  const l = new Lezer(standaardRegels, rekendatum().datum);
   const kostendelers = (invoer.kostendelers ?? 0) + invoer.kinderen.filter((k) => l.aantal("pw.kostendeler.minimumleeftijd").lte(k.leeftijd)).length;
   const grens = sociaalMinimum(l, f.partner === "ja", f.woont || "huur", kostendelers);
   const basis = "Dat betekent: uw inkomen was niet hoger dan de bijstand. Ook als u geen bijstand kreeg.";

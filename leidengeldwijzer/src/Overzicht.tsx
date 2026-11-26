@@ -8,7 +8,7 @@
 import { useEffect, useRef, useState } from "react";
 import { checkRegelingen, type Kans, type Uitslag } from "@rekenhulp/rekenkern";
 import { Bron, NieuwTabblad, websiteVan } from "@rekenhulp/ui";
-import { ingevuld, naarInvoer, vandaag, type Formulier } from "./formulier.ts";
+import { ingevuld, naarInvoer, rekendatum, vandaag, type Formulier } from "./formulier.ts";
 import { CONTACT, GOEDE_BUUR } from "./contact.ts";
 import { Icoon, Pasje, Sleutels } from "./iconen.tsx";
 
@@ -84,8 +84,17 @@ export function Overzicht({ f }: { f: Formulier }) {
   const tegel = (u: Uitslag) => <Tegel key={u.id} u={u} onOpen={() => toon(u)} />;
   const hulp = uitslagen.filter((u) => u.kans === "info");
 
+  const { datum, teruggevallen } = rekendatum();
   return (
     <section className="overzicht">
+      {teruggevallen && (
+        <div className="melding waarschuwing" role="status">
+          <p>
+            <strong>Let op: Leidengeldwijzer gebruikt de regels van {leesbareDatum(datum)}.</strong> Voor vandaag ({leesbareDatum(vandaag())}) zijn
+            nog niet alle officiële bedragen bekend. De regels en bedragen die nu gelden kunnen anders zijn.
+          </p>
+        </div>
+      )}
       <div className="overzicht-raster">
         {GROEPEN.map((g) => {
           const lijst = uitslagen.filter((u) => u.kans === g.kans);
@@ -289,7 +298,8 @@ function Afdruk({ f, uitslagen }: { f: Formulier; uitslagen: Uitslag[] }) {
   return (
     <section className="alleen-print afdruk" aria-label="Afdruk">
       <p className="afdruk-datum">
-        Overzicht van {leesbareDatum(vandaag())}. Leidengeldwijzer versie {__VERSIE__}.
+        Overzicht van {leesbareDatum(vandaag())}
+        {rekendatum().teruggevallen ? `, met de regels van ${leesbareDatum(rekendatum().datum)}` : ""}. Leidengeldwijzer versie {__VERSIE__}.
       </p>
       <div className="afdruk-kolommen">
         <div>
