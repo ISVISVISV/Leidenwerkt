@@ -298,7 +298,8 @@ export function naarInvoer(f: Formulier): CheckInvoer {
       const iso = isoDatum(k);
       const soort = info.soort || "dagopvang";
       const prijs = getal(info.prijs);
-      const geschat = prijs === undefined || Number.isNaN(prijs);
+      // Een prijs van 0 telt als "weet ik niet": dan rekent Leidengeldwijzer met de hoogste prijs voor de toeslag.
+      const geschat = prijs === undefined || Number.isNaN(prijs) || prijs === 0;
       return {
         leeftijd: leeftijd(k) ?? 0,
         leeftijdBeginJaar: iso ? (leeftijdOp(k, `${vandaag().slice(0, 4)}-01-01`) ?? undefined) : undefined,

@@ -11,3 +11,15 @@ it("leest Nederlandse en internationale getallen", () => {
   expect(getal("")).toBeUndefined();
   expect(getal("abc")).toBeNaN();
 });
+
+it("een komma of punt met precies 3 cijfers erachter scheidt duizendtallen", () => {
+  expect(getal("40,000")).toBe(40000);
+  expect(getal("40.000")).toBe(40000);
+  expect(getal("1,234,567")).toBe(1234567);
+  expect(getal("1,234.56")).toBe(1234.56);
+  expect(getal("1.234,56")).toBe(1234.56);
+  expect(getal("12,5")).toBe(12.5);
+  expect(getal("1250,50")).toBe(1250.5);
+  expect(getal("1,5")).toBe(1.5);
+});
+
